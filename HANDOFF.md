@@ -66,7 +66,7 @@ Letzter vollständiger Lauf: **85 Checks + 5 Browser-Tests grün**.
 | `4e1e06f` | Doku v0.5.0 (HANDOFF, Wiki Konfiguration/Tests) |
 | `f57e566` | Single-Flight über mehrere Nutzer (v0.5.1) |
 | `0774175` | Doku-Nachtrag v0.5.1 |
-| _ausstehend_ | Direct-MP4-Fix + `direct`-Suite (v0.5.2) |
+| `16521f2` | Direct-MP4-Fix + `direct`-Suite (v0.5.2) |
 
 ### Live-Stand der Instanz
 - Drei importierte Videos, alle `fresh`, `kind=hls-synth`, Manifeste HTTP 200 (6–8 Varianten), Segment-Passthrough geprüft.
