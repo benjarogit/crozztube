@@ -16,11 +16,11 @@
 
 ## 2. Was fertig & verifiziert ist
 
-### Plugin `crozztube.source-resolver` v0.5.2 (installiert + aktiv)
+### Plugin `crozztube.source-resolver` v0.5.3 (installiert + aktiv)
 Quelle: `docker/plugin-src/crozztube.source-resolver/` (dort liegt der Code, installiert wird via ZIP-Upload an die Admin-API; Hilfsskript `tools/dev/reinstall-plugin.sh`).
 
 - **Resolver (`src/Resolver.php`):** yt-dlp `-J` keyless. Auswahllogik: echtes HLS-Manifest → sonst muxed MP4 → sonst **"hls-synth"** (YouTube-Sonderfall) → sonst Fehler.
-- **Direkt verlinkte Dateien (Direct-URL-Provider):** yt-dlp meldet beim Generic-Extractor weder `vcodec`/`acodec` noch eine Höhe. Der Resolver akzeptiert solche vollständigen Dateien (mp4/webm/m4v/mov) als progressive Quelle (`kind=mp4`), TTL 24 h. `media_url` bleibt die Original-URL — nichts wird heruntergeladen oder re-gehostet.
+- **Direkt verlinkte Dateien (Direct-URL-Provider):** yt-dlp meldet beim Generic-Extractor weder `vcodec`/`acodec` noch eine Höhe. Der Resolver akzeptiert solche vollständigen Dateien (mp4/webm/m4v/mov) als progressive Quelle (`kind=mp4`), TTL 24 h und liest die Dauer per `ffprobe` nach. `media_url` bleibt die Original-URL — nichts wird heruntergeladen oder re-gehostet.
 - **YouTube-Sonderfall (wichtig!):** YouTube liefert seit SABR kein muxed MP4 und kein Master-Manifest mehr. Lösung: itags 233/234 sind versteckte **HLS-Audio-Playlists** (AAC-LC, geprüft via ffprobe). Das Plugin speichert bis zu 8 Video-Playlists (144p–2160p, AVC/VP9, deduped pro Höhe) + 1 Audio-Playlist in der DB (`variants`, `audio_url`) und baut ein **synthetisches HLS-Master-Manifest**.
 - **Metadaten-Backfill:** `Resolver::backfillMetadata()` schreibt `duration_seconds` + `is_short` ins `videos`-Table, wenn dort NULL/0 (Fixt den früheren Bug „3:32-Video als Short“). Short-Erkennung über `/shorts|reel|reels/` in der Import-URL.
 - **Passthrough-Proxy absichtlich!** googlevideo sendet kein `Access-Control-Allow-Origin`, HLS.js braucht daher einen Same-Origin-Pfad. Der Proxy streamt nur durch (curl-basiert), speichert **nichts** (kein Re-Hosting). Host-Allowlist: nur `*.googlevideo.com`.
@@ -48,13 +48,13 @@ Quelle: `docker/plugin-src/crozztube.source-resolver/` (dort liegt der Code, ins
 
 ### Test-Harness (vollständig agent-ausführbar)
 ```bash
-./tools/test/run.sh all          # alles: 85 Checks + 5 Playwright-Tests
+./tools/test/run.sh all          # alles: 86 Checks + 5 Playwright-Tests
 ./tools/test/run.sh list         # Suiten anzeigen
 ./tools/test/run.sh refresh jobs # gezielt
 SLOW=0 ./tools/test/run.sh jobs  # ohne yt-dlp-Roundtrip
 ```
 Suiten: `stack`, `api`, `media`, `direct`, `refresh`, `mirror`, `jobs`, `ui`. Details: `Wiki/tests.html`.
-Letzter vollständiger Lauf: **85 Checks + 5 Browser-Tests grün**.
+Letzter vollständiger Lauf: **86 Checks + 5 Browser-Tests grün**.
 
 ### Commits
 | Commit | Inhalt |
@@ -67,6 +67,7 @@ Letzter vollständiger Lauf: **85 Checks + 5 Browser-Tests grün**.
 | `f57e566` | Single-Flight über mehrere Nutzer (v0.5.1) |
 | `0774175` | Doku-Nachtrag v0.5.1 |
 | `16521f2` | Direct-MP4-Fix + `direct`-Suite (v0.5.2) |
+| _ausstehend_ | ffprobe-Dauer für direkte Dateien (v0.5.3) |
 
 ### Live-Stand der Instanz
 - Drei importierte Videos, alle `fresh`, `kind=hls-synth`, Manifeste HTTP 200 (6–8 Varianten), Segment-Passthrough geprüft.

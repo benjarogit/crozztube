@@ -74,9 +74,9 @@ docker exec crozztube-web php artisan schedule:list | grep crozztube
 touch storage/framework/crozztube-maintenance.pause   # Wartung pausieren
 rm storage/framework/crozztube-maintenance.pause      # wieder aktiv</pre>
 
-<h2>5. yt-dlp Source-Resolver (Plugin) <span class="badge b-ok">FERTIG · v0.5.2</span></h2>
+<h2>5. yt-dlp Source-Resolver (Plugin) <span class="badge b-ok">FERTIG · v0.5.3</span></h2>
 <p><strong>Implementiert:</strong><br>
-<strong>A) Direkt-URL via yt-dlp = Pflicht.</strong> Beim Import (POST <code>/api/video-imports</code>) wird der Job <code>ResolveImportSource</code> dispatcht. yt-dlp (<code>-J</code>, keyless) liefert Metadaten + Direkt-URL. Auswahl: HLS-Manifest bevorzugt → sonst progressive MP4. Bei einer direkt verlinkten Datei meldet yt-dlp keine Codecs/Höhe — solche vollständigen Dateien (mp4/webm/m4v/mov) werden trotzdem als progressive Quelle übernommen; die MP4 bleibt beim Original-Host.<br>
+<strong>A) Direkt-URL via yt-dlp = Pflicht.</strong> Beim Import (POST <code>/api/video-imports</code>) wird der Job <code>ResolveImportSource</code> dispatcht. yt-dlp (<code>-J</code>, keyless) liefert Metadaten + Direkt-URL. Auswahl: HLS-Manifest bevorzugt → sonst progressive MP4. Bei einer direkt verlinkten Datei meldet yt-dlp keine Codecs/Höhe — solche vollständigen Dateien (mp4/webm/m4v/mov) werden trotzdem als progressive Quelle übernommen, die Dauer wird per <code>ffprobe</code> nachgelesen; die MP4 bleibt beim Original-Host.<br>
 <strong>YouTube-Sonderfall (SABR/DASH):</strong> YouTube liefert kein muxed MP4 mehr und kein Master-Manifest. Das Plugin baut deshalb ein <strong>synthetisches HLS-Master-Manifest</strong> (<code>/api/source-resolver/manifest/{id}</code>): es verbindet die separaten Video-Playlists (144p–2160p, AVC/VP9) mit der AAC-Audio-Playlist (itag 233/234) zu einer gültigen Master-Playlist. Segmente streamen per <strong>Passthrough-Proxy</strong> (<code>/api/source-resolver/playlist</code> + <code>/seg</code>, googlevideo-Allowlist) direkt vom Original-CDN — <strong>nichts wird gespeichert oder re-gehostet</strong>, der Proxy existiert nur, weil googlevideo kein CORS sendet.</p>
 <table>
 <tr><th>Endpoint (Plugin-Routen)</th><th>Zweck</th></tr>
@@ -97,7 +97,7 @@ rm storage/framework/crozztube-maintenance.pause      # wieder aktiv</pre>
 
 <h2>6. Test-Harness <span class="badge b-ok">GRÜN</span></h2>
 <p>Vollständig lokal ausführbar, Details unter <a href="tests.html">Tests &amp; Harness</a>.</p>
-<pre>./tools/test/run.sh all        # 85 Checks + 5 Playwright-Tests
+<pre>./tools/test/run.sh all        # 86 Checks + 5 Playwright-Tests
 ./tools/test/run.sh list
 ./tools/test/run.sh refresh jobs</pre>
 <p>Das Harness pausiert den Scheduler während des Laufs und stellt manipulierte DB-Zeilen wieder her.</p>

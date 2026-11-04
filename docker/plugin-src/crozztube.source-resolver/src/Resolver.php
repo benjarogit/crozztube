@@ -232,6 +232,13 @@ class Resolver
                 ->all();
         }
 
+        $duration = is_numeric($data['duration'] ?? null) ? (int) $data['duration'] : null;
+        // Generic extractor does not report a duration for a directly linked
+        // file; probe it so feed cards/watch metadata are not blank.
+        if ($duration === null && $isDirectFile && $bestProgressive !== null) {
+            $duration = $this->probeDuration((string) $bestProgressive['url']);
+        }
+
         return [
             'media_url' => $mediaUrl,
             'kind' => $kind,
@@ -240,10 +247,35 @@ class Resolver
             'audio_url' => $audioUrl,
             'ttl_seconds' => $ttl,
             'title' => is_string($data['title'] ?? null) ? $data['title'] : null,
-            'duration_seconds' => is_numeric($data['duration'] ?? null) ? (int) $data['duration'] : null,
+            'duration_seconds' => $duration,
             'thumbnail_url' => is_string($data['thumbnail'] ?? null) ? $data['thumbnail'] : null,
             'chapters' => $chapters,
         ];
+    }
+
+    /**
+     * Liest die Dauer einer direkt verlinkten Datei (nur Metadaten, kein Download).
+     */
+    private function probeDuration(string $url): ?int
+    {
+        $binary = $this->stringSetting('ffprobe_command', 'ffprobe');
+
+        $process = new Process(
+            [$binary, '-v', 'error', '-show_entries', 'format=duration', '-of', 'default=nw=1:nk=1', $url],
+            null,
+            null,
+            null,
+            30.0
+        );
+        $process->run();
+
+        if (! $process->isSuccessful()) {
+            return null;
+        }
+
+        $seconds = (float) trim($process->getOutput());
+
+        return $seconds > 0 ? (int) round($seconds) : null;
     }
 
     /**

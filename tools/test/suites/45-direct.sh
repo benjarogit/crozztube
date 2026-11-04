@@ -73,6 +73,10 @@ suite_direct() {
     check_eq "watch payload uses the MP4 file" "$url" "$source_url"
     check_eq "watch payload MIME is video/mp4" "video/mp4" "$source_type"
 
+    local duration
+    duration=$(printf '%s' "$watch" | jq -r '.video.duration_seconds // 0')
+    check_ge "direct MP4 duration is probed" "1" "$duration"
+
     # Range request: the file really serves media bytes, not an HTML interstitial.
     local media_code media_type
     media_code=$("${CURL[@]}" -o /dev/null -w '%{http_code}' -r 0-1023 "$url")
