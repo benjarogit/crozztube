@@ -62,6 +62,8 @@ Letzter vollständiger Lauf: **72 Checks + 5 Browser-Tests grün**.
 | `0f09a40` | Test-Harness (stack, api, media) |
 | `6e6a701` | Provider-neutraler Mirror + UI-Suite |
 | `0a65ed8` | Auto-Refresh + Wartungs-Jobs + refresh/jobs-Suiten |
+| `4e1e06f` | Doku v0.5.0 (HANDOFF, Wiki Konfiguration/Tests) |
+| `f57e566` | Single-Flight über mehrere Nutzer (v0.5.1) |
 
 ### Live-Stand der Instanz
 - Drei importierte Videos, alle `fresh`, `kind=hls-synth`, Manifeste HTTP 200 (6–8 Varianten), Segment-Passthrough geprüft.
