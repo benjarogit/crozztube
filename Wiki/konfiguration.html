@@ -57,26 +57,50 @@ footer{margin-top:50px;color:var(--muted);font-size:12.5px}
 <p>Datei: <code>storage/app/playhub-video-import.json</code> · yt-dlp-Pfad des Kerns („Download import“) bleibt inaktiv — Resolver-Plugin übernimmt.</p>
 
 <h2>4. Queues &amp; Scheduler <span class="badge b-ok">AN</span></h2>
-<p>Worker (<code>videos,default</code> und Scheduler laufen (Container crozztube-worker / crozztube-cron) — wird für Video-Import-Metadaten-/Bitmap-Jobs und spätere Resolver-Refresh-Jobs gebraucht.</p>
+<p>Worker (<code>crozztube-worker</code>) und Scheduler (<code>crozztube-cron</code>) laufen dauerhaft.</p>
+<table>
+<tr><th>Einstellung</th><th>Wert</th></tr>
+<tr><td>Worker-Queues</td><td><code>videos,maintenance,default</code> — Wartungs-Jobs laufen getrennt von Import-/Video-Jobs</td></tr>
+<tr><td>Worker-Timeout / Tries</td><td><code>--timeout=7200 --tries=3 --sleep=3</code></td></tr>
+<tr><td>Scheduler</td><td><code>schedule:run</code> jede Minute (cron-Container)</td></tr>
+<tr><td>Refresh ablaufender Quellen</td><td><code>crozztube:sources:refresh-expiring --window=15 --limit=10 --stagger=15 --scheduled</code>, alle 5 Minuten</td></tr>
+<tr><td>Nacht-Erreichbarkeitsprüfung</td><td><code>crozztube:sources:probe --limit=20 --stagger=10 --scheduled</code>, stündlich zwischen <strong>02:00 und 05:00</strong></td></tr>
+<tr><td>Pause-Datei (Ops/Tests)</td><td><code>storage/framework/crozztube-maintenance.pause</code> — solange vorhanden, überspringen die <em>geplanten</em> Läufe ihre Arbeit; manuelle Aufrufe ohne <code>--scheduled</code> laufen weiter</td></tr>
+</table>
+<p><strong>Manuell prüfen:</strong></p>
+<pre>docker exec crozztube-web php artisan crozztube:sources:refresh-expiring --dry-run
+docker exec crozztube-web php artisan crozztube:sources:probe --dry-run --limit=5 --min-age=0
+docker exec crozztube-web php artisan schedule:list | grep crozztube
+touch storage/framework/crozztube-maintenance.pause   # Wartung pausieren
+rm storage/framework/crozztube-maintenance.pause      # wieder aktiv</pre>
 
-<h2>5. yt-dlp Source-Resolver (Plugin) <span class="badge b-ok">FERTIG · v0.2.4</span></h2>
+<h2>5. yt-dlp Source-Resolver (Plugin) <span class="badge b-ok">FERTIG · v0.5.0</span></h2>
 <p><strong>Implementiert:</strong><br>
 <strong>A) Direkt-URL via yt-dlp = Pflicht.</strong> Beim Import (POST <code>/api/video-imports</code>) wird der Job <code>ResolveImportSource</code> dispatcht. yt-dlp (<code>-J</code>, keyless) liefert Metadaten + Direkt-URL. Auswahl: HLS-Manifest bevorzugt → sonst progressive MP4.<br>
-<strong>YouTube-Sonderfall (SABR/DASH):</strong> YouTube liefert kein muxed MP4 mehr und kein Master-Manifest. Das Plugin baut deshalb ein <strong>synthetisches HLS-Master-Manifest</strong> (<code>/api/source-resolver/manifest/{id}</code>): es verbindet die separates Video-Playlists (144p–2160p, AVC/VP9) mit der AAC-Audio-Playlist (itag 233/234) zu einer gültigen Master-Playlist. Segmente streamen per <strong>Passthrough-Proxy</strong> (<code>/api/source-resolver/playlist</code> + <code>/seg</code>, googlevideo-Allowlist) direkt vom Original-CDN — <strong>nichts wird gespeichert oder re-gehostet</strong>, der Proxy existiert nur, weil googlevideo kein CORS sendet.</p>
+<strong>YouTube-Sonderfall (SABR/DASH):</strong> YouTube liefert kein muxed MP4 mehr und kein Master-Manifest. Das Plugin baut deshalb ein <strong>synthetisches HLS-Master-Manifest</strong> (<code>/api/source-resolver/manifest/{id}</code>): es verbindet die separaten Video-Playlists (144p–2160p, AVC/VP9) mit der AAC-Audio-Playlist (itag 233/234) zu einer gültigen Master-Playlist. Segmente streamen per <strong>Passthrough-Proxy</strong> (<code>/api/source-resolver/playlist</code> + <code>/seg</code>, googlevideo-Allowlist) direkt vom Original-CDN — <strong>nichts wird gespeichert oder re-gehostet</strong>, der Proxy existiert nur, weil googlevideo kein CORS sendet.</p>
 <table>
 <tr><th>Endpoint (Plugin-Routen)</th><th>Zweck</th></tr>
-<tr><td><code>GET /api/source-resolver/status/{videoId}</code></td><td>State für Ajax-Banner (fresh/refreshing/error, downloadable)</td></tr>
-<tr><td><code>POST /api/source-resolver/refresh/{videoId}</code></td><td>Refresh anstoßen (idempotent, Single-Flight)</td></tr>
-<tr><td><code>GET /api/source-resolver/manifest/{videoId}</code></td><td>Synthetisches HLS-Master-Manifest</td></tr>
-<tr><td><code>GET /api/source-resolver/playlist?url=…</code></td><td>CDN-Playlist-Passthrough + Segment-URL-Rewrite</td></tr>
+<tr><td><code>GET /api/source-resolver/status/slug/{slug}</code></td><td>State für die Watch-Page in <strong>einem</strong> Request (kein zusätzlicher Video-Call)</td></tr>
+<tr><td><code>GET /api/source-resolver/status/{videoId}</code></td><td>Gleicher Payload per ID (Harness/Backoffice)</td></tr>
+<tr><td><code>POST /api/source-resolver/refresh/{videoId}</code></td><td>Refresh anstoßen (idempotent, Single-Flight; <code>force</code> umgeht den Debounce)</td></tr>
+<tr><td><code>GET /api/source-resolver/manifest/{videoId}</code></td><td>Synthetisches HLS-Master-Manifest; stößt bei abgelaufener Quelle im Hintergrund einen Refresh an</td></tr>
+<tr><td><code>GET /api/source-resolver/playlist?url=…&amp;video_id=…</code></td><td>CDN-Playlist-Passthrough + Segment-URL-Rewrite; CDN-Fehler → Refresh</td></tr>
 <tr><td><code>GET /api/source-resolver/seg?url=…</code></td><td>CDN-Segment-Streampassthrough (nur <code>*.googlevideo.com</code>)</td></tr>
-<tr><td><code>GET /api/source-resolver/download/{videoId}</code></td><td>Download-Passthrough (beste MP4); 409 bei HLS-only → Button versteckt</td></tr>
+<tr><td><code>GET /api/source-resolver/download/{videoId}</code></td><td>Passthrough beste MP4; 409 bei HLS-only. <strong>Kein UI-Button</strong> (bewusste Entscheidung), Endpoint bleibt für Admin/Skripte</td></tr>
 </table>
-<p><strong>B) Ablauf-Refresh:</strong> TTL wird aus den <code>expire=</code>-Parametern der gespeicherten CDN-URLs berechnet (YouTube ~6 h). Ablauf → State <code>stale</code> → Reload/Watch-Seite triggert <code>RefreshSource</code>; <strong>Single-Flight-Lock</strong> (Cache-Lock 600 s + Dispatch-Guard 30 s) verhindert parallele Doppel-Refreshes; Refresh in einer Minute</p>
-<p><strong>C) Embed-Mirror-Fallback:</strong> Liefert der Resolver nichts (State error/refreshing), liefert <code>VideoSources</code> leer → PlayHub fällt auf YouTube-Embed zurück. Eigener Player hat mit frischer Quelle immer Priorität (Patch in <code>app/Http/Resources/VideoResource.php</code>).</p>
-<p><strong>D) Download-Button:</strong> nur aktiv, wenn <code>downloadable=true</code> (progressive MP4 existiert). YouTube = HLS-only → 409, Button versteckt. Passthrough mit <code>Content-Disposition</code>, kein Cache.</p>
-<div class="box warn"><strong>Betriebshinweise:</strong> yt-dlp ist im Image (2026.10.26) und wird vom cron-Container täglich aktualisiert (Marker <code>/tmp/.crz-yt-dlp-last-update</code>). Nach Plugin-Updates: <code>php artisan queue:restart</code> (Worker lädt Job-Klassen sonst nicht). DB-Tabelle: <code>crozztube_import_sources</code> (Spalten u. a. media_url, variants, audio_url, expires_at).</p>
-</div>
+<div class="box"><strong>Status-Payload (Auszug):</strong> <code>state</code>, <code>fresh</code>, <code>has_direct</code>, <code>refreshing</code>, <code>expires_at</code>, <code>expires_in</code>, <code>can_refresh</code>, <code>retry_after</code>, <code>error_message</code>, <code>mirror</code> (<code>provider</code>, <code>label</code>, <code>mode: iframe|link</code>, <code>embed_url</code>, <code>external_url</code>).</div>
+<p><strong>B) Ablauf-Refresh:</strong> TTL wird aus den <code>expire=</code>-Parametern der gespeicherten CDN-URLs berechnet (YouTube ~6 h). Ablauf → State <code>stale</code> → Watch-Seite bzw. <code>RefreshSource</code> erneuert; <strong>Single-Flight-Lock</strong> (Cache-Lock 600 s) verhindert parallele Doppel-Refreshes. Eine hängende <code>refreshing</code>-Zeile blockiert die UI nicht (nach 9 Min. wird sie ignoriert).<br>
+<strong>Frontend-Flow:</strong> Banner „Quelle wird erneuert…“ → Polling → bei frischer URL automatischer Reload (max. 2 Versuche, Resume-Position) → bei hartem Fehler Banner mit <em>Retry</em> + <em>Mirror</em>. Ohne JavaScript greifen die Manifest-/Playlist-Sicherheitsnetze serverseitig.</p>
+<p><strong>C) Provider-neutraler Mirror:</strong> <code>Mirror::forVideo()</code> entscheidet serverseitig über <code>iframe</code> (YouTube/Vimeo/Dailymotion/Twitch) oder <code>link</code> (direkte Datei-URL). Der Button unter dem Video und das Overlay im Player sind provider-unabhängig; die Auswahl wird pro Video im Browser gespeichert. <code>embed_url</code> im <code>VideoResource</code> bleibt für YouTube leer, damit die Direktquelle Priorität behält.</p>
+<p><strong>D) Wartungs-Jobs:</strong> <code>refresh-expiring</code> erneuert Quellen 15 Min. vor Ablauf in kleinen, gestaffelten Batches (Queue <code>maintenance</code>). <code>probe</code> prüft nachts gespeicherte URLs per HEAD (Fallback: Range-GET), protokolliert <code>last_checked_at</code>/<code>last_check_status</code> und erneuert defekte Quellen. Beide respektieren die Pause-Datei.</p>
+<div class="box warn"><strong>Betriebshinweise &amp; Zeitfalle:</strong> yt-dlp ist im Image (2026.10.26) und wird vom cron-Container täglich aktualisiert (Marker <code>/tmp/.crz-yt-dlp-last-update</code>). Nach Plugin-Updates: <code>php artisan queue:restart</code> (Worker lädt Job-Klassen sonst nicht). DB-Tabelle: <code>crozztube_import_sources</code>. <strong>App-Timezone ist <code>Europe/Berlin</code>, die MySQL-Session läuft in UTC</strong> → in Plugin-Code und SQL-Vergleichen <strong>kein <code>NOW()</code></strong> verwenden; Zeitstempel aus PHP formatieren. Jede Plugin-Route hat ein eigenes Throttle-Präfix, damit Segment-Traffic den Status-Endpoint nicht blockiert.</div>
+
+<h2>6. Test-Harness <span class="badge b-ok">GRÜN</span></h2>
+<p>Vollständig lokal ausführbar, Details unter <a href="tests.html">Tests &amp; Harness</a>.</p>
+<pre>./tools/test/run.sh all        # 70 Checks + 5 Playwright-Tests
+./tools/test/run.sh list
+./tools/test/run.sh refresh jobs</pre>
+<p>Das Harness pausiert den Scheduler während des Laufs und stellt manipulierte DB-Zeilen wieder her.</p>
 
 <footer>CrozzTube Wiki · Stand 4. Nov 2026 · <a href="index.html">zurück zur Startseite</a></footer>
 </div></body></html>

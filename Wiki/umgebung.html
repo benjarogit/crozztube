@@ -30,7 +30,7 @@ footer{margin-top:50px;color:var(--muted);font-size:12.5px}
 <tr><td>crozztube-web</td><td>Apache + PHP 8.3 (App)</td><td>127.0.0.1:8082→80, 127.0.0.1:8443→443; docker-socket gemountet (für LiveKit-Runtime); php.ini mit 1024M/2048M Upload</td></tr>
 <tr><td>crozztube-mysql</td><td>MySQL 8.0.46</td><td>Port 3308; Volume <code>crozztube-playhub_mysql-data</code></td></tr>
 <tr><td>crozztube-redis</td><td>Redis 7</td><td>intern; Passwort <code>crozztube-local-redis</code></td></tr>
-<tr><td>crozztube-worker</td><td>Queue-Worker</td><td><code>queue:work --queue=videos,default</code> (Profile <code>runtime</code>)</td></tr>
+<tr><td>crozztube-worker</td><td>Queue-Worker</td><td><code>queue:work --queue=videos,maintenance,default --timeout=7200 --tries=3</code> (Profile <code>runtime</code>)</td></tr>
 <tr><td>crozztube-cron</td><td>Scheduler</td><td><code>schedule:run</code> jede Minute (Profile <code>runtime</code>)</td></tr>
 <tr><td>crozztube-phpmyadmin</td><td>DB-UI</td><td>Port 8083</td></tr>
 <tr><td>crozztube-mailhog</td><td>Mail-Sink</td><td>Ports 1026/8026</td></tr>
@@ -48,6 +48,11 @@ docker exec crozztube-web tail -f /var/www/html/storage/logs/laravel.log</pre>
 <h2>Runtime-Refresh (nach .env / Config-Änderungen)</h2>
 <pre>docker exec crozztube-web php artisan optimize:clear
 docker exec crozztube-web php artisan queue:restart</pre>
+
+<h2>Tests</h2>
+<pre>cd "/mnt/intern-1tb/Projekte - Vibe Coding/crozztube"
+./tools/test/run.sh all      # Stack, API, Media, Refresh, Mirror, Jobs, UI</pre>
+<p>Details, Suiten und Umgebungsvariablen: <a href="tests.html">Tests &amp; Harness</a>. Das Harness pausiert den Wartungs-Scheduler während des Laufs.</p>
 
 <h2>Wichtige Pfade im App-Root</h2>
 <table>

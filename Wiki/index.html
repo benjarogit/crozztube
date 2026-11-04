@@ -36,19 +36,20 @@ footer{margin-top:60px;color:var(--muted);font-size:12.5px}
 <div class="box good">
 <strong>State: läuft.</strong> <span class="badge b-ok">ONLINE</span>
 &nbsp;<code>https://crozztube.local:8443</code> &nbsp; Health: <code>{"status":"ok","version":"0.9.13"}</code>
-&nbsp;·&nbsp; Resolver <span class="badge b-ok">aktiv v0.2.4</span>
+&nbsp;·&nbsp; Resolver <span class="badge b-ok">aktiv v0.5.0</span>
 </div>
 
 <div class="box warn">
 <strong>Projekt-Ziel (bleibt stehen bis alle Blöcke umgesetzt):</strong><br>
 <strong>Nur Streaming · keine eigenen Uploads · keine API-Keys.</strong>
-Jedem importierten Video liegt eine <strong>Direkt-URL</strong> zugrunde (via <strong>yt-dlp</strong> aufgelöst, im eigenen Player, HLS bevorzugt + MP4-Fallback); der offizielle Provider-Embed (z.&nbsp;B. YouTube) ist immer als Mirror-Fallback vorhanden. URL-Refresh bei Ablauf mit Single-Flight-Lock. Download-Button für User (beste progressive MP4, versteckt wenn nur HLS). Vimeo/Dailymotion/Twitch deaktiviert.
+Jedem importierten Video liegt eine <strong>Direkt-URL</strong> zugrunde (via <strong>yt-dlp</strong> aufgelöst, im eigenen Player, HLS bevorzugt + MP4-Fallback); der offizielle Provider-Embed (z.&nbsp;B. YouTube) ist als <strong>provider-neutraler Mirror</strong> umschaltbar. URL-Refresh bei Ablauf mit Single-Flight-Lock und Banner für wartende Nutzer. <strong>Kein Download-Button</strong> in der UI. Vimeo/Dailymotion/Twitch deaktiviert.
 </div>
 
 <nav class="cards">
 <a class="card" href="zugang.html"><h3>🔐 Zugang</h3><p>URLs, Logins, Ports, Lizenz, MySQL/Redis</p></a>
 <a class="card" href="umgebung.html"><h3>🖥️ Umgebung</h3><p>Docker-Stack, Volumes, Befehle, Troubleshooting</p></a>
 <a class="card" href="konfiguration.html"><h3>⚙️ Konfiguration</h3><p>Alle aktiven/deaktivierten Features mit Begründung</p></a>
+<a class="card" href="tests.html"><h3>🧪 Tests</h3><p>Harness, Suiten, Playwright, Umgebungsvariablen</p></a>
 </nav>
 
 <h2>Status der Ausrichtung (Streaming-Only-Umbau)</h2>
@@ -57,8 +58,11 @@ Jedem importierten Video liegt eine <strong>Direkt-URL</strong> zugrunde (via <s
 <tr><td>Basis-Konfiguration (Uploads→admin-only, LiveKit aus, Provider-Whitelist)</td><td><span class="badge b-ok">erledigt</span></td></tr>
 <tr><td>Wiki-Doku (diese Seiten)</td><td><span class="badge b-ok">erledigt</span></td></tr>
 <tr><td>Plugin <code>crozztube.source-resolver</code> (yt-dlp Direkt-URL, synth. HLS-Master + Passthrough-Proxy, Refresh-Lock, Embed-Fallback)</td><td><span class="badge b-ok">erledigt</span> <span class="badge b-ok">getestet</span></td></tr>
-<tr><td>Download-Button (beste MP4, versteckt bei HLS-only)</td><td><span class="badge b-ok">erledigt</span> (YouTube → HLS-only → Button versteckt)</td></tr>
-<tr><td>End-to-End-Tests (Import→Playback, Refresh, Fallback)</td><td><span class="badge b-ok">erledigt</span> (Manifest/Playlist/Segmente verifiziert)</td></tr>
+<tr><td>Provider-neutraler Mirror-Umschalter unter dem Video (iframe/link)</td><td><span class="badge b-ok">erledigt</span> <span class="badge b-ok">Browser-getestet</span></td></tr>
+<tr><td>Auto-Refresh abgelaufener Direkt-URLs (Banner, Polling, Auto-Reload, Mirror-Fallback)</td><td><span class="badge b-ok">erledigt</span> <span class="badge b-ok">getestet</span></td></tr>
+<tr><td>Gestaffelte Wartungs-Jobs (5-Min-Refresh, Nacht-Probe 02:00–05:00, Queue <code>maintenance</code>)</td><td><span class="badge b-ok">erledigt</span> <span class="badge b-ok">getestet</span></td></tr>
+<tr><td>Download-Button</td><td><span class="badge b-ok">bewusst entfernt</span> (Endpoint bleibt)</td></tr>
+<tr><td>End-to-End-Tests (Stack, API, Media, Refresh, Mirror, Jobs, UI)</td><td><span class="badge b-ok">erledigt</span> (70 Checks + 5 Browser-Tests)</td></tr>
 </table>
 
 <footer>CrozzTube · lokale Instanz · Quellpaket: «PlayHub web v0.9.13» · Lizenz: KNL-Direct-Store (aktiviert, Domain crozztube.local)</footer>

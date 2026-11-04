@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tests &amp; Harness — CrozzTube Wiki</title>
+<style>
+:root{--bg:#0f1115;--surface:#171a21;--line:#2a2f3a;--ink:#e7eaf0;--muted:#9aa3b2;--gold:#d9a83f;--ok:#4cc38a;--warn:#e6b455;--bad:#e57d7d}
+*{box-sizing:border-box}a{color:var(--gold)}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 system-ui,Arial,sans-serif}
+.wrap{max-width:950px;margin:0 auto;padding:40px 24px 80px}
+.crumbs{font-size:13px;color:var(--muted);margin-bottom:18px}
+h1{font-size:24px;margin:0 0 6px}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-size:12.5px;text-transform:uppercase;letter-spacing:.04em}
+code,pre{background:#20242e;border:1px solid var(--line);border-radius:5px}
+code{padding:1px 6px;font:13px ui-monospace,Consolas,monospace}
+pre{padding:14px 16px;overflow:auto;font:13px/1.55 ui-monospace,Consolas,monospace}
+.box{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:16px 20px;margin:18px 0}
+.b-ok{background:rgba(76,195,138,.15);color:var(--ok)}
+.badge{display:inline-block;padding:2px 9px;border-radius:99px;font-size:12px;font-weight:700}
+h2{border-bottom:1px solid var(--line);padding-bottom:8px;margin-top:38px;font-size:20px}
+footer{margin-top:50px;color:var(--muted);font-size:12.5px}
+</style></head><body><div class="wrap">
+<div class="crumbs"><a href="index.html">← Wiki-Start</a> / Tests &amp; Harness</div>
+<h1>🧪 Tests &amp; Harness</h1>
+<p>Das Harness prüft den laufenden Docker-Stack von außen (HTTP, DB, Queue, Browser) und ist so gebaut, dass ein Agent es ohne manuelle Schritte komplett ausführen kann. Letzter vollständiger Lauf: <span class="badge b-ok">70 Checks + 5 Browser-Tests grün</span>.</p>
+
+<h2>Ausführen</h2>
+<pre>cd "/mnt/intern-1tb/Projekte - Vibe Coding/crozztube"
+
+./tools/test/run.sh               # alle Suiten
+./tools/test/run.sh list          # Suiten auflisten
+./tools/test/run.sh stack api     # gezielt
+./tools/test/run.sh all           # explizit alles
+
+SLOW=0 ./tools/test/run.sh jobs refresh   # yt-dlp-Roundtrips überspringen
+UI_SKIP=1 ./tools/test/run.sh all         # ohne Browser
+KEEP_TEST_VIDEOS=1 ./tools/test/run.sh api  # Test-Importe nicht löschen
+CRZZ_VERBOSE=1 ./tools/test/run.sh ui     # Fehler-Log ausgeben</pre>
+
+<h2>Suiten</h2>
+<table>
+<tr><th>Suite</th><th>Prüft</th></tr>
+<tr><td><code>stack</code></td><td>Container-Status, Health-Endpoint, HTTPS, DB/Redis-Erreichbarkeit, Plugin aktiv/Version</td></tr>
+<tr><td><code>api</code></td><td>Login, Video-Feed, Watch-Payload, Import-Endpoint, Rechte/Validierung</td></tr>
+<tr><td><code>media</code></td><td>Master-Manifest, Varianten, Video-/Audio-Playlist, Segment-Passthrough (HTTP 200, Größe, Audio)</td></tr>
+<tr><td><code>refresh</code></td><td>Status-Metadaten, hängende <code>refreshing</code>-Zustände, erzwungener Refresh bei frischer Quelle, simulierter Ablauf + automatische Erneuerung</td></tr>
+<tr><td><code>mirror</code></td><td>Provider-Matrix (YouTube/Short/Vimeo/Dailymotion/Twitch/Direct), Embed-URLs, <code>mode</code>, Slug-Lookup, 404 bei unbekanntem Slug</td></tr>
+<tr><td><code>jobs</code></td><td>Commands registriert, Scheduler-Einträge, Probe erkennt gute/defekte URLs, <code>refresh-expiring</code> wählt Ablaufkandidaten und arbeitet die <code>maintenance</code>-Queue ab</td></tr>
+<tr><td><code>ui</code></td><td>Playwright: Mirror-Toggle + Overlay, Reload-Persistenz, SPA-Navigation, Auto-Refresh mit Banner/Reload, Fehlerbanner mit Retry + Mirror</td></tr>
+</table>
+
+<h2>Playwright</h2>
+<pre>cd tools/test/ui
+npm install
+npx playwright install chromium
+npx playwright test
+npx playwright test specs/refresh.spec.ts --headed</pre>
+<p>Die Browser-Tests loggen sich per API-Token ein (<code>localStorage['playhub_token']</code>) und manipulieren für Ablauf-/Fehlerfälle die Tabelle <code>crozztube_import_sources</code> per <code>docker exec</code>. Die Originalzeile wird in <code>afterAll</code> wiederhergestellt; vorher wartet der Test, bis Queue und <code>refreshing</code>-State leer sind.</p>
+
+<h2>Umgebungsvariablen</h2>
+<table>
+<tr><th>Variable</th><th>Default</th><th>Bedeutung</th></tr>
+<tr><td><code>BASE_URL</code></td><td><code>https://crozztube.local:8443</code></td><td>Ziel-Instanz</td></tr>
+<tr><td><code>TEST_USER</code> / <code>TEST_PASSWORD</code></td><td><code>benny</code> / Admin-Passwort</td><td>Login für API-Tests</td></tr>
+<tr><td><code>DB_CONTAINER</code>, <code>DB_NAME</code>, <code>DB_USER</code>, <code>DB_PASS</code></td><td><code>crozztube-mysql</code>, <code>crozztube</code>, …</td><td>Direktzugriff für Zustandsmanipulation</td></tr>
+<tr><td><code>SLOW</code></td><td><code>1</code></td><td><code>0</code> überspringt echte yt-dlp-Läufe</td></tr>
+<tr><td><code>UI_SKIP</code></td><td><code>0</code></td><td><code>1</code> überspringt Playwright</td></tr>
+<tr><td><code>ARTIFACT_DIR</code></td><td><code>/tmp/crozztube-tests</code></td><td>Logs und Artefakte</td></tr>
+</table>
+
+<h2>Wie das Harness den Stack schützt</h2>
+<div class="box">
+<ul>
+<li>Setzt zu Beginn <code>storage/framework/crozztube-maintenance.pause</code>, damit der 5-Minuten-Scheduler nicht mit den Tests konkurriert; entfernt die Datei beim Beenden.</li>
+<li>Registriert selbst angelegte Test-Videos und löscht sie im <code>EXIT</code>-Trap (außer <code>KEEP_TEST_VIDEOS=1</code>).</li>
+<li>Stellt manipulierte Zeilen (Ablauf, Fehlerzustand) nach dem Lauf wieder her.</li>
+<li>Prüft Zeitfenster über feste Werte (<code>'2000-01-01 00:00:00'</code>) statt SQL-<code>NOW()</code> — die MySQL-Session läuft in UTC, die App in <code>Europe/Berlin</code>.</li>
+</ul>
+</div>
+
+<h2>Bekannte Stolpersteine</h2>
+<table>
+<tr><th>Symptom</th><th>Ursache / Lösung</th></tr>
+<tr><td><code>Too Many Attempts</code> auf <code>/status</code></td><td>Throttle-Präfixe pro Route prüfen; Segment-Traffic darf den Status-Bucket nicht teilen.</td></tr>
+<tr><td>Refresh passiert „nichts“</td><td>30-s-Debounce gilt nur für opportunistische Aufrufe; explizite/geforce Requests müssen durchgehen. Job-Lock verhindert Duplikate.</td></tr>
+<tr><td>Zeiten eine Stunde versetzt</td><td>Timezone-Falle (App Berlin, MySQL UTC) — Zeitstempel aus PHP erzeugen.</td></tr>
+<tr><td>UI-Test hängt nach Reload</td><td>Resume-/Reload-Zähler in <code>sessionStorage</code>; Test-Context pro Lauf frisch halten.</td></tr>
+</table>
+
+<footer>CrozzTube Wiki · Stand 4. Nov 2026 · <a href="index.html">zurück zur Startseite</a></footer>
+</div></body></html>

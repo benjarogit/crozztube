@@ -1,7 +1,7 @@
-# HANDOFF — CrozzTube Source-Resolver (Stand: 4. Nov 2026, ~12:45)
+# HANDOFF — CrozzTube Source-Resolver (Stand: 4. Nov 2026, ~14:00)
 
-> Weitergabedokument für den nächsten Agenten. Aktueller Zustand + komplette Aufgabenliste.
-> Wiki (Zugänge/Umgebung/Konfig): `Wiki/index.html`, `Wiki/konfiguration.html` — zuerst lesen!
+> Weitergabedokument für den nächsten Agenten. Aktueller Zustand + offene Punkte.
+> Wiki (Zugänge/Umgebung/Konfig/Tests): `Wiki/index.html` — zuerst lesen!
 
 ---
 
@@ -10,127 +10,129 @@
 - **Projekt:** CrozzTube = PlayHub web v0.9.13 (Laravel 13, React 19), lokale Instanz.
 - **Konzept:** NUR Streaming/Import. Keine eigenen Uploads (Nutzer/Creator laden nichts hoch), **keine API-Keys**. Jedes importierte Video bekommt per **yt-dlp** eine Direkt-URL (eigener Player, HLS bevorzugt), Provider-Embed (YouTube) ist nur Mirror/Fallback.
 - **URL:** `https://crozztube.local:8443` (self-signed) · Admin: `benny` / `meZVRW0bYEbpHsJc`
-- **Docker-Stack** (`docker/compose.yml`, Projekt `crozztube-local`): crozztube-web (PHP 8.3 + FFmpeg + yt-dlp 2026.10.26), -mysql (Port 3308! User crozztube/crozztube-local-db), -redis (Pass crozztube-local-redis), -worker (queue:work videos,default), -cron (schedule:run je Minute + täglicher yt-dlp-Auto-Update), -phpmyadmin (8083), -mailhog.
+- **Docker-Stack** (`docker/compose.yml`, Projekt `crozztube-local`): crozztube-web (PHP 8.3 + FFmpeg + yt-dlp 2026.10.26), -mysql (Port 3308! User crozztube/crozztube-local-db), -redis (Pass crozztube-local-redis), -worker (`queue:work videos,maintenance,default`), -cron (schedule:run je Minute + täglicher yt-dlp-Auto-Update), -phpmyadmin (8083), -mailhog.
 - **NICHT anfassen:** Container `crozztube-audit-*` (separate Audit-Instanz unter /home/benny/audit-instance).
+- **Git-Backup:** `https://github.com/benjarogit/crozztube` (privat). Regelmäßig committen + pushen.
 
 ## 2. Was fertig & verifiziert ist
 
-### Plugin `crozztube.source-resolver` v0.2.4 (installiert + aktiv)
-Quelle: `docker/plugin-src/crozztube.source-resolver/` (dort liegt der Code, installiert wird via ZIP-Upload an die Admin-API).
+### Plugin `crozztube.source-resolver` v0.5.0 (installiert + aktiv)
+Quelle: `docker/plugin-src/crozztube.source-resolver/` (dort liegt der Code, installiert wird via ZIP-Upload an die Admin-API; Hilfsskript `tools/dev/reinstall-plugin.sh`).
 
 - **Resolver (`src/Resolver.php`):** yt-dlp `-J` keyless. Auswahllogik: echtes HLS-Manifest → sonst muxed MP4 → sonst **"hls-synth"** (YouTube-Sonderfall) → sonst Fehler.
 - **YouTube-Sonderfall (wichtig!):** YouTube liefert seit SABR kein muxed MP4 und kein Master-Manifest mehr. Lösung: itags 233/234 sind versteckte **HLS-Audio-Playlists** (AAC-LC, geprüft via ffprobe). Das Plugin speichert bis zu 8 Video-Playlists (144p–2160p, AVC/VP9, deduped pro Höhe) + 1 Audio-Playlist in der DB (`variants`, `audio_url`) und baut ein **synthetisches HLS-Master-Manifest**.
-- **Endpoints (`routes/api.php`, Controller `src/ResolverController.php`):**
-  - `GET /api/source-resolver/status/{videoId}` → State (fresh/refreshing/error, `downloadable`) für Ajax-Banner
-  - `POST /api/source-resolver/refresh/{videoId}` → Refresh anstoßen (idempotent)
-  - `GET /api/source-resolver/manifest/{videoId}` → synthetisches Master-Manifest (M3U8)
-  - `GET /api/source-resolver/playlist?url=…` → CDN-Playlist-Passthrough + URL-Rewrite (auch `#EXT-X-MAP:URI="…"`)
-  - `GET /api/source-resolver/seg?url=…` → Segment-Streampassthrough
-  - `GET /api/source-resolver/download/{videoId}` → Download-Passthrough beste MP4; **409 wenn HLS-only**
-- **Passthrough-Proxy absichtlich!** googlevideo sendet kein `Access-Control-Allow-Origin`, HLS.js braucht daher einen Same-Origin-Pfad. Der Proxy streamt nur durch (curl-basiert, da PHP-fopen bei googlevideo hängen bleibt), speichert **nichts** (kein Re-Hosting). Host-Allowlist: nur `*.googlevideo.com`.
-- **Refresh/Single-Flight:** `src/Jobs/BaseSourceJob.php` — Cache-Lock 600 s + Dispatch-Guard 30 s (`refreshing`-State). TTL wird aus `expire=`-Param der gespeicherten CDN-URLs berechnet (YouTube ~6 h), darf niemals > Proxy-URL re-resolen ohne Job.
-- **DB:** Tabelle `crozztube_import_sources` (migrations idempotent, `media_url`, `variants` (JSON), `audio_url`, `expires_at`, `state`, `refresh_attempts`, …).
-- **Core-Patches (drei, dokumentiert im Code als „CrozzTube-Patch“):**
-  1. `app/Models/Video.php` → `getVideoUrlAttribute`: Resolver-URL vor Embed
-  2. `app/Http/Resources/VideoResource.php` → `videoSources`: Resolver-Quelle (type `application/x-mpegurl` bei HLS) bevorzugt
-  3. `app/Http/Controllers/Api/VideoController.php` → `import()`: dispatcht `ResolveImportSource` (Resolve beim Import, nicht lazy)
+- **Metadaten-Backfill:** `Resolver::backfillMetadata()` schreibt `duration_seconds` + `is_short` ins `videos`-Table, wenn dort NULL/0 (Fixt den früheren Bug „3:32-Video als Short“). Short-Erkennung über `/shorts|reel|reels/` in der Import-URL.
+- **Passthrough-Proxy absichtlich!** googlevideo sendet kein `Access-Control-Allow-Origin`, HLS.js braucht daher einen Same-Origin-Pfad. Der Proxy streamt nur durch (curl-basiert), speichert **nichts** (kein Re-Hosting). Host-Allowlist: nur `*.googlevideo.com`.
 
-### Verifizierte Tests (Stand jetzt)
-- Resolve-Job end-to-end auf YouTube-Video (video_id 1, „Rick Astley“, ~3:32): state=fresh, 8 Varianten, TTL ~6 h ✓
-- Struktur + Parsing von Master-Manifest, Playlist-Rewrite, INIT/Video/Audio-Segment-Fetch durch den Proxy: HTTP 200, korrekte Größen, ~0,1–0,2 s ✓
-- Watch-API liefert eigene Quelle statt Embed ✓
-- Download-Endpoint: 409 + `downloadable:false` bei HLS-only ✓ (Button versteckt = Design-Entscheidung)
-- **Vom User manuell bestätigt:** echtes YouTube-Video („Jägermeister vs seine billige Kopie vom Netto“) spielt zügig im UI ✓
-- **NICHT getestet:** mehrstündiges Video, Live-Ablauf-Refresh im Browser, Mirror-Wechsel (existiert noch nicht), Download bei einem Direct-MP4-Import, Nacht-Job.
+### Provider-neutraler Mirror-Umschalter (v0.3.x)
+- `src/Support/Mirror.php` erzeugt serverseitig den Mirror-Payload: `provider`, `label`, `mode` (`iframe` | `link`), `embed_url`, `external_url`. Das Frontend enthält **keine Provider-Logik** — YouTube, Vimeo, Dailymotion, Twitch und direkte Datei-URLs funktionieren über dieselbe Struktur.
+- `embed_url` im `VideoResource` wird für YouTube **nicht** gesetzt (würde die Direktquelle verdrängen). Der Mirror kommt ausschließlich aus dem Plugin-Payload.
+- Frontend: `assets/watch-enhancer.js|css` (Plugin-Assets). Button in `.watch-toolbar .action-bar`, Overlay im `.watch-player-stage`. Auswahl pro Video in `localStorage['crz.mirror.prefs']`.
+- CSS setzt `.watch-player-stage { position: relative; }` — PlayHub positioniert die Stage nicht, sonst deckt das absolute Overlay die Toolbar ab.
+- SPA-Navigation: Enhancer baut Overlay/Button/Banner bei Routenwechsel selbst ab.
 
-### Live-Stand der Instanz (verifiziert am 4. Nov 2026, 12:45)
+### Auto-Refresh abgelaufener Direkt-URLs (v0.4/0.5)
+- **Serverseitig:** `BaseSourceJob` mit Cache-Lock (600 s) + DB-State `refreshing`. `force` überspringt die „ist noch frisch“-Prüfung; **explizite/geforce Refreshs umgehen den 30-s-Debounce** (Job-Lock verhindert Doppelarbeit) — sonst verschluckt der Debounce Retry/Expiry-Läufe.
+- `BaseSourceJob::request()` markiert abgelaufene Quellen als `stale` und liefert `bool` (ob wirklich eingereiht). Hängende `refreshing`-Zustände (Worker-Crash) werden nach `LOCK_TTL - 60 s` ignoriert/normalisiert.
+- **Status-Payload:** `state`, `kind`, `fresh`, `has_direct`, `refreshing`, `error_message`, `downloadable`, `expires_at`, `expires_in`, `can_refresh`, `retry_after`, `refresh_started_at`, `mirror`.
+- **Frontend (`watch-enhancer.js`):** Banner („wird erneuert“ / Fehler + Retry + Mirror), Polling, einmaliger Auto-Reload nach frischer URL (max. 2 Versuche, Resume-Position in `sessionStorage`), Mirror-Fallback bei hartem Fehler. Auto-Refresh triggert nur bei vorhandener, abgelaufener Direktquelle — kein Endlos-yt-dlp bei kaputtem Import.
+- **Sicherheitsnetze ohne JS:** `manifest`-Route stößt bei abgelaufener Quelle einen Refresh an und liefert das aktuelle Manifest weiter; `playlist`-Route triggert bei CDN-Fehler einen Refresh (Video-ID wird durch das synthetische Manifest gereicht).
 
-Alle drei importierten Videos sind aktuell `fresh` (`kind=hls-synth`), Status-Endpoint antwortet ohne Auth, Worker-Queue ist **leer**:
+### Wartungs-Jobs (v0.5.0)
+- `crozztube:sources:refresh-expiring` — alle 5 Min, Optionen `--window=15 --limit=10 --stagger=15 --scheduled --dry-run`. Erneuert Quellen kurz vor Ablauf, gestaffelt (Delay pro Dispatch), Queue `maintenance`.
+- `crozztube:sources:probe` — stündlich zwischen 02:00–05:00, Optionen `--limit=20 --min-age=60 --stagger=10 --scheduled --dry-run`. HEAD-Check, Fallback 1-Byte-Range-GET, schreibt `last_checked_at`/`last_check_status`; defekte URLs → `stale` + Refresh.
+- Beide respektieren die Pause-Datei `storage/framework/crozztube-maintenance.pause` (nur mit `--scheduled`, damit manuelle Läufe immer funktionieren). Das Test-Harness setzt sie automatisch.
+- Migration `2026_11_04_000003_add_probe_fields_…` (Probe-Spalten + Index auf `expires_at`).
 
-| video_id | Inhalt | Länge | is_short | expires_at | Manifest | Segment-Test |
-|---|---|---|---|---|---|---|
-| 1 | Rick Astley – Never Gonna Give You Up | **NULL** (!) | **1 (falsch)** | 15:08 | 200, 8 Varianten | – |
-| 2 | Jägermeister vs seine billige Kopie vom Netto | 543 s | 0 | 15:28 | 200, 6 Varianten | 200, 4,4 MB, 0,22 s |
-| 3 | Arnold REJECTED Terminator … (`/shorts/Hrn2aF9K8Ig`) | 97 s | 1 | 15:36 | 200, 8 Varianten | 200, 7,4 MB, 0,41 s |
+### Test-Harness (vollständig agent-ausführbar)
+```bash
+./tools/test/run.sh all          # alles: 70 Checks + 5 Playwright-Tests
+./tools/test/run.sh list         # Suiten anzeigen
+./tools/test/run.sh refresh jobs # gezielt
+SLOW=0 ./tools/test/run.sh jobs  # ohne yt-dlp-Roundtrip
+```
+Suiten: `stack`, `api`, `media`, `refresh`, `mirror`, `jobs`, `ui`. Details: `Wiki/tests.html`.
+Letzter vollständiger Lauf: **70 Checks + 5 Browser-Tests grün**.
 
-- **Short-Erkennung funktioniert:** Video 3 (97 s, `/shorts/`-URL) wurde als `is_short=1` erkannt und spielt über den Resolver (Manifest + Segment geprüft).
-- **Mittellanges Video funktioniert:** Video 2 (9 Min.) liefert 6 Varianten + Segment.
-- **BUG/Fund:** Video 1 (3:32) hat `duration_seconds = NULL` **und** `is_short = 1` → wird fälschlich als Short gelistet. Ursache: PlayHub-Import setzt Dauer/Short-Flag aus Provider-Metadaten, der Resolver schreibt `title`/`duration_seconds` nur in `crozztube_import_sources`, **nicht** zurück ins `videos`-Table. Fix-Option: im Resolve-Job `videos.duration_seconds` + `is_short` (Duration/Aspect) nachziehen, wenn dort NULL.
-- `failed_jobs` enthält 4 historische Einträge (id 7: `yt-dlp: not found` vor der Installation; id 8/9: `Uh7ljxRNCzo` unavailable; id 10: transient „No play-as-direct source“ bei Video 1) — **nicht** aktuell relevant, Queue läuft leer. Bei Bedarf `php artisan queue:flush`.
-- Stack läuft vollständig (web/worker/cron/mysql/redis/phpma/mailhog), `https://crozztube.local:8443` → HTTP 200.
+### Commits
+| Commit | Inhalt |
+|---|---|
+| `98eb7e5` | Baseline PlayHub 0.9.13 + Resolver v0.2.4 |
+| `0f09a40` | Test-Harness (stack, api, media) |
+| `6e6a701` | Provider-neutraler Mirror + UI-Suite |
+| `0a65ed8` | Auto-Refresh + Wartungs-Jobs + refresh/jobs-Suiten |
 
-### Wichtig für die UI-Arbeit: Frontend ist vorgebaut (kein Watch-Page-Quellcode!)
+### Live-Stand der Instanz
+- Drei importierte Videos, alle `fresh`, `kind=hls-synth`, Manifeste HTTP 200 (6–8 Varianten), Segment-Passthrough geprüft.
+- `failed_jobs` enthält historische Einträge (yt-dlp not found, unavailable IDs, transient) — nicht aktuell relevant, Queue läuft leer.
+- Stack läuft vollständig, `https://crozztube.local:8443` → HTTP 200.
 
-- `resources/js/` enthält **nur** `AdminDashboard.jsx`, `UploadPage.jsx`, `embed-player.jsx` — die Watch-Page/der Player liegen ausschließlich im kompilierten Bundle `build/assets/main-*.js` (+ `vidstack-*`). Ein React-Source-Patch der Watch-Page ist also **nicht** möglich.
-- **Der vorgesehene Weg:** PlayHub-Plugins dürfen Frontend-Assets mitliefern. `app/Plugins/PluginManifest.php` akzeptiert `assets.styles` (`.css`) und `assets.scripts` (`.js`/`.mjs`); `resources/views/app.blade.php` (Z. 171–186) bindet sie als `<link>` bzw. `<script type="module">` nach dem Haupt-Bundle ein und setzt `window.__PLAYHUB_PLUGINS__`. Auslieferung über `/plugin-assets/{pluginId}?asset=…&v={version}`.
-- **Konsequenz für TODO A/C:** eigene `assets/watch-enhancer.js` (+ CSS) im Plugin, per `MutationObserver`/Intervall auf der Watch-Route die Buttons (Mirror-Toggle, Download) und das Refresh-Banner in den DOM injizieren, Daten über die bestehenden JSON-Endpoints holen. Bundle-Patching wäre fragil und upgrade-unsicher → nicht machen.
+## 3. Architektur-Entscheidungen (nicht zurückdrehen)
 
-## 3. Offene Aufgaben (priorisiert, mit Details)
+1. **Frontend nur als Plugin-Assets.** `resources/js/` enthält nur Admin/Upload/Embed-Player; die Watch-Page existiert ausschließlich im Bundle. Ein React-Patch ist nicht möglich. Plugin-Assets werden über `plugin.json → assets.scripts/styles` eingebunden.
+2. **Mirror ist provider-neutral.** Neue Provider nur in `Mirror::forVideo()` ergänzen; Frontend bleibt unverändert.
+3. **Kein Download-UI.** Der Endpoint `/download/{id}` bleibt als Passthrough bestehen, wird aber von der UI nicht mehr angeboten (Entscheidung des Users). Kein Re-Mux/Transcode.
+4. **Status per Slug.** `/api/source-resolver/status/slug/{slug}` — die Watch-Page braucht genau einen Request, keinen zusätzlichen `/api/videos/{slug}`-Call.
+5. **Eigene Throttle-Präfixe pro Route.** Laravel keyt Limits sonst nur nach IP → Segment-Traffic würde `/status` blockieren und die UI still kaputt machen.
+6. **Zeitstempel aus PHP, kein SQL `NOW()`** in Plugin-Code/Tests (siehe Fallstricke).
+7. **`force` umgeht den Debounce**, nicht den Lock.
 
-### A. Mirror/Embed-Wechsel-Button unter dem Video (Höchste Prio, UI)
-Der User will unter dem Player einen Button „Direkt-Video / YouTube-Mirror“ zum Umschalten:
-- API-Seite: `VideoResource` liefert `embed_url` heute NUR, wenn keine Direkt-URL existiert. Ändern: `embed_url` **immer** mitliefern (wenn import+wiedergabefähig), damit das Frontend den Mirror jederzeit laden kann.
-- Frontend **nicht** per React-Source (existiert nicht für die Watch-Page): als Plugin-Asset `assets/watch-enhancer.js` + `assets/watch-enhancer.css` ausliefern (siehe Abschnitt „Frontend ist vorgebaut“). Button unter dem Player per DOM-Injection, Toggle zwischen eigener Quelle ↔ `youtube/{id}`-Embed-Quelle (PlayHub-Player versteht `video/youtube`-Sources bereits). Auswahl im localStorage persistieren. Standard: Direktquelle.
-- Wenn der Player bei der Direktquelle einen Fehler bekommt (Manifest 4xx/5xx, Segment-Reset-Loop) → automatisch Mirror anbieten/einschalten.
+## 4. Offene Punkte
 
-### B. Download-Button — Entscheidung nötig
-- Heute: YouTube-Videos sind HLS-only → `downloadable=false` → Button versteckt (409). **Dokumentierte Spezifikation war „versteckt wenn nur HLS“.** Der User vermisst den Button aber — mit ihm klären:
-  - Option 1 (Spez): versteckt bei HLS-only, sichtbar bei MP4-Quellen (z. B. Direct-Imports). Implementierung dafür ist fertig.
-  - Option 2: dem User erklären, dass Download bei YouTube technisch nicht geht, ohne Re-Hosting (muxed MP4 existiert nicht mehr; ffmpeg-Konvertierung wäre Re-Transcode).
-- Wenn er sich für Option 1 entscheidet: UI-Arbeit — `status.downloadable` ans Frontend geben und Button render/verstecken. TODO-UI: Button in Watch-Actions-Zeile (neben „Add to Watch later") mit `GET /api/source-resolver/download/{id}` verknüpfen.
+### E1. Mehrstündiges Video (Podcast/Stream-Replay)
+Bisher max. 9 Min. geprüft. Master-Manifest, Playlist-Länge, Buffering und Resume unter echten Bedingungen testen.
 
-### C. Auto-Refresh bei ungültiger/expired Direkt-URL (Frontend + kleine Backend-Feinschleife)
-Serverseitig existiert das bereits (Job + Lock). **Im Frontend fehlt der ganze Flow** — umsetzen als `assets/watch-enhancer.js` (Plugin-Asset, siehe oben), der den Player beobachtet und das Banner in den DOM injiziert:
-1. Player-Fehler auf Direktquelle (z. B. HTTP 403/404 auf Manifest/Segment, oder `expires_at`-Ablauf zu spät erkannt) feststellen (HLS.js error events bzw. fetch-Status).
-2. `POST /api/source-resolver/refresh/{videoId}` — Single-Flight garantiert, dass nur EIN Job läuft, egal wie viele User gleichzeitig klicken.
-3. Poll `GET /api/source-resolver/status/{videoId}` alle ~3–5 s. Währenddessen Banner: **„Videoquelle wird aktualisiert…“** (für alle wartenden User identisch, da gleicher State).
-4. Wenn wieder `fresh`: Source sofort neu laden (HLS.js `loadSource` neu) — falls nicht möglich: Seite automatisch neu laden (z. B. `location.reload()` nach 2 Versuchen). Wenn kein automatischer Reload geht: Hinweis „bitte Seite einmal neu laden".
-5. Wenn `error`: Mirror-Button anbieten + Hinweis, dass es weiterhin der YouTube-Embed funktioniert.
-- Backend-Nitpick: Watch-API könnte bei `state=refreshing` einen kleinen `retry_after`-Hinweis mitgeben; außerdem prüfen ob der Worker bei `queue timeout` den Lock freigibt (LOCK_TTL 600 s läuft automatisch ab).
+### E2. Mehrere Nutzer gleichzeitig auf abgelaufener Quelle
+Erwartung: genau **ein** yt-dlp-Lauf, `refresh_attempts` steigt nur einmal. Prüfbar über Worker-Log + `refresh_attempts` + `jobs`-Tabelle. Serverseitig durch Lock + Force-Bypass abgedeckt, aber noch nicht mit parallelen Browser-Sessions verifiziert.
 
-### D. Nachts-/Stagger-Jobs: Erreichbarkeit & proaktiver Refresh
-- Scheduler existiert bereits (cron-Container fährt `php artisan schedule:run` jede Minute). Anlegen:
-  1. **Proaktiver Refresher (stündlich oder alle 2 h):** alle `crozztube_import_sources` mit `expires_at < now + 60 min` → `RefreshSource` dispatchen, **max. 1–2 Jobs pro Minute** (etappenweise, Server nicht belasten; z. B. Command mit `--limit` und Dispatch-Guard).
-  2. **Nachtliche Erreichbarkeits-Prüfung (z. B. 03:00):** alle imports in Batches prüfen — günstig: HEAD auf `media_url`/`variants`-URLs reicht in den meisten Fällen (CDN-URLs widerholden `expire=` schon in DB → Ablaufzeit ist schon da, siehe `ttlFromUrl`). Ungültige → `RefreshSource`. Fehler zählen, Dashboard/Admin-Notiz oder log.
-- Achtung: yt-dlp-Auflösung pro Video ca. 2–6 s CPU/Netz — deshalb ETAPPENWEISE (Queue-Worker, 1 Job nach dem anderen, `sleep` im Command oder `default`-Queue mit Rate-Limit).
+### E3. Direct-MP4-Import im Browser
+Import einer echten progressiven MP4-Quelle: Wiedergabe + Mirror-Modus `link` prüfen. Download ist bewusst kein UI-Feature mehr.
 
-### E. Echte Tests, die noch fehlen (beide vom User explizit gefordert)
-1. **Mehrstündiges Video importieren** (Podcast/Stream-Replay): bisher max. 9 Min. (Video 2) geprüft. Master-Manifest/Passthrough unter echten Bedingungen überprüfen (Buffering, Wiederaufnahme, lange Playlists).
-2. **Short: serverseitig ✓** (Video 3, 97 s → `is_short=1`, Manifest + Segment HTTP 200). Offen: Browser-Darstellung in der Shorts-Ansicht + das falsche `is_short=1` bei Video 1 (siehe Live-Stand) fixen.
-3. **Manuell ablaufen lassen:** `expires_at` in DB auf Vergangenheit setzen → Watch-Seite → Refresh-Flow (nach Aufgabe C) testen.
-4. **Direct-MP4-Import** (echte progressive Quelle, z. B. direkt verlinkte MP4): Download-Button muss sichtbar sein und funktionieren.
-5. **Mehrere User gleichzeitig** auf abgelaufene Quelle: nur ein Refresh-Job (Logs prüfen: `refresh_attempts` zählt nicht doppelt hoch).
+### E4. Shorts-Darstellung
+Serverseitig korrekt (`is_short`, Dauer). Offen: Darstellung in der Shorts-Ansicht mit dem neuen Backfill gegenprüfen.
 
-## 4. Betriebs-KnowHow / Fallstricke
+### E5. Doku-Pflege
+Bei jeder Plugin-Version `plugin.json`-Version, Wiki und dieses Dokument mitziehen.
 
-- **Plugin reinstall (nach Quellcode-Änderung):** ZIP bauen (`zip -rq /tmp/opencode/crozztube.source-resolver.zip .` aus plugin-src-Ordner), dann API-Zyklus: `POST /api/admin/plugins` (multipart `package`) → `POST /api/admin/plugins/crozztube.source-resolver/enable`. Danach **IMMER** `docker exec crozztube-web php artisan queue:restart` (Worker lädt Job-/Plugin-Klassen sonst nicht → `__PHP_Incomplete_Class`-Fehler der Jobs).
-- **Throttle:** `POST /api/admin/plugins` hat `throttle:10,1` — bei mehrere reinstalls in Folge: 429, ~60 s warten. `enable` und Delete liefert 404 wenn install nicht durch ist.
-- **DB:** `docker exec crozztube-mysql mysql -ucrozztube -pcrozztube-local-db crozztube …` (im Host-Netz Port 3308).
+## 5. Betriebs-KnowHow / Fallstricke
+
+- **Plugin reinstall:** `./tools/dev/reinstall-plugin.sh` (baut ZIP, disable → install → enable → `queue:restart`). Manuell: `POST /api/admin/plugins` (multipart `package`) → `enable`; **immer** `docker exec crozztube-web php artisan queue:restart`, sonst `__PHP_Incomplete_Class` in Jobs.
+- **Manifest-Limits:** `plugin.json`-Textfelder (z. B. `capabilities[]`) dürfen **max. 80 Zeichen** haben, sonst schlägt der Install fehl.
+- **Throttle:** `POST /api/admin/plugins` hat `throttle:10,1` — bei mehreren Reinstalls in Folge 429, ~60 s warten.
+- **Zeitfalle:** App-Timezone ist `Europe/Berlin`, die MySQL-Session läuft in **UTC**. `NOW()`/`CURRENT_TIMESTAMP` in SQL ist eine Stunde daneben. In Plugin-Code und Tests Zeitstempel aus PHP formatieren (`now()->format('Y-m-d H:i:s')`) oder feste Werte wie `'2000-01-01 00:00:00'` verwenden.
+- **Cache-Store:** `database` (Tabelle `cache`, Prefix `crozztube_cache_`). Abgelaufene Keys werden lazy gelöscht; `Cache::add()` funktioniert danach wieder. Für Tests ggf. `Cache::forget('source-resolver:req.{id}')`.
+- **Scheduler pausieren:** `touch storage/framework/crozztube-maintenance.pause`; löschen zum Fortsetzen. Das Harness macht das automatisch um seine Laufzeit.
+- **DB:** `docker exec crozztube-mysql mysql -ucrozztube -pcrozztube-local-db crozztube …` (Host-Port 3308); Plugin-Tabelle `playhub_plugins`; Runtime-Code unter `storage/app/plugins/crozztube.source-resolver/`.
 - **Settings-Dateien:** `storage/app/playhub-features.json` (uploadRoles=admin), `playhub-video-import.json` (direct+youtube AN, vimeo/dailymotion/twitch AUS), `playhub-live-streaming.json` (false).
-- **Import-Provider live-Status:** importiert werden kann nur, was in `playhub-video-import.json` AN ist. Vimeo/Dailymotion/Twitch sind **deaktiviert, aber auskommentiert im Code** (re-enablebar).
-- **LiveKit:** Runtime bewusst nicht installiert. Re-Enable-Pfad steht in `Wiki/konfiguration.html` §2.
-- **Cache CLI-Checks:** Im Container: `php -r 'require "vendor/autoload.php"; require "bootstrap/app.php"; …'` (Autoloader VOR bootstrap laden!).
-- **Token-Login für API-Tests:** `POST /api/auth/login` mit `{login,password,device_name}` → Bearer-Token. Ein frisches Token liegt ggf. in `/tmp/opencode/login.json` (verfällt nicht automatisch).
-- **Symfony Process:** `->isSuccessful()` nicht `->successful()` (Fehler kostete 1 Version).
-- **fopen + googlevideo hängt** → curl-based Passthrough (bereits umgesetzt). Nicht zurückändern.
-- **Debug-Restdateien** wurden entfernt (`debug-resolver.php` etc.). Falls du welche findest: im Projekt-Root löschen, gehören nicht ins Repo.
+- **LiveKit:** Runtime bewusst nicht installiert. Re-Enable-Pfad in `Wiki/konfiguration.html` §2.
+- **Symfony Process:** `->isSuccessful()` nicht `->successful()`.
+- **fopen + googlevideo hängt** → curl-basierter Passthrough. Nicht zurückändern.
+- **Watch-DOM:** `.watch-layout-shell > main.watch-page > .watch-primary > .watch-player-stage`; Buttons in `.watch-info .watch-toolbar .action-bar`; Sidebar-Navigation = `aside.sidebar .nav-item` (Buttons, kein `href`).
+- **Token-Login für API-Tests:** `POST /api/auth/login` mit `{login,password,device_name}` → Bearer-Token (ggf. in `/tmp/opencode/token.txt`).
 
-## 5. Wichtige Pfade Übersicht
+## 6. Wichtige Pfade
 
 | Pfad | Inhalt |
 |---|---|
-| `docker/plugin-src/crozztube.source-resolver/` | Plugin-Quellcode (installierbar via ZIP); Frontend-Assets künftig unter `assets/` + `assets.scripts`/`assets.styles` in `plugin.json` |
-| `docker/compose.yml`, `docker/Dockerfile` | Stack (Ports, yt-dlp-Fix, cron-Autoupdate) |
+| `docker/plugin-src/crozztube.source-resolver/` | Plugin-Quellcode (installierbar via ZIP) |
+| `…/assets/watch-enhancer.js|css` | Mirror-Toggle, Banner, Polling, Auto-Reload |
+| `…/src/Support/Mirror.php` | provider-neutraler Mirror-Payload |
+| `…/src/Jobs/BaseSourceJob.php` | Lock, Debounce, `force`, `recoverStale` |
+| `…/src/Commands/RefreshExpiringSources.php`, `ProbeSources.php` | Wartungs-Jobs |
+| `…/src/PluginServiceProvider.php` | Routen, Commands, Scheduler |
+| `docker/compose.yml`, `docker/Dockerfile` | Stack (Ports, yt-dlp-Fix, Worker-Queue) |
 | `app/Models/Video.php`, `app/Http/Resources/VideoResource.php`, `app/Http/Controllers/Api/VideoController.php` | drei dokumentierte Core-Patches |
-| `storage/app/playhub-*.json` | Settings (Import-Provider, Upload-Rollen, Live) |
-| `Wiki/index.html` (+zugang/umgebung/konfiguration) | Klickbare Doku |
-| `HANDOFF.md` (dieses Dokument) | Stand + TODOs |
+| `tools/test/` | Harness + Playwright-Suiten |
+| `tools/dev/reinstall-plugin.sh` | ZIP-Build + Install-Zyklus |
+| `Wiki/` | Klickbare Doku (index/zugang/umgebung/konfiguration/tests) |
+| `HANDOFF.md` | dieses Dokument |
 
-## 6. Zielzustand (aus User-Anforderungen, unverändert gültig)
+## 7. Zielzustand (aus User-Anforderungen)
 
-1. Nur Streaming, keine Uploads (admin-only via `uploadRoles`), keine API-Keys ✓ (Umsetzung steht)
-2. Direkt-URL via yt-dlp = Pflicht-Primärpfad, eigener Player ✓ (v0.2.4, browserseitig vom User bestätigt)
-3. Embed immer als Mirror-Fallback + **umschaltbarer Button unter dem Video** → TODO A
-4. Auto-Refresh bei Ablauf/Abbruch, Warteschlangen-Banner für alle Nutzer, Reload wenn möglich → TODO C
-5. Download-Button zwischen Spezifikation und Userwunsch klären (siehe TODO B)
-6. Nachts gestaffelte Erreichbarkeits-/Refresh-Jobs ohne Serverlast → TODO D
+1. Nur Streaming, keine Uploads (admin-only via `uploadRoles`), keine API-Keys ✓
+2. Direkt-URL via yt-dlp = Pflicht-Primärpfad, eigener Player ✓
+3. Embed als Mirror-Fallback + umschaltbarer Button unter dem Video ✓ (provider-neutral)
+4. Auto-Refresh bei Ablauf/Abbruch, Banner für alle Nutzer, Reload wenn möglich ✓
+5. Kein Download-Button in der UI ✓ (Endpoint bleibt)
+6. Gestaffelte Nacht-/Expiry-Jobs ohne Serverlast ✓
+7. Test-Harness, das der Agent selbst komplett ausführen kann ✓
