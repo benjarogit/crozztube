@@ -71,7 +71,7 @@ Letzter vollständiger Lauf: **96 Checks + 5 Browser-Tests grün**.
 | `0774175` | Doku-Nachtrag v0.5.1 |
 | `16521f2` | Direct-MP4-Fix + `direct`-Suite (v0.5.2) |
 | `5f973db` | ffprobe-Dauer für direkte Dateien (v0.5.3) |
-| _ausstehend_ | yt-dlp-Metadaten-Engine, generische URLs, Health, Retry (v0.6.0) |
+| `7504660` | yt-dlp-Metadaten-Engine, generische URLs, Health, Retry (v0.6.0) |
 
 ### Live-Stand der Instanz
 - Vier importierte Videos (drei echte + Direct-MP4-Testsample ID 4), alle `fresh`. Die echten YouTube-Imports: `kind=hls-synth`, Manifeste HTTP 200 (6–8 Varianten), Segment-Passthrough geprüft. Das Testsample (ID 4) kann jederzeit gelöscht werden.
@@ -104,6 +104,14 @@ Serverseitig korrekt (`is_short`, Dauer). Offen: Darstellung in der Shorts-Ansic
 
 ### E5. Doku-Pflege
 Bei jeder Plugin-Version `plugin.json`-Version, Wiki und dieses Dokument mitziehen.
+
+### E6. yt-dlp-Ausbau (Roadmap)
+- **Erledigt (v0.6.0):** yt-dlp ist Metadaten-Engine für Importe; `direct` akzeptiert beliebige yt-dlp-URLs; Health-Endpoint; Retry/Backoff. Manuell verifiziert: YouTube-URL über `direct` importiert → Titel/Dauer aus yt-dlp, `hls-synth`, Mirror „Original“, Testvideo danach gelöscht.
+- **Metadaten-Backfill beim Refresh:** Der Resolver füllt bisher nur Dauer/Short. Titel/Beschreibung/Tags/Thumbnail/Kapitel aus `App\Support\YtDlp` nachziehen, wenn sie beim Import leer blieben.
+- **Kapitel:** yt-dlp-Kapitel landen in `chapters`; Darstellung im Player noch gegenprüfen.
+- **Frontend:** Import-Dialog liest Label/Help aus der API — kein Rebuild nötig. Admin-System-Settings haben noch eine hartkodierte Provider-Liste („Direct video URL“); kosmetisch, bei Gelegenheit angleichen.
+- **Fehlerklassifikation:** permanente vs. transiente yt-dlp-Fehler unterscheiden (Retry nur bei transienten).
+- **Auth/Geo:** Twitch/Instagram o. Ä. brauchen ggf. Cookies oder Login; vor Aktivierung klären.
 
 ## 5. Betriebs-KnowHow / Fallstricke
 
