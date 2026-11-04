@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zugänge — CrozzTube Wiki</title>
+<style>
+:root{--bg:#0f1115;--surface:#171a21;--line:#2a2f3a;--ink:#e7eaf0;--muted:#9aa3b2;--gold:#d9a83f}
+*{box-sizing:border-box}a{color:var(--gold)}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 system-ui,Arial,sans-serif}
+.wrap{max-width:900px;margin:0 auto;padding:40px 24px 80px}
+.crumbs{font-size:13px;color:var(--muted);margin-bottom:18px}
+h1{font-size:24px;margin:0 0 6px}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-size:12.5px;text-transform:uppercase;letter-spacing:.04em}
+code,kbd{background:#20242e;border:1px solid var(--line);border-radius:5px;padding:1px 6px;font:13px ui-monospace,Consolas,monospace}
+.box{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:16px 20px;margin:18px 0}
+.box.warn{border-left:4px solid #e6b455}
+footer{margin-top:50px;color:var(--muted);font-size:12.5px}
+</style></head><body><div class="wrap">
+<div class="crumbs"><a href="index.html">← Wiki-Start</a> / Zugang</div>
+<h1>🔐 Zugänge &amp; Verbindungsdaten</h1>
+
+<h2>Website &amp; Admin</h2>
+<table>
+<tr><th>Was</th><th>Wert</th></tr>
+<tr><td>Website (kann im Browser direkt geöffnet werden)</td><td><code>https://crozztube.local:8443</code> (self-signed → Ausnahme akzeptieren) · alternativ <code>http://127.0.0.1:8082</code></td></tr>
+<tr><td>Admin-Panel</td><td><code>https://crozztube.local:8443/admin</code></td></tr>
+<tr><td>Admin-Login</td><td>Benutzer: <code>benny</code> · Passwort: <code>meZVRW0bYEbpHsJc</code> · E-Mail: <b>benny@crozztube.local</b></td></tr>
+<tr><td>phpMyAdmin</td><td><code>http://127.0.0.1:8083</code> (Auto-Login als crozztube-User)</td></tr>
+<tr><td>MailHog (Mail-Preview)</td><td><code>http://127.0.0.1:8026</code></td></tr>
+</table>
+
+<h2>Datenbank / Redis</h2>
+<table>
+<tr><th>Was</th><th>Wert</th></tr>
+<tr><td>MySQL (Host:Port)</td><td><code>127.0.0.1:3308</code> — <strong>Achtung Port 3308, nicht 3306!</strong></td></tr>
+<tr><td>Schlüssel</td><td>DB <code>crozztube</code> · User <code>crozztube</code> / Pass <code>crozztube-local-db</code> · root: <code>crozztube-local-root</code></td></tr>
+<tr><td>Redis</td><td>nur innerhalb Container-Netz: Host <code>redis</code> Port <code>6379</code> → Pass <code>crozztube-local-redis</code></td></tr>
+<tr><td>Redis-Benutzung</td><td>DB <strong>2</strong> = LiveKit-Koordination (reserviert für später)</td></tr>
+</table>
+
+<h2>Lizenz</h2>
+<div class="box"><strong>KNL-Direct-Store-Lizenz (aktiviert, Domain crozztube.local):</strong><br>
+<code>KNL-169D-00FC-DA0D-BA8E-C450-6EF0-B982-1E1D</code><br>
+Receipt: <code>storage/app/license.json</code> · Verifikation: <code>verified_at 2026-11-04</code> · Re-Install gesperrt via <code>storage/app/installed.lock</code></div>
+
+<h2>RRessourcen-Ports (ständig belegt)</h2>
+<table>
+<tr><th>Port</th><th>Benutzt von</th></tr>
+<tr><td>8082 → 80</td><td>Web (Apache-Hauptvhost HTTP)</td></tr>
+<tr><td>8443 → 443</td><td>Web (HTTPS, self-signed)</td></tr>
+<tr><td>3308 → 3306</td><td>MySQL</td></tr>
+<tr><td>8083 → 80</td><td>phpMyAdmin</td></tr>
+<tr><td>1026 / 8026</td><td>MailHog SMTP / UI</td></tr>
+<tr><td>8090</td><td>benjaro-weiterleitung (separates Projekt — NICHT crozztube)</td></tr>
+</table>
+
+<div class="box warn">
+<strong>Nicht anfassen:</strong> <code>crozztube-audit-*</code> Container (separate Audit-Instanz unter <code>/home/benny/audit-instance</code>) — eigenes Setup, eigenes Netz.
+</div>
+
+<h2>Wichtigste Import-Ökonomie</h2>
+<div>
+Import-Adresse Konvention für Admin: Nur YouTube &amp; Direct-URL sind aktiv; Vimeo/Dailymotion/Twitch deaktiviert.
+Upload-Rolle: nur <code>admin</code>. Email-User: für Nutzer/Creator <strong>keine</strong> Upload-Möglichkeit.
+</div>
+
+<footer>CrozzTube Wiki · Stand 4. Nov 2026 · <a href="index.html">zurück zur Startseite</a></footer>
+</div></body></html>

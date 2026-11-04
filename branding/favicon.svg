@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" color="#D0AA58" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="PlayHub favicon">
+  <rect width="256" height="256" rx="48" fill="#050505"/>
+  <path
+    d="M82.58 34.87C63.93 24.12 40.64 37.58 40.64 59.11V196.89C40.64 218.42 63.93 231.88 82.58 221.13L202.02 152.24C220.71 141.47 220.71 114.53 202.02 103.76L82.58 34.87ZM91.68 80.99C83.77 76.43 73.89 82.14 73.89 91.27V164.73C73.89 173.86 83.77 179.57 91.68 175.01L155.29 138.28C163.21 133.71 163.21 122.29 155.29 117.72L91.68 80.99Z"
+    fill="currentColor"
+    fill-rule="evenodd"
+    clip-rule="evenodd"/>
+</svg>

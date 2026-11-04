@@ -1,0 +1,40 @@
+{
+    "liveStreaming": {
+        "enabled": false
+    },
+    "notifications": {
+        "newUsers": true,
+        "weeklyDigest": false,
+        "marketingEmails": false
+    },
+    "moderation": {
+        "autoApproveUsers": "email_verified",
+        "defaultVisibility": "public",
+        "uploadApproval": "automatic",
+        "profanityFilter": true
+    },
+    "uploads": {
+        "renditions": [
+            "original",
+            "high",
+            "medium",
+            "low"
+        ],
+        "defaultQuality": "auto",
+        "chaptersEnabled": true
+    },
+    "publishing": {
+        "uploadRoles": [
+            "admin"
+        ],
+        "liveRoles": [
+            "admin"
+        ],
+        "allowedUsers": ""
+    },
+    "maintenance": {
+        "enabled": false,
+        "message": "We'll be back soon.",
+        "allowedIps": ""
+    }
+}

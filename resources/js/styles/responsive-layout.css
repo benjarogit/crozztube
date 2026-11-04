@@ -1,0 +1,106 @@
+/* Keep the drawer and its header in the same viewport coordinate system. */
+@media (max-width: 860px) {
+  body .app-shell:not(.auth-layout):not(.admin-layout) {
+    --mobile-sidebar-width: min(286px, calc(100vw - 32px));
+  }
+  body .app-shell.mobile-nav-open > .topbar,
+  body .app-shell.sidebar-dragging > .topbar {
+    transform: translate3d(0, 0, 0) !important;
+    pointer-events: auto;
+  }
+  body .app-shell > .sidebar {
+    top: 64px !important;
+    width: var(--mobile-sidebar-width) !important;
+    max-width: calc(100vw - 32px);
+    height: calc(100vh - 64px) !important;
+    height: calc(100dvh - 64px) !important;
+    min-height: 0;
+  }
+  body .app-shell > .sidebar .side-scroll {
+    min-height: 0;
+    overscroll-behavior: contain;
+    padding-bottom: max(20px, env(safe-area-inset-bottom));
+  }
+  body .app-shell.sidebar-dragging > .sidebar {
+    transform: translate3d(calc(var(--sidebar-drag-width) - var(--mobile-sidebar-width)), 0, 0) !important;
+  }
+  body .app-shell.mobile-nav-open > .sidebar-drag-handle {
+    left: calc(var(--mobile-sidebar-width) - 8px) !important;
+  }
+  body .topbar .top-actions {
+    flex: 1 1 0;
+    min-width: 0;
+    width: auto;
+    max-width: none;
+    justify-content: flex-end;
+  }
+  .topbar .topbar-logo-button { min-width: 0; }
+  .page-heading > * { min-width: 0; max-width: 100%; }
+  .page-heading h1 { line-height: 1.15; }
+  .page-heading p { overflow-wrap: anywhere; }
+  .info-page,
+  .info-page section,
+  .info-page article,
+  .info-page aside,
+  .info-page-grid > *,
+  .info-page .info-mini-list > * { min-width: 0; }
+  .info-page h1,
+  .info-page h2,
+  .info-page p,
+  .info-page .managed-page-copy,
+  .info-page .info-breadcrumb,
+  .info-page .info-mini-list,
+  .info-page .info-real-list { overflow-wrap: anywhere; }
+  .info-page .info-breadcrumb { flex-wrap: wrap; }
+  .info-page .info-mini-list > div { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+  .info-page .info-mini-list > button {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 4px 10px;
+    text-align: start;
+  }
+  .info-page .info-mini-list > button > strong,
+  .info-page .info-mini-list > button > span {
+    grid-column: 1;
+    min-width: 0;
+  }
+  .info-page .info-mini-list span { text-align: start; }
+  .info-page .info-mini-list > button > svg { grid-column: 2; grid-row: 1 / span 2; }
+  .info-page .info-code-card pre {
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-wrap: anywhere;
+  }
+  .info-page .info-help-visual,
+  .info-page .info-faq-visual { max-width: 100%; }
+}
+
+@media (max-width: 360px) {
+  body .topbar { gap: 6px; }
+  body .topbar .top-actions { gap: 2px; }
+  body .topbar .mobile-search-trigger {
+    flex: 0 0 36px;
+    width: 36px;
+    min-width: 36px;
+    padding-inline: 0;
+    justify-content: center;
+  }
+  body .topbar .mobile-search-trigger > span { display: none; }
+}
+
+@media (max-width: 300px) {
+  body .topbar { gap: 4px; }
+  body .topbar > .menu-button {
+    flex: 0 0 36px;
+    width: 36px;
+    min-width: 36px;
+  }
+  body .topbar .top-actions .icon-button,
+  body .topbar .top-actions .avatar-button {
+    flex: 0 0 36px;
+    width: 36px;
+    min-width: 36px;
+    height: 36px;
+    padding: 0;
+  }
+  body .topbar .avatar-button .avatar { width: 36px; height: 36px; }
+}

@@ -1,0 +1,26 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Block direct access to Laravel internals when installed in domain root.
+    RewriteRule ^(app|bootstrap|config|database|plugins|resources|routes|server-configs|storage|tests|tools|vendor)(/|$) - [F,L]
+    RewriteRule ^(composer\.(json|lock)|package(-lock)?\.json|vite\.config\.js|artisan|\.env|README\.md|phpunit\.xml)$ - [F,L]
+    RewriteRule ^uploads/(videos|community/images|comments|messages|live-streams/(thumbnails|source))(/|$) - [F,L]
+
+    # Send Authorization header to PHP for Sanctum bearer tokens.
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    # Serve existing files/directories normally.
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # Laravel front controller.
+    RewriteRule ^ index.php [L]
+</IfModule>
+
+<IfModule mod_headers.c>
+    <FilesMatch "\.(js|css|png|jpg|jpeg|gif|svg|webp|ico|woff2?)$">
+        Header set Cache-Control "public, max-age=2592000"
+    </FilesMatch>
+</IfModule>

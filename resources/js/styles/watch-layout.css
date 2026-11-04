@@ -1,0 +1,119 @@
+/* Size the watch layout against the space remaining beside the navigation,
+   rather than the viewport: opening the sidebar must not squeeze the player. */
+.watch-layout-shell {
+  container: watch-layout / inline-size;
+  min-width: 0;
+  width: 100%;
+}
+
+.watch-layout-shell .watch-page {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 12px 24px 52px;
+  grid-template-columns: minmax(0, 1fr);
+  column-gap: 16px;
+  row-gap: 24px;
+}
+
+.watch-layout-shell .watch-primary,
+.watch-layout-shell .watch-sidebar {
+  min-width: 0;
+  grid-column: 1;
+  grid-row: auto;
+}
+
+.watch-layout-shell .watch-sidebar {
+  position: static;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  gap: 8px;
+}
+
+.watch-layout-shell .watch-sidebar > .section-title {
+  margin-bottom: 4px;
+}
+
+.watch-layout-shell .small-video-row {
+  grid-template-columns: clamp(120px, 42%, 168px) minmax(0, 1fr);
+  align-items: start;
+  gap: 10px;
+  padding: 4px 0;
+  border-radius: var(--radius-media);
+}
+
+.watch-layout-shell .small-video-row > div {
+  min-width: 0;
+}
+
+.watch-layout-shell .small-video-row .thumb {
+  border-radius: var(--radius-media);
+}
+
+.watch-layout-shell .small-video-row strong {
+  overflow-wrap: anywhere;
+}
+
+.watch-layout-shell .small-video-row span,
+.watch-layout-shell .small-video-row small {
+  margin-top: 2px;
+}
+
+.watch-layout-shell .watch-info h1 {
+  margin: 12px 0 4px;
+  font-size: 20px;
+  line-height: 1.4;
+  letter-spacing: -.025em;
+  overflow-wrap: anywhere;
+}
+
+.watch-layout-shell .watch-toolbar {
+  margin-top: 12px;
+  gap: 12px;
+}
+
+.watch-layout-shell .channel-identity {
+  margin-inline-end: 0;
+}
+
+.watch-layout-shell .action-bar {
+  margin-inline-start: auto;
+}
+
+.watch-layout-shell .description-card {
+  margin-top: 12px;
+  padding: 12px;
+}
+
+@container watch-layout (min-width: 1000px) {
+  .watch-layout-shell .watch-page {
+    grid-template-columns: minmax(0, 1fr) clamp(320px, 27cqw, 420px);
+  }
+
+  .watch-layout-shell .watch-primary {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .watch-layout-shell .watch-sidebar {
+    grid-column: 2;
+    grid-row: 1;
+    position: sticky;
+    top: calc(var(--topbar) + 12px);
+  }
+}
+
+@media (max-width: 860px) {
+  .watch-layout-shell .watch-page {
+    padding-top: 8px;
+    padding-left: max(12px, env(safe-area-inset-left));
+    padding-right: max(12px, env(safe-area-inset-right));
+    padding-bottom: 110px;
+  }
+
+  .watch-layout-shell .action-bar {
+    margin-inline-start: 0;
+  }
+}

@@ -1,0 +1,306 @@
+<?php
+
+namespace CrzSourceResolver;
+
+use App\Models\Video;
+use CrzSourceResolver\Jobs\RefreshSource;
+use CrzSourceResolver\Models\CrozztubeImportSource;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
+use Symfony\Component\HttpFoundation\StreamedResponse;
+
+class ResolverController extends Controller
+{
+    public function status(Request $request, int $videoId): JsonResponse
+    {
+        if (($check = $this->findImport($videoId)) instanceof JsonResponse) {
+            return $check;
+        }
+
+        return response()->json(['ok' => true, 'source' => $this->statePayload($videoId)]);
+    }
+
+    /**
+     * Loest einen Refresh der Direkt-URL aus (idempotent, Single-Flight im Job).
+     */
+    public function refresh(Request $request, int $videoId): JsonResponse
+    {
+        if (($check = $this->findImport($videoId)) instanceof JsonResponse) {
+            return $check;
+        }
+
+        RefreshSource::request($videoId);
+
+        return response()->json(['ok' => true, 'source' => $this->statePayload($videoId)]);
+    }
+
+    /**
+     * Download-Passthrough: streamt die best progressive MP4 direkt vom Original
+     * (kein Speichern, kein Re-Hosting). Fallback: 302 zur Original-URL.
+     */
+    public function download(Request $request, int $videoId): StreamedResponse|JsonResponse
+    {
+        if (($check = $this->findImport($videoId)) instanceof JsonResponse) {
+            return $check;
+        }
+
+        $row = CrozztubeImportSource::query()->where('video_id', $videoId)->first();
+        if (! $row || ! $row->hasDirectSource()) {
+            return response()->json(['ok' => false, 'message' => 'Direct source not resolved yet.'], 409);
+        }
+
+        if (! is_string($row->download_url) || $row->download_url === '') {
+            return response()->json(['ok' => false, 'message' => 'No progressive MP4 available (HLS-only source).'], 409);
+        }
+
+        $resolver = Resolver::instance();
+        if ($resolver && $resolver->downloadViaProxy()) {
+            $filename = $this->downloadFilename($video);
+
+            return response()->streamDownload(function () use ($row): void {
+                $this->streamRemote((string) $row->download_url, 120);
+            }, $filename, [
+                'Content-Type' => 'video/mp4',
+                'Cache-Control' => 'no-store',
+            ]);
+        }
+
+        return response()->redirectTo($row->download_url);
+    }
+
+    /**
+     * Synthetisches HLS-Master-Manifest: verbindet gespeicherte Video-Playlists
+     * mit der Audio-Playlist. Alle CDNs werden via /playlist-Proxy geladen
+     * (Passthrough, nichts gespeichert).
+     */
+    public function manifest(Request $request, int $videoId)
+    {
+        $row = CrozztubeImportSource::query()->where('video_id', $videoId)->first();
+
+        if (! $row
+            || $row->kind !== 'hls-synth'
+            || ! is_array($row->variants)
+            || $row->variants === []
+            || ! is_string($row->audio_url)
+            || $row->audio_url === '') {
+            return response()->json(['ok' => false, 'message' => 'No composite HLS source.'], 404);
+        }
+
+        $audioQuery = urlencode($row->audio_url);
+        $base = rtrim(url('api/source-resolver'), '/').'/playlist?url=';
+
+        $lines = ['#EXTM3U', '#EXT-X-VERSION:6'];
+        $lines[] = sprintf(
+            '#EXT-X-MEDIA:TYPE=AUDIO,GROUP-ID="audio",NAME="Audio",DEFAULT=YES,AUTOSELECT=YES,CODECS="mp4a.40.2",URI="%s"',
+            $base.$audioQuery
+        );
+
+        foreach ($row->variants as $variant) {
+            if (! is_array($variant) || ! isset($variant['url'])) {
+                continue;
+            }
+
+            $codes = (string) ($variant['codecs'] ?? '');
+            $resolution = (int) ($variant['width'] ?? 0) > 0 && (int) ($variant['height'] ?? 0) > 0
+                ? sprintf(',RESOLUTION=%dx%d', (int) $variant['width'], (int) $variant['height'])
+                : '';
+            $lines[] = sprintf(
+                '#EXT-X-STREAM-INF:BANDWIDTH=%d%s,CODECS="%s,mp4a.40.2",AUDIO="audio"',
+                (int) ($variant['bandwidth'] ?? 0) ?: 2000000,
+                $resolution,
+                $codes !== '' ? $codes : 'avc1.640029'
+            );
+            $lines[] = $base.urlencode((string) $variant['url']);
+        }
+
+        return response(implode("\n", $lines)."\n", 200, [
+            'Content-Type' => 'application/vnd.apple.mpegurl',
+            'Access-Control-Allow-Origin' => '*',
+            'Cache-Control' => 'no-store',
+        ]);
+    }
+
+    /**
+     * Passthrough einer HLS-Playlist vom allowlisteten CDN. Alle Segment-URLs
+     * in der Playlist werden auf /seg umgeschrieben (weiterhin Original-CDN).
+     */
+    public function playlist(Request $request)
+    {
+        $src = (string) $request->query('url', '');
+
+        if (! $this->allowedCdnUrl($src)) {
+            return response()->json(['ok' => false, 'message' => 'Blocked host.'], 403);
+        }
+
+        return response()->streamDownload(function () use ($src): void {
+            $playlist = $this->fetchRemote($src, 25);
+
+            if ($playlist === false || $playlist === '') {
+                echo "#EXTM3U\n";
+
+                return;
+            }
+
+            $prefix = rtrim(url('api/source-resolver'), '/');
+
+            foreach (preg_split('/\R/', $playlist) as $line) {
+                $line = rtrim((string) $line);
+
+                if ($line === '') {
+                    continue;
+                }
+
+                if ($line[0] === '#') {
+                    echo preg_replace_callback(
+                        '/URI="([^"]+)"/',
+                        fn (array $matches): string => str_starts_with($matches[1], 'http')
+                            ? 'URI="'.$prefix.'/seg?url='.urlencode($matches[1]).'"'
+                            : $matches[0],
+                        $line
+                    )."\n";
+
+                    continue;
+                }
+
+                echo str_starts_with($line, 'http')
+                    ? $prefix.'/seg?url='.urlencode($line)."\n"
+                    : $line."\n";
+            }
+        }, 'playlist.m3u8', [
+            'Content-Type' => 'application/vnd.apple.mpegurl',
+            'Access-Control-Allow-Origin' => '*',
+            'Cache-Control' => 'no-store',
+        ]);
+    }
+
+    /**
+     * Passthrough einzelner Mediensegmente (HLS.js xhr). Kein Speichern.
+     */
+    public function segment(Request $request)
+    {
+        $src = (string) $request->query('url', '');
+
+        if (! $this->allowedCdnUrl($src)) {
+            return response()->json(['ok' => false, 'message' => 'Blocked host.'], 403);
+        }
+
+        return response()->streamDownload(function () use ($src): void {
+            $this->streamRemote($src, 60);
+        }, 'segment.mp4', [
+            'Content-Type' => 'video/mp4',
+            'Access-Control-Allow-Origin' => '*',
+            'Cache-Control' => 'no-store',
+        ]);
+    }
+
+    /**
+     * Laedt eine Remote-Ressource komplett (kleine Playlists).
+     */
+    private function fetchRemote(string $src, int $timeoutSec): string|false
+    {
+        $handle = $this->curlFor($src, $timeoutSec, true);
+
+        $body = curl_exec($handle);
+
+        curl_close($handle);
+
+        return is_string($body) ? $body : false;
+    }
+
+    /**
+     * Streamt eine Remote-Ressource direkt in den Response (kein Speichern).
+     */
+    private function streamRemote(string $src, int $timeoutSec): void
+    {
+        $handle = $this->curlFor($src, $timeoutSec, false);
+
+        curl_exec($handle);
+        curl_close($handle);
+    }
+
+    private function curlFor(string $src, int $timeoutSec, bool $returnTransfer): \CurlHandle
+    {
+        $handle = curl_init($src);
+        curl_setopt_array($handle, [
+            CURLOPT_RETURNTRANSFER => $returnTransfer,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_MAXREDIRS => 3,
+            CURLOPT_TIMEOUT => $timeoutSec,
+            CURLOPT_CONNECTTIMEOUT => 10,
+            CURLOPT_HEADER => false,
+            CURLOPT_HTTPHEADER => ['Accept: */*', 'User-Agent: Mozilla/5.0 (X11; Linux x86_64)'],
+        ]);
+
+        if (! $returnTransfer) {
+            curl_setopt_array($handle, [
+                CURLOPT_WRITEFUNCTION => function ($handle, string $data): int {
+                    echo $data;
+
+                    if (connection_aborted()) {
+                        return -1;
+                    }
+
+                    return strlen($data);
+                },
+            ]);
+        }
+
+        return $handle;
+    }
+
+    private function allowedCdnUrl(string $src): bool
+    {
+        $parts = parse_url($src);
+
+        if (($parts['scheme'] ?? '') !== 'https') {
+            return false;
+        }
+
+        $host = (string) ($parts['host'] ?? '');
+
+        return str_ends_with($host, '.googlevideo.com');
+    }
+
+    private function findImport(int $videoId): Video|JsonResponse
+    {
+        $video = Video::query()->find($videoId);
+        if (! $video || $video->source_type !== 'import') {
+            return response()->json(['ok' => false, 'message' => 'Not an imported video.'], 404);
+        }
+
+        return $video;
+    }
+
+    private function statePayload(int $videoId): array
+    {
+        $row = CrozztubeImportSource::query()->where('video_id', $videoId)->first();
+        if (! $row) {
+            return [
+                'state' => 'unknown',
+                'kind' => null,
+                'has_direct' => false,
+                'refreshing' => false,
+                'downloadable' => false,
+                'error_message' => null,
+            ];
+        }
+
+        return [
+            'state' => $row->state,
+            'kind' => $row->kind,
+            'has_direct' => $row->hasDirectSource(),
+            'fresh' => $row->isFresh(),
+            'refreshing' => $row->state === 'refreshing',
+            'error_message' => $row->state === 'error' ? $row->error_message : null,
+            'downloadable' => $row->hasDirectSource() && is_string($row->download_url) && $row->download_url !== '',
+        ];
+    }
+
+    private function downloadFilename(Video $video): string
+    {
+        $base = trim((string) $video->title) ?: 'crozztube-video';
+
+        return preg_replace('/[^\w\-. ]+/u', '', $base).'.mp4';
+    }
+}

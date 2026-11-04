@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Umgebung — CrozzTube Wiki</title>
+<style>
+:root{--bg:#0f1115;--surface:#171a21;--line:#2a2f3a;--ink:#e7eaf0;--muted:#9aa3b2;--gold:#d9a83f}
+*{box-sizing:border-box}a{color:var(--gold)}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 system-ui,Arial,sans-serif}
+.wrap{max-width:900px;margin:0 auto;padding:40px 24px 80px}
+.crumbs{font-size:13px;color:var(--muted);margin-bottom:18px}
+h1{font-size:24px;margin:0 0 6px}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-size:12.5px;text-transform:uppercase;letter-spacing:.04em}
+code,pre{background:#20242e;border:1px solid var(--line);border-radius:5px}
+code{padding:1px 6px;font:13px ui-monospace,Consolas,monospace}
+pre{padding:14px 16px;overflow:auto;font:13px/1.55 ui-monospace,Consolas,monospace}
+.box{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:16px 20px;margin:18px 0}
+.box.warn{border-left:4px solid #e6b455}.box.good{border-left:4px solid #4cc38a}
+footer{margin-top:50px;color:var(--muted);font-size:12.5px}
+</style></head><body><div class="wrap">
+<div class="crumbs"><a href="index.html">← Wiki-Start</a> / Umgebung</div>
+<h1>🖥️ Umgebung &amp; Stack</h1>
+
+<h2>Compose-Projekt „crozztube-local“</h2>
+<p>Datei <code>crozztube/docker/compose.yml</code> · Image <code>crozztube-playhub-web:latest</code> (PHP 8.3 + FFmpeg + Node 20 + docker-cli + imagick + redis-ext)</p>
+<table>
+<tr><th>Service (Container)</th><th>Rolle</th><th>Details</th></tr>
+<tr><td>crozztube-web</td><td>Apache + PHP 8.3 (App)</td><td>127.0.0.1:8082→80, 127.0.0.1:8443→443; docker-socket gemountet (für LiveKit-Runtime); php.ini mit 1024M/2048M Upload</td></tr>
+<tr><td>crozztube-mysql</td><td>MySQL 8.0.46</td><td>Port 3308; Volume <code>crozztube-playhub_mysql-data</code></td></tr>
+<tr><td>crozztube-redis</td><td>Redis 7</td><td>intern; Passwort <code>crozztube-local-redis</code></td></tr>
+<tr><td>crozztube-worker</td><td>Queue-Worker</td><td><code>queue:work --queue=videos,default</code> (Profile <code>runtime</code>)</td></tr>
+<tr><td>crozztube-cron</td><td>Scheduler</td><td><code>schedule:run</code> jede Minute (Profile <code>runtime</code>)</td></tr>
+<tr><td>crozztube-phpmyadmin</td><td>DB-UI</td><td>Port 8083</td></tr>
+<tr><td>crozztube-mailhog</td><td>Mail-Sink</td><td>Ports 1026/8026</td></tr>
+</table>
+
+<h2>Befehle</h2>
+<pre>cd "/mnt/intern-1tb/Projekte - Vibe Coding/crozztube/docker"
+
+docker compose --profile runtime up -d        # alles starten (inkl. Worker/Cron)
+docker compose --profile runtime down         # stoppen, Volumes bleiben
+docker logs -f crozztube-web                  # App-Logs
+docker logs -f crozztube-worker               # Queue-Logs
+docker exec crozztube-web tail -f /var/www/html/storage/logs/laravel.log</pre>
+
+<h2>Runtime-Refresh (nach .env / Config-Änderungen)</h2>
+<pre>docker exec crozztube-web php artisan optimize:clear
+docker exec crozztube-web php artisan queue:restart</pre>
+
+<h2>Wichtige Pfade im App-Root</h2>
+<table>
+<tr><th>Pfad</th><th>Beinhaltet</th></tr>
+<tr><td><code>.env</code></td><td>APP_URL=<code>https://crozztube.local:8443</code>, DB/Redis, MAIL_MAILER=log</td></tr>
+<tr><td><code>storage/app/playhub-features.json</code></td><td>Upload-Rollen, Live-Schalter, Moderation</td></tr>
+<tr><td><code>storage/app/playhub-video-import.json</code></td><td>Import-Provider-Whitelist</td></tr>
+<tr><td><code>storage/app/playhub-live-streaming.json</code></td><td>Live-Streaming-Masterswitch</td></tr>
+<tr><td><code>storage/app/license.json</code></td><td>Signierte Lizenz (KNL)</td></tr>
+<tr><td><code>plugins/</code></td><td>Plugin-Pakete (Quelle für source-resolver)</td></tr>
+<tr><td><code>docker/certs/</code></td><td>Self-signed (localhost, crozztube.local, 127.0.0.1 — 825 Tage)</td></tr>
+</table>
+
+<h2>Ist-Historie / Setup</h2>
+<div class="box"><strong>4. Nov 2026</strong> — frische Installation (PlayHub-0.9.13-Paket nach crozztube kopiert, Docker-Stack aufgebaut, Web-Installer mit KNL-Lizenz &amp; DB <code>crozztube</code> / Redis DB 2 durchgelaufen). Alter crozztube-Stack (inkl. Container, Volume <code>crozztube-local_clip-jobs</code>) wurde entfernt; Audit-Instanz unangetastet.</div>
+
+<h2>Troubleshooting</h2>
+<div class="box warn">
+<strong>TLS-Fehler „wrong version number“ beim Aufruf:</strong> SSL-Vhost war nicht enabled. Fix (falls Container neu gebaut): <code>docker exec crozztube-web a2ensite 000-default &amp;&amp; docker exec crozztube-web apachectl graceful</code>. Im Image-Snapshot ist das seit dem Dockerfile-Fix dauerhaft behoben (kein <code>a2dissite</code> mehr).
+</div>
+<div class="box warn">
+<strong>Installer/„session expired“:</strong> Cookie + X-Installer-Token gehören zusammen; Token aus der aktuell geladenen install.php nehmen (csrfToken=...). Nach Container-Rebuild neue Session holen.
+</div>
+<div class="box good">
+<strong>CLI-Checks für Settings</strong> (in Container, ohne artisan):
+<code>php -r 'require "vendor/autoload.php"; require "bootstrap/app.php"; echo json_encode(App\Support\VideoImportSettings::publicSettings());'</code>
+</div>
+
+<footer>CrozzTube Wiki · Stand 4. Nov 2026 · <a href="index.html">zurück zur Startseite</a></footer>
+</div></body></html>

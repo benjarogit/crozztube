@@ -1,0 +1,34 @@
+# Dependencies (reproducible via composer.lock / package-lock.json)
+/vendor/
+/node_modules/
+
+# Environment & secrets
+/.env
+/.env.*.local
+/docker/certs/
+/storage/app/license.json
+/storage/app/private/
+
+# Runtime state
+/storage/app/plugins/
+/storage/app/npm-cache/
+/storage/app/plugin-installs/
+/storage/app/installed.lock
+/storage/logs/*
+!/storage/logs/.gitkeep
+/storage/framework/*
+!/storage/framework/.gitkeep
+/storage/debugbar/
+/uploads/*
+!/uploads/.gitkeep
+/bootstrap/cache/*.php
+
+# Build/test artifacts
+/tools/test/.artifacts/
+/tools/test/ui/test-results/
+/tools/test/ui/playwright-report/
+/tools/test/ui/node_modules/
+.phpunit.cache/
+.phpunit.result.cache
+*.log
+.DS_Store

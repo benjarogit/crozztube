@@ -1,0 +1,111 @@
+# Repository defaults only. Admin saves generate runtime/docker-compose.yml
+# using the configured ports; use that file for an existing installation.
+name: playhub-livekit
+
+services:
+  livekit:
+    image: livekit/livekit-server:v1.13.3
+    container_name: playhub-livekit
+    user: "0:0"
+    entrypoint: ["/bin/sh", "/playhub/livekit/entrypoint.sh"]
+    networks:
+      - livekit
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "127.0.0.1:7880:7880/tcp"
+      - "7881:7881/tcp"
+      - "50000-60000:50000-60000/udp"
+      - "3478:3478/udp"
+      # Existing advanced-config relay defaults, split around the TURN listener.
+      # Local Desktop validation uses admin-generated, deliberately narrowed ranges.
+      - "1024-3477:1024-3477/udp"
+      - "3479-30000:3479-30000/udp"
+    restart: unless-stopped
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    cap_add:
+      - DAC_OVERRIDE
+      - DAC_READ_SEARCH
+    tmpfs:
+      - /tmp:size=64m,mode=1777
+    environment:
+      LIVEKIT_CONFIG_FILE: /playhub/livekit/runtime/livekit.yaml
+      LIVEKIT_KEYS_FILE: /playhub/livekit/runtime/keys.yaml
+      LIVEKIT_RESTART_TRIGGER: /playhub/livekit/runtime/restart.trigger
+      LIVEKIT_STATUS_FILE: /playhub/livekit/status/docker-status.json
+      LIVEKIT_LOG_FILE: /playhub/livekit/logs/livekit.log
+      LIVEKIT_CONTAINER_NAME: playhub-livekit
+      LIVEKIT_DOCKER_IMAGE: livekit/livekit-server:v1.13.3
+    volumes:
+      - ./runtime/livekit.yaml:/playhub/livekit/runtime/livekit.yaml:ro
+      - ./runtime/keys.yaml:/playhub/livekit/runtime/keys.yaml:ro
+      - ./runtime/restart.trigger:/playhub/livekit/runtime/restart.trigger:ro
+      - ./runtime/certs:/playhub/livekit/certificates:ro
+      - ./runtime/status:/playhub/livekit/status
+      - ./runtime/logs:/playhub/livekit/logs
+      - ./entrypoint.sh:/playhub/livekit/entrypoint.sh:ro
+    ulimits:
+      nofile:
+        soft: 65535
+        hard: 65535
+
+  ingress:
+    image: livekit/ingress:v1.5.0
+    container_name: playhub-livekit-ingress
+    depends_on:
+      - livekit
+    networks:
+      - livekit
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "1936:1936/tcp"
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp:size=512m,mode=1777
+    environment:
+      INGRESS_CONFIG_FILE: /playhub/livekit/runtime/ingress.yaml
+      XDG_CACHE_HOME: /tmp/.cache
+    command: ["--config", "/playhub/livekit/runtime/ingress.yaml"]
+    volumes:
+      - ./runtime/ingress.yaml:/playhub/livekit/runtime/ingress.yaml:ro
+    ulimits:
+      nofile:
+        soft: 65535
+        hard: 65535
+
+  egress:
+    image: livekit/egress:v1.13.0
+    container_name: playhub-livekit-egress
+    depends_on:
+      - livekit
+    networks:
+      - livekit
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "127.0.0.1:7981:7981/tcp"
+    restart: unless-stopped
+    shm_size: 1gb
+    cap_add:
+      - SYS_ADMIN
+    environment:
+      EGRESS_CONFIG_FILE: /playhub/livekit/runtime/egress.yaml
+      XDG_CACHE_HOME: /tmp/.cache
+    volumes:
+      - ./runtime/egress.yaml:/playhub/livekit/runtime/egress.yaml:ro
+      - ../uploads/live-streams:/out
+    ulimits:
+      nofile:
+        soft: 65535
+        hard: 65535
+
+networks:
+  livekit:
+    driver: bridge

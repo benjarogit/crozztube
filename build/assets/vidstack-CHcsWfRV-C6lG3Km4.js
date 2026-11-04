@@ -1,0 +1,1 @@
+import{H as t,s as r,k as s}from"./video-8Qir6IVr.js";var o=class extends t{$$PROVIDER_TYPE="AUDIO";get type(){return"audio"}airPlay;constructor(i,e){super(i,e),r(()=>{this.airPlay=new s(this.media,e)},this.scope)}setup(){super.setup(),this.type==="audio"&&this.ctx.notify("provider-setup",this)}get audio(){return this.media}};export{o as AudioProvider};

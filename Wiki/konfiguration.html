@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Konfiguration — CrozzTube Wiki</title>
+<style>
+:root{--bg:#0f1115;--surface:#171a21;--line:#2a2f3a;--ink:#e7eaf0;--muted:#9aa3b2;--gold:#d9a83f;--ok:#4cc38a;--warn:#e6b455;--bad:#e57d7d}
+*{box-sizing:border-box}a{color:var(--gold)}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 system-ui,Arial,sans-serif}
+.wrap{max-width:950px;margin:0 auto;padding:40px 24px 80px}
+.crumbs{font-size:13px;color:var(--muted);margin-bottom:18px}
+h1{font-size:24px;margin:0 0 6px}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-size:12.5px;text-transform:uppercase;letter-spacing:.04em}
+code,pre{background:#20242e;border:1px solid var(--line);border-radius:5px}
+code{padding:1px 6px;font:13px ui-monospace,Consolas,monospace}
+pre{padding:14px 16px;overflow:auto;font:13px/1.55 ui-monospace,Consolas,monospace}
+.box{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:16px 20px;margin:18px 0}
+.badge{display:inline-block;padding:2px 9px;border-radius:99px;font-size:12px;font-weight:700}
+.b-ok{background:rgba(76,195,138,.15);color:var(--ok)}.b-warn{background:rgba(230,180,85,.15);color:var(--warn)}.b-bad{background:rgba(229,125,125,.15);color:var(--bad)}
+h2{border-bottom:1px solid var(--line);padding-bottom:8px;margin-top:38px;font-size:20px}
+footer{margin-top:50px;color:var(--muted);font-size:12.5px}
+</style></head><body><div class="wrap">
+<div class="crumbs"><a href="index.html">← Wiki-Start</a> / Konfiguration</div>
+<h1>⚙️ Konfiguration — aktive/deaktive Features</h1>
+<p><strong>Leitlinie:</strong> Keine Ergebnisseiten auf eigene Uploads. Alles wird importiert (via Direct-URL oder YouTube keyless-Import); Playback aus der Original-ID-Domain via yt-dlp-gelöster Direkt-URL (eigener Player, HLS bevorzugt, MP4 fallback). Provider-Embed immer als Mirror-Fallback.</p>
+
+<h2>1. Uploads / Moderation <span class="badge b-ok">UMGESETZT</span></h2>
+<table>
+<tr><th>Einstellung</th><th>Wert</th></tr>
+<tr><td>Upload-Rollen (<code>publishing.uploadRoles</code>)</td><td><code>["admin"]</code> — Nutzer und Creator <strong>können nichts hochladen</strong></td></tr>
+<tr><td>Live-Rollen (<code>publishing.liveRoles</code>)</td><td><code>["admin"]</code></td></tr>
+<tr><td>Moderation</td><td>default Sichtbarkeit <code>public</code>, auto-approve (kein moderierender Website-Bedarf, da keine Uploads)</td></tr>
+<tr><td>Datei</td><td><code>storage/app/playhub-features.json</code></td></tr>
+</table>
+
+<h2>2. Live-Streaming / LiveKit <span class="badge b-ok">UMGESETZT</span> <span class="badge b-warn">Re-Enable dokumentiert</span></h2>
+<table>
+<tr><th>Einstellung</th><th>Wert</th></tr>
+<tr><td>Live-Streaming-Masterswitch (<code>playhub-live-streaming.json</code>)</td><td><code>enabled: false</code></td></tr>
+<tr><td>Feature-Schalter (<code>playhub-features.json → liveStreaming.enabled</code>)</td><td><code>false</code></td></tr>
+<tr><td>LiveKit-ARS-runtime (<code>livekit/runtime/settings.json</code>)</td><td>nicht erstellt — Runtime NICHT installiert (docker-Socket ist trotzdem gemountet)</td></tr>
+</table>
+<div class="box"><strong>Wiederaufbau für Creator-Livestreams (Zukunft):</strong>
+<code>sudo livekit/install.sh</code> im App-Root ausführen (richtet playhub-livekit + ingress + egress Compose-Stack auf); danach Admin → System Settings → Live Streaming und Feature-Schalter true setzen. Redis DB 2 ist bereits dafür reserviert.</div>
+
+<h2>3. Import-Provider <span class="badge b-ok">UMGESETZT</span></h2>
+<table>
+<tr><th>Provider</th><th>Status</th><th>API-Key</th><th>Begründung</th></tr>
+<tr><td>Direct video URL</td><td>AN</td><td>–</td><td>„Mirror“: speichert Original-URL und spielt sie direkt (HLS/DASH/MP4) im eigenen Player</td></tr>
+<tr><td>YouTube</td><td>AN</td><td><strong>kein</strong> (Keyless-Scraping-Fallback)</td><td>Metadaten/Thumbnail/Kapitel/Tags aus offizieller Seite (Scraping); Playback YouTube-Embed — wird später MIRROR, Direkt-URL kommt aus yt-dlp-Resolver</td></tr>
+<tr><td>Vimeo</td><td>AUS</td><td>–</td><td>niemals benötigt</td></tr>
+<tr><td>Dailymotion</td><td>AUS</td><td>–</td><td>niemals benötigt</td></tr>
+<tr><td>Twitch</td><td>AUS</td><td>–</td><td>aktuell nicht gebraucht (re-aktivierbar)</td></tr>
+</table>
+<p>Datei: <code>storage/app/playhub-video-import.json</code> · yt-dlp-Pfad des Kerns („Download import“) bleibt inaktiv — Resolver-Plugin übernimmt.</p>
+
+<h2>4. Queues &amp; Scheduler <span class="badge b-ok">AN</span></h2>
+<p>Worker (<code>videos,default</code> und Scheduler laufen (Container crozztube-worker / crozztube-cron) — wird für Video-Import-Metadaten-/Bitmap-Jobs und spätere Resolver-Refresh-Jobs gebraucht.</p>
+
+<h2>5. yt-dlp Source-Resolver (Plugin) <span class="badge b-ok">FERTIG · v0.2.4</span></h2>
+<p><strong>Implementiert:</strong><br>
+<strong>A) Direkt-URL via yt-dlp = Pflicht.</strong> Beim Import (POST <code>/api/video-imports</code>) wird der Job <code>ResolveImportSource</code> dispatcht. yt-dlp (<code>-J</code>, keyless) liefert Metadaten + Direkt-URL. Auswahl: HLS-Manifest bevorzugt → sonst progressive MP4.<br>
+<strong>YouTube-Sonderfall (SABR/DASH):</strong> YouTube liefert kein muxed MP4 mehr und kein Master-Manifest. Das Plugin baut deshalb ein <strong>synthetisches HLS-Master-Manifest</strong> (<code>/api/source-resolver/manifest/{id}</code>): es verbindet die separates Video-Playlists (144p–2160p, AVC/VP9) mit der AAC-Audio-Playlist (itag 233/234) zu einer gültigen Master-Playlist. Segmente streamen per <strong>Passthrough-Proxy</strong> (<code>/api/source-resolver/playlist</code> + <code>/seg</code>, googlevideo-Allowlist) direkt vom Original-CDN — <strong>nichts wird gespeichert oder re-gehostet</strong>, der Proxy existiert nur, weil googlevideo kein CORS sendet.</p>
+<table>
+<tr><th>Endpoint (Plugin-Routen)</th><th>Zweck</th></tr>
+<tr><td><code>GET /api/source-resolver/status/{videoId}</code></td><td>State für Ajax-Banner (fresh/refreshing/error, downloadable)</td></tr>
+<tr><td><code>POST /api/source-resolver/refresh/{videoId}</code></td><td>Refresh anstoßen (idempotent, Single-Flight)</td></tr>
+<tr><td><code>GET /api/source-resolver/manifest/{videoId}</code></td><td>Synthetisches HLS-Master-Manifest</td></tr>
+<tr><td><code>GET /api/source-resolver/playlist?url=…</code></td><td>CDN-Playlist-Passthrough + Segment-URL-Rewrite</td></tr>
+<tr><td><code>GET /api/source-resolver/seg?url=…</code></td><td>CDN-Segment-Streampassthrough (nur <code>*.googlevideo.com</code>)</td></tr>
+<tr><td><code>GET /api/source-resolver/download/{videoId}</code></td><td>Download-Passthrough (beste MP4); 409 bei HLS-only → Button versteckt</td></tr>
+</table>
+<p><strong>B) Ablauf-Refresh:</strong> TTL wird aus den <code>expire=</code>-Parametern der gespeicherten CDN-URLs berechnet (YouTube ~6 h). Ablauf → State <code>stale</code> → Reload/Watch-Seite triggert <code>RefreshSource</code>; <strong>Single-Flight-Lock</strong> (Cache-Lock 600 s + Dispatch-Guard 30 s) verhindert parallele Doppel-Refreshes; Refresh in einer Minute</p>
+<p><strong>C) Embed-Mirror-Fallback:</strong> Liefert der Resolver nichts (State error/refreshing), liefert <code>VideoSources</code> leer → PlayHub fällt auf YouTube-Embed zurück. Eigener Player hat mit frischer Quelle immer Priorität (Patch in <code>app/Http/Resources/VideoResource.php</code>).</p>
+<p><strong>D) Download-Button:</strong> nur aktiv, wenn <code>downloadable=true</code> (progressive MP4 existiert). YouTube = HLS-only → 409, Button versteckt. Passthrough mit <code>Content-Disposition</code>, kein Cache.</p>
+<div class="box warn"><strong>Betriebshinweise:</strong> yt-dlp ist im Image (2026.10.26) und wird vom cron-Container täglich aktualisiert (Marker <code>/tmp/.crz-yt-dlp-last-update</code>). Nach Plugin-Updates: <code>php artisan queue:restart</code> (Worker lädt Job-Klassen sonst nicht). DB-Tabelle: <code>crozztube_import_sources</code> (Spalten u. a. media_url, variants, audio_url, expires_at).</p>
+</div>
+
+<footer>CrozzTube Wiki · Stand 4. Nov 2026 · <a href="index.html">zurück zur Startseite</a></footer>
+</div></body></html>

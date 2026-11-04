@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CrozzTube Wiki — Start</title>
+<style>
+:root{--bg:#0f1115;--surface:#171a21;--line:#2a2f3a;--ink:#e7eaf0;--muted:#9aa3b2;--gold:#d9a83f;--ok:#4cc38a;--warn:#e6b455;--bad:#e57d7d}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 system-ui,Arial,sans-serif}
+.wrap{max-width:900px;margin:0 auto;padding:40px 24px 80px}
+header.top{display:flex;align-items:center;gap:14px;margin-bottom:8px}
+.logo{width:46px;height:46px;border-radius:10px;background:var(--gold);color:#111;display:grid;place-items:center;font-weight:900;font-size:22px}
+h1{margin:0;font-size:26px}
+.sub{color:var(--muted);margin:2px 0 28px}
+nav.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:24px 0}
+a.card{display:block;padding:18px;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink);text-decoration:none;transition:.15s}
+a.card:hover{border-color:var(--gold);transform:translateY(-2px)}
+a.card h3{margin:0 0 6px;font-size:16px;color:var(--gold)}a.card p{margin:0;color:var(--muted);font-size:13.5px}
+.box{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:18px 20px;margin:18px 0}
+.box.good{border-left:4px solid var(--ok)}.box.warn{border-left:4px solid var(--warn)}.box.bad{border-left:4px solid var(--bad)}
+code,kbd{background:#20242e;border:1px solid var(--line);border-radius:5px;padding:1px 6px;font:13px ui-monospace,Consolas,monospace}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:14px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-size:12.5px;text-transform:uppercase;letter-spacing:.04em}
+.badge{display:inline-block;padding:2px 9px;border-radius:99px;font-size:12px;font-weight:700}
+.b-ok{background:rgba(76,195,138,.15);color:var(--ok)}.b-warn{background:rgba(230,180,85,.15);color:var(--warn)}.b-bad{background:rgba(229,125,125,.15);color:var(--bad)}
+h2{border-bottom:1px solid var(--line);padding-bottom:8px;margin-top:40px;font-size:20px}
+footer{margin-top:60px;color:var(--muted);font-size:12.5px}
+</style>
+</head>
+<body><div class="wrap">
+<header class="top"><div class="logo">C</div><div><h1>CrozzTube Wiki</h1></div></header>
+<p class="sub">Lokale Installations-Dokumentation · PlayHub 0.9.13 · aktualisiert 4. Nov 2026</p>
+
+<div class="box good">
+<strong>State: läuft.</strong> <span class="badge b-ok">ONLINE</span>
+&nbsp;<code>https://crozztube.local:8443</code> &nbsp; Health: <code>{"status":"ok","version":"0.9.13"}</code>
+&nbsp;·&nbsp; Resolver <span class="badge b-ok">aktiv v0.2.4</span>
+</div>
+
+<div class="box warn">
+<strong>Projekt-Ziel (bleibt stehen bis alle Blöcke umgesetzt):</strong><br>
+<strong>Nur Streaming · keine eigenen Uploads · keine API-Keys.</strong>
+Jedem importierten Video liegt eine <strong>Direkt-URL</strong> zugrunde (via <strong>yt-dlp</strong> aufgelöst, im eigenen Player, HLS bevorzugt + MP4-Fallback); der offizielle Provider-Embed (z.&nbsp;B. YouTube) ist immer als Mirror-Fallback vorhanden. URL-Refresh bei Ablauf mit Single-Flight-Lock. Download-Button für User (beste progressive MP4, versteckt wenn nur HLS). Vimeo/Dailymotion/Twitch deaktiviert.
+</div>
+
+<nav class="cards">
+<a class="card" href="zugang.html"><h3>🔐 Zugang</h3><p>URLs, Logins, Ports, Lizenz, MySQL/Redis</p></a>
+<a class="card" href="umgebung.html"><h3>🖥️ Umgebung</h3><p>Docker-Stack, Volumes, Befehle, Troubleshooting</p></a>
+<a class="card" href="konfiguration.html"><h3>⚙️ Konfiguration</h3><p>Alle aktiven/deaktivierten Features mit Begründung</p></a>
+</nav>
+
+<h2>Status der Ausrichtung (Streaming-Only-Umbau)</h2>
+<table>
+<tr><th>Baustein</th><th>Stand</th></tr>
+<tr><td>Basis-Konfiguration (Uploads→admin-only, LiveKit aus, Provider-Whitelist)</td><td><span class="badge b-ok">erledigt</span></td></tr>
+<tr><td>Wiki-Doku (diese Seiten)</td><td><span class="badge b-ok">erledigt</span></td></tr>
+<tr><td>Plugin <code>crozztube.source-resolver</code> (yt-dlp Direkt-URL, synth. HLS-Master + Passthrough-Proxy, Refresh-Lock, Embed-Fallback)</td><td><span class="badge b-ok">erledigt</span> <span class="badge b-ok">getestet</span></td></tr>
+<tr><td>Download-Button (beste MP4, versteckt bei HLS-only)</td><td><span class="badge b-ok">erledigt</span> (YouTube → HLS-only → Button versteckt)</td></tr>
+<tr><td>End-to-End-Tests (Import→Playback, Refresh, Fallback)</td><td><span class="badge b-ok">erledigt</span> (Manifest/Playlist/Segmente verifiziert)</td></tr>
+</table>
+
+<footer>CrozzTube · lokale Instanz · Quellpaket: «PlayHub web v0.9.13» · Lizenz: KNL-Direct-Store (aktiviert, Domain crozztube.local)</footer>
+</div></body></html>

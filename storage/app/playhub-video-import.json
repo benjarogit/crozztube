@@ -1,0 +1,26 @@
+{
+    "enabled": true,
+    "downloaderCommand": "yt-dlp",
+    "providers": {
+        "direct": {
+            "enabled": true,
+            "apiKey": ""
+        },
+        "youtube": {
+            "enabled": true,
+            "apiKey": ""
+        },
+        "vimeo": {
+            "enabled": false,
+            "apiKey": ""
+        },
+        "dailymotion": {
+            "enabled": false,
+            "apiKey": ""
+        },
+        "twitch": {
+            "enabled": false,
+            "apiKey": ""
+        }
+    }
+}

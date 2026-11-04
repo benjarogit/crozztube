@@ -1,0 +1,117 @@
+name: crozztube-local
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: crozztube-playhub-web:latest
+    container_name: crozztube-web
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8082:80"
+      - "127.0.0.1:8443:443"
+    volumes:
+      - ../:/var/www/html
+      - ./apache/000-default.conf:/etc/apache2/sites-available/000-default.conf
+      - ./php.ini:/usr/local/etc/php/php.ini
+      - ./certs/fullchain.pem:/etc/ssl/certs/crozztube-local.pem:ro
+      - ./certs/privkey.pem:/etc/ssl/private/crozztube-local.key:ro
+      - php-errors:/var/log
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      APACHE_DOCUMENT_ROOT: /var/www/html
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_started
+
+  mysql:
+    image: mysql:8.0.46
+    container_name: crozztube-mysql
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3308:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: crozztube-local-root
+      MYSQL_DATABASE: crozztube
+      MYSQL_USER: crozztube
+      MYSQL_PASSWORD: crozztube-local-db
+    volumes:
+      - mysql-data:/var/lib/mysql
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --max_allowed_packet=512M
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-proot", "-pcrozztube-local-root"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  redis:
+    image: redis:7-alpine
+    container_name: crozztube-redis
+    restart: unless-stopped
+    # kein Host-Port: nur intern fuer das Web-/Worker-Netz erreichbar
+    volumes:
+      - redis-data:/data
+    command: ["redis-server", "--appendonly", "yes", "--requirepass", "crozztube-local-redis"]
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: crozztube-phpmyadmin
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8083:80"
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: crozztube
+      PMA_PASSWORD: crozztube-local-db
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: crozztube-mailhog
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:1026:1025"
+      - "127.0.0.1:8026:8025"
+
+  # ---------- erst nach der Installation starten ----------
+  worker:
+    profiles: ["runtime"]
+    image: crozztube-playhub-web:latest
+    container_name: crozztube-worker
+    restart: unless-stopped
+    volumes:
+      - ../:/var/www/html
+      - ./php.ini:/usr/local/etc/php/php.ini
+      - php-errors:/var/log
+    command: php artisan queue:work --queue=videos,default --sleep=3 --tries=3 --timeout=7200
+    depends_on:
+      - redis
+      - mysql
+
+  cron:
+    profiles: ["runtime"]
+    image: crozztube-playhub-web:latest
+    container_name: crozztube-cron
+    restart: unless-stopped
+    volumes:
+      - ../:/var/www/html
+      - ./php.ini:/usr/local/etc/php/php.ini
+      - php-errors:/var/log
+    command: ["sh", "-c", "while true; do php artisan schedule:run; if [ ! -f /tmp/.crz-yt-dlp-last-update ] || [ $(( $(date +%s) - $(cat /tmp/.crz-yt-dlp-last-update 2>/dev/null || echo 0) )) -gt 86400 ]; then curl -fsSL -o /usr/local/bin/yt-dlp.tmp https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp_linux && chmod +x /usr/local/bin/yt-dlp.tmp && mv /usr/local/bin/yt-dlp.tmp /usr/local/bin/yt-dlp && printf %s $(date +%s) > /tmp/.crz-yt-dlp-last-update && echo 'yt-dlp: updated'; fi; sleep 60; done"]
+    depends_on:
+      - redis
+      - mysql
+
+volumes:
+  mysql-data:
+    name: crozztube-playhub_mysql-data
+  redis-data:
+    name: crozztube-playhub_redis-data
+  php-errors:
+    name: crozztube-playhub_php-errors
+

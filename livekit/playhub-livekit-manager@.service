@@ -1,0 +1,33 @@
+[Unit]
+Description=Manage PlayHub LiveKit Docker for %f
+After=docker.service
+Requires=docker.service
+ConditionPathExists=%f/status-exporter.sh
+
+[Service]
+Type=simple
+ExecStart=/bin/sh -c 'exec "$1/status-exporter.sh" --watch' playhub-livekit-manager %f
+User=root
+Group=root
+UMask=0022
+NoNewPrivileges=true
+PrivateDevices=true
+PrivateNetwork=true
+PrivateTmp=true
+ProtectControlGroups=true
+ProtectHome=true
+ProtectKernelLogs=true
+ProtectKernelModules=true
+ProtectKernelTunables=true
+ProtectSystem=strict
+ReadWritePaths=%f/runtime
+RestrictAddressFamilies=AF_UNIX
+RestrictSUIDSGID=true
+LockPersonality=true
+MemoryDenyWriteExecute=true
+Restart=on-failure
+RestartSec=3s
+TimeoutStopSec=10
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,24 @@
+{
+  "name": "playhub-frontend",
+  "private": true,
+  "version": "0.9.13",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "vite build",
+    "preview": "vite preview --host 0.0.0.0"
+  },
+  "dependencies": {
+    "@vidstack/react": "^1.15.6",
+    "@vitejs/plugin-react": "^5.0.0",
+    "countries-list": "^3.3.0",
+    "emoji-picker-react": "^4.19.1",
+    "livekit-client": "^2.20.1",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-international-phone": "^4.8.0",
+    "react-select": "^5.10.2",
+    "vidstack": "^1.15.6",
+    "vite": "^7.0.0"
+  }
+}
