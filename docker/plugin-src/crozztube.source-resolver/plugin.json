@@ -1,9 +1,9 @@
 {
     "id": "crozztube.source-resolver",
     "name": "CrozzTube Source Resolver",
-    "version": "0.2.4",
+    "version": "0.3.1",
     "api": 1,
-    "description": "Loest mit yt-dlp Direkt-URLs (HLS bevorzugt, MP4-Fallback) fuer importierte Videos,Refreshing bei Ablauf mit Single-Flight-Lock, Status-Endpoint fuer warte Nutzer, Download-Passthrough fuer progressive MP4. Kein Re-Hosting: alle Streamssegmente spielen ab Original.",
+    "description": "Loest mit yt-dlp Direkt-URLs (HLS bevorzugt, MP4-Fallback) fuer importierte Videos, Refreshing bei Ablauf mit Single-Flight-Lock, Status-Endpoint fuer wartende Nutzer, provider-neutraler Mirror-Umschalter (Original-Embed), Download-Passthrough fuer progressive MP4. Kein Re-Hosting: alle Streamssegmente spielen ab Original.",
     "homepage": "https://crozztube.local:8443",
     "author": {
         "name": "CrozzTube",
@@ -27,6 +27,10 @@
     ],
     "lifecycle": "CrzSourceResolver\\Lifecycle",
     "migrations": "database/migrations",
+    "assets": {
+        "styles": ["assets/watch-enhancer.css"],
+        "scripts": ["assets/watch-enhancer.js"]
+    },
     "settings": [
         {
             "key": "ytdlp_command",
@@ -70,6 +74,7 @@
         "Single-Flight Refresh-Lock (Redis/DB) bei abgelaufenen urls",
         "Status-Endpoint f\u00fcr wartende Nutzer (Banner)",
         "Download-Passthrough f\u00fcr progressive MP4",
+        "Provider-neutraler Mirror-Umschalter (Original-Embed oder Original-Link)",
         "Embed-Fallback bleibt immer verf\u00fcgbar, wenn Resolver nicht liefert"
     ]
 }

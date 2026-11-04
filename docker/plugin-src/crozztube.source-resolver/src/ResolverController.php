@@ -5,6 +5,7 @@ namespace CrzSourceResolver;
 use App\Models\Video;
 use CrzSourceResolver\Jobs\RefreshSource;
 use CrzSourceResolver\Models\CrozztubeImportSource;
+use CrzSourceResolver\Support\Mirror;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -14,11 +15,26 @@ class ResolverController extends Controller
 {
     public function status(Request $request, int $videoId): JsonResponse
     {
-        if (($check = $this->findImport($videoId)) instanceof JsonResponse) {
-            return $check;
+        $video = $this->findImport($videoId);
+        if ($video instanceof JsonResponse) {
+            return $video;
         }
 
-        return response()->json(['ok' => true, 'source' => $this->statePayload($videoId)]);
+        return response()->json(['ok' => true, 'source' => $this->statePayload($video)]);
+    }
+
+    /**
+     * Status per slug: the watch page knows the slug, so the frontend never has
+     * to load the full video payload just to map slug -> id.
+     */
+    public function statusBySlug(Request $request, string $slug): JsonResponse
+    {
+        $video = Video::query()->where('slug', $slug)->first();
+        if (! $video || $video->source_type !== 'import') {
+            return response()->json(['ok' => false, 'message' => 'Not an imported video.'], 404);
+        }
+
+        return response()->json(['ok' => true, 'source' => $this->statePayload($video)]);
     }
 
     /**
@@ -26,13 +42,14 @@ class ResolverController extends Controller
      */
     public function refresh(Request $request, int $videoId): JsonResponse
     {
-        if (($check = $this->findImport($videoId)) instanceof JsonResponse) {
-            return $check;
+        $video = $this->findImport($videoId);
+        if ($video instanceof JsonResponse) {
+            return $video;
         }
 
         RefreshSource::request($videoId);
 
-        return response()->json(['ok' => true, 'source' => $this->statePayload($videoId)]);
+        return response()->json(['ok' => true, 'source' => $this->statePayload($video)]);
     }
 
     /**
@@ -272,21 +289,34 @@ class ResolverController extends Controller
         return $video;
     }
 
-    private function statePayload(int $videoId): array
+    private function statePayload(Video $video): array
     {
+        $videoId = (int) $video->id;
         $row = CrozztubeImportSource::query()->where('video_id', $videoId)->first();
+        $host = (string) (request()->getHost() ?: parse_url((string) config('app.url'), PHP_URL_HOST));
+        $mirror = Mirror::forVideo($video, $host);
+
+        $base = [
+            'video_id' => $videoId,
+            'slug' => $video->slug,
+            'mirror' => $mirror,
+        ];
+
         if (! $row) {
-            return [
+            return $base + [
                 'state' => 'unknown',
                 'kind' => null,
                 'has_direct' => false,
+                'fresh' => false,
                 'refreshing' => false,
                 'downloadable' => false,
                 'error_message' => null,
+                'retry_after' => 3,
+                'refresh_started_at' => null,
             ];
         }
 
-        return [
+        return $base + [
             'state' => $row->state,
             'kind' => $row->kind,
             'has_direct' => $row->hasDirectSource(),
@@ -294,6 +324,8 @@ class ResolverController extends Controller
             'refreshing' => $row->state === 'refreshing',
             'error_message' => $row->state === 'error' ? $row->error_message : null,
             'downloadable' => $row->hasDirectSource() && is_string($row->download_url) && $row->download_url !== '',
+            'retry_after' => 3,
+            'refresh_started_at' => optional($row->refresh_started_at)->toIso8601String(),
         ];
     }
 
