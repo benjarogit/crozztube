@@ -67,7 +67,7 @@ Letzter vollständiger Lauf: **86 Checks + 5 Browser-Tests grün**.
 | `f57e566` | Single-Flight über mehrere Nutzer (v0.5.1) |
 | `0774175` | Doku-Nachtrag v0.5.1 |
 | `16521f2` | Direct-MP4-Fix + `direct`-Suite (v0.5.2) |
-| _ausstehend_ | ffprobe-Dauer für direkte Dateien (v0.5.3) |
+| `5f973db` | ffprobe-Dauer für direkte Dateien (v0.5.3) |
 
 ### Live-Stand der Instanz
 - Drei importierte Videos, alle `fresh`, `kind=hls-synth`, Manifeste HTTP 200 (6–8 Varianten), Segment-Passthrough geprüft.
