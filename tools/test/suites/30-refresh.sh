@@ -136,4 +136,52 @@ suite_refresh() {
     after_resolved=$(db_scalar "SELECT COALESCE(resolved_at, '1970-01-01') FROM crozztube_import_sources WHERE video_id=$video_id;")
     [[ "$after_resolved" > "$resolved_before_expiry" ]] && pass "renewal updated resolved_at" \
         || fail "renewal did not update resolved_at"
+
+    # ------------------------------------------------- multi-user single-flight
+    # Several visitors hitting the same expired source must cause exactly ONE
+    # yt-dlp run, even though every request is an explicit (forced) refresh.
+    docker exec crozztube-web php artisan tinker --execute="
+        Illuminate\\Support\\Facades\\Cache::forget('source-resolver:req.$video_id');
+        Illuminate\\Support\\Facades\\Cache::forget('source-resolver:video.$video_id');
+    " >/dev/null 2>&1 || true
+
+    local attempts_before resolved_before_burst
+    attempts_before=$(db_scalar "SELECT refresh_attempts FROM crozztube_import_sources WHERE video_id=$video_id;")
+    resolved_before_burst=$(db_scalar "SELECT COALESCE(resolved_at, '1970-01-01') FROM crozztube_import_sources WHERE video_id=$video_id;")
+    db "UPDATE crozztube_import_sources SET expires_at='2000-01-01 00:00:00', state='fresh' WHERE video_id=$video_id;" >/dev/null
+
+    local i
+    for i in 1 2 3 4 5; do
+        "${CURL[@]}" -X POST "$BASE_URL/api/source-resolver/refresh/$video_id" \
+            -H 'Accept: application/json' >/dev/null 2>&1 &
+    done
+    wait
+
+    local burst_done=0
+    waited=0
+    while (( waited < 180 )); do
+        local state resolved_now
+        state=$(db_scalar "SELECT state FROM crozztube_import_sources WHERE video_id=$video_id;")
+        resolved_now=$(db_scalar "SELECT COALESCE(resolved_at, '1970-01-01') FROM crozztube_import_sources WHERE video_id=$video_id;")
+        if [[ "$state" == "fresh" && "$resolved_now" > "$resolved_before_burst" ]]; then
+            burst_done=1
+            break
+        fi
+        sleep 3
+        waited=$((waited + 3))
+    done
+
+    if (( burst_done == 0 )); then
+        fail "concurrent refresh did not renew within 180s"
+        return
+    fi
+
+    # Let any queued duplicate jobs run and exit before counting attempts.
+    sleep 8
+    local attempts_after
+    attempts_after=$(db_scalar "SELECT refresh_attempts FROM crozztube_import_sources WHERE video_id=$video_id;")
+    local delta=$(( attempts_after - attempts_before ))
+    check_eq "five concurrent refreshes cause exactly one resolve" "1" "$delta"
+    check_eq "concurrent burst leaves the source fresh" "1" \
+        "$(db_scalar "SELECT COUNT(*) FROM crozztube_import_sources WHERE video_id=$video_id AND state='fresh' AND expires_at > resolved_at;")"
 }

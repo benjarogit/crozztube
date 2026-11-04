@@ -16,7 +16,7 @@
 
 ## 2. Was fertig & verifiziert ist
 
-### Plugin `crozztube.source-resolver` v0.5.0 (installiert + aktiv)
+### Plugin `crozztube.source-resolver` v0.5.1 (installiert + aktiv)
 Quelle: `docker/plugin-src/crozztube.source-resolver/` (dort liegt der Code, installiert wird via ZIP-Upload an die Admin-API; Hilfsskript `tools/dev/reinstall-plugin.sh`).
 
 - **Resolver (`src/Resolver.php`):** yt-dlp `-J` keyless. Auswahllogik: echtes HLS-Manifest → sonst muxed MP4 → sonst **"hls-synth"** (YouTube-Sonderfall) → sonst Fehler.
@@ -33,12 +33,13 @@ Quelle: `docker/plugin-src/crozztube.source-resolver/` (dort liegt der Code, ins
 
 ### Auto-Refresh abgelaufener Direkt-URLs (v0.4/0.5)
 - **Serverseitig:** `BaseSourceJob` mit Cache-Lock (600 s) + DB-State `refreshing`. `force` überspringt die „ist noch frisch“-Prüfung; **explizite/geforce Refreshs umgehen den 30-s-Debounce** (Job-Lock verhindert Doppelarbeit) — sonst verschluckt der Debounce Retry/Expiry-Läufe.
+- **Single-Flight über mehrere Nutzer:** Jeder Job trägt den Anforderungszeitpunkt (`requestedAt`). Wurde die Quelle **nach** diesem Zeitpunkt bereits von einem anderen Job erneuert, steigt der Job aus — auch mit `force`. Fünf gleichzeitige Refresh-Requests erzeugen damit genau **einen** yt-dlp-Lauf (Harness-getestet).
 - `BaseSourceJob::request()` markiert abgelaufene Quellen als `stale` und liefert `bool` (ob wirklich eingereiht). Hängende `refreshing`-Zustände (Worker-Crash) werden nach `LOCK_TTL - 60 s` ignoriert/normalisiert.
 - **Status-Payload:** `state`, `kind`, `fresh`, `has_direct`, `refreshing`, `error_message`, `downloadable`, `expires_at`, `expires_in`, `can_refresh`, `retry_after`, `refresh_started_at`, `mirror`.
 - **Frontend (`watch-enhancer.js`):** Banner („wird erneuert“ / Fehler + Retry + Mirror), Polling, einmaliger Auto-Reload nach frischer URL (max. 2 Versuche, Resume-Position in `sessionStorage`), Mirror-Fallback bei hartem Fehler. Auto-Refresh triggert nur bei vorhandener, abgelaufener Direktquelle — kein Endlos-yt-dlp bei kaputtem Import.
 - **Sicherheitsnetze ohne JS:** `manifest`-Route stößt bei abgelaufener Quelle einen Refresh an und liefert das aktuelle Manifest weiter; `playlist`-Route triggert bei CDN-Fehler einen Refresh (Video-ID wird durch das synthetische Manifest gereicht).
 
-### Wartungs-Jobs (v0.5.0)
+### Wartungs-Jobs (v0.5.1)
 - `crozztube:sources:refresh-expiring` — alle 5 Min, Optionen `--window=15 --limit=10 --stagger=15 --scheduled --dry-run`. Erneuert Quellen kurz vor Ablauf, gestaffelt (Delay pro Dispatch), Queue `maintenance`.
 - `crozztube:sources:probe` — stündlich zwischen 02:00–05:00, Optionen `--limit=20 --min-age=60 --stagger=10 --scheduled --dry-run`. HEAD-Check, Fallback 1-Byte-Range-GET, schreibt `last_checked_at`/`last_check_status`; defekte URLs → `stale` + Refresh.
 - Beide respektieren die Pause-Datei `storage/framework/crozztube-maintenance.pause` (nur mit `--scheduled`, damit manuelle Läufe immer funktionieren). Das Test-Harness setzt sie automatisch.
@@ -46,13 +47,13 @@ Quelle: `docker/plugin-src/crozztube.source-resolver/` (dort liegt der Code, ins
 
 ### Test-Harness (vollständig agent-ausführbar)
 ```bash
-./tools/test/run.sh all          # alles: 70 Checks + 5 Playwright-Tests
+./tools/test/run.sh all          # alles: 72 Checks + 5 Playwright-Tests
 ./tools/test/run.sh list         # Suiten anzeigen
 ./tools/test/run.sh refresh jobs # gezielt
 SLOW=0 ./tools/test/run.sh jobs  # ohne yt-dlp-Roundtrip
 ```
 Suiten: `stack`, `api`, `media`, `refresh`, `mirror`, `jobs`, `ui`. Details: `Wiki/tests.html`.
-Letzter vollständiger Lauf: **70 Checks + 5 Browser-Tests grün**.
+Letzter vollständiger Lauf: **72 Checks + 5 Browser-Tests grün**.
 
 ### Commits
 | Commit | Inhalt |
@@ -82,8 +83,8 @@ Letzter vollständiger Lauf: **70 Checks + 5 Browser-Tests grün**.
 ### E1. Mehrstündiges Video (Podcast/Stream-Replay)
 Bisher max. 9 Min. geprüft. Master-Manifest, Playlist-Länge, Buffering und Resume unter echten Bedingungen testen.
 
-### E2. Mehrere Nutzer gleichzeitig auf abgelaufener Quelle
-Erwartung: genau **ein** yt-dlp-Lauf, `refresh_attempts` steigt nur einmal. Prüfbar über Worker-Log + `refresh_attempts` + `jobs`-Tabelle. Serverseitig durch Lock + Force-Bypass abgedeckt, aber noch nicht mit parallelen Browser-Sessions verifiziert.
+### E2. ~~Mehrere Nutzer gleichzeitig auf abgelaufener Quelle~~ ✓
+Erledigt: `requestedAt`-Koaleszenz im Job + Harness-Check (5 parallele Refresh-Requests → `refresh_attempts` steigt um genau 1).
 
 ### E3. Direct-MP4-Import im Browser
 Import einer echten progressiven MP4-Quelle: Wiedergabe + Mirror-Modus `link` prüfen. Download ist bewusst kein UI-Feature mehr.

@@ -74,7 +74,7 @@ docker exec crozztube-web php artisan schedule:list | grep crozztube
 touch storage/framework/crozztube-maintenance.pause   # Wartung pausieren
 rm storage/framework/crozztube-maintenance.pause      # wieder aktiv</pre>
 
-<h2>5. yt-dlp Source-Resolver (Plugin) <span class="badge b-ok">FERTIG · v0.5.0</span></h2>
+<h2>5. yt-dlp Source-Resolver (Plugin) <span class="badge b-ok">FERTIG · v0.5.1</span></h2>
 <p><strong>Implementiert:</strong><br>
 <strong>A) Direkt-URL via yt-dlp = Pflicht.</strong> Beim Import (POST <code>/api/video-imports</code>) wird der Job <code>ResolveImportSource</code> dispatcht. yt-dlp (<code>-J</code>, keyless) liefert Metadaten + Direkt-URL. Auswahl: HLS-Manifest bevorzugt → sonst progressive MP4.<br>
 <strong>YouTube-Sonderfall (SABR/DASH):</strong> YouTube liefert kein muxed MP4 mehr und kein Master-Manifest. Das Plugin baut deshalb ein <strong>synthetisches HLS-Master-Manifest</strong> (<code>/api/source-resolver/manifest/{id}</code>): es verbindet die separaten Video-Playlists (144p–2160p, AVC/VP9) mit der AAC-Audio-Playlist (itag 233/234) zu einer gültigen Master-Playlist. Segmente streamen per <strong>Passthrough-Proxy</strong> (<code>/api/source-resolver/playlist</code> + <code>/seg</code>, googlevideo-Allowlist) direkt vom Original-CDN — <strong>nichts wird gespeichert oder re-gehostet</strong>, der Proxy existiert nur, weil googlevideo kein CORS sendet.</p>
@@ -89,7 +89,7 @@ rm storage/framework/crozztube-maintenance.pause      # wieder aktiv</pre>
 <tr><td><code>GET /api/source-resolver/download/{videoId}</code></td><td>Passthrough beste MP4; 409 bei HLS-only. <strong>Kein UI-Button</strong> (bewusste Entscheidung), Endpoint bleibt für Admin/Skripte</td></tr>
 </table>
 <div class="box"><strong>Status-Payload (Auszug):</strong> <code>state</code>, <code>fresh</code>, <code>has_direct</code>, <code>refreshing</code>, <code>expires_at</code>, <code>expires_in</code>, <code>can_refresh</code>, <code>retry_after</code>, <code>error_message</code>, <code>mirror</code> (<code>provider</code>, <code>label</code>, <code>mode: iframe|link</code>, <code>embed_url</code>, <code>external_url</code>).</div>
-<p><strong>B) Ablauf-Refresh:</strong> TTL wird aus den <code>expire=</code>-Parametern der gespeicherten CDN-URLs berechnet (YouTube ~6 h). Ablauf → State <code>stale</code> → Watch-Seite bzw. <code>RefreshSource</code> erneuert; <strong>Single-Flight-Lock</strong> (Cache-Lock 600 s) verhindert parallele Doppel-Refreshes. Eine hängende <code>refreshing</code>-Zeile blockiert die UI nicht (nach 9 Min. wird sie ignoriert).<br>
+<p><strong>B) Ablauf-Refresh:</strong> TTL wird aus den <code>expire=</code>-Parametern der gespeicherten CDN-URLs berechnet (YouTube ~6 h). Ablauf → State <code>stale</code> → Watch-Seite bzw. <code>RefreshSource</code> erneuert; <strong>Single-Flight-Lock</strong> (Cache-Lock 600 s) verhindert parallele Doppel-Refreshes. Zusätzlich koalesziert der Job nach Anforderungszeitpunkt: Erneuert ein Job die Quelle, steigen alle älteren, bereits eingereihten Anfragen aus — auch mehrere Nutzer lösen so nur <strong>einen</strong> yt-dlp-Lauf aus. Eine hängende <code>refreshing</code>-Zeile blockiert die UI nicht (nach 9 Min. wird sie ignoriert).<br>
 <strong>Frontend-Flow:</strong> Banner „Quelle wird erneuert…“ → Polling → bei frischer URL automatischer Reload (max. 2 Versuche, Resume-Position) → bei hartem Fehler Banner mit <em>Retry</em> + <em>Mirror</em>. Ohne JavaScript greifen die Manifest-/Playlist-Sicherheitsnetze serverseitig.</p>
 <p><strong>C) Provider-neutraler Mirror:</strong> <code>Mirror::forVideo()</code> entscheidet serverseitig über <code>iframe</code> (YouTube/Vimeo/Dailymotion/Twitch) oder <code>link</code> (direkte Datei-URL). Der Button unter dem Video und das Overlay im Player sind provider-unabhängig; die Auswahl wird pro Video im Browser gespeichert. <code>embed_url</code> im <code>VideoResource</code> bleibt für YouTube leer, damit die Direktquelle Priorität behält.</p>
 <p><strong>D) Wartungs-Jobs:</strong> <code>refresh-expiring</code> erneuert Quellen 15 Min. vor Ablauf in kleinen, gestaffelten Batches (Queue <code>maintenance</code>). <code>probe</code> prüft nachts gespeicherte URLs per HEAD (Fallback: Range-GET), protokolliert <code>last_checked_at</code>/<code>last_check_status</code> und erneuert defekte Quellen. Beide respektieren die Pause-Datei.</p>
@@ -97,7 +97,7 @@ rm storage/framework/crozztube-maintenance.pause      # wieder aktiv</pre>
 
 <h2>6. Test-Harness <span class="badge b-ok">GRÜN</span></h2>
 <p>Vollständig lokal ausführbar, Details unter <a href="tests.html">Tests &amp; Harness</a>.</p>
-<pre>./tools/test/run.sh all        # 70 Checks + 5 Playwright-Tests
+<pre>./tools/test/run.sh all        # 72 Checks + 5 Playwright-Tests
 ./tools/test/run.sh list
 ./tools/test/run.sh refresh jobs</pre>
 <p>Das Harness pausiert den Scheduler während des Laufs und stellt manipulierte DB-Zeilen wieder her.</p>

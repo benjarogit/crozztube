@@ -35,8 +35,17 @@ abstract class BaseSourceJob implements ShouldQueue
     /** Wartezeit, bevor derselbe Video-Refresh erneut eingereiht wird. */
     public const REQUEST_DEBOUNCE = 30;
 
-    public function __construct(public readonly int $videoId, public readonly bool $force = false)
-    {
+    public function __construct(
+        public readonly int $videoId,
+        public readonly bool $force = false,
+        /**
+         * Unix-Zeitpunkt, zu dem der Refresh angefordert wurde. Damit koennen
+         * mehrere gleichzeitig wartende Nutzer denselben Ablauf ausloesen, ohne
+         * mehrere yt-dlp-Laeufe zu erzeugen: Jobs, die vor dem erfolgreichen
+         * Abschluss eines anderen Jobs eingereiht wurden, steigen aus.
+         */
+        public readonly ?int $requestedAt = null,
+    ) {
     }
 
     public function handle(): void
@@ -61,6 +70,17 @@ abstract class BaseSourceJob implements ShouldQueue
             // Nichts zu tun, solange die vorhandene Quelle gueltig ist. Das gilt
             // auch fuer den Auto-Refresh: der prueft vorher expires_at.
             if (! $this->force && $row->isFresh()) {
+                return;
+            }
+
+            // Single-Flight ueber mehrere Nutzer: Wurde die Quelle NACH dem
+            // Eintreffen dieser Anfrage bereits erneuert, ist der Refresh schon
+            // erledigt - auch wenn dieser Job `force` traegt.
+            if ($this->force
+                && $this->requestedAt !== null
+                && $row->isFresh()
+                && $row->resolved_at !== null
+                && $row->resolved_at->getTimestamp() >= $this->requestedAt) {
                 return;
             }
 
@@ -123,7 +143,7 @@ abstract class BaseSourceJob implements ShouldQueue
             $row->update(['state' => 'stale']);
         }
 
-        $job = static::dispatch($videoId, $force);
+        $job = static::dispatch($videoId, $force, now()->getTimestamp());
 
         if ($delaySeconds > 0) {
             $job->delay(now()->addSeconds($delaySeconds));

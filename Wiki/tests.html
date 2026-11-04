@@ -24,7 +24,7 @@ footer{margin-top:50px;color:var(--muted);font-size:12.5px}
 </style></head><body><div class="wrap">
 <div class="crumbs"><a href="index.html">← Wiki-Start</a> / Tests &amp; Harness</div>
 <h1>🧪 Tests &amp; Harness</h1>
-<p>Das Harness prüft den laufenden Docker-Stack von außen (HTTP, DB, Queue, Browser) und ist so gebaut, dass ein Agent es ohne manuelle Schritte komplett ausführen kann. Letzter vollständiger Lauf: <span class="badge b-ok">70 Checks + 5 Browser-Tests grün</span>.</p>
+<p>Das Harness prüft den laufenden Docker-Stack von außen (HTTP, DB, Queue, Browser) und ist so gebaut, dass ein Agent es ohne manuelle Schritte komplett ausführen kann. Letzter vollständiger Lauf: <span class="badge b-ok">72 Checks + 5 Browser-Tests grün</span>.</p>
 
 <h2>Ausführen</h2>
 <pre>cd "/mnt/intern-1tb/Projekte - Vibe Coding/crozztube"
@@ -45,7 +45,7 @@ CRZZ_VERBOSE=1 ./tools/test/run.sh ui     # Fehler-Log ausgeben</pre>
 <tr><td><code>stack</code></td><td>Container-Status, Health-Endpoint, HTTPS, DB/Redis-Erreichbarkeit, Plugin aktiv/Version</td></tr>
 <tr><td><code>api</code></td><td>Login, Video-Feed, Watch-Payload, Import-Endpoint, Rechte/Validierung</td></tr>
 <tr><td><code>media</code></td><td>Master-Manifest, Varianten, Video-/Audio-Playlist, Segment-Passthrough (HTTP 200, Größe, Audio)</td></tr>
-<tr><td><code>refresh</code></td><td>Status-Metadaten, hängende <code>refreshing</code>-Zustände, erzwungener Refresh bei frischer Quelle, simulierter Ablauf + automatische Erneuerung</td></tr>
+<tr><td><code>refresh</code></td><td>Status-Metadaten, hängende <code>refreshing</code>-Zustände, erzwungener Refresh bei frischer Quelle, simulierter Ablauf + automatische Erneuerung, <strong>5 parallele Requests → genau ein Resolve</strong></td></tr>
 <tr><td><code>mirror</code></td><td>Provider-Matrix (YouTube/Short/Vimeo/Dailymotion/Twitch/Direct), Embed-URLs, <code>mode</code>, Slug-Lookup, 404 bei unbekanntem Slug</td></tr>
 <tr><td><code>jobs</code></td><td>Commands registriert, Scheduler-Einträge, Probe erkennt gute/defekte URLs, <code>refresh-expiring</code> wählt Ablaufkandidaten und arbeitet die <code>maintenance</code>-Queue ab</td></tr>
 <tr><td><code>ui</code></td><td>Playwright: Mirror-Toggle + Overlay, Reload-Persistenz, SPA-Navigation, Auto-Refresh mit Banner/Reload, Fehlerbanner mit Retry + Mirror</td></tr>
