@@ -17,6 +17,8 @@ class CrozztubeImportSource extends Model
         'state',
         'expires_at',
         'resolved_at',
+        'last_checked_at',
+        'last_check_status',
         'refresh_started_at',
         'refresh_attempts',
         'error_message',
@@ -31,6 +33,7 @@ class CrozztubeImportSource extends Model
     protected $casts = [
         'expires_at' => 'datetime',
         'resolved_at' => 'datetime',
+        'last_checked_at' => 'datetime',
         'refresh_started_at' => 'datetime',
         'refresh_attempts' => 'integer',
         'duration_seconds' => 'integer',

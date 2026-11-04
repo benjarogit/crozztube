@@ -3,6 +3,7 @@
 namespace CrzSourceResolver;
 
 use App\Models\Video;
+use CrzSourceResolver\Jobs\BaseSourceJob;
 use CrzSourceResolver\Jobs\RefreshSource;
 use CrzSourceResolver\Models\CrozztubeImportSource;
 use CrzSourceResolver\Support\Mirror;
@@ -47,7 +48,7 @@ class ResolverController extends Controller
             return $video;
         }
 
-        RefreshSource::request($videoId);
+        RefreshSource::request($videoId, force: true);
 
         return response()->json(['ok' => true, 'source' => $this->statePayload($video)]);
     }
@@ -95,6 +96,13 @@ class ResolverController extends Controller
     {
         $row = CrozztubeImportSource::query()->where('video_id', $videoId)->first();
 
+        // Safety net for clients without the enhancer: an expired source is
+        // re-resolved in the background. The current manifest is still served
+        // so a URL that merely looks expired does not break playback.
+        if ($row && ! $row->isFresh()) {
+            RefreshSource::request($videoId, force: true);
+        }
+
         if (! $row
             || $row->kind !== 'hls-synth'
             || ! is_array($row->variants)
@@ -106,11 +114,13 @@ class ResolverController extends Controller
 
         $audioQuery = urlencode($row->audio_url);
         $base = rtrim(url('api/source-resolver'), '/').'/playlist?url=';
+        // Pass the video id along so a failing CDN URL can trigger a refresh.
+        $suffix = '&video_id='.$videoId;
 
         $lines = ['#EXTM3U', '#EXT-X-VERSION:6'];
         $lines[] = sprintf(
             '#EXT-X-MEDIA:TYPE=AUDIO,GROUP-ID="audio",NAME="Audio",DEFAULT=YES,AUTOSELECT=YES,CODECS="mp4a.40.2",URI="%s"',
-            $base.$audioQuery
+            $base.$audioQuery.$suffix
         );
 
         foreach ($row->variants as $variant) {
@@ -128,7 +138,7 @@ class ResolverController extends Controller
                 $resolution,
                 $codes !== '' ? $codes : 'avc1.640029'
             );
-            $lines[] = $base.urlencode((string) $variant['url']);
+            $lines[] = $base.urlencode((string) $variant['url']).$suffix;
         }
 
         return response(implode("\n", $lines)."\n", 200, [
@@ -150,10 +160,16 @@ class ResolverController extends Controller
             return response()->json(['ok' => false, 'message' => 'Blocked host.'], 403);
         }
 
-        return response()->streamDownload(function () use ($src): void {
+        return response()->streamDownload(function () use ($src, $request): void {
             $playlist = $this->fetchRemote($src, 25);
 
             if ($playlist === false || $playlist === '') {
+                // CDN rejected the stored URL (expired signature): renew it.
+                $videoId = (int) $request->integer('video_id');
+                if ($videoId > 0) {
+                    RefreshSource::request($videoId, force: true);
+                }
+
                 echo "#EXTM3U\n";
 
                 return;
@@ -311,20 +327,32 @@ class ResolverController extends Controller
                 'refreshing' => false,
                 'downloadable' => false,
                 'error_message' => null,
+                'expires_at' => null,
+                'expires_in' => null,
+                'can_refresh' => true,
                 'retry_after' => 3,
                 'refresh_started_at' => null,
             ];
         }
+
+        // Ein haengender Refresh (Worker abgestuerzt) darf die Seite nicht
+        // dauerhaft im "wird erneuert"-Zustand lassen.
+        $refreshing = $row->state === 'refreshing'
+            && ($row->refresh_started_at === null
+                || $row->refresh_started_at->gt(now()->subSeconds(BaseSourceJob::LOCK_TTL - 60)));
 
         return $base + [
             'state' => $row->state,
             'kind' => $row->kind,
             'has_direct' => $row->hasDirectSource(),
             'fresh' => $row->isFresh(),
-            'refreshing' => $row->state === 'refreshing',
-            'error_message' => $row->state === 'error' ? $row->error_message : null,
+            'refreshing' => $refreshing,
+            'error_message' => in_array($row->state, ['error', 'stale'], true) ? $row->error_message : null,
             'downloadable' => $row->hasDirectSource() && is_string($row->download_url) && $row->download_url !== '',
-            'retry_after' => 3,
+            'expires_at' => optional($row->expires_at)->toIso8601String(),
+            'expires_in' => $row->expires_at ? (int) max(0, now()->diffInSeconds($row->expires_at, false)) : null,
+            'can_refresh' => ! $row->isFresh() || ($row->expires_at?->isPast() ?? false),
+            'retry_after' => $refreshing ? 2 : 5,
             'refresh_started_at' => optional($row->refresh_started_at)->toIso8601String(),
         ];
     }

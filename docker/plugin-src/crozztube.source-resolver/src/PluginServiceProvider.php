@@ -32,9 +32,34 @@ final class PluginServiceProvider extends PlayHubPluginServiceProvider
             return;
         }
 
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                \CrzSourceResolver\Commands\RefreshExpiringSources::class,
+                \CrzSourceResolver\Commands\ProbeSources::class,
+            ]);
+        }
+
         $context = $this->plugin();
 
         Route::prefix('api/source-resolver')
             ->group($context->path('routes/api.php'));
+
+        $this->app->booted(function (): void {
+            $schedule = $this->app->make(\Illuminate\Console\Scheduling\Schedule::class);
+
+            // Keep direct URLs alive shortly before they expire. Small batches
+            // and staggered dispatches keep yt-dlp off the main thread.
+            $schedule->command('crozztube:sources:refresh-expiring --window=15 --limit=10 --stagger=15 --scheduled')
+                ->everyFiveMinutes()
+                ->withoutOverlapping()
+                ->onOneServer();
+
+            // Night window only: validate stored URLs, renew what broke.
+            $schedule->command('crozztube:sources:probe --limit=20 --stagger=10 --scheduled')
+                ->hourly()
+                ->between('02:00', '05:00')
+                ->withoutOverlapping()
+                ->onOneServer();
+        });
     }
 }

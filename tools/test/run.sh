@@ -86,7 +86,17 @@ if ! login; then
 fi
 printf '  auth:   ok (token %s...)\n' "${TOKEN:0:8}"
 
-trap cleanup_created_videos EXIT
+# Pause the live maintenance scheduler for the duration of the run: its
+# 5-minute refresh cycle would otherwise race the refresh/jobs/ui suites.
+PAUSE_FILE="$ROOT/storage/framework/crozztube-maintenance.pause"
+mkdir -p "$(dirname "$PAUSE_FILE")"
+: > "$PAUSE_FILE"
+
+cleanup() {
+    rm -f "$PAUSE_FILE"
+    cleanup_created_videos
+}
+trap cleanup EXIT
 
 for name in "${run_list[@]}"; do
     # shellcheck source=/dev/null

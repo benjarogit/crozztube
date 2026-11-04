@@ -88,7 +88,7 @@ services:
       - ../:/var/www/html
       - ./php.ini:/usr/local/etc/php/php.ini
       - php-errors:/var/log
-    command: php artisan queue:work --queue=videos,default --sleep=3 --tries=3 --timeout=7200
+    command: php artisan queue:work --queue=videos,maintenance,default --sleep=3 --tries=3 --timeout=7200
     depends_on:
       - redis
       - mysql

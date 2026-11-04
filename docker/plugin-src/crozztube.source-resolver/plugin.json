@@ -1,80 +1,84 @@
 {
-    "id": "crozztube.source-resolver",
-    "name": "CrozzTube Source Resolver",
-    "version": "0.3.1",
-    "api": 1,
-    "description": "Loest mit yt-dlp Direkt-URLs (HLS bevorzugt, MP4-Fallback) fuer importierte Videos, Refreshing bei Ablauf mit Single-Flight-Lock, Status-Endpoint fuer wartende Nutzer, provider-neutraler Mirror-Umschalter (Original-Embed), Download-Passthrough fuer progressive MP4. Kein Re-Hosting: alle Streamssegmente spielen ab Original.",
-    "homepage": "https://crozztube.local:8443",
-    "author": {
-        "name": "CrozzTube",
-        "url": "https://crozztube.local:8443"
-    },
-    "requires": {
-        "playhub": ">=0.9.9",
-        "php": ">=8.3.0",
-        "extensions": [
-            "json"
-        ]
-    },
-    "dependencies": {},
-    "autoload": {
-        "psr-4": {
-            "CrzSourceResolver\\": "src/"
-        }
-    },
-    "providers": [
-        "CrzSourceResolver\\PluginServiceProvider"
-    ],
-    "lifecycle": "CrzSourceResolver\\Lifecycle",
-    "migrations": "database/migrations",
-    "assets": {
-        "styles": ["assets/watch-enhancer.css"],
-        "scripts": ["assets/watch-enhancer.js"]
-    },
-    "settings": [
-        {
-            "key": "ytdlp_command",
-            "label": "yt-dlp binary",
-            "type": "text",
-            "description": "Kommando oder Pfad des yt-dlp binar. Empfohlen: weekly auto-update einrichten.",
-            "default": "yt-dlp",
-            "required": true,
-            "public": false,
-            "max_length": 120
-        },
-        {
-            "key": "prefer_hls",
-            "label": "Bevorzugt HLS-Direktstream",
-            "type": "boolean",
-            "description": "HLS manifest vor progressiver MP4 einsetzen, wenn der Provider beides anbietet.",
-            "default": true,
-            "public": false
-        },
-        {
-            "key": "stale_fallback_minutes",
-            "label": "Fallback-TTL in Minuten",
-            "type": "number",
-            "description": "Falls keine Ablaufzeit aus der URL ermittelt werden kann, gilt die URL fuer so lange als frisch.",
-            "default": 180,
-            "min": 10,
-            "max": 10080,
-            "public": false
-        },
-        {
-            "key": "download_via_proxy",
-            "label": "Download als Passthrough",
-            "type": "boolean",
-            "description": "Download-Endpoint streamt die originale Datei mit Content-Disposition attachment durch (kein Speichern). Sonst 302 zur Original-URL.",
-            "default": true,
-            "public": false
-        }
-    ],
-    "capabilities": [
-        "yt-dlp Direkt-URL Aufl\u00f6sung f\u00fcr importierte Videos",
-        "Single-Flight Refresh-Lock (Redis/DB) bei abgelaufenen urls",
-        "Status-Endpoint f\u00fcr wartende Nutzer (Banner)",
-        "Download-Passthrough f\u00fcr progressive MP4",
-        "Provider-neutraler Mirror-Umschalter (Original-Embed oder Original-Link)",
-        "Embed-Fallback bleibt immer verf\u00fcgbar, wenn Resolver nicht liefert"
+  "id": "crozztube.source-resolver",
+  "name": "CrozzTube Source Resolver",
+  "version": "0.5.0",
+  "api": 1,
+  "description": "Loest mit yt-dlp Direkt-URLs (HLS bevorzugt, MP4-Fallback) fuer importierte Videos, Refreshing bei Ablauf mit Single-Flight-Lock, Status-Endpoint fuer wartende Nutzer, provider-neutraler Mirror-Umschalter (Original-Embed), Download-Passthrough fuer progressive MP4. Kein Re-Hosting: alle Streamssegmente spielen ab Original.",
+  "homepage": "https://crozztube.local:8443",
+  "author": {
+    "name": "CrozzTube",
+    "url": "https://crozztube.local:8443"
+  },
+  "requires": {
+    "playhub": ">=0.9.9",
+    "php": ">=8.3.0",
+    "extensions": [
+      "json"
     ]
+  },
+  "dependencies": {},
+  "autoload": {
+    "psr-4": {
+      "CrzSourceResolver\\": "src/"
+    }
+  },
+  "providers": [
+    "CrzSourceResolver\\PluginServiceProvider"
+  ],
+  "lifecycle": "CrzSourceResolver\\Lifecycle",
+  "migrations": "database/migrations",
+  "assets": {
+    "styles": [
+      "assets/watch-enhancer.css"
+    ],
+    "scripts": [
+      "assets/watch-enhancer.js"
+    ]
+  },
+  "settings": [
+    {
+      "key": "ytdlp_command",
+      "label": "yt-dlp binary",
+      "type": "text",
+      "description": "Kommando oder Pfad des yt-dlp binar. Empfohlen: weekly auto-update einrichten.",
+      "default": "yt-dlp",
+      "required": true,
+      "public": false,
+      "max_length": 120
+    },
+    {
+      "key": "prefer_hls",
+      "label": "Bevorzugt HLS-Direktstream",
+      "type": "boolean",
+      "description": "HLS manifest vor progressiver MP4 einsetzen, wenn der Provider beides anbietet.",
+      "default": true,
+      "public": false
+    },
+    {
+      "key": "stale_fallback_minutes",
+      "label": "Fallback-TTL in Minuten",
+      "type": "number",
+      "description": "Falls keine Ablaufzeit aus der URL ermittelt werden kann, gilt die URL fuer so lange als frisch.",
+      "default": 180,
+      "min": 10,
+      "max": 10080,
+      "public": false
+    },
+    {
+      "key": "download_via_proxy",
+      "label": "Download als Passthrough",
+      "type": "boolean",
+      "description": "Download-Endpoint streamt die originale Datei mit Content-Disposition attachment durch (kein Speichern). Sonst 302 zur Original-URL.",
+      "default": true,
+      "public": false
+    }
+  ],
+  "capabilities": [
+    "yt-dlp Direkt-URL Auflösung für importierte Videos",
+    "Single-Flight Refresh-Lock (Redis/DB) bei abgelaufenen urls",
+    "Status-Endpoint für wartende Nutzer (Banner)",
+    "Download-Passthrough für progressive MP4",
+    "Provider-neutraler Mirror-Umschalter (Embed/Link)",
+    "Embed-Fallback bleibt immer verfügbar, wenn Resolver nicht liefert"
+  ]
 }

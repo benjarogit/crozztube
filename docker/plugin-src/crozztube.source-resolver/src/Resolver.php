@@ -265,7 +265,44 @@ class Resolver
             'error_message' => null,
         ]);
 
+        $this->backfillMetadata($row, $resolved);
+
         return $row;
+    }
+
+    /**
+     * Der Importer hinterlaesst bei manchen Quellen keine Dauer/Short-Kennung.
+     * PlayHub klassifiziert Imports ueber das explizite Flag, deshalb muss es
+     * hier gesetzt werden - sonst landen normale Videos im Shorts-Feed.
+     *
+     * @param  array{duration_seconds:?int}  $resolved
+     */
+    private function backfillMetadata(CrozztubeImportSource $row, array $resolved): void
+    {
+        $video = $row->video;
+        if (! $video) {
+            return;
+        }
+
+        $duration = (int) ($resolved['duration_seconds'] ?? 0);
+        $updates = [];
+
+        if ($duration > 0 && (int) $video->duration_seconds <= 0) {
+            $updates['duration_seconds'] = $duration;
+        }
+
+        $isShortUrl = (bool) preg_match('#/(shorts|reel|reels)/#i', (string) $video->import_url);
+        $known = $duration > 0 ? $duration : (int) $video->duration_seconds;
+
+        if ($isShortUrl && ! $video->is_short) {
+            $updates['is_short'] = true;
+        } elseif (! $isShortUrl && $video->is_short && $known > 60) {
+            $updates['is_short'] = false;
+        }
+
+        if ($updates !== []) {
+            $video->forceFill($updates)->save();
+        }
     }
 
     public function rowForVideoId(int $videoId): ?CrozztubeImportSource

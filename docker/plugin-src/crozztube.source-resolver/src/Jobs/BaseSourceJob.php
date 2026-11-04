@@ -14,8 +14,13 @@ use Throwable;
 
 /**
  * Loest/aktualisiert die Direkt-URL fuer ein importiertes Video.
- * Single-Flight: Nur EIN Aufruf pro Video (Cache-Lock + DB-Sperre `refreshing`),
- * parallele Anforderungen greifen den laufenden RefreshNICHT nochmal an.
+ *
+ * Single-Flight: nur EIN Lauf pro Video (Cache-Lock + DB-Zustand `refreshing`),
+ * parallele Anfragen stoessen keinen zweiten yt-dlp-Lauf an.
+ *
+ * `$force` ueberspringt die "ist noch frisch"-Pruefung, damit ablaufende URLs
+ * und manuelle Refresh-Anfragen auch bei gueltigem Zustand neu aufgeloest
+ * werden koennen.
  */
 abstract class BaseSourceJob implements ShouldQueue
 {
@@ -27,7 +32,10 @@ abstract class BaseSourceJob implements ShouldQueue
 
     public const MAX_ATTEMPTS = 4;
 
-    public function __construct(public readonly int $videoId)
+    /** Wartezeit, bevor derselbe Video-Refresh erneut eingereiht wird. */
+    public const REQUEST_DEBOUNCE = 30;
+
+    public function __construct(public readonly int $videoId, public readonly bool $force = false)
     {
     }
 
@@ -38,11 +46,10 @@ abstract class BaseSourceJob implements ShouldQueue
             return;
         }
 
-        $lockKey = 'source-resolver:video:'.$this->videoId;
-        $lock = Cache::lock($lockKey, self::LOCK_TTL);
-
+        $lock = Cache::lock('source-resolver:video:'.$this->videoId, self::LOCK_TTL);
         if (! $lock->get()) {
-            return; // laeuft bereits => nichts tun (Single-Flight)
+            // Ein anderer Worker loest dieses Video bereits auf.
+            return;
         }
 
         try {
@@ -51,7 +58,9 @@ abstract class BaseSourceJob implements ShouldQueue
                 ['kind' => 'pending', 'state' => 'refreshing', 'media_url' => '']
             );
 
-            if ($row->state === 'fresh') {
+            // Nichts zu tun, solange die vorhandene Quelle gueltig ist. Das gilt
+            // auch fuer den Auto-Refresh: der prueft vorher expires_at.
+            if (! $this->force && $row->isFresh()) {
                 return;
             }
 
@@ -69,7 +78,7 @@ abstract class BaseSourceJob implements ShouldQueue
                 'refresh_started_at' => null,
             ]);
 
-            Log::warning('CrzSourceResolver: Auflösung fehlgeschlagen', [
+            Log::warning('CrzSourceResolver: Aufloesung fehlgeschlagen', [
                 'video_id' => $this->videoId,
                 'exception' => $exception->getMessage(),
             ]);
@@ -81,34 +90,69 @@ abstract class BaseSourceJob implements ShouldQueue
     }
 
     /**
-     * Dient als Trigger von überall sicheres Anstoßen eines Refreshs:
-     * "refreshing"-Datensatz schützt vor doppeltem Dispatch.
+     * Sicherer Trigger von ueberall: dedupliziert per Cache und markiert eine
+     * abgelaufene Quelle als `stale`, damit wartende Clients das sehen.
      */
-    public static function request(int $videoId): void
+    public static function request(int $videoId, bool $force = false, int $delaySeconds = 0, ?string $queue = null): bool
     {
         $row = CrozztubeImportSource::query()->where('video_id', $videoId)->first();
 
-        if (! $row) {
-            // Stampede-Schutz: maximal 1 Dispatch pro 30s pro Video
-            if (! Cache::add('source-resolver:req:'.$videoId, 1, 30)) {
-                return;
+        if ($row) {
+            if (! $force && $row->isFresh()) {
+                return false;
             }
 
-            static::dispatch($videoId);
+            $running = $row->state === 'refreshing'
+                && $row->refresh_started_at?->gt(now()->subSeconds(self::LOCK_TTL - 60));
 
-            return;
+            if ($running) {
+                return false;
+            }
         }
 
-        if ($row->state === 'fresh'
-            || ($row->state === 'refreshing'
-                && $row->refresh_started_at?->gt(now()->subSeconds(self::LOCK_TTL - 60)))) {
-            return;
+        // Debounce only opportunistic refreshes. An explicit request (user
+        // pressed Retry, expiry job, CLI) must never be swallowed; concurrent
+        // duplicates are cheap because the job itself holds a lock.
+        if (! $force && ! Cache::add('source-resolver:req:'.$videoId, 1, self::REQUEST_DEBOUNCE)) {
+            return false;
         }
 
-        if (! Cache::add('source-resolver:req:'.$videoId, 1, 30)) {
-            return;
+        // Abgelaufene, aber noch vorhandene Quelle: Nutzer sollen "wird
+        // erneuert" sehen statt eines kaputten Players.
+        if ($row && ! $row->isFresh() && $row->hasDirectSource() && $row->state !== 'refreshing') {
+            $row->update(['state' => 'stale']);
         }
 
-        static::dispatch($videoId);
+        $job = static::dispatch($videoId, $force);
+
+        if ($delaySeconds > 0) {
+            $job->delay(now()->addSeconds($delaySeconds));
+        }
+
+        if ($queue !== null) {
+            $job->onQueue($queue);
+        }
+
+        return true;
+    }
+
+    /**
+     * Setzt haengende `refreshing`-Zustaende zurueck (Worker-Neustart, Timeout).
+     *
+     * Wichtig: Der Vergleich nutzt einen von PHP erzeugten Zeitstempel, nicht
+     * SQL NOW(). Die MySQL-Session laeuft in UTC, die App in Europe/Berlin;
+     * NOW() waere hier eine Stunde daneben.
+     */
+    public static function recoverStale(int $videoId): void
+    {
+        CrozztubeImportSource::query()
+            ->where('video_id', $videoId)
+            ->where('state', 'refreshing')
+            ->where('refresh_started_at', '<', now()->subSeconds(self::LOCK_TTL)->format('Y-m-d H:i:s'))
+            ->update([
+                'state' => 'stale',
+                'refresh_started_at' => null,
+                'error_message' => 'Refresh abgebrochen (Timeout).',
+            ]);
     }
 }
