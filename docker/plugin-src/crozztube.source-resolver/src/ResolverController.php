@@ -25,6 +25,55 @@ class ResolverController extends Controller
     }
 
     /**
+     * Betriebsstatus: Plugin-/yt-dlp-Version, Quellenzahlen und letzter
+     * erfolgreicher Resolve. Read-only und ohne Secrets.
+     */
+    public function health(): JsonResponse
+    {
+        $resolver = Resolver::instance();
+        $binaries = $resolver?->health() ?? [];
+        $plugin = \App\Models\Plugin::query()->where('id', 'crozztube.source-resolver')->first();
+
+        $byState = CrozztubeImportSource::query()
+            ->selectRaw('state, count(*) as total')
+            ->groupBy('state')
+            ->pluck('total', 'state')
+            ->map(fn ($total): int => (int) $total)
+            ->all();
+
+        $lastResolved = CrozztubeImportSource::query()->max('resolved_at');
+
+        return response()->json([
+            'ok' => true,
+            'health' => [
+                'plugin' => [
+                    'id' => 'crozztube.source-resolver',
+                    'version' => $plugin?->version,
+                    'enabled' => (bool) $plugin?->enabled,
+                ],
+                'ytdlp' => $binaries['ytdlp'] ?? [
+                    'binary' => 'yt-dlp',
+                    'version' => null,
+                    'available' => false,
+                ],
+                'ffprobe' => $binaries['ffprobe'] ?? [
+                    'binary' => 'ffprobe',
+                    'version' => null,
+                    'available' => false,
+                ],
+                'sources' => [
+                    'total' => array_sum($byState),
+                    'by_state' => $byState,
+                    'fresh' => $byState['fresh'] ?? 0,
+                    'stale' => $byState['stale'] ?? 0,
+                    'error' => $byState['error'] ?? 0,
+                    'last_resolved_at' => $lastResolved,
+                ],
+            ],
+        ]);
+    }
+
+    /**
      * Status per slug: the watch page knows the slug, so the frontend never has
      * to load the full video payload just to map slug -> id.
      */

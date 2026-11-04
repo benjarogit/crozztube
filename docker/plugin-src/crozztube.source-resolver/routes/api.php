@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Route;
  * would silently stop showing source state.
  */
 
+Route::get('/health', [ResolverController::class, 'health'])
+    ->middleware('throttle:60,1,crz-source-health');
+
 Route::get('/status/slug/{slug}', [ResolverController::class, 'statusBySlug'])
     ->where('slug', '[A-Za-z0-9_-]+')
     ->middleware('throttle:240,1,crz-source-status');

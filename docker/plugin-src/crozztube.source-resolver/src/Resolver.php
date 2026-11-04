@@ -67,6 +67,52 @@ class Resolver
     }
 
     /**
+     * Betriebsstatus fuer den Health-Endpoint: verwendet genau die Binaries,
+     * die auch beim Aufloesen benutzt werden.
+     *
+     * @return array{ytdlp:array{binary:string,version:?string,available:bool},
+     *               ffprobe:array{binary:string,version:?string,available:bool}}
+     */
+    public function health(): array
+    {
+        $ytdlp = $this->stringSetting('ytdlp_command', 'yt-dlp');
+        $ffprobe = $this->stringSetting('ffprobe_command', 'ffprobe');
+        $ytdlpVersion = $this->binaryVersion($ytdlp, '--version');
+        $ffprobeVersion = $this->binaryVersion($ffprobe, '-version');
+
+        return [
+            'ytdlp' => [
+                'binary' => $ytdlp,
+                'version' => $ytdlpVersion,
+                'available' => $ytdlpVersion !== null,
+            ],
+            'ffprobe' => [
+                'binary' => $ffprobe,
+                'version' => $ffprobeVersion,
+                'available' => $ffprobeVersion !== null,
+            ],
+        ];
+    }
+
+    private function binaryVersion(string $binary, string $flag): ?string
+    {
+        try {
+            $process = new Process([$binary, $flag], null, null, null, 15.0);
+            $process->run();
+
+            if (! $process->isSuccessful()) {
+                return null;
+            }
+
+            $line = trim(strtok($process->getOutput(), "\n") ?: '');
+
+            return $line !== '' ? mb_substr($line, 0, 200) : null;
+        } catch (\Throwable) {
+            return null;
+        }
+    }
+
+    /**
      * Fuehrt yt-dlp aus (nur URL-/Metadaten-Extraktion, kein Download) und waehlt die
      * beste abspielbare Direkt-URL aus: HLS-Manifest bevorzugt, sonst progressive MP4.
      *

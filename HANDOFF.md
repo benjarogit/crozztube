@@ -8,7 +8,7 @@
 ## 1. Projekt & Umgebung
 
 - **Projekt:** CrozzTube = PlayHub web v0.9.13 (Laravel 13, React 19), lokale Instanz.
-- **Konzept:** NUR Streaming/Import. Keine eigenen Uploads (Nutzer/Creator laden nichts hoch), **keine API-Keys**. Jedes importierte Video bekommt per **yt-dlp** eine Direkt-URL (eigener Player, HLS bevorzugt), Provider-Embed (YouTube) ist nur Mirror/Fallback.
+- **Konzept:** NUR Streaming/Import. Keine eigenen Uploads (Nutzer/Creator laden nichts hoch), **keine API-Keys**. **yt-dlp ist die zentrale Video-Engine**: Metadaten (Titel, Beschreibung, Tags, Thumbnail, Dauer, Kapitel) beim Import und Direkt-URL (eigener Player, HLS bevorzugt) für die Wiedergabe. Der Provider-Embed (YouTube etc.) ist nur Mirror/Fallback.
 - **URL:** `https://crozztube.local:8443` (self-signed) · Admin: `benny` / `meZVRW0bYEbpHsJc`
 - **Docker-Stack** (`docker/compose.yml`, Projekt `crozztube-local`): crozztube-web (PHP 8.3 + FFmpeg + yt-dlp 2026.10.26), -mysql (Port 3308! User crozztube/crozztube-local-db), -redis (Pass crozztube-local-redis), -worker (`queue:work videos,maintenance,default`), -cron (schedule:run je Minute + täglicher yt-dlp-Auto-Update), -phpmyadmin (8083), -mailhog.
 - **NICHT anfassen:** Container `crozztube-audit-*` (separate Audit-Instanz unter /home/benny/audit-instance).
@@ -16,11 +16,14 @@
 
 ## 2. Was fertig & verifiziert ist
 
-### Plugin `crozztube.source-resolver` v0.5.3 (installiert + aktiv)
+### Plugin `crozztube.source-resolver` v0.6.0 (installiert + aktiv)
 Quelle: `docker/plugin-src/crozztube.source-resolver/` (dort liegt der Code, installiert wird via ZIP-Upload an die Admin-API; Hilfsskript `tools/dev/reinstall-plugin.sh`).
 
 - **Resolver (`src/Resolver.php`):** yt-dlp `-J` keyless. Auswahllogik: echtes HLS-Manifest → sonst muxed MP4 → sonst **"hls-synth"** (YouTube-Sonderfall) → sonst Fehler.
 - **Direkt verlinkte Dateien (Direct-URL-Provider):** yt-dlp meldet beim Generic-Extractor weder `vcodec`/`acodec` noch eine Höhe. Der Resolver akzeptiert solche vollständigen Dateien (mp4/webm/m4v/mov) als progressive Quelle (`kind=mp4`), TTL 24 h und liest die Dauer per `ffprobe` nach. `media_url` bleibt die Original-URL — nichts wird heruntergeladen oder re-gehostet.
+- **yt-dlp als Metadaten-Engine (v0.6.0):** `App\Support\YtDlp` (`-J`, keyless, 10-min-Cache) liefert beim Import Titel/Beschreibung/Tags/Thumbnail/Dauer/Kapitel/Autor. Der Provider `direct` heißt jetzt „Video URL (direct or yt-dlp)“ und akzeptiert **jede von yt-dlp verstandene URL** (TikTok, X, Reddit, SoundCloud …), nicht nur MP4-Dateien. Provider-spezifische APIs/HTML-Metadaten haben Vorrang, yt-dlp füllt Lücken. Der Resolver-Job wird auch für `direct` sofort dispatcht; `Video::getVideoUrlAttribute` bevorzugt für `direct` die aufgelöste URL und fällt auf die Roh-URL zurück.
+- **Health-Endpoint:** `GET /api/source-resolver/health` liefert Plugin-Version/Aktivstatus, yt-dlp- und ffprobe-Version (aus denselben Binaries wie der Resolver), Quellenzahlen pro State und den letzten erfolgreichen Resolve. Keine Secrets, eigener Throttle.
+- **Retry-Resilienz:** `BaseSourceJob` hat `$tries = 4`, Backoff `20/90/240 s` und `failed()`, das den Zustand sauber auf `error` setzt (Lock frei, Mirror-Fallback sichtbar). Transiente CDN-/DNS-Fehler werden damit automatisch wiederholt.
 - **YouTube-Sonderfall (wichtig!):** YouTube liefert seit SABR kein muxed MP4 und kein Master-Manifest mehr. Lösung: itags 233/234 sind versteckte **HLS-Audio-Playlists** (AAC-LC, geprüft via ffprobe). Das Plugin speichert bis zu 8 Video-Playlists (144p–2160p, AVC/VP9, deduped pro Höhe) + 1 Audio-Playlist in der DB (`variants`, `audio_url`) und baut ein **synthetisches HLS-Master-Manifest**.
 - **Metadaten-Backfill:** `Resolver::backfillMetadata()` schreibt `duration_seconds` + `is_short` ins `videos`-Table, wenn dort NULL/0 (Fixt den früheren Bug „3:32-Video als Short“). Short-Erkennung über `/shorts|reel|reels/` in der Import-URL.
 - **Passthrough-Proxy absichtlich!** googlevideo sendet kein `Access-Control-Allow-Origin`, HLS.js braucht daher einen Same-Origin-Pfad. Der Proxy streamt nur durch (curl-basiert), speichert **nichts** (kein Re-Hosting). Host-Allowlist: nur `*.googlevideo.com`.
@@ -48,13 +51,13 @@ Quelle: `docker/plugin-src/crozztube.source-resolver/` (dort liegt der Code, ins
 
 ### Test-Harness (vollständig agent-ausführbar)
 ```bash
-./tools/test/run.sh all          # alles: 86 Checks + 5 Playwright-Tests
+./tools/test/run.sh all          # alles: 96 Checks + 5 Playwright-Tests
 ./tools/test/run.sh list         # Suiten anzeigen
 ./tools/test/run.sh refresh jobs # gezielt
 SLOW=0 ./tools/test/run.sh jobs  # ohne yt-dlp-Roundtrip
 ```
 Suiten: `stack`, `api`, `media`, `direct`, `refresh`, `mirror`, `jobs`, `ui`. Details: `Wiki/tests.html`.
-Letzter vollständiger Lauf: **86 Checks + 5 Browser-Tests grün**.
+Letzter vollständiger Lauf: **96 Checks + 5 Browser-Tests grün**.
 
 ### Commits
 | Commit | Inhalt |
@@ -68,9 +71,10 @@ Letzter vollständiger Lauf: **86 Checks + 5 Browser-Tests grün**.
 | `0774175` | Doku-Nachtrag v0.5.1 |
 | `16521f2` | Direct-MP4-Fix + `direct`-Suite (v0.5.2) |
 | `5f973db` | ffprobe-Dauer für direkte Dateien (v0.5.3) |
+| _ausstehend_ | yt-dlp-Metadaten-Engine, generische URLs, Health, Retry (v0.6.0) |
 
 ### Live-Stand der Instanz
-- Drei importierte Videos, alle `fresh`, `kind=hls-synth`, Manifeste HTTP 200 (6–8 Varianten), Segment-Passthrough geprüft.
+- Vier importierte Videos (drei echte + Direct-MP4-Testsample ID 4), alle `fresh`. Die echten YouTube-Imports: `kind=hls-synth`, Manifeste HTTP 200 (6–8 Varianten), Segment-Passthrough geprüft. Das Testsample (ID 4) kann jederzeit gelöscht werden.
 - `failed_jobs` enthält historische Einträge (yt-dlp not found, unavailable IDs, transient) — nicht aktuell relevant, Queue läuft leer.
 - Stack läuft vollständig, `https://crozztube.local:8443` → HTTP 200.
 

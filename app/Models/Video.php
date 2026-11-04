@@ -232,6 +232,16 @@ class Video extends Model
     {
         if ($this->source_type === 'import') {
             if ($this->import_provider === 'direct') {
+                // yt-dlp may have resolved a direct playback URL (any supported
+                // site). Fall back to the raw import URL for legacy direct files.
+                if (class_exists(\CrzSourceResolver\Support\VideoUrl::class)
+                    && \CrzSourceResolver\Resolver::available()) {
+                    $resolved = \CrzSourceResolver\Support\VideoUrl::resolved($this);
+                    if (is_string($resolved) && $resolved !== '') {
+                        return $resolved;
+                    }
+                }
+
                 return VideoImportSettings::directPlaybackUrl($this->import_url);
             }
 

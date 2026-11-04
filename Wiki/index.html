@@ -36,13 +36,13 @@ footer{margin-top:60px;color:var(--muted);font-size:12.5px}
 <div class="box good">
 <strong>State: läuft.</strong> <span class="badge b-ok">ONLINE</span>
 &nbsp;<code>https://crozztube.local:8443</code> &nbsp; Health: <code>{"status":"ok","version":"0.9.13"}</code>
-&nbsp;·&nbsp; Resolver <span class="badge b-ok">aktiv v0.5.3</span>
+&nbsp;·&nbsp; Resolver <span class="badge b-ok">aktiv v0.6.0</span>
 </div>
 
 <div class="box warn">
 <strong>Projekt-Ziel (bleibt stehen bis alle Blöcke umgesetzt):</strong><br>
 <strong>Nur Streaming · keine eigenen Uploads · keine API-Keys.</strong>
-Jedem importierten Video liegt eine <strong>Direkt-URL</strong> zugrunde (via <strong>yt-dlp</strong> aufgelöst, im eigenen Player, HLS bevorzugt + MP4-Fallback); der offizielle Provider-Embed (z.&nbsp;B. YouTube) ist als <strong>provider-neutraler Mirror</strong> umschaltbar. URL-Refresh bei Ablauf mit Single-Flight-Lock und Banner für wartende Nutzer. <strong>Kein Download-Button</strong> in der UI. Vimeo/Dailymotion/Twitch deaktiviert.
+Jedem importierten Video liegt eine <strong>Direkt-URL</strong> zugrunde (via <strong>yt-dlp</strong> aufgelöst, im eigenen Player, HLS bevorzugt + MP4-Fallback); der offizielle Provider-Embed (z.&nbsp;B. YouTube) ist als <strong>provider-neutraler Mirror</strong> umschaltbar. <strong>yt-dlp ist die zentrale Video-Engine</strong>: Es liefert beim Import auch Titel, Beschreibung, Tags, Thumbnail, Dauer und Kapitel — und akzeptiert über den <code>direct</code>-Provider jede URL, die es versteht. URL-Refresh bei Ablauf mit Single-Flight-Lock und Banner für wartende Nutzer. <strong>Kein Download-Button</strong> in der UI. Vimeo/Dailymotion/Twitch deaktiviert.
 </div>
 
 <nav class="cards">
@@ -57,13 +57,14 @@ Jedem importierten Video liegt eine <strong>Direkt-URL</strong> zugrunde (via <s
 <tr><th>Baustein</th><th>Stand</th></tr>
 <tr><td>Basis-Konfiguration (Uploads→admin-only, LiveKit aus, Provider-Whitelist)</td><td><span class="badge b-ok">erledigt</span></td></tr>
 <tr><td>Wiki-Doku (diese Seiten)</td><td><span class="badge b-ok">erledigt</span></td></tr>
-<tr><td>Plugin <code>crozztube.source-resolver</code> (yt-dlp Direkt-URL, synth. HLS-Master + Passthrough-Proxy, Refresh-Lock, Embed-Fallback)</td><td><span class="badge b-ok">erledigt</span> <span class="badge b-ok">getestet</span></td></tr>
+<tr><td>Plugin <code>crozztube.source-resolver</code> (yt-dlp Direkt-URL, synth. HLS-Master + Passthrough-Proxy, Refresh-Lock, Embed-Fallback, Health-Endpoint)</td><td><span class="badge b-ok">erledigt</span> <span class="badge b-ok">getestet</span></td></tr>
 <tr><td>Provider-neutraler Mirror-Umschalter unter dem Video (iframe/link)</td><td><span class="badge b-ok">erledigt</span> <span class="badge b-ok">Browser-getestet</span></td></tr>
 <tr><td>Auto-Refresh abgelaufener Direkt-URLs (Banner, Polling, Auto-Reload, Mirror-Fallback)</td><td><span class="badge b-ok">erledigt</span> <span class="badge b-ok">getestet</span></td></tr>
 <tr><td>Gestaffelte Wartungs-Jobs (5-Min-Refresh, Nacht-Probe 02:00–05:00, Queue <code>maintenance</code>)</td><td><span class="badge b-ok">erledigt</span> <span class="badge b-ok">getestet</span></td></tr>
 <tr><td>Download-Button</td><td><span class="badge b-ok">bewusst entfernt</span> (Endpoint bleibt)</td></tr>
 <tr><td>Direct-URL-/MP4-Import (progressive Datei, Mirror als externer Link)</td><td><span class="badge b-ok">erledigt</span> <span class="badge b-ok">getestet</span></td></tr>
-<tr><td>End-to-End-Tests (Stack, API, Media, Direct, Refresh, Mirror, Jobs, UI)</td><td><span class="badge b-ok">erledigt</span> (86 Checks + 5 Browser-Tests)</td></tr>
+<tr><td>yt-dlp als Metadaten-Engine (Titel/Beschreibung/Tags/Thumbnail/Dauer/Kapitel) + beliebige yt-dlp-URLs über den <code>direct</code>-Provider</td><td><span class="badge b-ok">erledigt</span> <span class="badge b-ok">getestet</span></td></tr>
+<tr><td>End-to-End-Tests (Stack, API, Media, Direct, Refresh, Mirror, Jobs, UI)</td><td><span class="badge b-ok">erledigt</span> (96 Checks + 5 Browser-Tests)</td></tr>
 </table>
 
 <footer>CrozzTube · lokale Instanz · Quellpaket: «PlayHub web v0.9.13» · Lizenz: KNL-Direct-Store (aktiviert, Domain crozztube.local)</footer>

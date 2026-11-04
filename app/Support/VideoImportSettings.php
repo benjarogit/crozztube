@@ -52,11 +52,12 @@ class VideoImportSettings
     {
         return [
             'direct' => [
-                'label' => 'Direct video URL',
-                'requires_downloader' => false,
+                'label' => 'Video URL (direct or yt-dlp)',
+                'mirror_label' => 'Original',
+                'requires_downloader' => true,
                 'api_key_label' => null,
                 'domains' => [],
-                'help' => 'Saves a public video file URL and plays it from the original URL.',
+                'help' => 'Accepts a direct video file (MP4/WebM) or any site supported by yt-dlp. Title, description, tags and thumbnail are read with yt-dlp; playback stays at the original host.',
             ],
             'youtube' => [
                 'label' => 'YouTube',
@@ -100,6 +101,17 @@ class VideoImportSettings
 
         file_put_contents($path, json_encode($settings, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
         @chmod($path, 0600);
+    }
+
+    /**
+     * Binary used for metadata extraction (imports) and by the source resolver.
+     * One setting so both paths always use the same yt-dlp build.
+     */
+    public static function downloaderCommand(): string
+    {
+        $configured = trim((string) (self::settings()['downloaderCommand'] ?? ''));
+
+        return $configured !== '' ? $configured : 'yt-dlp';
     }
 
     public static function providerEnabled(string $provider): bool

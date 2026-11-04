@@ -25,6 +25,7 @@ use App\Support\Slugs;
 use App\Support\VideoChapters;
 use App\Support\VideoImportSettings;
 use App\Support\VideoSales;
+use App\Support\YtDlp;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -909,8 +910,10 @@ class VideoController extends Controller
         });
 
         // CrozzTube-Patch: Direkt-URL via yt-dlp Resolver beim Import auflösen
-        // (Pflicht-Primärpfad). Embed-Fallback bleibt aktiv, bis die URL steht.
-        if ($data['provider'] !== 'direct' && class_exists(\CrzSourceResolver\Jobs\ResolveImportSource::class)) {
+        // (Pflicht-Primärpfad). Das gilt auch fuer `direct`, weil der Provider
+        // inzwischen jede von yt-dlp verstandene URL annimmt. Embed-Fallback
+        // bleibt aktiv, bis die URL steht.
+        if (class_exists(\CrzSourceResolver\Jobs\ResolveImportSource::class)) {
             \CrzSourceResolver\Jobs\ResolveImportSource::dispatch($video->id);
         }
 
@@ -948,6 +951,21 @@ class VideoController extends Controller
         $id = $this->providerVideoId($provider, $url);
         $api = $this->fetchProviderApiMetadata($provider, $id, $url);
         $oembed = $provider === 'direct' ? [] : $this->fetchOembed($provider, $url);
+
+        // yt-dlp is the metadata engine for direct URLs (direct files and any
+        // site it supports) and fills gaps that provider APIs, oEmbed or HTML
+        // scraping do not expose. Provider-specific data always wins.
+        $ytdlp = [];
+        if ($provider === 'direct' || blank($api['title'] ?? null) || empty($api['duration_seconds'])) {
+            $ytdlp = $this->fetchYtdlpMetadata($url);
+        }
+        if ($ytdlp !== []) {
+            $api = array_replace($ytdlp, array_filter(
+                $api,
+                fn ($value): bool => ! blank($value)
+            ));
+        }
+
         $title = trim((string) ($api['title'] ?? $oembed['title'] ?? '')) ?: $this->providerFallbackTitle($provider, $id, $url);
         $thumbnail = trim((string) ($api['thumbnail_url'] ?? $oembed['thumbnail_url'] ?? ''));
 
@@ -978,6 +996,18 @@ class VideoController extends Controller
             'chapters' => $chapters,
             'video_path' => 'external:'.$provider.($id ? ':'.$id : ''),
         ];
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    private function fetchYtdlpMetadata(string $url): array
+    {
+        if (! class_exists(YtDlp::class)) {
+            return [];
+        }
+
+        return YtDlp::metadataQuietly($url);
     }
 
     private function providerImportIsShort(string $provider, ?string $id, string $url, mixed $durationSeconds, array $api, array $oembed): ?bool

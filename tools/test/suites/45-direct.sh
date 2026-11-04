@@ -85,4 +85,31 @@ suite_direct() {
         && pass "direct MP4 serves media bytes ($media_code)" \
         || fail "direct MP4 range request returned $media_code"
     check_contains "direct MP4 content type" "video/mp4" "$media_type"
+
+    # A direct import is not limited to media files: the same provider accepts
+    # any URL yt-dlp understands. yt-dlp supplies title/description/tags/
+    # thumbnail/duration for those pages (the resolver then streams them).
+    local generic_url="${DIRECT_YTDLP_URL:-https://www.youtube.com/watch?v=dQw4w9WgXcQ}"
+    if [[ "$generic_url" == "none" ]]; then
+        skip "generic yt-dlp metadata check disabled (DIRECT_YTDLP_URL=none)"
+        return
+    fi
+
+    local generic_body metadata
+    generic_body=$(jq -n --arg url "$generic_url" '{provider:"direct", url:$url}')
+    metadata=$(api POST "/api/video-imports/metadata" "$generic_body")
+    check_ne "yt-dlp metadata returns a title" "" \
+        "$(printf '%s' "$metadata" | jq -r '.metadata.title // ""')"
+    check_ge "yt-dlp metadata returns a duration" 1 \
+        "$(printf '%s' "$metadata" | jq -r '.metadata.duration_seconds // 0')"
+    check_contains "yt-dlp metadata returns a thumbnail" "http" \
+        "$(printf '%s' "$metadata" | jq -r '.metadata.thumbnail_url // ""')"
+    check_ne "yt-dlp metadata returns an author" "" \
+        "$(printf '%s' "$metadata" | jq -r '.metadata.author_name // ""')"
+    # The title must come from the page, not from the URL path (e.g. "watch").
+    local title
+    title=$(printf '%s' "$metadata" | jq -r '.metadata.title // ""')
+    [[ "$title" != "watch" && "$title" != *"youtube.com"* ]] \
+        && pass "yt-dlp title is not derived from the URL" \
+        || fail "yt-dlp title looks like a URL fallback: $title"
 }

@@ -35,6 +35,13 @@ abstract class BaseSourceJob implements ShouldQueue
     /** Wartezeit, bevor derselbe Video-Refresh erneut eingereiht wird. */
     public const REQUEST_DEBOUNCE = 30;
 
+    /**
+     * yt-dlp-Fehler sind oft transient (CDN-Hiccup, kurzer DNS-Fehler). Der
+     * Queue-Worker wiederholt den Job mit Backoff; danach bleibt der Zustand
+     * sauber auf `error` stehen, damit die UI den Mirror anbietet.
+     */
+    public int $tries = self::MAX_ATTEMPTS;
+
     public function __construct(
         public readonly int $videoId,
         public readonly bool $force = false,
@@ -107,6 +114,24 @@ abstract class BaseSourceJob implements ShouldQueue
         } finally {
             $lock->release();
         }
+    }
+
+    public function backoff(): array
+    {
+        return [20, 90, 240];
+    }
+
+    /**
+     * Letzter Fehlversuch: Zustand bleibt sichtbar `error`, der Lock ist frei
+     * und wartende Clients koennen den Mirror nutzen oder erneut anfordern.
+     */
+    public function failed(?Throwable $exception): void
+    {
+        CrozztubeImportSource::query()->where('video_id', $this->videoId)->update([
+            'state' => 'error',
+            'error_message' => mb_substr($exception?->getMessage() ?? 'Refresh fehlgeschlagen.', 0, 500),
+            'refresh_started_at' => null,
+        ]);
     }
 
     /**

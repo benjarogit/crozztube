@@ -63,7 +63,7 @@ final class Mirror
     private static function label(string $provider): string
     {
         $providers = VideoImportSettings::providers();
-        $label = $providers[$provider]['label'] ?? null;
+        $label = $providers[$provider]['mirror_label'] ?? $providers[$provider]['label'] ?? null;
 
         if (is_string($label) && trim($label) !== '') {
             return trim($label);

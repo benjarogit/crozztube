@@ -34,4 +34,19 @@ suite_api() {
     local code
     code=$(api_code GET "/api/source-resolver/status/999999")
     check_eq "unknown video returns 404" "404" "$code"
+
+    # yt-dlp is a platform dependency, not an optional plugin detail: the
+    # health endpoint must expose its version and the resolver state counts.
+    local health
+    health=$(api GET "/api/source-resolver/health")
+    printf '%s' "$health" | jq -e '.ok == true' >/dev/null 2>&1 \
+        && pass "health returns ok" || fail "health returns ok: $health"
+    check_eq "health reports yt-dlp available" "true" \
+        "$(printf '%s' "$health" | jq -r '.health.ytdlp.available')"
+    check_ne "health reports a yt-dlp version" "" \
+        "$(printf '%s' "$health" | jq -r '.health.ytdlp.version // ""')"
+    check_eq "health reports plugin enabled" "true" \
+        "$(printf '%s' "$health" | jq -r '.health.plugin.enabled')"
+    printf '%s' "$health" | jq -e '.health.sources.by_state | type == "object"' >/dev/null 2>&1 \
+        && pass "health exposes source counts" || fail "health source counts missing"
 }

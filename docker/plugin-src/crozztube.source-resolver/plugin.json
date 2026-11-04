@@ -1,9 +1,9 @@
 {
   "id": "crozztube.source-resolver",
   "name": "CrozzTube Source Resolver",
-  "version": "0.5.3",
+  "version": "0.6.0",
   "api": 1,
-  "description": "Loest mit yt-dlp Direkt-URLs (HLS bevorzugt, MP4-Fallback) fuer importierte Videos, Refreshing bei Ablauf mit Single-Flight-Lock, Status-Endpoint fuer wartende Nutzer, provider-neutraler Mirror-Umschalter (Original-Embed), Download-Passthrough fuer progressive MP4. Kein Re-Hosting: alle Streamssegmente spielen ab Original.",
+  "description": "Loest mit yt-dlp Direkt-URLs (HLS bevorzugt, MP4-Fallback) fuer importierte Videos, Refreshing bei Ablauf mit Single-Flight-Lock, Status-Endpoint fuer wartende Nutzer, provider-neutraler Mirror-Umschalter (Original-Embed), Download-Passthrough fuer progressive MP4. Kein Re-Hosting: alle Streamssegmente spielen ab Original. Health-Endpoint zeigt yt-dlp-/ffprobe-Version und Quellenzustand.",
   "homepage": "https://crozztube.local:8443",
   "author": {
     "name": "CrozzTube",
@@ -71,6 +71,16 @@
       "description": "Download-Endpoint streamt die originale Datei mit Content-Disposition attachment durch (kein Speichern). Sonst 302 zur Original-URL.",
       "default": true,
       "public": false
+    },
+    {
+      "key": "ffprobe_command",
+      "label": "ffprobe binary",
+      "type": "text",
+      "description": "Kommando oder Pfad des ffprobe binar. Wird fuer die Dauer direkt verlinkter Dateien und den Health-Check benutzt.",
+      "default": "ffprobe",
+      "required": false,
+      "public": false,
+      "max_length": 120
     }
   ],
   "capabilities": [
@@ -79,6 +89,7 @@
     "Status-Endpoint für wartende Nutzer (Banner)",
     "Download-Passthrough für progressive MP4",
     "Provider-neutraler Mirror-Umschalter (Embed/Link)",
-    "Embed-Fallback bleibt immer verfügbar, wenn Resolver nicht liefert"
+    "Embed-Fallback bleibt immer verfügbar, wenn Resolver nicht liefert",
+    "Health-Endpoint: yt-dlp-/ffprobe-Version und Quellenzustand"
   ]
 }

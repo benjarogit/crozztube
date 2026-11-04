@@ -48,8 +48,8 @@ footer{margin-top:50px;color:var(--muted);font-size:12.5px}
 <h2>3. Import-Provider <span class="badge b-ok">UMGESETZT</span></h2>
 <table>
 <tr><th>Provider</th><th>Status</th><th>API-Key</th><th>Begründung</th></tr>
-<tr><td>Direct video URL</td><td>AN</td><td>–</td><td>„Mirror“: speichert Original-URL und spielt sie direkt (HLS/DASH/MP4) im eigenen Player</td></tr>
-<tr><td>YouTube</td><td>AN</td><td><strong>kein</strong> (Keyless-Scraping-Fallback)</td><td>Metadaten/Thumbnail/Kapitel/Tags aus offizieller Seite (Scraping); Playback YouTube-Embed — wird später MIRROR, Direkt-URL kommt aus yt-dlp-Resolver</td></tr>
+<tr><td>Video URL (direct or yt-dlp)</td><td>AN</td><td>–</td><td>Akzeptiert direkte Dateien (MP4/WebM) <strong>und jede von yt-dlp verstandene Seiten-URL</strong>; Metadaten kommen aus yt-dlp, Playback per aufgelöster Direkt-URL</td></tr>
+<tr><td>YouTube</td><td>AN</td><td><strong>kein</strong> (Keyless)</td><td>Metadaten/Thumbnail/Kapitel/Tags aus offizieller Seite; Playback per yt-dlp-Direkt-URL, YouTube-Embed ist nur Mirror</td></tr>
 <tr><td>Vimeo</td><td>AUS</td><td>–</td><td>niemals benötigt</td></tr>
 <tr><td>Dailymotion</td><td>AUS</td><td>–</td><td>niemals benötigt</td></tr>
 <tr><td>Twitch</td><td>AUS</td><td>–</td><td>aktuell nicht gebraucht (re-aktivierbar)</td></tr>
@@ -74,9 +74,10 @@ docker exec crozztube-web php artisan schedule:list | grep crozztube
 touch storage/framework/crozztube-maintenance.pause   # Wartung pausieren
 rm storage/framework/crozztube-maintenance.pause      # wieder aktiv</pre>
 
-<h2>5. yt-dlp Source-Resolver (Plugin) <span class="badge b-ok">FERTIG · v0.5.3</span></h2>
+<h2>5. yt-dlp Source-Resolver (Plugin) <span class="badge b-ok">FERTIG · v0.6.0</span></h2>
 <p><strong>Implementiert:</strong><br>
-<strong>A) Direkt-URL via yt-dlp = Pflicht.</strong> Beim Import (POST <code>/api/video-imports</code>) wird der Job <code>ResolveImportSource</code> dispatcht. yt-dlp (<code>-J</code>, keyless) liefert Metadaten + Direkt-URL. Auswahl: HLS-Manifest bevorzugt → sonst progressive MP4. Bei einer direkt verlinkten Datei meldet yt-dlp keine Codecs/Höhe — solche vollständigen Dateien (mp4/webm/m4v/mov) werden trotzdem als progressive Quelle übernommen, die Dauer wird per <code>ffprobe</code> nachgelesen; die MP4 bleibt beim Original-Host.<br>
+<strong>A) Direkt-URL via yt-dlp = Pflicht.</strong> Beim Import (POST <code>/api/video-imports</code>) wird der Job <code>ResolveImportSource</code> dispatcht (auch für <code>direct</code>). yt-dlp (<code>-J</code>, keyless) liefert Metadaten + Direkt-URL. Auswahl: HLS-Manifest bevorzugt → sonst progressive MP4. Bei einer direkt verlinkten Datei meldet yt-dlp keine Codecs/Höhe — solche vollständigen Dateien (mp4/webm/m4v/mov) werden trotzdem als progressive Quelle übernommen, die Dauer wird per <code>ffprobe</code> nachgelesen; die MP4 bleibt beim Original-Host.<br>
+<strong>A2) yt-dlp als Metadaten-Engine (v0.6.0).</strong> Der Provider <code>direct</code> („Video URL (direct or yt-dlp)“) akzeptiert jede von yt-dlp verstandene URL. <code>App\Support\YtDlp</code> liest Titel, Beschreibung, Tags, Thumbnail, Dauer, Kapitel und Autor (10-min-Cache); Provider-APIs/HTML-Metadaten haben Vorrang, yt-dlp füllt Lücken. Dadurch funktionieren auch Seiten ohne eigenen PlayHub-Provider (TikTok, X, Reddit, SoundCloud …) als Streaming-Import. <code>GET /api/source-resolver/health</code> zeigt yt-dlp-/ffprobe-Version und Quellenzahlen.<br>
 <strong>YouTube-Sonderfall (SABR/DASH):</strong> YouTube liefert kein muxed MP4 mehr und kein Master-Manifest. Das Plugin baut deshalb ein <strong>synthetisches HLS-Master-Manifest</strong> (<code>/api/source-resolver/manifest/{id}</code>): es verbindet die separaten Video-Playlists (144p–2160p, AVC/VP9) mit der AAC-Audio-Playlist (itag 233/234) zu einer gültigen Master-Playlist. Segmente streamen per <strong>Passthrough-Proxy</strong> (<code>/api/source-resolver/playlist</code> + <code>/seg</code>, googlevideo-Allowlist) direkt vom Original-CDN — <strong>nichts wird gespeichert oder re-gehostet</strong>, der Proxy existiert nur, weil googlevideo kein CORS sendet.</p>
 <table>
 <tr><th>Endpoint (Plugin-Routen)</th><th>Zweck</th></tr>
@@ -97,7 +98,7 @@ rm storage/framework/crozztube-maintenance.pause      # wieder aktiv</pre>
 
 <h2>6. Test-Harness <span class="badge b-ok">GRÜN</span></h2>
 <p>Vollständig lokal ausführbar, Details unter <a href="tests.html">Tests &amp; Harness</a>.</p>
-<pre>./tools/test/run.sh all        # 86 Checks + 5 Playwright-Tests
+<pre>./tools/test/run.sh all        # 96 Checks + 5 Playwright-Tests
 ./tools/test/run.sh list
 ./tools/test/run.sh refresh jobs</pre>
 <p>Das Harness pausiert den Scheduler während des Laufs und stellt manipulierte DB-Zeilen wieder her.</p>
