@@ -13,7 +13,13 @@ async function firstImportedVideo(request: APIRequestContext): Promise<VideoRef>
   expect(response.ok()).toBeTruthy();
   const payload = await response.json();
   const items = Array.isArray(payload) ? payload : payload.data || [];
-  const found = items.find((item: VideoRef & { source_type?: string }) => item.source_type === 'import');
+  // Prefer a provider embed: the mirror toggle only exists for iframe-mode
+  // mirrors. Direct file imports legitimately render an external link instead.
+  const found =
+    items.find(
+      (item: VideoRef & { source_type?: string; import_provider?: string }) =>
+        item.source_type === 'import' && item.import_provider === 'youtube',
+    ) || items.find((item: VideoRef & { source_type?: string }) => item.source_type === 'import');
   expect(found, 'no imported video available for UI tests').toBeTruthy();
   return { id: found.id, slug: found.slug };
 }

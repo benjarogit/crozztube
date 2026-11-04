@@ -38,7 +38,13 @@ async function firstImportedVideo(request: APIRequestContext): Promise<VideoRef>
   expect(response.ok()).toBeTruthy();
   const payload = await response.json();
   const items = Array.isArray(payload) ? payload : payload.data || [];
-  const found = items.find((item: VideoRef & { source_type?: string }) => item.source_type === 'import');
+  // HLS sources have an expiry cycle; direct files use a 24 h TTL and would
+  // make this suite depend on an external host. Prefer a YouTube import.
+  const found =
+    items.find(
+      (item: VideoRef & { source_type?: string; import_provider?: string }) =>
+        item.source_type === 'import' && item.import_provider === 'youtube',
+    ) || items.find((item: VideoRef & { source_type?: string }) => item.source_type === 'import');
   expect(found, 'no imported video available for UI tests').toBeTruthy();
   return { id: found.id, slug: found.slug };
 }

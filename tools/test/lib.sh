@@ -169,7 +169,12 @@ cleanup_created_videos() {
             printf '  %skept test video id=%s%s\n' "$C_DIM" "$id" "$C_RESET"
             continue
         fi
-        api DELETE "/api/videos/$id" >/dev/null 2>&1 || true
+        # The delete route binds by slug, not id.
+        local slug
+        slug=$(db_scalar "SELECT slug FROM videos WHERE id=$id LIMIT 1;")
+        if [[ -n "$slug" ]]; then
+            api DELETE "/api/videos/$slug" >/dev/null 2>&1 || true
+        fi
         db "DELETE FROM crozztube_import_sources WHERE video_id=$id;" >/dev/null 2>&1 || true
     done
 }

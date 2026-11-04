@@ -24,7 +24,7 @@ footer{margin-top:50px;color:var(--muted);font-size:12.5px}
 </style></head><body><div class="wrap">
 <div class="crumbs"><a href="index.html">← Wiki-Start</a> / Tests &amp; Harness</div>
 <h1>🧪 Tests &amp; Harness</h1>
-<p>Das Harness prüft den laufenden Docker-Stack von außen (HTTP, DB, Queue, Browser) und ist so gebaut, dass ein Agent es ohne manuelle Schritte komplett ausführen kann. Letzter vollständiger Lauf: <span class="badge b-ok">72 Checks + 5 Browser-Tests grün</span>.</p>
+<p>Das Harness prüft den laufenden Docker-Stack von außen (HTTP, DB, Queue, Browser) und ist so gebaut, dass ein Agent es ohne manuelle Schritte komplett ausführen kann. Letzter vollständiger Lauf: <span class="badge b-ok">85 Checks + 5 Browser-Tests grün</span>.</p>
 
 <h2>Ausführen</h2>
 <pre>cd "/mnt/intern-1tb/Projekte - Vibe Coding/crozztube"
@@ -45,6 +45,7 @@ CRZZ_VERBOSE=1 ./tools/test/run.sh ui     # Fehler-Log ausgeben</pre>
 <tr><td><code>stack</code></td><td>Container-Status, Health-Endpoint, HTTPS, DB/Redis-Erreichbarkeit, Plugin aktiv/Version</td></tr>
 <tr><td><code>api</code></td><td>Login, Video-Feed, Watch-Payload, Import-Endpoint, Rechte/Validierung</td></tr>
 <tr><td><code>media</code></td><td>Master-Manifest, Varianten, Video-/Audio-Playlist, Segment-Passthrough (HTTP 200, Größe, Audio)</td></tr>
+<tr><td><code>direct</code></td><td>Direct-URL-Import einer progressiven MP4: Auflösung ohne HLS (<code>kind=mp4</code>), Mirror-Modus <code>link</code>, Watch-Payload mit <code>video/mp4</code>, Range-Request ans Original. Testvideo wird gelöscht.</td></tr>
 <tr><td><code>refresh</code></td><td>Status-Metadaten, hängende <code>refreshing</code>-Zustände, erzwungener Refresh bei frischer Quelle, simulierter Ablauf + automatische Erneuerung, <strong>5 parallele Requests → genau ein Resolve</strong></td></tr>
 <tr><td><code>mirror</code></td><td>Provider-Matrix (YouTube/Short/Vimeo/Dailymotion/Twitch/Direct), Embed-URLs, <code>mode</code>, Slug-Lookup, 404 bei unbekanntem Slug</td></tr>
 <tr><td><code>jobs</code></td><td>Commands registriert, Scheduler-Einträge, Probe erkennt gute/defekte URLs, <code>refresh-expiring</code> wählt Ablaufkandidaten und arbeitet die <code>maintenance</code>-Queue ab</td></tr>
@@ -68,6 +69,7 @@ npx playwright test specs/refresh.spec.ts --headed</pre>
 <tr><td><code>SLOW</code></td><td><code>1</code></td><td><code>0</code> überspringt echte yt-dlp-Läufe</td></tr>
 <tr><td><code>UI_SKIP</code></td><td><code>0</code></td><td><code>1</code> überspringt Playwright</td></tr>
 <tr><td><code>ARTIFACT_DIR</code></td><td><code>/tmp/crozztube-tests</code></td><td>Logs und Artefakte</td></tr>
+<tr><td><code>DIRECT_MP4_URL</code></td><td>MDN-Sample-MP4</td><td>Quelle für die <code>direct</code>-Suite; <code>none</code> überspringt sie</td></tr>
 </table>
 
 <h2>Wie das Harness den Stack schützt</h2>

@@ -104,11 +104,30 @@ class Resolver
                 && filter_var($format['url'], FILTER_VALIDATE_URL) !== false
         ));
 
-        $progressive = array_filter($formats, fn (array $format): bool => str_starts_with((string) $format['protocol'], 'http')
-            && ($format['ext'] ?? '') === 'mp4'
-            && ($format['vcodec'] ?? '') !== 'none'
-            && ($format['acodec'] ?? '') !== 'none'
-            && ($format['height'] ?? 0) > 0);
+        $progressive = array_filter($formats, function (array $format): bool {
+            if (! str_starts_with((string) ($format['protocol'] ?? ''), 'http')) {
+                return false;
+            }
+
+            $ext = strtolower((string) ($format['ext'] ?? ''));
+            if (! in_array($ext, ['mp4', 'webm', 'm4v', 'mov'], true)) {
+                return false;
+            }
+
+            // yt-dlp meldet bei einer direkt verlinkten Datei (Generic-Extractor)
+            // oft weder vcodec noch acodec und keine Hoehe. Die Datei ist dann
+            // trotzdem eine vollstaendige progressive Quelle.
+            $unknownDirect = ($format['vcodec'] ?? null) === null
+                && ($format['acodec'] ?? null) === null;
+
+            if ($unknownDirect) {
+                return true;
+            }
+
+            return ($format['vcodec'] ?? '') !== 'none'
+                && ($format['acodec'] ?? '') !== 'none'
+                && ($format['height'] ?? 0) > 0;
+        });
 
         usort($progressive, fn (array $a, array $b): int => [$b['height'] ?? 0, $b['tbr'] ?? 0] <=> [$a['height'] ?? 0, $a['tbr'] ?? 0]);
         $bestProgressive = $progressive[0] ?? null;
@@ -183,6 +202,7 @@ class Resolver
         }
 
         $downloadUrl = $bestProgressive ? (string) $bestProgressive['url'] : null;
+        $isDirectFile = $bestProgressive !== null && (int) ($bestProgressive['height'] ?? 0) <= 0;
 
         $ttlCandidates = [$mediaUrl];
         if ($kind === 'hls-synth') {
@@ -197,7 +217,9 @@ class Resolver
                 $ttl = $candidateTtl;
             }
         }
-        $ttl ??= $this->intSetting('stale_fallback_minutes', 180) * 60;
+        $ttl ??= $isDirectFile
+            ? 86400
+            : $this->intSetting('stale_fallback_minutes', 180) * 60;
 
         $chapters = null;
         if (is_array($data['chapters'] ?? null)) {

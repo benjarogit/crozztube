@@ -22,12 +22,13 @@ declare -A SUITE_FILES=(
     [stack]="00-stack.sh"
     [api]="10-api.sh"
     [media]="20-media.sh"
+    [direct]="45-direct.sh"
     [refresh]="30-refresh.sh"
     [mirror]="40-mirror.sh"
     [jobs]="50-jobs.sh"
     [ui]="60-ui.sh"
 )
-ORDER=(stack api media refresh mirror jobs ui)
+ORDER=(stack api media direct refresh mirror jobs ui)
 
 usage() {
     sed -n '2,15p' "${BASH_SOURCE[0]}" | sed 's/^# \{0,1\}//'

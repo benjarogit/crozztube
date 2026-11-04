@@ -16,10 +16,11 @@
 
 ## 2. Was fertig & verifiziert ist
 
-### Plugin `crozztube.source-resolver` v0.5.1 (installiert + aktiv)
+### Plugin `crozztube.source-resolver` v0.5.2 (installiert + aktiv)
 Quelle: `docker/plugin-src/crozztube.source-resolver/` (dort liegt der Code, installiert wird via ZIP-Upload an die Admin-API; Hilfsskript `tools/dev/reinstall-plugin.sh`).
 
 - **Resolver (`src/Resolver.php`):** yt-dlp `-J` keyless. Auswahllogik: echtes HLS-Manifest → sonst muxed MP4 → sonst **"hls-synth"** (YouTube-Sonderfall) → sonst Fehler.
+- **Direkt verlinkte Dateien (Direct-URL-Provider):** yt-dlp meldet beim Generic-Extractor weder `vcodec`/`acodec` noch eine Höhe. Der Resolver akzeptiert solche vollständigen Dateien (mp4/webm/m4v/mov) als progressive Quelle (`kind=mp4`), TTL 24 h. `media_url` bleibt die Original-URL — nichts wird heruntergeladen oder re-gehostet.
 - **YouTube-Sonderfall (wichtig!):** YouTube liefert seit SABR kein muxed MP4 und kein Master-Manifest mehr. Lösung: itags 233/234 sind versteckte **HLS-Audio-Playlists** (AAC-LC, geprüft via ffprobe). Das Plugin speichert bis zu 8 Video-Playlists (144p–2160p, AVC/VP9, deduped pro Höhe) + 1 Audio-Playlist in der DB (`variants`, `audio_url`) und baut ein **synthetisches HLS-Master-Manifest**.
 - **Metadaten-Backfill:** `Resolver::backfillMetadata()` schreibt `duration_seconds` + `is_short` ins `videos`-Table, wenn dort NULL/0 (Fixt den früheren Bug „3:32-Video als Short“). Short-Erkennung über `/shorts|reel|reels/` in der Import-URL.
 - **Passthrough-Proxy absichtlich!** googlevideo sendet kein `Access-Control-Allow-Origin`, HLS.js braucht daher einen Same-Origin-Pfad. Der Proxy streamt nur durch (curl-basiert), speichert **nichts** (kein Re-Hosting). Host-Allowlist: nur `*.googlevideo.com`.
@@ -39,7 +40,7 @@ Quelle: `docker/plugin-src/crozztube.source-resolver/` (dort liegt der Code, ins
 - **Frontend (`watch-enhancer.js`):** Banner („wird erneuert“ / Fehler + Retry + Mirror), Polling, einmaliger Auto-Reload nach frischer URL (max. 2 Versuche, Resume-Position in `sessionStorage`), Mirror-Fallback bei hartem Fehler. Auto-Refresh triggert nur bei vorhandener, abgelaufener Direktquelle — kein Endlos-yt-dlp bei kaputtem Import.
 - **Sicherheitsnetze ohne JS:** `manifest`-Route stößt bei abgelaufener Quelle einen Refresh an und liefert das aktuelle Manifest weiter; `playlist`-Route triggert bei CDN-Fehler einen Refresh (Video-ID wird durch das synthetische Manifest gereicht).
 
-### Wartungs-Jobs (v0.5.1)
+### Wartungs-Jobs (eingeführt v0.5.0)
 - `crozztube:sources:refresh-expiring` — alle 5 Min, Optionen `--window=15 --limit=10 --stagger=15 --scheduled --dry-run`. Erneuert Quellen kurz vor Ablauf, gestaffelt (Delay pro Dispatch), Queue `maintenance`.
 - `crozztube:sources:probe` — stündlich zwischen 02:00–05:00, Optionen `--limit=20 --min-age=60 --stagger=10 --scheduled --dry-run`. HEAD-Check, Fallback 1-Byte-Range-GET, schreibt `last_checked_at`/`last_check_status`; defekte URLs → `stale` + Refresh.
 - Beide respektieren die Pause-Datei `storage/framework/crozztube-maintenance.pause` (nur mit `--scheduled`, damit manuelle Läufe immer funktionieren). Das Test-Harness setzt sie automatisch.
@@ -47,13 +48,13 @@ Quelle: `docker/plugin-src/crozztube.source-resolver/` (dort liegt der Code, ins
 
 ### Test-Harness (vollständig agent-ausführbar)
 ```bash
-./tools/test/run.sh all          # alles: 72 Checks + 5 Playwright-Tests
+./tools/test/run.sh all          # alles: 85 Checks + 5 Playwright-Tests
 ./tools/test/run.sh list         # Suiten anzeigen
 ./tools/test/run.sh refresh jobs # gezielt
 SLOW=0 ./tools/test/run.sh jobs  # ohne yt-dlp-Roundtrip
 ```
-Suiten: `stack`, `api`, `media`, `refresh`, `mirror`, `jobs`, `ui`. Details: `Wiki/tests.html`.
-Letzter vollständiger Lauf: **72 Checks + 5 Browser-Tests grün**.
+Suiten: `stack`, `api`, `media`, `direct`, `refresh`, `mirror`, `jobs`, `ui`. Details: `Wiki/tests.html`.
+Letzter vollständiger Lauf: **85 Checks + 5 Browser-Tests grün**.
 
 ### Commits
 | Commit | Inhalt |
@@ -64,6 +65,8 @@ Letzter vollständiger Lauf: **72 Checks + 5 Browser-Tests grün**.
 | `0a65ed8` | Auto-Refresh + Wartungs-Jobs + refresh/jobs-Suiten |
 | `4e1e06f` | Doku v0.5.0 (HANDOFF, Wiki Konfiguration/Tests) |
 | `f57e566` | Single-Flight über mehrere Nutzer (v0.5.1) |
+| `0774175` | Doku-Nachtrag v0.5.1 |
+| _ausstehend_ | Direct-MP4-Fix + `direct`-Suite (v0.5.2) |
 
 ### Live-Stand der Instanz
 - Drei importierte Videos, alle `fresh`, `kind=hls-synth`, Manifeste HTTP 200 (6–8 Varianten), Segment-Passthrough geprüft.
@@ -88,8 +91,8 @@ Bisher max. 9 Min. geprüft. Master-Manifest, Playlist-Länge, Buffering und Res
 ### E2. ~~Mehrere Nutzer gleichzeitig auf abgelaufener Quelle~~ ✓
 Erledigt: `requestedAt`-Koaleszenz im Job + Harness-Check (5 parallele Refresh-Requests → `refresh_attempts` steigt um genau 1).
 
-### E3. Direct-MP4-Import im Browser
-Import einer echten progressiven MP4-Quelle: Wiedergabe + Mirror-Modus `link` prüfen. Download ist bewusst kein UI-Feature mehr.
+### E3. ~~Direct-MP4-Import im Browser~~ ✓
+Erledigt: `direct`-Suite importiert eine progressive MP4, prüft `kind=mp4`, `downloadable`, Mirror `link`, Watch-Payload und Range-Response des Originals. Browser-Check manuell bestätigt (30,5 s Sample, `readyState=4`, Mirror-Link „Original“).
 
 ### E4. Shorts-Darstellung
 Serverseitig korrekt (`is_short`, Dauer). Offen: Darstellung in der Shorts-Ansicht mit dem neuen Backfill gegenprüfen.
