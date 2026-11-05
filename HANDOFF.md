@@ -116,6 +116,7 @@ Bei jeder Plugin-Version `plugin.json`-Version, Wiki und dieses Dokument mitzieh
 ## 5. Betriebs-KnowHow / Fallstricke
 
 - **Plugin reinstall:** `./tools/dev/reinstall-plugin.sh` (baut ZIP, disable → install → enable → `queue:restart`). Manuell: `POST /api/admin/plugins` (multipart `package`) → `enable`; **immer** `docker exec crozztube-web php artisan queue:restart`, sonst `__PHP_Incomplete_Class` in Jobs.
+- **Nach Host-Reboot:** `web`/`worker`/`cron` können mit Exit 127 scheitern (Bind-Mount-Fehler am externen Laufwerk). Fix: `docker compose -f docker/compose.yml --profile runtime up -d web worker cron`. Danach laufen die Wartungs-Jobs und erneuern abgelaufene URLs automatisch.
 - **Manifest-Limits:** `plugin.json`-Textfelder (z. B. `capabilities[]`) dürfen **max. 80 Zeichen** haben, sonst schlägt der Install fehl.
 - **Throttle:** `POST /api/admin/plugins` hat `throttle:10,1` — bei mehreren Reinstalls in Folge 429, ~60 s warten.
 - **Zeitfalle:** App-Timezone ist `Europe/Berlin`, die MySQL-Session läuft in **UTC**. `NOW()`/`CURRENT_TIMESTAMP` in SQL ist eine Stunde daneben. In Plugin-Code und Tests Zeitstempel aus PHP formatieren (`now()->format('Y-m-d H:i:s')`) oder feste Werte wie `'2000-01-01 00:00:00'` verwenden.
