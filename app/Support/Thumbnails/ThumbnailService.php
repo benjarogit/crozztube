@@ -17,7 +17,8 @@ class ThumbnailService
 
     public static function providers(): array
     {
-        return array_filter(config('thumbnails.providers'), fn ($p) => $p['supported'] && trim((string) $p['key']) !== '');
+        return array_filter(config('thumbnails.providers'), fn ($p) => $p['supported']
+            && (! ($p['requires_key'] ?? true) || trim((string) $p['key']) !== ''));
     }
 
     public function ensureSource(Video $video, ?string $url = null): void

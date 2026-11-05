@@ -58,6 +58,7 @@ function rejects(callable $fn, string $name): void
 }
 
 config(['cache.default' => 'array', 'thumbnails.pause_file' => '/proc/crozztube-test-no-pause',
+    'thumbnails.providers.directupload.supported' => false,
     'thumbnails.providers.fastpic.key' => 'test-only', 'thumbnails.providers.postimages.key' => 'test-only']);
 DB::beginTransaction();
 try {
@@ -94,6 +95,29 @@ try {
     $app->instance(ThumbnailService::class, $service);
     $fast = 'https://i.fastpic.org/big/test.png';
     $post = 'https://i.postimg.cc/test/image.png';
+    $direct = 'https://s1.directupload.eu/images/261105/example.png';
+    $directHtml = '<html><input value="https://www.directupload.eu/file/d/9459/example_png.htm"><input value="https://s1.directupload.eu/images/261105/temp/example.png"><input value="'.$direct.'"></html>';
+    check($hosters->parse('directupload', $directHtml) === $direct, 'Directupload HTML parser selects original hotlink');
+    rejects(fn () => $hosters->parse('directupload', '<html><input value="https://s1.directupload.eu/images/261105/temp/example.png"></html>'), 'Directupload does not mistake preview for original');
+    rejects(fn () => $hosters->parse('directupload', '<html><input value="https://127.0.0.1/images/261105/example.png"></html>'), 'Directupload rejects unexpected image hosts');
+    rejects(fn () => $hosters->parse('directupload', '<html>Upload failed or verification required</html>'), 'Directupload rejects changed or unsuccessful response');
+    config(['thumbnails.providers.directupload.supported' => true]);
+    check(isset(ThumbnailService::providers()['directupload']), 'Directupload is available without an API key');
+    $http->responses['POST https://www.directupload.eu/upload_you/'] = ['body' => $directHtml, 'type' => 'text/html'];
+    $directVideo = $make('directupload-priority');
+    $service->initial($directVideo);
+    check($directVideo->fresh()->thumbnail_candidates[0] === $direct, 'Directupload takes priority one on import');
+    check(count(array_filter($http->calls, fn ($c) => $c[1] === 'POST')) === 1, 'successful Directupload import leaves other copies for night');
+    $directVideo->delete();
+    $http->calls = [];
+    $http->responses['POST https://www.directupload.eu/upload_you/'] = ['code' => 503];
+    $http->responses['POST https://new.fastpic.org/upload'] = ['body' => json_encode(['hotlinked' => true, 'big_link' => $fast])];
+    $directFailure = $make('directupload-fallback');
+    $service->initial($directFailure);
+    check($directFailure->fresh()->thumbnail_candidates[0] === $fast, 'Directupload outage falls back to FastPic during import');
+    $directFailure->delete();
+    config(['thumbnails.providers.directupload.supported' => false]);
+    $http->calls = [];
     check($hosters->parse('fastpic', json_encode(['hotlinked' => true, 'big_link' => $fast])) === $fast, 'FastPic hotlink parser');
     check($hosters->parse('fastpic', json_encode(['hotlinked' => false, 'big_link' => $fast, 'thumb_link' => 'https://i.fastpic.org/thumb/test.png'])) === 'https://i.fastpic.org/thumb/test.png', 'FastPic respects hotlink restriction');
     check($hosters->parse('postimages', '<data success="1"><links><hotlink>'.$post.'</hotlink></links></data>') === $post, 'Postimages own-key XML hotlink parser');

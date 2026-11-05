@@ -10,9 +10,13 @@ return [
     'check_limit' => 20,
     'upload_limit' => 5,
     'run_budget' => 60,
-    // Order is intentional. Directupload has no documented automated adapter.
+    // Fixed priority. Directupload uses its public YourUpload form, not an API.
     'providers' => [
-        'directupload' => ['priority' => 1, 'key' => '', 'supported' => false],
+        'directupload' => [
+            'priority' => 1, 'key' => '', 'requires_key' => false, 'supported' => true,
+            // Conservative local budgets for the public form, not published hoster limits.
+            'minute_limit' => 10, 'day_limit' => 300,
+        ],
         'fastpic' => ['priority' => 2, 'key' => env('FASTPIC_API_KEY', ''), 'supported' => true, 'minute_limit' => 60, 'day_limit' => 5000],
         'postimages' => [
             'priority' => 3, 'key' => env('POSTIMAGES_API_KEY', ''), 'supported' => true,

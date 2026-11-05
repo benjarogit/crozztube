@@ -11,13 +11,27 @@ class Hosters
     public function upload(string $provider, array $image, string $identity, float $deadline): array
     {
         $key = (string) config('thumbnails.providers.'.$provider.'.key');
-        if ($key === '' || $provider === 'directupload') {
+        if (! config('thumbnails.providers.'.$provider.'.supported')
+            || (config('thumbnails.providers.'.$provider.'.requires_key', true) && $key === '')) {
             throw new RuntimeException('provider-unconfigured');
         }
         $this->reserveQuota($provider);
         $extension = ['image/jpeg' => 'jpg', 'image/png' => 'png', 'image/gif' => 'gif', 'image/webp' => 'webp', 'image/avif' => 'avif'][$image['type']];
         $name = 'crz-'.substr($identity, 0, 24);
-        if ($provider === 'fastpic') {
+        if ($provider === 'directupload') {
+            // Observed in yourload.php and verified with a real browser form submission.
+            $boundary = 'crz'.bin2hex(random_bytes(16));
+            $body = '';
+            foreach (['showtext' => 'checkbox', 'Upload_file' => ' Bild hochladen '] as $field => $value) {
+                $body .= '--'.$boundary."\r\nContent-Disposition: form-data; name=\"".$field."\"\r\n\r\n".$value."\r\n";
+            }
+            $body .= '--'.$boundary."\r\nContent-Disposition: form-data; name=\"bilddatei\"; filename=\"".$name.'.'.$extension."\"\r\nContent-Type: ".$image['type']."\r\n\r\n".$image['bytes']."\r\n--".$boundary."--\r\n";
+            $response = $this->http->request('https://www.directupload.eu/upload_you/', 'POST', $deadline, 131072, [
+                'Content-Type: multipart/form-data; boundary='.$boundary,
+                'Referer: https://www.directupload.eu/yourload.php',
+                'Origin: https://www.directupload.eu',
+            ], $body);
+        } elseif ($provider === 'fastpic') {
             $boundary = 'crz'.bin2hex(random_bytes(16));
             $body = '--'.$boundary."\r\nContent-Disposition: form-data; name=\"file1\"; filename=\"".$name.'.'.$extension."\"\r\nContent-Type: ".$image['type']."\r\n\r\n".$image['bytes']."\r\n--".$boundary."--\r\n";
             $response = $this->http->request('https://new.fastpic.org/upload', 'POST', $deadline, 131072,
@@ -53,7 +67,26 @@ class Hosters
 
     public function parse(string $provider, string $body): string
     {
-        if ($provider === 'fastpic') {
+        if ($provider === 'directupload') {
+            $url = null;
+            $previous = libxml_use_internal_errors(true);
+            try {
+                $document = new \DOMDocument;
+                if ($document->loadHTML($body, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING)) {
+                    foreach ($document->getElementsByTagName('input') as $input) {
+                        $value = trim($input->getAttribute('value'));
+                        // Only the direct original-size hotlink, never /temp/ previews or viewer pages.
+                        if (preg_match('#^https://s\d+\.directupload\.eu/images/\d{6}/[a-z0-9_-]+\.(?:jpe?g|png|gif|webp|avif)$#i', $value)) {
+                            $url = $value;
+                            break;
+                        }
+                    }
+                }
+            } finally {
+                libxml_clear_errors();
+                libxml_use_internal_errors($previous);
+            }
+        } elseif ($provider === 'fastpic') {
             $data = json_decode($body, true, 32, JSON_THROW_ON_ERROR);
             // The host explicitly reports whether full-size hotlinking is permitted.
             $hotlinked = filter_var($data['hotlinked'] ?? false, FILTER_VALIDATE_BOOLEAN);
@@ -74,9 +107,12 @@ class Hosters
 
         }
         $host = strtolower((string) parse_url((string) $url, PHP_URL_HOST));
-        $allowed = $provider === 'fastpic'
-            ? preg_match('/(^|\.)fastpic\.(org|ru)$/', $host)
-            : $host === 'i.postimg.cc';
+        $allowed = match ($provider) {
+            'directupload' => (bool) preg_match('/^s\d+\.directupload\.eu$/', $host),
+            'fastpic' => (bool) preg_match('/(^|\.)fastpic\.(org|ru)$/', $host),
+            'postimages' => $host === 'i.postimg.cc',
+            default => false,
+        };
         if (! RemoteImages::urlAllowed($url) || ! $allowed || ! str_starts_with((string) $url, 'https://')) {
             throw new RuntimeException('invalid-provider-response');
         }

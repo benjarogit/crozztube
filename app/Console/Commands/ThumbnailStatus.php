@@ -19,7 +19,10 @@ class ThumbnailStatus extends Command
             'night' => [config('thumbnails.night_start'), config('thumbnails.night_end'), config('thumbnails.timezone')],
             'in_window' => NightWindow::contains(), 'paused' => NightWindow::paused(),
             'providers' => ThumbnailProvider::orderBy('priority')->get()->map(fn ($p) => [
-                'id' => $p->id, 'priority' => $p->priority, 'configured' => trim((string) config('thumbnails.providers.'.$p->id.'.key')) !== '',
+                'id' => $p->id, 'priority' => $p->priority,
+                'configured' => (bool) config('thumbnails.providers.'.$p->id.'.supported')
+                    && (! config('thumbnails.providers.'.$p->id.'.requires_key', true)
+                        || trim((string) config('thumbnails.providers.'.$p->id.'.key')) !== ''),
                 'supported' => (bool) config('thumbnails.providers.'.$p->id.'.supported'), 'paused_until' => $p->paused_until,
                 'circuit_open' => $p->circuit_open, 'last_result' => $p->last_result,
             ]),

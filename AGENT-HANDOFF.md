@@ -46,9 +46,9 @@ docker compose -f docker/compose.yml --profile runtime up -d web worker cron thu
 
 ## 3. Aktueller Stand
 
-- **Plugin `crozztube.source-resolver` v0.7.0** installiert und aktiv.
+- **Plugin `crozztube.source-resolver` v0.7.1** installiert und aktiv.
 - **yt-dlp 2026.10.26**, ffprobe 5.1.9 im Web-Image; cron aktualisiert yt-dlp täglich.
-- **Harness: 102 Harness-Checks (inkl. Thumbnail-Suite mit 83 Einzelprüfungen) + 9 Playwright-Tests grün** (letzter vollständiger Lauf).
+- **Harness: 102 Harness-Checks (inkl. Thumbnail-Suite mit 91 Einzelprüfungen) + 9 Playwright-Tests grün** (letzter vollständiger Lauf).
 - **3 Videos**, alle Quellen `fresh`: ID 1–3, echte YouTube-Imports (`kind=hls-synth`).
 - ID 4 (veraltetes Direct-MP4-Testsample) wurde entfernt; die Direct-Suite verwendet einen temporären MDN-Import.
 - Auto-Refresh hat nach längerer Stack-Downtime alle abgelaufenen Quellen wieder erneuert.
@@ -104,11 +104,11 @@ Letzte Commits:
 ---
 
 
-### Thumbnails und Shorts (v0.7.0)
+### Thumbnails und Shorts (v0.7.1)
 - Core: `app/Support/Thumbnails/`, Konfiguration `config/thumbnails.php`. Kein Bild-/Video-Dateispeicher für diese Workflows; Thumbnail-Bytes maximal 5 MiB im RAM. PHP-Body-Spooling liegt auf `/dev/shm`.
 - Original-URL bleibt in `videos.original_thumbnail_url` (TEXT). Aktuelle Quelle und Version separat; `thumbnail_mirrors` enthält Kopien und den Original-Prüfstatus, `thumbnail_providers` globale Ausfälle. Inhaltshashes vermeiden erneute Uploads bei geänderten signierten URLs.
-- Reihenfolge: Directupload (reserviert, kein automatischer Adapter) → FastPic → Postimages → Original → UI-Platzhalter. `FASTPIC_API_KEY` und `POSTIMAGES_API_KEY` in `.env`; **beide lokal hinterlegt; echte Uploads am 5. Nov 2026 erfolgreich geprüft (je HTTP 200, direkte Bild-URL erreichbar)**. Postimages verwendet den vom Nutzer freigegebenen inoffiziellen ShareX-Weg mit eigenem Key und XML-Hotlink.
-- Beim Import: erste erfolgreiche Kopie innerhalb insgesamt 10 s; keine weiteren Kopien tagsüber. Kein Key/Fehler/Lock: Original bleibt aktiv. Eigene Bilder via Raw-Body `PUT /api/videos/{slug}/thumbnail`, keine Multipart-Datei; bei Totalausfall bisheriges Bild/Platzhalter, keine Bytes für spätere Jobs speichern. Native API verwendet denselben Service (Raw-Body POST).
+- Reihenfolge: Directupload (öffentlicher Formular-Adapter, ohne Key) → FastPic → Postimages → Original → UI-Platzhalter. `FASTPIC_API_KEY` und `POSTIMAGES_API_KEY` in `.env`; **beide lokal hinterlegt; echte Uploads am 5. Nov 2026 erfolgreich geprüft (je HTTP 200, direkte Bild-URL erreichbar)**. Postimages verwendet den vom Nutzer freigegebenen inoffiziellen ShareX-Weg mit eigenem Key und XML-Hotlink.
+- Beim Import: erste erfolgreiche Kopie innerhalb insgesamt 10 s; keine weiteren Kopien tagsüber. Kein verfügbarer Anbieter/Fehler/Lock: Original bleibt aktiv. Eigene Bilder via Raw-Body `PUT /api/videos/{slug}/thumbnail`, keine Multipart-Datei; bei Totalausfall bisheriges Bild/Platzhalter, keine Bytes für spätere Jobs speichern. Native API verwendet denselben Service (Raw-Body POST).
 - Browser bekommt `thumbnail_candidates`; Fallback benötigt keine Backend-Anfrage. Private Video-Thumbnails sind absichtlich extern abrufbar.
 - `MaintainThumbnails` auf eigener Queue `thumbnails`, eigener Container `crozztube-thumbnail-worker` (1 Worker, 0.25 CPU, 256 MiB). Nur 02:00 bis **vor** 05:00 Europe/Berlin; auch Jobs prüfen das Fenster. Alle 5 Min maximal 20 Prüfungen, 5 Kopierversuche, 60 s. Eine globale Transfersperre schützt zusätzlich gleichzeitige Importe.
 - Gesunde Bilder nach 7 Tagen; Fehler nächstes Nachtfenster, dann Backoff bis 7 Tage. Drei verschiedene Netzwerk-/Serverfehler öffnen den Hoster-Circuit für 30 Min; danach eine Probe. 404 löst keine globale Sperre aus. Bestehende lokale Dateien erst nach verifizierter Kopie löschen.
@@ -194,7 +194,7 @@ Bisher max. ~9 Min. getestet. Master-Manifest, Playlist-Länge, Buffering und Re
 ### E4 / E6 / Aufräumen
 Erledigt: Shorts-Browsercheck inkl. Wiedergabe/Seek, einheitliche 180-s-Regel, Kapitelanzeige/Kapitelsprung, Metadaten-Backfill, Fehlerklassifikation, Admin-Provider-Labels aus gemeinsamer Definition. Testvideo ID 4 entfernt.
 
-Offen bleibt E1 (mehrstündige Nutzer-URL fehlt). FastPic und Postimages sind mit eigenen lokalen Keys live geprüft; am bestehenden Video ID 3 sind beide Kopien hinterlegt. Browserprüfung: FastPic normal, bei blockiertem FastPic Postimages, bei beiden blockiert das YouTube-Original. Weitere Bestandskopien bleiben für die Nachtwartung vorgemerkt. Directupload bleibt bis zur geeigneten Schnittstelle reserviert. Auth-/Geo-Provider bleiben deaktiviert.
+Offen bleibt E1 (mehrstündige Nutzer-URL fehlt). Alle drei Hoster sind live geprüft; am bestehenden Video ID 3 sind drei Kopien hinterlegt. Browserprüfung: Directupload (1280 px) → FastPic (400 px) → Postimages (1024 px) → YouTube-Original (1280 px), jeweils durch Blockieren der vorherigen Quellen. Weitere Bestandskopien bleiben für die Nachtwartung vorgemerkt. Directupload verwendet seit v0.7.1 den tatsächlich im sichtbaren Browser geprüften öffentlichen Formularversand, keine offizielle API. Auth-/Geo-Provider bleiben deaktiviert.
 
 ---
 
