@@ -1,4 +1,5 @@
 .settings-page{
+  container:account-settings / inline-size;
   max-width:1720px;
   padding-top:24px;
 }
@@ -1876,7 +1877,16 @@
   }
 }
 
-@media(max-width:900px){
+
+.settings-section-select { display:none; min-width:0; color:var(--muted); font-size:14px; }
+.settings-section-select select {
+  width:100%; min-width:0; min-height:44px; border:1px solid var(--line);
+  border-radius:var(--radius); background:var(--panel); color:var(--text);
+  padding:10px 12px; font:inherit; font-size:16px;
+}
+.settings-section-select select:focus-visible { outline:2px solid var(--primary); outline-offset:3px; }
+
+@container account-settings (max-width:899px){
   .settings-top-grid,
   .settings-channel-editor,
   .settings-form-grid,
@@ -1886,12 +1896,8 @@
     grid-template-columns:1fr;
   }
 
-  .settings-section-nav{
-    position:static;
-    min-height:0;
-    display:grid;
-    grid-template-columns:repeat(2,minmax(0,1fr));
-  }
+  .settings-section-nav{ display:none; }
+  .settings-section-select{ display:grid; gap:8px; }
 
   .settings-social-input{
     grid-template-columns:120px minmax(0,1fr);

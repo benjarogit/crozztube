@@ -24,7 +24,7 @@ footer{margin-top:50px;color:var(--muted);font-size:12.5px}
 </style></head><body><div class="wrap">
 <div class="crumbs"><a href="index.html">← Wiki-Start</a> / Tests &amp; Harness</div>
 <h1>🧪 Tests &amp; Harness</h1>
-<p>Das Harness prüft den laufenden Docker-Stack von außen (HTTP, DB, Queue, Browser) und ist so gebaut, dass ein Agent es ohne manuelle Schritte komplett ausführen kann. Letzter vollständiger Lauf: <span class="badge b-ok">102 Harness-Checks + 9 Browser-Tests grün</span>.</p>
+<p>Das Harness prüft den laufenden Docker-Stack von außen (HTTP, DB, Queue, Browser) und ist so gebaut, dass ein Agent es ohne manuelle Schritte komplett ausführen kann. Letzter vollständiger Lauf: <span class="badge b-ok">103 Harness-Ergebnisse · 9 Medien-/Resolver- + 442 Responsive-Browserfälle grün</span>.</p>
 
 <h2>Ausführen</h2>
 <pre>cd "/mnt/intern-1tb/Projekte - Vibe Coding/crozztube"
@@ -51,16 +51,19 @@ CRZZ_VERBOSE=1 ./tools/test/run.sh ui     # Fehler-Log ausgeben</pre>
 <tr><td><code>jobs</code></td><td>Commands registriert, Scheduler-Einträge, Probe erkennt gute/defekte URLs, <code>refresh-expiring</code> wählt Ablaufkandidaten und arbeitet die <code>maintenance</code>-Queue ab</td></tr>
 <tr><td><code>thumbnails</code></td><td>91 PHP-Integrationsprüfungen und fünf HTTP-Vertragsprüfungen; kein externer Testupload.</td></tr>
 <tr><td><code>ui</code></td><td>Playwright: Mirror-Toggle + Overlay, Reload-Persistenz, SPA-Navigation, Auto-Refresh mit Banner/Reload, Fehlerbanner mit Retry + Mirror; Bild-Fallback ohne Backend-Anfrage, Platzhalter, HLS-Shorts/Seek und Kapitel/Kapitelsprung (9 Tests).</td></tr>
+<tr><td><code>responsive</code></td><td>442 grüne Fälle: 100 Seiten-/Zustandsvarianten in drei Chromium-Breiten, Inventarprüfung, neun Interaktionen sowie Firefox/WebKit bei sechs Breiten. <a href="responsive.html">Verhalten, Grenzen und Testnachweise</a>.</td></tr>
 </table>
 
 <h2>Thumbnail-Prüfungen</h2><p><code>./tools/test/run.sh thumbnails</code> führt 91 PHP-Integrationsprüfungen in einer zurückgerollten Datenbanktransaktion aus: Provider-Fallback, Deduplizierung, RAM-/Größen-/SSRF-Grenzen, manuelle Bilder, sichere Migration, Nachtbudget und Stopp um 05:00, Short-Regel und Fehlerklassifikation. Die automatisierte Suite simuliert Hoster-Antworten. Zusätzlich wurden am 5. Nov 2026 echte Uploads bei Directupload (öffentlicher Formularversand, ohne Key), FastPic und Postimages (eigene lokale Keys) geprüft (alle HTTP 200). Der Browser-Fallback Directupload → FastPic → Postimages → Original funktioniert mit diesen echten Bild-URLs. Der Directupload-Parser, die Auswahl ohne Key, Priorität 1 und der Import-Fallback bei Hoster-Ausfall sind automatisiert geprüft. Dazu kommen fünf HTTP-Prüfungen für Zugriff, Raw-Body, Dateiupload-Sperre und Größenlimit.</p><h2>Playwright</h2>
 <pre>cd tools/test/ui
 npm install
-npx playwright install chromium
-npx playwright test
-npx playwright test specs/refresh.spec.ts --headed</pre>
-<p>Die Browser-Tests loggen sich per API-Token ein (<code>localStorage['playhub_token']</code>) und manipulieren für Ablauf-/Fehlerfälle die Tabelle <code>crozztube_import_sources</code> per <code>docker exec</code>. Die Originalzeile wird in <code>afterAll</code> wiederhergestellt; vorher wartet der Test, bis Queue und <code>refreshing</code>-State leer sind.</p>
+npx playwright install chromium firefox webkit
+npm run test:watch
+npm run test:responsive
+npx playwright test specs/refresh.spec.ts --project=chromium --headed</pre>
+<p>Die neun Wiedergabe-/Resolver-Browser-Tests loggen sich per API-Token ein (<code>localStorage['playhub_token']</code>) und manipulieren für Ablauf-/Fehlerfälle die Tabelle <code>crozztube_import_sources</code> per <code>docker exec</code>. Die Originalzeile wird in <code>afterAll</code> wiederhergestellt; vorher wartet der Test, bis Queue und <code>refreshing</code>-State leer sind.</p>
 
+<p>Responsive Layouttests verwenden isolierte, zurückgerollte GET-Fixtures und sperren Schreibanfragen sowie externe Medien. Der Wrapper startet bei fehlenden WebKit-Bibliotheken einen begrenzten offiziellen Browser-Container und räumt ihn selbst wieder auf. Alle Browser laufen mit einem Worker. Echte iOS-/Android-Geräte wurden nicht geprüft.</p>
 <h2>Umgebungsvariablen</h2>
 <table>
 <tr><th>Variable</th><th>Default</th><th>Bedeutung</th></tr>

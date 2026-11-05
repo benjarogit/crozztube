@@ -1,6 +1,8 @@
 import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { LanguageDialog, LanguageSwitcher } from '../i18n.jsx';
 import AdaptiveSelect from '../components/AdaptiveSelect.jsx';
+import { OverlayPortal } from '../components/ResponsiveOverlays.jsx';
+import { useResponsiveLayout } from '../responsiveLayout.js';
 import { ADMIN_USER_ROLE_LABELS, adminUserRoleValue, selectedAdminUserRole } from '../adminUserRoles.js';
 import { fetchKlipyStickerPage } from '../klipyCatalog.js';
 
@@ -161,6 +163,7 @@ function formatLiveKitLogs(logs = {}) {
 }
 
 function AdminDashboard({ navigate = () => {}, theme = null, user = null, path = '/admin/dashboard', search = '', api = null, website = null, adminTheme = '' }) {
+  const { overlayNavigation } = useResponsiveLayout();
   const [pluginAdminPages, setPluginAdminPages] = useState(registeredPluginAdminPages);
   const canManageAdmin = isFullAdminUser(user);
   const pluginAdminPage = canManageAdmin ? pluginAdminPages.find((page) => path === page.path || path.startsWith(`${page.path}/`)) : null;
@@ -242,24 +245,8 @@ function AdminDashboard({ navigate = () => {}, theme = null, user = null, path =
   }, [path, search]);
 
   useEffect(() => {
-    if (!mobileNavigationOpen) return undefined;
-    const previousOverflow = document.body.style.overflow;
-    const closeOnEscape = (event) => {
-      if (event.key === 'Escape') setMobileNavigationOpen(false);
-    };
-    const media = window.matchMedia('(max-width: 620px)');
-    const closeAboveMobile = (event) => {
-      if (!event.matches) setMobileNavigationOpen(false);
-    };
-    document.body.style.overflow = 'hidden';
-    document.addEventListener('keydown', closeOnEscape);
-    media.addEventListener?.('change', closeAboveMobile);
-    return () => {
-      document.body.style.overflow = previousOverflow;
-      document.removeEventListener('keydown', closeOnEscape);
-      media.removeEventListener?.('change', closeAboveMobile);
-    };
-  }, [mobileNavigationOpen]);
+    if (!overlayNavigation) setMobileNavigationOpen(false);
+  }, [overlayNavigation]);
 
   useEffect(() => {
     let cancelled = false;
@@ -539,14 +526,14 @@ function AdminDashboard({ navigate = () => {}, theme = null, user = null, path =
   };
 
   return (
-    <div className={`admin-dashboard-shell admin-page-${pageKey}`} data-admin-theme={currentTheme}>
-      {mobileNavigationOpen && <button type="button" className="admin-mobile-sidebar-backdrop" onClick={() => setMobileNavigationOpen(false)} aria-label="Close admin navigation" />}
-      <aside id="admin-mobile-navigation" className={`admin-sidebar ${mobileNavigationOpen ? 'is-mobile-open' : ''}`} aria-label="Admin navigation">
+    <div className={`admin-dashboard-shell admin-page-${pageKey}`} data-admin-theme={currentTheme} data-navigation-mode={overlayNavigation ? 'overlay' : 'docked'}>
+      {overlayNavigation && mobileNavigationOpen && <button type="button" className="admin-mobile-sidebar-backdrop" data-overlay-close onClick={() => setMobileNavigationOpen(false)} aria-label="Close admin navigation" />}
+      <aside id="admin-mobile-navigation" className={`admin-sidebar ${mobileNavigationOpen ? 'is-mobile-open' : ''}`} aria-label="Admin navigation" data-responsive-overlay={overlayNavigation && mobileNavigationOpen ? 'navigation' : undefined} role={overlayNavigation && mobileNavigationOpen ? 'dialog' : undefined} aria-modal={overlayNavigation && mobileNavigationOpen ? true : undefined} inert={overlayNavigation && !mobileNavigationOpen ? true : undefined}>
         <div className="admin-sidebar-brand">
           <button type="button" className="admin-brand-button" onClick={() => navigateFromMobileMenu('/admin/dashboard')} aria-label="Go to admin dashboard">
             <AdminLogo tick={brandTick} />
           </button>
-          <button type="button" className="admin-mobile-sidebar-close" onClick={() => setMobileNavigationOpen(false)} aria-label="Close admin navigation"><AdminIcon name="close" size={21} /></button>
+          <button type="button" className="admin-mobile-sidebar-close" data-overlay-close onClick={() => setMobileNavigationOpen(false)} aria-label="Close admin navigation"><AdminIcon name="close" size={21} /></button>
         </div>
 
         <div className="admin-sidebar-scroll" ref={adminSidebarScrollRef} onScroll={(event) => { adminSidebarScrollPosition = event.currentTarget.scrollTop; }}>
@@ -651,6 +638,7 @@ function AdminDashboard({ navigate = () => {}, theme = null, user = null, path =
           {page}
         </main>
       </section>
+      <OverlayPortal className="admin-dashboard-shell admin-overlay-root" data-admin-theme={currentTheme}>
       {confirmDialog && <AdminConfirmDialog dialog={confirmDialog} onClose={closeConfirmDialog} />}
       {promptDialog && <AdminPromptDialog dialog={promptDialog} onClose={closePromptDialog} />}
       {cronDialogOpen && <AdminCronJobsDialog api={api} alertAction={alertAdminAction} onClose={() => setCronDialogOpen(false)} />}
@@ -661,6 +649,7 @@ function AdminDashboard({ navigate = () => {}, theme = null, user = null, path =
       {banUserDialog && <AdminBanUserDialog dialog={banUserDialog} onClose={closeBanUserDialog} />}
       {alertDialog && <AdminAlertDialog dialog={alertDialog} onClose={closeAlertDialog} />}
       <LanguageDialog open={languageOpen} onClose={() => setLanguageOpen(false)} />
+      </OverlayPortal>
     </div>
   );
 }
@@ -7125,11 +7114,13 @@ function FilterBar({ search, filters = [], reset = false, refresh = false, value
 
 function SimpleTable({ columns, rows, className = '' }) {
   const normalizedRows = rows.map((row) => Array.isArray(row) ? { cells: row } : row);
+  const responsiveList = columns.some((column) => typeof column === 'string' && column === 'Actions');
+  const primaryColumn = columns.findIndex((column) => typeof column === 'string');
   return (
-    <div className={`admin-table-wrap ${className}`.trim()}>
+    <div className={`admin-table-wrap ${className}`.trim()} data-responsive-list={responsiveList ? true : undefined} data-responsive-scroll={!responsiveList ? true : undefined}>
       <table className="admin-data-table">
         <thead><tr>{columns.map((column, index) => <th key={typeof column === 'string' ? column : `column-${index}`}>{column}</th>)}</tr></thead>
-        <tbody>{normalizedRows.length ? normalizedRows.map((row, index) => <tr key={row.id || index} id={row.id || undefined} className={row.highlight ? 'admin-row-highlight' : undefined}>{row.cells.map((cell, cellIndex) => <td key={cellIndex} data-label={typeof columns[cellIndex] === 'string' ? columns[cellIndex] : undefined}>{cell}</td>)}</tr>) : <tr><td colSpan={columns.length}>No records found.</td></tr>}</tbody>
+        <tbody>{normalizedRows.length ? normalizedRows.map((row, index) => <tr key={row.id || index} id={row.id || undefined} className={row.highlight ? 'admin-row-highlight' : undefined}>{row.cells.map((cell, cellIndex) => <td key={cellIndex} data-label={typeof columns[cellIndex] === 'string' ? columns[cellIndex] : undefined} data-primary-cell={cellIndex === primaryColumn ? true : undefined} data-row-actions={columns[cellIndex] === 'Actions' ? true : undefined} data-row-selection={typeof columns[cellIndex] !== 'string' ? true : undefined}>{cell}</td>)}</tr>) : <tr><td colSpan={columns.length}>No records found.</td></tr>}</tbody>
       </table>
     </div>
   );

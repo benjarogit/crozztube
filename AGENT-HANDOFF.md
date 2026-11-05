@@ -44,11 +44,23 @@ docker compose -f docker/compose.yml --profile runtime up -d web worker cron thu
 
 ---
 
+## Responsive Oberfläche (5. November 2026)
+
+- Verbindliche Gestaltung: Navigation B. Ab 1280 px gedockte Seitenleiste, darunter Overlay-Menü ohne Inhaltsabstand; Besucher-Bottom-Nav bis 860. Desktoppräferenz bleibt getrennt. `resources/js/responsiveLayout.js` besitzt Grenzen, Shells geben `data-navigation-mode` aus.
+- `responsive-layout.css` besitzt die öffentliche Geometrie; `responsive-content.css` Inhaltscontainer/240px-Videoraster/max1680, mobile Home-Karte, Querformat-Player und lokale Filter-Scroller. Überholte Sidebar- und Rasterregeln aus styles.css entfernt.
+- `ResponsiveOverlays.jsx` koordiniert Fokus/Tab/Escape/Fokusrückgabe, inert-Hintergrund und Locks; `OverlayPortal` erhält Admin-Theme außerhalb geclippter Container. Dialoge passen in den sichtbaren Viewport, einschließlich kurzer Fenster. Unter900pxInhaltsbreite kompakte Settings-Auswahl, unter 1000 px Verwaltungskarten.
+- Bestehende Miniplayer-Sitzungen überstehen Resize bis 320 px mit unverändertem MediaPlayer; mobile Aktionen 44 px. Neue Miniplayer-Sitzungen werden weiterhin über die Desktop-Bedienung gestartet.
+- Impeccable 4.8.0 projektlokal gepinnt unter `.agents/skills/impeccable`, Upstreamcommit c8891a9ae865d6ee311836ae5199bfce0fe115b1. PRODUCT.md/DESIGN.md lesen. Keine globalen Hooks installiert; `scripts/impeccable detect` ist lokal ausführbar.
+- Neue Harness-Suite `responsive`: **442 Fälle grün**: 100 Route-/Zustandsvarianten × 3 Chromiumbreiten, Inventarprüfung, 9 Interaktionen und je 66 Firefox-/WebKit-Fälle. Fixtures speichern keine API-Inhalte/Schlüssel, faken Queues und rollen GET-DB-Änderungen zurück; Browser-Schreibanfragen/Medien gesperrt. Ein Worker.
+- WebKit kann lokal Bibliotheken vermissen. `npm run test:responsive` / Harness nutzen dann automatisch einen eigenen offiziellen Dockerbrowser (1 CPU / 1 GiB, read-only Projektmount, eigene Aufräumlogik). Bestehender Server über PW_WEBKIT_WS_ENDPOINT. Keine dauerhaften Testcontainer stehen lassen.
+- Build: `npm run build -- --emptyOutDir=false` erhält ältere Chunks für offene Tabs. Keine Plugin-Neuinstallation für reine Frontendänderungen nötig. Kuratierte Vorher-/Nachherbilder: `/tmp/crozztube-tests/responsive-screenshots/`; Wiki: `Wiki/responsive.html`.
+- Nachweisgrenze: Browser-Engines/Viewport-/synthetische Touchtests sind keine physischen iPhone-/Android-Tests. 200%-Reflow entspricht halbierter CSS-Breite; echter OS-/Browserzoom und echte Bildschirmtastaturen gesondert offen kennzeichnen.
+
 ## 3. Aktueller Stand
 
 - **Plugin `crozztube.source-resolver` v0.7.1** installiert und aktiv.
 - **yt-dlp 2026.10.26**, ffprobe 5.1.9 im Web-Image; cron aktualisiert yt-dlp täglich.
-- **Harness: 102 Harness-Checks (inkl. Thumbnail-Suite mit 91 Einzelprüfungen) + 9 Playwright-Tests grün** (letzter vollständiger Lauf).
+- **Vollständiges Harness: 103 PASS, 0 FAIL, 0 SKIP. Darin Thumbnail-Suite mit 91 PHP-Einzelprüfungen, 9 Wiedergabe-/Resolver-Browsertests und 442 responsive Browserfälle grün** (5. November 2026).
 - **3 Videos**, alle Quellen `fresh`: ID 1–3, echte YouTube-Imports (`kind=hls-synth`).
 - ID 4 (veraltetes Direct-MP4-Testsample) wurde entfernt; die Direct-Suite verwendet einen temporären MDN-Import.
 - Auto-Refresh hat nach längerer Stack-Downtime alle abgelaufenen Quellen wieder erneuert.

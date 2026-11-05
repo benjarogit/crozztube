@@ -23,9 +23,9 @@ suite_ui() {
     mkdir -p "$ARTIFACT_DIR"
     local log="$ARTIFACT_DIR/ui-playwright.log"
 
-    ( cd "$dir" && BASE_URL="$BASE_URL" \
+    ( cd "$dir" && BASE_URL="$BASE_URL" ARTIFACT_DIR="$ARTIFACT_DIR" \
         TEST_USER="$TEST_USER" TEST_PASSWORD="$TEST_PASSWORD" \
-        npx playwright test --reporter=list ) >"$log" 2>&1
+        npx playwright test mirror.spec.ts refresh.spec.ts thumbnails-shorts.spec.ts --project=chromium --reporter=list ) >"$log" 2>&1
     local code=$?
 
     local passed failed

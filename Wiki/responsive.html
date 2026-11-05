@@ -1,0 +1,38 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Responsive Oberfläche — CrozzTube Wiki</title><style>
+:root{--bg:#0f1115;--surface:#171a21;--line:#2a2f3a;--ink:#e7eaf0;--muted:#9aa3b2;--gold:#d9a83f;--ok:#4cc38a;--warn:#e6b455;--bad:#e57d7d}
+*{box-sizing:border-box}a{color:var(--gold)}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 system-ui,Arial,sans-serif}
+.wrap{max-width:950px;margin:0 auto;padding:40px 24px 80px}
+.crumbs{font-size:13px;color:var(--muted);margin-bottom:18px}
+h1{font-size:24px;margin:0 0 6px}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-size:12.5px;text-transform:uppercase;letter-spacing:.04em}
+code,pre{background:#20242e;border:1px solid var(--line);border-radius:5px}
+code{padding:1px 6px;font:13px ui-monospace,Consolas,monospace}
+pre{padding:14px 16px;overflow:auto;font:13px/1.55 ui-monospace,Consolas,monospace}
+.box{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:16px 20px;margin:18px 0}
+.b-ok{background:rgba(76,195,138,.15);color:var(--ok)}
+.badge{display:inline-block;padding:2px 9px;border-radius:99px;font-size:12px;font-weight:700}
+h2{border-bottom:1px solid var(--line);padding-bottom:8px;margin-top:38px;font-size:20px}
+footer{margin-top:50px;color:var(--muted);font-size:12.5px}
+</style></head><body><div class="wrap"><div class="crumbs"><a href="index.html">← Wiki-Start</a> / Responsive Oberfläche</div>
+<h1>Responsive Oberfläche</h1><p>Stand: 5. November 2026. Navigation, Medienlayouts und Verwaltungsoberflächen richten sich nach dem verfügbaren Platz. Farben, Schriftkonfiguration und Hell-/Dunkelmodus kommen weiterhin aus der Website-Konfiguration.</p>
+<h2>Verhalten</h2><ul><li>Ab 1280 CSS-Pixeln vollständige Seitenleiste; darunter aufklappbares Menü ohne reservierte Seitenbreite. Die Desktop-Einklapppräferenz bleibt erhalten. Bis einschließlich 860 Pixeln bleibt die untere Besuchernavigation aktiv. Administration nutzt denselben Docking-Punkt mit eigenen Zielen.</li><li>Video-Raster mindestens 240 Pixel je Karte oder eine volle Spalte; maximal 1680 Pixel Inhaltsbreite. Kontextspalten reagieren auf ihre Containerbreite. Karussells und Filter dürfen lokal scrollen.</li><li>Der mobile Home-Hero zeigt Vorschau, zweizeiligen Titel und Aktionen. Eine leere Trendspalte nimmt keinen Platz mehr ein.</li><li>Einstellungen verwenden unter 900 Pixeln Inhaltsbreite eine beschriftete Abschnittsauswahl. Verwaltungslisten wechseln unter 1000 Pixeln Inhaltsbreite zu Karten mit erreichbaren Aktionen.</li><li>Dialoge besitzen begrenzte Höhe, eigenen Scrollbereich, Fokusbindung, Escape, Fokus-Rückgabe und Hintergrundsperre. Der sichtbare Viewport berücksichtigt die Bildschirmtastatur und Safe Areas.</li><li>Watch/Shorts behalten ihre Medienknoten beim Resize; der Watch-Player passt in kurze Querformatfenster. Eine bereits laufende Miniplayer-Sitzung übersteht den Wechsel zum schmalen Layout; ihre mobilen Schaltflächen sind mindestens 44 Pixel hoch.</li></ul>
+<h2>Quellen und Zuständigkeiten</h2><p><code>resources/js/responsiveLayout.js</code> definiert die Navigationsgrenzen. Die Shells geben <code>data-navigation-mode</code> aus; CSS entscheidet den Docking-Modus nicht erneut. <code>responsive-layout.css</code> besitzt die öffentliche Navigationsgeometrie, <code>responsive-content.css</code> die Inhaltsraster. Die Overlay-Koordination liegt in <code>ResponsiveOverlays.jsx</code>. Überschriebene alte Sidebar- und Rasterregeln wurden entfernt.</p>
+<p>Impeccable 4.8.0 liegt projektlokal unter <code>.agents/skills/impeccable</code>, gepinnt auf Upstream-Commit <code>c8891a9ae865d6ee311836ae5199bfce0fe115b1</code>. <code>PRODUCT.md</code> und <code>DESIGN.md</code> dokumentieren den verbindlichen Kontext. Der Skill ist ab dem nächsten Turn automatisch verfügbar; für diese Umsetzung wurden seine Referenzen und der lokale Detector direkt genutzt. Binär-Caches liegen außerhalb des Projekts; keine globalen Hooks wurden eingerichtet.</p>
+<h2>Prüfung</h2><p><strong>Abnahme am 5. November 2026: vollständiges Harness 103 PASS / 0 FAIL / 0 SKIP. Alle 442 Responsive-Fälle und neun Medien-/Resolver-Browserprüfungen grün.</strong> Der responsive Gesamtlauf dauerte mit einem Worker neun Minuten. Die 91 Thumbnail-PHP-Einzelprüfungen sind ebenfalls grün.</p><pre>./tools/test/run.sh responsive
+./tools/test/run.sh all
+
+# Nur responsive Browser, mit automatischem WebKit-Fallback:
+cd tools/test/ui
+npm run test:responsive
+
+# Statische Prüfung der geänderten Komponenten:
+.agents/skills/impeccable/scripts/impeccable detect resources/js/styles/responsive-content.css --json</pre>
+<p>Prüfumfang: 100 Seiten-/Zustandsvarianten in Chromium bei 360, 1024 und 1440 Pixeln, gezielte Interaktionstests sowie je elf repräsentative Seiten in Firefox und WebKit bei 320, 390, 768, 1280, 1920 und 2560 Pixeln. Ein Browser-Worker. API-GET-Antworten stammen aus der Anwendung mit Identität nur im PHP-Prozess, zurückgerollter Datenbanktransaktion, gefakten Queues und Prozess-Cache. Schreibanfragen und externe Medien sind für Layouttests gesperrt; keine Schlüssel oder API-Inhalte werden als Fixtures gespeichert.</p>
+<p>Bei fehlenden WebKit-Systembibliotheken startet der Test-Wrapper einen eigenen offiziellen Playwright-Container mit 1 CPU, 1 GiB RAM und schreibgeschütztem Projektmount. Er stoppt nur selbst gestartete Container. Ein vorhandener Server kann über <code>PW_WEBKIT_WS_ENDPOINT</code> angegeben werden. Die eigentlichen Wiedergabeprüfungen laufen separat in der bestehenden UI-Suite.</p>
+<p>Kuratiert gespeicherte Screenshots liegen im Test-Artefaktverzeichnis unter <code>responsive-screenshots/</code> und als Anhänge im Playwright-Bericht. Layoutmessungen, Tastaturprüfungen und browserseitige Resize-Tests ersetzen keinen physischen iPhone-/Android-Test. 200-%-Reflow wird über halbierte CSS-Viewportbreite geprüft; Browser-/OS-Zoom und echte Bildschirmtastaturen bleiben separat zu prüfen.</p>
+<h2>Bestätigte Ausgangsfehler</h2><ul><li>32 Pixel Unterschied zwischen sichtbarer Seitenleistenbreite und Inhaltsabstand.</li><li>Rasterwechsel von drei auf fünf Spalten bei 1280 → 1281 Pixeln; dadurch zu kleine Karten.</li><li>Admin-Einladung bei 360 × 400 Pixeln mit abgeschnittener Bestätigung und scrollendem Hintergrund.</li><li>Lange mobile Einstellungsnavigation, außerhalb liegende Tabellenaktionen und überbreite Filter.</li><li>Seitliche Überläufe bei Explore und bei den Rechtstextkarten.</li></ul>
+<h2>Build und Betrieb</h2><pre>npm run build -- --emptyOutDir=false</pre><p>Der Build erhält ältere Asset-Chunks für bereits offene Tabs. Für diese Oberfläche sind keine Datenbankmigration und keine Resolver-Neuinstallation erforderlich. Streaming-Sperren, Thumbnail-Priorität und Nachtwartung behalten ihre bestehende Konfiguration.</p>
+</div></body></html>

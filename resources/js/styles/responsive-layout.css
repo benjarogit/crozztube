@@ -1,40 +1,112 @@
-/* Keep the drawer and its header in the same viewport coordinate system. */
+/* Navigation geometry is driven by responsiveLayout.js, not parallel media rules. */
+.app-shell:not(.auth-layout):not(.admin-layout) {
+  --navigation-offset: 0px;
+  --sidebar: var(--navigation-offset);
+  --drawer-width: min(320px, calc(100vw - 32px));
+}
+.app-shell[data-navigation-mode="docked"]:not(.sidebar-collapsed):not(.watch-theater-active):not(.auth-layout):not(.admin-layout) { --navigation-offset: var(--sidebar-expanded); }
+.app-shell.auth-layout, .app-shell.admin-layout { --navigation-offset: 0px; --sidebar: 0px; }
+.app-shell > .app-main {
+  min-width: 0;
+  padding-inline-start: var(--navigation-offset, 0px);
+}
+.app-shell > .app-main .content-area { width: 100%; max-width: 1680px; }
+.app-shell > .app-loading-message { inset-inline-start: var(--navigation-offset, 0px); }
+.app-shell > .sidebar {
+  position: fixed;
+  inset: var(--topbar) auto 0 0;
+  width: var(--sidebar-expanded);
+  height: calc(100dvh - var(--topbar));
+  min-height: 0;
+  z-index: 76;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-inline-end: 1px solid var(--line);
+  background: var(--panel);
+  transform: translateX(0);
+  visibility: visible;
+  transition: transform 180ms ease-out, visibility 180ms;
+}
+.app-shell > .sidebar .side-head { display: none; }
+.sidebar-drawer-head { display: none; }
+.app-shell > .sidebar .side-scroll {
+  min-height: 0;
+  flex: 1;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-block-end: max(24px, env(safe-area-inset-bottom));
+}
+.app-shell[data-navigation-mode="overlay"] > .sidebar { width: var(--drawer-width); }
+.app-shell[data-navigation-mode="overlay"]:not(.mobile-nav-open):not(.sidebar-dragging) > .sidebar,
+.app-shell[data-navigation-mode="docked"].sidebar-collapsed:not(.sidebar-dragging) > .sidebar,
+.app-shell.watch-theater-active:not(.sidebar-dragging) > .sidebar {
+  transform: translateX(-100%);
+  visibility: hidden;
+  pointer-events: none;
+}
+.app-shell[data-navigation-mode="overlay"] .sidebar-drawer-head {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+  border-block-end: 1px solid var(--line);
+}
+.app-shell > .sidebar-backdrop {
+  display: block;
+  position: fixed;
+  inset: var(--topbar) 0 0;
+  z-index: 73;
+  background: rgb(15 23 42 / 40%);
+}
+.app-shell[data-navigation-mode="docked"] > .sidebar-backdrop { display: none; }
+.app-shell > .sidebar-drag-handle {
+  position: fixed;
+  inset-block: var(--topbar) 0;
+  inset-inline-start: max(0px, calc(var(--navigation-offset) - 8px));
+  width: 16px;
+  z-index: 78;
+  touch-action: pan-y;
+  cursor: ew-resize;
+}
+.app-shell[data-navigation-mode="overlay"] > .sidebar-drag-handle { inset-inline-start: 0; }
+.app-shell[data-navigation-mode="overlay"].mobile-nav-open > .sidebar-drag-handle { inset-inline-start: calc(var(--drawer-width) - 8px); }
+.app-shell.sidebar-dragging > .sidebar { transition: none; pointer-events: auto; }
+.app-shell[data-navigation-mode="docked"].sidebar-dragging:not(.sidebar-collapsed):not(.watch-theater-active):not(.auth-layout):not(.admin-layout) { --navigation-offset: var(--sidebar-drag-width); }
+.app-shell[data-navigation-mode="docked"].sidebar-dragging > .sidebar { transform: translateX(calc(var(--sidebar-drag-width) - var(--sidebar-expanded))); }
+.app-shell[data-navigation-mode="overlay"].sidebar-dragging > .sidebar { transform: translateX(calc(var(--sidebar-drag-width) - var(--drawer-width))); }
+.app-shell.sidebar-dragging > .sidebar-drag-handle { inset-inline-start: max(0px, calc(var(--sidebar-drag-width) - 8px)); touch-action: none; }
+.app-shell.mobile-nav-open > .topbar,
+.app-shell.sidebar-dragging > .topbar { transform: none; }
+.collapsed-header-logo, .sidebar-burger { display: none; }
+.app-shell .topbar { isolation: isolate; gap: 16px; }
+.app-shell .topbar .btn { min-height: 44px; }
+.app-shell .topbar .menu-button,
+.app-shell .topbar .icon-button,
+.sidebar-drawer-head .icon-button { min-width: 44px; min-height: 44px; }
+.app-shell .topbar .global-search { min-width: 0; }
+.app-shell .topbar .top-actions { min-width: 0; flex-shrink: 0; }
+.app-shell .topbar .topbar-logo-button { flex-shrink: 0; }
+.app-shell .topbar .logo-text { letter-spacing: -.03em; }
+.app-shell .nav-item { min-height: 44px; height: auto; padding-block: 10px; }
+.app-shell .sidebar .nav-item span { white-space: normal; overflow-wrap: anywhere; }
+:where(button, a, input, select, textarea):focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
+:root[dir="rtl"] .app-shell > .sidebar { inset-inline-start: 0; inset-inline-end: auto; }
+:root[dir="rtl"] .app-shell[data-navigation-mode="overlay"]:not(.mobile-nav-open):not(.sidebar-dragging) > .sidebar,
+:root[dir="rtl"] .app-shell[data-navigation-mode="docked"].sidebar-collapsed:not(.sidebar-dragging) > .sidebar { transform: translateX(100%); }
 @media (max-width: 860px) {
-  body .app-shell:not(.auth-layout):not(.admin-layout) {
-    --mobile-sidebar-width: min(286px, calc(100vw - 32px));
-  }
-  body .app-shell.mobile-nav-open > .topbar,
-  body .app-shell.sidebar-dragging > .topbar {
-    transform: translate3d(0, 0, 0) !important;
-    pointer-events: auto;
-  }
-  body .app-shell > .sidebar {
-    top: 64px !important;
-    width: var(--mobile-sidebar-width) !important;
-    max-width: calc(100vw - 32px);
-    height: calc(100vh - 64px) !important;
-    height: calc(100dvh - 64px) !important;
-    min-height: 0;
-  }
-  body .app-shell > .sidebar .side-scroll {
-    min-height: 0;
-    overscroll-behavior: contain;
-    padding-bottom: max(20px, env(safe-area-inset-bottom));
-  }
-  body .app-shell.sidebar-dragging > .sidebar {
-    transform: translate3d(calc(var(--sidebar-drag-width) - var(--mobile-sidebar-width)), 0, 0) !important;
-  }
-  body .app-shell.mobile-nav-open > .sidebar-drag-handle {
-    left: calc(var(--mobile-sidebar-width) - 8px) !important;
-  }
-  body .topbar .top-actions {
-    flex: 1 1 0;
-    min-width: 0;
-    width: auto;
-    max-width: none;
-    justify-content: flex-end;
-  }
-  .topbar .topbar-logo-button { min-width: 0; }
+  .app-shell { --topbar: 64px; }
+  .app-shell .topbar { gap: 8px; }
+  .app-shell .topbar .top-actions { flex: 1; gap: 4px; justify-content: flex-end; }
+  .app-shell .topbar .messages-wrap,
+  .app-shell .topbar .notifications-wrap { display: none; }
+  .app-shell .topbar .mobile-search-trigger { min-width: 44px; width: auto; flex: 1; }
+  .app-shell .topbar .mobile-search-trigger > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .app-shell .topbar .avatar-button { min-width: 44px; min-height: 44px; }
+  .app-shell > .app-main { padding-bottom: calc(76px + env(safe-area-inset-bottom)); }
+  .app-shell.auth-layout > .app-main, .app-shell.admin-layout > .app-main { padding-bottom: 0; }
+  .app-shell input, .app-shell textarea, .app-shell select { font-size: max(16px, 1em); }
   .page-heading > * { min-width: 0; max-width: 100%; }
   .page-heading h1 { line-height: 1.15; }
   .page-heading p { overflow-wrap: anywhere; }
@@ -73,34 +145,14 @@
   .info-page .info-help-visual,
   .info-page .info-faq-visual { max-width: 100%; }
 }
-
 @media (max-width: 360px) {
-  body .topbar { gap: 6px; }
-  body .topbar .top-actions { gap: 2px; }
-  body .topbar .mobile-search-trigger {
-    flex: 0 0 36px;
-    width: 36px;
-    min-width: 36px;
-    padding-inline: 0;
-    justify-content: center;
-  }
-  body .topbar .mobile-search-trigger > span { display: none; }
+  .app-shell .topbar { gap: 4px; padding-inline: 8px; }
+  .app-shell .topbar .mobile-search-trigger { flex: 0 0 44px; padding-inline: 0; }
+  .app-shell .topbar .mobile-search-trigger > span { display: none; }
+  .app-shell .topbar .top-actions { gap: 4px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .app-shell > .sidebar { transition: none; }
 }
 
-@media (max-width: 300px) {
-  body .topbar { gap: 4px; }
-  body .topbar > .menu-button {
-    flex: 0 0 36px;
-    width: 36px;
-    min-width: 36px;
-  }
-  body .topbar .top-actions .icon-button,
-  body .topbar .top-actions .avatar-button {
-    flex: 0 0 36px;
-    width: 36px;
-    min-width: 36px;
-    height: 36px;
-    padding: 0;
-  }
-  body .topbar .avatar-button .avatar { width: 36px; height: 36px; }
-}
+.account-sheet-close.icon-button { position: absolute; inset-block-start: 12px; inset-inline-end: 12px; z-index: 3; width: 44px; height: 44px; background: var(--panel); border-radius: var(--radius); }

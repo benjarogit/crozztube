@@ -1,0 +1,3 @@
+
+# Preserve upstream whitespace and Windows CRLF in the pinned third-party skill.
+/.agents/skills/impeccable/** -whitespace

@@ -1,3 +1,5 @@
+import ResponsiveOverlays from './components/ResponsiveOverlays.jsx';
+import { useResponsiveLayout, navigationIsOverlay, sidebarWidth, drawerWidth } from './responsiveLayout.js';
 import ThumbnailImage, { BlankThumbnail, useThumbnailUrl } from './components/ThumbnailImage.jsx';
 import { markPlayHubReady } from './pluginRuntime.js';
 import React, { Suspense, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
@@ -24,7 +26,6 @@ import './styles/watch-layout.css';
 import './styles/settings-page.css';
 import './styles/admin-dashboard.css';
 import './styles/content-responsive.css';
-import './styles/responsive-layout.css';
 import './styles/shorts-uploader.css';
 import './styles/shorts-viewer.css';
 import './styles/home-categories.css';
@@ -32,6 +33,9 @@ import './styles/klipy-stickers.css';
 import AdminDashboard from './pages/AdminDashboard.jsx';
 import { I18nProvider, LanguageDialog, LanguageSwitcher, useI18n } from './i18n.jsx';
 import * as packageCountriesModule from 'countries-list';
+import './styles/responsive-layout.css';
+import './styles/responsive-overlays.css';
+import './styles/responsive-content.css';
 
 const packageCountries = (() => {
   if (!packageCountriesModule || typeof packageCountriesModule !== 'object') return null;
@@ -583,21 +587,14 @@ const normalizePersistentPlaybackSession = (value) => {
 };
 
 const readPersistentPlaybackSession = () => {
-  if (!isDesktopPlaybackViewport()) {
-    persistentPlaybackSession = null;
-    return null;
-  }
   persistentPlaybackSession = normalizePersistentPlaybackSession(persistentPlaybackSession);
   return persistentPlaybackSession;
 };
 
 const writePersistentPlaybackSession = (value, runtimeVideo = null, notify = true) => {
-  if (!isDesktopPlaybackViewport()) {
-    const hadSession = Boolean(persistentPlaybackSession);
-    persistentPlaybackSession = null;
-    if (notify && hadSession) window.dispatchEvent(new CustomEvent(PERSISTENT_PLAYBACK_EVENT, { detail: { session: null, video: null } }));
-    return null;
-  }
+  // Starting a new session uses the desktop control; an existing session must
+  // survive resizing into the compact layout without losing playback.
+  if (!isDesktopPlaybackViewport() && !persistentPlaybackSession) return null;
   try {
     const session = normalizePersistentPlaybackSession({ ...value, updated_at: Date.now() });
     if (!session) {
@@ -1930,6 +1927,7 @@ function App() {
   if (maintenanceActive) page = <MaintenancePage navigate={route.navigate} message={maintenanceMode.message} />;
 
   return <WebsiteAdsContext.Provider value={websiteAds}>
+    <ResponsiveOverlays />
     <Layout path={route.path} routeKey={`${route.path}${route.search}`} navigate={route.navigate} user={user} setUser={setUser} theme={theme} features={platformFeatures} website={platformWebsite || {}} loading={booting} loadingDisplay={loadingDisplay}>
       {booting ? null : page}
     </Layout>
@@ -1967,20 +1965,21 @@ function PluginPage({ page, navigate, user }) {
 }
 
 function Layout({ children, path, routeKey, navigate, user, setUser, theme, features, website = {}, loading = false, loadingDisplay = 'instant' }) {
+  const { overlayNavigation } = useResponsiveLayout();
   const [mobileNav, setMobileNav] = useState(false);
   const [watchTheaterActive, setWatchTheaterActive] = useState(() => path.startsWith('/watch/') && readWatchTheaterMode());
   const [sidebarCollapsed, setSidebarCollapsed] = useState(() => {
     try { return localStorage.getItem('playhub_sidebar_collapsed') === '1'; } catch (_) { return false; }
   });
   const [sidebarDragging, setSidebarDragging] = useState(false);
-  const [sidebarDragWidth, setSidebarDragWidth] = useState(sidebarCollapsed ? 0 : 264);
+  const [sidebarDragWidth, setSidebarDragWidth] = useState(() => sidebarCollapsed ? 0 : sidebarWidth());
   const sidebarDragRef = useRef(null);
   const sidebarDragClickRef = useRef(false);
   useMobileNavAutoHide(routeKey, mobileNav || sidebarDragging);
   const isAuthPage = path === '/login' || path === '/register' || path === '/forgot-password';
   const isAdminPage = path === '/admin' || path.startsWith('/admin/');
   const liveStreamingEnabled = features?.live_streaming?.enabled !== false;
-  const sidebarToggleEnabled = website?.showSidebarToggle !== false;
+  const sidebarToggleEnabled = overlayNavigation || website?.showSidebarToggle !== false;
   useEffect(() => {
     const syncTheaterMode = (event) => setWatchTheaterActive(path.startsWith('/watch/') && Boolean(event.detail));
     window.addEventListener('playhub:theater-mode', syncTheaterMode);
@@ -2000,14 +1999,14 @@ function Layout({ children, path, routeKey, navigate, user, setUser, theme, feat
     setMobileNav(false);
     setSidebarCollapsed((collapsed) => {
       const next = !collapsed;
-      setSidebarDragWidth(next ? 0 : 264);
+      setSidebarDragWidth(next ? 0 : sidebarWidth());
       try { localStorage.setItem('playhub_sidebar_collapsed', next ? '1' : '0'); } catch (_) {}
       return next;
     });
   };
   const toggleSidebarMenu = () => {
     if (!sidebarToggleEnabled) return;
-    if (window.innerWidth <= 860) {
+    if (navigationIsOverlay()) {
       setMobileNav((open) => !open);
       return;
     }
@@ -2018,13 +2017,13 @@ function Layout({ children, path, routeKey, navigate, user, setUser, theme, feat
     if (watchTheaterActive) {
       setWatchTheaterActive(false);
       setSidebarCollapsed(false);
-      setSidebarDragWidth(264);
-      setMobileNav(typeof window !== 'undefined' && window.innerWidth <= 860);
+      setSidebarDragWidth(sidebarWidth());
+      setMobileNav(typeof window !== 'undefined' && navigationIsOverlay());
       try { localStorage.setItem('playhub_sidebar_collapsed', '0'); } catch (_) {}
       window.dispatchEvent(new CustomEvent('playhub:theater-exit'));
       return;
     }
-    if (typeof window !== 'undefined' && window.innerWidth <= 860) {
+    if (typeof window !== 'undefined' && navigationIsOverlay()) {
       setMobileNav((open) => !open);
       return;
     }
@@ -2036,7 +2035,7 @@ function Layout({ children, path, routeKey, navigate, user, setUser, theme, feat
       collapsed = false;
     }
     setSidebarCollapsed(collapsed);
-    setSidebarDragWidth(collapsed ? 0 : 264);
+    setSidebarDragWidth(collapsed ? 0 : sidebarWidth());
     try { localStorage.setItem('playhub_sidebar_collapsed', collapsed ? '1' : '0'); } catch (_) {}
   };
   useEffect(() => {
@@ -2079,7 +2078,7 @@ function Layout({ children, path, routeKey, navigate, user, setUser, theme, feat
     sidebarDragRef.current = null;
     setSidebarDragging(false);
     setSidebarCollapsed(false);
-    setSidebarDragWidth(264);
+    setSidebarDragWidth(sidebarWidth());
     try { localStorage.setItem('playhub_sidebar_collapsed', '0'); } catch (_) {}
   }, [sidebarToggleEnabled]);
   const closeMobileSidebar = () => {
@@ -2094,7 +2093,7 @@ function Layout({ children, path, routeKey, navigate, user, setUser, theme, feat
   }, [routeKey]);
   useEffect(() => {
     const closeOnDesktop = () => {
-      if (window.innerWidth > 860) closeMobileSidebar();
+      if (!navigationIsOverlay()) closeMobileSidebar();
     };
     const closeOnEscape = (event) => {
       if (event.key === 'Escape') closeMobileSidebar();
@@ -2109,8 +2108,8 @@ function Layout({ children, path, routeKey, navigate, user, setUser, theme, feat
   const startSidebarDrag = (event, source = 'edge') => {
     if (!sidebarToggleEnabled) return;
     if (event.button !== undefined && event.button !== 0) return;
-    const mobile = typeof window !== 'undefined' && window.innerWidth <= 860;
-    const maxWidth = mobile ? Math.min(286, Math.max(0, window.innerWidth - 32)) : 264;
+    const mobile = typeof window !== 'undefined' && navigationIsOverlay();
+    const maxWidth = mobile ? drawerWidth() : sidebarWidth();
     const startWidth = mobile ? (mobileNav ? maxWidth : 0) : (sidebarCollapsed ? 0 : maxWidth);
     const started = source === 'edge';
     sidebarDragClickRef.current = false;
@@ -2123,7 +2122,7 @@ function Layout({ children, path, routeKey, navigate, user, setUser, theme, feat
     event.currentTarget.setPointerCapture?.(event.pointerId);
   };
   const startSidebarSurfaceDrag = (event) => {
-    if (typeof window === 'undefined' || window.innerWidth > 860 || !mobileNav) return;
+    if (typeof window === 'undefined' || !navigationIsOverlay() || !mobileNav) return;
     startSidebarDrag(event, 'surface');
   };
   const moveSidebarDrag = (event) => {
@@ -2163,11 +2162,21 @@ function Layout({ children, path, routeKey, navigate, user, setUser, theme, feat
       setMobileNav(open);
       setSidebarDragWidth(open ? drag.maxWidth : 0);
     } else {
-      saveSidebarCollapsed(finalWidth < 132);
+      saveSidebarCollapsed(finalWidth < drag.maxWidth / 2);
     }
     event.currentTarget.releasePointerCapture?.(event.pointerId);
     window.setTimeout(() => { sidebarDragClickRef.current = false; }, 350);
   };
+  const cancelSidebarDrag = () => {
+    sidebarDragRef.current = null;
+    sidebarDragClickRef.current = false;
+    setSidebarDragging(false);
+    setSidebarDragWidth(overlayNavigation ? (mobileNav ? drawerWidth() : 0) : (sidebarCollapsed ? 0 : sidebarWidth()));
+  };
+  useEffect(() => {
+    window.addEventListener('blur', cancelSidebarDrag);
+    return () => window.removeEventListener('blur', cancelSidebarDrag);
+  }, [overlayNavigation, mobileNav, sidebarCollapsed]);
   const stopSidebarDragClick = (event) => {
     if (!sidebarDragClickRef.current) return;
     event.preventDefault();
@@ -2176,11 +2185,11 @@ function Layout({ children, path, routeKey, navigate, user, setUser, theme, feat
   };
   const shellStyle = sidebarDragging ? { '--sidebar-drag-width': `${sidebarDragWidth}px` } : undefined;
   return (
-    <div className={`app-shell ${isAuthPage ? 'auth-layout' : ''} ${isAdminPage ? 'admin-layout' : ''} ${path === '/shorts' ? 'shorts-list-layout' : ''} ${sidebarToggleEnabled && sidebarCollapsed && !isAuthPage && !isAdminPage ? 'sidebar-collapsed' : ''} ${watchTheaterActive ? 'watch-theater-active' : ''} ${!sidebarToggleEnabled ? 'sidebar-toggle-disabled' : ''} ${mobileNav ? 'mobile-nav-open' : ''} ${sidebarDragging ? 'sidebar-dragging' : ''}`} style={shellStyle}>
+    <div className={`app-shell ${isAuthPage ? 'auth-layout' : ''} ${isAdminPage ? 'admin-layout' : ''} ${path === '/shorts' ? 'shorts-list-layout' : ''} ${sidebarToggleEnabled && sidebarCollapsed && !isAuthPage && !isAdminPage ? 'sidebar-collapsed' : ''} ${watchTheaterActive ? 'watch-theater-active' : ''} ${!sidebarToggleEnabled ? 'sidebar-toggle-disabled' : ''} ${mobileNav ? 'mobile-nav-open' : ''} ${sidebarDragging ? 'sidebar-dragging' : ''}`} data-navigation-mode={overlayNavigation ? 'overlay' : 'docked'} style={shellStyle}>
       {!isAuthPage && !isAdminPage && <Topbar user={user} setUser={setUser} navigate={navigate} logout={logout} theme={theme} onMenu={toggleHeaderMenu} sidebarOpen={mobileNav} desktopSidebarOpen={!sidebarCollapsed && !watchTheaterActive} sidebarToggleEnabled={sidebarToggleEnabled} />}
-      {!isAuthPage && !isAdminPage && <Sidebar path={path} navigate={navigate} user={user} open={mobileNav || !sidebarToggleEnabled} onClose={closeMobileSidebar} collapsed={sidebarCollapsed} onToggleCollapse={toggleSidebarCollapsed} onPointerDown={startSidebarSurfaceDrag} onPointerMove={moveSidebarDrag} onPointerUp={endSidebarDrag} onPointerCancel={endSidebarDrag} onClickCapture={stopSidebarDragClick} liveStreamingEnabled={liveStreamingEnabled} />}
-      {!isAuthPage && !isAdminPage && (mobileNav || sidebarDragging) && <button type="button" className="sidebar-backdrop" onClick={closeMobileSidebar} tabIndex={-1} aria-hidden="true" />}
-      {!isAuthPage && !isAdminPage && sidebarToggleEnabled && !watchTheaterActive && <div className="sidebar-drag-handle" onPointerDown={startSidebarDrag} onPointerMove={moveSidebarDrag} onPointerUp={endSidebarDrag} onPointerCancel={endSidebarDrag} />}
+      {!isAuthPage && !isAdminPage && <Sidebar overlayActive={overlayNavigation && mobileNav} path={path} navigate={navigate} user={user} open={mobileNav || !sidebarToggleEnabled} onClose={closeMobileSidebar} collapsed={sidebarCollapsed} onToggleCollapse={toggleSidebarCollapsed} onPointerDown={startSidebarSurfaceDrag} onPointerMove={moveSidebarDrag} onPointerUp={endSidebarDrag} onPointerCancel={cancelSidebarDrag} onLostPointerCapture={cancelSidebarDrag} onClickCapture={stopSidebarDragClick} liveStreamingEnabled={liveStreamingEnabled} />}
+      {!isAuthPage && !isAdminPage && (mobileNav || sidebarDragging) && <button type="button" className="sidebar-backdrop" data-overlay-close onClick={closeMobileSidebar} tabIndex={-1} aria-hidden="true" />}
+      {!isAuthPage && !isAdminPage && sidebarToggleEnabled && !watchTheaterActive && <div className="sidebar-drag-handle" onPointerDown={startSidebarDrag} onPointerMove={moveSidebarDrag} onPointerUp={endSidebarDrag} onPointerCancel={cancelSidebarDrag} onLostPointerCapture={cancelSidebarDrag} />}
       <PageLoadingBoundary key={isAuthPage ? 'auth' : isAdminPage ? 'admin' : 'website'} routeKey={isAdminPage ? 'admin' : routeKey} blocking={loading} mode={loadingDisplay}>
         {!isAuthPage && !isAdminPage && <WebsiteAdSlot placement="header_after" className="website-ad-global"/>}
         {children}
@@ -2359,7 +2368,8 @@ function VerifiedBadge({ verified, className = '', size = 14 }) {
   return <span className={classes} title="Verified" aria-label="Verified"><svg viewBox="0 0 12 12" width={size} height={size} fill="currentColor" role="img"><title>Verified account</title><path d="M7.198.34a.88.88 0 0 1 1.164.38l.623 1.175 1.311.23a.88.88 0 0 1 .72.99l-.187 1.318.925.956a.88.88 0 0 1 0 1.224l-.925.957.186 1.317a.88.88 0 0 1-.719.99l-1.31.23-.625 1.176a.88.88 0 0 1-1.163.378l-1.196-.584-1.196.584a.88.88 0 0 1-1.164-.378l-.623-1.176-1.311-.23a.88.88 0 0 1-.72-.99l.187-1.317-.925-.957a.88.88 0 0 1 0-1.224l.925-.956-.187-1.318a.88.88 0 0 1 .72-.99l1.31-.23L3.643.72A.88.88 0 0 1 4.806.34l1.196.584L7.198.341zm1.656 4.764a.5.5 0 1 0-.708-.708L5.25 7.293 3.854 5.896a.5.5 0 1 0-.708.708L4.543 8a1 1 0 0 0 1.414 0l2.897-2.896z" /></svg></span>;
 }
 
-function Sidebar({ path, navigate, user, open, onClose, collapsed, onToggleCollapse, onPointerDown, onPointerMove, onPointerUp, onPointerCancel, onClickCapture, liveStreamingEnabled = true }) {
+function Sidebar({ overlayActive = false, path, navigate, user, open, onClose, collapsed, onToggleCollapse, onPointerDown, onPointerMove, onPointerUp, onPointerCancel, onLostPointerCapture, onClickCapture, liveStreamingEnabled = true }) {
+  const { overlayNavigation } = useResponsiveLayout();
   const canAdmin = canAccessAdmin(user);
   const [playlists, setPlaylists] = useState([]);
   const [playlistsLoading, setPlaylistsLoading] = useState(false);
@@ -2432,7 +2442,8 @@ function Sidebar({ path, navigate, user, open, onClose, collapsed, onToggleColla
   const visiblePlaylists = playlistsExpanded ? playlists : playlists.slice(0, 5);
   const visibleGroups = groups.map((group) => ({ ...group, items: group.items.filter((item) => !item.hidden && (!item.adminOnly || canAdmin) && (!item.authOnly || user)) })).filter((group) => group.items.length);
   return (
-    <aside id="website-sidebar" aria-label="Main navigation" className={`sidebar ${open ? 'open' : ''}`} onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp} onPointerCancel={onPointerCancel} onClickCapture={onClickCapture}>
+    <aside id="website-sidebar" inert={overlayNavigation ? !open : collapsed} aria-hidden={(overlayNavigation ? !open : collapsed) || undefined} data-responsive-overlay={overlayActive ? 'navigation' : undefined} role={overlayActive ? 'dialog' : undefined} aria-modal={overlayActive ? true : undefined} aria-label="Main navigation" className={`sidebar ${open ? 'open' : ''}`} onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp} onPointerCancel={onPointerCancel} onLostPointerCapture={onLostPointerCapture} onClickCapture={onClickCapture}>
+      <div className="sidebar-drawer-head"><strong>Navigation</strong><button type="button" className="icon-button" data-overlay-close onClick={onClose} aria-label="Close navigation"><Icon name="close" /></button></div>
       <div className="side-head">
         <button className="brand-button" onClick={() => go('/')}><Logo /></button>
         <div className="side-actions">
@@ -2471,6 +2482,7 @@ function Sidebar({ path, navigate, user, open, onClose, collapsed, onToggleColla
 }
 
 function Topbar({ user, setUser, navigate, logout, theme, onMenu, sidebarOpen = false, desktopSidebarOpen = true, sidebarToggleEnabled = true }) {
+  const { overlayNavigation, compact } = useResponsiveLayout();
   const readSearchQuery = () => window.location.pathname === '/search' ? (new URLSearchParams(window.location.search).get('q') || '') : '';
   const [messagesOpen, setMessagesOpen] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
@@ -2679,6 +2691,7 @@ function Topbar({ user, setUser, navigate, logout, theme, onMenu, sidebarOpen = 
       ['users', 'View profile', '/profile'],
       ['library', 'Library', '/profile/library'],
       ['bookmark', 'Bookmarks', '/bookmarks'],
+      ...(compact ? [['comment', 'Messages', '/messages', messageUnread > 0 ? formatNumber(messageUnread) : ''], ['bell', 'Notifications', '/notifications', notificationUnread > 0 ? formatNumber(notificationUnread) : '']] : []),
       ['heart', 'Favorites', '/favorites'],
     ],
     [
@@ -2795,14 +2808,15 @@ function Topbar({ user, setUser, navigate, logout, theme, onMenu, sidebarOpen = 
       setSwitchingAccountId('');
     }
   };
-  const accountMenu = accountOpen && user ? <div className="topbar-account-menu rich" role="menu">
-    <div className="topbar-account-menu-head" role="menuitem" tabIndex={0} aria-label="View profile" onClick={() => goAccount('/profile')} onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); goAccount('/profile'); } }}>
+  const accountMenu = accountOpen && user ? <div className="topbar-account-menu rich" role={mobileAccountSheet ? "dialog" : "menu"} aria-label="Account" aria-modal={mobileAccountSheet ? true : undefined} data-responsive-overlay={mobileAccountSheet ? "account" : undefined}>
+    {mobileAccountSheet && <button type="button" className="account-sheet-close icon-button" data-overlay-close aria-label="Close account menu" onClick={() => setAccountOpen(false)}><Icon name="close" /></button>}
+    <div className="topbar-account-menu-head" role={mobileAccountSheet ? "button" : "menuitem"} tabIndex={0} aria-label="View profile" onClick={() => goAccount('/profile')} onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); goAccount('/profile'); } }}>
       <Avatar label={user.name} image={accountAvatarUrl} />
       <span><strong>{user.name}</strong><small>{accountHandle}</small>{canAdmin && <em><Icon name="checkCircle" size={12} />{accountRoleLabel}</em>}</span>
       <Icon name="chevronRight" size={16} />
     </div>
     {accountMenuGroups.map((group, groupIndex) => <div className="topbar-account-menu-section" key={groupIndex}>
-      {group.map(([icon, label, to, value]) => <button type="button" role="menuitem" key={label} onClick={() => goAccount(to)}>
+      {group.map(([icon, label, to, value]) => <button type="button" role={mobileAccountSheet ? undefined : "menuitem"} key={label} onClick={() => goAccount(to)}>
         <Icon name={icon} size={18} />
         <span className="topbar-account-menu-label"><span>{label}</span>{value && <b data-i18n-skip>{value}</b>}</span>
         <Icon name="chevronRight" size={15} />
@@ -2816,11 +2830,11 @@ function Topbar({ user, setUser, navigate, logout, theme, onMenu, sidebarOpen = 
       </button>)}</div>
     </div>
     <div className="topbar-account-menu-section">
-      <button type="button" role="menuitem" onClick={() => goAccount('/contact')}><Icon name="comment" size={18} /><span>Send feedback</span><Icon name="chevronRight" size={15} /></button>
+      <button type="button" role={mobileAccountSheet ? undefined : "menuitem"} onClick={() => goAccount('/contact')}><Icon name="comment" size={18} /><span>Send feedback</span><Icon name="chevronRight" size={15} /></button>
     </div>
     <div className="topbar-account-menu-section">
-      {canAdmin && <button type="button" role="menuitem" onClick={() => goAccount('/admin/dashboard')}><Icon name="shield" size={18} /><span>Admin Dashboard</span><Icon name="chevronRight" size={15} /></button>}
-      <button type="button" role="menuitem" onClick={toggleAccountSwitcher}><Icon name="users" size={18} /><span>Switch account</span><Icon name="chevronRight" size={15} /></button>
+      {canAdmin && <button type="button" role={mobileAccountSheet ? undefined : "menuitem"} onClick={() => goAccount('/admin/dashboard')}><Icon name="shield" size={18} /><span>Admin Dashboard</span><Icon name="chevronRight" size={15} /></button>}
+      <button type="button" role={mobileAccountSheet ? undefined : "menuitem"} onClick={toggleAccountSwitcher}><Icon name="users" size={18} /><span>Switch account</span><Icon name="chevronRight" size={15} /></button>
       {accountSwitcherOpen && <div className="topbar-account-switcher">
         <p>Accounts</p>
         {accountRows.map((account) => {
@@ -2835,10 +2849,13 @@ function Topbar({ user, setUser, navigate, logout, theme, onMenu, sidebarOpen = 
         <button type="button" className="topbar-account-switch-add" onClick={addSwitchAccount}><Icon name="plus" size={17}/><span>Login</span></button>
         {accountSwitchNotice && <small className="topbar-account-switch-notice">{accountSwitchNotice}</small>}
       </div>}
-      <button type="button" role="menuitem" className="danger" onClick={() => { setAccountOpen(false); logout(); }}><Icon name="block" size={18}/><span>Logout</span></button>
+      <button type="button" role={mobileAccountSheet ? undefined : "menuitem"} className="danger" onClick={() => { setAccountOpen(false); logout(); }}><Icon name="block" size={18}/><span>Logout</span></button>
     </div>
   </div> : null;
 
+  useEffect(() => {
+    if (!compact) setMobileSearchOpen(false);
+  }, [compact]);
   const openMobileSearch = () => {
     setMobileSearchOpen(true);
     setMessagesOpen(false);
@@ -2849,7 +2866,7 @@ function Topbar({ user, setUser, navigate, logout, theme, onMenu, sidebarOpen = 
   return (
     <>
     <header className={`topbar ${mobileSearchOpen ? 'mobile-search-open' : ''}`}>
-    {sidebarToggleEnabled && <button type="button" className="icon-button menu-button" onClick={onMenu} aria-label={(mobileAccountSheet ? sidebarOpen : desktopSidebarOpen) ? 'Close navigation' : 'Open navigation'} aria-controls="website-sidebar" aria-expanded={mobileAccountSheet ? sidebarOpen : desktopSidebarOpen}><Icon name="menu" /></button>}
+    {sidebarToggleEnabled && <button type="button" className="icon-button menu-button" onClick={onMenu} aria-label={(overlayNavigation ? sidebarOpen : desktopSidebarOpen) ? 'Close navigation' : 'Open navigation'} aria-controls="website-sidebar" aria-expanded={overlayNavigation ? sidebarOpen : desktopSidebarOpen}><Icon name="menu" /></button>}
     <button type="button" className="topbar-logo-button" onClick={() => navigate('/')} aria-label="Go to home"><Logo /></button>
       <form className="global-search" ref={searchRef} autoComplete="off" onSubmit={(e) => {
         e.preventDefault();
@@ -2901,7 +2918,7 @@ function Topbar({ user, setUser, navigate, logout, theme, onMenu, sidebarOpen = 
           {notificationsOpen && !mobileAccountSheet && <NotificationDropdown navigate={navigate} onClose={() => setNotificationsOpen(false)} onUnreadChange={setNotificationUnread} />}
         </div>}
         {user ? <div className="topbar-account-wrap" ref={accountRef}>
-          <button className={`avatar-button ${accountOpen ? 'active' : ''}`} onClick={toggleAccount} aria-label="Open account menu" aria-haspopup="menu" aria-expanded={accountOpen}><Avatar label={user.name} image={accountAvatarUrl} /></button>
+          <button className={`avatar-button ${accountOpen ? 'active' : ''}`} onClick={toggleAccount} aria-label="Open account menu" aria-haspopup={mobileAccountSheet ? "dialog" : "menu"} aria-expanded={accountOpen}><Avatar label={user.name} image={accountAvatarUrl} /></button>
           {accountOpen && !mobileAccountSheet && accountMenu}
         </div> : <button className="btn primary" onClick={() => navigate('/login')}>Login</button>}
       </nav>
@@ -2961,7 +2978,8 @@ function MessagesDropdown({ navigate, onClose, onUnreadChange = null, deferUntil
   if (deferUntilLoaded && loading) return null;
 
   return (
-    <section className="messages-popover" role="dialog" aria-label="Messages">
+    <section className="messages-popover" role="dialog" aria-label="Messages" aria-modal={deferUntilLoaded ? true : undefined}>
+      {deferUntilLoaded && <button type="button" className="account-sheet-close icon-button" data-overlay-close aria-label="Close messages" onClick={onClose}><Icon name="close" /></button>}
       <div className="messages-panel-head">
         <h2>Messages</h2>
         <button type="button" className="new-message-button" onClick={() => { navigate('/messages?compose=1'); onClose?.(); }}>
@@ -3459,7 +3477,8 @@ function NotificationDropdown({ navigate, onClose, onUnreadChange = null, deferU
   if (deferUntilLoaded && loading) return null;
 
   return (
-    <section className="notifications-popover" role="dialog" aria-label="Notifications" ref={popoverRef}>
+    <section className="notifications-popover" role="dialog" aria-label="Notifications" aria-modal={deferUntilLoaded ? true : undefined} ref={popoverRef}>
+      {deferUntilLoaded && <button type="button" className="account-sheet-close icon-button" data-overlay-close aria-label="Close notifications" onClick={onClose}><Icon name="close" /></button>}
       <div className="notifications-panel-head">
         <h2>Notifications <span>{unreadCount}</span></h2>
         <button type="button" className="mark-read-button" onClick={readAll} disabled={!unreadCount}>
@@ -5698,6 +5717,7 @@ function prepareUploaded(v, index = 0) {
 }
 
 function PersistentVideoPlayer({ path, navigate, auth, defaultVideoQuality = 'auto' }) {
+  const { compact } = useResponsiveLayout();
   const containerRef = useRef(null);
   const playerRef = useRef(null);
   const sessionRef = useRef(readPersistentPlaybackSession());
@@ -6130,7 +6150,7 @@ function PersistentVideoPlayer({ path, navigate, auth, defaultVideoQuality = 'au
 
   mediaActionsRef.current = { play, pause, next: playNext, previous: playPrevious, seek };
 
-  const mounted = Boolean(isDesktopPlaybackViewport() && session?.video?.slug && !isShortsPage && !sessionVideoIsShort);
+  const mounted = Boolean(session?.video?.slug && !isShortsPage && !sessionVideoIsShort);
   const visible = Boolean(mounted && !isWatchPage && handoffReady);
   useEffect(() => {
     if (isWatchPage) {
@@ -6149,7 +6169,7 @@ function PersistentVideoPlayer({ path, navigate, auth, defaultVideoQuality = 'au
     return () => window.cancelAnimationFrame(frame);
   }, [isWatchPage, path]);
   useEffect(() => {
-    if (!visible || window.innerWidth <= 860) return undefined;
+    if (!visible) return undefined;
     const keepOnScreen = () => positionPlayer(playerPositionRef.current.right, playerPositionRef.current.bottom, true);
     const frame = window.requestAnimationFrame(keepOnScreen);
     window.addEventListener('resize', keepOnScreen);
@@ -6157,7 +6177,7 @@ function PersistentVideoPlayer({ path, navigate, auth, defaultVideoQuality = 'au
       window.cancelAnimationFrame(frame);
       window.removeEventListener('resize', keepOnScreen);
     };
-  }, [visible, playerWidth]);
+  }, [visible, playerWidth, compact]);
   useEffect(() => {
     const becameVisible = visible && !wasVisibleRef.current;
     wasVisibleRef.current = visible;
@@ -6544,7 +6564,7 @@ function Home({ navigate, auth }) {
       onPointerLeave={() => setContentHovered(false)}
       onFocusCapture={(event) => setContentFocused(isBrowsingContent(event.target, event.currentTarget))}
       onBlurCapture={(event) => setContentFocused(isBrowsingContent(event.relatedTarget, event.currentTarget))}>
-      <section className={`home-hero-grid ${!loading && !featureStack.length ? 'without-spotlights' : ''}`}>
+      <section className={`home-hero-grid ${!loading && !featureStack.length ? 'without-spotlights' : ''} ${trending.length ? 'has-trending' : 'without-trending'}`}>
         {featured ? <article ref={heroRef} className="hero-feature" role="region" aria-roledescription="carousel" aria-label="Featured" onMouseEnter={() => setHeroHovered(true)} onMouseLeave={() => setHeroHovered(false)} onFocusCapture={() => setHeroFocused(true)} onBlurCapture={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setHeroFocused(false); }}>
             <Thumbnail key={`hero-media-${featured.id || featured.slug}`} video={featured} large />
             <button type="button" className="hero-feature-hitbox" aria-label="Watch now" onClick={() => openVideo(featured, navigate)} />
@@ -6570,10 +6590,10 @@ function Home({ navigate, auth }) {
             <Thumbnail video={video} />
           </button>)}
         </div> : <HomeEmptySpotlights loading={loading} />}
-        <aside className="trending-panel">
+        {(loading || trending.length > 0) && <aside className="trending-panel">
           <div className="section-title compact"><h2>Trending now</h2><button type="button" className="text-button" onClick={() => navigate('/trending')}>View all</button></div>
           {trending.length ? trending.slice(0, 4).map((video, index) => <TrendingRow key={video.id} video={video} index={index + 1} navigate={navigate} />) : <HomeEmptyTrending loading={loading} />}
-        </aside>
+        </aside>}
       </section>
 
       <WebsiteAdSlot placement="home_feed"/>
@@ -20187,7 +20207,6 @@ function SettingsPage({ navigate, auth, theme, website = {}, routeSearch = '' })
   return <main className="content-area settings-page">
     <div className="settings-head">
       <div>
-        <span className="settings-eyebrow">Creator Studio</span>
         <h1>Settings</h1>
       </div>
       <div className="settings-head-actions">
@@ -20202,6 +20221,7 @@ function SettingsPage({ navigate, auth, theme, website = {}, routeSearch = '' })
     <section className="settings-body-grid">
       <div className="settings-workspace">
         <div className="settings-top-grid">
+          <label className="settings-section-select"><span>Settings section</span><select aria-label="Settings section" value={activeSection} onChange={(event) => jumpToSection(event.target.value)}>{SETTINGS_MENU_ITEMS.map((item) => <option key={item.id} value={item.id}>{item.label}</option>)}</select></label>
           <aside className="settings-section-nav" aria-label="Settings sections">
             {SETTINGS_MENU_ITEMS.map((item) => <button type="button" key={item.id} className={activeSection === item.id ? 'active' : ''} onClick={() => jumpToSection(item.id)}>
               <Icon name={item.icon} size={18} />
@@ -20730,7 +20750,6 @@ function StudioEarningsPage({ navigate }) {
   return <main className="content-area creator-earnings-page">
     <div className="creator-head earnings-head">
       <div>
-        <span className="settings-eyebrow">Creator Studio</span>
         <h1>Earnings</h1>
         <p>Track revenue from VAST ads, tips, video sales, and live activity.</p>
       </div>
@@ -20882,7 +20901,6 @@ function StudioAnalyticsPage({ navigate }) {
   return <main className="content-area creator-analytics-page">
     <div className="creator-head analytics-head">
       <div>
-        <span className="settings-eyebrow">Creator Studio</span>
         <h1>Analytics</h1>
         <p>Measure audience activity and identify the content driving your channel.</p>
       </div>
@@ -22163,7 +22181,7 @@ function ChannelEditorModal({ profile, saving = false, error = '', onClose, onSa
   };
 
   return <div className="collection-modal-backdrop channel-editor-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget && !saving) onClose?.(); }}>
-    <form className="collection-modal channel-editor-modal" onSubmit={submit} onMouseDown={(event) => event.stopPropagation()}>
+    <form className="collection-modal channel-editor-modal" role="dialog" aria-modal="true" aria-label="Edit channel" onSubmit={submit} onMouseDown={(event) => event.stopPropagation()}>
       <button type="button" className="collection-modal-close" onClick={onClose} disabled={saving} aria-label="Close"><Icon name="close" size={18}/></button>
       <div className="collection-modal-main channel-editor-main">
         <div className="collection-form-panel">

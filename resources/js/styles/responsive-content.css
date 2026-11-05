@@ -1,0 +1,392 @@
+/* Content decides when it can support another column; navigation does not. */
+.home-page,
+.catalog-page,
+.search-results-page,
+.creator-profile-page {
+  container: content-page / inline-size;
+  min-width: 0;
+}
+
+.video-grid,
+.continue-grid,
+.profile-upload-grid,
+.profile-playlist-grid,
+.profile-videos-grid,
+.profile-playlists-content-grid,
+.profile-search-mini-grid,
+.library-watch-grid,
+.library-liked-grid,
+.library-saved-playlists,
+.library-collections-grid,
+.saved-playlist-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
+  gap: 24px 16px;
+  min-width: 0;
+}
+
+.profile-playlists-content-grid.is-list { grid-template-columns: minmax(0, 1fr); }
+
+.creator-grid,
+.browse-grid,
+.category-strip,
+.collections-grid,
+.search-channel-grid {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 180px), 1fr));
+}
+
+.shorts-poster-grid,
+.profile-shorts-grid,
+.profile-search-shorts-grid,
+.search-shorts-grid {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 160px), 1fr));
+}
+
+.search-playlist-grid {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
+}
+
+.page-main-column,
+.channel-main-column { grid-template-columns: minmax(0, 1fr); }
+
+.video-grid > *,
+.continue-grid > *,
+.page-section,
+.page-section > *,
+.channel-page-grid > *,
+.search-layout-grid > *,
+.profile-section > * {
+  min-width: 0;
+}
+
+.video-card h3,
+.profile-tab-video-card h3,
+.search-video-row h3,
+.search-featured-info h1,
+.trending-row strong,
+.channel-featured-copy h2 {
+  overflow-wrap: anywhere;
+}
+
+/* Shelves deliberately scroll inside their own bounds, including on desktop. */
+.horizontal-videos-shell,
+.home-category-slider { max-width: 100%; }
+
+.horizontal-videos-shell .horizontal-videos {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 16px;
+  margin-inline: 0;
+  padding: 0 0 8px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-inline: contain;
+  scroll-padding-inline: 0;
+}
+
+.horizontal-videos-shell .horizontal-videos .video-card {
+  flex: 0 0 clamp(240px, 30%, 320px);
+  min-width: 0;
+  max-width: 100%;
+}
+
+.horizontal-videos-shell .carousel-prev { left: 0; }
+.horizontal-videos-shell .carousel-next { right: 0; }
+
+/* The feature area grows only when there is real secondary content. */
+.home-hero-grid { grid-template-columns: minmax(0, 1fr); }
+.home-hero-grid > * { min-width: 0; }
+.home-hero-grid .spotlight-stack { display: none; }
+.hero-feature { min-height: 340px; }
+.hero-copy { min-height: 340px; padding: 32px 32px 64px; }
+.hero-copy h1 {
+  font-size: clamp(24px, 4cqw, 48px);
+  line-height: 1.15;
+  letter-spacing: -.03em;
+  text-wrap: balance;
+}
+.home-page .hero-copy h1 {
+  display: -webkit-box;
+  min-height: 2.3em;
+  overflow: hidden;
+  white-space: normal;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.home-page .hero-copy p {
+  display: -webkit-box;
+  min-height: 3em;
+  overflow: hidden;
+  line-height: 1.5;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.hero-buttons { gap: 8px; }
+.hero-buttons .btn { min-height: 44px; max-width: 100%; }
+
+.two-column-page,
+.explore-feature-grid,
+.search-layout-grid,
+.channel-page-grid {
+  min-width: 0;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.right-rail,
+.search-right-rail,
+.channel-side-column {
+  position: static;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  min-width: 0;
+}
+
+.side-video-stack {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  min-width: 0;
+}
+.explore-feature-grid .side-video-stack { height: auto; grid-template-rows: none; }
+.explore-feature-grid .side-video-stack .small-video-row {
+  height: auto;
+  min-width: 0;
+  grid-template-columns: minmax(80px, 32%) minmax(0, 1fr);
+}
+.explore-feature-grid .side-video-stack .small-video-row .thumb {
+  height: auto;
+  aspect-ratio: 16 / 9;
+}
+
+.search-main-column { container: search-results / inline-size; }
+.search-featured-card,
+.search-video-row {
+  position: relative;
+  grid-template-columns: minmax(0, 1fr);
+  min-width: 0;
+}
+.search-featured-card > *,
+.search-video-row > * { min-width: 0; }
+.search-featured-card > .more-button,
+.search-video-row > .search-video-menu-shell { position: absolute; top: 8px; right: 8px; }
+.search-featured-thumb .thumb,
+.search-video-row .thumb { height: auto; aspect-ratio: 16 / 9; }
+.search-tabs { min-width: 0; max-width: 100%; }
+.search-tab { flex: 0 0 auto; }
+
+.channel-page-grid { container: profile-layout / inline-size; }
+.profile-about-tab-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+}
+.profile-tab-library .channel-page-grid { grid-template-columns: minmax(0, 1fr); }
+.profile-tab-library .channel-main-column,
+.profile-tab-library .channel-side-column { grid-column: auto; grid-row: auto; }
+.profile-tab-library .channel-side-column {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+}
+.profile-library-toolbar { grid-template-columns: minmax(0, 1fr); }
+.library-filter-tabs,
+.profile-video-filters { min-width: 0; max-width: 100%; overflow-x: auto; }
+
+@container content-page (min-width: 1000px) {
+  .home-hero-grid.has-trending {
+    grid-template-columns: minmax(0, 1fr) 320px;
+  }
+}
+
+@container content-page (min-width: 1100px) {
+  .two-column-page,
+  .search-layout-grid { grid-template-columns: minmax(0, 1fr) 300px; }
+  .right-rail,
+  .search-right-rail { position: sticky; top: calc(var(--topbar) + 16px); grid-template-columns: minmax(0, 1fr); }
+  .channel-page-grid { grid-template-columns: minmax(0, 1fr) 300px; }
+  .channel-side-column { position: sticky; top: calc(var(--topbar) + 16px); grid-template-columns: minmax(0, 1fr); }
+  .profile-tab-library .channel-page-grid { grid-template-columns: 300px minmax(0, 1fr); }
+  .profile-tab-library .channel-side-column { grid-column: 1; grid-row: 1; grid-template-columns: minmax(0, 1fr); }
+  .profile-tab-library .channel-main-column { grid-column: 2; grid-row: 1; }
+}
+
+@container content-page (min-width: 1400px) {
+  .home-hero-grid:not(.without-spotlights).has-trending {
+    grid-template-columns: minmax(0, 1.5fr) minmax(260px, .8fr) 320px;
+  }
+  .home-hero-grid:not(.without-spotlights) .spotlight-stack { display: grid; }
+  .explore-feature-grid { grid-template-columns: minmax(0, 1fr) 280px; }
+  .explore-feature-grid .side-video-stack { grid-template-columns: minmax(0, 1fr); }
+}
+
+@container search-results (min-width: 680px) {
+  .search-featured-card { grid-template-columns: minmax(240px, 44%) minmax(0, 1fr) 32px; }
+  .search-video-row { grid-template-columns: minmax(200px, 32%) minmax(0, 1fr) 32px; }
+  .search-featured-card > .more-button,
+  .search-video-row > .search-video-menu-shell { position: relative; inset: auto; }
+}
+
+@container content-page (max-width: 639px) {
+  .home-page .section-title {
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .home-page .section-title .text-button { min-height: 44px; }
+  .home-page .hero-feature {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    background: var(--panel);
+    color: var(--text);
+  }
+  .home-page .hero-feature > .thumb {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    aspect-ratio: 16 / 9;
+  }
+  .home-page .hero-feature::after { display: none; }
+  .home-page .hero-feature-hitbox { height: auto; aspect-ratio: 16 / 9; }
+  .home-page .hero-copy {
+    height: auto;
+    min-height: 0;
+    padding: 16px;
+    gap: 12px;
+  }
+  .home-page .hero-copy h1 {
+    min-height: 2.5em;
+    color: var(--text);
+    font-size: 20px;
+    line-height: 1.25;
+    letter-spacing: -.02em;
+  }
+  .home-page .hero-copy p { display: none; }
+  .home-page .hero-buttons { margin-top: 0; }
+  .home-page .hero-buttons .btn { flex: 1 1 140px; }
+  .home-page .hero-buttons .btn.glass {
+    border-color: var(--line);
+    background: var(--panel-2);
+    color: var(--text);
+    backdrop-filter: none;
+  }
+  .home-page .hero-carousel-controls {
+    position: relative;
+    inset: auto;
+    margin: 0 16px 12px;
+  }
+  .home-page .hero-dot::before { background: var(--muted); }
+  .home-page .hero-dot.active::before { background: var(--primary); }
+  .home-page .hero-dot,
+  .home-page .hero-autoplay-toggle { width: 44px; height: 44px; }
+  .home-page .hero-autoplay-toggle { background: var(--panel-2); color: var(--text); border-color: var(--line); }
+  .home-page .hero-dot:focus-visible,
+  .home-page .hero-autoplay-toggle:focus-visible { outline-color: var(--primary); }
+}
+
+@media (max-width: 860px) {
+  .creator-profile-page .profile-upload-grid,
+  .creator-profile-page .profile-playlist-grid {
+    display: grid;
+    margin-inline: 0;
+    padding-inline: 0;
+    overflow: visible;
+  }
+  .watch-layout-shell .watch-toolbar { align-items: flex-start; }
+  .watch-layout-shell .action-bar { max-width: 100%; flex-wrap: wrap; }
+  .watch-layout-shell .description-card { overflow-wrap: anywhere; }
+}
+
+@media (orientation: landscape) and (max-height: 500px) {
+  .watch-layout-shell {
+    --watch-bottom-inset: 0px;
+    --watch-visible-height: calc(var(--visible-viewport-height, 100dvh) - var(--topbar) - var(--watch-bottom-inset) - env(safe-area-inset-bottom) - 24px);
+  }
+  .watch-layout-shell .watch-player-stage > .video-player:not(.is-scroll-miniplayer) {
+    width: min(100%, calc(var(--watch-visible-height) * 16 / 9));
+    margin-inline: auto;
+  }
+  .persistent-video-player { max-height: calc(var(--visible-viewport-height, 100dvh) - var(--topbar) - 16px); }
+  .watch-layout-shell .watch-page { padding-top: 8px; }
+}
+
+@media (orientation: landscape) and (max-height: 500px) and (max-width: 860px) {
+  .watch-layout-shell { --watch-bottom-inset: 76px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .horizontal-videos-shell .horizontal-videos { scroll-behavior: auto; }
+}
+
+/* Filters scroll locally instead of increasing the page's intrinsic width. */
+.filter-bar { min-width: 0; max-width: 100%; }
+.filter-bar > .filter-chips {
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-inline: contain;
+}
+.filter-bar > .filter-chips > * { flex: 0 0 auto; }
+
+@media (max-width: 860px) {
+  .filter-bar > .filter-chips { width: 100%; }
+  .persistent-video-player {
+    grid-template-columns: clamp(96px, 30vw, 138px) minmax(0, 1fr);
+    grid-template-rows: auto auto auto;
+    height: auto;
+    min-height: 0;
+  }
+  .persistent-player-media {
+    grid-row: 1 / 4;
+    align-self: stretch;
+    height: 100%;
+    min-height: 144px;
+  }
+  .persistent-player-media > img,
+  .persistent-vidstack-player media-poster,
+  .persistent-vidstack-player .vds-poster img,
+  .persistent-vidstack-player video { object-fit: contain; }
+  .persistent-player-controls {
+    grid-template-columns: repeat(3, minmax(44px, 1fr));
+    gap: 4px;
+    padding: 4px 8px 8px;
+  }
+  .persistent-player-controls button { width: 100%; min-width: 44px; height: 44px; }
+  .persistent-player-progress { width: clamp(96px, 30vw, 138px); }
+  .persistent-player-resize,
+  .persistent-player-drag { display: none; }
+}
+
+@media (pointer: coarse) {
+  .persistent-player-resize,
+  .persistent-player-drag { display: none; }
+  .filter-bar > .filter-chips > .chip { min-height: 44px; }
+}
+
+@media (pointer: coarse) and (min-width: 861px) {
+  .persistent-player-controls { grid-template-columns: repeat(6, 44px); }
+  .persistent-player-controls button { width: 44px; height: 44px; }
+}
+
+/* Legal sidebars can be 300px wide inside an otherwise tablet-sized page. */
+.info-page .info-page-side {
+  min-width: 0;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+}
+.info-page .info-page-side > *,
+.info-page .info-chip-list { min-width: 0; }
+.info-page .info-chip-list > span {
+  min-width: 0;
+  max-width: 100%;
+  height: auto;
+  min-height: 28px;
+  overflow-wrap: anywhere;
+}
+
+/* Shelf arrows stay inside the same content bounds in LTR and RTL layouts. */
+.search-results-page .search-carousel-next {
+  left: auto;
+  right: auto;
+  inset-inline-start: auto;
+  inset-inline-end: 0;
+  width: 44px;
+  height: 44px;
+}

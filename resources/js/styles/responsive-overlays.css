@@ -1,0 +1,71 @@
+html.responsive-overlay-active,
+body.responsive-overlay-active {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+.admin-dashboard-shell.admin-overlay-root { display: contents; min-height: 0; }
+
+body .admin-confirm-backdrop {
+  inset-block-start: var(--visible-viewport-top, 0px);
+  height: var(--visible-viewport-height, 100dvh);
+  inset-block-end: auto;
+  min-height: 0;
+  overflow: hidden;
+  padding: max(12px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
+}
+
+body .admin-confirm-backdrop > [aria-modal="true"] {
+  max-height: calc(var(--visible-viewport-height, 100dvh) - max(12px, env(safe-area-inset-top)) - max(12px, env(safe-area-inset-bottom)));
+  min-height: 0;
+  max-width: 100%;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scroll-padding-block: 16px 80px;
+}
+
+body .admin-edit-actions,
+body .admin-confirm-actions {
+  position: sticky;
+  bottom: -20px;
+  z-index: 1;
+  padding-block: 12px;
+  margin-bottom: -12px;
+  background: var(--ad-panel);
+}
+
+[data-responsive-overlay] { overscroll-behavior: contain; }
+
+body .collection-modal-backdrop,
+body .settings-security-backdrop,
+body .language-dialog-backdrop {
+  inset-block-start: var(--visible-viewport-top, 0px);
+  inset-block-end: auto;
+  height: var(--visible-viewport-height, 100dvh);
+  min-height: 0;
+  overflow: hidden;
+}
+
+body .collection-modal-backdrop:not(.playlist-modal-backdrop) > :is(section, form, article, .collection-modal),
+body .settings-security-modal,
+body .language-dialog {
+  min-height: 0;
+  max-height: calc(var(--visible-viewport-height, 100dvh) - 24px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+[aria-modal="true"] :focus-visible,
+[data-responsive-overlay] :focus-visible {
+  outline: 2px solid var(--ad-primary, var(--primary));
+  outline-offset: 3px;
+}
+
+@media (pointer: coarse) {
+  .admin-confirm-backdrop button,
+  .admin-confirm-backdrop input:not([type="checkbox"]):not([type="radio"]),
+  .admin-confirm-backdrop select { min-height: 44px; }
+  .admin-confirm-backdrop input,
+  .admin-confirm-backdrop select,
+  .admin-confirm-backdrop textarea { font-size: 16px; }
+}

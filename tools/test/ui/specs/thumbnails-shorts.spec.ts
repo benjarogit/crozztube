@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { retainScreenshot } from '../fixtures/screenshots';
 
 const pixel = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jRZkAAAAASUVORK5CYII=', 'base64');
 const first = 'https://i.fastpic.org/crz-test/primary.png';
@@ -54,7 +55,7 @@ test('all failed thumbnails end in a neutral preview without looping', async ({ 
   expect(attempts).toBe(count);
 });
 
-test('short plays HLS with the adaptive player and supports seeking', async ({ page, request }) => {
+test('short plays HLS with the adaptive player and supports seeking', async ({ page, request }, testInfo) => {
   const response = await request.get('/api/videos?type=shorts&per_page=20');
   const payload = await response.json();
   const short = (payload.data || []).find((v: any) => v.video_sources?.some((s: any) => /mpegurl/.test(s.type)));
@@ -67,9 +68,19 @@ test('short plays HLS with the adaptive player and supports seeking', async ({ p
   await expect.poll(() => media.evaluate((v: HTMLVideoElement) => v.currentTime), {timeout: 20_000}).toBeGreaterThan(0.5);
   await page.locator('input[aria-label="Seek short"]').fill('50');
   await expect.poll(() => media.evaluate((v: HTMLVideoElement) => v.currentTime)).toBeGreaterThan(30);
+  await media.evaluate((video: HTMLVideoElement) => { video.dataset.resizeProbe = 'short'; });
+  for (const width of [390, 768, 1280, 1440]) {
+    const before = await media.evaluate((video: HTMLVideoElement) => video.currentTime);
+    await page.setViewportSize({ width, height: 900 });
+    await expect(media).toHaveAttribute('data-resize-probe', 'short');
+    await expect.poll(() => media.evaluate((video: HTMLVideoElement) => video.currentTime)).toBeGreaterThan(before + 0.15);
+  }
+  await page.setViewportSize({ width: 800, height: 450 });
+  await expect(media).toHaveAttribute('data-resize-probe', 'short');
+  await retainScreenshot(page, testInfo, 'short-landscape-playback');
 });
 
-test('chapter track is displayed and selecting a chapter seeks playback', async ({page, request}) => {
+test('chapter track is displayed and selecting a chapter seeks playback', async ({page, request}, testInfo) => {
   const payload = await (await request.get('/api/videos?type=video&per_page=20')).json();
   const video = (payload.data || []).find((v: any) => v.duration_seconds > 60 && v.video_sources?.length);
   expect(video).toBeTruthy();
@@ -92,4 +103,14 @@ test('chapter track is displayed and selecting a chapter seeks playback', async 
   await chapterButton.click();
   await page.getByText('Second chapter', {exact: true}).last().click();
   await expect.poll(() => media.evaluate((v: HTMLVideoElement) => v.currentTime)).toBeGreaterThanOrEqual(29);
+  await media.evaluate((video: HTMLVideoElement) => { video.dataset.resizeProbe = 'watch'; });
+  for (const width of [1024, 390, 768, 1280, 1440]) {
+    const before = await media.evaluate((video: HTMLVideoElement) => video.currentTime);
+    await page.setViewportSize({ width, height: 900 });
+    await expect(media).toHaveAttribute('data-resize-probe', 'watch');
+    await expect.poll(() => media.evaluate((video: HTMLVideoElement) => video.currentTime)).toBeGreaterThan(before + 0.15);
+  }
+  await page.setViewportSize({ width: 800, height: 450 });
+  await expect(media).toHaveAttribute('data-resize-probe', 'watch');
+  await retainScreenshot(page, testInfo, 'watch-landscape-playback');
 });

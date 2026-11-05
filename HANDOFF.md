@@ -5,7 +5,15 @@
 
 ---
 
-## Aktueller Nachtrag: v0.7.1
+## Aktueller Nachtrag: responsive Oberfläche
+
+Abnahme am 5. November 2026: vollständiges Harness 103 PASS / 0 FAIL / 0 SKIP. Alle 442 Responsive-Fälle in Chromium, Firefox und WebKit sowie die neun bisherigen Browserprüfungen sind grün. Wiedergabe/Seek laufen beim Resize weiter, Touch-Abbruch hinterlässt keine Sperren.
+
+Navigation B umgesetzt: Desktopsidebar ab 1280 px, darunter Menü ohne reservierte Seitenbreite; untere Besuchernavigation bis 860 px. Inhaltscontainer, lesbare Raster, kompakte mobile Einstellungen/Verwaltungslisten, kurze Dialoge mit Fokus-/Scrollverwaltung und Resize ohne Verlust von Formular-/Playerzustand. Details und Testgrenzen: `Wiki/responsive.html`; gemeinsame Gestaltung: PRODUCT.md/DESIGN.md.
+
+Impeccable 4.8.0 liegt projektlokal und versionsgebunden vor. Der responsive Test-Wrapper prüft Chromium/Firefox/WebKit mit einem Worker; bei fehlenden WebKit-Bibliotheken verwendet er einen automatisch wieder entfernten, begrenzten offiziellen Dockerbrowser. Echte Mobilgeräte und echter Browser-/OS-Zoom bleiben eine gesonderte Geräteprüfung.
+
+## Vorheriger Nachtrag: v0.7.1
 
 - Directupload-Formular: `POST https://www.directupload.eu/upload_you/`, Multipart-Felder `bilddatei`, `showtext=checkbox`, `Upload_file= Bild hochladen `. Original-Hotlink aus HTML-Input, ausschließlich `https://sN.directupload.eu/images/YYMMDD/datei.ext`, keine `/temp/`-Vorschau. Kein Login/Key im geprüften Ablauf. Keine offizielle API; geändertes HTML führt zum kontrollierten Fallback. Lokale Schutzbudgets 10/Minute und 300/Tag, keine behaupteten Anbieterlimits.
 - Video ID 3 hat eine live verifizierte Directupload-Kopie (1280×720). Browser-Fallback durch Directupload → FastPic → Postimages → Original mit echten Bild-URLs bestätigt. Zusätzliche Bestandskopien bleiben für das Nachtfenster vorgemerkt.
@@ -18,7 +26,7 @@ Die neue Kurzreferenz steht in `AGENT-HANDOFF.md`, die vollständige Thumbnail-K
 - Backfill schützt bewusste Änderungen, nutzt vorhandene Resolver-Metadaten, keine zweite Extraktion. Permanente und ausgeschöpfte unbekannte Fehler werden nicht ständig vom Scheduler neu angestoßen. Expliziter Retry bleibt möglich.
 - Live-Browserprüfung: Directupload sichtbar; nach gezielten Sperren folgen FastPic, Postimages und das Original. Für Video ID 3 ist je Hoster eine geprüfte Kopie gespeichert; weitere Kopien laufen regulär nachts. Keys bleiben ausschließlich in `.env`.
 - Aktuell drei echte Videos, Quellen frisch. Veraltetes Direct-MP4-Testsample ID 4 entfernt. Langvideo-Test benötigt weiterhin eine Nutzer-URL.
-- Harness: 102 Ergebnisse ohne Fehler; Thumbnail-Suite mit 91 Einzelprüfungen; 9 Playwright-Tests. Vollständiger Befehl: `./tools/test/run.sh all`.
+- Vollständiges Harness: 103 PASS, 0 FAIL, 0 SKIP; Thumbnail-Suite mit 91 PHP-Einzelprüfungen; 9 Wiedergabe-/Resolver-Browsertests und 442 responsive Browserfälle grün. Vollständiger Befehl: `./tools/test/run.sh all`.
 
 ## 1. Projekt & Umgebung
 

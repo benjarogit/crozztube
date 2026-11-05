@@ -2,10 +2,12 @@
   "name": "crozz-tube-ui-tests",
   "private": true,
   "version": "1.0.0",
-  "description": "Playwright UI tests for the CrozzTube watch enhancer",
+  "description": "Browser checks for CrozzTube streaming playback and responsive layouts",
   "scripts": {
-    "test": "playwright test",
-    "test:headed": "playwright test --headed"
+    "test": "node with-responsive-browsers.mjs",
+    "test:headed": "playwright test --project=chromium --headed",
+    "test:responsive": "node with-responsive-browsers.mjs responsive",
+    "test:watch": "playwright test mirror.spec.ts refresh.spec.ts thumbnails-shorts.spec.ts --project=chromium"
   },
   "devDependencies": {
     "@playwright/test": "^1.51.0"

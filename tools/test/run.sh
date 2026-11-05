@@ -28,8 +28,9 @@ declare -A SUITE_FILES=(
     [jobs]="50-jobs.sh"
     [thumbnails]="55-thumbnails.sh"
     [ui]="60-ui.sh"
+    [responsive]="65-responsive.sh"
 )
-ORDER=(stack api media direct refresh mirror jobs thumbnails ui)
+ORDER=(stack api media direct refresh mirror jobs thumbnails ui responsive)
 
 usage() {
     sed -n '2,15p' "${BASH_SOURCE[0]}" | sed 's/^# \{0,1\}//'
