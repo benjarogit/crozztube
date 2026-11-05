@@ -137,8 +137,8 @@
     }
   }
 
-  async function requestRefresh({ force = false } = {}) {
-    if (!state.videoId) return false;
+  async function requestRefresh({ force = false, manual = false } = {}) {
+    if (!state.videoId || (!manual && state.status?.auto_refresh_allowed === false)) return false;
     if (Date.now() - state.requestedAt < 8000) return false;
 
     state.requestedAt = Date.now();
@@ -148,7 +148,8 @@
     try {
       const response = await fetch(`${API}/source-resolver/refresh/${state.videoId}`, {
         method: 'POST',
-        headers: { Accept: 'application/json' },
+        headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({manual}),
         credentials: 'same-origin',
       });
       const payload = await response.json().catch(() => ({}));
@@ -407,7 +408,7 @@
         label: 'Retry',
         onClick: () => {
           state.requestedAt = 0;
-          requestRefresh({ force: true });
+          requestRefresh({ force: true, manual: true });
         },
       });
       showBanner({
@@ -429,7 +430,7 @@
       label: 'Renew',
       onClick: () => {
         state.requestedAt = 0;
-        requestRefresh({ force: true });
+        requestRefresh({ force: true, manual: true });
       },
     });
     showBanner({ tone: 'error', text: 'The direct source is not playable.', actions });

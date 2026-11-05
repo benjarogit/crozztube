@@ -1486,6 +1486,7 @@ Route::middleware(['auth:sanctum', \App\Http\Middleware\EnsureUgcSafety::class])
     Route::get('/videos/{video:slug}/status', [VideoController::class, 'status']);
     Route::get('/videos/{video:slug}/viewer-state', [VideoController::class, 'viewerState']);
     Route::post('/videos/{video:slug}/progress', [VideoController::class, 'updateWatchProgress']);
+    Route::put('/videos/{video:slug}/thumbnail', [\App\Http\Controllers\Api\ThumbnailController::class, 'update'])->middleware('throttle:10,1');
     Route::post('/videos', [VideoController::class, 'store']);
     Route::match(['put', 'post'], '/videos/{video:slug}', [VideoController::class, 'update']);
     Route::delete('/videos/{video:slug}', [VideoController::class, 'destroy']);

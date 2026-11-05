@@ -52,6 +52,7 @@ class PlatformFeatureSettings
                 'profanity_filter' => (bool) data_get($settings, 'moderation.profanityFilter', true),
             ],
             'uploads' => [
+                'file_uploads_enabled' => ! config('thumbnails.streaming_only'),
                 'default_quality' => (string) data_get($settings, 'uploads.defaultQuality', 'auto'),
                 'chapters_enabled' => (bool) data_get($settings, 'uploads.chaptersEnabled', true),
             ],

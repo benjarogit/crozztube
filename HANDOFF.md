@@ -1,14 +1,25 @@
-# HANDOFF — CrozzTube Source-Resolver (Stand: 4. Nov 2026, ~14:00)
+# HANDOFF — CrozzTube Source-Resolver (Stand: 5. Nov 2026, v0.7.0)
 
 > Weitergabedokument für den nächsten Agenten. Aktueller Zustand + offene Punkte.
 > Wiki (Zugänge/Umgebung/Konfig/Tests): `Wiki/index.html` — zuerst lesen!
 
 ---
 
+## Aktueller Nachtrag: v0.7.0
+
+Die neue Kurzreferenz steht in `AGENT-HANDOFF.md`, die vollständige Thumbnail-Konfiguration in `Wiki/thumbnails.html`.
+
+- Externe Thumbnails mit Originalerhalt, RAM-Verarbeitung, Provider-Fallback und eigenem begrenztem Nacht-Worker sind umgesetzt. **Bildhoster-Keys sind lokal noch nicht konfiguriert; echte externe Uploads damit noch offen.** Directupload bleibt reserviert; Postimages ist ausdrücklich eine vom Nutzer gewünschte inoffizielle Integration anhand ShareX/SMF.
+- Video-Datei-Uploads sind auch für Admin gesperrt; URL-Import bleibt zugelassen. Die bestehenden Zugänge bleiben gültig. Eigene Video-Thumbnails werden per Raw-Body extern übertragen. Bei Ausfall keine lokale Zwischenablage.
+- Shorts: <=180 s, quadratisch/hochkant; Maße gespeichert, Bestandsvideos kontrolliert per Resolver erneuert. Browser-Wiedergabe/Seek und Kapitelanzeige geprüft.
+- Backfill schützt bewusste Änderungen, nutzt vorhandene Resolver-Metadaten, keine zweite Extraktion. Permanente und ausgeschöpfte unbekannte Fehler werden nicht ständig vom Scheduler neu angestoßen. Expliziter Retry bleibt möglich.
+- Aktuell drei echte Videos, Quellen frisch. Veraltetes Direct-MP4-Testsample ID 4 entfernt. Langvideo-Test benötigt weiterhin eine Nutzer-URL.
+- Harness: 102 Ergebnisse ohne Fehler; Thumbnail-Suite mit 80 Einzelprüfungen; 9 Playwright-Tests. Vollständiger Befehl: `./tools/test/run.sh all`.
+
 ## 1. Projekt & Umgebung
 
 - **Projekt:** CrozzTube = PlayHub web v0.9.13 (Laravel 13, React 19), lokale Instanz.
-- **Konzept:** NUR Streaming/Import. Keine eigenen Uploads (Nutzer/Creator laden nichts hoch), **keine API-Keys**. **yt-dlp ist die zentrale Video-Engine**: Metadaten (Titel, Beschreibung, Tags, Thumbnail, Dauer, Kapitel) beim Import und Direkt-URL (eigener Player, HLS bevorzugt) für die Wiedergabe. Der Provider-Embed (YouTube etc.) ist nur Mirror/Fallback.
+- **Konzept:** NUR Streaming/Import. Keine eigenen Uploads (Nutzer/Creator laden nichts hoch), **keine Video-API-Keys** (Bildhoster mit eigenen lokalen Keys). **yt-dlp ist die zentrale Video-Engine**: Metadaten (Titel, Beschreibung, Tags, Thumbnail, Dauer, Kapitel) beim Import und Direkt-URL (eigener Player, HLS bevorzugt) für die Wiedergabe. Der Provider-Embed (YouTube etc.) ist nur Mirror/Fallback.
 - **URL:** `https://crozztube.local:8443` (self-signed) · Admin: `benny` / `meZVRW0bYEbpHsJc`
 - **Docker-Stack** (`docker/compose.yml`, Projekt `crozztube-local`): crozztube-web (PHP 8.3 + FFmpeg + yt-dlp 2026.10.26), -mysql (Port 3308! User crozztube/crozztube-local-db), -redis (Pass crozztube-local-redis), -worker (`queue:work videos,maintenance,default`), -cron (schedule:run je Minute + täglicher yt-dlp-Auto-Update), -phpmyadmin (8083), -mailhog.
 - **NICHT anfassen:** Container `crozztube-audit-*` (separate Audit-Instanz unter /home/benny/audit-instance).
@@ -16,16 +27,16 @@
 
 ## 2. Was fertig & verifiziert ist
 
-### Plugin `crozztube.source-resolver` v0.6.0 (installiert + aktiv)
+### Plugin `crozztube.source-resolver` v0.7.0 (installiert + aktiv)
 Quelle: `docker/plugin-src/crozztube.source-resolver/` (dort liegt der Code, installiert wird via ZIP-Upload an die Admin-API; Hilfsskript `tools/dev/reinstall-plugin.sh`).
 
 - **Resolver (`src/Resolver.php`):** yt-dlp `-J` keyless. Auswahllogik: echtes HLS-Manifest → sonst muxed MP4 → sonst **"hls-synth"** (YouTube-Sonderfall) → sonst Fehler.
 - **Direkt verlinkte Dateien (Direct-URL-Provider):** yt-dlp meldet beim Generic-Extractor weder `vcodec`/`acodec` noch eine Höhe. Der Resolver akzeptiert solche vollständigen Dateien (mp4/webm/m4v/mov) als progressive Quelle (`kind=mp4`), TTL 24 h und liest die Dauer per `ffprobe` nach. `media_url` bleibt die Original-URL — nichts wird heruntergeladen oder re-gehostet.
 - **yt-dlp als Metadaten-Engine (v0.6.0):** `App\Support\YtDlp` (`-J`, keyless, 10-min-Cache) liefert beim Import Titel/Beschreibung/Tags/Thumbnail/Dauer/Kapitel/Autor. Der Provider `direct` heißt jetzt „Video URL (direct or yt-dlp)“ und akzeptiert **jede von yt-dlp verstandene URL** (TikTok, X, Reddit, SoundCloud …), nicht nur MP4-Dateien. Provider-spezifische APIs/HTML-Metadaten haben Vorrang, yt-dlp füllt Lücken. Der Resolver-Job wird auch für `direct` sofort dispatcht; `Video::getVideoUrlAttribute` bevorzugt für `direct` die aufgelöste URL und fällt auf die Roh-URL zurück.
 - **Health-Endpoint:** `GET /api/source-resolver/health` liefert Plugin-Version/Aktivstatus, yt-dlp- und ffprobe-Version (aus denselben Binaries wie der Resolver), Quellenzahlen pro State und den letzten erfolgreichen Resolve. Keine Secrets, eigener Throttle.
-- **Retry-Resilienz:** `BaseSourceJob` hat `$tries = 4`, Backoff `20/90/240 s` und `failed()`, das den Zustand sauber auf `error` setzt (Lock frei, Mirror-Fallback sichtbar). Transiente CDN-/DNS-Fehler werden damit automatisch wiederholt.
+- **Retry-Resilienz:** `BaseSourceJob` hat für transiente Fehler `$tries = 4`, Backoff `20/90/240 s` und `failed()`, das den Zustand sauber auf `error` setzt (Lock frei, Mirror-Fallback sichtbar). Transiente CDN-/DNS-Fehler werden damit automatisch wiederholt.
 - **YouTube-Sonderfall (wichtig!):** YouTube liefert seit SABR kein muxed MP4 und kein Master-Manifest mehr. Lösung: itags 233/234 sind versteckte **HLS-Audio-Playlists** (AAC-LC, geprüft via ffprobe). Das Plugin speichert bis zu 8 Video-Playlists (144p–2160p, AVC/VP9, deduped pro Höhe) + 1 Audio-Playlist in der DB (`variants`, `audio_url`) und baut ein **synthetisches HLS-Master-Manifest**.
-- **Metadaten-Backfill:** `Resolver::backfillMetadata()` schreibt `duration_seconds` + `is_short` ins `videos`-Table, wenn dort NULL/0 (Fixt den früheren Bug „3:32-Video als Short“). Short-Erkennung über `/shorts|reel|reels/` in der Import-URL.
+- **Metadaten-Backfill (v0.7.0):** `ImportMetadataBackfill` ergänzt fehlende Dauer, Maße, Titel/Beschreibung/Tags/Thumbnail/Kapitel aus der vorhandenen Resolver-Extraktion. Bewusste Änderungen bleiben erhalten; Shorts werden aus gemessenen Maßen und <=180 s bestimmt, nicht mehr über URL-Pfade.
 - **Passthrough-Proxy absichtlich!** googlevideo sendet kein `Access-Control-Allow-Origin`, HLS.js braucht daher einen Same-Origin-Pfad. Der Proxy streamt nur durch (curl-basiert), speichert **nichts** (kein Re-Hosting). Host-Allowlist: nur `*.googlevideo.com`.
 
 ### Provider-neutraler Mirror-Umschalter (v0.3.x)
@@ -51,13 +62,13 @@ Quelle: `docker/plugin-src/crozztube.source-resolver/` (dort liegt der Code, ins
 
 ### Test-Harness (vollständig agent-ausführbar)
 ```bash
-./tools/test/run.sh all          # alles: 96 Checks + 5 Playwright-Tests
+./tools/test/run.sh all          # alles: 102 Harness-Checks + 9 Playwright-Tests
 ./tools/test/run.sh list         # Suiten anzeigen
 ./tools/test/run.sh refresh jobs # gezielt
 SLOW=0 ./tools/test/run.sh jobs  # ohne yt-dlp-Roundtrip
 ```
 Suiten: `stack`, `api`, `media`, `direct`, `refresh`, `mirror`, `jobs`, `ui`. Details: `Wiki/tests.html`.
-Letzter vollständiger Lauf: **96 Checks + 5 Browser-Tests grün**.
+Letzter vollständiger Lauf: **102 Harness-Checks + 9 Browser-Tests grün**.
 
 ### Commits
 | Commit | Inhalt |
@@ -74,13 +85,13 @@ Letzter vollständiger Lauf: **96 Checks + 5 Browser-Tests grün**.
 | `7504660` | yt-dlp-Metadaten-Engine, generische URLs, Health, Retry (v0.6.0) |
 
 ### Live-Stand der Instanz
-- Vier importierte Videos (drei echte + Direct-MP4-Testsample ID 4), alle `fresh`. Die echten YouTube-Imports: `kind=hls-synth`, Manifeste HTTP 200 (6–8 Varianten), Segment-Passthrough geprüft. Das Testsample (ID 4) kann jederzeit gelöscht werden.
+- Drei echte importierte Videos, alle `fresh`; Direct-MP4-Testsample ID 4 wurde entfernt. Die echten YouTube-Imports: `kind=hls-synth`, Manifeste HTTP 200 (6–8 Varianten), Segment-Passthrough geprüft.
 - `failed_jobs` enthält historische Einträge (yt-dlp not found, unavailable IDs, transient) — nicht aktuell relevant, Queue läuft leer.
 - Stack läuft vollständig, `https://crozztube.local:8443` → HTTP 200.
 
 ## 3. Architektur-Entscheidungen (nicht zurückdrehen)
 
-1. **Frontend nur als Plugin-Assets.** `resources/js/` enthält nur Admin/Upload/Embed-Player; die Watch-Page existiert ausschließlich im Bundle. Ein React-Patch ist nicht möglich. Plugin-Assets werden über `plugin.json → assets.scripts/styles` eingebunden.
+1. **Frontend-Quellen vorhanden.** Watch/Shorts liegen in `resources/js/main.jsx`; Core-Änderungen mit `npm run build` ausliefern. Resolver-Mirror/Banner bleiben Plugin-Assets (`plugin.json → assets.scripts/styles`). Die frühere Aussage, dass Watch nur im Bundle existiert, war falsch.
 2. **Mirror ist provider-neutral.** Neue Provider nur in `Mirror::forVideo()` ergänzen; Frontend bleibt unverändert.
 3. **Kein Download-UI.** Der Endpoint `/download/{id}` bleibt als Passthrough bestehen, wird aber von der UI nicht mehr angeboten (Entscheidung des Users). Kein Re-Mux/Transcode.
 4. **Status per Slug.** `/api/source-resolver/status/slug/{slug}` — die Watch-Page braucht genau einen Request, keinen zusätzlichen `/api/videos/{slug}`-Call.
@@ -100,17 +111,17 @@ Erledigt: `requestedAt`-Koaleszenz im Job + Harness-Check (5 parallele Refresh-R
 Erledigt: `direct`-Suite importiert eine progressive MP4, prüft `kind=mp4`, `downloadable`, Mirror `link`, Watch-Payload und Range-Response des Originals. Browser-Check manuell bestätigt (30,5 s Sample, `readyState=4`, Mirror-Link „Original“).
 
 ### E4. Shorts-Darstellung
-Serverseitig korrekt (`is_short`, Dauer). Offen: Darstellung in der Shorts-Ansicht mit dem neuen Backfill gegenprüfen.
+Serverseitig korrekt (`is_short`, Dauer). Erledigt in v0.7.0: Darstellung, laufende HLS-Wiedergabe und Seek per Playwright geprüft.
 
 ### E5. Doku-Pflege
 Bei jeder Plugin-Version `plugin.json`-Version, Wiki und dieses Dokument mitziehen.
 
 ### E6. yt-dlp-Ausbau (Roadmap)
 - **Erledigt (v0.6.0):** yt-dlp ist Metadaten-Engine für Importe; `direct` akzeptiert beliebige yt-dlp-URLs; Health-Endpoint; Retry/Backoff. Manuell verifiziert: YouTube-URL über `direct` importiert → Titel/Dauer aus yt-dlp, `hls-synth`, Mirror „Original“, Testvideo danach gelöscht.
-- **Metadaten-Backfill beim Refresh:** Der Resolver füllt bisher nur Dauer/Short. Titel/Beschreibung/Tags/Thumbnail/Kapitel aus `App\Support\YtDlp` nachziehen, wenn sie beim Import leer blieben.
-- **Kapitel:** yt-dlp-Kapitel landen in `chapters`; Darstellung im Player noch gegenprüfen.
-- **Frontend:** Import-Dialog liest Label/Help aus der API — kein Rebuild nötig. Admin-System-Settings haben noch eine hartkodierte Provider-Liste („Direct video URL“); kosmetisch, bei Gelegenheit angleichen.
-- **Fehlerklassifikation:** permanente vs. transiente yt-dlp-Fehler unterscheiden (Retry nur bei transienten).
+- **Metadaten-Backfill beim Refresh:** Erledigt in v0.7.0; vorhandene Resolver-Metadaten werden ohne zusätzliche Extraktion genutzt.
+- **Kapitel:** yt-dlp-Kapitel landen in `chapters`; Darstellung und Kapitelsprung in v0.7.0 per Playwright geprüft.
+- **Frontend:** Import-Dialog liest Label/Help aus der API — kein Rebuild nötig. Admin-System-Settings verwenden seit v0.7.0 dieselben Provider-Definitionen wie der Importdialog.
+- **Fehlerklassifikation:** Erledigt in v0.7.0: permanent ohne automatisches Retry, transient bis vier Versuche, unbekannt höchstens zwei; persistenter Stopp verhindert Scheduler-Schleifen.
 - **Auth/Geo:** Twitch/Instagram o. Ä. brauchen ggf. Cookies oder Login; vor Aktivierung klären.
 
 ## 5. Betriebs-KnowHow / Fallstricke
@@ -149,7 +160,7 @@ Bei jeder Plugin-Version `plugin.json`-Version, Wiki und dieses Dokument mitzieh
 
 ## 7. Zielzustand (aus User-Anforderungen)
 
-1. Nur Streaming, keine Uploads (admin-only via `uploadRoles`), keine API-Keys ✓
+1. Nur Streaming, keine Video-Datei-Uploads (auch nicht Admin), keine Video-API-Keys; Bildhoster mit eigenen lokalen Keys ✓
 2. Direkt-URL via yt-dlp = Pflicht-Primärpfad, eigener Player ✓
 3. Embed als Mirror-Fallback + umschaltbarer Button unter dem Video ✓ (provider-neutral)
 4. Auto-Refresh bei Ablauf/Abbruch, Banner für alle Nutzer, Reload wenn möglich ✓

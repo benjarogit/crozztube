@@ -56,6 +56,7 @@ final class ProbeSources extends Command
 
         $rows = CrozztubeImportSource::query()
             ->whereIn('kind', ['hls', 'mp4', 'hls-synth'])
+            ->where(fn ($q) => $q->whereNull('error_category')->orWhereNotIn('error_category', ['permanent', 'unknown_exhausted']))
             ->where(function ($query) use ($cutoff): void {
                 $query->whereNull('last_checked_at')->orWhere('last_checked_at', '<', $cutoff);
             })

@@ -101,6 +101,8 @@ class VideoSales
 
     public static function thumbnailUrl(Video $video, ?DateTimeInterface $expiresAt = null): ?string
     {
+        $candidates = $video->thumbnail_candidates;
+        if ($candidates !== []) return $candidates[0];
         if (! $video->thumbnail_path) {
             return null;
         }

@@ -93,6 +93,22 @@ services:
       - redis
       - mysql
 
+  thumbnail-worker:
+    profiles: ["runtime"]
+    image: crozztube-playhub-web:latest
+    container_name: crozztube-thumbnail-worker
+    restart: unless-stopped
+    cpus: 0.25
+    mem_limit: 256m
+    volumes:
+      - ../:/var/www/html
+      - ./php.ini:/usr/local/etc/php/php.ini
+      - php-errors:/var/log
+    command: php -d memory_limit=192M artisan queue:work --queue=thumbnails --sleep=5 --tries=1 --timeout=70 --memory=160 --max-time=3600
+    depends_on:
+      - mysql
+      - redis
+
   cron:
     profiles: ["runtime"]
     image: crozztube-playhub-web:latest

@@ -11,6 +11,7 @@
 
 # Runtime state
 /storage/app/plugins/
+/storage/app/media-image-cache/
 /storage/app/npm-cache/
 /storage/app/plugin-installs/
 /storage/app/installed.lock

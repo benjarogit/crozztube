@@ -19,6 +19,7 @@ class VideoImportSettings
     public static function adminSettings(): array
     {
         $settings = self::settings();
+        $settings['provider_definitions'] = self::publicSettings()['providers'];
         foreach (array_keys(self::providers()) as $provider) {
             if (Arr::get($settings, "providers.{$provider}.apiKey")) {
                 Arr::set($settings, "providers.{$provider}.apiKey", '');

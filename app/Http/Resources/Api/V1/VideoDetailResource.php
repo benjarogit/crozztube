@@ -49,6 +49,7 @@ class VideoDetailResource extends VideoCardResource
             ],
             'media' => [
                 'poster_url' => $this->thumbnail_url,
+                'thumbnail_candidates' => $this->thumbnail_candidates,
                 'has_captions' => filled($this->captions_path),
                 'has_chapters' => $chaptersEnabled && count($this->chapters ?: []) > 0,
                 'chapters' => $chaptersEnabled

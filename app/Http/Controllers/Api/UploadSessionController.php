@@ -26,6 +26,7 @@ class UploadSessionController extends Controller
 {
     public function store(Request $request): JsonResponse
     {
+        abort_if(config('thumbnails.streaming_only'), 403, 'Video file uploads are disabled. Import a video URL instead.');
         PublishingAccess::authorizeUpload($request->user());
         $data = $request->validate([
             'file_name' => ['required', 'string', 'max:255'],
@@ -75,6 +76,7 @@ class UploadSessionController extends Controller
 
     public function chunk(Request $request, UploadSession $uploadSession): JsonResponse
     {
+        abort_if(config('thumbnails.streaming_only'), 403, 'Video file uploads are disabled. Import a video URL instead.');
         $this->authorizeSession($request, $uploadSession);
         PublishingAccess::authorizeUpload($request->user());
         abort_if($uploadSession->created_at->addDays(7)->isPast(), 410, 'This upload session has expired. Select the file again.');
@@ -121,6 +123,7 @@ class UploadSessionController extends Controller
 
     public function complete(Request $request, UploadSession $uploadSession): JsonResponse
     {
+        abort_if(config('thumbnails.streaming_only'), 403, 'Video file uploads are disabled. Import a video URL instead.');
         $this->authorizeSession($request, $uploadSession);
         PublishingAccess::authorizeUpload($request->user());
         if ($uploadSession->video_id) {
@@ -175,9 +178,9 @@ class UploadSessionController extends Controller
             $data = array_replace($data, $assembled['probe']);
             if (($data['content_type'] ?? 'video') === 'short') {
                 $ratio = $data['video_height'] > 0 ? $data['video_width'] / $data['video_height'] : 0;
-                abort_if($data['duration_seconds'] > 60 || $ratio < 0.45 || $ratio > 0.8, 422, 'Shorts must be vertical videos of 60 seconds or less.');
+                abort_if(! \App\Support\ShortVideos::qualifies($data['duration_seconds'], $data['video_width'] ?? null, $data['video_height'] ?? null), 422, 'Shorts must be square or vertical videos of at most 180 seconds.');
             }
-            $isShort = Video::isShortContent('upload', $data['duration_seconds'], ($data['content_type'] ?? 'video') === 'short', $request->boolean('sale_enabled'));
+            $isShort = \App\Support\ShortVideos::qualifies($data['duration_seconds'], $data['video_width'] ?? null, $data['video_height'] ?? null);
             $pricing = VideoSales::pricing($request->boolean('sale_enabled'), $data['sale_price'] ?? null, ! $isShort);
             $data['content_type'] = $isShort ? 'short' : 'video';
             $chapterData = VideoChapters::attributes($isShort ? [...$data, 'chapters_enabled' => false] : $data, $data['duration_seconds']);

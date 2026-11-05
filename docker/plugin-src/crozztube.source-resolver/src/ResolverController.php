@@ -97,7 +97,7 @@ class ResolverController extends Controller
             return $video;
         }
 
-        RefreshSource::request($videoId, force: true);
+        RefreshSource::request($videoId, force: true, allowFailed: $request->boolean('manual'));
 
         return response()->json(['ok' => true, 'source' => $this->statePayload($video)]);
     }
@@ -396,6 +396,8 @@ class ResolverController extends Controller
             'has_direct' => $row->hasDirectSource(),
             'fresh' => $row->isFresh(),
             'refreshing' => $refreshing,
+            'error_category' => $row->error_category,
+            'auto_refresh_allowed' => ! in_array($row->error_category, ['permanent', 'unknown_exhausted'], true),
             'error_message' => in_array($row->state, ['error', 'stale'], true) ? $row->error_message : null,
             'downloadable' => $row->hasDirectSource() && is_string($row->download_url) && $row->download_url !== '',
             'expires_at' => optional($row->expires_at)->toIso8601String(),

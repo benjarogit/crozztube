@@ -99,17 +99,23 @@ abstract class BaseSourceJob implements ShouldQueue
 
             $resolver->resolveForVideo($row);
         } catch (Throwable $exception) {
+            $category = $exception instanceof \App\Support\ResolverFailure ? $exception->category : 'unknown';
             CrozztubeImportSource::query()->where('video_id', $this->videoId)->update([
                 'state' => 'error',
-                'error_message' => mb_substr($exception->getMessage(), 0, 500),
+                'error_message' => 'Video source resolution failed ('.$category.').',
+                'error_category' => $category === 'unknown' && $this->attempts() >= 2 ? 'unknown_exhausted' : $category,
                 'refresh_started_at' => null,
             ]);
 
             Log::warning('CrzSourceResolver: Aufloesung fehlgeschlagen', [
                 'video_id' => $this->videoId,
-                'exception' => $exception->getMessage(),
+                'category' => $category,
             ]);
 
+            if ($category === 'permanent' || ($category === 'unknown' && $this->attempts() >= 2)) {
+                $this->fail($exception);
+                return;
+            }
             throw $exception;
         } finally {
             $lock->release();
@@ -129,7 +135,8 @@ abstract class BaseSourceJob implements ShouldQueue
     {
         CrozztubeImportSource::query()->where('video_id', $this->videoId)->update([
             'state' => 'error',
-            'error_message' => mb_substr($exception?->getMessage() ?? 'Refresh fehlgeschlagen.', 0, 500),
+            'error_message' => 'Video source resolution failed.',
+            'error_category' => $exception instanceof \App\Support\ResolverFailure && $exception->category === 'permanent' ? 'permanent' : ($exception instanceof \App\Support\ResolverFailure && $exception->category === 'transient' ? 'transient' : 'unknown_exhausted'),
             'refresh_started_at' => null,
         ]);
     }
@@ -138,11 +145,13 @@ abstract class BaseSourceJob implements ShouldQueue
      * Sicherer Trigger von ueberall: dedupliziert per Cache und markiert eine
      * abgelaufene Quelle als `stale`, damit wartende Clients das sehen.
      */
-    public static function request(int $videoId, bool $force = false, int $delaySeconds = 0, ?string $queue = null): bool
+    public static function request(int $videoId, bool $force = false, int $delaySeconds = 0, ?string $queue = null, bool $allowFailed = false): bool
     {
         $row = CrozztubeImportSource::query()->where('video_id', $videoId)->first();
 
         if ($row) {
+            if (! $allowFailed && in_array($row->error_category, ['permanent', 'unknown_exhausted'], true)) return false;
+            if ($allowFailed) $row->forceFill(['error_category' => null])->save();
             if (! $force && $row->isFresh()) {
                 return false;
             }

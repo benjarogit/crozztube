@@ -14,6 +14,8 @@ class VideoCardResource extends JsonResource
             'id' => (int) $this->id,
             'slug' => (string) $this->slug,
             'title' => (string) $this->title,
+            'thumbnail_candidates' => $this->thumbnail_candidates,
+            'video_width' => $this->video_width, 'video_height' => $this->video_height,
             'thumbnail_url' => VideoSales::thumbnailUrl($this->resource),
             'duration_seconds' => $this->duration_seconds !== null ? (int) $this->duration_seconds : null,
             'content_type' => $this->isShort() ? 'short' : ($this->source_type === 'live_replay' ? 'replay' : 'video'),

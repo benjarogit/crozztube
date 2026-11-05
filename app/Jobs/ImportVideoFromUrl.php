@@ -30,6 +30,9 @@ class ImportVideoFromUrl implements ShouldQueue
 
     public function handle(): void
     {
+        if (config('thumbnails.streaming_only')) {
+            throw new \RuntimeException('Video file processing is disabled for this streaming-only instance.');
+        }
         $video = Video::query()->findOrFail($this->videoId);
         $provider = (string) $video->import_provider;
         $url = (string) $video->import_url;

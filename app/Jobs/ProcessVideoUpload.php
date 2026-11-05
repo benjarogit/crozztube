@@ -35,6 +35,9 @@ class ProcessVideoUpload implements ShouldQueue
 
     public function handle(): void
     {
+        if (config('thumbnails.streaming_only')) {
+            throw new \RuntimeException('Video file processing is disabled for this streaming-only instance.');
+        }
         $video = Video::query()->findOrFail($this->videoId);
         $disk = MediaStorage::disk();
         $diskName = MediaStorage::diskName();

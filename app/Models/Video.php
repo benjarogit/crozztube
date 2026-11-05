@@ -17,7 +17,11 @@ class Video extends Model
     use HasFactory;
     use \App\Models\Concerns\FiltersBlockedAuthors;
 
+    protected $with = ['thumbnailMirrors.provider'];
+
     protected $fillable = [
+        'original_thumbnail_url', 'thumbnail_source_url', 'thumbnail_source_version', 'thumbnail_is_custom',
+        'video_width', 'video_height', 'metadata_overrides',
         'user_id',
         'channel_id',
         'title',
@@ -59,6 +63,7 @@ class Video extends Model
     ];
 
     protected $casts = [
+        'thumbnail_is_custom' => 'boolean', 'video_width' => 'integer', 'video_height' => 'integer', 'metadata_overrides' => 'array',
         'duration_seconds' => 'integer',
         'is_short' => 'boolean',
         'tags' => 'array',
@@ -122,75 +127,42 @@ class Video extends Model
 
     public function scopeShorts(Builder $query): Builder
     {
-        return $query
-            ->where('source_type', '!=', 'live_replay')
-            ->where(function (Builder $query): void {
-                $query->where(function (Builder $query): void {
-                    $query->where('source_type', 'import')->where('is_short', true);
-                })
-                    ->orWhere(function (Builder $query): void {
-                        $query->where('source_type', '!=', 'import')
-                            ->where(function (Builder $query): void {
-                                $query->where(function (Builder $query): void {
-                                    $query->whereBetween('duration_seconds', [1, 60])
-                                        ->where(function (Builder $query): void {
-                                            $query->where('sale_enabled', false)->orWhereNull('sale_enabled')
-                                                ->orWhereNull('is_short')->orWhere('is_short', true);
-                                        });
-                                })->orWhere(function (Builder $query): void {
-                                    $query->where('is_short', true)
-                                        ->where(fn (Builder $query) => $query->whereNull('duration_seconds')->orWhere('duration_seconds', '<=', 0));
-                                });
-                            });
-                    });
-            });
+        return \App\Support\ShortVideos::scope($query);
     }
 
     public function scopeStandardVideos(Builder $query): Builder
     {
-        return $query
-            ->where('source_type', '!=', 'live_replay')
-            ->where(function (Builder $query): void {
-                $query->where(function (Builder $query): void {
-                    $query->where('source_type', 'import')
-                        ->where(fn (Builder $query) => $query->whereNull('is_short')->orWhere('is_short', false));
-                })
-                    ->orWhere(function (Builder $query): void {
-                        $query->where('source_type', '!=', 'import')
-                            ->where(function (Builder $query): void {
-                                $query->where('duration_seconds', '>', 60)
-                                    ->orWhere(function (Builder $query): void {
-                                        $query->where(fn (Builder $query) => $query->whereNull('duration_seconds')->orWhere('duration_seconds', '<=', 0))
-                                            ->where(fn (Builder $query) => $query->whereNull('is_short')->orWhere('is_short', false));
-                                    })
-                                    ->orWhere(function (Builder $query): void {
-                                        $query->whereBetween('duration_seconds', [1, 60])->where('sale_enabled', true)->where('is_short', false);
-                                    });
-                            });
-                    });
-            });
+        return $query->where('source_type', '!=', 'live_replay')->where(function (Builder $q): void {
+            $q->whereNull('duration_seconds')->orWhere('duration_seconds', '<=', 0)->orWhere('duration_seconds', '>', 180)
+                ->orWhereNull('video_width')->orWhere('video_width', '<=', 0)->orWhereNull('video_height')->orWhere('video_height', '<=', 0)
+                ->orWhereColumn('video_height', '<', 'video_width');
+        });
     }
 
-    public static function isShortContent(?string $sourceType, mixed $durationSeconds, mixed $explicitIsShort = null, bool $saleEnabled = false): bool
+    public static function isShortContent(?string $sourceType, mixed $durationSeconds, mixed $explicitIsShort = null, bool $saleEnabled = false, mixed $width = null, mixed $height = null): bool
     {
-        if ($sourceType === 'live_replay') {
-            return false;
+        if ($width === null && $height === null) {
+            // Compatibility for raw admin queries. This flag is derived when metadata is saved.
+            return $sourceType !== 'live_replay' && (int) $durationSeconds > 0 && (int) $durationSeconds <= 180 && (bool) $explicitIsShort;
         }
-        if ($sourceType === 'import' || ($saleEnabled && $explicitIsShort !== null && ! $explicitIsShort)) {
-            return (bool) $explicitIsShort;
-        }
-
-        $duration = (int) $durationSeconds;
-
-        // Uploaded content is classified from measured duration, even if an old
-        // upload form stored its default "video" selection. Keep paid standard
-        // clips standard so reclassification cannot remove purchase access.
-        return $duration > 0 ? $duration <= 60 : (bool) $explicitIsShort;
+        return \App\Support\ShortVideos::qualifies($durationSeconds, $width, $height, $sourceType);
     }
 
     public function isShort(): bool
     {
-        return self::isShortContent($this->source_type, $this->duration_seconds, $this->is_short, (bool) $this->sale_enabled);
+        return \App\Support\ShortVideos::qualifies($this->duration_seconds, $this->video_width, $this->video_height, $this->source_type);
+    }
+
+    public function thumbnailMirrors(): HasMany
+    {
+        return $this->hasMany(ThumbnailMirror::class)->whereIn('source_version', function ($q): void {
+            $q->select('thumbnail_source_version')->from('videos')->whereColumn('videos.id', 'thumbnail_mirrors.video_id');
+        });
+    }
+
+    public function getThumbnailCandidatesAttribute(): array
+    {
+        return \App\Support\Thumbnails\ThumbnailService::candidates($this);
     }
 
     public function user(): BelongsTo
@@ -265,6 +237,8 @@ class Video extends Model
 
     public function getThumbnailUrlAttribute(): ?string
     {
+        $candidates = $this->thumbnail_candidates;
+        if ($candidates !== []) return $candidates[0];
         if (! $this->thumbnail_path) {
             return null;
         }

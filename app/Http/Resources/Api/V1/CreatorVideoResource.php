@@ -27,6 +27,8 @@ class CreatorVideoResource extends JsonResource
             'content_type' => $this->source_type === 'live_replay' ? 'replay' : ($this->isShort() ? 'short' : 'video'),
             'source_type' => $this->source_type ?: 'upload',
             'import_provider' => $this->import_provider,
+            'thumbnail_candidates' => $this->thumbnail_candidates,
+            'video_width' => $this->video_width, 'video_height' => $this->video_height,
             'thumbnail_url' => preg_match('#^(https?:)?//#', $this->thumbnail_path ?? '')
                 ? $this->thumbnail_url
                 : VideoSales::thumbnailUrl($this->resource),

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Konfiguration — CrozzTube Wiki</title>
+<style>
+:root{--bg:#0f1115;--surface:#171a21;--line:#2a2f3a;--ink:#e7eaf0;--muted:#9aa3b2;--gold:#d9a83f;--ok:#4cc38a;--warn:#e6b455;--bad:#e57d7d}
+*{box-sizing:border-box}a{color:var(--gold)}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 system-ui,Arial,sans-serif}
+.wrap{max-width:950px;margin:0 auto;padding:40px 24px 80px}
+.crumbs{font-size:13px;color:var(--muted);margin-bottom:18px}
+h1{font-size:24px;margin:0 0 6px}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-size:12.5px;text-transform:uppercase;letter-spacing:.04em}
+code,pre{background:#20242e;border:1px solid var(--line);border-radius:5px}
+code{padding:1px 6px;font:13px ui-monospace,Consolas,monospace}
+pre{padding:14px 16px;overflow:auto;font:13px/1.55 ui-monospace,Consolas,monospace}
+.box{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:16px 20px;margin:18px 0}
+.badge{display:inline-block;padding:2px 9px;border-radius:99px;font-size:12px;font-weight:700}
+.b-ok{background:rgba(76,195,138,.15);color:var(--ok)}.b-warn{background:rgba(230,180,85,.15);color:var(--warn)}.b-bad{background:rgba(229,125,125,.15);color:var(--bad)}
+h2{border-bottom:1px solid var(--line);padding-bottom:8px;margin-top:38px;font-size:20px}
+footer{margin-top:50px;color:var(--muted);font-size:12.5px}
+</style></head>
+
+<body><div class="wrap">
+<div class="crumbs"><a href="index.html">← Wiki-Start</a> / Externe Thumbnails</div>
+<h1>Externe Video-Thumbnails · v0.7.0</h1>
+<p>Stand: 5. November 2026. Die Implementierung und simulierten Provider-Verträge sind getestet. FastPic und Postimages haben hier noch keine lokalen Keys; echte Uploads sind daher noch nicht verifiziert. Directupload bleibt bis zu einer geeigneten automatischen Schnittstelle reserviert.</p>
+<h2>Ablauf</h2>
+<p>Der URL-Import speichert die vollständige Original-Thumbnail-URL. Innerhalb insgesamt zehn Sekunden wird nach Priorität genau die erste erfolgreiche Kopie gesucht: Directupload → FastPic → Postimages. Nicht konfigurierte oder pausierte Anbieter werden übersprungen. Fehlschläge verhindern den Videoimport nicht; die Original-URL bleibt verwendbar.</p>
+<p>Weitere Kopien entstehen ausschließlich nachts. Bei Bildfehlern wechselt der Browser ohne zusätzliche Backend-Anfrage durch die bereits vorhandenen <code>thumbnail_candidates</code>, danach zur Original-URL und zuletzt zu einem neutralen, direkt in der UI gezeichneten Platzhalter. Es gibt keinen regulären serverseitigen Bildproxy.</p>
+<p>Für eigene Vorschaubilder akzeptiert <code>PUT /api/videos/{slug}/thumbnail</code> den Bildinhalt direkt mit einem passenden <code>Content-Type: image/…</code>. Die native Creator-API verwendet auf ihrer Thumbnail-POST-Route ebenfalls diesen Raw-Body. Multipart-Dateien werden dort nicht als Thumbnail gespeichert. Scheitert die Übertragung, bleibt das bisherige Bild oder der Platzhalter erhalten; ein eigenes Bild muss dann später erneut ausgewählt werden.</p>
+<h2>Schlüssel lokal einrichten</h2>
+<pre># In der nicht versionierten .env:
+FASTPIC_API_KEY=…
+POSTIMAGES_API_KEY=…
+
+# Danach Konfiguration laden und beide Worker neu einlesen lassen:
+docker exec crozztube-web php artisan config:clear
+docker exec crozztube-web php artisan queue:restart</pre>
+<p>Keys nicht in Git, Chat, Frontend oder Logs hinterlegen. Der FastPic-Adapter nutzt den bereitgestellten Bearer-/Multipart-Vertrag und respektiert <code>hotlinked</code>; bei eingeschränktem Hotlinking wird die Vorschau-URL verwendet. Der Postimages-Adapter nutzt den vom Nutzer ausdrücklich freigegebenen inoffiziellen Weg aus <a href="https://github.com/ShareX/ShareX/issues/472">ShareX #472</a>: eigener Account-Key, öffentliche Client-Kompatibilitätsfelder, XML-Antwort, validiertes <code>links/hotlink</code>. Die SMF-Erweiterung bindet lediglich ein Browser-Script ein; sie enthält keinen eigenen PHP-Uploader. Inkompatible Antworten führen zum Fallback und pausieren den Adapter.</p>
+<h2>Nachtwartung und Limits</h2>
+<ul>
+<li>Standardzeit: 02:00 bis <strong>vor</strong> 05:00 Uhr, Europe/Berlin. Anpassung über <code>THUMBNAIL_NIGHT_START</code> und <code>THUMBNAIL_NIGHT_END</code> in HH:MM. Scheduler und Job prüfen das Fenster; ein Rückstau wird tagsüber nicht abgearbeitet.</li>
+<li>Alle fünf Minuten höchstens 20 Prüfungen, fünf Kopierversuche und 60 Sekunden. Zuerst die ältesten fälligen Checks, danach die ältesten Reparaturen/Kopien. Nicht erledigte Arbeit bleibt in der Datenbank stehen.</li>
+<li>Eigene Queue <code>thumbnails</code>, Container <code>crozztube-thumbnail-worker</code>, ein Worker, maximal 0.25 CPU und 256 MiB. Eine globale Transfersperre begrenzt auch gleichzeitige Import-Uploads.</li>
+<li>Original-URLs werden ebenfalls nachts geprüft. Gesunde Bilder frühestens nach sieben Tagen; Fehler beim nächsten Nachtfenster, danach wachsender Abstand bis sieben Tage. Fehlende Kopien werden nicht bei Seitenaufrufen angelegt.</li>
+<li>Drei aufeinanderfolgende Netzwerk-/Serverfehler bei verschiedenen Bildern pausieren einen Hoster für 30 Minuten. Danach wird genau eine Probe zugelassen. Erst ein Erfolg schließt den Circuit; einzelne 404-Bilder sperren keinen Hoster.</li>
+<li>FastPic: höchstens 60 Uploadversuche/Minute und 5000/Tag pro lokalem Adapter. Postimages: konservatives lokales Budget 10/Minute, 100/Tag und 1000/Monat; Monatsbudget über <code>POSTIMAGES_MONTHLY_UPLOAD_LIMIT</code> anpassbar. Das sind bei Postimages lokale Schutzwerte, keine behaupteten offiziellen API-Limits.</li>
+</ul>
+<pre># Betrieb und Rückstand, ohne Schlüssel:
+docker exec crozztube-web php artisan crozztube:thumbnails:status
+
+# Der zusätzliche Worker wird mit dem Runtime-Profil gestartet:
+docker compose -f docker/compose.yml --profile runtime up -d thumbnail-worker
+
+# Bestehende Wartungspause gilt ebenfalls für Thumbnails:
+touch storage/framework/crozztube-maintenance.pause
+# Zum Fortsetzen genau diese Datei wieder entfernen.</pre>
+<h2>Speicherung und Schutz</h2>
+<p><code>videos.original_thumbnail_url</code> bleibt erhalten. Aktuelle Quelle und Quellversion stehen separat am Video. <code>thumbnail_mirrors</code> speichert URLs, Inhaltshashes, Provider-Priorität und Prüf-/Retry-Status. <code>thumbnail_providers</code> speichert globale Ausfälle. Inhaltshashes vermeiden unnötige neue Uploads, auch wenn sich eine signierte Quell-URL geändert hat.</p>
+<p>Maximal fünf MiB und 25 Megapixel pro Bild, keine SVGs. Abrufe prüfen Protokoll, Port, öffentliche IPv4-/IPv6-Ziele und jeden Redirect; die geprüfte Adresse wird für den Transfer festgehalten. DNS-Abfragen und HTTP-Aufrufe sind zeitlich begrenzt. Checks verwenden HEAD, nötigenfalls einen begrenzten Range-GET. Keys, Bildbytes und rohe Provider-Antworten werden nicht protokolliert oder in Jobs gespeichert.</p>
+<p>Die Anwendung erstellt keine neuen Thumbnail-/Videodateien. PHP-interne Body-Puffer liegen auf dem RAM-Dateisystem <code>/dev/shm</code>. Vorhandene lokale Video-Thumbnails werden erst nach verifiziertem externem Bild entfernt. Avatare und Kanalbanner sind ausdrücklich nicht Teil dieser Umstellung. Auch private Video-Thumbnails sind gemäß Nutzerentscheidung beim Bildhoster ohne CrozzTube-Anmeldung abrufbar.</p>
+<h2>Shorts und Resolver</h2>
+<p>Shorts sind Videos mit bekannter positiver Dauer bis einschließlich 180 Sekunden und positiven Maßen, deren Höhe mindestens der Breite entspricht. Live-Replays bleiben ausgeschlossen. Import, gemessene Metadaten, SQL-Feeds und API verwenden dieselbe Regel. HLS-Shorts nutzen den adaptiven Player; Wiedergabe und Seek sind im Browser getestet.</p>
+<p>Der Refresh ergänzt fehlende Metadaten aus derselben yt-dlp-Extraktion, schützt bewusste Änderungen und deaktivierte Kapitel. Permanente Fehler werden nicht automatisch wiederholt; unbekannte Fehler höchstens zweimal innerhalb eines Jobs. Ein gespeicherter Fehlerstatus verhindert erneute Scheduler-Schleifen. Der sichtbare Retry-Button kann einen neuen Versuch ausdrücklich anfordern.</p>
+<h2>Verifikation und offene Eingaben</h2>
+<p><code>./tools/test/run.sh all</code>: 102 Harness-Ergebnisse, darunter die Thumbnail-Suite mit 80 PHP-Einzelprüfungen; dazu neun Playwright-Tests. Geprüft sind unter anderem Nachtgrenzen, manuelle Bilder, Provider-Ausfall, Deduplizierung, sichere Migration, Browser-Fallback ohne Backend-Anfrage, Short-Wiedergabe und Kapitel/Kapitelsprung. Live-Uploads zu FastPic/Postimages benötigen noch die eigenen lokal hinterlegten Keys. Der mehrstündige Video-Test bleibt bis zur Nutzer-URL offen.</p>
+</div></body></html>

@@ -3157,13 +3157,8 @@ function SettingsPage({ navigate, data = {}, api = null, onRefresh = null, alert
     visible: selectedSettingsBlock.id === id,
     highlight: highlightedSettingId === id,
   });
-  const videoImportProviders = [
-    ['direct', 'Direct video URL', null],
-    ['youtube', 'YouTube', 'YouTube Data API key'],
-    ['vimeo', 'Vimeo', 'Vimeo access token'],
-    ['dailymotion', 'Dailymotion', 'Dailymotion API key'],
-    ['twitch', 'Twitch', 'Twitch Client ID|App access token'],
-  ];
+  const videoImportProviders = (videoImportForm.provider_definitions || []).map((provider) => [provider.key, provider.label, provider.api_key_label]);
+
   const notificationSettings = featureForm.notifications || notifications || {};
   const moderationSettings = featureForm.moderation || moderation || {};
   const maintenanceSettings = featureForm.maintenance || maintenance || {};

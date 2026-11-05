@@ -1,3 +1,4 @@
+import ThumbnailImage, { useThumbnailUrl } from './components/ThumbnailImage.jsx';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { MediaPlayer, MediaProvider, Track } from '@vidstack/react';
@@ -77,6 +78,7 @@ function EmbedPlayer() {
   const playbackRequestRef = useRef(null);
   const startAppliedRef = useRef(false);
   const [video, setVideo] = useState(null);
+  const resolvedThumbnail = useThumbnailUrl(video || {}, config.thumbnailUrl);
   const [error, setError] = useState('');
   const [playbackError, setPlaybackError] = useState('');
   const [playerReady, setPlayerReady] = useState(false);
@@ -163,14 +165,14 @@ function EmbedPlayer() {
   if (!sources.length) return <PlayerState video={video} message="This video does not have a playable source." />;
 
   return <div className="embed-player-shell">
-    <MediaPlayer ref={playerRef} className="embed-media-player" src={sources} title={video.title} poster={video.thumbnail_url || undefined} preload="metadata" load="eager" autoPlay={options.autoplay} muted={options.muted} loop={options.loop} playsInline viewType="video" streamType={videoStreamType(sources)} onCanPlay={handleCanPlay} onLoadedMetadata={applyStartTime} onPause={() => { if ((playerRef.current?.provider?.media || playerRef.current?.querySelector?.('video, audio'))?.paused !== false) { playbackRequestRef.current?.abort(); playbackRequestRef.current = null; setStarting(false); } }} onPlay={() => setStarting(true)} onPlaying={() => { setStarted(true); setStarting(false); setAutoplayBlocked(false); setPlaybackError(''); }} onAutoPlayFail={() => { setAutoplayBlocked(true); setStarting(false); }} onError={() => { setPlayerReady(false); setStarting(false); setPlaybackError('Unable to play this video. Click to retry.'); }}>
+    <MediaPlayer ref={playerRef} className="embed-media-player" src={sources} title={video.title} poster={resolvedThumbnail || undefined} preload="metadata" load="eager" autoPlay={options.autoplay} muted={options.muted} loop={options.loop} playsInline viewType="video" streamType={videoStreamType(sources)} onCanPlay={handleCanPlay} onLoadedMetadata={applyStartTime} onPause={() => { if ((playerRef.current?.provider?.media || playerRef.current?.querySelector?.('video, audio'))?.paused !== false) { playbackRequestRef.current?.abort(); playbackRequestRef.current = null; setStarting(false); } }} onPlay={() => setStarting(true)} onPlaying={() => { setStarted(true); setStarting(false); setAutoplayBlocked(false); setPlaybackError(''); }} onAutoPlayFail={() => { setAutoplayBlocked(true); setStarting(false); }} onError={() => { setPlayerReady(false); setStarting(false); setPlaybackError('Unable to play this video. Click to retry.'); }}>
       <MediaProvider mediaProps={{ 'x-webkit-airplay': 'allow' }}>
         {caption && <Track {...caption} />}
       </MediaProvider>
       {options.controls ? <DefaultVideoLayout icons={defaultLayoutIcons} /> : <DefaultVideoGestures />}
     </MediaPlayer>
     {(playbackError || (!started && (!options.autoplay || autoplayBlocked))) && <button type="button" className="embed-poster-play" onClick={startPlayback} disabled={starting || (!playerReady && !playbackError)} aria-busy={starting || (!playerReady && !playbackError)} aria-label={playbackError ? `Retry ${video.title}` : playerReady ? `Play ${video.title}` : `Loading ${video.title}`}>
-      {video.thumbnail_url && <img src={video.thumbnail_url} alt="" />}
+      {video.thumbnail_url && <ThumbnailImage video={video} alt="" />}
       <span className="embed-poster-shade" />
       {!starting && (playerReady || playbackError) ? <span className="embed-play-icon" aria-hidden="true"><i /></span> : <span className="embed-spinner" aria-hidden="true" />}
       {playbackError && <strong className="embed-playback-error" role="alert">{playbackError}</strong>}
@@ -181,7 +183,7 @@ function EmbedPlayer() {
 function PlayerState({ loading = false, video = null, message = '', action = '' }) {
   const poster = video?.thumbnail_url || config.thumbnailUrl;
   return <section className="embed-state" role={loading ? 'status' : 'alert'}>
-    {poster && <img src={poster} alt="" />}
+    {poster && <ThumbnailImage video={video || {}} src={poster} alt="" />}
     <span className="embed-state-shade" />
     <div className="embed-state-content">
       {loading ? <span className="embed-spinner" aria-label="Loading video" /> : <>

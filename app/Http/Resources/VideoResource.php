@@ -60,6 +60,8 @@ class VideoResource extends JsonResource
             'video_url' => $videoUrl,
             'video_mime_type' => $this->mimeTypeForPath($this->activeVideoPath()),
             'video_sources' => $this->videoSources($canPlay),
+            'thumbnail_candidates' => $this->thumbnail_candidates,
+            'video_width' => $this->video_width, 'video_height' => $this->video_height,
             'thumbnail_url' => VideoSales::thumbnailUrl($this->resource),
             'source_type' => $this->source_type ?: 'upload',
             'live_stream_url' => $this->whenLoaded('liveStream', fn () => $this->liveStream ? '/live/'.$this->liveStream->slug : null),

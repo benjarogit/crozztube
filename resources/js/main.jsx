@@ -1,3 +1,4 @@
+import ThumbnailImage, { BlankThumbnail, useThumbnailUrl } from './components/ThumbnailImage.jsx';
 import { markPlayHubReady } from './pluginRuntime.js';
 import React, { Suspense, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
@@ -268,7 +269,7 @@ const api = {
     delete requestOptions.expectedAuthEpoch;
     const headers = new Headers(requestOptions.headers || {});
     headers.set('Accept', 'application/json');
-    if (!(requestOptions.body instanceof FormData)) headers.set('Content-Type', 'application/json');
+    if (!(requestOptions.body instanceof FormData) && !headers.has('Content-Type')) headers.set('Content-Type', 'application/json');
     const interfaceLanguage = localStorage.getItem('playhub_language');
     if (interfaceLanguage && /^[a-z0-9_-]+$/i.test(interfaceLanguage)) headers.set('X-PlayHub-Language', interfaceLanguage);
     // Use the same observed credential as the epoch check, never a second
@@ -518,6 +519,8 @@ const videoQueueSnapshot = (video) => ({
   title: video.title,
   description: video.description,
   thumbnail_url: video.thumbnail_url,
+  thumbnail_candidates: video.thumbnail_candidates,
+  video_width: video.video_width, video_height: video.video_height,
   fallback_thumbnail_url: video.fallback_thumbnail_url,
   duration: video.duration,
   duration_seconds: video.duration_seconds,
@@ -3526,7 +3529,7 @@ function NotificationItem({ item, onOpen, onVisible = null, visibilityRoot = nul
 function NotificationMedia({ media }) {
   return (
     <span className={`notification-media theme-${media.theme || 'camera'}`}>
-      {media.thumbnail_url ? <img src={media.thumbnail_url} alt="" /> : <span className="thumb-vignette" />}
+      {media.thumbnail_url ? <ThumbnailImage video={media} alt="" /> : <span className="thumb-vignette" />}
       <span className="notification-media-copy">
         <b>{media.title}</b>
         {media.meta ? <small>{media.meta}</small> : null}
@@ -3643,8 +3646,8 @@ function Thumbnail({ video, large = false, previewShort = false }) {
   const promoted = video.boost ? <span className="promoted-video-badge"><Icon name="trending" size={12}/> {video.boost.label || 'Promoted'}</span> : null;
   const shortBadge = isShortVideo(video) ? <span className="short-video-badge" title="Short" aria-label="Short"><Icon name="shorts" size={17}/></span> : null;
   const content = video.thumbnail_url
-    ? <><img src={video.thumbnail_url} alt="" onError={video.fallback_thumbnail_url ? (event) => { event.currentTarget.onerror = null; event.currentTarget.src = video.fallback_thumbnail_url; } : undefined} /><Duration value={video.duration} />{shortBadge}{promoted}{video.sale?.is_paid && <span className="paid-video-badge"><Icon name="wallet" size={12}/> {video.sale.is_purchased ? 'Purchased' : video.sale.price_label}</span>}</>
-    : <><div className="thumb-vignette" /><Duration value={video.duration} />{shortBadge}{promoted}{video.sale?.is_paid && <span className="paid-video-badge"><Icon name="wallet" size={12}/> {video.sale.is_purchased ? 'Purchased' : video.sale.price_label}</span>}</>;
+    ? <><ThumbnailImage video={video} alt="" /><Duration value={video.duration} />{shortBadge}{promoted}{video.sale?.is_paid && <span className="paid-video-badge"><Icon name="wallet" size={12}/> {video.sale.is_purchased ? 'Purchased' : video.sale.price_label}</span>}</>
+    : <><BlankThumbnail /><Duration value={video.duration} />{shortBadge}{promoted}{video.sale?.is_paid && <span className="paid-video-badge"><Icon name="wallet" size={12}/> {video.sale.is_purchased ? 'Purchased' : video.sale.price_label}</span>}</>;
   if (previewShort && isShortVideo(video)) return <ShortHoverPreview video={video} className={className}>{content}</ShortHoverPreview>;
   return <div ref={boostRef} className={className}>{content}</div>;
 }
@@ -5333,14 +5336,6 @@ function videoPosterUrl(video) {
   return video?.thumbnail_url || video?.fallback_thumbnail_url || '';
 }
 
-function handlePosterImageError(event, fallbackUrl) {
-  if (fallbackUrl && event.currentTarget.src !== fallbackUrl) {
-    event.currentTarget.src = fallbackUrl;
-    return;
-  }
-
-  event.currentTarget.closest('.watch-poster-overlay')?.classList.add('is-empty');
-}
 
 function copyTextToClipboard(value) {
   const text = String(value || '');
@@ -5721,6 +5716,7 @@ function PersistentVideoPlayer({ path, navigate, auth, defaultVideoQuality = 'au
   const playerPositionRef = useRef(readPersistentPlayerPosition());
   const [session, setSession] = useState(sessionRef.current);
   const [video, setVideo] = useState(null);
+  const resolvedThumbnail = useThumbnailUrl(video || {});
   const [loading, setLoading] = useState(Boolean(sessionRef.current));
   const [moving, setMoving] = useState(false);
   const [playing, setPlaying] = useState(false);
@@ -6201,7 +6197,7 @@ function PersistentVideoPlayer({ path, navigate, auth, defaultVideoQuality = 'au
 
   if (!mounted) return null;
   const sources = video?.slug === session.video.slug ? videoSourcesFor(video) : [];
-  const poster = videoPosterUrl(video || session.video);
+  const poster = resolvedThumbnail || videoPosterUrl(video || session.video);
   const progress = duration > 0 ? Math.max(0, Math.min(100, (currentTime / duration) * 100)) : 0;
   const previousAvailable = currentTime > 5 || Boolean(session.history?.length);
 
@@ -6282,7 +6278,7 @@ function PersistentVideoPlayer({ path, navigate, auth, defaultVideoQuality = 'au
         if (visible) failPlayback('Playback was paused by your browser.');
       }} onError={() => {
         if (visible) failPlayback('Video could not be resumed.');
-      }}><MediaProvider mediaProps={REMOTE_PLAYBACK_MEDIA_PROPS}/></MediaPlayer> : poster ? <img src={poster} alt="" /> : <span className="persistent-player-placeholder"><Icon name="play" size={28}/></span>}
+      }}><MediaProvider mediaProps={REMOTE_PLAYBACK_MEDIA_PROPS}/></MediaPlayer> : poster ? <ThumbnailImage video={video || session.video} src={poster} alt="" /> : <span className="persistent-player-placeholder"><Icon name="play" size={28}/></span>}
       {!playing && (loading || moving) && <span className="persistent-player-loading" aria-label="Loading video" />}
       <button type="button" className="persistent-player-expand-hit" onClick={expand} aria-label="Open full video" title="Open full video" />
     </div>
@@ -12029,7 +12025,7 @@ function LiveDetailPage({ slug, navigate, auth, initialRoomData = null, defaultV
 
             <section id="replay-more" className="live-replay-related-card">
               <header><div><h2>More Replays from {stream.creator}</h2><span>{replayRelated.length ? `${replayRelated.length} available` : 'Recently ended streams'}</span></div><button type="button" className="text-button" onClick={() => navigate('/live/replays')}>View all</button></header>
-              <div className="live-replay-related-grid">{replayRelatedLoading ? <div className="state-card compact">Loading replays...</div> : replayRelated.length ? replayRelated.slice(0, 4).map((item) => <button type="button" key={item.id} onClick={() => navigate(item.watch_url || `/live/${item.slug}`)}><span>{item.thumbnail_url ? <img src={item.thumbnail_url} alt=""/> : <Icon name="play" size={18}/>}<b>Replay</b><time>{formatDurationSeconds(item.replay?.duration_seconds)}</time></span><strong data-i18n-skip>{item.title}</strong><small>{formatNumber(item.replay?.views_count || 0)} views</small></button>) : <div className="state-card compact">No other replays available yet.</div>}</div>
+              <div className="live-replay-related-grid">{replayRelatedLoading ? <div className="state-card compact">Loading replays...</div> : replayRelated.length ? replayRelated.slice(0, 4).map((item) => <button type="button" key={item.id} onClick={() => navigate(item.watch_url || `/live/${item.slug}`)}><span>{item.thumbnail_url ? <ThumbnailImage video={item} alt=""/> : <Icon name="play" size={18}/>}<b>Replay</b><time>{formatDurationSeconds(item.replay?.duration_seconds)}</time></span><strong data-i18n-skip>{item.title}</strong><small>{formatNumber(item.replay?.views_count || 0)} views</small></button>) : <div className="state-card compact">No other replays available yet.</div>}</div>
             </section>
           </>}
 
@@ -12945,7 +12941,7 @@ function ShortsPosterCard({ video, navigate }) {
 }
 
 function ShortsPoster({ video }) {
-  return <ShortHoverPreview video={video} className="shorts-poster">{isNewShort(video) && <em className="shorts-new-badge">New</em>}{video.thumbnail_url ? <img src={video.thumbnail_url} alt="" /> : <div className="thumb-vignette" />}<span>{video.duration || formatDurationSeconds(video.duration_seconds) || '0:00'}</span></ShortHoverPreview>;
+  return <ShortHoverPreview video={video} className="shorts-poster">{isNewShort(video) && <em className="shorts-new-badge">New</em>}{video.thumbnail_url ? <ThumbnailImage video={video} alt="" /> : <BlankThumbnail />}<span>{video.duration || formatDurationSeconds(video.duration_seconds) || '0:00'}</span></ShortHoverPreview>;
 }
 
 function isNewShort(video) {
@@ -12968,14 +12964,10 @@ async function shareShortVideo(video) {
 }
 
 function isShortVideo(video) {
-  const sourceType = String(video?.source_type || '').toLowerCase();
-  const explicitType = String(video?.type || video?.content_type || video?.video_type || video?.media_type || '').toLowerCase();
-  if (sourceType === 'live_replay' || ['live', 'ended', 'replay'].includes(String(video?.status || '').toLowerCase())) return false;
+  if (video?.source_type === 'live_replay') return false;
   if (typeof video?.is_short === 'boolean') return video.is_short;
-  if (sourceType === 'import') return false;
-  if (video?.is_short || video?.short || explicitType === 'short' || explicitType === 'shorts') return true;
-  const duration = Number(video?.duration_seconds || video?.seconds || 0) || durationTextToSeconds(video?.duration);
-  return duration > 0 && duration <= 60;
+  const duration = Number(video?.duration_seconds || 0);
+  return duration > 0 && duration <= 180 && Number(video?.video_width) > 0 && Number(video?.video_height) >= Number(video?.video_width);
 }
 
 function externalShortEmbedUrl(value, provider) {
@@ -13029,6 +13021,7 @@ function ShortsUploaderLink({ channel, navigate, showSubscribers = false, avatar
 
 function ShortsDetailPage({ slug, navigate, auth }) {
   const [video, setVideo] = useState(null);
+  const resolvedThumbnail = useThumbnailUrl(video || {});
   const [comments, setComments] = useState([]);
   const [related, setRelated] = useState([]);
   const [shortFeed, setShortFeed] = useState([]);
@@ -13190,7 +13183,7 @@ function ShortsDetailPage({ slug, navigate, auth }) {
   }, [notice]);
 
   const videoSources = video?.video_sources?.length ? video.video_sources : (video?.video_url ? [{ src: video.video_url, type: video.video_mime_type || 'video/mp4' }] : []);
-  const providerPlayerSource = videoSources.some((source) => ['video/youtube', 'video/vimeo'].includes(source.type));
+  const providerPlayerSource = videoSources.some((source) => ['video/youtube', 'video/vimeo'].includes(source.type) || /mpegurl|dash\+xml/i.test(inferVideoType(source)));
   const providerEmbedUrl = video?.source_type === 'import' && video?.embed_url ? externalShortEmbedUrl(video.embed_url, video.import_provider) : '';
   const shortDescription = String(video?.description || '').trim();
   const canExpandShortDescription = shortDescription.length > 150;
@@ -14064,8 +14057,8 @@ function ShortsDetailPage({ slug, navigate, auth }) {
         <div className="shorts-detail-stage">
           <div className={`shorts-detail-player-card ${slideDirection ? `is-sliding-${slideDirection}` : ''} ${providerEmbedUrl ? 'has-provider-ui' : ''}`} ref={playerCardRef} tabIndex={0} onMouseDown={handleShortsMouseDown} onContextMenu={handleShortsContextMenu} onKeyDown={handleShortsKeyDown} aria-label="Short video player. Click or tap to play or pause. Hold to pause temporarily. Swipe, scroll or use the arrow keys to change Shorts.">
             <div className="shorts-detail-player">
-              {outgoingShort && slideDirection && <div className="shorts-detail-outgoing-media" aria-hidden="true">{outgoingShort.thumbnail_url ? <img src={outgoingShort.thumbnail_url} alt="" /> : <div className="thumb-vignette" />}</div>}
-              {providerEmbedUrl ? <iframe key={`${video.slug}-${providerEmbedUrl}`} className="shorts-detail-provider-embed" src={providerEmbedUrl} title={video.title} allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowFullScreen /> : providerPlayerSource ? <MediaPlayer key={video.slug} ref={videoRef} className="shorts-detail-provider-player" src={videoSources} poster={video.thumbnail_url || undefined} title={video.title} load="eager" autoPlay muted={isMuted} loop={shouldLoopCurrentShort} playsInline viewType="video" streamType="on-demand" onDurationChange={updatePlaybackProgress} onTimeUpdate={updatePlaybackProgress} onEnded={handleShortEnded} onPlay={() => setIsPlaying(true)} onPause={() => setIsPlaying(false)}><MediaProvider /></MediaPlayer> : videoSources.length ? <video key={video.slug} ref={videoRef} playsInline preload="auto" autoPlay muted={isMuted} loop={shouldLoopCurrentShort} poster={video.thumbnail_url || undefined} onLoadedMetadata={updatePlaybackProgress} onDurationChange={updatePlaybackProgress} onTimeUpdate={updatePlaybackProgress} onEnded={handleShortEnded} onPlay={() => setIsPlaying(true)} onPause={() => setIsPlaying(false)}>{videoSources.map((source) => <source key={source.src} src={source.src} type={source.type || 'video/mp4'} />)}</video> : (video.thumbnail_url ? <img src={video.thumbnail_url} alt="" /> : <div className="thumb-vignette" />)}
+              {outgoingShort && slideDirection && <div className="shorts-detail-outgoing-media" aria-hidden="true">{outgoingShort.thumbnail_url ? <ThumbnailImage video={outgoingShort} alt="" /> : <div className="thumb-vignette" />}</div>}
+              {providerEmbedUrl ? <iframe key={`${video.slug}-${providerEmbedUrl}`} className="shorts-detail-provider-embed" src={providerEmbedUrl} title={video.title} allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowFullScreen /> : providerPlayerSource ? <MediaPlayer key={video.slug} ref={videoRef} className="shorts-detail-provider-player" src={videoSources} poster={resolvedThumbnail || undefined} title={video.title} load="eager" autoPlay muted={isMuted} loop={shouldLoopCurrentShort} playsInline viewType="video" streamType={videoStreamType(videoSources)} onDurationChange={updatePlaybackProgress} onTimeUpdate={updatePlaybackProgress} onEnded={handleShortEnded} onPlay={() => setIsPlaying(true)} onPause={() => setIsPlaying(false)}><MediaProvider /></MediaPlayer> : videoSources.length ? <video key={video.slug} ref={videoRef} playsInline preload="auto" autoPlay muted={isMuted} loop={shouldLoopCurrentShort} poster={resolvedThumbnail || undefined} onLoadedMetadata={updatePlaybackProgress} onDurationChange={updatePlaybackProgress} onTimeUpdate={updatePlaybackProgress} onEnded={handleShortEnded} onPlay={() => setIsPlaying(true)} onPause={() => setIsPlaying(false)}>{videoSources.map((source) => <source key={source.src} src={source.src} type={source.type || 'video/mp4'} />)}</video> : (video.thumbnail_url ? <ThumbnailImage video={video} alt="" /> : <div className="thumb-vignette" />)}
               {!providerEmbedUrl && videoSources.length > 0 && <div className="shorts-detail-progress"><span style={{ transform: `scaleX(${playbackProgress / 100})` }} /><input type="range" min={0} max={100} step={0.1} value={playbackProgress} aria-label="Seek short" aria-valuetext={`${Math.round(playbackProgress)}%`} onChange={seekShort} /></div>}
               {!providerEmbedUrl && videoSources.length > 0 && <div className="shorts-detail-top-actions"><button type="button" aria-label={isPlaying ? 'Pause' : 'Play'} title={isPlaying ? 'Pause (Space)' : 'Play (Space)'} onClick={togglePlayback}><Icon name={isPlaying ? 'pause' : 'play'} size={20}/></button><button type="button" aria-label={isMuted ? 'Unmute' : 'Mute'} title={isMuted ? 'Unmute (M)' : 'Mute (M)'} onClick={toggleMute}><Icon name={isMuted ? 'mute' : 'volume'} size={20}/></button></div>}
             </div>
@@ -15236,6 +15229,7 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
   const persistentSaveAtRef = useRef(0);
   watchSlugRef.current = slug;
   const [video, setVideo] = useState(null);
+  const resolvedThumbnail = useThumbnailUrl(video || {});
   const [playerAds, setPlayerAds] = useState(null);
   const [creatorTips, setCreatorTips] = useState(null);
   const [creatorTipOpen, setCreatorTipOpen] = useState(false);
@@ -16233,7 +16227,7 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
   }] : [];
   const videoSources = videoSourcesFor(video);
   const embedUrl = video?.embed_url || '';
-  const posterUrl = videoPosterUrl(video);
+  const posterUrl = resolvedThumbnail;
   const videoChapters = useMemo(
     () => {
       if (!chaptersEnabled || video?.chapters_enabled === false) return [];
@@ -16757,7 +16751,7 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
     {googleImaActive && googleImaLoading && <div className="watch-player-ima-loading" aria-live="polite">Loading ad...</div>}
   </>;
   const pendingPlayerAdOverlay = <button type="button" className={`watch-poster-overlay watch-ad-pending ${videoSources.length ? 'is-content-mounted' : ''}`} onClick={playCurrentVideo} disabled={playerAdResolving} aria-label={`Play ${video.title}`}>
-    {posterUrl && <img src={posterUrl} alt="" draggable="false" onError={(event) => handlePosterImageError(event, video.fallback_thumbnail_url)} />}
+    {posterUrl && <ThumbnailImage video={video} src={posterUrl} alt="" draggable="false" />}
     <span className="watch-poster-gradient" />
     <span className="watch-ad-badge">{playerAdResolving ? 'Loading ad...' : 'Advertisement'}</span>
     <span className="watch-poster-play"><Icon name="play" size={34} /></span>
@@ -16779,7 +16773,7 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
           </div>
         </div>}
         {isPaidVideoLocked ? <div className="paid-video-paywall">
-          {posterUrl && <img src={posterUrl} alt="" draggable="false" onError={(event) => handlePosterImageError(event, video.fallback_thumbnail_url)} />}
+          {posterUrl && <ThumbnailImage video={video} src={posterUrl} alt="" draggable="false" />}
           <span className="watch-poster-gradient" />
           <div className="paid-video-paywall-content"><span><Icon name="wallet" size={25}/></span><h2>Purchase to watch</h2><p>Buy permanent access to this video from {video.channel?.name || 'this creator'}.</p>{video.sale.tax?.enabled ? <div className="paid-video-tax-breakdown" data-i18n-skip><span><em>Video price</em><b>{video.sale.price_label}</b></span><span><em>{video.sale.tax.label} ({Number(video.sale.tax.rate_percent)}%)</em><b>{video.sale.tax.amount_label}</b></span><span className="total"><em>Total</em><b>{video.sale.total_label}</b></span></div> : <strong data-i18n-skip>{video.sale.price_label}</strong>}{videoPurchaseError && <div className="go-live-notice error" role="alert">{videoPurchaseError}{/insufficient wallet balance/i.test(videoPurchaseError) && <button type="button" className="settings-text-action" onClick={() => navigate('/wallet')}>Add funds</button>}</div>}<button type="button" className="btn primary" onClick={purchaseVideo} disabled={videoPurchaseBusy || (auth.user && !video.sale.purchase_available)}><Icon name="wallet" size={17}/>{videoPurchaseBusy ? 'Purchasing...' : !auth.user ? 'Log in to purchase' : video.sale.purchase_available ? `Buy for ${video.sale.total_label || video.sale.price_label}` : 'Purchases unavailable'}</button></div>
         </div> : embedUrl ? playerAdPending ? pendingPlayerAdOverlay : <iframe key={activeEmbedUrl} className="watch-embed-player" src={activeEmbedUrl} title={video.title} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen /> : videoSources.length ? <>
@@ -16792,7 +16786,7 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
             {googleImaLayer}
           </MediaPlayer>
           {playerAdPending ? pendingPlayerAdOverlay : showPosterOverlay && <button type="button" className={`watch-poster-overlay ${showPlayerBuffering ? 'is-loading' : ''}`} onClick={playCurrentVideo} disabled={showPlayerBuffering} aria-label={`Play ${video.title}`}>
-            {posterUrl && <img src={posterUrl} alt="" draggable="false" onError={(event) => handlePosterImageError(event, video.fallback_thumbnail_url)} />}
+            {posterUrl && <ThumbnailImage video={video} src={posterUrl} alt="" draggable="false" />}
             <span className="watch-poster-gradient" />
             {!showPlayerBuffering && <span className="watch-poster-play"><Icon name="play" size={34} /></span>}
             {showPlayerBuffering && <span className="watch-player-loading-label">Loading video</span>}
@@ -17057,25 +17051,6 @@ function EditVideoPage({ slug, navigate, auth }) {
     try {
       const thumbnailFile = thumb || selectedGeneratedThumb?.file || null;
       let requestOptions;
-      if (thumbnailFile) {
-        const data = new FormData();
-        data.append('title', form.title.trim());
-        data.append('description', form.description);
-        data.append('tags', form.tags);
-        data.append('category_id', form.category_id || '');
-        data.append('language_id', form.language_id || '');
-        data.append('playlist_title', form.playlist);
-        data.append('scheduled_at', form.scheduled_at || '');
-        data.append('made_for_kids', form.made_for_kids ? '1' : '0');
-        data.append('monetization_enabled', form.monetization ? '1' : '0');
-        if (canConfigureSale) {
-          data.append('sale_enabled', form.sale_enabled ? '1' : '0');
-          data.append('sale_price', form.sale_price);
-        }
-        data.append('visibility', form.visibility);
-        data.append('thumbnail', thumbnailFile);
-        requestOptions = { method: 'POST', body: data };
-      } else {
         requestOptions = {
           method: 'PUT',
           body: JSON.stringify({
@@ -17091,9 +17066,12 @@ function EditVideoPage({ slug, navigate, auth }) {
             ...(canConfigureSale ? { sale_enabled: form.sale_enabled, sale_price: form.sale_price } : {}),
             visibility: form.visibility,
           }),
-        };
+        };      const data = await api.request(`/videos/${encodeURIComponent(video.slug)}`, requestOptions);
+      if (thumbnailFile) {
+        const hosted = await api.request(`/videos/${encodeURIComponent(data.video?.slug || video.slug)}/thumbnail`, {method: 'PUT', headers: {'Content-Type': thumbnailFile.type || 'image/jpeg'}, body: thumbnailFile});
+        data.video = hosted.video || data.video;
+        if (!hosted.thumbnail_saved) data.message = hosted.message;
       }
-      const data = await api.request(`/videos/${encodeURIComponent(video.slug)}`, requestOptions);
       setVideo(data.video || video);
       setThumb(null);
       setSelectedGeneratedThumb(null);
@@ -17536,7 +17514,8 @@ function Upload({ navigate, globalUploadItems = [], globalUploadItemsRef, setGlo
   const [error, setError] = useState('');
   const [uploadOptions, setUploadOptions] = useState({ categories: [], languages: [], playlists: [], max_upload_mb: null, chunk_size_mb: 8, video_sales: {} });
   const [uploadOptionsLoaded, setUploadOptionsLoaded] = useState(false);
-  const [uploadMode, setUploadMode] = useState('local');
+  const localUploadsEnabled = features?.uploads?.file_uploads_enabled !== false;
+  const [uploadMode, setUploadMode] = useState(localUploadsEnabled ? 'local' : 'import');
   const [importForm, setImportForm] = useState({ provider: '', url: '' });
   const [importMetadata, setImportMetadata] = useState(null);
   const [importFetching, setImportFetching] = useState(false);
@@ -17557,7 +17536,7 @@ function Upload({ navigate, globalUploadItems = [], globalUploadItemsRef, setGlo
   const busyUploadStatuses = ['uploading', 'importing', 'assembling', 'processing'];
   const lockedUploadStatuses = [...busyUploadStatuses, 'completed', 'failed'];
   const isShortUpload = uploadType === 'short';
-  const automaticallyShort = uploadMode !== 'import' && selectedDurationSeconds > 0 && selectedDurationSeconds <= 60 && !form.sale_enabled;
+  const automaticallyShort = uploadMode !== 'import' && selectedDurationSeconds > 0 && selectedDurationSeconds <= 180 && selectedVideoDimensions.width > 0 && selectedVideoDimensions.height >= selectedVideoDimensions.width;
   const willUploadShort = isShortUpload || automaticallyShort || (uploadMode === 'import' && importMetadata?.is_short === true);
   const chaptersFeatureEnabled = !willUploadShort && features?.uploads?.chapters_enabled !== false;
   const useShortThumbnailDesign = willUploadShort;
@@ -17581,8 +17560,8 @@ function Upload({ navigate, globalUploadItems = [], globalUploadItemsRef, setGlo
   const maxUploadLabel = uploadOptions.max_upload_mb ? `${uploadOptions.max_upload_mb >= 1024 ? `${uploadOptions.max_upload_mb / 1024} GB` : `${uploadOptions.max_upload_mb} MB`}` : '';
   const importSettings = uploadOptions.video_import || {};
   const importProviders = (importSettings.providers || []).filter((provider) => provider.enabled);
-  const importEnabled = !isShortUpload && Boolean(importSettings.enabled && importProviders.length);
-  const showUploadSourcePanel = !isShortUpload && (!uploadOptionsLoaded || importEnabled);
+  const importEnabled = Boolean(importSettings.enabled && importProviders.length);
+  const showUploadSourcePanel = localUploadsEnabled && !isShortUpload && (!uploadOptionsLoaded || importEnabled);
   const selectedImportProvider = importProviders.find((provider) => provider.key === importForm.provider) || importProviders[0] || null;
   const isImportMode = importEnabled && uploadMode === 'import';
   const videoSales = uploadOptions.video_sales || {};
@@ -17841,8 +17820,8 @@ function Upload({ navigate, globalUploadItems = [], globalUploadItemsRef, setGlo
   const selectedPlaylist = uploadOptions.playlists.find((item) => String(item.id) === String(form.playlist));
   const tagItems = form.tags.split(',').map((item) => item.trim()).filter(Boolean).slice(0, 10);
   const shortAspectRatio = selectedVideoDimensions.height ? selectedVideoDimensions.width / selectedVideoDimensions.height : 0;
-  const shortDurationValid = !isShortUpload || (selectedDurationSeconds > 0 && selectedDurationSeconds <= 60);
-  const shortAspectValid = !isShortUpload || (selectedVideoDimensions.width > 0 && selectedVideoDimensions.height > selectedVideoDimensions.width && shortAspectRatio >= 0.45 && shortAspectRatio <= 0.8);
+  const shortDurationValid = !isShortUpload || (selectedDurationSeconds > 0 && selectedDurationSeconds <= 180);
+  const shortAspectValid = !isShortUpload || (selectedVideoDimensions.width > 0 && selectedVideoDimensions.height >= selectedVideoDimensions.width);
   const shortRulesValid = shortDurationValid && shortAspectValid;
   const scheduleMin = datetimeLocalUploadScheduleMinimum();
   const scheduleValid = isUploadScheduleDatetimeLocal(form.scheduled_at);
@@ -17907,7 +17886,8 @@ function Upload({ navigate, globalUploadItems = [], globalUploadItemsRef, setGlo
     }).catch((err) => setError(err.message)).finally(() => setUploadOptionsLoaded(true));
   }, []);
   useEffect(() => {
-    if (!importEnabled && uploadMode === 'import') setUploadMode('local');
+    if (!importEnabled && uploadMode === 'import' && localUploadsEnabled) setUploadMode('local');
+    if (!localUploadsEnabled && uploadMode !== 'import') setUploadMode('import');
     if (importEnabled && !selectedImportProvider && importProviders[0]) {
       setImportForm((current) => ({ ...current, provider: importProviders[0].key }));
     }
@@ -18275,7 +18255,7 @@ function Upload({ navigate, globalUploadItems = [], globalUploadItemsRef, setGlo
       return;
     }
     if (!shortRulesValid) {
-      setError(!shortDurationValid ? 'Shorts must be 60 seconds or less.' : 'Shorts must use a vertical portrait aspect ratio.');
+      setError(!shortDurationValid ? 'Shorts must be 180 seconds or less.' : 'Shorts must be square or vertical.');
       setStep(1);
       return;
     }
@@ -18285,7 +18265,7 @@ function Upload({ navigate, globalUploadItems = [], globalUploadItemsRef, setGlo
       return;
     }
     if (!detailsComplete) {
-      setError(isShortUpload && !shortRulesValid ? (!shortDurationValid ? 'Shorts must be 60 seconds or less.' : 'Shorts must use a vertical portrait aspect ratio.') : detailsErrorMessage);
+      setError(isShortUpload && !shortRulesValid ? (!shortDurationValid ? 'Shorts must be 180 seconds or less.' : 'Shorts must be square or vertical.') : detailsErrorMessage);
       setStep(1);
       return;
     }
@@ -18475,10 +18455,10 @@ function Upload({ navigate, globalUploadItems = [], globalUploadItemsRef, setGlo
         {showUploadSourcePanel && <article className="upload-panel upload-source-panel">
           <div>
             <h2>Upload source</h2>
-            <p>Choose a local video file or import a public video from an enabled provider.</p>
+            <p>{localUploadsEnabled ? 'Choose a local video file or import a public video from an enabled provider.' : 'Import a public video URL. Playback stays at the original provider.'}</p>
           </div>
           <div className="upload-source-toggle" role="group" aria-label="Upload source">
-            <button type="button" className={uploadMode === 'local' ? 'active' : ''} onClick={() => changeUploadMode('local')}><Icon name="upload" size={16}/> Local upload</button>
+            <button type="button" className={uploadMode === 'local' ? 'active' : ''} onClick={() => changeUploadMode('local')} disabled={!localUploadsEnabled}><Icon name="upload" size={16}/> Local upload</button>
             <button type="button" className={uploadMode === 'import' ? 'active' : ''} onClick={() => changeUploadMode('import')} disabled={!importEnabled}><Icon name="link" size={16}/> Import from URL</button>
           </div>
         </article>}
@@ -18517,7 +18497,7 @@ function Upload({ navigate, globalUploadItems = [], globalUploadItemsRef, setGlo
             >
               <div className="upload-cloud"><Icon name="upload" size={44}/></div>
               <h2>Drag and drop your {isShortUpload ? 'short' : 'video'} file here</h2>
-              <p>MP4, MOV, AVI, MKV, WEBM{maxUploadLabel ? ` up to ${maxUploadLabel}` : ''}<br/>{isShortUpload ? 'Shorts must be 60 seconds or less. Vertical 9:16 is recommended.' : 'Recommended: 1080p or higher'}</p>
+              <p>MP4, MOV, AVI, MKV, WEBM{maxUploadLabel ? ` up to ${maxUploadLabel}` : ''}<br/>{isShortUpload ? 'Shorts must be 180 seconds or less and square or vertical.' : 'Recommended: 1080p or higher'}</p>
               <div className="upload-drop-actions">
                 <button type="button" className="btn primary" onClick={(event) => { event.stopPropagation(); fileInputRef.current?.click(); }}><Icon name="upload" size={17}/> Select files</button>
               </div>
@@ -18536,8 +18516,8 @@ function Upload({ navigate, globalUploadItems = [], globalUploadItemsRef, setGlo
             <div className="upload-field-stack">
               <label className="upload-label">Title <b>*</b><span>{form.title.length} / 100</span></label>
               <input className="upload-input" value={form.title} maxLength={100} placeholder="Enter video title" onChange={(e) => updateForm({ title: e.target.value })} required />
-              {isShortUpload && (selectedDurationSeconds > 0 || selectedVideoDimensions.width > 0) && <div className={`upload-saved ${shortRulesValid ? '' : 'error'}`}><span>{shortRulesValid ? '✓' : '!'}</span> {Math.round(selectedDurationSeconds || 0)}s · {selectedVideoDimensions.width || '?'}×{selectedVideoDimensions.height || '?'} · Shorts require 60s max and vertical portrait video</div>}
-              {!isShortUpload && automaticallyShort && <div className="upload-saved"><span>✓</span> This video will be published as a Short because it is 60 seconds or less.</div>}
+              {isShortUpload && (selectedDurationSeconds > 0 || selectedVideoDimensions.width > 0) && <div className={`upload-saved ${shortRulesValid ? '' : 'error'}`}><span>{shortRulesValid ? '✓' : '!'}</span> {Math.round(selectedDurationSeconds || 0)}s · {selectedVideoDimensions.width || '?'}×{selectedVideoDimensions.height || '?'} · Shorts require 180s max and square or vertical video</div>}
+              {!isShortUpload && automaticallyShort && <div className="upload-saved"><span>✓</span> This video will be published as a Short because it is at most 180 seconds and square or vertical.</div>}
               <label className="upload-label">Description <b>*</b><span>{form.description.length} / 5000</span></label>
               <textarea className="upload-input upload-textarea" rows={7} value={form.description} maxLength={5000} placeholder="Enter video description" onChange={(e) => updateForm({ description: e.target.value })} />
               <label className="upload-label">Tags <span>{tagItems.length} / 10</span></label>
@@ -23285,7 +23265,7 @@ function CreatorProfileShortsTab({ shorts, navigate, search, canEdit = false }) 
     : [...filteredShorts].sort((a, b) => new Date(b.video?.published_at || b.video?.created_at || 0) - new Date(a.video?.published_at || a.video?.created_at || 0));
   const pagedShorts = visibleShorts.slice(0, visibleCount);
   if (search.query.trim()) return <ProfileChannelSearchResults search={search} contextLabel="Shorts" />;
-  return <section className="profile-shorts-tab"><div className="profile-video-toolbar shorts-toolbar"><label className="profile-video-search"><Icon name="search" size={17}/><input ref={search.inputRef} value={search.query} onChange={(e) => { search.setQuery(e.target.value); search.setActiveFilter('shorts'); }} placeholder="Search shorts..." />{search.query ? <button type="button" className="search-clear-button" onClick={() => search.setQuery('')} aria-label="Clear search"><Icon name="close" size={15}/></button> : null}</label><div className="profile-video-filters">{filters.map((filter) => <button key={filter} type="button" className={`chip ${activeFilter === filter ? 'active' : ''}`} onClick={() => setActiveFilter(filter)}>{filter}</button>)}</div><button className="sort-box profile-video-sort" type="button" onClick={() => setActiveFilter(activeFilter === 'Popular' ? 'Latest' : 'Popular')}>Sort by: {activeFilter === 'Popular' ? 'Popular' : 'Latest'} <span>⌄</span></button>{canEdit && <button type="button" className="btn primary compact" onClick={() => navigate('/upload/shorts')}><Icon name="upload" size={15}/> Upload Short</button>}</div>{visibleShorts.length ? <><div className="profile-shorts-grid">{pagedShorts.map((item) => <ProfileShortResultCard key={item.video.slug || item.video.id} item={item} navigate={navigate} />)}</div>{visibleShorts.length > pagedShorts.length && <div className="profile-load-more-wrap"><button type="button" className="profile-load-more" onClick={() => setVisibleCount((count) => Math.min(count + 12, visibleShorts.length))}>Load more shorts <span>⌄</span></button></div>}</> : <div className="state-card">{shorts.length ? 'No shorts match this filter.' : 'No shorts uploaded yet. Shorts appear here after a 60-second-or-less video finishes processing.'}{canEdit && <button type="button" className="btn primary compact" onClick={() => navigate('/upload/shorts')}><Icon name="upload" size={15}/> Upload Short</button>}</div>}</section>;
+  return <section className="profile-shorts-tab"><div className="profile-video-toolbar shorts-toolbar"><label className="profile-video-search"><Icon name="search" size={17}/><input ref={search.inputRef} value={search.query} onChange={(e) => { search.setQuery(e.target.value); search.setActiveFilter('shorts'); }} placeholder="Search shorts..." />{search.query ? <button type="button" className="search-clear-button" onClick={() => search.setQuery('')} aria-label="Clear search"><Icon name="close" size={15}/></button> : null}</label><div className="profile-video-filters">{filters.map((filter) => <button key={filter} type="button" className={`chip ${activeFilter === filter ? 'active' : ''}`} onClick={() => setActiveFilter(filter)}>{filter}</button>)}</div><button className="sort-box profile-video-sort" type="button" onClick={() => setActiveFilter(activeFilter === 'Popular' ? 'Latest' : 'Popular')}>Sort by: {activeFilter === 'Popular' ? 'Popular' : 'Latest'} <span>⌄</span></button>{canEdit && <button type="button" className="btn primary compact" onClick={() => navigate('/upload/shorts')}><Icon name="upload" size={15}/> Upload Short</button>}</div>{visibleShorts.length ? <><div className="profile-shorts-grid">{pagedShorts.map((item) => <ProfileShortResultCard key={item.video.slug || item.video.id} item={item} navigate={navigate} />)}</div>{visibleShorts.length > pagedShorts.length && <div className="profile-load-more-wrap"><button type="button" className="profile-load-more" onClick={() => setVisibleCount((count) => Math.min(count + 12, visibleShorts.length))}>Load more shorts <span>⌄</span></button></div>}</> : <div className="state-card">{shorts.length ? 'No shorts match this filter.' : 'No shorts uploaded yet. Shorts appear here after a square or vertical video of at most 180 seconds is imported.'}{canEdit && <button type="button" className="btn primary compact" onClick={() => navigate('/upload/shorts')}><Icon name="upload" size={15}/> Upload Short</button>}</div>}</section>;
 }
 
 function CommunitiesRailCard({ title, action = 'View all', onAction, children }) {

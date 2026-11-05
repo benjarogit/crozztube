@@ -21,6 +21,7 @@ use Illuminate\Http\Request;
 
 $app = Application::configure(basePath: dirname(__DIR__))
     ->withCommands([
+        \App\Console\Commands\ThumbnailStatus::class,
         BuildPlayHubUpdate::class,
         RecoverPlayHubUpdates::class,
         NativePushStatus::class,

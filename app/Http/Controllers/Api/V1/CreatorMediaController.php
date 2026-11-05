@@ -14,16 +14,9 @@ class CreatorMediaController extends Controller
     public function thumbnail(Request $request, Video $video, CreatorController $creator): JsonResponse
     {
         $this->owner($request, $video);
-        $request->validate(['thumbnail' => ['required', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120', 'dimensions:min_width=120,min_height=90,max_width=8192,max_height=8192']]);
-        $path = $request->file('thumbnail')->store('videos/thumbnails/'.now()->format('Y/m'), MediaStorage::diskName());
-        abort_unless($path, 500, 'The thumbnail could not be saved.');
-        $old = $video->thumbnail_path;
-        $video->update(['thumbnail_path' => $path]);
-        if ($old && ! preg_match('#^https?://#i', $old)) {
-            MediaStorage::delete($old);
-        }
-
-        return $creator->show($request, $video->fresh());
+        $result = app(\App\Http\Controllers\Api\ThumbnailController::class)->update($request, $video, app(\App\Support\Thumbnails\ThumbnailService::class))->getData(true);
+        $response = $creator->show($request, $video->fresh());
+        return response()->json([...$response->getData(true), 'thumbnail_saved' => $result['thumbnail_saved'], 'message' => $result['message']]);
     }
 
     public function caption(Request $request, Video $video, CreatorController $creator): JsonResponse

@@ -22,6 +22,7 @@ class CrozztubeImportSource extends Model
         'refresh_started_at',
         'refresh_attempts',
         'error_message',
+        'error_category',
         'title',
         'duration_seconds',
         'thumbnail_url',

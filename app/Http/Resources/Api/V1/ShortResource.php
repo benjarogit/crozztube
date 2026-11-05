@@ -16,6 +16,8 @@ class ShortResource extends JsonResource
             'id' => (int) $this->id,
             'slug' => (string) $this->slug,
             'caption' => (string) ($this->title ?: mb_substr((string) $this->description, 0, 160)),
+            'thumbnail_candidates' => $this->thumbnail_candidates,
+            'video_width' => $this->video_width, 'video_height' => $this->video_height,
             'poster_url' => $this->thumbnail_url,
             'duration_seconds' => $this->duration_seconds !== null ? (int) $this->duration_seconds : null,
             'creator' => $this->relationLoaded('channel') && $this->channel

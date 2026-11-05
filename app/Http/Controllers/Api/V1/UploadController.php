@@ -22,7 +22,7 @@ class UploadController extends Controller
         return response()->json([
             'publishing_access' => PublishingAccess::status($request->user()),
             'transport' => [
-                'chunked_upload' => true,
+                'chunked_upload' => ! config('thumbnails.streaming_only'),
                 'direct_to_cloud' => false,
                 'multipart_field' => 'chunk',
                 'minimum_chunk_bytes' => 1024 * 1024,

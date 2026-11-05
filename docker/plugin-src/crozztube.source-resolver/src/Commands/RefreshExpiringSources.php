@@ -38,6 +38,7 @@ final class RefreshExpiringSources extends Command
         // `stale` rows are picked up as well: their URL is already rejected.
         $rows = CrozztubeImportSource::query()
             ->whereIn('kind', ['hls', 'mp4', 'hls-synth'])
+            ->where(fn ($q) => $q->whereNull('error_category')->orWhereNotIn('error_category', ['permanent', 'unknown_exhausted']))
             ->where(function ($query) use ($threshold): void {
                 $query->where('state', 'stale')
                     ->orWhere(function ($query) use ($threshold): void {

@@ -9,7 +9,7 @@
 
 CrozzTube ist eine **Streaming-Only**-Instanz von PlayHub 0.9.13.
 
-- **Keine Nutzer-Uploads** (nur Admin), **keine API-Keys**.
+- **Keine Video-Datei-Uploads** (auch nicht Admin), keine Video-API-Keys. Bildhoster nutzen eigene lokal hinterlegte Keys.
 - **yt-dlp ist die zentrale Video-Engine**: Metadaten beim Import + Direkt-URL für die Wiedergabe.
 - **Direkt-URL ist der Primärpfad** (HLS bevorzugt, MP4-Fallback, eigener Player).
 - **Provider-Embed ist nur Mirror/Fallback** (provider-neutral umschaltbar).
@@ -46,12 +46,11 @@ docker compose -f docker/compose.yml --profile runtime up -d web worker cron
 
 ## 3. Aktueller Stand
 
-- **Plugin `crozztube.source-resolver` v0.6.0** installiert und aktiv.
+- **Plugin `crozztube.source-resolver` v0.7.0** installiert und aktiv.
 - **yt-dlp 2026.10.26**, ffprobe 5.1.9 im Web-Image; cron aktualisiert yt-dlp täglich.
-- **Harness: 96 Checks + 5 Playwright-Tests grün** (letzter vollständiger Lauf).
-- **4 Videos**, alle Quellen `fresh`:
-  - ID 1–3: echte YouTube-Imports (`kind=hls-synth`)
-  - ID 4: Direct-MP4-Testsample (`kind=mp4`, darf gelöscht werden)
+- **Harness: 102 Harness-Checks (inkl. Thumbnail-Suite mit 80 Einzelprüfungen) + 9 Playwright-Tests grün** (letzter vollständiger Lauf).
+- **3 Videos**, alle Quellen `fresh`: ID 1–3, echte YouTube-Imports (`kind=hls-synth`).
+- ID 4 (veraltetes Direct-MP4-Testsample) wurde entfernt; die Direct-Suite verwendet einen temporären MDN-Import.
 - Auto-Refresh hat nach längerer Stack-Downtime alle abgelaufenen Quellen wieder erneuert.
 - Arbeitsbaum sauber, `main...origin/main`.
 
@@ -104,13 +103,29 @@ Letzte Commits:
 
 ---
 
+
+### Thumbnails und Shorts (v0.7.0)
+- Core: `app/Support/Thumbnails/`, Konfiguration `config/thumbnails.php`. Kein Bild-/Video-Dateispeicher für diese Workflows; Thumbnail-Bytes maximal 5 MiB im RAM. PHP-Body-Spooling liegt auf `/dev/shm`.
+- Original-URL bleibt in `videos.original_thumbnail_url` (TEXT). Aktuelle Quelle und Version separat; `thumbnail_mirrors` enthält Kopien und den Original-Prüfstatus, `thumbnail_providers` globale Ausfälle. Inhaltshashes vermeiden erneute Uploads bei geänderten signierten URLs.
+- Reihenfolge: Directupload (reserviert, kein automatischer Adapter) → FastPic → Postimages → Original → UI-Platzhalter. `FASTPIC_API_KEY` und `POSTIMAGES_API_KEY` in `.env`; **aktuell beide nicht hinterlegt, daher keine Live-Uploads geprüft**. Postimages verwendet den vom Nutzer freigegebenen inoffiziellen ShareX-Weg mit eigenem Key und XML-Hotlink.
+- Beim Import: erste erfolgreiche Kopie innerhalb insgesamt 10 s; keine weiteren Kopien tagsüber. Kein Key/Fehler/Lock: Original bleibt aktiv. Eigene Bilder via Raw-Body `PUT /api/videos/{slug}/thumbnail`, keine Multipart-Datei; bei Totalausfall bisheriges Bild/Platzhalter, keine Bytes für spätere Jobs speichern. Native API verwendet denselben Service (Raw-Body POST).
+- Browser bekommt `thumbnail_candidates`; Fallback benötigt keine Backend-Anfrage. Private Video-Thumbnails sind absichtlich extern abrufbar.
+- `MaintainThumbnails` auf eigener Queue `thumbnails`, eigener Container `crozztube-thumbnail-worker` (1 Worker, 0.25 CPU, 256 MiB). Nur 02:00 bis **vor** 05:00 Europe/Berlin; auch Jobs prüfen das Fenster. Alle 5 Min maximal 20 Prüfungen, 5 Kopierversuche, 60 s. Eine globale Transfersperre schützt zusätzlich gleichzeitige Importe.
+- Gesunde Bilder nach 7 Tagen; Fehler nächstes Nachtfenster, dann Backoff bis 7 Tage. Drei verschiedene Netzwerk-/Serverfehler öffnen den Hoster-Circuit für 30 Min; danach eine Probe. 404 löst keine globale Sperre aus. Bestehende lokale Dateien erst nach verifizierter Kopie löschen.
+- Status/Rückstand: `docker exec crozztube-web php artisan crozztube:thumbnails:status`. Wartung respektiert die bestehende Pause-Datei. Lokale Upload-Budgets und Provider-Konfiguration siehe `Wiki/thumbnails.html`.
+- Shorts: <=180 s, positive Maße, Höhe >= Breite. Maße werden beim Import/Refresh gemessen und gespeichert; SQL-Feeds und API stimmen überein. HLS nutzt auch in Shorts Vidstack.
+- E6: Resolver-Metadaten ohne zweiten yt-dlp-Aufruf nachziehen; Nutzereingaben/geleerte Felder und deaktivierte Kapitel erhalten. Permanente und ausgeschöpfte unbekannte Fehler stoppen automatische Refreshs dauerhaft; Retry-Button kann explizit neu starten.
+- **Korrektur zur alten Übergabe:** Watch-/Shorts-React-Quellcode ist in `resources/js/main.jsx` vorhanden. Änderungen dort erfordern `npm run build`; Resolver-Mirror/Banner bleiben Plugin-Assets. Alte Vite-Chunks behalten (offene Tabs).
+
+---
+
 ## 5. Wichtige Befehle
 
 ```bash
 cd "/mnt/intern-1tb/Projekte - Vibe Coding/crozztube"
 
 # Komplettes Harness
-./tools/test/run.sh all                 # 96 Checks + 5 Browser-Tests
+./tools/test/run.sh all                 # 102 Harness-Checks + 9 Browser-Tests
 ./tools/test/run.sh api direct          # gezielt
 SLOW=0 ./tools/test/run.sh jobs         # ohne yt-dlp-Roundtrip
 UI_SKIP=1 ./tools/test/run.sh all       # ohne Browser
@@ -176,19 +191,10 @@ git add -A && git commit -m "..." && git push origin HEAD
 ### E1. Mehrstündiges Video
 Bisher max. ~9 Min. getestet. Master-Manifest, Playlist-Länge, Buffering und Resume mit einem mehrstündigen Video prüfen. **User muss eine URL liefern.**
 
-### E4. Shorts-Ansicht
-Serverseitig korrekt (`is_short`, Dauer). Darstellung im Browser gegenprüfen.
+### E4 / E6 / Aufräumen
+Erledigt: Shorts-Browsercheck inkl. Wiedergabe/Seek, einheitliche 180-s-Regel, Kapitelanzeige/Kapitelsprung, Metadaten-Backfill, Fehlerklassifikation, Admin-Provider-Labels aus gemeinsamer Definition. Testvideo ID 4 entfernt.
 
-### E6. yt-dlp-Ausbau (Roadmap)
-- **Metadaten-Backfill beim Refresh:** Der Resolver füllt bisher nur Dauer/Short. Titel/Beschreibung/Tags/Thumbnail/Kapitel nachziehen, wenn sie beim Import leer blieben.
-- **Kapitel:** yt-dlp-Kapitel werden importiert; Player-Darstellung gegenprüfen.
-- **Admin-UI:** Provider-Liste in den System-Settings ist noch hartkodiert („Direct video URL“). Kosmetisch; Import-Dialog liest Labels bereits aus der API.
-- **Fehlerklassifikation:** permanente vs. transiente yt-dlp-Fehler (Retry nur bei transienten).
-- **Auth/Geo:** Twitch/Instagram o. Ä. brauchen ggf. Cookies/Login.
-
-### Aufräumen
-- Testvideo **ID 4** (`/watch/crztest-direct-mp4-sample`) löschen, wenn nicht mehr benötigt.
-- `failed_jobs` enthält historische Einträge (nicht aktuell relevant, Queue läuft leer).
+Offen bleiben E1 (mehrstündige Nutzer-URL fehlt) und reale FastPic-/Postimages-Uploadtests nach lokaler Key-Konfiguration. Directupload bleibt bis zur geeigneten Schnittstelle reserviert. Auth-/Geo-Provider bleiben deaktiviert.
 
 ---
 

@@ -3300,3 +3300,6 @@ html.mobile-menu-sheet-open,body.mobile-menu-sheet-open{overflow:hidden!importan
 .shorts-detail-player-card{width:min(calc(56.25vh - 63.25px),calc(100vw - 24px),519.5px)!important;width:min(calc(56.25dvh - 63.25px),calc(100vw - 24px),519.5px)!important}
 .shorts-detail-player{width:100%!important}
 @media(max-width:860px){.shorts-detail-player-card{width:min(calc(56.25vh - 82.375px),calc(100vw - 24px),519.5px)!important;width:min(calc(56.25dvh - 82.375px),calc(100vw - 24px),519.5px)!important}}
+
+/* Neutral fallback drawn by the UI; no thumbnail file is stored or served. */
+.crz-thumbnail-empty { display: block; width: 100%; height: 100%; object-fit: cover; }

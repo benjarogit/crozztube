@@ -686,6 +686,7 @@ class VideoController extends Controller
 
     public function store(StoreVideoRequest $request): JsonResponse
     {
+        abort_if(config('thumbnails.streaming_only'), 403, 'Video file uploads are disabled. Import a video URL instead.');
         PublishingAccess::authorizeUpload($request->user());
         $user = $request->user()->loadMissing('channel');
         $playlist = $request->filled('playlist_id')
@@ -841,7 +842,7 @@ class VideoController extends Controller
         $title = trim((string) ($data['title'] ?? '')) ?: ($metadata['title'] ?: 'Imported video');
         $title = mb_substr($title, 0, 160);
         $description = trim((string) ($data['description'] ?? '')) ?: ($metadata['description'] ?: null);
-        $thumbnailPath = strlen((string) $metadata['thumbnail_url']) <= 255 ? $metadata['thumbnail_url'] : null;
+        $thumbnailPath = null; // External URLs use TEXT columns, never a local storage path.
         $providerTags = collect($metadata['tags'] ?? [])
             ->map(fn ($tag): string => trim((string) $tag))
             ->filter();
@@ -890,7 +891,13 @@ class VideoController extends Controller
                 'source_type' => 'import',
                 'import_provider' => $data['provider'],
                 'import_url' => $data['url'],
-                'is_short' => $metadata['is_short'] ?? null,
+                'original_thumbnail_url' => $metadata['thumbnail_url'],
+                'thumbnail_source_url' => $metadata['thumbnail_url'],
+                'thumbnail_source_version' => $metadata['thumbnail_url'] ? hash('sha256', $metadata['thumbnail_url']) : null,
+                'video_width' => $metadata['width'] ?? null,
+                'video_height' => $metadata['height'] ?? null,
+                'metadata_overrides' => array_values(array_filter(['title', 'description', 'tags', 'chapters'], fn ($key) => filled($data[$key] ?? null))),
+                'is_short' => $metadata['is_short'] ?? false,
                 ...$chapterData,
                 'published_at' => ($scheduledForFuture || $approvalStatus === 'pending') ? null : now(),
             ]);
@@ -908,6 +915,9 @@ class VideoController extends Controller
 
             return $video;
         });
+
+        try { app(\App\Support\Thumbnails\ThumbnailService::class)->initial($video); }
+        catch (\Throwable) { logger()->warning('Thumbnail setup deferred', ['video_id' => $video->id]); }
 
         // CrozzTube-Patch: Direkt-URL via yt-dlp Resolver beim Import auflösen
         // (Pflicht-Primärpfad). Das gilt auch fuer `direct`, weil der Provider
@@ -956,7 +966,7 @@ class VideoController extends Controller
         // site it supports) and fills gaps that provider APIs, oEmbed or HTML
         // scraping do not expose. Provider-specific data always wins.
         $ytdlp = [];
-        if ($provider === 'direct' || blank($api['title'] ?? null) || empty($api['duration_seconds'])) {
+        if ($provider === 'direct' || blank($api['title'] ?? null) || empty($api['duration_seconds']) || empty($api['width']) || empty($api['height'])) {
             $ytdlp = $this->fetchYtdlpMetadata($url);
         }
         if ($ytdlp !== []) {
@@ -992,6 +1002,8 @@ class VideoController extends Controller
             'author_name' => $api['author_name'] ?? $oembed['author_name'] ?? null,
             'duration_seconds' => $duration,
             'is_short' => $isShort,
+            'width' => $api['width'] ?? $oembed['width'] ?? null,
+            'height' => $api['height'] ?? $oembed['height'] ?? null,
             'chapters_source' => $chapters ? 'timestamps' : null,
             'chapters' => $chapters,
             'video_path' => 'external:'.$provider.($id ? ':'.$id : ''),
@@ -1012,32 +1024,7 @@ class VideoController extends Controller
 
     private function providerImportIsShort(string $provider, ?string $id, string $url, mixed $durationSeconds, array $api, array $oembed): ?bool
     {
-        if ($provider === 'youtube' && $id) {
-            $isShort = VideoImportSettings::youtubeVideoIsShort($id);
-            if ($isShort !== null) {
-                return $isShort;
-            }
-
-            return preg_match('#^/shorts/[^/]+#i', (string) parse_url($url, PHP_URL_PATH)) ? true : null;
-        }
-
-        $duration = (int) $durationSeconds;
-        if ($duration <= 0) {
-            return null;
-        }
-        if ($duration > 60) {
-            return false;
-        }
-
-        $width = (int) ($api['width'] ?? $oembed['width'] ?? 0);
-        $height = (int) ($api['height'] ?? $oembed['height'] ?? 0);
-        if ($width <= 0 || $height <= 0) {
-            return null;
-        }
-
-        $aspectRatio = $width / $height;
-
-        return $height > $width && $aspectRatio >= 0.45 && $aspectRatio <= 0.8;
+        return \App\Support\ShortVideos::qualifies($durationSeconds, $api['width'] ?? $oembed['width'] ?? null, $api['height'] ?? $oembed['height'] ?? null, 'import');
     }
 
     private function providerDescriptionAndTags(string $provider, ?string $description, array $tags): array
@@ -1728,15 +1715,12 @@ class VideoController extends Controller
             unset($data['sale_price']);
         }
         $oldThumbnailPath = null;
-        if ($request->hasFile('thumbnail')) {
-            $oldThumbnailPath = $video->thumbnail_path;
-            $thumbnailDirectory = 'videos/thumbnails/'.now()->format('Y/m');
-            if (MediaStorage::isLocal()) {
-                MediaStorage::ensureLocalDirectory($thumbnailDirectory);
-            }
-            $data['thumbnail_path'] = $request->file('thumbnail')->store($thumbnailDirectory, MediaStorage::diskName());
-            abort_unless($data['thumbnail_path'] && MediaStorage::exists($data['thumbnail_path']), 500, 'Cannot store uploaded thumbnail.');
+        abort_if($request->hasFile('thumbnail'), 422, 'Use the raw image thumbnail endpoint.');
+        $overrides = $video->metadata_overrides ?: [];
+        foreach (['title', 'description', 'tags', 'chapters', 'chapters_enabled'] as $key) {
+            if ($request->exists($key)) $overrides[] = $key;
         }
+        $data['metadata_overrides'] = array_values(array_unique($overrides));
         if (array_key_exists('tags', $data)) {
             $data['tags'] = collect(explode(',', (string) $data['tags']))
                 ->map(fn (string $tag): string => trim($tag))

@@ -32,8 +32,8 @@ class CreatorController extends Controller
             'categories' => DB::table('video_categories')->where('enabled', true)->orderBy('sort_order')->orderBy('name')->get(['id', 'name'])->all(),
             'languages' => DB::table('video_languages')->orderBy('sort_order')->orderBy('name')->get(['id', 'name', 'code'])->all(),
             'defaults' => ['visibility' => PlatformFeatureSettings::defaultVideoVisibility()],
-            'limits' => ['title' => 160, 'description' => 10000, 'tag_count' => 10, 'tag_length' => 100, 'thumbnail_bytes' => 5242880, 'caption_bytes' => 5242880, 'short_seconds' => 60],
-            'features' => ['drafts' => true, 'scheduling' => true, 'captions' => true, 'chapters' => PlatformFeatureSettings::videoChaptersEnabled(), 'comments_settings' => false, 'midroll_cues' => false, 'multiple_caption_tracks' => false, 'generated_thumbnail_choices' => false],
+            'limits' => ['title' => 160, 'description' => 10000, 'tag_count' => 10, 'tag_length' => 100, 'thumbnail_bytes' => 5242880, 'caption_bytes' => 5242880, 'short_seconds' => \App\Support\ShortVideos::MAX_SECONDS],
+            'features' => ['thumbnail_transport' => 'raw-image-body', 'drafts' => true, 'scheduling' => true, 'captions' => true, 'chapters' => PlatformFeatureSettings::videoChaptersEnabled(), 'comments_settings' => false, 'midroll_cues' => false, 'multiple_caption_tracks' => false, 'generated_thumbnail_choices' => false],
             'import_providers' => array_values(array_filter(array_keys(VideoImportSettings::providers()), fn ($provider) => VideoImportSettings::providerEnabled($provider))),
             'live_studio_url' => url('/go-live'),
         ])->header('Cache-Control', 'private, no-store');
@@ -175,6 +175,11 @@ class CreatorController extends Controller
                 $data['scheduled_at'] = $scheduled;
             }
             // Keep slugs stable so shared URLs and active viewer routes survive title edits.
+            $overrides = $locked->metadata_overrides ?: [];
+            foreach (['title', 'description', 'tags', 'chapters', 'chapters_enabled'] as $key) {
+                if ($request->exists($key)) $overrides[] = $key;
+            }
+            $data['metadata_overrides'] = array_values(array_unique($overrides));
             $locked->fill($data)->save();
 
             return $locked;

@@ -74,7 +74,7 @@ docker exec crozztube-web php artisan schedule:list | grep crozztube
 touch storage/framework/crozztube-maintenance.pause   # Wartung pausieren
 rm storage/framework/crozztube-maintenance.pause      # wieder aktiv</pre>
 
-<h2>5. yt-dlp Source-Resolver (Plugin) <span class="badge b-ok">FERTIG · v0.6.0</span></h2>
+<h2>5. yt-dlp Source-Resolver (Plugin) <span class="badge b-ok">FERTIG · v0.7.0</span></h2>
 <p><strong>Implementiert:</strong><br>
 <strong>A) Direkt-URL via yt-dlp = Pflicht.</strong> Beim Import (POST <code>/api/video-imports</code>) wird der Job <code>ResolveImportSource</code> dispatcht (auch für <code>direct</code>). yt-dlp (<code>-J</code>, keyless) liefert Metadaten + Direkt-URL. Auswahl: HLS-Manifest bevorzugt → sonst progressive MP4. Bei einer direkt verlinkten Datei meldet yt-dlp keine Codecs/Höhe — solche vollständigen Dateien (mp4/webm/m4v/mov) werden trotzdem als progressive Quelle übernommen, die Dauer wird per <code>ffprobe</code> nachgelesen; die MP4 bleibt beim Original-Host.<br>
 <strong>A2) yt-dlp als Metadaten-Engine (v0.6.0).</strong> Der Provider <code>direct</code> („Video URL (direct or yt-dlp)“) akzeptiert jede von yt-dlp verstandene URL. <code>App\Support\YtDlp</code> liest Titel, Beschreibung, Tags, Thumbnail, Dauer, Kapitel und Autor (10-min-Cache); Provider-APIs/HTML-Metadaten haben Vorrang, yt-dlp füllt Lücken. Dadurch funktionieren auch Seiten ohne eigenen PlayHub-Provider (TikTok, X, Reddit, SoundCloud …) als Streaming-Import. <code>GET /api/source-resolver/health</code> zeigt yt-dlp-/ffprobe-Version und Quellenzahlen.<br>
@@ -98,10 +98,10 @@ rm storage/framework/crozztube-maintenance.pause      # wieder aktiv</pre>
 
 <h2>6. Test-Harness <span class="badge b-ok">GRÜN</span></h2>
 <p>Vollständig lokal ausführbar, Details unter <a href="tests.html">Tests &amp; Harness</a>.</p>
-<pre>./tools/test/run.sh all        # 96 Checks + 5 Playwright-Tests
+<pre>./tools/test/run.sh all        # 102 Harness-Checks + 9 Playwright-Tests
 ./tools/test/run.sh list
 ./tools/test/run.sh refresh jobs</pre>
 <p>Das Harness pausiert den Scheduler während des Laufs und stellt manipulierte DB-Zeilen wieder her.</p>
 
 <footer>CrozzTube Wiki · Stand 4. Nov 2026 · <a href="index.html">zurück zur Startseite</a></footer>
-</div></body></html>
+</div><section><h2>Externe Video-Thumbnails und Shorts (v0.7.0)</h2><p>Video-Datei-Uploads sind separat gesperrt, URL-Import bleibt aktiv. Shorts: maximal 180 Sekunden, quadratisch oder hochkant. Bildkopien und Erreichbarkeitsprüfungen laufen begrenzt zwischen 02:00 und vor 05:00 Uhr Europe/Berlin. <a href="thumbnails.html">Konfiguration, Keys, Limits und Betriebsstatus</a>.</p></section></body></html>

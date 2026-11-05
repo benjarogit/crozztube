@@ -61,8 +61,7 @@ class YtDlp
             // Imports must not fail because yt-dlp is unavailable or does not
             // understand a URL; provider metadata and the mirror still work.
             logger()->debug('yt-dlp metadata unavailable', [
-                'url' => $url,
-                'error' => $exception->getMessage(),
+                'exception_type' => $exception::class,
             ]);
 
             return [];
@@ -121,7 +120,7 @@ class YtDlp
         if (! $process->isSuccessful()) {
             $tail = trim(implode("\n", array_slice(explode("\n", $process->getErrorOutput() ?: $process->getOutput()), -3)));
 
-            throw new RuntimeException('yt-dlp metadata failed: '.mb_substr($tail, 0, 500));
+            throw ResolverFailure::fromOutput($tail);
         }
 
         $data = json_decode($process->getOutput(), true);
@@ -153,10 +152,10 @@ class YtDlp
             ->values()
             ->all();
 
-        $thumbnail = self::text($data['thumbnail'] ?? null, 1000);
+        $thumbnail = self::text($data['thumbnail'] ?? null, 60000);
         if ($thumbnail === null && is_array($data['thumbnails'] ?? null)) {
             $last = collect($data['thumbnails'])->last();
-            $thumbnail = is_array($last) ? self::text($last['url'] ?? null, 1000) : null;
+            $thumbnail = is_array($last) ? self::text($last['url'] ?? null, 60000) : null;
         }
 
         $width = self::positiveInt($data['width'] ?? null);
@@ -166,8 +165,10 @@ class YtDlp
                 if (! is_array($format)) {
                     continue;
                 }
-                $width ??= self::positiveInt($format['width'] ?? null);
-                $height ??= self::positiveInt($format['height'] ?? null);
+                if (($width === null || $height === null) && ! empty($format['width']) && ! empty($format['height'])) {
+                    $width = self::positiveInt($format['width']);
+                    $height = self::positiveInt($format['height']);
+                }
             }
         }
 
@@ -176,7 +177,7 @@ class YtDlp
             'description' => $description,
             'tags' => $tags,
             'thumbnail_url' => $thumbnail,
-            'duration_seconds' => self::positiveInt($data['duration'] ?? null),
+            'duration_seconds' => isset($data['duration']) && is_numeric($data['duration']) ? self::positiveInt(ceil((float) $data['duration'])) : null,
             'chapters' => self::chapters($data['chapters'] ?? null),
             'author_name' => self::text(
                 $data['uploader'] ?? $data['channel'] ?? $data['creator'] ?? $data['artist'] ?? $data['uploader_id'] ?? null,

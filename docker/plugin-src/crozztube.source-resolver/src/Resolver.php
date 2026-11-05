@@ -135,12 +135,12 @@ class Resolver
         if (! $process->isSuccessful()) {
             $tail = trim(implode("\n", array_slice(explode("\n", $process->getErrorOutput() ?: $process->getOutput()), -3)));
 
-            throw new RuntimeException('yt-dlp failed: '.mb_substr($tail, 0, 500));
+            throw \App\Support\ResolverFailure::fromOutput($tail);
         }
 
         $data = json_decode($process->getOutput(), true);
         if (! is_array($data)) {
-            throw new RuntimeException('yt-dlp returned invalid JSON.');
+            throw new \App\Support\ResolverFailure('unknown', 'yt-dlp returned invalid JSON.');
         }
 
         $formats = array_values(array_filter(
@@ -244,7 +244,7 @@ class Resolver
             // (Video- + Audio-Segmente streamen direkt vom Original-CDN).
             [$kind, $mediaUrl] = ['hls-synth', ''];
         } else {
-            throw new RuntimeException('No direct playback source (no HLS manifest, no progressive MP4, no HLS video+audio pair).');
+            throw new \App\Support\ResolverFailure('permanent', 'No compatible direct playback source.');
         }
 
         $downloadUrl = $bestProgressive ? (string) $bestProgressive['url'] : null;
@@ -278,14 +278,19 @@ class Resolver
                 ->all();
         }
 
-        $duration = is_numeric($data['duration'] ?? null) ? (int) $data['duration'] : null;
+        $normalized = \App\Support\YtDlp::normalize($data);
+        $duration = is_numeric($data['duration'] ?? null) ? (int) ceil($data['duration']) : null;
         // Generic extractor does not report a duration for a directly linked
         // file; probe it so feed cards/watch metadata are not blank.
-        if ($duration === null && $isDirectFile && $bestProgressive !== null) {
-            $duration = $this->probeDuration((string) $bestProgressive['url']);
+        if (($duration === null || empty($normalized['width']) || empty($normalized['height'])) && $isDirectFile && $bestProgressive !== null) {
+            $probe = $this->probeMedia((string) $bestProgressive['url']);
+            $duration ??= $probe['duration_seconds'];
+            $normalized['width'] = $probe['width'];
+            $normalized['height'] = $probe['height'];
         }
 
         return [
+            'metadata' => [...$normalized, 'duration_seconds' => $duration],
             'media_url' => $mediaUrl,
             'kind' => $kind,
             'download_url' => $downloadUrl,
@@ -302,26 +307,17 @@ class Resolver
     /**
      * Liest die Dauer einer direkt verlinkten Datei (nur Metadaten, kein Download).
      */
-    private function probeDuration(string $url): ?int
+    private function probeMedia(string $url): array
     {
         $binary = $this->stringSetting('ffprobe_command', 'ffprobe');
-
-        $process = new Process(
-            [$binary, '-v', 'error', '-show_entries', 'format=duration', '-of', 'default=nw=1:nk=1', $url],
-            null,
-            null,
-            null,
-            30.0
-        );
+        $process = new Process([$binary, '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'format=duration:stream=width,height:stream_side_data=rotation', '-of', 'json', $url], null, null, null, 30.0);
         $process->run();
-
-        if (! $process->isSuccessful()) {
-            return null;
-        }
-
-        $seconds = (float) trim($process->getOutput());
-
-        return $seconds > 0 ? (int) round($seconds) : null;
+        $data = $process->isSuccessful() ? json_decode($process->getOutput(), true) : [];
+        $stream = $data['streams'][0] ?? [];
+        $width = $stream['width'] ?? null;
+        $height = $stream['height'] ?? null;
+        if (abs((int) ($stream['side_data_list'][0]['rotation'] ?? 0)) % 180 === 90) [$width, $height] = [$height, $width];
+        return ['duration_seconds' => ! empty($data['format']['duration']) ? (int) ceil($data['format']['duration']) : null, 'width' => $width, 'height' => $height];
     }
 
     /**
@@ -363,6 +359,7 @@ class Resolver
             'resolved_at' => now(),
             'refresh_started_at' => null,
             'error_message' => null,
+            'error_category' => null,
         ]);
 
         $this->backfillMetadata($row, $resolved);
@@ -370,38 +367,11 @@ class Resolver
         return $row;
     }
 
-    /**
-     * Der Importer hinterlaesst bei manchen Quellen keine Dauer/Short-Kennung.
-     * PlayHub klassifiziert Imports ueber das explizite Flag, deshalb muss es
-     * hier gesetzt werden - sonst landen normale Videos im Shorts-Feed.
-     *
-     * @param  array{duration_seconds:?int}  $resolved
-     */
+    /** Reuse metadata from the playback extraction; no second yt-dlp process. */
     private function backfillMetadata(CrozztubeImportSource $row, array $resolved): void
     {
-        $video = $row->video;
-        if (! $video) {
-            return;
-        }
-
-        $duration = (int) ($resolved['duration_seconds'] ?? 0);
-        $updates = [];
-
-        if ($duration > 0 && (int) $video->duration_seconds <= 0) {
-            $updates['duration_seconds'] = $duration;
-        }
-
-        $isShortUrl = (bool) preg_match('#/(shorts|reel|reels)/#i', (string) $video->import_url);
-        $known = $duration > 0 ? $duration : (int) $video->duration_seconds;
-
-        if ($isShortUrl && ! $video->is_short) {
-            $updates['is_short'] = true;
-        } elseif (! $isShortUrl && $video->is_short && $known > 60) {
-            $updates['is_short'] = false;
-        }
-
-        if ($updates !== []) {
-            $video->forceFill($updates)->save();
+        if ($row->video) {
+            \App\Support\ImportMetadataBackfill::apply($row->video, $resolved['metadata'] ?? []);
         }
     }
 

@@ -205,3 +205,10 @@ Schedule::call(function (): void {
 
 Schedule::call(fn () => app(LiveStreamController::class)->reconcileInactiveHosts())
     ->everyMinute()->name('reconcile-live-stream-publishers')->withoutOverlapping();
+
+// Thumbnail replication and health checks never execute outside this window.
+Schedule::call(function (): void {
+    if (\App\Support\Thumbnails\NightWindow::contains() && ! \App\Support\Thumbnails\NightWindow::paused()) {
+        \App\Jobs\MaintainThumbnails::dispatch();
+    }
+})->everyFiveMinutes()->name('thumbnail-night-maintenance')->withoutOverlapping()->onOneServer();
