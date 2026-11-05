@@ -17067,6 +17067,8 @@ function EditVideoPage({ slug, navigate, auth }) {
             visibility: form.visibility,
           }),
         };      const data = await api.request(`/videos/${encodeURIComponent(video.slug)}`, requestOptions);
+      // A title edit may have changed the slug before thumbnail hosting finishes.
+      setVideo(data.video || video);
       if (thumbnailFile) {
         const hosted = await api.request(`/videos/${encodeURIComponent(data.video?.slug || video.slug)}/thumbnail`, {method: 'PUT', headers: {'Content-Type': thumbnailFile.type || 'image/jpeg'}, body: thumbnailFile});
         data.video = hosted.video || data.video;

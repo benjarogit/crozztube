@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Konfiguration — CrozzTube Wiki</title>
+<title>Externe Thumbnails — CrozzTube Wiki</title>
 <style>
 :root{--bg:#0f1115;--surface:#171a21;--line:#2a2f3a;--ink:#e7eaf0;--muted:#9aa3b2;--gold:#d9a83f;--ok:#4cc38a;--warn:#e6b455;--bad:#e57d7d}
 *{box-sizing:border-box}a{color:var(--gold)}
@@ -66,5 +66,5 @@ touch storage/framework/crozztube-maintenance.pause
 <p>Shorts sind Videos mit bekannter positiver Dauer bis einschließlich 180 Sekunden und positiven Maßen, deren Höhe mindestens der Breite entspricht. Live-Replays bleiben ausgeschlossen. Import, gemessene Metadaten, SQL-Feeds und API verwenden dieselbe Regel. HLS-Shorts nutzen den adaptiven Player; Wiedergabe und Seek sind im Browser getestet.</p>
 <p>Der Refresh ergänzt fehlende Metadaten aus derselben yt-dlp-Extraktion, schützt bewusste Änderungen und deaktivierte Kapitel. Permanente Fehler werden nicht automatisch wiederholt; unbekannte Fehler höchstens zweimal innerhalb eines Jobs. Ein gespeicherter Fehlerstatus verhindert erneute Scheduler-Schleifen. Der sichtbare Retry-Button kann einen neuen Versuch ausdrücklich anfordern.</p>
 <h2>Verifikation und offene Eingaben</h2>
-<p><code>./tools/test/run.sh all</code>: 102 Harness-Ergebnisse, darunter die Thumbnail-Suite mit 80 PHP-Einzelprüfungen; dazu neun Playwright-Tests. Geprüft sind unter anderem Nachtgrenzen, manuelle Bilder, Provider-Ausfall, Deduplizierung, sichere Migration, Browser-Fallback ohne Backend-Anfrage, Short-Wiedergabe und Kapitel/Kapitelsprung. Live-Uploads zu FastPic/Postimages benötigen noch die eigenen lokal hinterlegten Keys. Der mehrstündige Video-Test bleibt bis zur Nutzer-URL offen.</p>
+<p><code>./tools/test/run.sh all</code>: 102 Harness-Ergebnisse, darunter die Thumbnail-Suite mit 83 PHP-Einzelprüfungen; dazu neun Playwright-Tests. Geprüft sind unter anderem Nachtgrenzen, manuelle Bilder, Provider-Ausfall, Deduplizierung, sichere Migration, Browser-Fallback ohne Backend-Anfrage, Short-Wiedergabe und Kapitel/Kapitelsprung. Live-Uploads zu FastPic/Postimages benötigen noch die eigenen lokal hinterlegten Keys. Der mehrstündige Video-Test bleibt bis zur Nutzer-URL offen.</p>
 </div></body></html>

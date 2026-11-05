@@ -14,7 +14,7 @@ Die neue Kurzreferenz steht in `AGENT-HANDOFF.md`, die vollständige Thumbnail-K
 - Shorts: <=180 s, quadratisch/hochkant; Maße gespeichert, Bestandsvideos kontrolliert per Resolver erneuert. Browser-Wiedergabe/Seek und Kapitelanzeige geprüft.
 - Backfill schützt bewusste Änderungen, nutzt vorhandene Resolver-Metadaten, keine zweite Extraktion. Permanente und ausgeschöpfte unbekannte Fehler werden nicht ständig vom Scheduler neu angestoßen. Expliziter Retry bleibt möglich.
 - Aktuell drei echte Videos, Quellen frisch. Veraltetes Direct-MP4-Testsample ID 4 entfernt. Langvideo-Test benötigt weiterhin eine Nutzer-URL.
-- Harness: 102 Ergebnisse ohne Fehler; Thumbnail-Suite mit 80 Einzelprüfungen; 9 Playwright-Tests. Vollständiger Befehl: `./tools/test/run.sh all`.
+- Harness: 102 Ergebnisse ohne Fehler; Thumbnail-Suite mit 83 Einzelprüfungen; 9 Playwright-Tests. Vollständiger Befehl: `./tools/test/run.sh all`.
 
 ## 1. Projekt & Umgebung
 

@@ -36,7 +36,7 @@ final class RefreshExpiringSources extends Command
         $threshold = now()->addMinutes($window)->format('Y-m-d H:i:s');
 
         // `stale` rows are picked up as well: their URL is already rejected.
-        $rows = CrozztubeImportSource::query()
+        $rows = CrozztubeImportSource::query()->whereHas('video')
             ->whereIn('kind', ['hls', 'mp4', 'hls-synth'])
             ->where(fn ($q) => $q->whereNull('error_category')->orWhereNotIn('error_category', ['permanent', 'unknown_exhausted']))
             ->where(function ($query) use ($threshold): void {

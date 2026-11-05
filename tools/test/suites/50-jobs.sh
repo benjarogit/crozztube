@@ -33,14 +33,31 @@ suite_jobs() {
     check_ge "probe stores last_check_status" "1" "$oks"
 
     # --------------------------------------------------------- probe detection
-    db "INSERT INTO crozztube_import_sources (video_id, media_url, kind, state, refresh_attempts, created_at, updated_at)
-        VALUES (999999901, 'https://example.invalid/does-not-exist.mp4', 'mp4', 'fresh', 0, NOW(), NOW());" >/dev/null
-    docker exec crozztube-web php artisan crozztube:sources:probe --dry-run --limit=200 --min-age=0 >/dev/null 2>&1
-    local broken_status
-    broken_status=$(db_scalar "SELECT COALESCE(last_check_status, 'null') FROM crozztube_import_sources WHERE video_id=999999901;")
-    check_ne "probe detects a dead URL" "ok" "$broken_status"
-    check_ne "probe detects a dead URL (not null)" "null" "$broken_status"
-    db "DELETE FROM crozztube_import_sources WHERE video_id=999999901;" >/dev/null
+    # A probe candidate must belong to an existing video; orphan rows are intentionally ignored.
+    local broken_id broken_slug broken_status
+    broken_id=$(docker exec crozztube-web php artisan tinker --execute='
+        $video = App\Models\Video::query()->firstOrFail()->replicate();
+        $video->unsetRelations();
+        $video->forceFill(["slug" => "crz-harness-dead-source-".Illuminate\Support\Str::lower(Illuminate\Support\Str::random(12)),
+            "title" => "Harness dead source", "visibility" => "private", "thumbnail_path" => null,
+            "original_thumbnail_url" => null, "thumbnail_source_url" => null, "thumbnail_source_version" => null]);
+        $video->save();
+        $video->channel()->increment("videos_count");
+        CrzSourceResolver\Models\CrozztubeImportSource::create(["video_id" => $video->id,
+            "media_url" => "https://example.invalid/does-not-exist.mp4", "kind" => "mp4", "state" => "fresh", "refresh_attempts" => 0]);
+        echo $video->id;
+    ' 2>/dev/null)
+    if [[ "$broken_id" =~ ^[0-9]+$ ]]; then
+        register_created_video "$broken_id"
+        docker exec crozztube-web php artisan crozztube:sources:probe --dry-run --limit=200 --min-age=0 >/dev/null 2>&1
+        broken_status=$(db_scalar "SELECT COALESCE(last_check_status, 'null') FROM crozztube_import_sources WHERE video_id=$broken_id;")
+        check_ne "probe detects a dead URL" "ok" "$broken_status"
+        check_ne "probe detects a dead URL (not null)" "null" "$broken_status"
+        broken_slug=$(db_scalar "SELECT slug FROM videos WHERE id=$broken_id;")
+        api DELETE "/api/videos/$broken_slug" >/dev/null
+    else
+        fail "could not create dead-source fixture"
+    fi
 
     # ------------------------------------------------------- expiring refresh
     local video_id

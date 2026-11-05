@@ -69,6 +69,7 @@ abstract class BaseSourceJob implements ShouldQueue
         }
 
         try {
+            if (! \App\Models\Video::whereKey($this->videoId)->exists()) return;
             $row = CrozztubeImportSource::query()->firstOrCreate(
                 ['video_id' => $this->videoId],
                 ['kind' => 'pending', 'state' => 'refreshing', 'media_url' => '']

@@ -39,6 +39,10 @@ final class PluginServiceProvider extends PlayHubPluginServiceProvider
             ]);
         }
 
+        \App\Models\Video::deleted(static function ($video): void {
+            \CrzSourceResolver\Models\CrozztubeImportSource::where('video_id', $video->id)->delete();
+        });
+
         $context = $this->plugin();
 
         Route::prefix('api/source-resolver')

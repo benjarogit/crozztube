@@ -179,6 +179,11 @@ try {
     $unverified = ThumbnailMirror::where('video_id', $legacy->id)->where('provider_id', 'fastpic')->first();
     $service->check($unverified, microtime(true) + 10);
     check($legacy->fresh()->thumbnail_path === null, 'verified night check completes local migration safely');
+    $legacy->forceFill(['thumbnail_path' => '../outside-thumbnail.jpg'])->save();
+    $service->check($unverified, microtime(true) + 10);
+    check($legacy->fresh()->thumbnail_path === '../outside-thumbnail.jpg' && $unverified->fresh()->last_result === 'cleanup-pending', 'failed local cleanup keeps its reference for a later retry');
+    $legacy->forceFill(['thumbnail_path' => null])->save();
+
 
     $provider = ThumbnailProvider::find('fastpic');
     $provider->forceFill(['failed_video_ids' => [], 'paused_until' => null, 'circuit_open' => false])->save();
@@ -248,6 +253,12 @@ try {
     check($source->fresh()->error_category === null, 'explicit retry clears automatic stop flag');
     (new \CrzSourceResolver\Jobs\RefreshSource($meta->id))->failed(ResolverFailure::fromOutput('unexpected extractor issue'));
     check($source->fresh()->error_category === 'unknown_exhausted', 'unknown exhausted failure persists across scheduler runs');
+    $deletedId = $meta->id;
+    $meta->delete();
+    check(! \CrzSourceResolver\Models\CrozztubeImportSource::where('video_id', $deletedId)->exists(), 'deleting video also removes its resolver row');
+    (new \CrzSourceResolver\Jobs\RefreshSource($deletedId, true))->handle();
+    check(! \CrzSourceResolver\Models\CrozztubeImportSource::where('video_id', $deletedId)->exists(), 'queued job cannot recreate a deleted video source');
+
 
 } finally {
     Carbon::setTestNow();

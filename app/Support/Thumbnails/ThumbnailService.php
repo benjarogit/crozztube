@@ -190,11 +190,7 @@ class ThumbnailService
             }
             $this->success($mirror, $result['url'], $local ? null : NightWindow::next());
             if (! $local) $mirror->forceFill(['last_checked_at' => null, 'last_result' => 'uploaded'])->save();
-            if ($local) {
-                $updated = Video::whereKey($video->id)->where('thumbnail_source_version', $mirror->source_version)
-                    ->where('thumbnail_path', $local)->update(['thumbnail_path' => null, 'thumbnail_source_url' => $result['url'], 'thumbnail_is_custom' => true]);
-                if ($updated) \App\Support\MediaStorage::delete([$local]);
-            }
+            if ($local) $this->retireLocal($video, $mirror);
             return true;
         } catch (Throwable $e) {
             $result = in_array($e->getMessage(), ['timeout', 'dns-failure', 'source-unavailable', 'size-limit', 'invalid-image'], true)
@@ -216,13 +212,7 @@ class ThumbnailService
         if ($mirror->provider_id !== 'original') $this->providerResult($mirror->provider, $mirror->video_id, ['url' => $result['ok'] ? $mirror->thumbnail_url : null, ...$result]);
         if ($result['ok']) {
             $this->success($mirror, $mirror->thumbnail_url);
-            $video = $mirror->video;
-            $local = $video?->thumbnail_path;
-            if ($local && ! RemoteImages::urlAllowed($local) && $video->thumbnail_source_version === $mirror->source_version && $mirror->provider_id !== 'original') {
-                $updated = Video::whereKey($video->id)->where('thumbnail_source_version', $mirror->source_version)->where('thumbnail_path', $local)
-                    ->update(['thumbnail_path' => null, 'thumbnail_source_url' => $mirror->thumbnail_url, 'thumbnail_is_custom' => true]);
-                if ($updated) \App\Support\MediaStorage::delete([$local]);
-            }
+            if ($mirror->provider_id !== 'original' && $mirror->video) $this->retireLocal($mirror->video, $mirror);
         }
         else {
             $this->failure($mirror, $result['result']);
@@ -247,6 +237,23 @@ class ThumbnailService
             $pause = in_array($result['result'], ['http:401', 'http:403', 'http:429'], true);
             $provider->forceFill(['failed_video_ids' => [], 'circuit_open' => false,
                 'paused_until' => $pause ? NightWindow::next() : null, 'last_result' => $result['result']])->save();
+        }
+    }
+
+    private function retireLocal(Video $video, ThumbnailMirror $mirror): void
+    {
+        try {
+            DB::transaction(function () use ($video, $mirror): void {
+                $current = Video::query()->withoutEagerLoads()->lockForUpdate()->find($video->id);
+                $local = $current?->thumbnail_path;
+                if (! $local || RemoteImages::urlAllowed($local) || $current->thumbnail_source_version !== $mirror->source_version) return;
+                // Keep the reference when deletion fails, so a later verified check can retry.
+                \App\Support\MediaStorage::delete([$local]);
+                $current->forceFill(['thumbnail_path' => null, 'thumbnail_source_url' => $mirror->thumbnail_url, 'thumbnail_is_custom' => true])->save();
+            });
+        } catch (Throwable) {
+            $mirror->forceFill(['next_check_at' => NightWindow::next(), 'last_result' => 'cleanup-pending'])->save();
+            logger()->warning('Verified thumbnail cleanup deferred', ['video_id' => $video->id]);
         }
     }
 

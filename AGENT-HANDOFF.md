@@ -39,7 +39,7 @@ Falls nach einem Host-Reboot `web`/`worker`/`cron` mit Exit 127 stehen (Bind-Mou
 
 ```bash
 cd "/mnt/intern-1tb/Projekte - Vibe Coding/crozztube"
-docker compose -f docker/compose.yml --profile runtime up -d web worker cron
+docker compose -f docker/compose.yml --profile runtime up -d web worker cron thumbnail-worker
 ```
 
 ---
@@ -48,7 +48,7 @@ docker compose -f docker/compose.yml --profile runtime up -d web worker cron
 
 - **Plugin `crozztube.source-resolver` v0.7.0** installiert und aktiv.
 - **yt-dlp 2026.10.26**, ffprobe 5.1.9 im Web-Image; cron aktualisiert yt-dlp täglich.
-- **Harness: 102 Harness-Checks (inkl. Thumbnail-Suite mit 80 Einzelprüfungen) + 9 Playwright-Tests grün** (letzter vollständiger Lauf).
+- **Harness: 102 Harness-Checks (inkl. Thumbnail-Suite mit 83 Einzelprüfungen) + 9 Playwright-Tests grün** (letzter vollständiger Lauf).
 - **3 Videos**, alle Quellen `fresh`: ID 1–3, echte YouTube-Imports (`kind=hls-synth`).
 - ID 4 (veraltetes Direct-MP4-Testsample) wurde entfernt; die Direct-Suite verwendet einen temporären MDN-Import.
 - Auto-Refresh hat nach längerer Stack-Downtime alle abgelaufenen Quellen wieder erneuert.
