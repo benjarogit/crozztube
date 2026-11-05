@@ -9,5 +9,7 @@ Use the configured product name, logo, font, accent palette and light/dark token
 - Settings use a labeled compact section selector below 900px content width. Management lists turn into cards below 1000px content width. Comparison tables may scroll locally while identity/actions stay reachable.
 - Modals and drawers have explicit focus, Escape, focus return, background isolation and viewport-bounded scrolling. Touch actions are at least 44px; reduced motion keeps clear state feedback.
 - Preserve mounted forms, media elements and their state through responsive changes. Resize must not reload playback or discard inputs.
+- The sidebar uses the explicit compact SiteFooter variant: retain logo, description, configured links, language and both copyright texts in wrapping single-column content. Never put the full-page footer's 260px grid track inside the sidebar. Visible sidebar contents belong in overflow checks.
+- Image selection shows a readable local preview and Waiting/Uploading/Ready/Error state with Retry/Remove actions. Disable publishing until every selected file is ready; never silently discard failed images. All attachment surfaces share ordered browser fallback and a neutral placeholder.
 
 Impeccable 4.8.0 is vendored under `.agents/skills/impeccable`, from `pbakaus/impeccable` commit `c8891a9ae865d6ee311836ae5199bfce0fe115b1`. Use audit/adapt/harden/polish playbooks against rendered evidence. Local engine caches and screenshot artifacts are not project source.

@@ -7,6 +7,8 @@ use App\Models\ThumbnailProvider;
 use App\Support\Thumbnails\NightWindow;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class ThumbnailStatus extends Command
 {
@@ -28,6 +30,14 @@ class ThumbnailStatus extends Command
             ]),
             'states' => ThumbnailMirror::query()->whereHas('video', fn ($q) => $q->whereColumn('videos.thumbnail_source_version', 'thumbnail_mirrors.source_version'))
                 ->selectRaw('status, COUNT(*) AS total')->groupBy('status')->pluck('total', 'status'),
+            'image_upload_states' => Schema::hasTable('image_uploads')
+                ? DB::table('image_uploads')->selectRaw('status, COUNT(*) AS total')->groupBy('status')->pluck('total', 'status') : [],
+            'attachment_mirror_states' => Schema::hasTable('image_upload_mirrors')
+                ? DB::table('image_upload_mirrors')->join('image_uploads', 'image_uploads.id', '=', 'image_upload_mirrors.image_upload_id')
+                    ->where('image_uploads.status', 'attached')->selectRaw('image_upload_mirrors.status, COUNT(*) AS total')
+                    ->groupBy('image_upload_mirrors.status')->pluck('total', 'image_upload_mirrors.status') : [],
+            'shared_budget' => ['checks' => config('thumbnails.check_limit'), 'upload_attempts' => config('thumbnails.upload_limit'),
+                'seconds' => config('thumbnails.run_budget'), 'scope' => 'thumbnails-and-attachments'],
             'last_run' => Cache::get('thumbnails:last-run'),
         ], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
         return self::SUCCESS;

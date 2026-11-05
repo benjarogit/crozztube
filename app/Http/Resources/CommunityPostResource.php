@@ -5,11 +5,25 @@ namespace App\Http\Resources;
 use App\Models\CommunityPost;
 use App\Support\CommunityPhotoSales;
 use App\Support\MediaStorage;
+use App\Support\Images\ImageUploads;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class CommunityPostResource extends JsonResource
 {
+    public static function collection($resource): AnonymousResourceCollection
+    {
+        if (is_iterable($resource)) {
+            $attachments = [];
+            foreach ($resource as $post) {
+                if ($post instanceof CommunityPost) array_push($attachments, ...($post->attachments ?: []));
+            }
+            ImageUploads::prefetch($attachments);
+        }
+        return parent::collection($resource);
+    }
+
     public function toArray(Request $request): array
     {
         $user = $request->user();
@@ -18,7 +32,18 @@ class CommunityPostResource extends JsonResource
         $canEdit = (bool) ($this->can_edit ?? $this->can_manage ?? $isAuthor);
         $canDelete = (bool) ($this->can_delete ?? ($canEdit || $isCommunityOwner || $this->canModeratePosts($user)));
         $sale = CommunityPhotoSales::payload($this->resource, $request);
+        if ($sale['has_access']) ImageUploads::prefetch($this->attachments ?: []);
         $attachments = collect($this->attachments ?: [])->map(function (array $attachment, int $index) use ($sale): array {
+            if (($attachment['type'] ?? null) === 'image' && ! $sale['has_access']) {
+                // Never resolve or expose external URLs/candidates before purchase.
+                return array_merge(array_intersect_key($attachment, array_flip(['type', 'name', 'mime', 'size', 'width', 'height'])), [
+                    'url' => null, 'image_candidates' => [], 'locked' => true,
+                ]);
+            }
+            if (! empty($attachment['image_id'])) {
+                $payload = ImageUploads::payload($attachment);
+                return $payload ? array_merge($payload, ['locked' => false]) : [];
+            }
             if (($attachment['type'] ?? null) === 'image' && filled($attachment['path'] ?? null)) {
                 unset($attachment['path']);
                 $attachment['url'] = $sale['is_paid']
@@ -30,7 +55,7 @@ class CommunityPostResource extends JsonResource
             }
 
             return $attachment;
-        })->values()->all();
+        })->filter()->values()->all();
 
         return [
             'id' => $this->id,

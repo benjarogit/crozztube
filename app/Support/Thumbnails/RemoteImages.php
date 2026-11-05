@@ -40,8 +40,10 @@ class RemoteImages
         if ($ips === []) {
             $remaining = min(2.0, ($deadline ?? microtime(true) + 2.0) - microtime(true));
             if ($remaining <= 0.05) throw new RuntimeException('timeout');
-            $dns = new \Symfony\Component\Process\Process([PHP_BINARY, '-d', 'memory_limit=16M', '-r',
-                '$records = @dns_get_record($argv[1], DNS_A | DNS_AAAA); echo json_encode($records ?: []);', $host], null, null, null, $remaining);
+            // PHP_BINARY is empty under Apache's module SAPI. DNS workers must
+            // run the installed CLI, rather than depend on the web executable.
+            $dns = new \Symfony\Component\Process\Process([PHP_BINDIR.'/php', '-d', 'memory_limit=16M', '-r',
+                '$records = @dns_get_record($argv[1], DNS_A | DNS_AAAA); echo json_encode($records ?: []);', '--', $host], null, null, null, $remaining);
             try { $dns->run(); } catch (\Throwable) { throw new RuntimeException('dns-failure'); }
             foreach (json_decode($dns->getOutput(), true) ?: [] as $record) {
                 if (isset($record['ip']) || isset($record['ipv6'])) {
@@ -138,9 +140,22 @@ class RemoteImages
         return self::inspect($response['body']);
     }
 
-    public static function inspect(string $bytes): array
+    /** Attachment-specific bound, without changing the legacy thumbnail transport contract. */
+    public function imageAtMost(string $url, float $deadline, int $maxBytes): array
     {
-        if ($bytes === '' || strlen($bytes) > (int) config('thumbnails.max_bytes', 5242880)) {
+        $response = $this->request($url, 'GET', $deadline, $maxBytes);
+        if ($response['code'] !== 200 || $response['error'] !== '') {
+            throw new RuntimeException($response['error'] ?: 'http:'.$response['code']);
+        }
+        $image = self::inspect($response['body'], $maxBytes);
+        $declared = $response['type'] === 'image/jpg' ? 'image/jpeg' : $response['type'];
+        if ($declared !== $image['type']) throw new RuntimeException('invalid-image');
+        return $image;
+    }
+
+    public static function inspect(string $bytes, ?int $maxBytes = null): array
+    {
+        if ($bytes === '' || strlen($bytes) > ($maxBytes ?? (int) config('thumbnails.max_bytes', 5242880))) {
             throw new RuntimeException('size-limit');
         }
         $info = @getimagesizefromstring($bytes);

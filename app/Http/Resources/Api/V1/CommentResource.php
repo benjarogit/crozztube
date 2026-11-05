@@ -3,19 +3,35 @@
 namespace App\Http\Resources\Api\V1;
 
 use App\Support\KlipyStickers;
+use App\Support\Images\ImageUploads;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\URL;
 
 class CommentResource extends JsonResource
 {
+    public static function collection($resource): AnonymousResourceCollection
+    {
+        if (is_iterable($resource)) \App\Http\Resources\CommentResource::prefetchAttachments($resource);
+        return parent::collection($resource);
+    }
+
     public function toArray(Request $request): array
     {
+        \App\Http\Resources\CommentResource::prefetchAttachments([$this->resource]);
         return [
             'id' => (int) $this->id,
             'parent_id' => $this->parent_id ? (int) $this->parent_id : null,
             'body' => (string) ($this->body ?? ''),
             'attachments' => collect($this->attachments ?: [])->map(function ($attachment, int $index): array {
+                if (is_array($attachment) && ! empty($attachment['image_id'])) {
+                    $payload = ImageUploads::payload($attachment);
+                    return $payload ? array_merge($payload, [
+                        'mime_type' => $payload['mime'] ?? null,
+                        'size_bytes' => $payload['size'] ?? null,
+                    ]) : [];
+                }
                 if (! is_array($attachment) || ($attachment['type'] ?? null) !== 'image' || empty($attachment['path'])) {
                     return [];
                 }

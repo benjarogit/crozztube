@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Support\Api\V1\PaginationPayload;
 use App\Support\MediaStorage;
+use App\Support\Images\ImageUploads;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -104,6 +105,7 @@ class MessageController extends Controller
             ->orderByDesc('created_at')
             ->orderByDesc('id')
             ->paginate(min(max((int) $request->integer('per_page', 30), 1), 50));
+        ImageUploads::prefetch($messages->getCollection()->flatMap(fn ($message) => json_decode((string) ($message->attachments ?? '[]'), true) ?: [])->all());
 
         return PaginationPayload::lengthAware(
             $messages,
@@ -119,6 +121,7 @@ class MessageController extends Controller
         $recipient = User::query()->with('channel')->findOrFail($data['recipient_id']);
         [$allowed, $reason] = $this->messagePermission($recipient, $request->user());
         abort_unless($allowed, 403, $reason);
+        app(ImageUploads::class)->validateIds($request->user(), 'private_message', $recipient->id, $data['image_ids'] ?? []);
 
         [$first, $second] = collect([(int) $request->user()->id, (int) $recipient->id])->sort()->values()->all();
         $message = DB::transaction(function () use ($first, $second, $data, $request): object {
@@ -132,7 +135,7 @@ class MessageController extends Controller
             $conversation = DB::table('private_conversations')
                 ->where('user_one_id', $first)->where('user_two_id', $second)->first();
 
-            return $this->insertMessage($conversation, $request->user(), $data, $request);
+            return $this->insertMessage($conversation, $request->user(), $data);
         });
         $conversation = DB::table('private_conversations')->find($message->conversation_id);
 
@@ -151,7 +154,8 @@ class MessageController extends Controller
         [$allowed, $reason] = $this->messagePermission($recipient, $request->user());
         abort_unless($allowed, 403, $reason);
         $data = $this->validatedMessage($request);
-        $message = DB::transaction(fn () => $this->insertMessage($row, $request->user(), $data, $request));
+        app(ImageUploads::class)->validateIds($request->user(), 'private_message', $recipientId, $data['image_ids'] ?? []);
+        $message = DB::transaction(fn () => $this->insertMessage($row, $request->user(), $data));
         $row = DB::table('private_conversations')->find($conversation);
 
         return response()->json([
@@ -190,41 +194,35 @@ class MessageController extends Controller
         $data = $request->validate([
             'recipient_id' => [$newConversation ? 'required' : 'prohibited', 'integer', 'exists:users,id'],
             'body' => ['nullable', 'string', 'max:5000'],
-            'images' => ['nullable', 'array', 'max:4'],
-            'images.*' => ['image', 'mimes:jpg,jpeg,png,webp,gif', 'max:5120'],
-        ]);
+            'images' => ['prohibited'],
+            'image_ids' => ['nullable', 'array', 'max:4'],
+            'image_ids.*' => ['required', 'uuid', 'distinct'],
+        ], ['images.prohibited' => 'Upload images first and submit image_ids. Multipart image attachments are no longer accepted.']);
         $data['body'] = trim((string) ($data['body'] ?? ''));
-        abort_if($data['body'] === '' && ! $request->hasFile('images'), 422, 'Message cannot be empty.');
+        abort_if($data['body'] === '' && empty($data['image_ids']), 422, 'Message cannot be empty.');
 
         return $data;
     }
 
-    private function insertMessage(object $conversation, User $sender, array $data, Request $request): object
+    private function insertMessage(object $conversation, User $sender, array $data): object
     {
         $other = (int) $conversation->user_one_id === (int) $sender->id ? (int) $conversation->user_two_id : (int) $conversation->user_one_id;
         \App\Support\UserBlocks::lockPair((int) $sender->id, $other);
         \App\Support\UserBlocks::assertInteraction($sender, $other);
-        $attachments = collect($request->file('images', []))
-            ->map(function ($image): array {
-                $directory = 'messages/'.now()->format('Y/m');
-                if (MediaStorage::isLocal()) {
-                    MediaStorage::ensureLocalDirectory($directory);
-                }
-                $path = $image->store($directory, MediaStorage::diskName());
-
-                return [
-                    'type' => 'image', 'path' => $path, 'name' => $image->getClientOriginalName(),
-                    'mime' => $image->getMimeType(), 'size' => $image->getSize(),
-                ];
-            })->all();
         $id = DB::table('private_messages')->insertGetId([
             'conversation_id' => $conversation->id,
             'sender_id' => $sender->id,
             'body' => $data['body'],
-            'attachments' => $attachments ? json_encode($attachments) : null,
+            'attachments' => null,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+        $imageIds = $data['image_ids'] ?? [];
+        if ($imageIds) {
+            $attachments = app(ImageUploads::class)->bind($sender, 'private_message', $other, $imageIds, 'private_messages', $id);
+            abort_unless(count($attachments) === count($imageIds), 422, 'An image is no longer ready to publish.');
+            DB::table('private_messages')->where('id', $id)->update(['attachments' => json_encode($attachments)]);
+        }
         DB::table('private_conversations')->where('id', $conversation->id)->update([
             'last_message_at' => now(), 'updated_at' => now(),
         ]);
@@ -276,8 +274,17 @@ class MessageController extends Controller
     private function messagePayload(object $message, User $viewer): array
     {
         $sender = User::query()->with('channel')->find($message->sender_id);
-        $attachments = collect(json_decode((string) ($message->attachments ?? '[]'), true) ?: [])
+        $references = json_decode((string) ($message->attachments ?? '[]'), true) ?: [];
+        ImageUploads::prefetch($references);
+        $attachments = collect($references)
             ->map(function ($attachment, int $index) use ($message): array {
+                if (is_array($attachment) && ! empty($attachment['image_id'])) {
+                    $payload = ImageUploads::payload($attachment);
+                    return $payload ? array_merge($payload, [
+                        'mime_type' => $payload['mime'] ?? null,
+                        'size_bytes' => $payload['size'] ?? null,
+                    ]) : [];
+                }
                 if (! is_array($attachment) || ($attachment['type'] ?? null) !== 'image' || empty($attachment['path'])) {
                     return [];
                 }

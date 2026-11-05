@@ -223,14 +223,18 @@ class ThumbnailService
         }
     }
 
-    public function providerResult(ThumbnailProvider $provider, int $videoId, array $result): void
+    public function providerResult(ThumbnailProvider $provider, int|string $videoId, array $result): void
     {
         if (! empty($result['url'])) {
             $provider->forceFill(['failed_video_ids' => [], 'paused_until' => null, 'circuit_open' => false, 'last_result' => 'ok'])->save();
             return;
         }
         if ($result['server_failure'] ?? false) {
-            $ids = array_slice(array_values(array_unique([...($provider->failed_video_ids ?: []), $videoId])), -3);
+            // Keep the existing JSON column compatible while distinguishing
+            // video IDs from UUID-based message/community/comment images.
+            $identity = is_numeric($videoId) ? 'video:'.$videoId : $videoId;
+            $previous = array_map(fn ($id) => is_numeric($id) ? 'video:'.$id : $id, $provider->failed_video_ids ?: []);
+            $ids = array_slice(array_values(array_unique([...$previous, $identity])), -3);
             $open = $provider->circuit_open || count($ids) >= 3;
             $provider->forceFill(['failed_video_ids' => $ids, 'circuit_open' => $open,
                 'paused_until' => $open ? now()->addMinutes(30) : null, 'last_result' => $result['result']])->save();

@@ -1,0 +1,47 @@
+/* This compact variant belongs to the navigation, not the full-page footer. */
+.sidebar .site-footer.site-footer-sidebar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 16px;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  margin: 16px 0 0;
+  padding: 16px 0 8px;
+  border-top: 1px solid var(--line);
+  background: transparent;
+}
+.site-footer-sidebar .sidebar-footer-links,
+.site-footer-sidebar .sidebar-footer-group {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 4px;
+  min-width: 0;
+}
+.site-footer-sidebar .sidebar-footer-links { gap: 16px; }
+.site-footer-sidebar .sidebar-footer-group h2 { margin: 0 8px 4px; font-size: 12px; font-weight: 700; color: var(--text); }
+.site-footer-sidebar .sidebar-footer-group > button {
+  min-width: 0;
+  min-height: 44px;
+  width: 100%;
+  padding: 8px;
+  border-radius: 8px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  text-align: start;
+}
+.site-footer-sidebar .sidebar-footer-group > button:hover { background: var(--panel-2); color: var(--text); }
+.site-footer-sidebar .sidebar-footer-group > button:focus-visible { outline: 2px solid var(--primary); outline-offset: -2px; }
+.site-footer-sidebar .sidebar-footer-language { min-width: 0; max-width: 100%; }
+.site-footer-sidebar .sidebar-footer-language .language-switcher-trigger { width: 100%; min-width: 0; min-height: 44px; white-space: normal; }
+.site-footer-sidebar .sidebar-footer-copyright { margin: 0 8px; min-width: 0; max-width: 100%; color: var(--muted); font-size: 11px; line-height: 1.6; white-space: normal; overflow-wrap: anywhere; }
+.site-footer-sidebar .sidebar-footer-brand { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; min-width: 0; max-width: 100%; }
+.site-footer-sidebar .sidebar-footer-brand .logo-wrap { width: 100%; min-width: 0; max-width: 100%; height: auto; min-height: var(--website-logo-size, 40px); }
+.site-footer-sidebar .sidebar-footer-brand .logo-mark { flex: 0 0 var(--website-logo-size, 40px); }
+.site-footer-sidebar .sidebar-footer-brand .logo-text { flex: 1; min-width: 0; max-width: 100%; height: auto; white-space: normal; overflow-wrap: anywhere; }
+.site-footer-sidebar .sidebar-footer-brand > p,
+.site-footer-sidebar .sidebar-footer-built { margin: 0 8px; min-width: 0; max-width: 100%; color: var(--muted); font-size: 12px; line-height: 1.6; white-space: normal; overflow-wrap: anywhere; }
+.site-footer-sidebar .sidebar-footer-language { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; color: var(--muted); font-size: 12px; }

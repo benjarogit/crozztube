@@ -21,17 +21,23 @@ class StoreCommentRequest extends FormRequest
                     $fail('Choose a valid KLIPY sticker.');
                 }
             }],
-            'images' => ['nullable', 'array', 'max:4'],
-            'images.*' => ['image', 'mimes:jpg,jpeg,png,webp,gif', 'max:5120'],
+            'images' => ['prohibited'],
+            'image_ids' => ['nullable', 'array', 'max:4'],
+            'image_ids.*' => ['required', 'uuid', 'distinct'],
         ];
     }
 
     public function withValidator($validator): void
     {
         $validator->after(function ($validator): void {
-            if (trim((string) $this->input('body', '')) === '' && ! $this->hasFile('images') && ! $this->filled('sticker_id')) {
+            if (trim((string) $this->input('body', '')) === '' && ! $this->filled('image_ids') && ! $this->filled('sticker_id')) {
                 $validator->errors()->add('body', 'Add a comment, sticker, or at least one image.');
             }
         });
+    }
+
+    public function messages(): array
+    {
+        return ['images.prohibited' => 'Upload images first and submit image_ids. Multipart image attachments are no longer accepted.'];
     }
 }

@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Models\UserNotification;
 use App\Models\Video;
 use App\Support\MediaStorage;
+use App\Support\Images\ImageUploads;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -27,7 +28,7 @@ class AccountDeletionService
             $lockedUser->loadMissing(['channel', 'videos', 'liveStreams']);
 
             $videoIds = $lockedUser->videos->pluck('id');
-            $communityPosts = CommunityPost::query()
+            $communityPosts = CommunityPost::withoutGlobalScopes()
                 ->where('user_id', $lockedUser->id)
                 ->get(['id', 'attachments']);
             $communityPostIds = $communityPosts->pluck('id');
@@ -42,11 +43,13 @@ class AccountDeletionService
                 $paths->push($stream->thumbnail_path, $recording['local_path'] ?? null, $recording['media_path'] ?? null);
             }
             foreach ($communityPosts as $post) {
+                app(ImageUploads::class)->detach($post->attachments ?: []);
                 $paths->push(...collect($post->attachments ?: [])->pluck('path')->all());
             }
 
             $comments = $this->commentsRemovedWith($lockedUser, $videoIds, $communityPostIds);
             foreach ($comments as $comment) {
+                app(ImageUploads::class)->detach($comment->attachments ?: []);
                 $paths->push(...collect($comment->attachments ?: [])->pluck('path')->all());
             }
 
@@ -72,7 +75,7 @@ class AccountDeletionService
             $this->deleteLikesFor(CommunityPost::class, $communityPostIds);
             $this->deleteLikesFor(Comment::class, $comments->pluck('id'));
             if ($comments->isNotEmpty()) {
-                Comment::query()->whereKey($comments->pluck('id'))->delete();
+                Comment::withoutGlobalScopes()->whereKey($comments->pluck('id'))->delete();
             }
 
             // Notifications can retain actor-authored excerpts after actor_id is nulled by its FK.
@@ -102,7 +105,7 @@ class AccountDeletionService
 
     private function commentsRemovedWith(User $user, Collection $videoIds, Collection $communityPostIds): Collection
     {
-        $comments = Comment::query()
+        $comments = Comment::withoutGlobalScopes()
             ->where(function ($query) use ($user, $videoIds, $communityPostIds): void {
                 $query->where('user_id', $user->id)
                     ->when($videoIds->isNotEmpty(), fn ($inner) => $inner->orWhereIn('video_id', $videoIds))
@@ -116,7 +119,7 @@ class AccountDeletionService
         $knownIds = $comments->pluck('id')->flip();
         $frontier = $comments->pluck('id');
         while ($frontier->isNotEmpty()) {
-            $children = Comment::query()
+            $children = Comment::withoutGlobalScopes()
                 ->whereIn('parent_id', $frontier)
                 ->get(['id', 'user_id', 'video_id', 'commentable_type', 'commentable_id', 'parent_id', 'attachments'])
                 ->reject(fn (Comment $comment): bool => $knownIds->has($comment->id));
@@ -152,6 +155,7 @@ class AccountDeletionService
                     $attachments = is_string($message->attachments)
                         ? json_decode($message->attachments, true)
                         : $message->attachments;
+                    app(ImageUploads::class)->detach(is_array($attachments) ? $attachments : []);
                     $paths->push(...collect(is_array($attachments) ? $attachments : [])->pluck('path')->all());
                 }
             });

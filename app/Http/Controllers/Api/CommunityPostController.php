@@ -16,6 +16,7 @@ use App\Models\User;
 use App\Models\UserNotification;
 use App\Models\Video;
 use App\Support\CommunityPhotoSales;
+use App\Support\Images\ImageUploads;
 use App\Support\MediaStorage;
 use App\Support\PlatformFeatureSettings;
 use Illuminate\Http\JsonResponse;
@@ -150,23 +151,24 @@ class CommunityPostController extends Controller
             'event_timezone' => ['nullable', 'timezone'],
             'event_location' => ['nullable', 'string', 'max:160'],
             'event_url' => ['nullable', 'url', 'max:2048'],
-            'images' => ['nullable', 'array', 'max:4'],
-            'images.*' => ['image', 'mimes:jpg,jpeg,png,webp,gif', 'max:8192'],
+            'images' => ['prohibited'],
+            'image_ids' => ['nullable', 'array', 'max:4'],
+            'image_ids.*' => ['required', 'uuid', 'distinct'],
             'sale_enabled' => ['nullable', 'boolean'],
             'sale_price' => ['nullable', 'numeric', 'min:0.01', 'max:1000000'],
-        ]);
+        ], ['images.prohibited' => 'Upload images first and submit image_ids. Multipart image attachments are no longer accepted.']);
 
         $body = PlatformFeatureSettings::filterProfanity(trim((string) ($data['body'] ?? '')));
         $pollOptions = collect($data['poll_options'] ?? [])->map(fn ($option) => trim((string) $option))->filter()->values();
         $video = ! empty($data['video_id'])
             ? Video::query()->where('channel_id', $channel->id)->where('visibility', 'public')->where('status', 'ready')->whereKey($data['video_id'])->firstOrFail()
             : null;
-        $imageFiles = $request->file('images', []);
+        $imageIds = $data['image_ids'] ?? [];
+        app(ImageUploads::class)->validateIds($request->user(), 'community_post', $channel->id, $imageIds);
         $url = trim((string) ($data['url'] ?? ''));
-        $prospectiveType = $this->postType($pollOptions, $video, $imageFiles ? [['type' => 'image']] : [], $url, $data['type'] ?? null);
+        $prospectiveType = $this->postType($pollOptions, $video, $imageIds ? [['type' => 'image']] : [], $url, $data['type'] ?? null);
         $sale = CommunityPhotoSales::pricing($request->boolean('sale_enabled'), $data['sale_price'] ?? null, $prospectiveType === 'image');
-        $attachments = $this->storeImages($imageFiles, 'community/images');
-        $type = $this->postType($pollOptions, $video, $attachments, $url, $data['type'] ?? null);
+        $type = $prospectiveType;
         $urlPreview = $url ? $this->urlPreview($url) : [];
         $metadata = $type === 'poll' ? ['options' => $pollOptions->map(fn ($label) => ['label' => $label, 'votes' => 0])->all()] : [];
         if ($type === 'event') {
@@ -186,23 +188,31 @@ class CommunityPostController extends Controller
             $metadata['url_icon'] = $urlPreview['icon'];
         }
 
-        abort_if($body === '' && ! $attachments && ! $video && ! $url && $pollOptions->count() < 2 && $type !== 'event', 422, 'Add text, media, a link, a video, an event or a poll.');
+        abort_if($body === '' && ! $imageIds && ! $video && ! $url && $pollOptions->count() < 2 && $type !== 'event', 422, 'Add text, media, a link, a video, an event or a poll.');
 
-        $post = CommunityPost::query()->create([
-            'user_id' => $request->user()->id,
-            'channel_id' => $channel->id,
-            'video_id' => $video?->id,
-            'type' => $type,
-            'body' => $body ?: null,
-            'url' => $url ?: null,
-            'url_title' => trim((string) ($data['url_title'] ?? '')) ?: ($urlPreview['title'] ?? ($url ? parse_url($url, PHP_URL_HOST) : null)),
-            'url_description' => trim((string) ($data['url_description'] ?? '')) ?: ($urlPreview['description'] ?? null),
-            'url_image' => trim((string) ($data['url_image'] ?? '')) ?: ($urlPreview['image'] ?? null),
-            'attachments' => $attachments ?: null,
-            'metadata' => $metadata ?: null,
-            'sale_enabled' => $sale['sale_enabled'],
-            'price_cents' => $sale['price_cents'],
-        ]);
+        $post = DB::transaction(function () use ($request, $channel, $video, $type, $body, $url, $data, $urlPreview, $metadata, $sale, $imageIds): CommunityPost {
+            $post = CommunityPost::query()->create([
+                'user_id' => $request->user()->id,
+                'channel_id' => $channel->id,
+                'video_id' => $video?->id,
+                'type' => $type,
+                'body' => $body ?: null,
+                'url' => $url ?: null,
+                'url_title' => trim((string) ($data['url_title'] ?? '')) ?: ($urlPreview['title'] ?? ($url ? parse_url($url, PHP_URL_HOST) : null)),
+                'url_description' => trim((string) ($data['url_description'] ?? '')) ?: ($urlPreview['description'] ?? null),
+                'url_image' => trim((string) ($data['url_image'] ?? '')) ?: ($urlPreview['image'] ?? null),
+                'attachments' => null,
+                'metadata' => $metadata ?: null,
+                'sale_enabled' => $sale['sale_enabled'],
+                'price_cents' => $sale['price_cents'],
+            ]);
+            if ($imageIds) {
+                $attachments = app(ImageUploads::class)->bind($request->user(), 'community_post', $channel->id, $imageIds, $post);
+                abort_unless(count($attachments) === count($imageIds), 422, 'An image is no longer ready to publish.');
+                $post->update(['attachments' => $attachments]);
+            }
+            return $post;
+        });
         $this->notifyMentionedUsers($request, $post);
 
         return response()->json([
@@ -255,18 +265,18 @@ class CommunityPostController extends Controller
         $communityPost->loadMissing('channel');
         abort_unless($this->canDeletePost($request->user(), $communityPost), 403);
 
-        $paths = collect($communityPost->attachments ?: [])
-            ->pluck('path')
-            ->filter()
-            ->values()
-            ->all();
-
-        MediaStorage::delete($paths);
         DB::transaction(function () use ($communityPost): void {
-            $commentIds = Comment::query()
+            app(ImageUploads::class)->detach($communityPost->attachments ?: []);
+            $comments = Comment::withoutGlobalScopes()
                 ->where('commentable_type', CommunityPost::class)
                 ->where('commentable_id', $communityPost->id)
-                ->pluck('id');
+                ->get();
+            // Include every reply before FK cascades remove its attachment refs.
+            $knownIds = $comments->pluck('id')->flip();
+            $roots = $comments->filter(fn (Comment $comment) => ! $comment->parent_id || ! $knownIds->has($comment->parent_id));
+            $thread = $roots->flatMap(fn (Comment $comment) => $comment->threadModels())->concat($comments)->unique('id');
+            $commentIds = $thread->pluck('id');
+            app(ImageUploads::class)->detach($thread->flatMap(fn (Comment $comment) => $comment->attachments ?: [])->values()->all());
 
             Like::query()
                 ->where('likeable_type', CommunityPost::class)
@@ -279,7 +289,7 @@ class CommunityPostController extends Controller
                     ->whereIn('likeable_id', $commentIds)
                     ->delete();
 
-                Comment::query()->whereIn('id', $commentIds)->delete();
+                Comment::withoutGlobalScopes()->whereIn('id', $commentIds)->delete();
             }
 
             $communityPost->pollVotes()->delete();
@@ -325,16 +335,22 @@ class CommunityPostController extends Controller
             $data['parent_id'] = $parent->id;
         }
 
-        $attachments = $this->storeImages($request->file('images', []), 'comments');
+        $imageIds = $data['image_ids'] ?? [];
+        app(ImageUploads::class)->validateIds($request->user(), 'community_comment', $communityPost->id, $imageIds);
 
-        $comment = DB::transaction(function () use ($request, $communityPost, $data, $attachments, $body, $sticker): Comment {
+        $comment = DB::transaction(function () use ($request, $communityPost, $data, $imageIds, $body, $sticker): Comment {
             $comment = $communityPost->comments()->create([
                 'user_id' => $request->user()->id,
                 'parent_id' => $data['parent_id'] ?? null,
                 'sticker_id' => $sticker?->id,
                 'body' => $body,
-                'attachments' => $attachments ?: null,
+                'attachments' => null,
             ]);
+            if ($imageIds) {
+                $attachments = app(ImageUploads::class)->bind($request->user(), 'community_comment', $communityPost->id, $imageIds, $comment);
+                abort_unless(count($attachments) === count($imageIds), 422, 'An image is no longer ready to publish.');
+                $comment->update(['attachments' => $attachments]);
+            }
 
             $communityPost->increment('comments_count');
 
@@ -524,29 +540,6 @@ class CommunityPostController extends Controller
                 'total' => $voters->total(),
             ],
         ]);
-    }
-
-    private function storeImages(array $images, string $directory): array
-    {
-        return collect($images)
-            ->take(4)
-            ->map(function ($image) use ($directory): array {
-                $imageDirectory = $directory.'/'.now()->format('Y/m');
-                if (MediaStorage::isLocal()) {
-                    MediaStorage::ensureLocalDirectory($imageDirectory);
-                }
-                $path = $image->store($imageDirectory, MediaStorage::diskName());
-
-                return [
-                    'type' => 'image',
-                    'path' => $path,
-                    'name' => $image->getClientOriginalName(),
-                    'mime' => $image->getMimeType(),
-                    'size' => $image->getSize(),
-                ];
-            })
-            ->values()
-            ->all();
     }
 
     private function postType(Collection $pollOptions, ?Video $video, array $attachments, string $url, ?string $requested): string

@@ -8,7 +8,7 @@ class Hosters
 {
     public function __construct(private RemoteImages $http) {}
 
-    public function upload(string $provider, array $image, string $identity, float $deadline): array
+    public function upload(string $provider, array $image, string $identity, float $deadline, bool $original = false): array
     {
         $key = (string) config('thumbnails.providers.'.$provider.'.key');
         if (! config('thumbnails.providers.'.$provider.'.supported')
@@ -49,7 +49,12 @@ class Hosters
             return ['url' => null, 'result' => $response['error'] ?: 'http:'.$response['code'],
                 'server_failure' => $response['code'] === 0 || $response['code'] >= 500];
         }
-        return ['url' => $this->parse($provider, $response['body']), 'result' => 'uploaded', 'server_failure' => false];
+        try {
+            return ['url' => $this->parse($provider, $response['body'], $original), 'result' => 'uploaded', 'server_failure' => false];
+        } catch (RuntimeException $exception) {
+            if ($exception->getMessage() !== 'full-size-unavailable') throw $exception;
+            return ['url' => null, 'result' => 'full-size-unavailable', 'server_failure' => false, 'capability_failure' => true];
+        }
     }
 
     private function reserveQuota(string $provider): void
@@ -65,7 +70,7 @@ class Hosters
         }
     }
 
-    public function parse(string $provider, string $body): string
+    public function parse(string $provider, string $body, bool $original = false): string
     {
         if ($provider === 'directupload') {
             $url = null;
@@ -90,6 +95,7 @@ class Hosters
             $data = json_decode($body, true, 32, JSON_THROW_ON_ERROR);
             // The host explicitly reports whether full-size hotlinking is permitted.
             $hotlinked = filter_var($data['hotlinked'] ?? false, FILTER_VALIDATE_BOOLEAN);
+            if ($original && ! $hotlinked) throw new RuntimeException('full-size-unavailable');
             $url = $hotlinked ? ($data['big_link'] ?? null) : ($data['thumb_link'] ?? null);
 
         } else {

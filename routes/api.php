@@ -35,6 +35,7 @@ use App\Support\GeneralSettings;
 use App\Support\IntegrationSettings;
 use App\Support\LiveStreamingSettings;
 use App\Support\MediaStorage;
+use App\Support\Images\ImageUploads;
 use App\Support\MonetizationSettings;
 use App\Support\PlatformFeatureSettings;
 use App\Support\PlayerAdSettings;
@@ -45,6 +46,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 use Laravel\Sanctum\PersonalAccessToken;
 
@@ -825,16 +827,24 @@ Route::middleware(['auth:sanctum', \App\Http\Middleware\EnsureUgcSafety::class])
 
     $messagePayload = function ($row, int $currentUserId) use ($messageUserPayload): array {
         $sender = User::query()->with('channel')->find($row->sender_id);
-        $attachments = collect(is_string($row->attachments ?? null) ? json_decode($row->attachments, true) : ($row->attachments ?? []))
+        $references = is_string($row->attachments ?? null) ? (json_decode($row->attachments, true) ?: []) : ($row->attachments ?? []);
+        ImageUploads::prefetch($references);
+        $attachments = collect($references)
             ->filter(fn ($attachment) => is_array($attachment))
-            ->map(function (array $attachment): array {
-                if (isset($attachment['path']) && empty($attachment['url'])) {
-                    $attachment['url'] = MediaStorage::url($attachment['path']);
+            ->map(function (array $attachment, int $index) use ($row): array {
+                if (! empty($attachment['image_id'])) {
+                    return ImageUploads::payload($attachment);
+                }
+                if (($attachment['type'] ?? null) === 'image' && ! empty($attachment['path'])) {
+                    $attachment['url'] = URL::temporarySignedRoute('media.private-message-attachment', now()->addHours(6), [
+                        'message' => $row->id, 'index' => $index,
+                    ]);
+                    unset($attachment['path']);
                 }
 
                 return $attachment;
             })
-            ->values()
+            ->filter()->values()
             ->all();
 
         return [
@@ -848,29 +858,6 @@ Route::middleware(['auth:sanctum', \App\Http\Middleware\EnsureUgcSafety::class])
             'read_at' => $row->read_at,
         ];
     };
-    $storeMessageImages = function (array $images): array {
-        return collect($images)
-            ->take(4)
-            ->map(function ($image): array {
-                $directory = 'messages/'.now()->format('Y/m');
-                if (MediaStorage::isLocal()) {
-                    MediaStorage::ensureLocalDirectory($directory);
-                }
-                $path = $image->store($directory, MediaStorage::diskName());
-
-                return [
-                    'type' => 'image',
-                    'path' => $path,
-                    'url' => MediaStorage::url($path),
-                    'name' => $image->getClientOriginalName(),
-                    'mime' => $image->getMimeType(),
-                    'size' => $image->getSize(),
-                ];
-            })
-            ->values()
-            ->all();
-    };
-
     $findConversation = function (int $conversationId, int $userId) {
         $conversation = DB::table('private_conversations')->where('id', $conversationId)->first();
         abort_unless($conversation && ((int) $conversation->user_one_id === $userId || (int) $conversation->user_two_id === $userId), 404);
@@ -915,9 +902,9 @@ Route::middleware(['auth:sanctum', \App\Http\Middleware\EnsureUgcSafety::class])
                 ->orderBy('created_at')
                 ->orderBy('id')
                 ->limit(200)
-                ->get()
-                ->map(fn ($message) => $messagePayload($message, $currentUserId))
-                ->all();
+                ->get();
+            ImageUploads::prefetch($messages->flatMap(fn ($message) => json_decode((string) ($message->attachments ?? '[]'), true) ?: [])->all());
+            $messages = $messages->map(fn ($message) => $messagePayload($message, $currentUserId))->all();
         }
 
         $recipient = $messageUserPayload($otherUser);
@@ -1346,24 +1333,25 @@ Route::middleware(['auth:sanctum', \App\Http\Middleware\EnsureUgcSafety::class])
             'unread_count' => (int) $unreadCount,
         ]);
     });
-    Route::post('/messages', function (Request $request) use ($conversationPayload, $messagePayload, $storeMessageImages, $messagePermission) {
+    Route::post('/messages', function (Request $request) use ($conversationPayload, $messagePayload, $messagePermission) {
         $data = $request->validate([
             'recipient_id' => ['required', 'integer', 'exists:users,id'],
             'body' => ['nullable', 'string', 'max:5000'],
-            'images' => ['nullable', 'array', 'max:4'],
-            'images.*' => ['image', 'mimes:jpg,jpeg,png,webp,gif', 'max:5120'],
-        ]);
+            'images' => ['prohibited'],
+            'image_ids' => ['nullable', 'array', 'max:4'],
+            'image_ids.*' => ['required', 'uuid', 'distinct'],
+        ], ['images.prohibited' => 'Upload images first and submit image_ids. Multipart image attachments are no longer accepted.']);
         abort_if((int) $data['recipient_id'] === $request->user()->id, 422, 'You cannot message yourself.');
         $recipient = User::query()->with('channel')->find((int) $data['recipient_id']);
         [$canMessage, $messageBlockedReason] = $messagePermission($recipient, $request->user());
         abort_unless($canMessage, 403, $messageBlockedReason);
         $body = trim((string) ($data['body'] ?? ''));
-        $images = $request->file('images', []);
-        $attachments = $storeMessageImages(is_array($images) ? $images : [$images]);
-        abort_if($body === '' && ! $attachments, 422, 'Message cannot be empty.');
+        $imageIds = $data['image_ids'] ?? [];
+        app(ImageUploads::class)->validateIds($request->user(), 'private_message', $recipient->id, $imageIds);
+        abort_if($body === '' && ! $imageIds, 422, 'Message cannot be empty.');
         [$firstUserId, $secondUserId] = collect([$request->user()->id, (int) $data['recipient_id']])->sort()->values()->all();
 
-        [$conversationId, $messageId] = DB::transaction(function () use ($firstUserId, $secondUserId, $request, $body, $attachments): array {
+        [$conversationId, $messageId] = DB::transaction(function () use ($firstUserId, $secondUserId, $request, $body, $imageIds): array {
             \App\Support\UserBlocks::lockPair((int) $firstUserId, (int) $secondUserId);
             $other = (int) $request->user()->id === (int) $firstUserId ? (int) $secondUserId : (int) $firstUserId;
             \App\Support\UserBlocks::assertInteraction($request->user(), $other);
@@ -1387,10 +1375,15 @@ Route::middleware(['auth:sanctum', \App\Http\Middleware\EnsureUgcSafety::class])
                 'conversation_id' => $conversationId,
                 'sender_id' => $request->user()->id,
                 'body' => $body,
-                'attachments' => $attachments ? json_encode($attachments) : null,
+                'attachments' => null,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
+            if ($imageIds) {
+                $attachments = app(ImageUploads::class)->bind($request->user(), 'private_message', $other, $imageIds, 'private_messages', $messageId);
+                abort_unless(count($attachments) === count($imageIds), 422, 'An image is no longer ready to publish.');
+                DB::table('private_messages')->where('id', $messageId)->update(['attachments' => json_encode($attachments)]);
+            }
             DB::table('private_conversations')->where('id', $conversationId)->update([
                 'last_message_at' => now(),
                 'updated_at' => now(),
@@ -1435,7 +1428,7 @@ Route::middleware(['auth:sanctum', \App\Http\Middleware\EnsureUgcSafety::class])
             'conversation' => $conversationPayload($privateConversation, $request),
         ]);
     });
-    Route::post('/messages/{conversation}/messages', function (Request $request, int $conversation) use ($findConversation, $conversationPayload, $messagePayload, $storeMessageImages, $messagePermission) {
+    Route::post('/messages/{conversation}/messages', function (Request $request, int $conversation) use ($findConversation, $conversationPayload, $messagePayload, $messagePermission) {
         $privateConversation = $findConversation($conversation, $request->user()->id);
         $recipientId = (int) $privateConversation->user_one_id === (int) $request->user()->id
             ? (int) $privateConversation->user_two_id
@@ -1445,15 +1438,16 @@ Route::middleware(['auth:sanctum', \App\Http\Middleware\EnsureUgcSafety::class])
         abort_unless($canMessage, 403, $messageBlockedReason);
         $data = $request->validate([
             'body' => ['nullable', 'string', 'max:5000'],
-            'images' => ['nullable', 'array', 'max:4'],
-            'images.*' => ['image', 'mimes:jpg,jpeg,png,webp,gif', 'max:5120'],
-        ]);
+            'images' => ['prohibited'],
+            'image_ids' => ['nullable', 'array', 'max:4'],
+            'image_ids.*' => ['required', 'uuid', 'distinct'],
+        ], ['images.prohibited' => 'Upload images first and submit image_ids. Multipart image attachments are no longer accepted.']);
         $body = trim((string) ($data['body'] ?? ''));
-        $images = $request->file('images', []);
-        $attachments = $storeMessageImages(is_array($images) ? $images : [$images]);
-        abort_if($body === '' && ! $attachments, 422, 'Message cannot be empty.');
+        $imageIds = $data['image_ids'] ?? [];
+        app(ImageUploads::class)->validateIds($request->user(), 'private_message', $recipientId, $imageIds);
+        abort_if($body === '' && ! $imageIds, 422, 'Message cannot be empty.');
 
-        $messageId = DB::transaction(function () use ($privateConversation, $request, $body, $attachments): int {
+        $messageId = DB::transaction(function () use ($privateConversation, $request, $body, $imageIds): int {
             $other = (int) $request->user()->id === (int) $privateConversation->user_one_id ? (int) $privateConversation->user_two_id : (int) $privateConversation->user_one_id;
             \App\Support\UserBlocks::lockPair((int) $request->user()->id, $other);
             \App\Support\UserBlocks::assertInteraction($request->user(), $other);
@@ -1461,10 +1455,15 @@ Route::middleware(['auth:sanctum', \App\Http\Middleware\EnsureUgcSafety::class])
                 'conversation_id' => $privateConversation->id,
                 'sender_id' => $request->user()->id,
                 'body' => $body,
-                'attachments' => $attachments ? json_encode($attachments) : null,
+                'attachments' => null,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
+            if ($imageIds) {
+                $attachments = app(ImageUploads::class)->bind($request->user(), 'private_message', $other, $imageIds, 'private_messages', $messageId);
+                abort_unless(count($attachments) === count($imageIds), 422, 'An image is no longer ready to publish.');
+                DB::table('private_messages')->where('id', $messageId)->update(['attachments' => json_encode($attachments)]);
+            }
             DB::table('private_conversations')->where('id', $privateConversation->id)->update([
                 'last_message_at' => now(),
                 'updated_at' => now(),
@@ -1885,3 +1884,5 @@ Route::get('/developers', function () {
         'generated_at' => now()->toIso8601String(),
     ])->header('Cache-Control', 'public, max-age=60');
 });
+
+require __DIR__.'/image-uploads.php';

@@ -12,7 +12,7 @@ use App\Models\User;
 use App\Models\UserNotification;
 use App\Models\Video;
 use App\Services\Api\V1\VideoAccessService;
-use App\Support\MediaStorage;
+use App\Support\Images\ImageUploads;
 use App\Support\KlipyStickers;
 use App\Support\PlatformFeatureSettings;
 use App\Support\VideoSales;
@@ -81,34 +81,22 @@ class CommentController extends Controller
             $data['parent_id'] = $parent->id;
         }
 
-        $attachments = collect($request->file('images', []))
-            ->take(4)
-            ->map(function ($image): array {
-                $directory = 'comments/'.now()->format('Y/m');
-                if (MediaStorage::isLocal()) {
-                    MediaStorage::ensureLocalDirectory($directory);
-                }
-                $path = $image->store($directory, MediaStorage::diskName());
+        $imageIds = $data['image_ids'] ?? [];
+        app(ImageUploads::class)->validateIds($request->user(), 'video_comment', $video->id, $imageIds);
 
-                return [
-                    'type' => 'image',
-                    'path' => $path,
-                    'name' => $image->getClientOriginalName(),
-                    'mime' => $image->getMimeType(),
-                    'size' => $image->getSize(),
-                ];
-            })
-            ->values()
-            ->all();
-
-        $comment = DB::transaction(function () use ($request, $video, $data, $attachments, $body, $sticker): Comment {
+        $comment = DB::transaction(function () use ($request, $video, $data, $imageIds, $body, $sticker): Comment {
             $comment = $video->comments()->create([
                 'user_id' => $request->user()->id,
                 'parent_id' => $data['parent_id'] ?? null,
                 'sticker_id' => $sticker?->id,
                 'body' => $body,
-                'attachments' => $attachments ?: null,
+                'attachments' => null,
             ]);
+            if ($imageIds) {
+                $attachments = app(ImageUploads::class)->bind($request->user(), 'video_comment', $video->id, $imageIds, $comment);
+                abort_unless(count($attachments) === count($imageIds), 422, 'An image is no longer ready to publish.');
+                $comment->update(['attachments' => $attachments]);
+            }
 
             $video->increment('comments_count');
 
@@ -180,14 +168,8 @@ class CommentController extends Controller
         abort_unless($user && ($user->id === $comment->user_id || $this->ownsCommentTarget($user->id, $comment) || $this->canModerateComments($user)), 403);
 
         $thread = $comment->threadModels();
-        $paths = $thread
-            ->flatMap(fn (Comment $item) => collect($item->attachments ?? [])->pluck('path'))
-            ->filter()
-            ->values()
-            ->all();
-
-        MediaStorage::delete($paths);
         DB::transaction(function () use ($comment, $thread): void {
+            app(ImageUploads::class)->detach($thread->flatMap(fn (Comment $item) => $item->attachments ?? [])->values()->all());
             $comment->loadMissing('commentable');
             $deletedCount = $thread->count();
 

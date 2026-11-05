@@ -309,6 +309,7 @@ Route::prefix('v1')
             });
 
             Route::middleware(RequireTokenAbility::class.':engagement:write')->group(function (): void {
+                require __DIR__.'/image-uploads.php';
                 Route::post('/community-posts/link-preview', [CommunityController::class, 'preview'])
                     ->middleware('throttle:api-write')->name('community.link-preview');
                 Route::post('/comments/{comment}/mute-user', [CommentModerationController::class, 'mute'])

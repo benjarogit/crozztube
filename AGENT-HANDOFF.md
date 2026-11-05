@@ -51,25 +51,39 @@ docker compose -f docker/compose.yml --profile runtime up -d web worker cron thu
 - `ResponsiveOverlays.jsx` koordiniert Fokus/Tab/Escape/Fokusrückgabe, inert-Hintergrund und Locks; `OverlayPortal` erhält Admin-Theme außerhalb geclippter Container. Dialoge passen in den sichtbaren Viewport, einschließlich kurzer Fenster. Unter900pxInhaltsbreite kompakte Settings-Auswahl, unter 1000 px Verwaltungskarten.
 - Bestehende Miniplayer-Sitzungen überstehen Resize bis 320 px mit unverändertem MediaPlayer; mobile Aktionen 44 px. Neue Miniplayer-Sitzungen werden weiterhin über die Desktop-Bedienung gestartet.
 - Impeccable 4.8.0 projektlokal gepinnt unter `.agents/skills/impeccable`, Upstreamcommit c8891a9ae865d6ee311836ae5199bfce0fe115b1. PRODUCT.md/DESIGN.md lesen. Keine globalen Hooks installiert; `scripts/impeccable detect` ist lokal ausführbar.
-- Neue Harness-Suite `responsive`: **442 Fälle grün**: 100 Route-/Zustandsvarianten × 3 Chromiumbreiten, Inventarprüfung, 9 Interaktionen und je 66 Firefox-/WebKit-Fälle. Fixtures speichern keine API-Inhalte/Schlüssel, faken Queues und rollen GET-DB-Änderungen zurück; Browser-Schreibanfragen/Medien gesperrt. Ein Worker.
+- Neue Harness-Suite `responsive`: **455 Fälle grün**: 100 Route-/Zustandsvarianten × 3 Chromiumbreiten, Inventarprüfung, 9 Interaktionen, 13 Sidebar-Fälle und je 66 Firefox-/WebKit-Fälle. Fixtures speichern keine API-Inhalte/Schlüssel, faken Queues und rollen GET-DB-Änderungen zurück; Browser-Schreibanfragen/Medien gesperrt. Ein Worker.
 - WebKit kann lokal Bibliotheken vermissen. `npm run test:responsive` / Harness nutzen dann automatisch einen eigenen offiziellen Dockerbrowser (1 CPU / 1 GiB, read-only Projektmount, eigene Aufräumlogik). Bestehender Server über PW_WEBKIT_WS_ENDPOINT. Keine dauerhaften Testcontainer stehen lassen.
 - Build: `npm run build -- --emptyOutDir=false` erhält ältere Chunks für offene Tabs. Keine Plugin-Neuinstallation für reine Frontendänderungen nötig. Kuratierte Vorher-/Nachherbilder: `/tmp/crozztube-tests/responsive-screenshots/`; Wiki: `Wiki/responsive.html`.
 - Nachweisgrenze: Browser-Engines/Viewport-/synthetische Touchtests sind keine physischen iPhone-/Android-Tests. 200%-Reflow entspricht halbierter CSS-Breite; echter OS-/Browserzoom und echte Bildschirmtastaturen gesondert offen kennzeichnen.
+
+## Bildanhänge und Sidebar-Footer (5. November 2026)
+
+- `SiteFooter variant="sidebar"` besitzt eine kompakte, einspaltige Variante in `sidebar-footer.css`. Logo, Beschreibung, konfigurierte Links, Sprache und beide Copyright-Texte bleiben erhalten. Geöffnete Sidebars gehören jetzt zur allgemeinen Überlaufprüfung; zusätzlich 13 DE/EN-/Breiten-/Kurzfensterfälle.
+- Bilder in Nachrichten (Compose/Chat), Community-Beiträgen/Event-Covern und Community-/Video-/Shorts-Kommentaren samt Antworten gehen sofort über begrenzten RAM zu Directupload → FastPic → Postimages. Erstes geeignetes Ergebnis innerhalb insgesamt 10 s; keine weiteren Tageskopien. FastPic-Vorschauen zählen nur bei Video-Thumbnails, nicht bei Fotoanhängen.
+- `app/Support/Images/ImageUploads.php`, neue Tabellen `image_uploads`/`image_upload_mirrors`, additive Migration `2026_11_05_000003`. Authentifizierte Raw-Body PUT/GET/DELETE `/api/image-uploads/{uuid}` mit getrennten HTTP-Zählern (PUT für Web/V1 gemeinsam), dieselben Routen in V1 mit `engagement:write`. Zweck und Ziel als Query; `X-Image-Name` URI-kodiert. Absenden verwendet nur `image_ids`; alte Multipart-Bildfelder sind gesperrt. Maximal vier Bilder, fünf MiB bei Nachrichten/Kommentaren, acht bei Community-Beiträgen; JPEG/PNG/WebP/GIF.
+- Browser-Queue `imageUploadQueue.js` überträgt nacheinander; UUID-Wiederholung fragt zuerst Status ab. Offene Entwürfe behalten Text/Dateien bei Fehlern. Pending/fehlerhafte Bilder blockieren Absenden, Retry/Remove sind erreichbar. Entfernen/Unmount tombstonen die UUID; erfolgreich zugeordnete Bilder werden nicht versehentlich verworfen. Kein Dateiinhalt in Datenbank/Queue; PHP-Request-Puffer auf `/dev/shm`, Apache-Routenlimit acht MiB.
+- Eigentümer/Zweck/Ziel/Frist und Berechtigungen werden vor Transfer und beim atomaren Claim erneut geprüft. UUID- und globale Transfersperren, eigentümergebundene Hash-Wiederverwendung, nachberechtigter Request-Batchcache gegen N+1. API-Metadaten bleiben kompatibel, plus `image_id`/`image_candidates`; Anzeige und Galerien nutzen dieselbe Browser-Fallbackkomponente. Kauf-/Nachrichten-/Sichtbarkeitssperren bleiben gültig. Weitergegebene Hoster-Links sind ausdrücklich öffentlich, auch bei Nachrichten/gekauften Fotos.
+- `NightImageMaintenance` verarbeitet BEIDE Bildarten auf der vorhandenen Queue/Worker: insgesamt 20 Checks + fünf Kopierversuche + 60 s pro Lauf, 02:00–vor05:00 Berlin, globale Hoster-Pausen und Kontingente. Auch Vorbereitung stoppt am Fensterende. Nur angehängte Bilder spiegeln; Entwürfe nach 24 h begrenzt bereinigen, verwaiste Zuordnungen ausschließen. Reparatur nur aus noch funktionierender Kopie; bei Totalverlust neue Dateiauswahl nötig. Externe Komplettlöschung ohne Hoster-Schnittstelle nicht zugesichert.
+- Statusbefehl `crozztube:thumbnails:status` ergänzt Anhangzustände, Spiegel und gemeinsame Budgets. Suite `images` prüft Service/Rennen/API/Berechtigungen und Browserformulare ohne echte Uploads/Nachrichten/Beiträge; Datenbankänderungen werden zurückgerollt. Details: `Wiki/images.html`. Der gezielte `images`-Nachlauf prüft zusätzlich mit realem Laravel-Throttler die getrennten Status-/Upload-/Abbruchlimits.
+- Migration ausgeführt, Frontend mit erhaltenen Alt-Chunks gebaut, Apache-Konfiguration validiert und graceful neu geladen; Worker per `queue:restart` neu eingelesen. Resolver-Plugin bleibt v0.7.1, da diese Änderung den Anwendungskern betrifft.
+- Web-SAPI-Fix: Auf dieser Apache-Instanz ist `PHP_BINARY` leer. `RemoteImages` startet DNS-Prüfprozesse ausdrücklich mit `PHP_BINDIR.'/php'` und `--` vor Hostargumenten. Die `images`-Suite prüft den echten Web-SAPI-Weg zusätzlich mit einem kurzlebigen, zufällig geschützten PHP-Testhelfer und DNS für alle drei Provider (keine Bildübertragung). Nach dem Fix: neutraler 32×32-Raw-Upload per echtem HTTP erfolgreich zu Directupload, Hotlink HTTP 200; eigene Testmetadaten entfernt, andere Entwürfe erhalten. Betroffene Suiten anschließend 17 PASS / 0 FAIL.
 
 ## 3. Aktueller Stand
 
 - **Plugin `crozztube.source-resolver` v0.7.1** installiert und aktiv.
 - **yt-dlp 2026.10.26**, ffprobe 5.1.9 im Web-Image; cron aktualisiert yt-dlp täglich.
-- **Vollständiges Harness: 103 PASS, 0 FAIL, 0 SKIP. Darin Thumbnail-Suite mit 91 PHP-Einzelprüfungen, 9 Wiedergabe-/Resolver-Browsertests und 442 responsive Browserfälle grün** (5. November 2026).
+- **Vollständiges Harness: 114 PASS, 0 FAIL, 0 SKIP. PHP-Suiten mit insgesamt 200 Einzelprüfungen (91 Thumbnails + 43 Uploadservice + 25 Edge + 41 API); 9 Wiedergabe-, 27 Anhangs- und 455 responsive Browserfälle grün** (5. November 2026).
 - **3 Videos**, alle Quellen `fresh`: ID 1–3, echte YouTube-Imports (`kind=hls-synth`).
 - ID 4 (veraltetes Direct-MP4-Testsample) wurde entfernt; die Direct-Suite verwendet einen temporären MDN-Import.
 - Auto-Refresh hat nach längerer Stack-Downtime alle abgelaufenen Quellen wieder erneuert.
 - Arbeitsbaum sauber, `main...origin/main`.
 
-Letzte Commits:
+Ausgewählte vorherige Commits (aktuellen Stand mit `git log -1` prüfen):
 
 | Commit | Inhalt |
 |---|---|
+| `36b095e` | Responsive Oberfläche und drei Browser-Engines |
+| `8a40a22` | Directupload über geprüftes öffentliches Formular |
 | `7504660` | yt-dlp-Metadaten-Engine, generische URLs, Health, Retry (v0.6.0) |
 | `32175ad` | Doku + yt-dlp-Roadmap |
 | `0464621` | Doku v0.5.3 |
@@ -216,7 +230,7 @@ Offen bleibt E1 (mehrstündige Nutzer-URL fehlt). Alle drei Hoster sind live gep
 2. Stack prüfen: `docker ps`, `curl -sk https://crozztube.local:8443/api/source-resolver/health | jq`.
 3. `./tools/test/run.sh api direct` als Smoke-Test.
 4. Bei Plugin-Änderungen: Version in `plugin.json` bumpen, `./tools/dev/reinstall-plugin.sh`, Tests, Doku (HANDOFF + Wiki) aktualisieren, committen + pushen.
-5. Offene Punkte mit dem User priorisieren (E1 braucht eine URL; E4 ist ein Browser-Check).
+5. Offen bleibt E1 mit einer mehrstündigen Nutzer-URL. E4/Shorts und E6 sind bereits umgesetzt/geprüft; physische iOS-/Android-Tests bleiben gesondert auszuweisen.
 
 ---
 

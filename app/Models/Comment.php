@@ -92,7 +92,7 @@ class Comment extends Model
         $frontier = collect([(int) $this->getKey()]);
 
         while ($frontier->isNotEmpty()) {
-            $children = self::query()
+            $children = self::withoutGlobalScopes()
                 ->whereIn('parent_id', $frontier)
                 ->get()
                 ->reject(fn (Comment $child): bool => $knownIds->has((int) $child->getKey()));

@@ -5,7 +5,19 @@
 
 ---
 
-## Aktueller Nachtrag: responsive Oberfläche
+## Aktueller Nachtrag: externe Bildanhänge und Sidebar-Footer
+
+Abnahme: **vollständiges Harness 114 PASS / 0 FAIL / 0 SKIP**. Die PHP-Suiten enthalten 200 Einzelprüfungen; Browser: 27 Anhangsformulare/-Sonderfälle, 455 Responsive-Fälle und neun Wiedergabe-/Resolverprüfungen. Ein zusätzlicher `images`-Nachlauf prüft die getrennten HTTP-Limits. Testdaten werden zurückgerollt; keine echten Nachrichten oder Beiträge angelegt.
+
+Neue Nachrichten-/Community-/Kommentar-Bilder einschließlich Antworten und Event-Covern werden unmittelbar per authentifiziertem Raw-Body im RAM extern gehostet. Directupload → FastPic → Postimages, erstes vollständiges Bild innerhalb insgesamt zehn Sekunden; weitere Kopien nur nachts. UUID-Entwürfe und getrennte Spiegel speichern Metadaten/URLs; Veröffentlichungen übergeben `image_ids`, atomare Claims sichern Eigentümer/Ziel/Berechtigungen. Vier Bilder; Nachrichten/Kommentare fünf MiB, Community acht MiB. Browser zeigt Wartet/Upload/Bereit/Fehler und blockiert Absenden bis alle Bilder bereit sind. Keine neuen lokalen Anhangsdateien. Die öffentlich erreichbaren Hoster-Links sind auch bei Nachrichten und gekauften Bildern ausdrücklich gewollt; CrozzTube-API-Sperren bleiben erhalten.
+
+Thumbnails und Anhänge teilen jetzt tatsächlich denselben Nachtlauf: 02:00 bis vor 05:00 Berlin, ein Worker, 20 Prüfungen/fünf Kopierversuche/60 Sekunden insgesamt. Globale Transfersperre, Kontingente, Backoff und Hoster-Circuit gemeinsam; Entwürfe nach 24 Stunden begrenzt bereinigen. Keine lokale Kopie für Reparaturen; bei Verlust sämtlicher Spiegel erneute Auswahl nötig. Verwerfen entfernt die CrozzTube-Zuordnung, keine zugesicherte vollständige Hoster-Löschung. Avatar-/Bannerabläufe bleiben außerhalb dieser Umstellung. API/Schema/Betrieb: `Wiki/images.html`.
+
+Sidebar-Footer ausdrücklich kompakt: Logo, Beschreibung, Links, Sprache und Copyright umbrechen innerhalb der tatsächlichen Sidebar-Breite. Sichtbare Navigation wird in Überlaufprüfungen mit erfasst. Additive Migration angewendet, Apache-Routenlimit auf acht MiB und RAM-Bodypuffer aktiv, Worker neu eingelesen. Frontend-Build behält ältere Chunks. Resolver-Plugin weiterhin v0.7.1.
+
+Zusätzliche echte Web-Prüfung: `PHP_BINARY` war unter Apache leer und ließ die DNS-Unterprozesse scheitern. Der Bildtransport verwendet jetzt das installierte CLI unter `PHP_BINDIR.'/php'`. Geschützter, automatisch entfernter Web-Testhelfer prüft die DNS-Ausführung aller drei Provider; keine Testbilder in der regulären Suite. Ein neutraler 32×32-Raw-Upload zu Directupload wurde separat über echtes HTTP bestätigt (Upload und Hotlink HTTP 200), der eigene Entwurf anschließend bereinigt. Thumbnail-/Anhangssuiten nach dem Fix erneut: 17 PASS / 0 FAIL.
+
+## Vorheriger Nachtrag: responsive Oberfläche
 
 Abnahme am 5. November 2026: vollständiges Harness 103 PASS / 0 FAIL / 0 SKIP. Alle 442 Responsive-Fälle in Chromium, Firefox und WebKit sowie die neun bisherigen Browserprüfungen sind grün. Wiedergabe/Seek laufen beim Resize weiter, Touch-Abbruch hinterlässt keine Sperren.
 
@@ -31,7 +43,7 @@ Die neue Kurzreferenz steht in `AGENT-HANDOFF.md`, die vollständige Thumbnail-K
 ## 1. Projekt & Umgebung
 
 - **Projekt:** CrozzTube = PlayHub web v0.9.13 (Laravel 13, React 19), lokale Instanz.
-- **Konzept:** NUR Streaming/Import. Keine eigenen Uploads (Nutzer/Creator laden nichts hoch), **keine Video-API-Keys** (Bildhoster mit eigenen lokalen Keys). **yt-dlp ist die zentrale Video-Engine**: Metadaten (Titel, Beschreibung, Tags, Thumbnail, Dauer, Kapitel) beim Import und Direkt-URL (eigener Player, HLS bevorzugt) für die Wiedergabe. Der Provider-Embed (YouTube etc.) ist nur Mirror/Fallback.
+- **Konzept:** NUR Streaming/Import für Videos, keine Video-Datei-Uploads. Selbst ausgewählte Bilder werden extern gehostet. **Keine Video-API-Keys** (Bildhoster mit eigenen lokalen Keys). **yt-dlp ist die zentrale Video-Engine**: Metadaten (Titel, Beschreibung, Tags, Thumbnail, Dauer, Kapitel) beim Import und Direkt-URL (eigener Player, HLS bevorzugt) für die Wiedergabe. Der Provider-Embed (YouTube etc.) ist nur Mirror/Fallback.
 - **URL:** `https://crozztube.local:8443` (self-signed) · Admin: `benny` / `meZVRW0bYEbpHsJc`
 - **Docker-Stack** (`docker/compose.yml`, Projekt `crozztube-local`): crozztube-web (PHP 8.3 + FFmpeg + yt-dlp 2026.10.26), -mysql (Port 3308! User crozztube/crozztube-local-db), -redis (Pass crozztube-local-redis), -worker (`queue:work videos,maintenance,default`), -cron (schedule:run je Minute + täglicher yt-dlp-Auto-Update), -phpmyadmin (8083), -mailhog.
 - **NICHT anfassen:** Container `crozztube-audit-*` (separate Audit-Instanz unter /home/benny/audit-instance).

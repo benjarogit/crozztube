@@ -1,4 +1,6 @@
 import ResponsiveOverlays from './components/ResponsiveOverlays.jsx';
+import AttachmentImage, { ImageUploadPreview, attachmentCandidates } from './components/AttachmentImage.jsx';
+import { useHostedImages, hostedImagesReady, appendHostedImageIds } from './imageUploadQueue.js';
 import { useResponsiveLayout, navigationIsOverlay, sidebarWidth, drawerWidth } from './responsiveLayout.js';
 import ThumbnailImage, { BlankThumbnail, useThumbnailUrl } from './components/ThumbnailImage.jsx';
 import { markPlayHubReady } from './pluginRuntime.js';
@@ -36,6 +38,8 @@ import * as packageCountriesModule from 'countries-list';
 import './styles/responsive-layout.css';
 import './styles/responsive-overlays.css';
 import './styles/responsive-content.css';
+import './styles/image-attachments.css';
+import './styles/sidebar-footer.css';
 
 const packageCountries = (() => {
   if (!packageCountriesModule || typeof packageCountriesModule !== 'object') return null;
@@ -110,6 +114,7 @@ const normalizeGalleryItems = (items = []) => items
     description: String(item.description || '').trim(),
     alt: item.alt || item.title || `${websiteName()} media`,
     downloadUrl: item.downloadUrl || item.src,
+    image_candidates: item.image_candidates || [],
   }));
 
 function GlobalGalleryProvider({ children }) {
@@ -118,6 +123,7 @@ function GlobalGalleryProvider({ children }) {
   const [gallery, setGallery] = useState(null);
   const [zoom, setZoom] = useState(1);
   const [rotation, setRotation] = useState(0);
+  const [resolvedImage, setResolvedImage] = useState({ src: '', url: '' });
 
   const openGallery = useCallback((items = [], index = 0) => {
     const dynamicItems = normalizeGalleryItems(items);
@@ -165,13 +171,14 @@ function GlobalGalleryProvider({ children }) {
   }, [gallery?.index]);
 
   const current = gallery?.items[gallery.index];
+  const currentImageUrl = current && resolvedImage.src === current.src ? resolvedImage.url || current.src : current?.src;
   const shareCurrent = async () => {
     if (!current) return;
     try {
-      if (navigator.share) await navigator.share({ title: current.title, text: current.description, url: current.src });
-      else await navigator.clipboard?.writeText(current.src);
+      if (navigator.share) await navigator.share({ title: current.title, text: current.description, url: currentImageUrl });
+      else await navigator.clipboard?.writeText(currentImageUrl);
     } catch (error) {
-      if (error?.name !== 'AbortError') window.open(current.src, '_blank', 'noopener,noreferrer');
+      if (error?.name !== 'AbortError') window.open(currentImageUrl, '_blank', 'noopener,noreferrer');
     }
   };
   const toggleFullscreen = () => {
@@ -195,15 +202,15 @@ function GlobalGalleryProvider({ children }) {
         <button type="button" onClick={() => setRotation((value) => value + 90)} aria-label="Rotate image" title="Rotate"><Icon name="rotate" size={20}/></button>
         <button type="button" onClick={toggleFullscreen} aria-label="Toggle fullscreen" title="Fullscreen"><Icon name="expand" size={20}/></button>
         <button type="button" onClick={shareCurrent} aria-label="Share image" title="Share"><Icon name="share" size={20}/></button>
-        <a href={current.downloadUrl} download target="_blank" rel="noopener" aria-label="Download image" title="Download"><Icon name="download" size={20}/></a>
+        <a href={currentImageUrl || current.downloadUrl} download target="_blank" rel="noopener" aria-label="Download image" title="Download"><Icon name="download" size={20}/></a>
         <button type="button" onClick={closeGallery} aria-label="Close gallery" title="Close"><Icon name="close" size={20}/></button>
       </div>
       {gallery.items.length > 1 && <button type="button" className="playhub-gallery-nav previous" onClick={() => moveGallery(-1)} aria-label="Previous image"><Icon name="chevronLeft" size={28}/></button>}
-      <div className="playhub-gallery-stage"><img src={current.src} alt={current.alt} draggable="false" onDoubleClick={() => setZoom((value) => value > 1 ? 1 : 2)} style={{ transform: `scale(${zoom}) rotate(${rotation}deg)` }} /></div>
+      <div className="playhub-gallery-stage"><AttachmentImage attachment={{ url: current.src, image_candidates: current.image_candidates }} onResolved={(url) => setResolvedImage({ src: current.src, url })} alt={current.alt} draggable="false" onDoubleClick={() => setZoom((value) => value > 1 ? 1 : 2)} style={{ transform: `scale(${zoom}) rotate(${rotation}deg)` }} /></div>
       {gallery.items.length > 1 && <button type="button" className="playhub-gallery-nav next" onClick={() => moveGallery(1)} aria-label="Next image"><Icon name="chevronRight" size={28}/></button>}
       <div className="playhub-gallery-footer">
         <div className="playhub-gallery-caption"><strong>{current.title}</strong>{current.description && <p>{current.description}</p>}</div>
-        {gallery.items.length > 1 && <div className="playhub-gallery-thumbnails">{gallery.items.map((item, index) => <button type="button" key={`${item.src}-${index}`} className={index === gallery.index ? 'active' : ''} onClick={() => setGallery((value) => ({ ...value, index }))} aria-label={`Open image ${index + 1}`}><img src={item.thumb} alt="" /></button>)}</div>}
+        {gallery.items.length > 1 && <div className="playhub-gallery-thumbnails">{gallery.items.map((item, index) => <button type="button" key={`${item.src}-${index}`} className={index === gallery.index ? 'active' : ''} onClick={() => setGallery((value) => ({ ...value, index }))} aria-label={`Open image ${index + 1}`}><AttachmentImage attachment={{ url: item.thumb, image_candidates: item.image_candidates }} alt="" /></button>)}</div>}
       </div>
     </div>, document.body)}
   </GlobalGalleryContext.Provider>;
@@ -212,7 +219,7 @@ function GlobalGalleryProvider({ children }) {
 function GalleryImage({ src, thumb, title, description, itemClassName = 'playhub-gallery-item', galleryItems, galleryIndex = 0, children }) {
   const openGallery = React.useContext(GlobalGalleryContext);
   const items = galleryItems?.length ? galleryItems : [{ src, thumb, title, description }];
-  if (!src && !items.length) return null;
+  if (!src) return <div className={itemClassName}>{children}</div>;
 
   const handleOpen = (event) => {
     event.preventDefault();
@@ -292,6 +299,7 @@ const api = {
         const message = payload?.error?.message || payload?.message || Object.values(validation)?.flat()?.[0] || 'Request failed.';
         const error = new Error(message);
         error.status = response.status;
+        error.retryAfter = response.headers.get('Retry-After');
         error.payload = payload;
         error.code = payload?.error?.code;
         throw error;
@@ -2118,8 +2126,8 @@ function Layout({ children, path, routeKey, navigate, user, setUser, theme, feat
       setSidebarDragWidth(startWidth);
       setSidebarDragging(true);
       event.preventDefault?.();
+      event.currentTarget.setPointerCapture?.(event.pointerId);
     }
-    event.currentTarget.setPointerCapture?.(event.pointerId);
   };
   const startSidebarSurfaceDrag = (event) => {
     if (typeof window === 'undefined' || !navigationIsOverlay() || !mobileNav) return;
@@ -2134,6 +2142,7 @@ function Layout({ children, path, routeKey, navigate, user, setUser, theme, feat
       const deltaY = Math.abs(event.clientY - drag.y);
       if (Math.abs(deltaX) < 8 || Math.abs(deltaX) < deltaY) return;
       drag.started = true;
+      event.currentTarget.setPointerCapture?.(event.pointerId);
       sidebarDragClickRef.current = drag.source === 'surface';
       if (!(drag.mobile && drag.source === 'surface')) {
         setSidebarDragWidth(drag.width);
@@ -2218,7 +2227,7 @@ const infoPageRoutes = {
   '/cookies': 'cookies',
 };
 
-function SiteFooter({ navigate }) {
+function SiteFooter({ navigate, variant = 'default' }) {
   const { language } = useI18n();
   const [managedLinks, setManagedLinks] = useState(null);
   const year = new Date().getFullYear();
@@ -2239,6 +2248,19 @@ function SiteFooter({ navigate }) {
     navigate(to);
     window.scrollTo?.({ top: 0, behavior: 'smooth' });
   };
+
+  if (variant === 'sidebar') return <footer className="site-footer site-footer-sidebar" data-footer-variant="sidebar">
+    <section className="sidebar-footer-brand"><Logo /><p>Watch, create, stream, and manage your {brand.text} experience from one modern video platform.</p></section>
+    <nav className="sidebar-footer-links" aria-label="Footer navigation">
+      {visibleFooterGroups.map(([title, links]) => <section className="sidebar-footer-group" key={title}>
+        <h2>{title}</h2>
+        {links.map(([label, to]) => <button type="button" key={to} onClick={() => go(to)}>{label}</button>)}
+      </section>)}
+    </nav>
+    <div className="sidebar-footer-language"><span>Language</span><LanguageSwitcher compact /></div>
+    <p className="sidebar-footer-copyright">© {year} {brand.text}. All rights reserved.</p>
+    <p className="sidebar-footer-built">Built for creators, viewers, and developers.</p>
+  </footer>;
 
   return <footer className="site-footer">
     <div className="site-footer-inner">
@@ -2474,7 +2496,7 @@ function Sidebar({ overlayActive = false, path, navigate, user, open, onClose, c
           <button type="button" className="btn primary compact" onClick={() => go('/plans')}>Manage plan</button>
         </div>}
         <WebsiteAdSlot placement="sidebar_left"/>
-        <SiteFooter navigate={navigate} />
+        <SiteFooter navigate={navigate} variant="sidebar" />
       </div>
       {playlistModalOpen && <NewPlaylistModal videos={[]} onClose={() => setPlaylistModalOpen(false)} onCreate={createSidebarPlaylist} />}
     </aside>
@@ -3045,9 +3067,9 @@ function MessageThreadRow({ thread, featured = false, onOpen }) {
 }
 
 function PrivateMessageAttachments({ attachments = [] }) {
-  const images = attachments.filter((item) => (item?.type || 'image') === 'image' && (item?.url || item?.preview_url));
+  const images = attachments.filter((item) => (item?.type || 'image') === 'image' && (item?.image_id || attachmentCandidates(item).length));
   return images.length ? <div className={`private-chat-attachments count-${Math.min(images.length, 4)}`}>
-    {images.map((item, index) => <img key={`${item.url || item.preview_url}-${index}`} src={item.url || item.preview_url} alt={item.name || 'Message image'} loading="lazy" />)}
+    {images.map((item, index) => <AttachmentImage key={`${item.image_id || item.url || item.preview_url}-${index}`} attachment={item} alt={item.name || 'Message image'} loading="lazy" />)}
   </div> : null;
 }
 
@@ -3064,22 +3086,22 @@ function MessagesPage({ navigate, path, user }) {
   const [recipients, setRecipients] = useState([]);
   const [selectedRecipient, setSelectedRecipient] = useState(null);
   const [composeBody, setComposeBody] = useState('');
-  const [composeImages, setComposeImages] = useState([]);
   const [loadingThreads, setLoadingThreads] = useState(true);
   const [loadingConversation, setLoadingConversation] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState('');
-  const [chatImages, setChatImages] = useState([]);
   const [messageEmojiOpen, setMessageEmojiOpen] = useState(null);
   const [messageEmojiPlacement, setMessageEmojiPlacement] = useState({});
   const composeInputRef = useRef(null);
   const chatInputRef = useRef(null);
   const composeFileRef = useRef(null);
   const chatFileRef = useRef(null);
-  const messageImageUrlsRef = useRef(new Set());
   const selectedConversationId = path.startsWith('/messages/') ? path.split('/')[2] : '';
-  const maxMessageImages = 4;
-  const allowedMessageImageTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+  const composeUploads = useHostedImages({ request: (path, options) => api.request(path, options), purpose: 'private_message', targetId: selectedRecipient?.id, authEpoch: api.authenticationEpoch(), onError: setError });
+  const chatRecipientId = String(conversation?.id) === String(selectedConversationId) ? (conversation?.recipient?.id || conversation?.recipient?.user_id) : null;
+  const chatUploads = useHostedImages({ request: (path, options) => api.request(path, options), purpose: 'private_message', targetId: chatRecipientId, authEpoch: api.authenticationEpoch(), onError: setError });
+  const composeImages = composeUploads.items;
+  const chatImages = chatUploads.items;
 
   useEffect(() => {
     let cancelled = false;
@@ -3168,23 +3190,7 @@ function MessagesPage({ navigate, path, user }) {
     };
   }, [composeOpen, recipientQuery, requestedRecipientId, selectedRecipient?.id]);
 
-  useEffect(() => () => {
-    messageImageUrlsRef.current.forEach((url) => URL.revokeObjectURL(url));
-    messageImageUrlsRef.current.clear();
-  }, []);
-
-  useEffect(() => {
-    setChatImages((current) => {
-      current.forEach((item) => {
-        if (item.url) {
-          URL.revokeObjectURL(item.url);
-          messageImageUrlsRef.current.delete(item.url);
-        }
-      });
-      return [];
-    });
-    setMessageEmojiOpen(null);
-  }, [selectedConversationId]);
+  useEffect(() => { setMessageEmojiOpen(null); }, [selectedConversationId]);
 
   useEffect(() => {
     if (!messageEmojiOpen) return undefined;
@@ -3205,53 +3211,10 @@ function MessagesPage({ navigate, path, user }) {
   }, [messageEmojiOpen]);
 
   const pickerTheme = typeof document !== 'undefined' && document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
-  const createMessageImageDrafts = (files = [], existing = []) => {
-    const accepted = [];
-    const incoming = Array.from(files || []);
-    incoming.forEach((file) => {
-      if (accepted.length + existing.length >= maxMessageImages) return;
-      if (!allowedMessageImageTypes.includes(file.type)) {
-        setError('Only JPG, PNG, WEBP or GIF images are allowed.');
-        return;
-      }
-      if (file.size > 5 * 1024 * 1024) {
-        setError('Images must be 5 MB or smaller.');
-        return;
-      }
-      const url = URL.createObjectURL(file);
-      messageImageUrlsRef.current.add(url);
-      accepted.push({ id: `${Date.now()}-${Math.random().toString(36).slice(2)}`, file, name: file.name, url });
-    });
-    if (incoming.length > accepted.length) setError(`You can attach up to ${maxMessageImages} images.`);
-    return accepted;
-  };
-  const addMessageImages = (target, files) => {
-    const setter = target === 'compose' ? setComposeImages : setChatImages;
-    setter((current) => [...current, ...createMessageImageDrafts(files, current)]);
-  };
-  const removeMessageImage = (target, id) => {
-    const setter = target === 'compose' ? setComposeImages : setChatImages;
-    setter((current) => {
-      const removed = current.find((item) => item.id === id);
-      if (removed?.url) {
-        URL.revokeObjectURL(removed.url);
-        messageImageUrlsRef.current.delete(removed.url);
-      }
-      return current.filter((item) => item.id !== id);
-    });
-  };
-  const clearMessageImages = (target) => {
-    const setter = target === 'compose' ? setComposeImages : setChatImages;
-    setter((current) => {
-      current.forEach((item) => {
-        if (item.url) {
-          URL.revokeObjectURL(item.url);
-          messageImageUrlsRef.current.delete(item.url);
-        }
-      });
-      return [];
-    });
-  };
+  const messageUploads = (target) => target === 'compose' ? composeUploads : chatUploads;
+  const addMessageImages = (target, files) => messageUploads(target).add(files);
+  const removeMessageImage = (target, id) => messageUploads(target).remove(id);
+  const clearMessageImages = (target) => messageUploads(target).clear();
   const insertMessageEmoji = (target, emojiData) => {
     const emoji = emojiData?.emoji || '';
     if (!emoji) return;
@@ -3294,13 +3257,14 @@ function MessagesPage({ navigate, path, user }) {
       return;
     }
 
+    if (!composeUploads.isReady()) { setError('Wait until all images are ready, or retry or remove failed images.'); return; }
     setSending(true);
     setError('');
     try {
       const form = new FormData();
       form.append('recipient_id', selectedRecipient.id);
       form.append('body', composeBody.trim());
-      composeImages.forEach((item) => form.append('images[]', item.file));
+      appendHostedImageIds(form, composeImages);
       const data = await api.request('/messages', {
         method: 'POST',
         body: form,
@@ -3308,7 +3272,7 @@ function MessagesPage({ navigate, path, user }) {
       setComposeOpen(false);
       setComposeBody('');
       setSelectedRecipient(null);
-      clearMessageImages('compose');
+      composeUploads.consume(composeImages);
       setConversation(data.conversation || null);
       navigate(`/messages/${data.conversation.id}`);
     } catch (err) {
@@ -3325,19 +3289,20 @@ function MessagesPage({ navigate, path, user }) {
       return;
     }
 
+    if (!chatUploads.isReady()) { setError('Wait until all images are ready, or retry or remove failed images.'); return; }
     setSending(true);
     setError('');
     try {
       const form = new FormData();
       form.append('body', chatBody.trim());
-      chatImages.forEach((item) => form.append('images[]', item.file));
+      appendHostedImageIds(form, chatImages);
       const data = await api.request(`/messages/${selectedConversationId}/messages`, {
         method: 'POST',
         body: form,
       });
       setConversation(data.conversation || conversation);
       setChatBody('');
-      clearMessageImages('chat');
+      chatUploads.consume(chatImages);
     } catch (err) {
       setError(err.message || 'Unable to send message.');
     } finally {
@@ -3356,14 +3321,14 @@ function MessagesPage({ navigate, path, user }) {
       </div>
       {error && <div className="settings-alert error" role="status">{error}</div>}
       {composeOpen && <section className="studio-card messages-compose-card">
-        <div className="messages-compose-head"><strong>New message</strong><button type="button" className="icon-button small" onClick={() => setComposeOpen(false)} aria-label="Close compose"><Icon name="close" size={16}/></button></div>
+        <div className="messages-compose-head"><strong>New message</strong><button type="button" className="icon-button small" onClick={() => { clearMessageImages('compose'); setComposeOpen(false); }} aria-label="Close compose"><Icon name="close" size={16}/></button></div>
         <form className="messages-compose-form" onSubmit={sendNewMessage}>
           <label><span>To</span><span className="search-inline-field"><input value={recipientQuery} onChange={(event) => { setRecipientQuery(event.target.value); setSelectedRecipient(null); }} placeholder="Search people by name or username" />{recipientQuery && <button type="button" className="search-clear-button" onClick={() => { setRecipientQuery(''); setSelectedRecipient(null); }} aria-label="Clear search"><Icon name="close" size={14}/></button>}</span></label>
           {selectedRecipient ? <button type="button" className="messages-selected-recipient" onClick={() => setSelectedRecipient(null)}><Avatar label={selectedRecipient.initials || selectedRecipient.name} image={selectedRecipient.avatar_url}/><span><strong>{selectedRecipient.name}</strong><small>{selectedRecipient.handle}</small></span><Icon name="close" size={15}/></button> : <div className="messages-recipient-results">{recipients.length ? recipients.map((recipient) => <button type="button" key={recipient.id} onClick={() => { setSelectedRecipient(recipient); setRecipientQuery(recipient.name); }}><Avatar label={recipient.initials || recipient.name} image={recipient.avatar_url}/><span><strong>{recipient.name}</strong><small>{recipient.handle}</small></span></button>) : <span>No people found.</span>}</div>}
-          <div className="messages-compose-label"><span>Message</span><span className="message-composer-field"><textarea ref={composeInputRef} value={composeBody} onChange={(event) => setComposeBody(event.target.value)} rows={4} placeholder="Write your message..." /><span className="message-composer-actions"><span className="message-emoji-wrapper"><button type="button" className="comment-emoji-button" aria-label="Add emoji" aria-expanded={messageEmojiOpen === 'compose'} onClick={(event) => toggleMessageEmoji('compose', event.currentTarget)}><Icon name="smile" size={20}/></button>{renderMessageEmojiPicker('compose')}</span><button type="button" className="comment-emoji-button" aria-label="Attach image" onClick={() => composeFileRef.current?.click()}><Icon name="image" size={20}/></button></span></span></div>
-          <input ref={composeFileRef} className="comment-file-input" type="file" accept="image/jpeg,image/png,image/webp,image/gif" multiple onChange={(event) => { addMessageImages('compose', event.target.files); event.target.value = ''; }} />
-          <CommentImagePreview images={composeImages} onRemove={(id) => removeMessageImage('compose', id)} />
-          <button type="submit" className="btn primary" disabled={sending || !selectedRecipient || (!composeBody.trim() && !composeImages.length)}>{sending ? 'Sending...' : 'Send message'}</button>
+          <div className="messages-compose-label"><span>Message</span><span className="message-composer-field"><textarea ref={composeInputRef} value={composeBody} onChange={(event) => setComposeBody(event.target.value)} rows={4} placeholder="Write your message..." /><span className="message-composer-actions"><span className="message-emoji-wrapper"><button type="button" className="comment-emoji-button" aria-label="Add emoji" aria-expanded={messageEmojiOpen === 'compose'} onClick={(event) => toggleMessageEmoji('compose', event.currentTarget)}><Icon name="smile" size={20}/></button>{renderMessageEmojiPicker('compose')}</span><button type="button" className="comment-emoji-button" aria-label="Attach image" disabled={!selectedRecipient || sending} onClick={() => composeFileRef.current?.click()}><Icon name="image" size={20}/></button></span></span></div>
+          <input ref={composeFileRef} className="comment-file-input" type="file" disabled={!selectedRecipient || sending} accept="image/jpeg,image/png,image/webp,image/gif" multiple onChange={(event) => { addMessageImages('compose', event.target.files); event.target.value = ''; }} />
+          <CommentImagePreview images={composeImages} onRemove={(id) => removeMessageImage('compose', id)} onRetry={composeUploads.retry} disabled={sending} />
+          <button type="submit" className="btn primary" disabled={sending || !selectedRecipient || !composeUploads.isReady() || (!composeBody.trim() && !composeImages.length)}>{sending ? 'Sending...' : 'Send message'}</button>
         </form>
       </section>}
       <section className="studio-card messages-full-card">
@@ -3387,7 +3352,7 @@ function MessagesPage({ navigate, path, user }) {
           <div className="private-chat-head"><button type="button" className="private-chat-profile" disabled={!conversationProfilePath} onClick={() => conversationProfilePath && navigate(conversationProfilePath)}><Avatar label={conversation.recipient?.initials || conversation.name} image={conversation.recipient?.avatar_url}/><span><strong>{conversation.name}</strong><small>{conversation.recipient?.handle}</small></span></button><button type="button" className="btn subtle compact" onClick={() => api.request(`/messages/${conversation.id}/read`, { method: 'POST' }).catch(() => {})}>Mark read</button></div>
           <div className="private-chat-messages">{conversation.messages?.length ? conversation.messages.map((message) => <div key={message.id} className={`private-chat-message ${message.own ? 'own' : ''}`}>{!message.own && <Avatar label={message.sender?.initials || message.sender?.name || user.name} image={message.sender?.avatar_url}/>}<span><strong>{message.sender?.name || user.name}</strong>{message.body && <p>{message.body}</p>}<PrivateMessageAttachments attachments={message.attachments || []} /><time>{message.time}</time></span></div>) : <div className="messages-empty-state"><Icon name="comment" size={28}/><strong>No messages yet</strong><span>Send the first message.</span></div>}</div>
           {!canReplyToConversation && <div className="settings-alert error" role="status">{replyBlockedReason}</div>}
-          <form className={`private-chat-form ${chatImages.length ? 'has-images' : ''}`} onSubmit={sendReply}><div className="private-chat-input-stack"><div className="private-chat-input-row"><input ref={chatInputRef} value={chatBody} onChange={(event) => setChatBody(event.target.value)} placeholder={canReplyToConversation ? 'Type a message...' : replyBlockedReason} disabled={!canReplyToConversation} /><span className="message-composer-actions"><span className="message-emoji-wrapper"><button type="button" className="comment-emoji-button" aria-label="Add emoji" aria-expanded={messageEmojiOpen === 'chat'} onClick={(event) => toggleMessageEmoji('chat', event.currentTarget)} disabled={!canReplyToConversation}><Icon name="smile" size={20}/></button>{renderMessageEmojiPicker('chat')}</span><button type="button" className="comment-emoji-button" aria-label="Attach image" onClick={() => chatFileRef.current?.click()} disabled={!canReplyToConversation}><Icon name="image" size={20}/></button></span></div><input ref={chatFileRef} className="comment-file-input" type="file" accept="image/jpeg,image/png,image/webp,image/gif" multiple disabled={!canReplyToConversation} onChange={(event) => { addMessageImages('chat', event.target.files); event.target.value = ''; }} /><CommentImagePreview images={chatImages} onRemove={(id) => removeMessageImage('chat', id)} /></div><button type="submit" className="btn primary" disabled={!canReplyToConversation || sending || (!chatBody.trim() && !chatImages.length)}>{sending ? 'Sending...' : 'Send'}</button></form>
+          <form className={`private-chat-form ${chatImages.length ? 'has-images' : ''}`} onSubmit={sendReply}><div className="private-chat-input-stack"><div className="private-chat-input-row"><input ref={chatInputRef} value={chatBody} onChange={(event) => setChatBody(event.target.value)} placeholder={canReplyToConversation ? 'Type a message...' : replyBlockedReason} disabled={!canReplyToConversation} /><span className="message-composer-actions"><span className="message-emoji-wrapper"><button type="button" className="comment-emoji-button" aria-label="Add emoji" aria-expanded={messageEmojiOpen === 'chat'} onClick={(event) => toggleMessageEmoji('chat', event.currentTarget)} disabled={!canReplyToConversation}><Icon name="smile" size={20}/></button>{renderMessageEmojiPicker('chat')}</span><button type="button" className="comment-emoji-button" aria-label="Attach image" onClick={() => chatFileRef.current?.click()} disabled={!canReplyToConversation}><Icon name="image" size={20}/></button></span></div><input ref={chatFileRef} className="comment-file-input" type="file" accept="image/jpeg,image/png,image/webp,image/gif" multiple disabled={!canReplyToConversation} onChange={(event) => { addMessageImages('chat', event.target.files); event.target.value = ''; }} /><CommentImagePreview images={chatImages} onRemove={(id) => removeMessageImage('chat', id)} onRetry={chatUploads.retry} disabled={sending} /></div><button type="submit" className="btn primary" disabled={!canReplyToConversation || sending || !chatUploads.isReady() || (!chatBody.trim() && !chatImages.length)}>{sending ? 'Sending...' : 'Send'}</button></form>
         </> : <div className="messages-empty-state"><Icon name="block" size={28}/><strong>Conversation unavailable</strong><span>Choose another conversation.</span></div>}
       </section> : <section className="studio-card messages-selected-card private-chat-card"><div className="messages-empty-state"><Icon name="comment" size={28}/><strong>Select a conversation</strong><span>Open a thread or start a new private message.</span></div></section>}
     </main>
@@ -3674,13 +3639,8 @@ function Duration({ value }) { return value ? <span className="duration">{value}
 
 
 
-function CommentImagePreview({ images, onRemove }) {
-  return images.length ? <div className="comment-image-preview-list" aria-label="Selected images">
-    {images.map((item) => <figure className="comment-image-preview" key={item.id}>
-      <img src={item.url} alt={item.name || 'Selected image'} />
-      <button type="button" onClick={() => onRemove(item.id)} aria-label="Remove image">×</button>
-    </figure>)}
-  </div> : null;
+function CommentImagePreview({ images, onRemove, onRetry, disabled = false }) {
+  return <ImageUploadPreview images={images} onRemove={onRemove} onRetry={onRetry} disabled={disabled} />;
 }
 
 function useKlipyStickerCatalog(enabled = true, endpoint = '/stickers') {
@@ -3882,6 +3842,7 @@ function CommentComposer({
   images,
   addImages,
   removeImage,
+  retryImage,
   onSubmit,
   placeholder,
   submitLabel,
@@ -4022,7 +3983,7 @@ function CommentComposer({
         </span>
         {auth?.user && <input ref={fileInputRef} className="comment-file-input" type="file" accept="image/jpeg,image/png,image/webp,image/gif" multiple onChange={(event) => { addImages(event.target.files); event.target.value = ''; }} />}
       </label>
-      {auth?.user && <CommentImagePreview images={images} onRemove={removeImage} />}
+      {auth?.user && <CommentImagePreview images={images} onRemove={removeImage} onRetry={retryImage} />}
       {selectedSticker && <div className="comment-sticker-preview"><img src={selectedSticker.image_url} alt=""/><span>{selectedSticker.name}</span><button type="button" onClick={onStickerRemove} aria-label="Remove sticker">×</button></div>}
     </div>
     {compact ? <div className="watch-inline-reply-actions">
@@ -4073,8 +4034,6 @@ function WatchCommentsPanel({ video, comments, setComments, body, setBody, onSub
   const [expandedReplies, setExpandedReplies] = useState(() => ({ c1: true }));
   const [localNotice, setLocalNotice] = useState('');
   const [likedComments, setLikedComments] = useState({});
-  const [commentImages, setCommentImages] = useState([]);
-  const [replyImages, setReplyImages] = useState({});
   const [loadingReplies, setLoadingReplies] = useState({});
   const [emojiPickerOpen, setEmojiPickerOpen] = useState(null);
   const [emojiPickerPlacement, setEmojiPickerPlacement] = useState({});
@@ -4087,14 +4046,19 @@ function WatchCommentsPanel({ video, comments, setComments, body, setBody, onSub
   const composerInputRefs = useRef({});
   const previousCommentKeysRef = useRef([]);
   const commentDeepLinkRef = useRef({ key: '', completed: false });
-  const ownedCommentImageUrlsRef = useRef(new Set());
 
-  const maxComposerImages = 4;
-  const maxComposerImageSize = 5 * 1024 * 1024;
-  const allowedComposerImageTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
 
   const commentKey = (commentItem) => String(commentItem.id || `${commentItem.user?.name || 'user'}-${commentItem.created_label || commentItem.body}`);
   const commentsEndpoint = commentEndpoint || `/videos/${slug}/comments`;
+  const communityCommentTarget = commentsEndpoint.match(/^\/community-posts\/(\d+)\/comments/);
+  const commentUploads = useHostedImages({ request: (path, options) => api.request(path, options),
+    purpose: communityCommentTarget ? 'community_comment' : 'video_comment',
+    targetId: communityCommentTarget ? Number(communityCommentTarget[1]) : video?.id,
+    authEpoch: api.authenticationEpoch(), onError: (message) => { setLocalNotice(message); notify?.(message); },
+  });
+  const commentImages = commentUploads.byGroup('main');
+  const replyImages = {};
+  commentUploads.items.filter((item) => item.group !== 'main').forEach((item) => { (replyImages[item.group] ||= []).push(item); });
   const commentsLinkBase = commentLinkBase || `${window.location.origin}/watch/${slug}`;
   const updateCommentCount = (amount) => {
     setVideo?.((current) => current ? { ...current, comments_count: Math.max(0, (current.comments_count || 0) + amount) } : current);
@@ -4127,78 +4091,14 @@ function WatchCommentsPanel({ video, comments, setComments, body, setBody, onSub
   const canMuteCommentUser = (commentItem) => Boolean(commentItem.can_mute ?? (auth.user?.id && !viewerOwnsComment(commentItem)));
   const commentAttachments = (commentItem) => {
     const attachments = Array.isArray(commentItem.attachments) ? commentItem.attachments : (Array.isArray(commentItem.images) ? commentItem.images : []);
-    return attachments.filter((item) => (item?.type || 'image') === 'image' && (item?.url || item?.preview_url));
+    return attachments.filter((item) => (item?.type || 'image') === 'image' && (item?.image_id || attachmentCandidates(item).length));
   };
 
-  const createImageDrafts = (files = [], existing = []) => {
-    const accepted = [];
-    Array.from(files).forEach((file) => {
-      if (accepted.length + existing.length >= maxComposerImages) return;
-      if (!allowedComposerImageTypes.includes(file.type)) {
-        pushCommentNotice('Only JPG, PNG, WEBP or GIF images are allowed.');
-        return;
-      }
-      if (file.size > maxComposerImageSize) {
-        pushCommentNotice('Images must be 5 MB or smaller.');
-        return;
-      }
-      const url = URL.createObjectURL(file);
-      ownedCommentImageUrlsRef.current.add(url);
-      accepted.push({
-        id: `${Date.now()}-${Math.random().toString(36).slice(2)}`,
-        file,
-        name: file.name,
-        url,
-      });
-    });
-    if (files.length && accepted.length + existing.length >= maxComposerImages) {
-      pushCommentNotice(`You can attach up to ${maxComposerImages} images.`);
-    }
-    return accepted;
-  };
-
-  const revokeCommentImageUrl = (url) => {
-    if (!url || !ownedCommentImageUrlsRef.current.delete(url)) return;
-    URL.revokeObjectURL(url);
-  };
-
-  const removeMainImage = (draftId) => {
-    setCommentImages((current) => {
-      const removed = current.find((item) => item.id === draftId);
-      revokeCommentImageUrl(removed?.url);
-      return current.filter((item) => item.id !== draftId);
-    });
-  };
-
-  const addMainImages = (files) => {
-    setCommentImages((current) => [...current, ...createImageDrafts(files, current)]);
-  };
-
-  const setReplyImageList = (commentId, updater) => {
-    setReplyImages((current) => ({
-      ...current,
-      [commentId]: typeof updater === 'function' ? updater(current[commentId] || []) : updater,
-    }));
-  };
-
-  const addReplyImages = (commentId, files) => {
-    setReplyImageList(commentId, (current) => [...current, ...createImageDrafts(files, current)]);
-  };
-
-  const removeReplyImage = (commentId, draftId) => {
-    setReplyImageList(commentId, (current) => {
-      const removed = current.find((item) => item.id === draftId);
-      revokeCommentImageUrl(removed?.url);
-      return current.filter((item) => item.id !== draftId);
-    });
-  };
-
-  const clearReplyImages = (commentId) => {
-    setReplyImageList(commentId, (current) => {
-      current.forEach((item) => revokeCommentImageUrl(item.url));
-      return [];
-    });
-  };
+  const removeMainImage = (id) => commentUploads.remove(id);
+  const addMainImages = (files) => commentUploads.add(files, 'main');
+  const addReplyImages = (id, files) => commentUploads.add(files, id);
+  const removeReplyImage = (_id, draftId) => commentUploads.remove(draftId);
+  const clearReplyImages = (id) => commentUploads.clear(id);
 
   const visibleComments = useMemo(() => {
     const list = [...comments];
@@ -4339,11 +4239,6 @@ function WatchCommentsPanel({ video, comments, setComments, body, setBody, onSub
     };
   }, [menuOpenId, replyingId, emojiPickerOpen, stickerPickerOpen]);
 
-  useEffect(() => () => {
-    ownedCommentImageUrlsRef.current.forEach((url) => URL.revokeObjectURL(url));
-    ownedCommentImageUrlsRef.current.clear();
-  }, []);
-
   useEffect(() => {
     if (!localNotice) return undefined;
     const timer = window.setTimeout(() => setLocalNotice(''), 2400);
@@ -4430,6 +4325,7 @@ function WatchCommentsPanel({ video, comments, setComments, body, setBody, onSub
     const selectedSticker = replyStickers[id] || null;
     const value = replyBody.trim();
     if (!value && !imageDrafts.length && !selectedSticker) return;
+    if (!hostedImagesReady(imageDrafts)) { pushCommentNotice('Wait until all images are ready, or retry or remove failed images.'); return; }
     try {
       const localAttachments = imageDrafts.map((item) => ({ type: 'image', url: item.url, name: item.name, local: true }));
       const data = video?.isDemo || String(commentItem.id || '').startsWith('local-')
@@ -4439,7 +4335,7 @@ function WatchCommentsPanel({ video, comments, setComments, body, setBody, onSub
             formData.append('body', value);
             formData.append('parent_id', commentItem.id);
             if (selectedSticker) formData.append('sticker_id', selectedSticker.id);
-            imageDrafts.forEach((item) => formData.append('images[]', item.file));
+            appendHostedImageIds(formData, imageDrafts);
             return api.request(commentsEndpoint, { method: 'POST', body: formData });
           })();
       if (!(video?.isDemo || String(commentItem.id || '').startsWith('local-'))) void trackKlipyStickerShare(selectedSticker);
@@ -4456,8 +4352,7 @@ function WatchCommentsPanel({ video, comments, setComments, body, setBody, onSub
       setReplyStickers((current) => ({ ...current, [id]: null }));
       setEmojiPickerOpen(null);
       setStickerPickerOpen(null);
-      if (!(video?.isDemo || String(commentItem.id || '').startsWith('local-'))) clearReplyImages(id);
-      else setReplyImageList(id, []);
+      commentUploads.consume(imageDrafts);
       pushCommentNotice(`Reply added for ${commentName(commentItem)}.`);
     } catch (err) {
       pushCommentNotice(err.message || 'Unable to save reply.');
@@ -4702,9 +4597,10 @@ function WatchCommentsPanel({ video, comments, setComments, body, setBody, onSub
 
     const galleryTitle = commentName(commentItem);
     const galleryDescription = String(commentItem.body || '').trim();
-    const galleryItems = attachments.map((item) => {
-      const src = item.url || item.preview_url;
-      const thumb = item.preview_url || item.url;
+    const openableAttachments = attachments.filter((item) => attachmentCandidates(item).length);
+    const galleryItems = openableAttachments.map((item) => {
+      const src = attachmentCandidates(item)[0];
+      const thumb = src;
       return {
         src,
         thumb,
@@ -4712,13 +4608,14 @@ function WatchCommentsPanel({ video, comments, setComments, body, setBody, onSub
         description: galleryDescription,
         alt: item.name || `${galleryTitle} comment image`,
         downloadUrl: src,
+        image_candidates: item.image_candidates || [],
       };
     });
 
     return <div className={`comment-attachments-grid count-${Math.min(attachments.length, 4)}`}>
       {attachments.map((item, index) => {
-        const src = item.url || item.preview_url;
-        const thumb = item.preview_url || item.url;
+        const src = attachmentCandidates(item)[0];
+        const thumb = src;
         return <GalleryImage
           key={`${src}-${index}`}
           src={src}
@@ -4727,10 +4624,10 @@ function WatchCommentsPanel({ video, comments, setComments, body, setBody, onSub
           description={galleryDescription}
           itemClassName="comment-lightgallery-item"
           galleryItems={galleryItems}
-          galleryIndex={index}
+          galleryIndex={openableAttachments.indexOf(item)}
         >
-          <button type="button" className="comment-attachment-image" aria-label={`Open ${galleryTitle} image ${index + 1}`}>
-            <img src={thumb} alt={item.name || `${galleryTitle} comment image`} loading="lazy" />
+          <button type="button" className="comment-attachment-image" disabled={!src} aria-label={src ? `Open ${galleryTitle} image ${index + 1}` : 'Image unavailable'}>
+            <AttachmentImage attachment={item} src={thumb} alt={item.name || `${galleryTitle} comment image`} loading="lazy" />
           </button>
         </GalleryImage>;
       })}
@@ -4740,15 +4637,15 @@ function WatchCommentsPanel({ video, comments, setComments, body, setBody, onSub
   const CommentSticker = ({ commentItem }) => commentItem.sticker?.image_url ? <div className="comment-sticker"><img src={commentItem.sticker.image_url} alt={commentItem.sticker.name || 'Sticker'} loading="lazy"/><span>{commentItem.sticker.name || 'Sticker'}</span></div> : null;
 
   const submitMainComment = async (event) => {
+    event.preventDefault();
     const submittedImages = commentImages;
+    if (!hostedImagesReady(submittedImages)) { pushCommentNotice('Wait until all images are ready, or retry or remove failed images.'); return; }
     try {
       const result = await onSubmitComment(event, submittedImages, mainSticker);
       if (result === true && !video?.isDemo) void trackKlipyStickerShare(mainSticker);
       if (result !== false) {
-        const submittedImageIds = new Set(submittedImages.map((item) => item.id));
-        submittedImages.forEach((item) => revokeCommentImageUrl(item.url));
+        commentUploads.consume(submittedImages);
         setEmojiPickerOpen(null);
-        setCommentImages((current) => current.filter((item) => !submittedImageIds.has(item.id)));
         setMainSticker(null);
         setStickerPickerOpen(null);
       }
@@ -4790,10 +4687,11 @@ function WatchCommentsPanel({ video, comments, setComments, body, setBody, onSub
       images={commentImages}
       addImages={addMainImages}
       removeImage={removeMainImage}
+      retryImage={commentUploads.retry}
       onSubmit={submitMainComment}
       placeholder={auth.user ? 'Add a comment...' : 'Login to comment'}
       submitLabel="Publish"
-      disabled={!auth.user || (!body.trim() && !commentImages.length && !mainSticker)}
+      disabled={!auth.user || !commentUploads.isReady('main') || (!body.trim() && !commentImages.length && !mainSticker)}
     />}
 
     <WebsiteAdSlot placement="comments"/>
@@ -4865,13 +4763,14 @@ function WatchCommentsPanel({ video, comments, setComments, body, setBody, onSub
                 images={replyImages[id] || []}
                 addImages={(files) => { setReplyingId(id); addReplyImages(id, files); }}
                 removeImage={(draftId) => removeReplyImage(id, draftId)}
+                retryImage={commentUploads.retry}
                 onSubmit={(event) => submitReply(event, commentItem)}
                 onFocus={() => { setReplyingId(id); if (!replyBody) setReplyBody(''); }}
                 placeholder="Add a reply..."
                 submitLabel="Reply"
                 compact
                 onCancel={replyComposerActive ? () => cancelReply(id) : null}
-                disabled={!auth.user || !replyComposerActive || (!replyBody.trim() && !(replyImages[id] || []).length && !replyStickers[id])}
+                disabled={!auth.user || !commentUploads.isReady(id) || !replyComposerActive || (!replyBody.trim() && !(replyImages[id] || []).length && !replyStickers[id])}
               />
             </div>}
           </div>
@@ -7167,12 +7066,12 @@ function SearchCommunityPost({ post, navigate, auth }) {
   const author = item.author || {};
   const pollOptions = Array.isArray(item.poll_options) ? item.poll_options : [];
   const video = item.video?.slug ? normalizeSearchVideo(item.video) : null;
-  const images = (item.attachments || []).filter((attachment) => attachment.type === 'image' && attachment.url);
-  const eventData = item.type === 'event' ? (item.metadata || {}) : {};
-  const eventCoverUrl = item.type === 'event' ? images[0]?.url : '';
-  const displayImages = item.type === 'event' ? [] : images;
   const paidPhotosLocked = Boolean(item.sale?.is_paid && !item.sale?.has_access);
-  const galleryItems = displayImages.map((attachment) => ({ src: attachment.url, thumb: attachment.url, title: author.name || 'Community post', description: item.body || '' }));
+  const images = paidPhotosLocked ? [] : (item.attachments || []).filter((attachment) => (attachment.type || 'image') === 'image' && (attachment.image_id || attachmentCandidates(attachment).length));
+  const eventData = item.type === 'event' ? (item.metadata || {}) : {};
+  const eventCover = item.type === 'event' ? images[0] : null;
+  const displayImages = item.type === 'event' ? [] : images;
+  const galleryItems = displayImages.filter((attachment) => attachmentCandidates(attachment).length).map((attachment) => ({ src: attachmentCandidates(attachment)[0], thumb: attachmentCandidates(attachment)[0], image_candidates: attachment.image_candidates || [], title: author.name || 'Community post', description: item.body || '' }));
   const urlPreview = item.url_preview || null;
   const hasVisibleContent = Boolean((item.body || '').trim() || pollOptions.length || video || displayImages.length || paidPhotosLocked || urlPreview || item.type === 'event');
   const postPath = author.slug ? `/channel/${author.slug}/community?post=${item.id}` : `/search?q=${encodeURIComponent((item.body || '').slice(0, 80))}`;
@@ -7298,7 +7197,7 @@ function SearchCommunityPost({ post, navigate, auth }) {
     }
   };
 
-  return <article className="search-community-post"><Avatar label={author.name || 'Creator'}/><div><strong>{author.name || 'Creator'} <VerifiedBadge verified={author.verified} /></strong>{item.body ? <p><MentionText text={item.body} navigate={navigate} /></p> : null}{paidPhotosLocked && <CommunityPhotoPaywall sale={item.sale} auth={auth} busy={busy === 'purchase'} error={purchaseError} onPurchase={purchasePhotos} />}{displayImages.length > 0 && <div className="search-community-image">{galleryItems.length ? <GalleryImage src={displayImages[0].url} thumb={displayImages[0].url} title={author.name || 'Community post'} description={item.body || ''} galleryItems={galleryItems} itemClassName="search-community-image-gallery"><img src={displayImages[0].url} alt="" /></GalleryImage> : <img src={displayImages[0].url} alt="" />}{displayImages.length > 1 && <span>1/{displayImages.length}</span>}</div>}{urlPreview && <a className="search-community-url" href={urlPreview.url} target="_blank" rel="noreferrer">{urlPreview.image ? <img src={urlPreview.image} alt="" /> : <Icon name="link" size={18}/>}<span><strong>{urlPreview.title || urlPreview.url}</strong>{urlPreview.description && <small>{urlPreview.description}</small>}<em>{urlPreview.url}</em></span></a>}{video && <button type="button" className="search-community-video" onClick={() => navigate(videoPlaybackPath(video))}><Thumbnail video={video}/><span>{video.title}</span></button>}{pollOptions.length ? <div className="search-poll">{pollOptions.map((option) => <span key={option.index ?? option.label}><b style={{width:`${option.percent || 0}%`}}/>{option.label} <em>{option.percent || 0}%</em></span>)}</div> : null}{item.type === 'event' && <button type="button" className={`search-community-event ${eventCoverUrl ? 'has-cover' : ''}`} style={eventCoverUrl ? { backgroundImage: `url(${eventCoverUrl})` } : undefined} onClick={() => navigate(postPath)}><span>{eventData.title || 'Community event'}</span>{eventData.starts_at && <small><Icon name="calendar" size={13}/>{communityEventDateLabel(eventData)}</small>}{eventData.location && <small><Icon name="pin" size={13}/>{eventData.location}</small>}</button>}{!hasVisibleContent && <p>Community post</p>}<div className="search-community-actions"><button type="button" className={item.is_liked ? 'active' : ''} onClick={toggleLike} disabled={busy === 'like'}><Icon name="heart" size={14}/>{formatNumber(item.likes_count || 0)}</button><button type="button" onClick={openComments} className={commentsOpen ? 'active' : ''}><Icon name="comment" size={14}/>{formatNumber(item.comments_count || 0)}</button><button type="button" onClick={sharePost} disabled={busy === 'share'}><Icon name="share" size={14}/>{formatNumber(item.shares_count || 0)}</button></div>{commentsOpen && <><form className="search-community-comment-form" onSubmit={submitComment}><div className="search-community-comment-field"><input ref={commentInputRef} value={commentBody} onFocus={(event) => commentMentions.refreshMentionQuery(event.target.value, event.target.selectionStart)} onClick={(event) => commentMentions.refreshMentionQuery(event.target.value, event.target.selectionStart)} onKeyDown={commentMentions.handleMentionKeyDown} onChange={commentMentions.changeMentionValue} placeholder={auth?.user ? 'Add a comment...' : 'Login to comment'} maxLength={2000} aria-autocomplete="list" aria-expanded={commentMentions.mentionQuery !== null && commentMentions.mentionUsers.length > 0} aria-controls={`search-community-comment-mentions-${item.id}`}/>{commentMentions.mentionQuery !== null && <MentionMenu id={`search-community-comment-mentions-${item.id}`} users={commentMentions.mentionUsers} activeIndex={commentMentions.activeMentionIndex} onActiveIndex={commentMentions.setActiveMentionIndex} onSelect={commentMentions.insertMention} />}<div className="comment-emoji-wrapper"><button type="button" className="comment-emoji-button" aria-label="Add emoji" aria-expanded={commentEmojiOpen} onClick={(event) => { setCommentEmojiPlacement(emojiPickerPlacementFor(event.currentTarget)); setCommentEmojiOpen((open) => !open); }}><Icon name="smile" size={18}/></button>{commentEmojiOpen && <div className={`comment-emoji-popover is-${commentEmojiPlacement}`} role="dialog" aria-label="Choose emoji"><Suspense fallback={<span className="comment-emoji-loading">Loading emojis...</span>}><EmojiPicker className="comment-emoji-picker" onEmojiClick={insertCommentEmoji} lazyLoadEmojis emojiStyle='native' previewConfig={{ showPreview: false }} searchPlaceHolder="Search" autoFocusSearch={false} width="100%" height={378}/></Suspense></div>}</div></div><button type="submit" className="btn primary" disabled={busy === 'comment' || !commentBody.trim()}>Publish</button>{commentError && <small>{commentError}</small>}</form><div className="search-community-comments">{commentsLoading ? <div className="state-card compact">Loading comments...</div> : <WatchCommentsPanel video={{ comments_count: item.comments_count || comments.length }} comments={comments} setComments={setComments} body="" setBody={() => {}} onSubmitComment={() => false} auth={auth} navigate={navigate} slug={`community-${item.id}`} notify={setCommentError} commentEndpoint={`/community-posts/${item.id}/comments`} commentLinkBase={postUrl} commentHashPrefix={`post-${item.id}-comment-`} onCommentCountChange={updateCommentCount} hideComposer commentsLimit={2} commentsLoadStep={5} compact />}</div></>}</div></article>;
+  return <article className="search-community-post"><Avatar label={author.name || 'Creator'}/><div><strong>{author.name || 'Creator'} <VerifiedBadge verified={author.verified} /></strong>{item.body ? <p><MentionText text={item.body} navigate={navigate} /></p> : null}{paidPhotosLocked && <CommunityPhotoPaywall sale={item.sale} auth={auth} busy={busy === 'purchase'} error={purchaseError} onPurchase={purchasePhotos} />}{displayImages.length > 0 && <div className="search-community-image">{galleryItems.length ? <GalleryImage src={attachmentCandidates(displayImages[0])[0]} thumb={attachmentCandidates(displayImages[0])[0]} title={author.name || 'Community post'} description={item.body || ''} galleryItems={galleryItems} itemClassName="search-community-image-gallery"><AttachmentImage attachment={displayImages[0]} alt="" /></GalleryImage> : <AttachmentImage attachment={displayImages[0]} alt="" />}{displayImages.length > 1 && <span>1/{displayImages.length}</span>}</div>}{urlPreview && <a className="search-community-url" href={urlPreview.url} target="_blank" rel="noreferrer">{urlPreview.image ? <img src={urlPreview.image} alt="" /> : <Icon name="link" size={18}/>}<span><strong>{urlPreview.title || urlPreview.url}</strong>{urlPreview.description && <small>{urlPreview.description}</small>}<em>{urlPreview.url}</em></span></a>}{video && <button type="button" className="search-community-video" onClick={() => navigate(videoPlaybackPath(video))}><Thumbnail video={video}/><span>{video.title}</span></button>}{pollOptions.length ? <div className="search-poll">{pollOptions.map((option) => <span key={option.index ?? option.label}><b style={{width:`${option.percent || 0}%`}}/>{option.label} <em>{option.percent || 0}%</em></span>)}</div> : null}{item.type === 'event' && <button type="button" className={`search-community-event ${eventCover ? 'has-cover' : ''}`} onClick={() => navigate(postPath)}>{eventCover && <AttachmentImage attachment={eventCover} className="hosted-event-cover" alt="" />}<span>{eventData.title || 'Community event'}</span>{eventData.starts_at && <small><Icon name="calendar" size={13}/>{communityEventDateLabel(eventData)}</small>}{eventData.location && <small><Icon name="pin" size={13}/>{eventData.location}</small>}</button>}{!hasVisibleContent && <p>Community post</p>}<div className="search-community-actions"><button type="button" className={item.is_liked ? 'active' : ''} onClick={toggleLike} disabled={busy === 'like'}><Icon name="heart" size={14}/>{formatNumber(item.likes_count || 0)}</button><button type="button" onClick={openComments} className={commentsOpen ? 'active' : ''}><Icon name="comment" size={14}/>{formatNumber(item.comments_count || 0)}</button><button type="button" onClick={sharePost} disabled={busy === 'share'}><Icon name="share" size={14}/>{formatNumber(item.shares_count || 0)}</button></div>{commentsOpen && <><form className="search-community-comment-form" onSubmit={submitComment}><div className="search-community-comment-field"><input ref={commentInputRef} value={commentBody} onFocus={(event) => commentMentions.refreshMentionQuery(event.target.value, event.target.selectionStart)} onClick={(event) => commentMentions.refreshMentionQuery(event.target.value, event.target.selectionStart)} onKeyDown={commentMentions.handleMentionKeyDown} onChange={commentMentions.changeMentionValue} placeholder={auth?.user ? 'Add a comment...' : 'Login to comment'} maxLength={2000} aria-autocomplete="list" aria-expanded={commentMentions.mentionQuery !== null && commentMentions.mentionUsers.length > 0} aria-controls={`search-community-comment-mentions-${item.id}`}/>{commentMentions.mentionQuery !== null && <MentionMenu id={`search-community-comment-mentions-${item.id}`} users={commentMentions.mentionUsers} activeIndex={commentMentions.activeMentionIndex} onActiveIndex={commentMentions.setActiveMentionIndex} onSelect={commentMentions.insertMention} />}<div className="comment-emoji-wrapper"><button type="button" className="comment-emoji-button" aria-label="Add emoji" aria-expanded={commentEmojiOpen} onClick={(event) => { setCommentEmojiPlacement(emojiPickerPlacementFor(event.currentTarget)); setCommentEmojiOpen((open) => !open); }}><Icon name="smile" size={18}/></button>{commentEmojiOpen && <div className={`comment-emoji-popover is-${commentEmojiPlacement}`} role="dialog" aria-label="Choose emoji"><Suspense fallback={<span className="comment-emoji-loading">Loading emojis...</span>}><EmojiPicker className="comment-emoji-picker" onEmojiClick={insertCommentEmoji} lazyLoadEmojis emojiStyle='native' previewConfig={{ showPreview: false }} searchPlaceHolder="Search" autoFocusSearch={false} width="100%" height={378}/></Suspense></div>}</div></div><button type="submit" className="btn primary" disabled={busy === 'comment' || !commentBody.trim()}>Publish</button>{commentError && <small>{commentError}</small>}</form><div className="search-community-comments">{commentsLoading ? <div className="state-card compact">Loading comments...</div> : <WatchCommentsPanel video={{ comments_count: item.comments_count || comments.length }} comments={comments} setComments={setComments} body="" setBody={() => {}} onSubmitComment={() => false} auth={auth} navigate={navigate} slug={`community-${item.id}`} notify={setCommentError} commentEndpoint={`/community-posts/${item.id}/comments`} commentLinkBase={postUrl} commentHashPrefix={`post-${item.id}-comment-`} onCommentCountChange={updateCommentCount} hideComposer commentsLimit={2} commentsLoadStep={5} compact />}</div></>}</div></article>;
 }
 
 
@@ -11725,7 +11624,7 @@ function LiveDetailPage({ slug, navigate, auth, initialRoomData = null, defaultV
           const formData = new FormData();
           formData.append('body', cleanBody);
           if (sticker) formData.append('sticker_id', sticker.id);
-          imageDrafts.forEach((draft) => formData.append('images[]', draft.file));
+          appendHostedImageIds(formData, imageDrafts);
           return { method: 'POST', body: formData };
         })()
       : { method: 'POST', body: JSON.stringify({ body: cleanBody }) };
@@ -14009,7 +13908,7 @@ function ShortsDetailPage({ slug, navigate, auth }) {
       const formData = new FormData();
       formData.append('body', commentBody.trim());
       if (sticker) formData.append('sticker_id', sticker.id);
-      images.forEach((item) => formData.append('images[]', item.file));
+      appendHostedImageIds(formData, images);
       const data = await api.request(`/videos/${encodeURIComponent(targetSlug)}/comments`, { method: 'POST', body: formData });
       const created = data.comment || data.data || data;
       delete shortCommentsCacheRef.current[targetSlug];
@@ -16187,7 +16086,7 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
           const formData = new FormData();
           formData.append('body', cleanBody);
           if (sticker) formData.append('sticker_id', sticker.id);
-          imageDrafts.forEach((draft) => formData.append('images[]', draft.file));
+          appendHostedImageIds(formData, imageDrafts);
           return { method: 'POST', body: formData };
         })()
       : { method: 'POST', body: JSON.stringify({ body: cleanBody }) };
@@ -23446,7 +23345,6 @@ function CommunityComposer({ channel, profile, videos, setPosts, auth, navigate 
   const [urlTitle, setUrlTitle] = useState('');
   const [urlPreview, setUrlPreview] = useState(null);
   const [urlPreviewLoading, setUrlPreviewLoading] = useState(false);
-  const [images, setImages] = useState([]);
   const [photoSales, setPhotoSales] = useState({});
   const [saleEnabled, setSaleEnabled] = useState(false);
   const [salePrice, setSalePrice] = useState('');
@@ -23457,7 +23355,6 @@ function CommunityComposer({ channel, profile, videos, setPosts, auth, navigate 
   const [eventEndsAt, setEventEndsAt] = useState('');
   const [eventLocation, setEventLocation] = useState('');
   const [eventUrl, setEventUrl] = useState('');
-  const [eventCover, setEventCover] = useState(null);
   const [composerEmojiOpen, setComposerEmojiOpen] = useState(false);
   const [composerEmojiPlacement, setComposerEmojiPlacement] = useState('bottom');
   const eventTimezone = useMemo(() => {
@@ -23470,15 +23367,15 @@ function CommunityComposer({ channel, profile, videos, setPosts, auth, navigate 
   const eventCoverInputRef = useRef(null);
   const eventStartInputRef = useRef(null);
   const eventEndInputRef = useRef(null);
-  const imagesRef = useRef(images);
-  const eventCoverRef = useRef(eventCover);
+  const imageUploads = useHostedImages({ request: (path, options) => api.request(path, options), purpose: 'community_post', targetId: channel?.id, authEpoch: api.authenticationEpoch(), maxBytes: 8 * 1024 * 1024, onError: setNotice });
+  const coverUploads = useHostedImages({ request: (path, options) => api.request(path, options), purpose: 'community_post', targetId: channel?.id, authEpoch: api.authenticationEpoch(), maxFiles: 1, maxBytes: 8 * 1024 * 1024, onError: setNotice });
+  const images = imageUploads.items;
+  const eventCover = coverUploads.items[0] || null;
   const bodyMentions = useMentionAutocomplete({ auth, value: body, setValue: setBody, inputRef: bodyTextareaRef, maxLength: 5000 });
 
   useEffect(() => {
-    imagesRef.current = images;
     if (!images.length) setSaleEnabled(false);
   }, [images]);
-  useEffect(() => { eventCoverRef.current = eventCover; }, [eventCover]);
   useEffect(() => {
     let cancelled = false;
     api.request('/upload-options')
@@ -23495,10 +23392,6 @@ function CommunityComposer({ channel, profile, videos, setPosts, auth, navigate 
     if (new URLSearchParams(window.location.search).get('compose') !== '1') return undefined;
     const timer = window.setTimeout(() => bodyTextareaRef.current?.focus(), 300);
     return () => window.clearTimeout(timer);
-  }, []);
-  useEffect(() => () => {
-    imagesRef.current.forEach((item) => URL.revokeObjectURL(item.url));
-    if (eventCoverRef.current?.url) URL.revokeObjectURL(eventCoverRef.current.url);
   }, []);
   useEffect(() => {
     if (!composerEmojiOpen) return undefined;
@@ -23563,43 +23456,11 @@ function CommunityComposer({ channel, profile, videos, setPosts, auth, navigate 
       try { input.showPicker(); } catch (_) {}
     }
   };
-  const addImages = (files) => {
-    const nextImages = Array.from(files || []).slice(0, Math.max(0, 4 - images.length)).map((file) => ({
-      id: `${file.name}-${file.size}-${file.lastModified}-${Math.random().toString(36).slice(2)}`,
-      file,
-      url: URL.createObjectURL(file),
-    }));
-    if (nextImages.length) {
-      setImages((current) => [...current, ...nextImages]);
-      setMode('image');
-    }
-  };
-  const addEventCover = (file) => {
-    if (!file) return;
-    setEventCover((current) => {
-      if (current?.url) URL.revokeObjectURL(current.url);
-      return {
-        file,
-        url: URL.createObjectURL(file),
-        name: file.name,
-      };
-    });
-  };
-  const removeEventCover = () => {
-    setEventCover((current) => {
-      if (current?.url) URL.revokeObjectURL(current.url);
-      return null;
-    });
-  };
-  const removeImage = (id) => {
-    setImages((current) => {
-      const target = current.find((item) => item.id === id);
-      if (target) URL.revokeObjectURL(target.url);
-      return current.filter((item) => item.id !== id);
-    });
-  };
+  const addImages = (files) => { imageUploads.add(files); setMode('image'); };
+  const addEventCover = (file) => { if (file) { coverUploads.clear(); coverUploads.add([file]); } };
+  const removeEventCover = () => coverUploads.clear();
+  const removeImage = (id) => imageUploads.remove(id);
   const resetComposer = () => {
-    images.forEach((item) => URL.revokeObjectURL(item.url));
     setBody('');
     bodyMentions.closeMentionMenu();
     setComposerEmojiOpen(false);
@@ -23608,7 +23469,7 @@ function CommunityComposer({ channel, profile, videos, setPosts, auth, navigate 
     setUrlTitle('');
     setUrlPreview(null);
     setUrlPreviewLoading(false);
-    setImages([]);
+    imageUploads.clear();
     setSaleEnabled(false);
     setSalePrice(photoSales.minimum_price || '0.99');
     setPollOptions(['', '']);
@@ -23627,6 +23488,8 @@ function CommunityComposer({ channel, profile, videos, setPosts, auth, navigate 
       return;
     }
 
+    const submittedImages = mode === 'event' ? coverUploads.items : mode === 'image' ? images : [];
+    if (!hostedImagesReady(submittedImages)) { setNotice('Wait until all images are ready, or retry or remove failed images.'); return; }
     const form = new FormData();
     form.append('body', body.trim());
     form.append('type', mode);
@@ -23641,9 +23504,8 @@ function CommunityComposer({ channel, profile, videos, setPosts, auth, navigate 
       if (eventLocation.trim()) form.append('event_location', eventLocation.trim());
       if (eventUrl.trim()) form.append('event_url', eventUrl.trim());
       form.append('event_timezone', eventTimezone);
-      if (eventCover?.file) form.append('images[]', eventCover.file);
     }
-    if (mode !== 'event') images.forEach((item) => form.append('images[]', item.file));
+    appendHostedImageIds(form, submittedImages);
     if (mode === 'image') {
       form.append('sale_enabled', saleEnabled ? '1' : '0');
       if (saleEnabled) form.append('sale_price', salePrice);
@@ -23654,6 +23516,7 @@ function CommunityComposer({ channel, profile, videos, setPosts, auth, navigate 
     try {
       const data = await api.request(`/channels/${channel.slug}/community-posts`, { method: 'POST', body: form });
       setPosts((current) => [data.post, ...current]);
+      (mode === 'event' ? coverUploads : imageUploads).consume(submittedImages);
       resetComposer();
     } catch (err) {
       setNotice(err.message || 'Unable to publish post.');
@@ -23680,7 +23543,7 @@ function CommunityComposer({ channel, profile, videos, setPosts, auth, navigate 
       {mode === 'image' && <div className="community-composer-extra">
         <input ref={imageInputRef} type="file" accept="image/jpeg,image/png,image/webp,image/gif" multiple className="sr-only" onChange={(event) => { addImages(event.target.files); event.target.value = ''; }} />
         <button type="button" className="btn subtle compact" onClick={() => imageInputRef.current?.click()} disabled={images.length >= 4}><Icon name="image" size={15}/> Select images</button>
-        {images.length ? <div className="community-image-preview-list">{images.map((item) => <figure key={item.id}><img src={item.url} alt="" /><button type="button" onClick={() => removeImage(item.id)}>×</button></figure>)}</div> : null}
+        <ImageUploadPreview images={images} onRemove={removeImage} onRetry={imageUploads.retry} disabled={submitting} />
         {images.length > 0 && photoSales.enabled && <div className="community-photo-sale-settings"><label className="upload-switch-row"><span className="upload-switch"><input type="checkbox" checked={saleEnabled} onChange={(event) => setSaleEnabled(event.target.checked)}/><i /></span> Sell access to these photos</label>{saleEnabled && <label>Price ({String(photoSales.currency || 'usd').toUpperCase()})<input type="number" min={photoSales.minimum_price || '0.99'} max={photoSales.maximum_price || '1000.00'} step="0.01" value={salePrice} onChange={(event) => setSalePrice(event.target.value)} required /></label>}</div>}
       </div>}
       {mode === 'poll' && <div className="community-composer-extra community-poll-editor">
@@ -23698,7 +23561,7 @@ function CommunityComposer({ channel, profile, videos, setPosts, auth, navigate 
         <input ref={eventCoverInputRef} type="file" accept="image/jpeg,image/png,image/webp,image/gif" className="sr-only" onChange={(event) => { addEventCover(event.target.files?.[0]); event.target.value = ''; }} />
         <div className="community-event-cover-row">
           <button type="button" className="btn subtle compact" onClick={() => eventCoverInputRef.current?.click()}><Icon name="image" size={15}/> {eventCover ? 'Change cover' : 'Add cover'}</button>
-          {eventCover && <figure><img src={eventCover.url} alt="" /><figcaption>{eventCover.name}</figcaption><button type="button" onClick={removeEventCover} aria-label="Remove event cover">×</button></figure>}
+          <ImageUploadPreview images={coverUploads.items} onRemove={removeEventCover} onRetry={coverUploads.retry} disabled={submitting} />
         </div>
         <div className="community-event-time-grid">
           <label><span>Starts *</span><div className="community-native-date-field"><input ref={eventStartInputRef} type="datetime-local" value={eventStartsAt} onChange={(event) => setEventStartsAt(event.target.value)} required /><button type="button" onClick={() => openNativeEventPicker(eventStartInputRef)} aria-label="Open start date calendar"><Icon name="calendar" size={16}/></button></div></label>
@@ -23714,7 +23577,7 @@ function CommunityComposer({ channel, profile, videos, setPosts, auth, navigate 
         <button type="button" className={mode === 'video' ? 'active' : ''} onClick={() => setComposerMode('video')}><Icon name="play" size={16}/> Video</button>
         <button type="button" className={mode === 'url' ? 'active' : ''} onClick={() => setComposerMode('url')}><Icon name="link" size={16}/> Link</button>
         <button type="button" className={mode === 'event' ? 'active' : ''} onClick={() => setComposerMode('event')}><Icon name="calendar" size={16}/> Event</button>
-        <button type="submit" className="btn primary compact" disabled={submitting || !salePriceValid}>{submitting ? 'Posting...' : 'Post'}</button>
+        <button type="submit" className="btn primary compact" disabled={submitting || !salePriceValid || (mode === 'image' && !imageUploads.isReady()) || (mode === 'event' && !coverUploads.isReady())}>{submitting ? 'Posting...' : 'Post'}</button>
       </div>
     </div>
   </form>;
@@ -23880,11 +23743,12 @@ function CommunityPost({ post, navigate, auth, onUpdate, onRemove, compact = fal
   const postDeepLinkRef = useRef({ hash: '', opened: false, scrolled: false });
   const editMentions = useMentionAutocomplete({ auth, value: editBody, setValue: setEditBody, inputRef: editTextareaRef, maxLength: 5000 });
   const author = post.author || {};
-  const images = (post.attachments || []).filter((item) => item.type === 'image' && item.url);
-  const eventCoverUrl = post.type === 'event' ? images[0]?.url : '';
-  const displayImages = post.type === 'event' ? [] : images;
   const paidPhotosLocked = Boolean(post.sale?.is_paid && !post.sale?.has_access);
-  const galleryItems = displayImages.map((item) => ({ src: item.url, thumb: item.url, title: author.name || 'Community post', description: post.body || '' }));
+  const images = paidPhotosLocked ? [] : (post.attachments || []).filter((item) => (item.type || 'image') === 'image' && (item.image_id || attachmentCandidates(item).length));
+  const eventCover = post.type === 'event' ? images[0] : null;
+  const displayImages = post.type === 'event' ? [] : images;
+  const openableImages = displayImages.filter((item) => attachmentCandidates(item).length);
+  const galleryItems = openableImages.map((item) => ({ src: attachmentCandidates(item)[0], thumb: attachmentCandidates(item)[0], image_candidates: item.image_candidates || [], title: author.name || 'Community post', description: post.body || '' }));
   const visibleImages = displayImages.slice(0, 4);
   const imageOverflowCount = Math.max(0, displayImages.length - visibleImages.length);
   const postUrl = `${window.location.origin}/channel/${author.slug || ''}/community?post=${post.id}#post-${post.id}`;
@@ -24073,7 +23937,7 @@ function CommunityPost({ post, navigate, auth, onUpdate, onRemove, compact = fal
     const form = new FormData();
     form.append('body', body);
     if (sticker) form.append('sticker_id', sticker.id);
-    imageDrafts.forEach((draft) => form.append('images[]', draft.file));
+    appendHostedImageIds(form, imageDrafts);
     setBusy('comment');
     try {
       const data = await api.request(`/community-posts/${post.id}/comments`, { method: 'POST', body: form });
@@ -24224,11 +24088,11 @@ function CommunityPost({ post, navigate, auth, onUpdate, onRemove, compact = fal
       </form> : <p><MentionText text={post.body} navigate={navigate} /></p>}</div>}
       {paidPhotosLocked && <CommunityPhotoPaywall sale={post.sale} auth={auth} busy={busy === 'purchase'} error={purchaseError} onPurchase={purchasePhotos} />}
       {post.sale?.is_paid && post.sale?.has_access && <div className="community-photo-sale-badge"><Icon name="wallet" size={14}/>{post.sale.is_purchased ? 'Purchased photos' : `Paid photos · ${post.sale.price_label}`}</div>}
-      {displayImages.length > 0 && <div className={`community-image-strip count-${Math.min(visibleImages.length, 4)}`}>{visibleImages.map((item, index) => <GalleryImage key={`${item.url}-${index}`} src={item.url} thumb={item.url} title={author.name || 'Community post'} description={post.body || ''} galleryItems={galleryItems} galleryIndex={index} itemClassName="community-image-tile"><img src={item.url} alt={item.name || ''} loading="lazy" />{imageOverflowCount > 0 && index === visibleImages.length - 1 && <span>+{imageOverflowCount}</span>}</GalleryImage>)}</div>}
+      {displayImages.length > 0 && <div className={`community-image-strip count-${Math.min(visibleImages.length, 4)}`}>{visibleImages.map((item, index) => <GalleryImage key={`${item.url}-${index}`} src={attachmentCandidates(item)[0]} thumb={attachmentCandidates(item)[0]} title={author.name || 'Community post'} description={post.body || ''} galleryItems={galleryItems} galleryIndex={openableImages.indexOf(item)} itemClassName="community-image-tile"><AttachmentImage attachment={item} alt={item.name || ''} loading="lazy" />{imageOverflowCount > 0 && index === visibleImages.length - 1 && <span>+{imageOverflowCount}</span>}</GalleryImage>)}</div>}
       {post.type === 'url' && post.url_preview && <a className="community-url-card" href={post.url_preview.url} target="_blank" rel="noreferrer">{post.url_preview.image ? <img className="community-url-cover" src={post.url_preview.image} alt="" /> : null}<span className="community-url-icon">{post.url_preview.icon ? <img src={post.url_preview.icon} alt="" onError={(event) => { event.currentTarget.style.display = 'none'; }} /> : <Icon name="link" size={18}/>}</span><span><strong>{post.url_preview.title || post.url_preview.url}</strong>{post.url_preview.description && <small>{post.url_preview.description}</small>}<em>{post.url_preview.url}</em></span></a>}
       {post.type === 'video' && post.video?.slug && <button className="community-video-link" onClick={() => navigate(videoPlaybackPath(post.video))}><Thumbnail video={{ ...post.video, duration: formatDurationSeconds(post.video.duration_seconds) }}/><strong>{post.video.title}</strong></button>}
       {post.type === 'poll' && <div className="community-poll"><button type="button" className="community-poll-votes-button" onClick={() => setPollVotersOpen(true)}><Icon name="users" size={13}/>{formatNumber(post.votes_count || 0)} {Number(post.votes_count || 0) === 1 ? 'vote' : 'votes'}</button>{(post.poll_options || []).map((option) => <button type="button" key={option.index} className={`poll-row ${Number(post.user_poll_vote) === option.index ? 'active' : ''}`} onClick={() => votePoll(option.index)} disabled={busy === 'vote'}><span>{option.label}</span><i><b style={{width: `${option.percent || 0}%`}} /></i><em>{option.percent || 0}%</em></button>)}</div>}
-      {post.type === 'event' && <div className={`community-event ${eventCoverUrl ? 'has-cover' : ''}`} style={eventCoverUrl ? { backgroundImage: `url(${eventCoverUrl})` } : undefined}><span>{eventEnded ? 'ENDED' : 'UPCOMING'}</span><strong>{eventData.title || 'Community event'}</strong><small><Icon name="calendar" size={14}/>{communityEventDateLabel(eventData)}</small>{eventData.location && <small><Icon name="pin" size={14}/>{eventData.location}</small>}<div className="community-event-actions"><button type="button" className="btn subtle compact" onClick={() => downloadCommunityEvent(eventData, post.body || '', postUrl)}><Icon name="calendar" size={14}/> Add to calendar</button>{eventData.url && <a className="btn subtle compact" href={eventData.url} target="_blank" rel="noreferrer"><Icon name="link" size={14}/> Open link</a>}</div></div>}
+      {post.type === 'event' && <div className={`community-event ${eventCover ? 'has-cover' : ''}`}>{eventCover && <AttachmentImage attachment={eventCover} className="hosted-event-cover" alt="" />}<span>{eventEnded ? 'ENDED' : 'UPCOMING'}</span><strong>{eventData.title || 'Community event'}</strong><small><Icon name="calendar" size={14}/>{communityEventDateLabel(eventData)}</small>{eventData.location && <small><Icon name="pin" size={14}/>{eventData.location}</small>}<div className="community-event-actions"><button type="button" className="btn subtle compact" onClick={() => downloadCommunityEvent(eventData, post.body || '', postUrl)}><Icon name="calendar" size={14}/> Add to calendar</button>{eventData.url && <a className="btn subtle compact" href={eventData.url} target="_blank" rel="noreferrer"><Icon name="link" size={14}/> Open link</a>}</div></div>}
     </div>
     <div className="community-post-actions"><button type="button" className={post.is_liked ? 'active' : ''} onClick={toggleLike} disabled={busy === 'like'}><Icon name="heart" size={16}/>{formatNumber(post.likes_count || 0)}</button><button type="button" onClick={toggleComments}><Icon name="comment" size={16}/>{formatNumber(post.comments_count || 0)}</button><button type="button" onClick={sharePost} disabled={busy === 'share'}><Icon name="share" size={16}/>{formatNumber(post.shares_count || 0)}</button><button type="button" className={post.is_bookmarked ? 'active' : ''} onClick={toggleBookmark} disabled={busy === 'bookmark'}><Icon name="bookmark" size={16}/>{post.is_bookmarked ? 'Saved' : 'Save'}</button><span className="community-post-menu-shell" ref={menuRef}><button ref={menuTriggerRef} type="button" className={`community-post-menu-trigger ${menuOpen ? 'active' : ''}`} onClick={togglePostMenu} aria-label="Post options" aria-expanded={menuOpen}><Icon name="more" size={16}/></button>{menuOpen && <span className="community-post-menu" style={menuStyle} role="menu">{canManagePost ? <>{canEditPost && <button type="button" role="menuitem" onClick={startEdit}><Icon name="edit" size={16}/><span>Edit post</span></button>}{canDeletePost && <button type="button" role="menuitem" className="danger" onClick={deletePost} disabled={busy === 'delete'}><Icon name="trash" size={16}/><span>{busy === 'delete' ? (moderationDelete ? 'Removing...' : 'Deleting...') : (moderationDelete ? 'Remove post' : 'Delete post')}</span></button>}</> : <><button type="button" role="menuitem" onClick={copyPostLink}><Icon name="link" size={16}/><span>Copy post link</span></button><button type="button" role="menuitem" onClick={() => { setMenuOpen(false); sharePost(); }}><Icon name="share" size={16}/><span>Share post</span></button></>}</span>}</span></div>
     {actionNotice && <div className="profile-action-notice" aria-live="polite">{actionNotice}</div>}

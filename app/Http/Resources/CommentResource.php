@@ -3,18 +3,47 @@
 namespace App\Http\Resources;
 
 use App\Support\KlipyStickers;
+use App\Support\Images\ImageUploads;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\URL;
 
 class CommentResource extends JsonResource
 {
+    public static function collection($resource): AnonymousResourceCollection
+    {
+        if (is_iterable($resource)) self::prefetchAttachments($resource);
+        return parent::collection($resource);
+    }
+
+    /** Batch the whole loaded thread, including any eagerly loaded nested replies. */
+    public static function prefetchAttachments(iterable $comments): void
+    {
+        $pending = [];
+        foreach ($comments as $comment) $pending[] = $comment;
+        $seen = [];
+        $attachments = [];
+        for ($index = 0; $index < count($pending); $index++) {
+            $comment = $pending[$index];
+            if (! $comment instanceof \App\Models\Comment || isset($seen[spl_object_id($comment)])) continue;
+            $seen[spl_object_id($comment)] = true;
+            array_push($attachments, ...($comment->attachments ?: []));
+            if ($comment->relationLoaded('replies')) array_push($pending, ...$comment->replies->all());
+        }
+        ImageUploads::prefetch($attachments);
+    }
+
     public function toArray(Request $request): array
     {
+        self::prefetchAttachments([$this->resource]);
         return [
             'id' => $this->id,
             'body' => $this->body,
             'attachments' => collect($this->attachments ?: [])->map(function ($attachment, int $index): array {
+                if (is_array($attachment) && ! empty($attachment['image_id'])) {
+                    return ImageUploads::payload($attachment);
+                }
                 if (! is_array($attachment) || ($attachment['type'] ?? null) !== 'image' || empty($attachment['path'])) {
                     return [];
                 }

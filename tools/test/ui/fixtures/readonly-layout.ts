@@ -158,6 +158,22 @@ export async function layoutProblems(page: Page): Promise<string[]> {
       }
       if (issues.length >= 8) break;
     }
+    // The navigation lives outside app-main. Inspect its visible contents too;
+    // only a genuinely closed/offscreen menu is exempt, never an open footer.
+    for (const sidebar of document.querySelectorAll<HTMLElement>('.sidebar,.admin-sidebar')) {
+      const bounds = sidebar.getBoundingClientRect();
+      if (sidebar.hasAttribute('inert') || sidebar.getAttribute('aria-hidden') === 'true'
+        || !sidebar.checkVisibility({ checkVisibilityCSS: true }) || bounds.right <= 0 || bounds.left >= innerWidth) continue;
+      for (const element of sidebar.querySelectorAll<HTMLElement>('*')) {
+        const rect = element.getBoundingClientRect();
+        if (!element.checkVisibility({ checkVisibilityCSS: true }) || rect.width < 4 || rect.height < 4
+          || element.closest('[aria-hidden="true"],.sr-only,.visually-hidden')) continue;
+        if (rect.left < bounds.left - 2 || rect.right > bounds.right + 2) {
+          issues.push(`visible sidebar ${element.tagName.toLowerCase()}.${String(element.className).slice(0,70)} bounds ${Math.round(rect.left)}..${Math.round(rect.right)}`);
+        }
+        if (issues.length >= 8) break;
+      }
+    }
     return issues;
   });
 }
