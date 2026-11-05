@@ -9,10 +9,11 @@
 
 Die neue Kurzreferenz steht in `AGENT-HANDOFF.md`, die vollständige Thumbnail-Konfiguration in `Wiki/thumbnails.html`.
 
-- Externe Thumbnails mit Originalerhalt, RAM-Verarbeitung, Provider-Fallback und eigenem begrenztem Nacht-Worker sind umgesetzt. **Bildhoster-Keys sind lokal noch nicht konfiguriert; echte externe Uploads damit noch offen.** Directupload bleibt reserviert; Postimages ist ausdrücklich eine vom Nutzer gewünschte inoffizielle Integration anhand ShareX/SMF.
+- Externe Thumbnails mit Originalerhalt, RAM-Verarbeitung, Provider-Fallback und eigenem begrenztem Nacht-Worker sind umgesetzt. **Bildhoster-Keys sind lokal konfiguriert; echte FastPic- und Postimages-Uploads am 5. Nov 2026 erfolgreich geprüft (beide HTTP 200).** Directupload bleibt reserviert; Postimages ist ausdrücklich eine vom Nutzer gewünschte inoffizielle Integration anhand ShareX/SMF.
 - Video-Datei-Uploads sind auch für Admin gesperrt; URL-Import bleibt zugelassen. Die bestehenden Zugänge bleiben gültig. Eigene Video-Thumbnails werden per Raw-Body extern übertragen. Bei Ausfall keine lokale Zwischenablage.
 - Shorts: <=180 s, quadratisch/hochkant; Maße gespeichert, Bestandsvideos kontrolliert per Resolver erneuert. Browser-Wiedergabe/Seek und Kapitelanzeige geprüft.
 - Backfill schützt bewusste Änderungen, nutzt vorhandene Resolver-Metadaten, keine zweite Extraktion. Permanente und ausgeschöpfte unbekannte Fehler werden nicht ständig vom Scheduler neu angestoßen. Expliziter Retry bleibt möglich.
+- Live-Browserprüfung: FastPic-Bild sichtbar; bei blockiertem FastPic Postimages sichtbar; bei beiden blockiert Original-Thumbnail sichtbar. Je eine geprüfte Kopie für Video ID 3 ist gespeichert; weitere Kopien laufen regulär nachts. Keys bleiben ausschließlich in `.env`.
 - Aktuell drei echte Videos, Quellen frisch. Veraltetes Direct-MP4-Testsample ID 4 entfernt. Langvideo-Test benötigt weiterhin eine Nutzer-URL.
 - Harness: 102 Ergebnisse ohne Fehler; Thumbnail-Suite mit 83 Einzelprüfungen; 9 Playwright-Tests. Vollständiger Befehl: `./tools/test/run.sh all`.
 

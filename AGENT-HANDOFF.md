@@ -107,7 +107,7 @@ Letzte Commits:
 ### Thumbnails und Shorts (v0.7.0)
 - Core: `app/Support/Thumbnails/`, Konfiguration `config/thumbnails.php`. Kein Bild-/Video-Dateispeicher für diese Workflows; Thumbnail-Bytes maximal 5 MiB im RAM. PHP-Body-Spooling liegt auf `/dev/shm`.
 - Original-URL bleibt in `videos.original_thumbnail_url` (TEXT). Aktuelle Quelle und Version separat; `thumbnail_mirrors` enthält Kopien und den Original-Prüfstatus, `thumbnail_providers` globale Ausfälle. Inhaltshashes vermeiden erneute Uploads bei geänderten signierten URLs.
-- Reihenfolge: Directupload (reserviert, kein automatischer Adapter) → FastPic → Postimages → Original → UI-Platzhalter. `FASTPIC_API_KEY` und `POSTIMAGES_API_KEY` in `.env`; **aktuell beide nicht hinterlegt, daher keine Live-Uploads geprüft**. Postimages verwendet den vom Nutzer freigegebenen inoffiziellen ShareX-Weg mit eigenem Key und XML-Hotlink.
+- Reihenfolge: Directupload (reserviert, kein automatischer Adapter) → FastPic → Postimages → Original → UI-Platzhalter. `FASTPIC_API_KEY` und `POSTIMAGES_API_KEY` in `.env`; **beide lokal hinterlegt; echte Uploads am 5. Nov 2026 erfolgreich geprüft (je HTTP 200, direkte Bild-URL erreichbar)**. Postimages verwendet den vom Nutzer freigegebenen inoffiziellen ShareX-Weg mit eigenem Key und XML-Hotlink.
 - Beim Import: erste erfolgreiche Kopie innerhalb insgesamt 10 s; keine weiteren Kopien tagsüber. Kein Key/Fehler/Lock: Original bleibt aktiv. Eigene Bilder via Raw-Body `PUT /api/videos/{slug}/thumbnail`, keine Multipart-Datei; bei Totalausfall bisheriges Bild/Platzhalter, keine Bytes für spätere Jobs speichern. Native API verwendet denselben Service (Raw-Body POST).
 - Browser bekommt `thumbnail_candidates`; Fallback benötigt keine Backend-Anfrage. Private Video-Thumbnails sind absichtlich extern abrufbar.
 - `MaintainThumbnails` auf eigener Queue `thumbnails`, eigener Container `crozztube-thumbnail-worker` (1 Worker, 0.25 CPU, 256 MiB). Nur 02:00 bis **vor** 05:00 Europe/Berlin; auch Jobs prüfen das Fenster. Alle 5 Min maximal 20 Prüfungen, 5 Kopierversuche, 60 s. Eine globale Transfersperre schützt zusätzlich gleichzeitige Importe.
@@ -194,7 +194,7 @@ Bisher max. ~9 Min. getestet. Master-Manifest, Playlist-Länge, Buffering und Re
 ### E4 / E6 / Aufräumen
 Erledigt: Shorts-Browsercheck inkl. Wiedergabe/Seek, einheitliche 180-s-Regel, Kapitelanzeige/Kapitelsprung, Metadaten-Backfill, Fehlerklassifikation, Admin-Provider-Labels aus gemeinsamer Definition. Testvideo ID 4 entfernt.
 
-Offen bleiben E1 (mehrstündige Nutzer-URL fehlt) und reale FastPic-/Postimages-Uploadtests nach lokaler Key-Konfiguration. Directupload bleibt bis zur geeigneten Schnittstelle reserviert. Auth-/Geo-Provider bleiben deaktiviert.
+Offen bleibt E1 (mehrstündige Nutzer-URL fehlt). FastPic und Postimages sind mit eigenen lokalen Keys live geprüft; am bestehenden Video ID 3 sind beide Kopien hinterlegt. Browserprüfung: FastPic normal, bei blockiertem FastPic Postimages, bei beiden blockiert das YouTube-Original. Weitere Bestandskopien bleiben für die Nachtwartung vorgemerkt. Directupload bleibt bis zur geeigneten Schnittstelle reserviert. Auth-/Geo-Provider bleiben deaktiviert.
 
 ---
 

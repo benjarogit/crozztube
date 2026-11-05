@@ -53,7 +53,7 @@ CRZZ_VERBOSE=1 ./tools/test/run.sh ui     # Fehler-Log ausgeben</pre>
 <tr><td><code>ui</code></td><td>Playwright: Mirror-Toggle + Overlay, Reload-Persistenz, SPA-Navigation, Auto-Refresh mit Banner/Reload, Fehlerbanner mit Retry + Mirror; Bild-Fallback ohne Backend-Anfrage, Platzhalter, HLS-Shorts/Seek und Kapitel/Kapitelsprung (9 Tests).</td></tr>
 </table>
 
-<h2>Thumbnail-Prüfungen</h2><p><code>./tools/test/run.sh thumbnails</code> führt 83 PHP-Integrationsprüfungen in einer zurückgerollten Datenbanktransaktion aus: Provider-Fallback, Deduplizierung, RAM-/Größen-/SSRF-Grenzen, manuelle Bilder, sichere Migration, Nachtbudget und Stopp um 05:00, Short-Regel und Fehlerklassifikation. Hoster-Antworten sind simuliert; Live-Uploads brauchen lokale Keys. Dazu kommen fünf HTTP-Prüfungen für Zugriff, Raw-Body, Dateiupload-Sperre und Größenlimit.</p><h2>Playwright</h2>
+<h2>Thumbnail-Prüfungen</h2><p><code>./tools/test/run.sh thumbnails</code> führt 83 PHP-Integrationsprüfungen in einer zurückgerollten Datenbanktransaktion aus: Provider-Fallback, Deduplizierung, RAM-/Größen-/SSRF-Grenzen, manuelle Bilder, sichere Migration, Nachtbudget und Stopp um 05:00, Short-Regel und Fehlerklassifikation. Die automatisierte Suite simuliert Hoster-Antworten. Zusätzlich wurden am 5. Nov 2026 echte Uploads mit den lokal hinterlegten eigenen Keys bei FastPic und Postimages geprüft (beide HTTP 200); der Browser-Fallback FastPic → Postimages → Original funktioniert auch mit diesen echten Bild-URLs. Dazu kommen fünf HTTP-Prüfungen für Zugriff, Raw-Body, Dateiupload-Sperre und Größenlimit.</p><h2>Playwright</h2>
 <pre>cd tools/test/ui
 npm install
 npx playwright install chromium
