@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "activeStep": 1,
+  "steps": [
+    { "id": 1, "status": "active", "blocker": "All five project hooks are discovered without parser errors but await Codex trust review and the real PreToolUse deny probe. Unit tests and source-bound verification passed; this step is not complete." },
+    { "id": 2, "status": "pending" },
+    { "id": 3, "status": "pending" },
+    { "id": 4, "status": "pending" },
+    { "id": 5, "status": "pending" },
+    { "id": 6, "status": "pending" },
+    { "id": 7, "status": "pending" },
+    { "id": 8, "status": "pending" },
+    { "id": 9, "status": "pending" },
+    { "id": 10, "status": "pending" },
+    { "id": 11, "status": "pending" },
+    { "id": 12, "status": "pending" }
+  ]
+}
