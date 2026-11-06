@@ -1,0 +1,77 @@
+{
+  "context": "Actual Vidstack caption font-family/shadow options and audio enhancement. These option labels also require the explicit component translations vocabulary; original subtitle text and track names remain literal.",
+  "messages": {
+    "Monospaced Serif": {
+      "en": "Monospaced Serif",
+      "de_de": "Serifenschrift mit fester Breite",
+      "de_at": "Serifenschrift mit fester Breite",
+      "de_ch": "Serifenschrift mit fester Breite"
+    },
+    "Proportional Serif": {
+      "en": "Proportional Serif",
+      "de_de": "Proportionale Serifenschrift",
+      "de_at": "Proportionale Serifenschrift",
+      "de_ch": "Proportionale Serifenschrift"
+    },
+    "Monospaced Sans-Serif": {
+      "en": "Monospaced Sans-Serif",
+      "de_de": "Serifenlose Schrift mit fester Breite",
+      "de_at": "Serifenlose Schrift mit fester Breite",
+      "de_ch": "Serifenlose Schrift mit fester Breite"
+    },
+    "Proportional Sans-Serif": {
+      "en": "Proportional Sans-Serif",
+      "de_de": "Proportionale serifenlose Schrift",
+      "de_at": "Proportionale serifenlose Schrift",
+      "de_ch": "Proportionale serifenlose Schrift"
+    },
+    "Casual": {
+      "en": "Casual",
+      "de_de": "Handschrift",
+      "de_at": "Handschrift",
+      "de_ch": "Handschrift"
+    },
+    "Cursive": {
+      "en": "Cursive",
+      "de_de": "Schreibschrift",
+      "de_at": "Schreibschrift",
+      "de_ch": "Schreibschrift"
+    },
+    "Small Capitals": {
+      "en": "Small Capitals",
+      "de_de": "Kapitälchen",
+      "de_at": "Kapitälchen",
+      "de_ch": "Kapitälchen"
+    },
+    "Drop Shadow": {
+      "en": "Drop Shadow",
+      "de_de": "Schlagschatten",
+      "de_at": "Schlagschatten",
+      "de_ch": "Schlagschatten"
+    },
+    "Raised": {
+      "en": "Raised",
+      "de_de": "Erhaben",
+      "de_at": "Erhaben",
+      "de_ch": "Erhaben"
+    },
+    "Depressed": {
+      "en": "Depressed",
+      "de_de": "Vertieft",
+      "de_at": "Vertieft",
+      "de_ch": "Vertieft"
+    },
+    "Outline": {
+      "en": "Outline",
+      "de_de": "Kontur",
+      "de_at": "Kontur",
+      "de_ch": "Kontur"
+    },
+    "Audio Boost": {
+      "en": "Audio Boost",
+      "de_de": "Lautstärke verstärken",
+      "de_at": "Lautstärke verstärken",
+      "de_ch": "Lautstärke verstärken"
+    }
+  }
+}

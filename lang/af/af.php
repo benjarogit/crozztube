@@ -82,53 +82,53 @@ return array (
     ),
     'user' => 
     array (
-      0 => 'user',
-      1 => 'users',
+      'one' => 'gebruiker',
+      'other' => 'gebruikers',
     ),
     'users' => 
     array (
-      0 => 'user',
-      1 => 'users',
+      'one' => 'gebruiker',
+      'other' => 'gebruikers',
     ),
     'video' => 
     array (
-      0 => 'video',
-      1 => 'videos',
+      'one' => 'video',
+      'other' => 'video’s',
     ),
     'videos' => 
     array (
-      0 => 'video',
-      1 => 'videos',
+      'one' => 'video',
+      'other' => 'video’s',
     ),
     'comment' => 
     array (
-      0 => 'comment',
-      1 => 'comments',
+      'one' => 'opmerking',
+      'other' => 'opmerkings',
     ),
     'comments' => 
     array (
-      0 => 'comment',
-      1 => 'comments',
+      'one' => 'opmerking',
+      'other' => 'opmerkings',
     ),
     'subscriber' => 
     array (
-      0 => 'subscriber',
-      1 => 'subscribers',
+      'one' => 'intekenaar',
+      'other' => 'intekenaars',
     ),
     'subscribers' => 
     array (
-      0 => 'subscriber',
-      1 => 'subscribers',
+      'one' => 'intekenaar',
+      'other' => 'intekenaars',
     ),
     'view' => 
     array (
-      0 => 'view',
-      1 => 'views',
+      'one' => 'kyk',
+      'other' => 'kyke',
     ),
     'views' => 
     array (
-      0 => 'view',
-      1 => 'views',
+      'one' => 'kyk',
+      'other' => 'kyke',
     ),
     'like' => 
     array (
@@ -142,23 +142,23 @@ return array (
     ),
     'reply' => 
     array (
-      0 => 'reply',
-      1 => 'replies',
+      'one' => 'antwoord',
+      'other' => 'antwoorde',
     ),
     'replies' => 
     array (
-      0 => 'reply',
-      1 => 'replies',
+      'one' => 'antwoord',
+      'other' => 'antwoorde',
     ),
     'playlist' => 
     array (
-      0 => 'playlist',
-      1 => 'playlists',
+      'one' => 'snitlys',
+      'other' => 'snitlyste',
     ),
     'playlists' => 
     array (
-      0 => 'playlist',
-      1 => 'playlists',
+      'one' => 'snitlys',
+      'other' => 'snitlyste',
     ),
   ),
   '__patterns' => 
@@ -169,6 +169,28 @@ return array (
     'unread' => '{count} unread',
     'saved_videos' => '{count} saved videos',
     'published' => '{count} published',
+    'count_user' => 'Gebruikers: {count}',
+    'count_user_one' => '{count} gebruiker',
+    'count_user_other' => '{count} gebruikers',
+    'count_video' => 'Video’s: {count}',
+    'count_video_one' => '{count} video',
+    'count_video_other' => '{count} video’s',
+    'count_comment' => 'Opmerkings: {count}',
+    'count_comment_one' => '{count} opmerking',
+    'count_comment_other' => '{count} opmerkings',
+    'count_subscriber' => 'Intekenaars: {count}',
+    'count_subscriber_one' => '{count} intekenaar',
+    'count_subscriber_other' => '{count} intekenaars',
+    'count_view' => 'Kyke: {count}',
+    'count_view_one' => '{count} kyk',
+    'count_view_other' => '{count} kyke',
+    'count_like' => 'Hou van: {count}',
+    'count_reply' => 'Antwoorde: {count}',
+    'count_reply_one' => '{count} antwoord',
+    'count_reply_other' => '{count} antwoorde',
+    'count_playlist' => 'Snitlyste: {count}',
+    'count_playlist_one' => '{count} snitlys',
+    'count_playlist_other' => '{count} snitlyste',
   ),
   'Overview' => 'Oorsig',
   'Home' => 'Tuis',
@@ -177,7 +199,7 @@ return array (
   'Subscriptions' => 'Subskripsies',
   'Watch Later' => 'Kyk later',
   'Live & Create' => 'Leef en skep',
-  'Live' => 'Leef',
+  'Live' => 'Regstreeks',
   'Upload' => 'Laai op',
   'Creator Studio' => 'Skepperateljee',
   'Content' => 'Inhoud',
@@ -228,7 +250,7 @@ return array (
   'Thumbnail' => 'Kleinkiekie',
   'Create a compelling thumbnail' => 'Skep \'n boeiende kleinkiekie',
   'Choose who can watch your video' => 'Kies wie jou video kan kyk',
-  'Review' => 'Hersien',
+  'Review' => 'Gaan na',
   'Review your video settings' => 'Gaan jou video-instellings na',
   'Publish' => 'Publiseer',
   'Publish and share your video' => 'Publiseer en deel jou video',
@@ -257,8 +279,8 @@ return array (
   'Anyone can search for and watch this video' => 'Enigeen kan hierdie video soek en kyk',
   'Anyone with the link can watch' => 'Enigiemand met die skakel kan kyk',
   'Anyone with the link can watch this video' => 'Enigiemand met die skakel kan hierdie video kyk',
-  'Only you and people you choose' => 'Net jy en mense wat jy kies',
-  'Only you and people you choose can watch' => 'Net jy en mense wat jy kies kan kyk',
+  'Only you and people you choose' => 'Slegs jy en die webwerf se administrateurs kan hierdie video kyk.',
+  'Only you and people you choose can watch' => 'Slegs jy en die webwerf se administrateurs kan hierdie video kyk.',
   'Thumbnail preview' => 'Miniatuurvoorskou',
   'No thumbnail selected.' => 'Geen kleinkiekie gekies nie.',
   'More options' => 'Meer opsies',
@@ -343,7 +365,7 @@ return array (
   'Search result types' => 'Soekresultate tipes',
   'Videos' => 'Video\'s',
   'Channels' => 'Kanale',
-  'Shorts' => 'Kortbroek',
+  'Shorts' => 'Shorts',
   'Community' => 'Gemeenskap',
   'See all' => 'Sien alles',
   'Search filters' => 'Soek filters',
@@ -411,10 +433,10 @@ return array (
   'Comment options' => 'Opmerking opsies',
   'Copy Link' => 'Kopieer skakel',
   'Pin Comment' => 'Speld opmerking vas',
-  'Unpin Comment' => 'Ontspeld opmerking',
+  'Unpin Comment' => 'Maak opmerking los',
   'Mute User' => 'Demp gebruiker',
   'Reported' => 'Gerapporteer',
-  'Report Comment' => 'Verslag Kommentaar',
+  'Report Comment' => 'Rapporteer opmerking',
   'Delete Comment' => 'Vee opmerking uit',
   'Pinned' => 'Vasgespeld',
   'No comments yet. Be the first to comment.' => 'Nog geen kommentaar nie. Wees die eerste om kommentaar te lewer.',
@@ -664,7 +686,7 @@ return array (
   'Add an about section so viewers know what your channel is about.' => 'Voeg \'n oor-afdeling by sodat kykers weet waaroor jou kanaal gaan.',
   'This channel has not added an about section yet.' => 'Hierdie kanaal het nog nie \'n oor-afdeling bygevoeg nie.',
   'Admin' => 'Admin',
-  'Dashboard' => 'Dashboard',
+  'Dashboard' => 'Oorsig',
   'Users' => 'Gebruikers',
   'Reports' => 'Verslae',
   'Support' => 'Ondersteuning',
@@ -761,7 +783,7 @@ return array (
   'Verify selected' => 'Verifieer gekies',
   'Suspend selected' => 'Skors gekies',
   'Delete selected' => 'Vee geselekteerde uit',
-  'Clear selection' => 'Vee keuse uit',
+  'Clear selection' => 'Maak keuse skoon',
   'Select all visible users' => 'Kies alle sigbare gebruikers',
   'Select row' => 'Kies ry',
   'Open actions' => 'Oop aksies',
@@ -807,7 +829,7 @@ return array (
   'Watch Time (hours)' => 'Kyktyd (ure)',
   'Sessions' => 'Sessies',
   'Traffic Sources' => 'Verkeersbronne',
-  'Device Breakdown' => 'Toestelonderbreking',
+  'Device Breakdown' => 'Verdeling volgens toestel',
   'Top Performing Categories' => 'Toppresterende kategorieë',
   'Top Traffic Sources' => 'Top Verkeersbronne',
   'Audience Devices' => 'Gehoortoestelle',
@@ -1491,7 +1513,7 @@ return array (
   'Import summary' => 'Invoer opsomming',
   'Source URL' => 'Bron URL',
   'Video imported' => 'Video ingevoer',
-  'Your video was imported and processing has started.' => 'Jou video is ingevoer en verwerking het begin.',
+  'Your video was imported and processing has started.' => 'Jou video is ingevoer.',
   'Import Video' => 'Voer video in',
   'Import a public video URL, customize its details, and publish it through the normal processing pipeline.' => 'Voer \'n publieke video-URL in, pas die besonderhede daarvan aan en publiseer dit deur die normale verwerkingspyplyn.',
   'Video Import' => 'Video-invoer',
@@ -1790,7 +1812,7 @@ return array (
   'View users' => 'View users',
   'Login security' => 'Login security',
   'Find creator' => 'Find creator',
-  '· Shorts require 60s max and vertical portrait video' => '· Kortbroek require 60s max and vertical portrait video',
+  '· Shorts require 60s max and vertical portrait video' => 'Shorts moet in portretformaat en hoogstens 60 sekondes lank wees.',
   '% of uploaded videos' => '% of uploaded videos',
   '% watched' => '% gekyk',
   '+12% vs yesterday' => '+12% vs yesterday',
@@ -2455,9 +2477,9 @@ return array (
   'short was uploaded' => 'short was uploaded',
   'Shortest' => 'Shortest',
   'Shorts discovered' => 'Kortbroek discovered',
-  'Shorts must be 60 seconds or less.' => 'Kortbroek must be 60 seconds or less.',
+  'Shorts must be 60 seconds or less.' => 'Shorts mag hoogstens 60 sekondes lank wees.',
   'Shorts must be 60 seconds or less. Vertical 9:16 is recommended.' => 'Kortbroek must be 60 seconds or less. Vertical 9: 16 is recommended.',
-  'Shorts must use a vertical portrait aspect ratio.' => 'Kortbroek must use a vertical portrait aspect ratio.',
+  'Shorts must use a vertical portrait aspect ratio.' => 'Shorts moet in portretformaat wees.',
   'Shorts stats' => 'Kortbroek Statistieke',
   'Show less' => 'Show less',
   'Show more ⌄' => 'Show more ⌄',
@@ -2770,10 +2792,10 @@ return array (
   'Password looks good.' => 'Password looks good.',
   'Password needs work.' => 'Password needs work.',
   'Add at least 8 characters.' => 'Add at least 8 characters.',
-  'Add a letter.' => 'Add a letter.',
-  'Add a number.' => 'Add a number.',
-  'Add an uppercase letter.' => 'Add an uppercase letter.',
-  'Add a lowercase letter.' => 'Add a lowercase letter.',
+  'Add a letter.' => 'Voeg ’n Latynse letter by (A–Z of a–z).',
+  'Add a number.' => 'Voeg ’n syfer by (0–9).',
+  'Add an uppercase letter.' => 'Voeg ’n Latynse hoofletter by (A–Z).',
+  'Add a lowercase letter.' => 'Voeg ’n Latynse kleinletter by (a–z).',
   'Add a symbol.' => 'Add a symbol.',
   'Use a longer password for this strength level.' => 'Use a longer password for this strength level.',
   'Captcha image' => 'Captcha image',
@@ -3105,7 +3127,7 @@ return array (
   'Log in with Apple' => 'Meld aan met Apple',
   'Sign up with Apple' => 'Sluit aan by Apple',
   'or' => 'of',
-  'We never share your data with third parties.' => 'Ons deel nooit jou data met derde partye nie.',
+  'We never share your data with third parties.' => 'Lees in ons privaatheidsbeleid hoe ons jou data hanteer.',
   'Account settings' => 'Rekeninginstellings',
   'Processing...' => 'Verwerk tans …',
   'Submitting request...' => 'Dien tans versoek in …',
@@ -3257,7 +3279,7 @@ return array (
   'DVR' => 'DVR',
   'Capture Card' => 'Vang kaart',
   'High' => 'Hoog',
-  'Stream Health' => 'Stroom Gesondheid',
+  'Stream Health' => 'Stroomstatus',
   'Low (1.2s)' => 'Laag (1,2 s)',
   'Deep into the dragon’s lair! Epic boss battles, lore hunting, and community challenges. Join the adventure!' => 'Diep in die draak se lêplek! Epiese baasgevegte, leerjag en gemeenskapsuitdagings. Sluit aan by die avontuur!',
   'Ask your audience' => 'Vra jou gehoor',
@@ -4187,7 +4209,7 @@ return array (
   'Ad impression already completed.' => 'Advertensie-indruk reeds voltooi.',
   'Ad impression completed.' => 'Advertensie-indruk voltooi.',
   'Ad updated.' => 'Advertensie opgedateer.',
-  'Advanced generated LiveKit options' => 'Gevorderde gegenereerde ZXTERM1ZX opsies',
+  'Advanced generated LiveKit options' => 'Gevorderde gegenereerde LiveKit opsies',
   'Apply configuration' => 'Pas konfigurasie toe',
   'Automatic' => 'Outomatiese',
   'A valid phone number is required when using phone delivery.' => '\'n Geldige telefoonnommer word vereis wanneer telefoonaflewering gebruik word.',
@@ -4215,8 +4237,8 @@ return array (
   'Detected issues' => 'Bespeur kwessies',
   'Device session not found.' => 'Toestelsessie nie gevind nie.',
   'Device signed out successfully.' => 'Toestel het suksesvol afgemeld.',
-  'Docker Configuration' => 'ZXTERM3ZX-konfigurasie',
-  'Docker container file paths' => 'ZXTERM3ZX houer lêer paaie',
+  'Docker Configuration' => 'Docker-konfigurasie',
+  'Docker container file paths' => 'Docker houer lêer paaie',
   'Do not collapse settings blocks' => 'Moenie instellingsblokke invou nie',
   'during this stream' => 'tydens hierdie stroom',
   'Enabled contributions will appear here.' => 'Geaktiveerde bydraes sal hier verskyn.',
@@ -4239,11 +4261,11 @@ return array (
   'Live chat message deleted.' => 'Regstreekse kletsboodskap uitgevee.',
   'Live control panels' => 'Regstreekse beheerpanele',
   'Live Control Room' => 'Regstreekse beheerkamer',
-  'LiveKit and Docker logs' => 'ZXTERM1ZX en ZXTERM3ZX logs',
-  'LiveKit did not return a connection result.' => 'ZXTERM1ZX het nie \'n verbindingresultaat opgelewer nie.',
-  'LiveKit Docker' => 'ZXTERM1ZX ZXTERM3ZX',
-  'LiveKit signaling and authenticated API connection succeeded.' => 'ZXTERM1ZX-sein en geverifieerde API-verbinding het geslaag.',
-  'LiveKit SSL certificates' => 'ZXTERM1ZX SSL-sertifikate',
+  'LiveKit and Docker logs' => 'LiveKit en Docker logs',
+  'LiveKit did not return a connection result.' => 'LiveKit het nie \'n verbindingresultaat opgelewer nie.',
+  'LiveKit Docker' => 'LiveKit Docker',
+  'LiveKit signaling and authenticated API connection succeeded.' => 'LiveKit-sein en geverifieerde API-verbinding het geslaag.',
+  'LiveKit SSL certificates' => 'LiveKit SSL-sertifikate',
   'Live polls' => 'Regstreekse meningspeilings',
   'Live stream' => 'Regstreekse stroom',
   'Live stream ended.' => 'Regstreekse stroom het geëindig.',
@@ -4276,19 +4298,19 @@ return array (
   'Participant controls' => 'Deelnemer kontroles',
   'Participant role' => 'Deelnemer rol',
   'Participants' => 'Deelnemers',
-  'Payment card numbers are handled by the configured payment provider and are never stored in your PlayHub profile.' => 'Betaalkaartnommers word deur die gekonfigureerde betalingsverskaffer hanteer en word nooit in jou ZXTERM0ZX-profiel gestoor nie.',
+  'Payment card numbers are handled by the configured payment provider and are never stored in your PlayHub profile.' => 'Betaalkaartnommers word deur die gekonfigureerde betalingsverskaffer hanteer en word nooit in jou PlayHub-profiel gestoor nie.',
   'Payment history' => 'Betaling geskiedenis',
   'Peak Viewers' => 'Piekkykers',
-  'PlayHub is installed' => 'ZXTERM0ZX is geïnstalleer',
-  'PlayHub recording' => 'ZXTERM0ZX opname',
-  'Please enable JavaScript to use PlayHub.' => 'Aktiveer asseblief ZXTERM4ZX om ZXTERM0ZX te gebruik.',
+  'PlayHub is installed' => 'PlayHub is geïnstalleer',
+  'PlayHub recording' => 'PlayHub opname',
+  'Please enable JavaScript to use PlayHub.' => 'Aktiveer asseblief JavaScript om PlayHub te gebruik.',
   'Poll created.' => 'Meningpeiling geskep.',
   'Poll deleted.' => 'Meningspeiling is uitgevee.',
   'Poll updated.' => 'Meningpeiling is opgedateer.',
-  'Preparing RTMP URL' => 'Berei tans ZXTERM2ZX URL voor',
+  'Preparing RTMP URL' => 'Berei tans RTMP URL voor',
   'Preparing stream key' => 'Berei tans stroomsleutel voor',
   'Price' => 'Prys',
-  'Project-local LiveKit file paths' => 'Projek-plaaslike ZXTERM1ZX lêer paaie',
+  'Project-local LiveKit file paths' => 'Projek-plaaslike LiveKit lêer paaie',
   'Pull image' => 'Trek prent',
   'Quality' => 'Kwaliteit',
   'Question' => 'Vraag',
@@ -4305,8 +4327,8 @@ return array (
   'Response' => 'Reaksie',
   'Restart' => 'Herbegin',
   'Revenue & Tips' => 'Inkomste en wenke',
-  'RTMP credentials are ready.' => 'ZXTERM2ZX geloofsbriewe is gereed.',
-  'RTMP ingress' => 'ZXTERM2ZX ingang',
+  'RTMP credentials are ready.' => 'RTMP geloofsbriewe is gereed.',
+  'RTMP ingress' => 'RTMP ingang',
   'Schedule must be in the future.' => 'Skedule moet in die toekoms wees.',
   'Search or enter your country' => 'Soek of voer jou land in',
   'Select an option' => 'Kies \'n opsie',
@@ -4331,7 +4353,7 @@ return array (
   'The default quality must be enabled as an upload rendition.' => 'Die verstekkwaliteit moet as \'n oplaaiweergawe geaktiveer word.',
   'The end date must be later than the start date.' => 'Die einddatum moet later as die begindatum wees.',
   'The invited user must sign in with that account before opening the link.' => 'Die genooide gebruiker moet met daardie rekening aanmeld voordat die skakel oopgemaak word.',
-  'The logo must be a safe SVG file.' => 'Die logo moet \'n veilige ZXTERM5ZX-lêer wees.',
+  'The logo must be a safe SVG file.' => 'Die logo moet \'n veilige SVG-lêer wees.',
   'The new password must be different from the current one.' => 'Die nuwe wagwoord moet verskil van die huidige een.',
   'The provided credentials are incorrect.' => 'Die verskafde geloofsbriewe is verkeerd.',
   'The two-factor authentication code is invalid.' => 'Die tweefaktor-stawingkode is ongeldig.',
@@ -4360,7 +4382,7 @@ return array (
   'View more' => 'Bekyk meer',
   'Visible live chat messages will appear here after the replay is ready.' => 'Sigbare regstreekse kletsboodskappe sal hier verskyn nadat die herhaling gereed is.',
   'Vote recorded.' => 'Stem aangeteken.',
-  'Waiting for RTMP video' => 'Wag vir ZXTERM2ZX-video',
+  'Waiting for RTMP video' => 'Wag vir RTMP-video',
   'Your ad markup' => 'Jou advertensie-opmerk',
   'Your participant video will appear here.' => 'Jou deelnemervideo sal hier verskyn.',
   'Also permanently delete all videos uploaded by these users' => 'Vee ook permanent alle video\'s uit wat deur hierdie gebruikers opgelaai is',
@@ -4450,4 +4472,119 @@ return array (
   'Language not found.' => 'Language not found.',
   'Language directory not found.' => 'Language directory not found.',
   'The selected language directory is read-only. Update its server permissions before editing.' => 'The selected language directory is read-only. Update its server permissions before editing.',
+  'Find out how we handle your data in our privacy policy.' => 'Lees in ons privaatheidsbeleid hoe ons jou data hanteer.',
+  'Shorts must be 180 seconds or less.' => 'Shorts mag hoogstens 60 sekondes lank wees.',
+  'Shorts must be square or vertical.' => 'Shorts moet in portretformaat wees.',
+  'Shorts must be 60 seconds or less and vertical.' => 'Shorts moet in portretformaat en hoogstens 60 sekondes lank wees.',
+  'Shorts must be vertical videos of at most 60 seconds.' => 'Shorts moet in portretformaat en hoogstens 60 sekondes lank wees.',
+  'Shorts must be 180 seconds or less and square or vertical.' => 'Shorts moet in portretformaat en hoogstens 60 sekondes lank wees.',
+  'Shorts must be square or vertical videos of at most 180 seconds.' => 'Shorts moet in portretformaat en hoogstens 60 sekondes lank wees.',
+  '· Shorts require 60s max and vertical video' => 'Shorts moet in portretformaat en hoogstens 60 sekondes lank wees.',
+  '· Shorts require 180s max and square or vertical video' => 'Shorts moet in portretformaat en hoogstens 60 sekondes lank wees.',
+  'This video will be published as a Short because it is at most 60 seconds and vertical.' => 'Hierdie video word as ’n Short gepubliseer omdat dit in portretformaat en hoogstens 60 sekondes lank is.',
+  'This video will be published as a Short because it is at most 180 seconds and square or vertical.' => 'Hierdie video word as ’n Short gepubliseer omdat dit in portretformaat en hoogstens 60 sekondes lank is.',
+  'No shorts uploaded yet. Shorts appear here after a vertical video of at most 60 seconds is imported.' => 'Nog geen Shorts nie. Ingevoerde video’s in portretformaat van hoogstens 60 sekondes verskyn hier.',
+  'No shorts uploaded yet. Shorts appear here after a square or vertical video of at most 180 seconds is imported.' => 'Nog geen Shorts nie. Ingevoerde video’s in portretformaat van hoogstens 60 sekondes verskyn hier.',
+  'Drag and drop your short file here' => 'Sleep jou Short-videolêer hierheen',
+  'Video: {seconds}s · {width}×{height}. Shorts must be 60 seconds or less and vertical.' => 'Video: {seconds}s · {width}×{height}. Shorts moet in portretformaat en hoogstens 60 sekondes lank wees.',
+  'Chapter {number} name' => 'Naam van hoofstuk {number}',
+  'A video can have up to {count} chapters.' => '’n Video kan tot {count} hoofstukke hê.',
+  'Chapter {number} has an invalid timestamp.' => 'Hoofstuk {number} het ’n ongeldige tydstempel.',
+  'The first chapter must start at 0:00.' => 'Die eerste hoofstuk moet by 0:00 begin.',
+  'Chapter timestamps must be in order and at least {seconds} seconds apart.' => 'Die tydstempels moet in volgorde wees, met minstens {seconds} s tussen hulle.',
+  'Chapter {number} starts after the video ends.' => 'Hoofstuk {number} moet begin voordat die video eindig.',
+  'Add a name for chapter {number} or turn off Upload with chapters.' => 'Gee hoofstuk {number} ’n naam of skakel ‘Laai op met hoofstukke’ af.',
+  'The name for chapter {number} must be 160 characters or fewer.' => 'Die naam van hoofstuk {number} mag hoogstens 160 karakters bevat.',
+  'Add at least two chapters or turn off Upload with chapters.' => 'Voeg minstens twee hoofstukke by of skakel ‘Laai op met hoofstukke’ af.',
+  'Upload with chapters' => 'Laai op met hoofstukke',
+  'Your video was imported.' => 'Jou video is ingevoer.',
+  'View posts tagged {tag}' => 'Bekyk plasings met die merker {tag}',
+  'View {name} channel' => 'Maak {name} se kanaal oop',
+  'Chapter {number} start time' => 'Begintyd van hoofstuk {number}',
+  'Remove chapter {number}' => 'Verwyder hoofstuk {number}',
+  'Transcript' => 'Transkripsie',
+  'Loading transcript…' => 'Laai transkripsie…',
+  'The transcript could not be loaded.' => 'Die transkripsie kon nie gelaai word nie.',
+  'Transcript text' => 'Transkripsieteks',
+  'Playlist tip' => 'Wenk vir jou snitlys',
+  'Send a tip to {name}' => 'Ondersteun {name}',
+  'Support the creator of “{title}”.' => 'Ondersteun die skepper van “{title}”.',
+  'Tip sent to {name}.' => 'Jou bydrae is aan {name} gestuur.',
+  'Support {name} during this live stream.' => 'Ondersteun {name} tydens hierdie regstreekse uitsending.',
+  'Send Super Chat' => 'Stuur Super Chat',
+  'Send tip' => 'Stuur bydrae',
+  'Your {SITENAME} verification code' => 'Jou {SITENAME}-verifikasiekode',
+  'Your {SITENAME} verification code is: {VERIFICATION_CODE}
+
+This code expires in {EXPIRY_MINUTES} minutes.' => 'Jou {SITENAME}-verifikasiekode: {VERIFICATION_CODE}
+
+Hierdie kode is {EXPIRY_MINUTES} min geldig.',
+  'Reset your {SITENAME} password' => 'Stel jou {SITENAME}-wagwoord terug',
+  'Hello {USERNAME},
+
+Your {SITENAME} password reset code is: {RESET_CODE}
+
+This code expires in {EXPIRY_MINUTES} minutes.' => 'Hallo {USERNAME},
+
+Jou kode om jou {SITENAME}-wagwoord terug te stel: {RESET_CODE}
+
+Hierdie kode is {EXPIRY_MINUTES} min geldig.',
+  'You have been invited to {SITENAME}' => 'Jy is na {SITENAME} genooi',
+  'Hello {USERNAME},
+
+You have been invited to {SITENAME} as {ROLE}.
+
+Login email: {USER_EMAIL}
+Temporary password: {TEMPORARY_PASSWORD}
+Login: {LOGIN_URL}
+
+Please sign in and update your password.' => 'Hallo {USERNAME},
+
+Jy is na {SITENAME} genooi. Jou rol: {ROLE}.
+
+E-posadres om aan te meld: {USER_EMAIL}
+Tydelike wagwoord: {TEMPORARY_PASSWORD}
+Meld aan: {LOGIN_URL}
+
+Meld aan en verander jou wagwoord.',
+  'Your {SITENAME} account has been restricted' => 'Jou {SITENAME}-rekening is beperk',
+  'Hello {USERNAME},
+
+Your {SITENAME} account has been restricted until {BAN_EXPIRES_AT}.
+
+Restrictions:
+{RESTRICTIONS}
+
+If you believe this is a mistake, contact {SUPPORT_EMAIL}.' => 'Hallo {USERNAME},
+
+Jou {SITENAME}-rekening is beperk tot {BAN_EXPIRES_AT}.
+
+Beperkings:
+{RESTRICTIONS}
+
+Dink jy dit is ’n fout? Kontak {SUPPORT_EMAIL}.',
+  'You are now a {SITENAME} moderator' => 'Jy is nou ’n moderator op {SITENAME}',
+  'Hello {USERNAME},
+
+You have been assigned the Moderator role on {SITENAME}. You can now access the moderation tools available to your role.
+
+Moderation dashboard: {MODERATION_URL}' => 'Hallo {USERNAME},
+
+Jy het die moderatorrol op {SITENAME} gekry. Jy kan nou die modereringsnutsgoed gebruik wat by jou rol hoort.
+
+Modereringspaneel: {MODERATION_URL}',
+  'You are moderating "{STREAM_TITLE}" on {SITENAME}' => 'Jy modereer “{STREAM_TITLE}” op {SITENAME}',
+  'Hello {USERNAME},
+
+You have been assigned as a moderator for the live stream "{STREAM_TITLE}". Open the stream to access your moderation controls.
+
+Open stream: {STREAM_URL}' => 'Hallo {USERNAME},
+
+Jy is aangewys as moderator vir die regstreekse uitsending “{STREAM_TITLE}”. Maak die uitsending oop om die modereringsnutsgoed te gebruik.
+
+Maak uitsending oop: {STREAM_URL}',
+  'Notification' => 'Kennisgewing',
+  'This email was sent by {site}.' => 'Hierdie e-pos is deur {site} gestuur.',
+  'Password strength must be at least {level}/10.' => 'Jou wagwoord moet minstens {level}/10 bereik.',
+  'Code expires in {time}' => 'Jou kode verval oor {time}',
 );

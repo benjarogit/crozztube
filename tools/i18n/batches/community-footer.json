@@ -1,0 +1,17 @@
+{
+  "context": "Footer: complete community sentence with literal site name; replaces a sentence split around the brand placeholder.",
+  "messages": {
+    "Watch, create and connect with your community on {site}.": {
+      "en": "Watch, create and connect with your community on {site}.",
+      "de": "Schau Videos, werde kreativ und triff deine Community auf {site}.",
+      "fr": "Regarde des vidéos, crée et retrouve ta communauté sur {site}.",
+      "nl": "Kijk, maak video’s en ontmoet je community op {site}.",
+      "es": "Mira videos, crea y conecta con tu comunidad en {site}.",
+      "es_es": "Mira vídeos, crea y conecta con tu comunidad en {site}.",
+      "pt": "Vê vídeos, cria e encontra a tua comunidade em {site}.",
+      "pt_br": "Assista a vídeos, crie e encontre sua comunidade em {site}.",
+      "it": "Guarda video, crea e incontra la tua community su {site}.",
+      "ru": "Смотри видео, создавай и общайся со своим сообществом на {site}."
+    }
+  }
+}

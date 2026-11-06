@@ -1,0 +1,1025 @@
+{
+  "context": "English reference editorial pass: account/password/two-factor states, Creator/channel management, administrator accounts/test-data generation, moderation, support, analytics and server/storage settings. Test accounts explicitly identified; no creator content or saved administrator copy changed.",
+  "messages": {
+    "Email delivery": {
+      "en": "Email delivery"
+    },
+    "Phone delivery": {
+      "en": "Phone delivery"
+    },
+    "Enable two-factor": {
+      "en": "Enable two-factor"
+    },
+    "Disable two-factor": {
+      "en": "Disable two-factor"
+    },
+    "Verification code": {
+      "en": "Verification code"
+    },
+    "Please fill all password fields.": {
+      "en": "Please fill all password fields."
+    },
+    "New password and confirmation do not match.": {
+      "en": "New password and confirmation do not match."
+    },
+    "Password must be at least 8 characters.": {
+      "en": "Password must be at least 8 characters."
+    },
+    "Password updated successfully.": {
+      "en": "Password updated successfully."
+    },
+    "Unable to update password.": {
+      "en": "Unable to update password."
+    },
+    "Enter a valid phone number to receive verification codes.": {
+      "en": "Enter a valid phone number to receive verification codes."
+    },
+    "Unable to start two-factor setup.": {
+      "en": "Unable to start two-factor setup."
+    },
+    "Please enter a 6-digit verification code.": {
+      "en": "Please enter a 6-digit verification code."
+    },
+    "Two-factor authentication enabled.": {
+      "en": "Two-factor authentication enabled."
+    },
+    "Unable to enable two-factor authentication.": {
+      "en": "Unable to enable two-factor authentication."
+    },
+    "Two-factor authentication disabled.": {
+      "en": "Two-factor authentication disabled."
+    },
+    "Unable to disable two-factor authentication.": {
+      "en": "Unable to disable two-factor authentication."
+    },
+    "Changes discarded.": {
+      "en": "Changes discarded."
+    },
+    "Channel URL copied to clipboard.": {
+      "en": "Channel URL copied to clipboard."
+    },
+    "Unable to copy the URL in this browser.": {
+      "en": "Unable to copy the URL in this browser."
+    },
+    "Unable to copy text to clipboard.": {
+      "en": "Unable to copy text to clipboard."
+    },
+    "Settings saved successfully.": {
+      "en": "Settings saved successfully."
+    },
+    "Unable to save settings.": {
+      "en": "Unable to save settings."
+    },
+    "Free Plan": {
+      "en": "Free Plan"
+    },
+    "Free": {
+      "en": "Free"
+    },
+    "No active renewal": {
+      "en": "No active renewal"
+    },
+    "Not specified": {
+      "en": "Not specified"
+    },
+    "On": {
+      "en": "On"
+    },
+    "Off": {
+      "en": "Off"
+    },
+    "Enabled": {
+      "en": "Enabled"
+    },
+    "Disabled": {
+      "en": "Disabled"
+    },
+    "Optional": {
+      "en": "Optional"
+    },
+    "optional": {
+      "en": "optional"
+    },
+    "Go Live": {
+      "en": "Go Live"
+    },
+    "Create Playlist": {
+      "en": "Create Playlist"
+    },
+    "Add Channel Trailer": {
+      "en": "Add Channel Trailer"
+    },
+    "View Channel Page": {
+      "en": "View Channel Page"
+    },
+    "Recent Content": {
+      "en": "Recent Content"
+    },
+    "View all videos": {
+      "en": "View all videos"
+    },
+    "Video": {
+      "en": "Video"
+    },
+    "Performance": {
+      "en": "Performance"
+    },
+    "Status": {
+      "en": "Status"
+    },
+    "Date": {
+      "en": "Date"
+    },
+    "Actions": {
+      "en": "Actions"
+    },
+    "No uploaded videos yet.": {
+      "en": "No uploaded videos yet."
+    },
+    "View all content": {
+      "en": "View all content"
+    },
+    "Top Performing Content": {
+      "en": "Top Performing Content"
+    },
+    "Monetization Snapshot": {
+      "en": "Monetization overview"
+    },
+    "Monetized videos": {
+      "en": "Monetized videos"
+    },
+    "Monetized": {
+      "en": "Monetized"
+    },
+    "Public videos": {
+      "en": "Public videos"
+    },
+    "Processing": {
+      "en": "Processing"
+    },
+    "View monetization": {
+      "en": "View monetization"
+    },
+    "Publishing Status": {
+      "en": "Publishing Status"
+    },
+    "Published": {
+      "en": "Published"
+    },
+    "Private or unlisted": {
+      "en": "Private or unlisted"
+    },
+    "Quick Actions": {
+      "en": "Quick Actions"
+    },
+    "Channel Overview": {
+      "en": "Channel Overview"
+    },
+    "Views": {
+      "en": "Views"
+    },
+    "Likes": {
+      "en": "Likes"
+    },
+    "Subscribers": {
+      "en": "Subscribers"
+    },
+    "Content Summary": {
+      "en": "Content Summary"
+    },
+    "Bulk actions": {
+      "en": "Bulk actions"
+    },
+    "Delete": {
+      "en": "Delete"
+    },
+    "Filter": {
+      "en": "Filter"
+    },
+    "Sort: Newest": {
+      "en": "Sort: Newest"
+    },
+    "Stay organized": {
+      "en": "Stay organized"
+    },
+    "Use playlists and series to keep your content easy to find and watch.": {
+      "en": "Use playlists and series to keep your content easy to find and watch."
+    },
+    "Copy profile link": {
+      "en": "Copy profile link"
+    },
+    "Share profile": {
+      "en": "Share profile"
+    },
+    "Edit channel": {
+      "en": "Edit channel"
+    },
+    "Manage content": {
+      "en": "Manage content"
+    },
+    "Message": {
+      "en": "Message"
+    },
+    "Share": {
+      "en": "Share"
+    },
+    "Profile link copied.": {
+      "en": "Profile link copied."
+    },
+    "Unable to copy profile link.": {
+      "en": "Unable to copy profile link."
+    },
+    "Profile shared.": {
+      "en": "Profile shared."
+    },
+    "Share cancelled.": {
+      "en": "Share cancelled."
+    },
+    "Notifications muted for this profile.": {
+      "en": "Notifications muted for this profile."
+    },
+    "Notifications enabled for this profile.": {
+      "en": "Notifications enabled for this profile."
+    },
+    "Profile added to favorites.": {
+      "en": "Profile added to favorites."
+    },
+    "Profile removed from favorites.": {
+      "en": "Profile removed from favorites."
+    },
+    "Profile reported for review.": {
+      "en": "Profile reported for review."
+    },
+    "User blocked. Their content and notifications are hidden.": {
+      "en": "User blocked. Their content and notifications are hidden."
+    },
+    "User unblocked.": {
+      "en": "User unblocked."
+    },
+    "Unblock this user before sending a message.": {
+      "en": "Unblock this user before sending a message."
+    },
+    "Message composer opened.": {
+      "en": "You can write your message now."
+    },
+    "About": {
+      "en": "About"
+    },
+    "Channel details": {
+      "en": "Channel details"
+    },
+    "Stats": {
+      "en": "Stats"
+    },
+    "Totals": {
+      "en": "Totals"
+    },
+    "Tell viewers about your channel...": {
+      "en": "Tell viewers about your channel..."
+    },
+    "Add an about section so viewers know what your channel is about.": {
+      "en": "Add an about section so viewers know what your channel is about."
+    },
+    "This channel has not added an about section yet.": {
+      "en": "This channel has not added an about section yet."
+    },
+    "Admin": {
+      "en": "Admin"
+    },
+    "Dashboard": {
+      "en": "Dashboard"
+    },
+    "Users": {
+      "en": "Users"
+    },
+    "Reports": {
+      "en": "Reports"
+    },
+    "Roles & Permissions": {
+      "en": "Roles & Permissions"
+    },
+    "System Settings": {
+      "en": "System Settings"
+    },
+    "Monitor platform activity, moderation, revenue, and system health.": {
+      "en": "Monitor platform activity, moderation, revenue, and system health."
+    },
+    "Manage and monitor platform users, permissions, and activity.": {
+      "en": "Manage and monitor platform users, permissions, and activity."
+    },
+    "Manage creators, channel performance, verification, and creator growth.": {
+      "en": "Manage creators, channel performance, verification, and creator growth."
+    },
+    "Manage videos, shorts, posts, and content moderation across the platform.": {
+      "en": "Manage videos, shorts, posts, and content moderation across the platform."
+    },
+    "Monitor live sessions, scheduling, stream health, and live moderation.": {
+      "en": "Monitor live sessions, scheduling, stream health, and live moderation."
+    },
+    "Review flagged content, user complaints, and platform safety incidents.": {
+      "en": "Review flagged content, user complaints, and platform safety incidents."
+    },
+    "Track revenue, payouts, subscriptions, ads, tips, and creator earnings.": {
+      "en": "Track revenue, payouts, subscriptions, ads, tips, and creator earnings."
+    },
+    "Analyze platform growth, viewer behavior, engagement, and content performance.": {
+      "en": "Analyze platform growth, viewer behavior, engagement, and content performance."
+    },
+    "Manage support tickets, help requests, escalations, and response quality.": {
+      "en": "Manage support tickets, help requests, escalations, and response quality."
+    },
+    "Manage admin roles, access levels, team members, and security permissions.": {
+      "en": "Manage admin roles, access levels, team members, and security permissions."
+    },
+    "Configure platform preferences, integrations, security, storage, and system behavior.": {
+      "en": "Configure platform preferences, integrations, security, storage, and system behavior."
+    },
+    "Loading admin data...": {
+      "en": "Loading admin data..."
+    },
+    "Sign in with an admin account to view this page.": {
+      "en": "Sign in with an admin account to view this page."
+    },
+    "Search users, videos, creators, reports...": {
+      "en": "Search users, videos, creators, reports..."
+    },
+    "Help center": {
+      "en": "Help center"
+    },
+    "View profile": {
+      "en": "View profile"
+    },
+    "Library": {
+      "en": "Library"
+    },
+    "Watch later": {
+      "en": "Watch later"
+    },
+    "Manage devices": {
+      "en": "Manage devices"
+    },
+    "Send feedback": {
+      "en": "Send feedback"
+    },
+    "Switch account": {
+      "en": "Switch account"
+    },
+    "Sign out": {
+      "en": "Sign out"
+    },
+    "Export Users": {
+      "en": "Export Users"
+    },
+    "Generate Fake Users": {
+      "en": "Create test users"
+    },
+    "Invite User": {
+      "en": "Invite User"
+    },
+    "Export Report": {
+      "en": "Export Report"
+    },
+    "Export Roles": {
+      "en": "Export Roles"
+    },
+    "Invite Admin": {
+      "en": "Invite Admin"
+    },
+    "Export Streams": {
+      "en": "Export Streams"
+    },
+    "Export Reports": {
+      "en": "Export Reports"
+    },
+    "Bulk Actions": {
+      "en": "Bulk Actions"
+    },
+    "Payout Settings": {
+      "en": "Payout Settings"
+    },
+    "Export Creators": {
+      "en": "Export Creators"
+    },
+    "Invite Creator": {
+      "en": "Invite Creator"
+    },
+    "Export Content": {
+      "en": "Export Content"
+    },
+    "Upload Content": {
+      "en": "Upload Content"
+    },
+    "Confirm action": {
+      "en": "Confirm action"
+    },
+    "Are you sure you want to continue?": {
+      "en": "Are you sure you want to continue?"
+    },
+    "Confirm": {
+      "en": "Confirm"
+    },
+    "Notice": {
+      "en": "Notice"
+    },
+    "OK": {
+      "en": "OK"
+    },
+    "Generate fake users": {
+      "en": "Create test users"
+    },
+    "Create test user profiles for moderation checks.": {
+      "en": "Create test user profiles for moderation checks."
+    },
+    "Generate users": {
+      "en": "Create test users"
+    },
+    "Generating...": {
+      "en": "Creating…"
+    },
+    "Preparing batch...": {
+      "en": "Preparing test accounts…"
+    },
+    "Creating user records...": {
+      "en": "Creating user accounts…"
+    },
+    "Generating profiles and avatars...": {
+      "en": "Creating profiles and avatars…"
+    },
+    "Finalizing batch...": {
+      "en": "Finishing test accounts…"
+    },
+    "How many users?": {
+      "en": "How many users?"
+    },
+    "Default role": {
+      "en": "Default role"
+    },
+    "Mark generated users as verified": {
+      "en": "Mark generated users as verified"
+    },
+    "Create channel profiles for generated users": {
+      "en": "Create channel profiles for generated users"
+    },
+    "Generate random avatars": {
+      "en": "Generate random avatars"
+    },
+    "Invite user": {
+      "en": "Invite user"
+    },
+    "Create an account invite with a role assignment.": {
+      "en": "Create an account invite with a role assignment."
+    },
+    "Email addresses": {
+      "en": "Email addresses"
+    },
+    "Edit user": {
+      "en": "Edit user"
+    },
+    "Update account profile details for this user.": {
+      "en": "Update account profile details for this user."
+    },
+    "Change role": {
+      "en": "Change role"
+    },
+    "Select a new access role for this user.": {
+      "en": "Select a new access role for this user."
+    },
+    "Send email": {
+      "en": "Send email"
+    },
+    "Send an admin message to this user.": {
+      "en": "Send an admin message to this user."
+    },
+    "Subject": {
+      "en": "Subject"
+    },
+    "Message from PlayHub": {
+      "en": "Message from PlayHub"
+    },
+    "Download failed.": {
+      "en": "Download failed."
+    },
+    "Unable to generate fake users.": {
+      "en": "The test users could not be created."
+    },
+    "Fake users generated.": {
+      "en": "Test users created."
+    },
+    "Ban user": {
+      "en": "Ban user"
+    },
+    "Ban User": {
+      "en": "Ban User"
+    },
+    "Bulk suspend users": {
+      "en": "Suspend multiple users"
+    },
+    "Bulk Suspend Users": {
+      "en": "Suspend multiple users"
+    },
+    "Enter one or more user emails, separated by comma, space, or new line.": {
+      "en": "Enter one or more user emails, separated by comma, space, or new line."
+    },
+    "Suspend users": {
+      "en": "Suspend users"
+    },
+    "Verify users": {
+      "en": "Verify users"
+    },
+    "Verify Users": {
+      "en": "Verify Users"
+    },
+    "Enter one or more user emails to mark as verified.": {
+      "en": "Enter one or more user emails to mark as verified."
+    },
+    "Missing user id": {
+      "en": "User ID missing"
+    },
+    "User id is missing from this row.": {
+      "en": "This row has no user ID."
+    },
+    "User activity": {
+      "en": "User activity"
+    },
+    "Suspend user": {
+      "en": "Suspend user"
+    },
+    "Restore user": {
+      "en": "Restore user"
+    },
+    "Delete user": {
+      "en": "Delete user"
+    },
+    "Delete selected users": {
+      "en": "Delete selected users"
+    },
+    "Suspend selected users": {
+      "en": "Suspend selected users"
+    },
+    "No users selected": {
+      "en": "No users selected"
+    },
+    "Select at least one user before running a bulk action.": {
+      "en": "Select at least one user before running a bulk action."
+    },
+    "Verify selected": {
+      "en": "Verify selected"
+    },
+    "Suspend selected": {
+      "en": "Suspend selected"
+    },
+    "Delete selected": {
+      "en": "Delete selected"
+    },
+    "Clear selection": {
+      "en": "Clear selection"
+    },
+    "Select all visible users": {
+      "en": "Select all visible users"
+    },
+    "Select row": {
+      "en": "Select row"
+    },
+    "Open actions": {
+      "en": "Open actions"
+    },
+    "View activity": {
+      "en": "View activity"
+    },
+    "Role": {
+      "en": "Role"
+    },
+    "Signup Date": {
+      "en": "Signup Date"
+    },
+    "Last Active": {
+      "en": "Last Active"
+    },
+    "All Users": {
+      "en": "All Users"
+    },
+    "Active": {
+      "en": "Active"
+    },
+    "Suspended": {
+      "en": "Suspended"
+    },
+    "Verified": {
+      "en": "Verified"
+    },
+    "Fake": {
+      "en": "Test account"
+    },
+    "All": {
+      "en": "All"
+    },
+    "Pending": {
+      "en": "Pending"
+    },
+    "Deleted": {
+      "en": "Deleted"
+    },
+    "Unverified": {
+      "en": "Unverified"
+    },
+    "More Filters": {
+      "en": "More Filters"
+    },
+    "Reset": {
+      "en": "Reset"
+    },
+    "Email domain": {
+      "en": "Email domain"
+    },
+    "Joined after": {
+      "en": "Joined after"
+    },
+    "Joined before": {
+      "en": "Joined before"
+    },
+    "Searching users...": {
+      "en": "Searching users..."
+    },
+    "Users search failed": {
+      "en": "Users search failed"
+    },
+    "Unable to search users.": {
+      "en": "Unable to search users."
+    },
+    "Recent Signups": {
+      "en": "Recent Signups"
+    },
+    "User Segments": {
+      "en": "User Segments"
+    },
+    "User Activity Report": {
+      "en": "User Activity Report"
+    },
+    "Total Users": {
+      "en": "Total Users"
+    },
+    "Active Users": {
+      "en": "Active Users"
+    },
+    "New Signups": {
+      "en": "New Signups"
+    },
+    "Suspended Users": {
+      "en": "Suspended Users"
+    },
+    "Verification Rate": {
+      "en": "Verification Rate"
+    },
+    "Platform Growth": {
+      "en": "Platform Growth"
+    },
+    "Watch Time Trend": {
+      "en": "Watch time over time"
+    },
+    "Recent Reports / Moderation Queue": {
+      "en": "Recent Reports / Moderation Queue"
+    },
+    "Top Creators": {
+      "en": "Top Creators"
+    },
+    "System Health": {
+      "en": "System Health"
+    },
+    "View status": {
+      "en": "View status"
+    },
+    "Review Reports": {
+      "en": "Review Reports"
+    },
+    "Manage Roles & Permissions": {
+      "en": "Manage Roles & Permissions"
+    },
+    "Export Analytics Report": {
+      "en": "Export Analytics Report"
+    },
+    "Platform Traffic": {
+      "en": "Platform Traffic"
+    },
+    "Watch Time (hours)": {
+      "en": "Watch Time (hours)"
+    },
+    "Sessions": {
+      "en": "Sessions"
+    },
+    "Traffic Sources": {
+      "en": "Traffic Sources"
+    },
+    "Device Breakdown": {
+      "en": "Device Breakdown"
+    },
+    "Top Performing Categories": {
+      "en": "Top Performing Categories"
+    },
+    "Top Traffic Sources": {
+      "en": "Top Traffic Sources"
+    },
+    "Audience Devices": {
+      "en": "Audience Devices"
+    },
+    "Trend Insights": {
+      "en": "Trend Insights"
+    },
+    "Create Custom Report": {
+      "en": "Create Custom Report"
+    },
+    "Schedule Report": {
+      "en": "Schedule Report"
+    },
+    "Download Raw Data": {
+      "en": "Download Raw Data"
+    },
+    "Open": {
+      "en": "Open"
+    },
+    "In Progress": {
+      "en": "In Progress"
+    },
+    "Waiting on User": {
+      "en": "Waiting on User"
+    },
+    "Resolved": {
+      "en": "Resolved"
+    },
+    "Escalated": {
+      "en": "Escalated"
+    },
+    "Agents Online": {
+      "en": "Support team online"
+    },
+    "Ticket Categories": {
+      "en": "Ticket Categories"
+    },
+    "SLA Overview": {
+      "en": "SLA Overview"
+    },
+    "Create Ticket": {
+      "en": "Create Ticket"
+    },
+    "View Unassigned Tickets": {
+      "en": "View Unassigned Tickets"
+    },
+    "SLA Breach Report": {
+      "en": "SLA Breach Report"
+    },
+    "Response Time Report": {
+      "en": "Response Time Report"
+    },
+    "Roles": {
+      "en": "Roles"
+    },
+    "Permission Matrix": {
+      "en": "Permission Matrix"
+    },
+    "Permission Groups": {
+      "en": "Permission Groups"
+    },
+    "Team Members": {
+      "en": "Team Members"
+    },
+    "Invite Member": {
+      "en": "Invite Member"
+    },
+    "All Members": {
+      "en": "All Members"
+    },
+    "Pending Invites": {
+      "en": "Pending Invites"
+    },
+    "Deactivated": {
+      "en": "Deactivated"
+    },
+    "Recent Access Activity": {
+      "en": "Recent Access Activity"
+    },
+    "Permission Audit": {
+      "en": "Permission Audit"
+    },
+    "Sensitive Actions (7d)": {
+      "en": "Sensitive Actions (7d)"
+    },
+    "Create New Role": {
+      "en": "Create New Role"
+    },
+    "Manage Permission Groups": {
+      "en": "Manage Permission Groups"
+    },
+    "View Permission Matrix": {
+      "en": "View Permission Matrix"
+    },
+    "Security Settings": {
+      "en": "Security Settings"
+    },
+    "General": {
+      "en": "General"
+    },
+    "Configure basic platform settings and default behavior.": {
+      "en": "Configure basic platform settings and default behavior."
+    },
+    "Platform Name": {
+      "en": "Platform Name"
+    },
+    "Default Timezone": {
+      "en": "Default Timezone"
+    },
+    "Items Per Page": {
+      "en": "Items Per Page"
+    },
+    "Manage security settings and access controls.": {
+      "en": "Manage security settings and access controls."
+    },
+    "Session Timeout": {
+      "en": "Session Timeout"
+    },
+    "Password Policy": {
+      "en": "Password Policy"
+    },
+    "Login Attempts": {
+      "en": "Login Attempts"
+    },
+    "Configure system and user notifications.": {
+      "en": "Configure system and user notifications."
+    },
+    "System Alerts Email": {
+      "en": "Email address for system alerts"
+    },
+    "New User Notifications": {
+      "en": "New account notifications"
+    },
+    "Weekly Digest": {
+      "en": "Weekly Digest"
+    },
+    "Marketing Emails": {
+      "en": "Marketing Emails"
+    },
+    "Storage & CDN": {
+      "en": "Storage & CDN"
+    },
+    "Manage media storage and content delivery settings.": {
+      "en": "Manage media storage and content delivery settings."
+    },
+    "Storage Provider": {
+      "en": "Storage Provider"
+    },
+    "CDN Provider": {
+      "en": "CDN Provider"
+    },
+    "CDN Cache TTL": {
+      "en": "CDN Cache TTL"
+    },
+    "Email / SMTP": {
+      "en": "Email / SMTP"
+    },
+    "Configure outgoing email server settings.": {
+      "en": "Configure outgoing email server settings."
+    },
+    "SMTP Provider": {
+      "en": "SMTP Provider"
+    },
+    "From Email": {
+      "en": "Sender email address"
+    },
+    "Test Connection": {
+      "en": "Test connection"
+    },
+    "Moderation Defaults": {
+      "en": "Moderation Defaults"
+    },
+    "Set default moderation and content policy settings.": {
+      "en": "Set default moderation and content policy settings."
+    },
+    "Auto-Approve Users": {
+      "en": "Auto-Approve Users"
+    },
+    "Default Content Visibility": {
+      "en": "Default Content Visibility"
+    },
+    "Profanity Filter": {
+      "en": "Profanity Filter"
+    },
+    "Integrations": {
+      "en": "Integrations"
+    },
+    "Manage third-party services and API integrations.": {
+      "en": "Manage third-party services and API integrations."
+    },
+    "View All Integrations": {
+      "en": "View All Integrations"
+    },
+    "Maintenance Mode": {
+      "en": "Maintenance Mode"
+    },
+    "Temporarily disable platform access for maintenance.": {
+      "en": "Temporarily disable platform access for maintenance."
+    },
+    "Allowed IPs (optional)": {
+      "en": "Allowed IPs (optional)"
+    },
+    "Save Maintenance Settings": {
+      "en": "Save Maintenance Settings"
+    },
+    "Server Status": {
+      "en": "Server Status"
+    },
+    "Recent Changes": {
+      "en": "Recent Changes"
+    },
+    "Backup Summary": {
+      "en": "Backup Summary"
+    },
+    "Run Backup Now": {
+      "en": "Run Backup Now"
+    },
+    "Clear Cache": {
+      "en": "Clear Cache"
+    },
+    "Rebuild Search Index": {
+      "en": "Rebuild Search Index"
+    },
+    "View System Logs": {
+      "en": "View System Logs"
+    },
+    "Manage Cron Jobs": {
+      "en": "Manage Cron Jobs"
+    },
+    "Live Now": {
+      "en": "Live Now"
+    },
+    "Upcoming": {
+      "en": "Upcoming"
+    },
+    "Ended": {
+      "en": "Ended"
+    },
+    "Flagged": {
+      "en": "Flagged"
+    },
+    "Today's Live Schedule": {
+      "en": "Today's Live Schedule"
+    },
+    "Stream Health Overview": {
+      "en": "Stream status overview"
+    },
+    "Top Live Categories": {
+      "en": "Top Live Categories"
+    },
+    "Create Live Event": {
+      "en": "Create Live Event"
+    },
+    "Schedule Live Stream": {
+      "en": "Schedule Live Stream"
+    },
+    "Moderation Queue": {
+      "en": "Moderation Queue"
+    },
+    "Flagged Streams": {
+      "en": "Flagged Streams"
+    },
+    "All Reports": {
+      "en": "All Reports"
+    },
+    "Copyright": {
+      "en": "Copyright"
+    },
+    "Appeals": {
+      "en": "Appeals"
+    },
+    "Report Categories": {
+      "en": "Report Categories"
+    },
+    "Moderators Online": {
+      "en": "Moderators Online"
+    },
+    "Resolution Rate": {
+      "en": "Resolution Rate"
+    },
+    "Bulk Resolve Reports": {
+      "en": "Resolve multiple reports"
+    },
+    "Assign Reports": {
+      "en": "Assign Reports"
+    },
+    "Report Settings": {
+      "en": "Report Settings"
+    },
+    "View Report Guidelines": {
+      "en": "View reporting guidelines"
+    },
+    "Revenue Overview": {
+      "en": "Revenue Overview"
+    },
+    "Total Revenue": {
+      "en": "Total Revenue"
+    },
+    "Ad Revenue": {
+      "en": "Ad Revenue"
+    },
+    "Membership Revenue": {
+      "en": "Membership Revenue"
+    }
+  }
+}

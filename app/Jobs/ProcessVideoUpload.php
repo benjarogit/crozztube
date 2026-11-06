@@ -81,7 +81,8 @@ class ProcessVideoUpload implements ShouldQueue
             ]);
 
             $duration = $this->probeDuration($sourcePath);
-            $videoStreamIndex = $this->videoStreamIndex($sourcePath);
+            $sourceVideo = $this->probeVideoStream($sourcePath);
+            $videoStreamIndex = $sourceVideo['index'];
             $hasAudio = $this->hasAudio($sourcePath);
             $captionsDisk = $video->captions_path && $disk->fileExists($video->captions_path) ? $disk : ($video->captions_path && $localDisk->fileExists($video->captions_path) ? $localDisk : null);
             $captionsDiskName = $captionsDisk === $localDisk ? 'local' : $diskName;
@@ -160,6 +161,8 @@ class ProcessVideoUpload implements ShouldQueue
                 'video_path' => $processedVideoPath,
                 'thumbnail_path' => $video->thumbnail_path,
                 'duration_seconds' => $duration,
+                'video_width' => $sourceVideo['video_width'],
+                'video_height' => $sourceVideo['video_height'],
             ]);
             if ($sourceVideoPath !== $processedVideoPath) {
                 try {
@@ -291,7 +294,7 @@ class ProcessVideoUpload implements ShouldQueue
         return $process->isSuccessful() && $duration > 0 ? (int) ceil($duration) : null;
     }
 
-    private function videoStreamIndex(string $sourcePath): int
+    private function probeVideoStream(string $sourcePath): array
     {
         $process = new Process([
             MediaBinaries::ffprobe(),
@@ -300,7 +303,7 @@ class ProcessVideoUpload implements ShouldQueue
             '-select_streams',
             'v',
             '-show_entries',
-            'stream=index,duration,nb_frames,width,height:stream_disposition=attached_pic',
+            'stream=index,duration,nb_frames,width,height:stream_disposition=attached_pic:stream_tags=rotate:stream_side_data=side_data_type,rotation',
             '-of',
             'json',
             $sourcePath,
@@ -324,7 +327,13 @@ class ProcessVideoUpload implements ShouldQueue
             return $rightScore <=> $leftScore;
         });
 
-        return (int) $playable[0]['index'];
+        $stream = $playable[0];
+        $width = (int) ($stream['width'] ?? 0);
+        $height = (int) ($stream['height'] ?? 0);
+        $rotation = (int) (collect($stream['side_data_list'] ?? [])->firstWhere('side_data_type', 'Display Matrix')['rotation'] ?? $stream['tags']['rotate'] ?? 0);
+        if (abs($rotation) % 180 === 90) [$width, $height] = [$height, $width];
+
+        return ['index' => (int) $stream['index'], 'video_width' => $width, 'video_height' => $height];
     }
 
     private function hasAudio(string $sourcePath): bool

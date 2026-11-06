@@ -1,9 +1,10 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import vidstackSliderPreviewGuard from './tools/build/vidstack-slider-preview.mjs';
 
 export default defineConfig({
   base: '/build/',
-  plugins: [react()],
+  plugins: [vidstackSliderPreviewGuard(), react()],
   build: {
     outDir: 'build',
     assetsDir: 'assets',

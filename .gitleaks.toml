@@ -1,0 +1,18 @@
+title = "CrozzTube staged snapshot secret checks"
+
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Reviewed minified keyboard modifier expressions, not credentials"
+condition = "AND"
+paths = ['''build/assets/main-[A-Za-z0-9_-]+\.js$''']
+regexTarget = "match"
+regexes = ['''\.metaKey,[A-Za-z_$][A-Za-z0-9_$]*=[A-Za-z_$][A-Za-z0-9_$]*\.ctrlKey,[A-Za-z_$][A-Za-z0-9_$]*=[A-Za-z_$][A-Za-z0-9_$]*\.altKey;''']
+
+[[allowlists]]
+description = "Reviewed translated cookie/privacy prose mentioning API and CSRF"
+condition = "AND"
+paths = ['''lang/(?:bs_ba/bs_ba|hr/hr|id_id/id_id|eu/eu|sl_si/sl_si|uz_uz/uz_uz)\.php$''']
+regexTarget = "match"
+regexes = ['''\bAPI(?: autentifikaciju| autentifikaziorako|-ja| autentifikatsiyasi)?, CSRF/[A-Za-z]+''']

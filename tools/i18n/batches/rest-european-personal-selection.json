@@ -1,0 +1,194 @@
+{
+  "context": "Whole-message editorial pass for remaining formal selection/admin import prompts in seven language families. Choose/upload covers and category actions, bulk user selection, access roles and account verification email/handle lists. Handles are identifiers, not descriptions; actual admin actions are only labels, no messages sent. Brand/user content untouched.",
+  "messages": {
+    "Choose image": {
+      "ru": "Выбери изображение",
+      "uk": "Вибери зображення",
+      "sk": "Vyber obrázok",
+      "bg": "Избери изображение",
+      "el": "Διάλεξε εικόνα",
+      "ro": "Alege o imagine",
+      "hu": "Válassz képet"
+    },
+    "Select row": {
+      "ru": "Выбери строку",
+      "uk": "Вибери рядок",
+      "sk": "Vyber riadok",
+      "bg": "Избери ред",
+      "el": "Επίλεξε γραμμή",
+      "ro": "Selectează rândul",
+      "hu": "Jelöld ki a sort"
+    },
+    "Select all visible users": {
+      "ru": "Выбери всех пользователей в списке",
+      "uk": "Вибери всіх користувачів у списку",
+      "sk": "Vyber všetkých zobrazených používateľov",
+      "bg": "Избери всички показани потребители",
+      "el": "Επίλεξε όλους τους εμφανιζόμενους χρήστες",
+      "ro": "Selectează toți utilizatorii afișați",
+      "hu": "Jelöld ki az összes látható felhasználót"
+    },
+    "Select a reason": {
+      "ru": "Выбери причину",
+      "uk": "Вибери причину",
+      "sk": "Vyber dôvod",
+      "bg": "Избери причина",
+      "el": "Διάλεξε λόγο",
+      "ro": "Alege un motiv",
+      "hu": "Válassz okot"
+    },
+    "Select Color": {
+      "ru": "Выбери цвет",
+      "uk": "Вибери колір",
+      "sk": "Vyber farbu",
+      "bg": "Избери цвят",
+      "el": "Διάλεξε χρώμα",
+      "ro": "Alege o culoare",
+      "hu": "Válassz színt"
+    },
+    "Select cover": {
+      "ru": "Выбери обложку",
+      "uk": "Вибери обкладинку",
+      "sk": "Vyber titulný obrázok",
+      "bg": "Избери корица",
+      "el": "Διάλεξε εξώφυλλο",
+      "ro": "Alege o copertă",
+      "hu": "Válassz borítóképet"
+    },
+    "Choose category": {
+      "ru": "Выбери категорию",
+      "uk": "Вибери категорію",
+      "sk": "Vyber kategóriu",
+      "bg": "Избери категория",
+      "el": "Διάλεξε κατηγορία",
+      "ro": "Alege o categorie",
+      "hu": "Válassz kategóriát"
+    },
+    "Choose sticker": {
+      "ru": "Выбери стикер",
+      "uk": "Вибери наліпку",
+      "sk": "Vyber nálepku",
+      "bg": "Избери стикер",
+      "el": "Διάλεξε αυτοκόλλητο",
+      "ro": "Alege un autocolant",
+      "hu": "Válassz matricát"
+    },
+    "Select an option": {
+      "ru": "Выбери вариант",
+      "uk": "Вибери варіант",
+      "sk": "Vyber možnosť",
+      "bg": "Избери опция",
+      "el": "Διάλεξε επιλογή",
+      "ro": "Alege o opțiune",
+      "hu": "Válassz egy lehetőséget"
+    },
+    "Enter details": {
+      "ru": "Добавь подробности",
+      "uk": "Додай подробиці",
+      "sk": "Doplň podrobnosti",
+      "bg": "Добави подробности",
+      "el": "Πρόσθεσε λεπτομέρειες",
+      "ro": "Adaugă detalii",
+      "hu": "Add meg a részleteket"
+    },
+    "Pick color": {
+      "ru": "Выбери цвет",
+      "uk": "Вибери колір",
+      "sk": "Vyber farbu",
+      "bg": "Избери цвят",
+      "el": "Διάλεξε χρώμα",
+      "ro": "Alege o culoare",
+      "hu": "Válassz színt"
+    },
+    "Select a new access role for this user.": {
+      "ru": "Выбери новую роль доступа для этого пользователя.",
+      "uk": "Вибери нову роль доступу для цього користувача.",
+      "sk": "Vyber novú prístupovú rolu pre tohto používateľa.",
+      "bg": "Избери нова роля за достъп за този потребител.",
+      "el": "Επίλεξε νέο ρόλο πρόσβασης για αυτόν τον χρήστη.",
+      "ro": "Alege un nou rol de acces pentru acest utilizator.",
+      "hu": "Válassz új hozzáférési szerepkört ennek a felhasználónak."
+    },
+    "Select at least one user before running a bulk action.": {
+      "ru": "Для группового действия выбери хотя бы одного пользователя.",
+      "uk": "Для групової дії вибери хоча б одного користувача.",
+      "sk": "Pred hromadnou akciou vyber aspoň jedného používateľa.",
+      "bg": "Избери поне един потребител, преди да приложиш групово действие.",
+      "el": "Επίλεξε τουλάχιστον έναν χρήστη πριν από μια μαζική ενέργεια.",
+      "ro": "Selectează cel puțin un utilizator înainte de o acțiune în masă.",
+      "hu": "A csoportos művelet előtt jelölj ki legalább egy felhasználót."
+    },
+    "Enter one or more user emails, separated by comma, space, or new line.": {
+      "ru": "Введи адреса электронной почты пользователей. Разделяй их запятыми, пробелами или переносами строк.",
+      "uk": "Введи електронні адреси користувачів. Розділяй їх комами, пробілами або новими рядками.",
+      "sk": "Zadaj e-mailové adresy používateľov. Oddeľ ich čiarkou, medzerou alebo novým riadkom.",
+      "bg": "Въведи имейл адресите на потребителите. Раздели ги със запетая, интервал или нов ред.",
+      "el": "Γράψε τις διευθύνσεις email των χρηστών, χωρισμένες με κόμμα, κενό ή νέα γραμμή.",
+      "ro": "Introdu adresele de e-mail ale utilizatorilor, separate prin virgulă, spațiu sau rând nou.",
+      "hu": "Írd be a felhasználók e-mail-címét, vesszővel, szóközzel vagy új sorral elválasztva."
+    },
+    "Enter one or more user emails to mark as verified.": {
+      "ru": "Введи адреса электронной почты пользователей, чьи аккаунты нужно отметить как подтверждённые.",
+      "uk": "Введи електронні адреси користувачів, чиї акаунти потрібно позначити як підтверджені.",
+      "sk": "Zadaj e-mailové adresy používateľov, ktorých účty chceš označiť ako overené.",
+      "bg": "Въведи имейл адресите на потребителите, чиито акаунти искаш да отбележиш като потвърдени.",
+      "el": "Γράψε τα email των χρηστών των οποίων οι λογαριασμοί θα επισημανθούν ως επαληθευμένοι.",
+      "ro": "Introdu adresele de e-mail ale utilizatorilor ale căror conturi vrei să le marchezi ca verificate.",
+      "hu": "Írd be azoknak a felhasználóknak az e-mail-címét, akiknek a fiókját ellenőrzöttként szeretnéd megjelölni."
+    },
+    "Enter creator email addresses, usernames, or handles to mark their accounts as verified.": {
+      "ru": "Введи адреса электронной почты, имена пользователей или @псевдонимы авторов, чьи аккаунты нужно отметить как подтверждённые.",
+      "uk": "Введи електронні адреси, імена користувачів або @псевдоніми авторів, чиї акаунти потрібно позначити як підтверджені.",
+      "sk": "Zadaj e-mailové adresy, používateľské mená alebo @prezývky tvorcov, ktorých účty chceš označiť ako overené.",
+      "bg": "Въведи имейл адреси, потребителски имена или @псевдоними на създателите, чиито акаунти искаш да потвърдиш.",
+      "el": "Γράψε τα email, τα ονόματα χρήστη ή τα @ψευδώνυμα των δημιουργών για να επισημάνεις τους λογαριασμούς τους ως επαληθευμένους.",
+      "ro": "Introdu adresele de e-mail, numele de utilizator sau identificatorii @ ai creatorilor pentru a le marca conturile ca verificate.",
+      "hu": "Írd be az alkotók e-mail-címét, felhasználónevét vagy @azonosítóját, hogy ellenőrzöttként jelölhesd meg a fiókjukat."
+    },
+    "Enter at least one creator email, username, or handle.": {
+      "ru": "Введи хотя бы один адрес электронной почты, имя пользователя или @псевдоним автора.",
+      "uk": "Введи хоча б одну електронну адресу, ім’я користувача або @псевдонім автора.",
+      "sk": "Zadaj aspoň jednu e-mailovú adresu, používateľské meno alebo @prezývku tvorcu.",
+      "bg": "Въведи поне един имейл адрес, потребителско име или @псевдоним на създател.",
+      "el": "Γράψε τουλάχιστον ένα email, όνομα χρήστη ή @ψευδώνυμο δημιουργού.",
+      "ro": "Introdu cel puțin o adresă de e-mail, un nume de utilizator sau un identificator @ de creator.",
+      "hu": "Adj meg legalább egy alkotói e-mail-címet, felhasználónevet vagy @azonosítót."
+    },
+    "Send an announcement email to all creator accounts.": {
+      "ru": "Отправь объявление по электронной почте всем авторам.",
+      "uk": "Надішли оголошення електронною поштою всім авторам.",
+      "sk": "Pošli oznámenie e-mailom všetkým tvorcom.",
+      "bg": "Изпрати съобщение по имейл до всички създатели.",
+      "el": "Στείλε ανακοίνωση με email σε όλους τους δημιουργούς.",
+      "ro": "Trimite un anunț prin e-mail tuturor creatorilor.",
+      "hu": "Küldj e-mailes közleményt minden alkotónak."
+    },
+    "Choose the category to apply to content matching the current filters.": {
+      "ru": "Выбери категорию для контента, который соответствует текущим фильтрам.",
+      "uk": "Вибери категорію для вмісту, що відповідає поточним фільтрам.",
+      "sk": "Vyber kategóriu pre obsah, ktorý zodpovedá aktuálnym filtrom.",
+      "bg": "Избери категория за съдържанието, което отговаря на текущите филтри.",
+      "el": "Διάλεξε κατηγορία για το περιεχόμενο που ταιριάζει στα τρέχοντα φίλτρα.",
+      "ro": "Alege categoria pentru conținutul care corespunde filtrelor actuale.",
+      "hu": "Válassz kategóriát az aktuális szűrőknek megfelelő tartalomhoz."
+    },
+    "Choose the primary website color used for guests and users without a saved accent color.": {
+      "ru": "Выбери основной цвет сайта для гостей и пользователей, которые ещё не выбрали свой цвет.",
+      "uk": "Вибери основний колір сайту для гостей і користувачів, які ще не вибрали власний колір.",
+      "sk": "Vyber hlavnú farbu webu pre hostí a používateľov, ktorí nemajú uloženú vlastnú farbu.",
+      "bg": "Избери основен цвят за сайта, който ще се използва за гостите и потребителите без запазен собствен цвят.",
+      "el": "Διάλεξε το βασικό χρώμα του ιστοτόπου για επισκέπτες και χρήστες χωρίς αποθηκευμένο προσωπικό χρώμα.",
+      "ro": "Alege culoarea principală a site-ului pentru vizitatori și utilizatorii care nu au salvat o culoare proprie.",
+      "hu": "Válaszd ki a webhely alapszínét a vendégeknek és azoknak, akik még nem mentettek saját kiemelőszínt."
+    },
+    "Choose a category, enter a keyword, or paste video URLs.": {
+      "ru": "Выбери категорию, введи ключевое слово или вставь ссылки на видео.",
+      "uk": "Вибери категорію, введи ключове слово або встав посилання на відео.",
+      "sk": "Vyber kategóriu, zadaj kľúčové slovo alebo vlož odkazy na videá.",
+      "bg": "Избери категория, въведи ключова дума или постави връзки към видеа.",
+      "el": "Διάλεξε κατηγορία, γράψε λέξη-κλειδί ή επικόλλησε συνδέσμους βίντεο.",
+      "ro": "Alege o categorie, introdu un cuvânt-cheie sau lipește linkuri video.",
+      "hu": "Válassz kategóriát, írj be egy kulcsszót, vagy illessz be videólinkeket."
+    }
+  }
+}

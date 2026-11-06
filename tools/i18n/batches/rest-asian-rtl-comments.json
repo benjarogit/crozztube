@@ -1,0 +1,214 @@
+{
+  "context": "Editorial community comment actions/states in nine locales: pinning/unpinning is not publishing/deleting; report is moderation, like is an approval action, Malay komen and Taiwan/Hong Kong 留言 terminology consistent. Personal failure/empty states and actual Watch Later collection names. User comment bodies are untouched.",
+  "messages": {
+    "Add a comment...": {
+      "ar": "اكتب تعليقًا…",
+      "ja": "コメントを書こう…",
+      "ko_kr": "댓글을 남겨 보세요…",
+      "zh_cn": "写条评论吧…",
+      "zh_tw": "留個言吧…",
+      "zh_hk": "留個言吧…",
+      "tr_tr": "Bir yorum yaz…",
+      "id_id": "Tulis komentar…",
+      "ms_my": "Tulis komen…"
+    },
+    "Login to comment": {
+      "ar": "سجّل الدخول للتعليق",
+      "ja": "ログインしてコメントしよう",
+      "ko_kr": "로그인하고 댓글을 남겨 보세요",
+      "zh_cn": "登录后发表评论",
+      "zh_tw": "登入後留言",
+      "zh_hk": "登入後留言",
+      "tr_tr": "Yorum yapmak için giriş yap",
+      "id_id": "Masuk untuk berkomentar",
+      "ms_my": "Log masuk untuk komen"
+    },
+    "Add a reply...": {
+      "ar": "اكتب ردًا…",
+      "ja": "返信を書こう…",
+      "ko_kr": "답글을 남겨 보세요…",
+      "zh_cn": "写条回复吧…",
+      "zh_tw": "寫則回覆吧…",
+      "zh_hk": "寫則回覆吧…",
+      "tr_tr": "Bir yanıt yaz…",
+      "id_id": "Tulis balasan…",
+      "ms_my": "Tulis balasan…"
+    },
+    "Pin Comment": {
+      "ar": "تثبيت التعليق",
+      "ja": "コメントを固定",
+      "ko_kr": "댓글 고정",
+      "zh_cn": "置顶评论",
+      "zh_tw": "置頂留言",
+      "zh_hk": "置頂留言",
+      "tr_tr": "Yorumu sabitle",
+      "id_id": "Sematkan komentar",
+      "ms_my": "Sematkan komen"
+    },
+    "Unpin Comment": {
+      "ar": "إلغاء تثبيت التعليق",
+      "ja": "コメントの固定を解除",
+      "ko_kr": "댓글 고정 해제",
+      "zh_cn": "取消置顶评论",
+      "zh_tw": "取消置頂留言",
+      "zh_hk": "取消置頂留言",
+      "tr_tr": "Yorumun sabitlemesini kaldır",
+      "id_id": "Lepas sematan komentar",
+      "ms_my": "Nyahsemat komen"
+    },
+    "Mute User": {
+      "ar": "كتم المستخدم",
+      "ja": "ユーザーをミュート",
+      "ko_kr": "사용자 뮤트",
+      "zh_cn": "将用户静音",
+      "zh_tw": "將使用者靜音",
+      "zh_hk": "將用戶靜音",
+      "tr_tr": "Kullanıcıyı sessize al",
+      "id_id": "Bisukan pengguna",
+      "ms_my": "Senyapkan pengguna"
+    },
+    "Report Comment": {
+      "ar": "الإبلاغ عن التعليق",
+      "ja": "コメントを通報",
+      "ko_kr": "댓글 신고",
+      "zh_cn": "举报评论",
+      "zh_tw": "檢舉留言",
+      "zh_hk": "舉報留言",
+      "tr_tr": "Yorumu şikâyet et",
+      "id_id": "Laporkan komentar",
+      "ms_my": "Laporkan komen"
+    },
+    "Delete Comment": {
+      "ar": "حذف التعليق",
+      "ja": "コメントを削除",
+      "ko_kr": "댓글 삭제",
+      "zh_cn": "删除评论",
+      "zh_tw": "刪除留言",
+      "zh_hk": "刪除留言",
+      "tr_tr": "Yorumu sil",
+      "id_id": "Hapus komentar",
+      "ms_my": "Padam komen"
+    },
+    "Comment pinned.": {
+      "ar": "تم تثبيت التعليق.",
+      "ja": "コメントを固定しました。",
+      "ko_kr": "댓글을 고정했어요.",
+      "zh_cn": "评论已置顶。",
+      "zh_tw": "留言已置頂。",
+      "zh_hk": "留言已置頂。",
+      "tr_tr": "Yorum sabitlendi.",
+      "id_id": "Komentar disematkan.",
+      "ms_my": "Komen disematkan."
+    },
+    "Comment unpinned.": {
+      "ar": "تم إلغاء تثبيت التعليق.",
+      "ja": "コメントの固定を解除しました。",
+      "ko_kr": "댓글 고정을 해제했어요.",
+      "zh_cn": "评论已取消置顶。",
+      "zh_tw": "留言已取消置頂。",
+      "zh_hk": "留言已取消置頂。",
+      "tr_tr": "Yorumun sabitlemesi kaldırıldı.",
+      "id_id": "Sematan komentar dilepas.",
+      "ms_my": "Komen dinyahsemat."
+    },
+    "No comments yet. Be the first to comment.": {
+      "ar": "لا توجد تعليقات بعد. ابدأ أنت الحديث.",
+      "ja": "コメントはまだありません。最初のひとことを書いてみよう。",
+      "ko_kr": "아직 댓글이 없어요. 첫 댓글을 남겨 보세요.",
+      "zh_cn": "还没有评论，来聊聊你的想法吧。",
+      "zh_tw": "還沒有留言，來聊聊你的想法吧。",
+      "zh_hk": "還沒有留言，來聊聊你的想法吧。",
+      "tr_tr": "Henüz yorum yok. Sohbeti sen başlat.",
+      "id_id": "Belum ada komentar. Yuk, mulai obrolannya.",
+      "ms_my": "Belum ada komen. Mulakan perbualan."
+    },
+    "Unable to publish comment.": {
+      "ar": "تعذّر نشر تعليقك.",
+      "ja": "コメントを投稿できませんでした。",
+      "ko_kr": "댓글을 게시하지 못했어요.",
+      "zh_cn": "没能发表你的评论。",
+      "zh_tw": "無法送出你的留言。",
+      "zh_hk": "無法送出你的留言。",
+      "tr_tr": "Yorumun yayınlanamadı.",
+      "id_id": "Komentarmu tidak bisa dipublikasikan.",
+      "ms_my": "Komen kamu tidak dapat diterbitkan."
+    },
+    "Unable to load replies.": {
+      "ar": "تعذّر تحميل الردود.",
+      "ja": "返信を読み込めませんでした。",
+      "ko_kr": "답글을 불러오지 못했어요.",
+      "zh_cn": "没能加载回复。",
+      "zh_tw": "無法載入回覆。",
+      "zh_hk": "無法載入回覆。",
+      "tr_tr": "Yanıtlar yüklenemedi.",
+      "id_id": "Balasan tidak dapat dimuat.",
+      "ms_my": "Balasan tidak dapat dimuatkan."
+    },
+    "Comments": {
+      "ar": "التعليقات",
+      "ja": "コメント",
+      "ko_kr": "댓글",
+      "zh_cn": "评论",
+      "zh_tw": "留言",
+      "zh_hk": "留言",
+      "tr_tr": "Yorumlar",
+      "id_id": "Komentar",
+      "ms_my": "Komen"
+    },
+    "Reply": {
+      "ar": "رد",
+      "ja": "返信",
+      "ko_kr": "답글",
+      "zh_cn": "回复",
+      "zh_tw": "回覆",
+      "zh_hk": "回覆",
+      "tr_tr": "Yanıtla",
+      "id_id": "Balas",
+      "ms_my": "Balas"
+    },
+    "Like comment": {
+      "ar": "الإعجاب بالتعليق",
+      "ja": "コメントに高評価",
+      "ko_kr": "댓글에 좋아요",
+      "zh_cn": "赞这条评论",
+      "zh_tw": "為這則留言按讚",
+      "zh_hk": "讚好這則留言",
+      "tr_tr": "Yorumu beğen",
+      "id_id": "Sukai komentar",
+      "ms_my": "Suka komen"
+    },
+    "Copy Link": {
+      "ar": "نسخ الرابط",
+      "ja": "リンクをコピー",
+      "ko_kr": "링크 복사",
+      "zh_cn": "复制链接",
+      "zh_tw": "複製連結",
+      "zh_hk": "複製連結",
+      "tr_tr": "Bağlantıyı kopyala",
+      "id_id": "Salin tautan",
+      "ms_my": "Salin pautan"
+    },
+    "Saved to Watch Later.": {
+      "ar": "تم الحفظ في «شاهد لاحقًا».",
+      "ja": "「後で見る」に保存しました。",
+      "ko_kr": "나중에 보기에 저장했어요.",
+      "zh_cn": "已加入“稍后观看”。",
+      "zh_tw": "已加入「稍後觀看」。",
+      "zh_hk": "已加入「稍後觀看」。",
+      "tr_tr": "Daha Sonra İzle’ye kaydedildi.",
+      "id_id": "Disimpan ke Tonton Nanti.",
+      "ms_my": "Disimpan ke Tonton Nanti."
+    },
+    "Removed from Watch Later.": {
+      "ar": "تمت الإزالة من «شاهد لاحقًا».",
+      "ja": "「後で見る」から削除しました。",
+      "ko_kr": "나중에 보기에서 삭제했어요.",
+      "zh_cn": "已从“稍后观看”中移除。",
+      "zh_tw": "已從「稍後觀看」移除。",
+      "zh_hk": "已從「稍後觀看」移除。",
+      "tr_tr": "Daha Sonra İzle’den kaldırıldı.",
+      "id_id": "Dihapus dari Tonton Nanti.",
+      "ms_my": "Dikeluarkan daripada Tonton Nanti."
+    }
+  }
+}

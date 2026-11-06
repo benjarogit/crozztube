@@ -1,0 +1,16 @@
+{
+  "id": "crozztube.odysee",
+  "name": "CrozzTube Odysee Provider",
+  "version": "1.0.0",
+  "api": 1,
+  "description": "Odysee als Import- und Wiedergabe-Provider mit Claim-Aufloesung, vollstaendigen Metadaten, yt-dlp-Anreicherung und offiziellem Player-Fallback.",
+  "homepage": "https://odysee.com/",
+  "author": { "name": "CrozzTube" },
+  "requires": { "playhub": ">=0.9.13", "php": ">=8.3.0", "extensions": ["json"] },
+  "dependencies": { "crozztube.source-resolver": ">=0.7.2" },
+  "autoload": { "psr-4": { "CrzOdysee\\": "src/" } },
+  "providers": ["CrzOdysee\\PluginServiceProvider"],
+  "lifecycle": "CrzOdysee\\Lifecycle",
+  "settings": [{ "key": "enrich_metadata", "label": "Metadaten mit yt-dlp ergaenzen", "type": "boolean", "description": "Erkennt zusaetzliche Metadaten, Kapitel und Untertitel, soweit Odysee und yt-dlp sie anbieten.", "default": true, "public": false }],
+  "capabilities": ["Automatische Odysee- und LBRY-URL-Erkennung", "Permanente Claim-Identitaet, Beschreibung und Tags", "Direktstream ueber den Source Resolver", "Offizieller Odysee-Player als Fallback"]
+}

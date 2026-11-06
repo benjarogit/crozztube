@@ -1,0 +1,197 @@
+/* Viewer surfaces share the existing brand, type and theme tokens. */
+.home-page .content-section { margin-top: 32px; }
+.home-page .section-title { align-items: center; gap: 12px; }
+.home-page .section-title h2 { font-size: 21px; letter-spacing: -.025em; }
+.home-page .section-title .text-button { min-height: 44px; flex-shrink: 0; }
+.home-page .hero-feature .hero-copy { gap: 18px; max-width: 720px; }
+.home-page .hero-copy h1 { font-weight: 850; letter-spacing: -.025em; }
+.home-page .hero-copy p { color: #eee; max-width: 55ch; }
+.home-page .hero-carousel-controls { bottom: 12px; flex-wrap: wrap; }
+.home-page .hero-dot { min-width: 36px; height: 44px; }
+.home-page .hero-autoplay-toggle { width: 44px; height: 44px; backdrop-filter: none; background: #181818; color: #fff; }
+.home-page .hero-controls-end .duration { padding: 5px 8px; border-radius: 6px; background: #181818; color: #fff; line-height: 1.2; }
+
+.video-card { cursor: default; }
+.video-card-link,
+.shorts-card-link { display: block; color: inherit; text-decoration: none; min-width: 0; border-radius: var(--radius); }
+.video-card-link .thumb { width: 100%; aspect-ratio: 16 / 9; }
+.video-card-link h3,
+.shorts-card-link h3 {
+  margin: 12px 0 4px;
+  padding-inline-end: 44px;
+  min-height: 2.8em;
+  font-size: 14px;
+  line-height: 1.4;
+  font-weight: 750;
+  letter-spacing: -.015em;
+  overflow-wrap: anywhere;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.video-card .video-body { position: relative; padding-top: 0; }
+.video-card .search-video-menu-shell { position: absolute; inset-inline-end: 0; top: -44px; }
+.video-card .more-button,
+.shorts-poster-card .more-button { width: 44px; height: 44px; }
+.video-card .channel-link { min-height: 28px; max-width: 100%; text-align: start; }
+.video-card .muted-line { margin-top: 2px; line-height: 1.5; }
+.video-card .channel-name { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.video-card-link:hover h3,
+.shorts-card-link:hover h3 { text-decoration: underline; text-underline-offset: 3px; }
+.video-card-link:focus-visible,
+.shorts-card-link:focus-visible,
+.continue-video-link:focus-visible,
+.small-video-link:focus-visible { outline: 2px solid var(--primary); outline-offset: 4px; }
+.video-card button:focus-visible,
+.continue-card button:focus-visible,
+.creator-card button:focus-visible,
+.small-video-row button:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+
+/* Shared grid tracks let the primary link and channel controls remain siblings. */
+.continue-card,
+.small-video-row {
+  display: grid;
+  grid-template-columns: minmax(0, min(36%, 140px)) minmax(0, 1fr);
+  grid-template-rows: auto 1fr;
+  gap: 0 12px;
+  align-items: start;
+  text-align: start;
+}
+.continue-video-link,
+.small-video-link {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-row: 1 / 3;
+  grid-template-columns: subgrid;
+  grid-template-rows: subgrid;
+  gap: inherit;
+  color: inherit;
+  text-decoration: none;
+  min-width: 0;
+  border-radius: var(--radius-media);
+}
+.continue-video-link .thumb,
+.small-video-link .thumb { grid-column: 1; grid-row: 1 / 3; align-self: center; width: 100%; aspect-ratio: 16 / 9; }
+.continue-video-link strong,
+.small-video-link strong {
+  grid-column: 2;
+  grid-row: 1;
+  min-width: 0;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.continue-content,
+.small-video-details { grid-column: 2; grid-row: 2; z-index: 1; min-width: 0; align-self: start; }
+.continue-content .channel-inline-link,
+.small-video-details .channel-inline-link { display: block; text-align: start; color: var(--muted); font-size: 12px; max-width: 100%; min-height: 28px; padding: 2px 0; overflow-wrap: anywhere; }
+.continue-content small { margin: 0 0 8px; font-variant-numeric: tabular-nums; }
+.continue-card .progress-line { margin: 0; height: 4px; }
+.continue-video-link:hover strong,
+.small-video-link:hover strong { text-decoration: underline; text-underline-offset: 3px; }
+.creator-card { gap: 12px 16px; padding: 16px; }
+.creator-card-link { flex-basis: 180px; }
+.creator-card-link .creator-card-name { font-size: 14px; }
+.creator-card > .btn { margin-inline-start: auto; }
+.shorts-poster-card { position: relative; }
+.shorts-poster-card .shorts-card-copy { padding-top: 0; }
+.shorts-poster-card .shorts-card-copy > .more-button { position: absolute; inset-inline-end: 0; bottom: 44px; }
+
+/* Tight watch actions keep common tasks on the surface and rare ones in More. */
+.watch-layout-shell .watch-info h1 { font-size: clamp(20px, 2cqw, 26px); line-height: 1.3; font-weight: 800; }
+.watch-layout-shell .watch-toolbar { display: flex; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 12px; }
+.watch-layout-shell .channel-identity { min-width: 0; flex: 1 1 160px; text-align: start; }
+.watch-layout-shell .channel-identity strong { display: flex; align-items: center; gap: 6px; }
+.watch-layout-shell .channel-identity strong > span:first-child { overflow-wrap: anywhere; min-width: 0; }
+.watch-layout-shell .channel-identity .verified-badge { flex-shrink: 0; }
+.watch-layout-shell .action-bar { display: flex; flex-wrap: wrap; gap: 8px; flex: 1 1 100%; }
+.watch-layout-shell .action-pill { min-height: 44px; gap: 8px; flex: 0 1 auto; white-space: nowrap; }
+.watch-layout-shell .video-detail-menu-shell { margin-inline-start: auto; }
+.watch-layout-shell .watch-sidebar > .section-title { display: flex; flex-wrap: wrap; flex-direction: row; justify-content: space-between; align-items: center; gap: 12px; }
+.watch-layout-shell .watch-sidebar h2 { font-size: 20px; letter-spacing: -.025em; }
+.watch-layout-shell .watch-autoplay-toggle { margin-inline-start: auto; min-height: 44px; }
+.watch-layout-shell .watch-playlist-context { width: 100%; overflow-wrap: anywhere; }
+.watch-layout-shell .watch-up-next-label { margin: 12px 0 4px; font-size: 14px; color: var(--muted); }
+.watch-layout-shell .watch-chapters { margin-top: 16px; padding: 12px 16px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); }
+.watch-chapters summary { min-height: 44px; padding-block: 10px; font-weight: 750; }
+.watch-chapters ol { margin: 8px 0 0; padding: 0; list-style: none; max-height: 320px; overflow: auto; overscroll-behavior: contain; }
+.watch-chapters li + li { border-top: 1px solid var(--line); }
+.watch-chapters li button { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 12px; align-items: start; width: 100%; min-height: 44px; padding: 12px 4px; text-align: start; }
+.watch-chapters time { color: var(--text); font-weight: 650; font-variant-numeric: tabular-nums; }
+.watch-chapters li span { overflow-wrap: anywhere; }
+.watch-chapters li button:hover { background: var(--panel-2); }
+.watch-chapters :is(button, summary):focus-visible { outline: 2px solid var(--primary); outline-offset: -2px; }
+.watch-layout-shell .small-video-row { grid-template-columns: clamp(112px, 42%, 168px) minmax(0, 1fr); }
+.watch-layout-shell .small-video-details small { color: var(--muted); line-height: 1.5; }
+
+@container content-page (max-width: 639px) {
+  .home-page .hero-feature .hero-copy { gap: 12px; }
+  .home-page .hero-controls-end .duration { font-size: 12px; }
+  .home-page .section-title h2 { font-size: 19px; }
+}
+@media (hover: hover) and (pointer: fine) {
+  .video-card .more-button { opacity: 0; }
+  .video-card:hover .more-button,
+  .video-card:focus-within .more-button,
+  .video-card .more-button.active { opacity: 1; }
+}
+@media (max-width: 560px) {
+  .watch-layout-shell .action-bar > .action-pill { flex: 1 1 auto; justify-content: center; padding-inline: 10px; }
+  .watch-layout-shell .video-detail-menu-shell { margin-inline-start: 0; }
+  .continue-card { padding: 12px; gap: 0 12px; }
+  .creator-card > .btn { flex-grow: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-page .hero-copy,
+  .home-page .hero-feature .thumb { animation: none; }
+  .video-card *, .continue-card *, .creator-card * { scroll-behavior: auto; }
+}
+.small-video-details small > span { display: inline; margin: 0; }
+@container content-page (max-width: 639px) {
+  .home-page .hero-carousel-controls { bottom: auto; }
+}
+
+/* Keep small action text readable without changing the configured accent. */
+.home-page .section-title .text-button,
+.watch-layout-shell .description-card .text-button { color: var(--text); }
+.watch-layout-shell .watch-toolbar > .btn.primary,
+.watch-layout-shell .watch-toolbar > .btn.primary:is(:hover, :focus, :active) {
+  color: var(--viewer-accent-ink, #000);
+  background-color: var(--primary);
+}
+
+/* Poster actions use a calm high-contrast surface; gold confirms interaction. */
+.home-page .hero-buttons .btn { min-height: 48px; gap: 10px; padding-inline: 20px; font-size: 14px; font-weight: 650; }
+.home-page .hero-buttons .btn.primary,
+.home-page .hero-buttons .btn.primary:is(:focus, :active) { background: #fff; border-color: transparent; color: #101216; }
+.home-page .hero-buttons .btn.primary svg,
+.home-page .spotlight-watch-action svg { fill: currentColor; }
+.home-page .hero-buttons .btn.primary:is(:hover, :focus-visible, :active) { background: var(--primary); border-color: var(--primary); color: var(--viewer-accent-ink, #000); }
+.home-page .hero-buttons .btn:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+.home-page .spotlight-card:hover,
+.home-page .spotlight-card:focus-visible { background: var(--panel-2); }
+.home-page .spotlight-card:is(:hover, :focus-visible, :active) .spotlight-watch-action { background: var(--primary); border-color: var(--primary); color: var(--viewer-accent-ink, #000); }
+.home-page .spotlight-card:focus-visible { outline: 2px solid var(--primary); outline-offset: -3px; }
+.thumb .duration { color: #fff; }
+.trending-row .duration,
+.spotlight-card .duration,
+.continue-card .duration,
+.small-video-row .duration { inset-inline-end: 6px; bottom: 6px; min-height: 20px; padding: 3px 5px; font-size: 11px; }
+/* Compact browse rows get the same whole-row feedback for mouse and keyboard. */
+.explore-feature-grid .small-video-row { border-radius: var(--radius); transition: background-color .15s ease; }
+.explore-feature-grid .small-video-row:is(:hover, :focus-within) { background: var(--primary-soft); }
+.explore-feature-grid .small-video-row:is(:hover, :focus-within) .small-video-link strong { color: var(--text); text-decoration: underline; text-underline-offset: 3px; }
+@container content-page (max-width: 639px) {
+  .home-page .hero-buttons .btn.primary,
+  .home-page .hero-buttons .btn.primary:is(:focus, :active) { background: var(--text); color: var(--panel); border-color: var(--text); }
+  .home-page .hero-buttons .btn.primary:is(:hover, :focus-visible, :active) { background: var(--primary); color: var(--viewer-accent-ink, #000); border-color: var(--primary); }
+  .home-page .hero-buttons .btn:focus-visible { outline-color: var(--text); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-page .spotlight-watch-action,
+  .explore-feature-grid .small-video-row { transition: none; }
+}

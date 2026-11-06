@@ -1,0 +1,114 @@
+{
+  "context": "Editorial complete count labels for views, subscribers, likes, replies, videos, users, comments and Playlists. Native classifier/word order for Japanese/Korean/Chinese; count-independent noun-heading sentences in Arabic avoid incorrect dual/genitive fragments. Turkish, Indonesian and Malay cardinal count nouns remain invariant. Only the eight supplied patterns reviewed; other legacy metadata untouched.",
+  "messages": {},
+  "metadata": {
+    "ar": {
+      "__patterns": {
+        "count_view": "المشاهدات: {count}",
+        "count_subscriber": "المشتركون: {count}",
+        "count_like": "الإعجابات: {count}",
+        "count_reply": "الردود: {count}",
+        "count_video": "الفيديوهات: {count}",
+        "count_user": "المستخدمون: {count}",
+        "count_comment": "التعليقات: {count}",
+        "count_playlist": "قوائم التشغيل: {count}"
+      }
+    },
+    "ja": {
+      "__patterns": {
+        "count_view": "{count}回視聴",
+        "count_subscriber": "チャンネル登録者 {count}人",
+        "count_like": "高評価 {count}件",
+        "count_reply": "返信 {count}件",
+        "count_video": "動画 {count}本",
+        "count_user": "ユーザー {count}人",
+        "count_comment": "コメント {count}件",
+        "count_playlist": "プレイリスト {count}件"
+      }
+    },
+    "ko_kr": {
+      "__patterns": {
+        "count_view": "조회수 {count}회",
+        "count_subscriber": "구독자 {count}명",
+        "count_like": "좋아요 {count}개",
+        "count_reply": "답글 {count}개",
+        "count_video": "동영상 {count}개",
+        "count_user": "사용자 {count}명",
+        "count_comment": "댓글 {count}개",
+        "count_playlist": "재생목록 {count}개"
+      }
+    },
+    "zh_cn": {
+      "__patterns": {
+        "count_view": "{count}次观看",
+        "count_subscriber": "{count}位订阅者",
+        "count_like": "{count}个赞",
+        "count_reply": "{count}条回复",
+        "count_video": "{count}个视频",
+        "count_user": "{count}位用户",
+        "count_comment": "{count}条评论",
+        "count_playlist": "{count}个播放列表"
+      }
+    },
+    "zh_tw": {
+      "__patterns": {
+        "count_view": "{count}次觀看",
+        "count_subscriber": "{count}位訂閱者",
+        "count_like": "{count}個讚",
+        "count_reply": "{count}則回覆",
+        "count_video": "{count}部影片",
+        "count_user": "{count}位使用者",
+        "count_comment": "{count}則留言",
+        "count_playlist": "{count}份播放清單"
+      }
+    },
+    "zh_hk": {
+      "__patterns": {
+        "count_view": "{count}次觀看",
+        "count_subscriber": "{count}位訂閱者",
+        "count_like": "讚好：{count}",
+        "count_reply": "{count}則回覆",
+        "count_video": "{count}部影片",
+        "count_user": "{count}位用戶",
+        "count_comment": "{count}則留言",
+        "count_playlist": "{count}份播放清單"
+      }
+    },
+    "tr_tr": {
+      "__patterns": {
+        "count_view": "{count} görüntüleme",
+        "count_subscriber": "{count} abone",
+        "count_like": "{count} beğeni",
+        "count_reply": "{count} yanıt",
+        "count_video": "{count} video",
+        "count_user": "{count} kullanıcı",
+        "count_comment": "{count} yorum",
+        "count_playlist": "{count} oynatma listesi"
+      }
+    },
+    "id_id": {
+      "__patterns": {
+        "count_view": "{count} tayangan",
+        "count_subscriber": "{count} pelanggan",
+        "count_like": "{count} suka",
+        "count_reply": "{count} balasan",
+        "count_video": "{count} video",
+        "count_user": "{count} pengguna",
+        "count_comment": "{count} komentar",
+        "count_playlist": "{count} daftar putar"
+      }
+    },
+    "ms_my": {
+      "__patterns": {
+        "count_view": "{count} tontonan",
+        "count_subscriber": "{count} pelanggan",
+        "count_like": "{count} suka",
+        "count_reply": "{count} balasan",
+        "count_video": "{count} video",
+        "count_user": "{count} pengguna",
+        "count_comment": "{count} komen",
+        "count_playlist": "{count} senarai main"
+      }
+    }
+  }
+}

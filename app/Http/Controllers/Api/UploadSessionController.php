@@ -177,8 +177,7 @@ class UploadSessionController extends Controller
             $videoPath = $assembled['path'];
             $data = array_replace($data, $assembled['probe']);
             if (($data['content_type'] ?? 'video') === 'short') {
-                $ratio = $data['video_height'] > 0 ? $data['video_width'] / $data['video_height'] : 0;
-                abort_if(! \App\Support\ShortVideos::qualifies($data['duration_seconds'], $data['video_width'] ?? null, $data['video_height'] ?? null), 422, 'Shorts must be square or vertical videos of at most 180 seconds.');
+                abort_if(! \App\Support\ShortVideos::qualifies($data['duration_seconds'], $data['video_width'] ?? null, $data['video_height'] ?? null), 422, 'Shorts must be vertical videos of at most 60 seconds.');
             }
             $isShort = \App\Support\ShortVideos::qualifies($data['duration_seconds'], $data['video_width'] ?? null, $data['video_height'] ?? null);
             $pricing = VideoSales::pricing($request->boolean('sale_enabled'), $data['sale_price'] ?? null, ! $isShort);

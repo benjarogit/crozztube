@@ -1,0 +1,122 @@
+{
+  "context": "Source-assisted editorial UI labels from primary MediaWiki localization JSON at https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/{sah,bo,dz,ky,ckb,am,yo,sd}.json. Exact generic mainpage/cancel/edit/search/login/logout/email/savechanges/register meanings checked against CrozzTube controls. Explicitly formal Yoruba createaccount, Amharic logout and Sindhi plural/honorific imperative actions excluded; no wholesale register/corpus acceptance. Values below are short interface labels, not legal or user content.",
+  "messages": {
+    "Home": {
+      "sah": "Сүрүн сирэй",
+      "bo": "གཙོ་གནད་ཤོག་ངོས།",
+      "dzo": "མ་ཤོག།",
+      "kir": "Башкы барак",
+      "ckb": "دەستپێک",
+      "am": "ዋናው ገጽ",
+      "yor": "Ojúewé Àkọ́kọ́",
+      "snd": "مک صفحو"
+    },
+    "Cancel": {
+      "sah": "Салҕаама",
+      "bo": "རྩིས་མེད།",
+      "dzo": "ཆ་མེད་གཏང་།",
+      "kir": "Жокко чыгаруу",
+      "ckb": "ھەڵوەشاندنەوە",
+      "am": "ሰርዝ",
+      "yor": "Fagilé",
+      "snd": "رد"
+    },
+    "Edit": {
+      "sah": "Уларыт",
+      "bo": "རྩོམ་སྒྲིག",
+      "dzo": "ཞུན་དག",
+      "kir": "Түзөтүү",
+      "ckb": "دەستکاری",
+      "am": "አርም",
+      "yor": "Àtúnṣe"
+    },
+    "Search": {
+      "sah": "Көрдөөһүн",
+      "bo": "འཚོལ་བ།",
+      "dzo": "འཚོལ་ཞིབ།",
+      "kir": "Издөө",
+      "ckb": "گەڕان",
+      "am": "ፈልግ",
+      "yor": "Àwárí",
+      "snd": "ڳولا"
+    },
+    "Login": {
+      "sah": "Киир",
+      "bo": "ནང་འཛུལ།",
+      "dzo": "ནང་བསྐྱོད།",
+      "kir": "Аккаунтка кирүү",
+      "ckb": "بچۆ ژوورەوە",
+      "am": "ለመግባት",
+      "yor": "Ìtẹ̀wọlé"
+    },
+    "Logout": {
+      "sah": "Тахсыы",
+      "bo": "ཕྱིར་འབུད།",
+      "dzo": "ཕྱིར་བསྐྱོད།",
+      "kir": "Аккаунттан чыгуу",
+      "ckb": "بچۆ دەرەوە",
+      "yor": "Ìtẹ̀ bọ́sọ́de"
+    },
+    "Create account": {
+      "sah": "Бэлиэтэнии",
+      "bo": "ཐོ་འགོད།",
+      "dzo": "རྩིས་ཐོ་གསརཔ་བཟོ།",
+      "kir": "Катталуу",
+      "ckb": "ھەژمار دروست بکە"
+    },
+    "Create an account": {
+      "sah": "Бэлиэтэнии",
+      "bo": "ཐོ་འགོད།",
+      "dzo": "རྩིས་ཐོ་གསརཔ་བཟོ།",
+      "kir": "Катталуу",
+      "ckb": "ھەژمار دروست بکە"
+    },
+    "Email": {
+      "sah": "Почта",
+      "bo": "དྲ་འཕྲིན།",
+      "kir": "Электрондук почта",
+      "ckb": "ئیمەیل",
+      "am": "ኢ-ሜል",
+      "yor": "E-mail",
+      "snd": "ايميل"
+    },
+    "Save Changes": {
+      "sah": "Уларытыылары бигэргэтии",
+      "kir": "Өзгөртүүлөрдү сактоо",
+      "ckb": "پاشەکەوتکردنی گۆڕانکارییەکان",
+      "yor": "Ìfipamọ́ àtúnṣe"
+    },
+    "Log in": {
+      "sah": "Киир",
+      "bo": "ནང་འཛུལ།",
+      "dzo": "ནང་བསྐྱོད།",
+      "kir": "Аккаунтка кирүү",
+      "ckb": "بچۆ ژوورەوە",
+      "am": "ለመግባት",
+      "yor": "Ìtẹ̀wọlé"
+    },
+    "Sign in": {
+      "sah": "Киир",
+      "bo": "ནང་འཛུལ།",
+      "dzo": "ནང་བསྐྱོད།",
+      "kir": "Аккаунтка кирүү",
+      "ckb": "بچۆ ژوورەوە",
+      "am": "ለመግባት",
+      "yor": "Ìtẹ̀wọlé"
+    },
+    "Log out": {
+      "sah": "Тахсыы",
+      "bo": "ཕྱིར་འབུད།",
+      "dzo": "ཕྱིར་བསྐྱོད།",
+      "kir": "Аккаунттан чыгуу",
+      "ckb": "بچۆ دەرەوە",
+      "yor": "Ìtẹ̀ bọ́sọ́de"
+    },
+    "Save changes": {
+      "sah": "Уларытыылары бигэргэтии",
+      "kir": "Өзгөртүүлөрдү сактоо",
+      "ckb": "پاشەکەوتکردنی گۆڕانکارییەکان",
+      "yor": "Ìfipamọ́ àtúnṣe"
+    }
+  }
+}

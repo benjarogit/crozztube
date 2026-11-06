@@ -1,0 +1,41 @@
+{
+  "context": "Editorial rereview of current EN email expiry reference: two verification/reset bodies, unchanged target durations explicitly checked at1/2/15. Arabic and Hebrew label duration in minutes without cardinal inflection; Persian/Dari/Turkish/Indonesian/Malay/Japanese/Korean/Chinese/Hindi/Bengali/Thai/Vietnamese cardinal duration units are unchanged here. Valid-for and expires-after semantics agree. Renderer/token verification is separate from this grammar review.16 locale bodies only, existing subjects/invitations/restrictions untouched.",
+  "messages": {
+    "Your {SITENAME} verification code is: {VERIFICATION_CODE}\n\nThis code expires in {EXPIRY_MINUTES} minutes.": {
+      "ar": "رمز التحقق الخاص بك على {SITENAME}: {VERIFICATION_CODE}\n\nمدة صلاحية الرمز بالدقائق: {EXPIRY_MINUTES}.",
+      "ja": "{SITENAME}の確認コード：{VERIFICATION_CODE}\n\nこのコードの有効期限は{EXPIRY_MINUTES}分だよ。",
+      "ko_kr": "{SITENAME} 인증 코드: {VERIFICATION_CODE}\n\n이 코드는 {EXPIRY_MINUTES}분 동안 유효해요.",
+      "zh_cn": "你的 {SITENAME} 验证码：{VERIFICATION_CODE}\n\n此验证码将在 {EXPIRY_MINUTES} 分钟后失效。",
+      "zh_tw": "你的 {SITENAME} 驗證碼：{VERIFICATION_CODE}\n\n此驗證碼將在 {EXPIRY_MINUTES} 分鐘後失效。",
+      "zh_hk": "你的 {SITENAME} 驗證碼：{VERIFICATION_CODE}\n\n此驗證碼將在 {EXPIRY_MINUTES} 分鐘後失效。",
+      "tr_tr": "{SITENAME} doğrulama kodun: {VERIFICATION_CODE}\n\nBu kodun geçerlilik süresi {EXPIRY_MINUTES} dakika.",
+      "id_id": "Kode verifikasi {SITENAME} kamu: {VERIFICATION_CODE}\n\nKode ini berlaku selama {EXPIRY_MINUTES} menit.",
+      "ms_my": "Kod pengesahan {SITENAME} kamu: {VERIFICATION_CODE}\n\nKod ini sah selama {EXPIRY_MINUTES} minit.",
+      "he_il": "קוד האימות שלך ב־{SITENAME}: {VERIFICATION_CODE}\n\nתוקף הקוד בדקות: {EXPIRY_MINUTES}.",
+      "fa_ir": "کد تأیید تو در {SITENAME}: {VERIFICATION_CODE}\n\nاین کد تا {EXPIRY_MINUTES} دقیقه معتبر است.",
+      "fa_af": "کد تأیید تو در {SITENAME}: {VERIFICATION_CODE}\n\nاین کد تا {EXPIRY_MINUTES} دقیقه معتبر است.",
+      "hi_in": "तुम्हारा {SITENAME} सत्यापन कोड: {VERIFICATION_CODE}\n\nयह कोड {EXPIRY_MINUTES} मिनट तक मान्य है।",
+      "bn_bd": "তোমার {SITENAME} যাচাইকরণ কোড: {VERIFICATION_CODE}\n\nএই কোড {EXPIRY_MINUTES} মিনিট পর্যন্ত কার্যকর থাকবে।",
+      "th": "รหัสยืนยัน {SITENAME} ของคุณ: {VERIFICATION_CODE}\n\nรหัสนี้ใช้ได้เป็นเวลา {EXPIRY_MINUTES} นาที",
+      "vi": "Mã xác minh {SITENAME} của bạn: {VERIFICATION_CODE}\n\nMã này có hiệu lực trong {EXPIRY_MINUTES} phút."
+    },
+    "Hello {USERNAME},\n\nYour {SITENAME} password reset code is: {RESET_CODE}\n\nThis code expires in {EXPIRY_MINUTES} minutes.": {
+      "ar": "مرحبًا {USERNAME}،\n\nرمز إعادة تعيين كلمة مرورك على {SITENAME}: {RESET_CODE}\n\nمدة صلاحية الرمز بالدقائق: {EXPIRY_MINUTES}.",
+      "ja": "{USERNAME}、こんにちは。\n\n{SITENAME}のパスワード再設定コード：{RESET_CODE}\n\nこのコードの有効期限は{EXPIRY_MINUTES}分だよ。",
+      "ko_kr": "안녕하세요, {USERNAME}.\n\n{SITENAME} 비밀번호 재설정 코드: {RESET_CODE}\n\n이 코드는 {EXPIRY_MINUTES}분 동안 유효해요.",
+      "zh_cn": "{USERNAME}，你好！\n\n你的 {SITENAME} 密码重置验证码：{RESET_CODE}\n\n此验证码将在 {EXPIRY_MINUTES} 分钟后失效。",
+      "zh_tw": "{USERNAME}，你好！\n\n你的 {SITENAME} 密碼重設驗證碼：{RESET_CODE}\n\n此驗證碼將在 {EXPIRY_MINUTES} 分鐘後失效。",
+      "zh_hk": "{USERNAME}，你好！\n\n你的 {SITENAME} 密碼重設驗證碼：{RESET_CODE}\n\n此驗證碼將在 {EXPIRY_MINUTES} 分鐘後失效。",
+      "tr_tr": "Merhaba {USERNAME},\n\n{SITENAME} parola sıfırlama kodun: {RESET_CODE}\n\nBu kodun geçerlilik süresi {EXPIRY_MINUTES} dakika.",
+      "id_id": "Hai {USERNAME},\n\nKode reset kata sandi {SITENAME} kamu: {RESET_CODE}\n\nKode ini berlaku selama {EXPIRY_MINUTES} menit.",
+      "ms_my": "Hai {USERNAME},\n\nKod tetapan semula kata laluan {SITENAME} kamu: {RESET_CODE}\n\nKod ini sah selama {EXPIRY_MINUTES} minit.",
+      "he_il": "היי {USERNAME},\n\nהקוד לאיפוס הסיסמה שלך ב־{SITENAME}: {RESET_CODE}\n\nתוקף הקוד בדקות: {EXPIRY_MINUTES}.",
+      "fa_ir": "سلام {USERNAME}،\n\nکد بازنشانی گذرواژه‌ات در {SITENAME}: {RESET_CODE}\n\nاین کد تا {EXPIRY_MINUTES} دقیقه معتبر است.",
+      "fa_af": "سلام {USERNAME}،\n\nکد بازنشانی رمز عبورت در {SITENAME}: {RESET_CODE}\n\nاین کد تا {EXPIRY_MINUTES} دقیقه معتبر است.",
+      "hi_in": "नमस्ते {USERNAME},\n\nतुम्हारा {SITENAME} पासवर्ड रीसेट कोड: {RESET_CODE}\n\nयह कोड {EXPIRY_MINUTES} मिनट तक मान्य है।",
+      "bn_bd": "হ্যালো {USERNAME},\n\nতোমার {SITENAME} পাসওয়ার্ড রিসেট কোড: {RESET_CODE}\n\nএই কোড {EXPIRY_MINUTES} মিনিট পর্যন্ত কার্যকর থাকবে।",
+      "th": "สวัสดี {USERNAME}\n\nรหัสรีเซ็ตรหัสผ่าน {SITENAME} ของคุณ: {RESET_CODE}\n\nรหัสนี้ใช้ได้เป็นเวลา {EXPIRY_MINUTES} นาที",
+      "vi": "Chào {USERNAME},\n\nMã đặt lại mật khẩu {SITENAME} của bạn: {RESET_CODE}\n\nMã này có hiệu lực trong {EXPIRY_MINUTES} phút."
+    }
+  }
+}

@@ -1,0 +1,124 @@
+{
+  "context": "Actual installed Vidstack font-option labels used through DefaultFontRadioGroup/i18n, read against player captions-style menu. Monospaced/proportional and serif/no-serif distinctions preserved; raised/depressed describe text-shadow relief, not moods. Cursive font family means handwriting and Small Capitals means small capitals. Internal CSS identifiers/values untouched.",
+  "messages": {
+    "Monospaced Serif": {
+      "fr": "À empattements, chasse fixe",
+      "es": "Con serifas, monoespaciada",
+      "pt": "Com serifa, monoespaçada",
+      "it": "Con grazie, a spaziatura fissa",
+      "ca": "Amb serif, monoespaiada",
+      "gl": "Con serifas, monoespazada",
+      "eo": "Serifa, egallarĝa"
+    },
+    "Proportional Serif": {
+      "fr": "À empattements, chasse proportionnelle",
+      "es": "Con serifas, proporcional",
+      "pt": "Com serifa, proporcional",
+      "it": "Con grazie, proporzionale",
+      "ca": "Amb serif, proporcional",
+      "gl": "Con serifas, proporcional",
+      "eo": "Serifa, proporcia"
+    },
+    "Monospaced Sans-Serif": {
+      "fr": "Sans empattements, chasse fixe",
+      "es": "Sin serifas, monoespaciada",
+      "pt": "Sem serifa, monoespaçada",
+      "it": "Senza grazie, a spaziatura fissa",
+      "ca": "Sense serif, monoespaiada",
+      "gl": "Sen serifas, monoespazada",
+      "eo": "Senserifa, egallarĝa"
+    },
+    "Proportional Sans-Serif": {
+      "fr": "Sans empattements, chasse proportionnelle",
+      "es": "Sin serifas, proporcional",
+      "pt": "Sem serifa, proporcional",
+      "it": "Senza grazie, proporzionale",
+      "ca": "Sense serif, proporcional",
+      "gl": "Sen serifas, proporcional",
+      "eo": "Senserifa, proporcia"
+    },
+    "Casual": {
+      "fr": "Décontractée",
+      "es": "Informal",
+      "pt": "Informal",
+      "it": "Informale",
+      "ca": "Informal",
+      "gl": "Informal",
+      "eo": "Neformala"
+    },
+    "Cursive": {
+      "fr": "Cursive",
+      "es": "Cursiva",
+      "pt": "Manuscrita",
+      "it": "Calligrafico",
+      "ca": "Manuscrita",
+      "gl": "Manuscrita",
+      "eo": "Manuskripta"
+    },
+    "Small Capitals": {
+      "fr": "Petites capitales",
+      "es": "Versalitas",
+      "pt": "Versaletes",
+      "it": "Maiuscoletto",
+      "ca": "Versaletes",
+      "gl": "Versaletas",
+      "eo": "Malgrandaj majuskloj"
+    },
+    "None": {
+      "fr": "Aucun",
+      "es": "Ninguno",
+      "pt": "Nenhum",
+      "it": "Nessuno",
+      "ca": "Cap",
+      "gl": "Ningún",
+      "eo": "Neniu"
+    },
+    "Drop Shadow": {
+      "fr": "Ombre portée",
+      "es": "Sombra paralela",
+      "pt": "Sombra projetada",
+      "it": "Ombra esterna",
+      "ca": "Ombra paral·lela",
+      "gl": "Sombra paralela",
+      "eo": "Ĵetita ombro",
+      "pt_pt": "Sombra projectada",
+      "pt_ao": "Sombra projectada"
+    },
+    "Raised": {
+      "fr": "En relief",
+      "es": "En relieve",
+      "pt": "Relevo elevado",
+      "it": "In rilievo",
+      "ca": "En relleu",
+      "gl": "En relevo",
+      "eo": "Elstara"
+    },
+    "Depressed": {
+      "fr": "En creux",
+      "es": "Hundido",
+      "pt": "Relevo rebaixado",
+      "it": "Incassato",
+      "ca": "Enfonsat",
+      "gl": "Afundido",
+      "eo": "Enpremita"
+    },
+    "Outline": {
+      "fr": "Contour",
+      "es": "Contorno",
+      "pt": "Contorno",
+      "it": "Contorno",
+      "ca": "Contorn",
+      "gl": "Contorno",
+      "eo": "Konturo"
+    },
+    "Audio Boost": {
+      "fr": "Amplification audio",
+      "es": "Amplificación de audio",
+      "pt": "Amplificação de áudio",
+      "it": "Amplificazione audio",
+      "ca": "Amplificació d’àudio",
+      "gl": "Amplificación de audio",
+      "eo": "Sonamplifo"
+    }
+  }
+}

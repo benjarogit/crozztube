@@ -8,7 +8,6 @@
 }
 
 .video-grid,
-.continue-grid,
 .profile-upload-grid,
 .profile-playlist-grid,
 .profile-videos-grid,
@@ -27,12 +26,51 @@
 
 .profile-playlists-content-grid.is-list { grid-template-columns: minmax(0, 1fr); }
 
-.creator-grid,
 .browse-grid,
 .category-strip,
 .collections-grid,
 .search-channel-grid {
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 180px), 1fr));
+}
+
+/* Horizontal cards need room for both their identity and their action/copy. */
+.continue-grid,
+.creator-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+  gap: 16px;
+  min-width: 0;
+}
+
+.continue-card {
+  grid-template-columns: minmax(0, min(36%, 140px)) minmax(0, 1fr);
+}
+.continue-content { min-width: 0; }
+.continue-content strong,
+.continue-content .channel-inline-link { overflow-wrap: anywhere; }
+
+.creator-card {
+  display: flex;
+  flex-wrap: wrap;
+}
+.creator-card-link {
+  flex: 1 1 160px;
+  padding: 0;
+  min-height: 44px;
+}
+.creator-card-link > div { min-width: 0; }
+.creator-card-link .creator-card-name {
+  margin: 0;
+  color: inherit;
+  font-size: inherit;
+}
+.creator-card-link strong .verified-badge { margin-top: 0; }
+.creator-card > .btn {
+  flex: 0 1 auto;
+  max-width: 100%;
+  min-height: 44px;
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 
 .shorts-poster-grid,
@@ -123,6 +161,18 @@
 }
 .hero-buttons { gap: 8px; }
 .hero-buttons .btn { min-height: 44px; max-width: 100%; }
+.home-page .hero-feature > .hero-carousel-controls { gap: 16px; }
+.hero-controls-end {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-inline-start: auto;
+}
+.hero-controls-end .duration {
+  position: static;
+  flex: 0 0 auto;
+  font-variant-numeric: tabular-nums;
+}
 
 .two-column-page,
 .explore-feature-grid,

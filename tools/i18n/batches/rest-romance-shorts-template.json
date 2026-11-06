@@ -1,0 +1,26 @@
+{
+  "context": "New complete upload Shorts status/error template after the owner’s 60-second portrait-only decision. Duration and pixel dimensions remain named literal technical quantities; no fragmented sentence translation.",
+  "messages": {
+    "Shorts must be 60 seconds or less and vertical.": {
+      "fr": "Un Short ne peut pas dépasser 60 secondes et doit être vertical.",
+      "es": "Los Shorts deben durar 60 segundos o menos y tener formato vertical.",
+      "pt": "Os Shorts devem ter no máximo 60 segundos e ter formato vertical.",
+      "pt_br": "Os Shorts devem ter no máximo 60 segundos e ter formato vertical.",
+      "it": "Gli Shorts devono durare al massimo 60 secondi ed essere verticali.",
+      "ca": "Els Shorts han de durar com a màxim 60 segons i tenir format vertical.",
+      "gl": "Os Shorts deben durar como máximo 60 segundos e ter formato vertical.",
+      "eo": "Shorts devas daŭri maksimume 60 sekundojn kaj havi vertikalan formaton."
+    },
+    "Video: {seconds}s · {width}×{height}. Shorts must be 60 seconds or less and vertical.": {
+      "fr": "Vidéo : {seconds} s · {width}×{height}. Un Short ne peut pas dépasser 60 secondes et doit être vertical.",
+      "es": "Video: {seconds} s · {width}×{height}. Los Shorts deben durar 60 segundos o menos y tener formato vertical.",
+      "es_es": "Vídeo: {seconds} s · {width}×{height}. Los Shorts deben durar 60 segundos o menos y tener formato vertical.",
+      "pt": "Vídeo: {seconds} s · {width}×{height}. Os Shorts devem ter no máximo 60 segundos e ter formato vertical.",
+      "pt_br": "Vídeo: {seconds} s · {width}×{height}. Os Shorts devem ter no máximo 60 segundos e ter formato vertical.",
+      "it": "Video: {seconds} s · {width}×{height}. Gli Shorts devono durare al massimo 60 secondi ed essere verticali.",
+      "ca": "Vídeo: {seconds} s · {width}×{height}. Els Shorts han de durar com a màxim 60 segons i tenir format vertical.",
+      "gl": "Vídeo: {seconds} s · {width}×{height}. Os Shorts deben durar como máximo 60 segundos e ter formato vertical.",
+      "eo": "Filmeto: {seconds} s · {width}×{height}. Shorts devas daŭri maksimume 60 sekundojn kaj havi vertikalan formaton."
+    }
+  }
+}

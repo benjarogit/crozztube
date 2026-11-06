@@ -1,0 +1,1946 @@
+{
+  "context": "English reference editorial pass covering live chat, participant approval/privacy, gifts/tips, stickers, ads, stream recovery, replay, payment history, language administration, import/captions/chapters and standard emails. Existing current editorial/context-reviewed entries retained without downgrading their status. Sentence fragments and technical/sample identifiers excluded. Stream and advertising wording clarified without new security/payment guarantees.",
+  "messages": {
+    "Chat on": {
+      "en": "Chat on"
+    },
+    "Chat off": {
+      "en": "Chat off"
+    },
+    "Live chat is disabled": {
+      "en": "Live chat is disabled"
+    },
+    "Viewer messages and live activity will appear here.": {
+      "en": "Viewer messages and live activity will appear here."
+    },
+    "Enable chat in the stream settings to continue the conversation.": {
+      "en": "Enable chat in the stream settings to continue the conversation."
+    },
+    "Configure pinned message": {
+      "en": "Configure pinned message"
+    },
+    "Create a live poll": {
+      "en": "Create a live poll"
+    },
+    "Open stream activity": {
+      "en": "Open stream activity"
+    },
+    "Stream activity": {
+      "en": "Stream activity"
+    },
+    "Followers-only Chat": {
+      "en": "Followers-only Chat"
+    },
+    "Community Chat": {
+      "en": "Community Chat"
+    },
+    "Send chat message": {
+      "en": "Send chat message"
+    },
+    "Live chat message": {
+      "en": "Live chat message"
+    },
+    "Quick chat actions": {
+      "en": "Quick chat actions"
+    },
+    "Edit pinned message": {
+      "en": "Edit pinned message"
+    },
+    "Unpin chat message": {
+      "en": "Unpin chat message"
+    },
+    "Pin chat message": {
+      "en": "Pin chat message"
+    },
+    "Live chat settings updated.": {
+      "en": "Live chat settings updated."
+    },
+    "Unable to update live chat settings.": {
+      "en": "Unable to update live chat settings."
+    },
+    "The selected slow mode interval is unavailable.": {
+      "en": "The selected slow mode interval is unavailable."
+    },
+    "The selected chat moderation is unavailable.": {
+      "en": "The selected chat moderation setting is unavailable."
+    },
+    "Chat unavailable": {
+      "en": "Chat unavailable"
+    },
+    "Live chat has been disabled by an administrator.": {
+      "en": "Live chat has been disabled by an administrator."
+    },
+    "Filter chat": {
+      "en": "Filter chat"
+    },
+    "Stream tools": {
+      "en": "Stream tools"
+    },
+    "Chat filters": {
+      "en": "Chat filters"
+    },
+    "All chat": {
+      "en": "All chat"
+    },
+    "Messages only": {
+      "en": "Messages only"
+    },
+    "Gifts & Tips": {
+      "en": "Gifts & Tips"
+    },
+    "Join and leave activity": {
+      "en": "Join and leave activity"
+    },
+    "No items match this filter": {
+      "en": "No items match this filter"
+    },
+    "Choose another filter to see more stream activity.": {
+      "en": "Choose another filter to see more stream activity."
+    },
+    "Live stream started.": {
+      "en": "Live stream started."
+    },
+    "Poll status changed.": {
+      "en": "Poll status changed."
+    },
+    "Viewer, chat, contribution, participant, poll, and connection events will appear here.": {
+      "en": "Viewer, chat, contribution, participant, poll, and connection events will appear here."
+    },
+    "Live Polls": {
+      "en": "Live Polls"
+    },
+    "A viewer": {
+      "en": "A viewer"
+    },
+    "Gift": {
+      "en": "Gift"
+    },
+    "support": {
+      "en": "Support"
+    },
+    "Replay recording unavailable": {
+      "en": "Replay recording unavailable"
+    },
+    "Replay recording is unavailable until the LiveKit recording service is running.": {
+      "en": "Replay recording is unavailable until the LiveKit recording service is running."
+    },
+    "Replay keyframe interval": {
+      "en": "Replay keyframe interval"
+    },
+    "This stream can start in {time}.": {
+      "en": "This stream can start in {time}."
+    },
+    "All required checks are complete.": {
+      "en": "All required checks are complete."
+    },
+    "Scheduled start time reached": {
+      "en": "Scheduled start time reached"
+    },
+    "Subscription, contribution and goal alerts": {
+      "en": "Subscription, contribution and goal alerts"
+    },
+    "Stream goal reached": {
+      "en": "Stream goal reached"
+    },
+    "Thank you to everyone who contributed.": {
+      "en": "Thank you to everyone who contributed."
+    },
+    "Your community is growing.": {
+      "en": "Your community is growing."
+    },
+    "Support this creator": {
+      "en": "Support this creator"
+    },
+    "Send a contribution during the live stream.": {
+      "en": "Send a contribution during the live stream."
+    },
+    "Live contribution options": {
+      "en": "Live contribution options"
+    },
+    "Contribution sent.": {
+      "en": "Contribution sent."
+    },
+    "Unable to send this contribution.": {
+      "en": "Unable to send this contribution."
+    },
+    "Add a message for the creator": {
+      "en": "Add a message for the creator"
+    },
+    "Send contribution": {
+      "en": "Send contribution"
+    },
+    "Sponsored message": {
+      "en": "Sponsored message"
+    },
+    "The live advertisement could not be played.": {
+      "en": "The live advertisement could not be played."
+    },
+    "Choose which video qualities are retained after processing and the website player default.": {
+      "en": "Choose which video qualities are retained after processing and the website player default."
+    },
+    "GENERATED VIDEO QUALITIES": {
+      "en": "GENERATED VIDEO QUALITIES"
+    },
+    "Original": {
+      "en": "Original"
+    },
+    "Medium": {
+      "en": "Medium"
+    },
+    "Low": {
+      "en": "Low"
+    },
+    "Default player quality": {
+      "en": "Default player quality"
+    },
+    "Save Upload Settings": {
+      "en": "Save Upload Settings"
+    },
+    "Join as a participant": {
+      "en": "Join as a participant"
+    },
+    "Choose what to share. The streamer must approve your request before anything is published.": {
+      "en": "Choose what to share. The streamer must approve your request before anything is published."
+    },
+    "How to join": {
+      "en": "How to join"
+    },
+    "Audio only": {
+      "en": "Audio only"
+    },
+    "Share your microphone": {
+      "en": "Share your microphone"
+    },
+    "Audio and video": {
+      "en": "Audio and video"
+    },
+    "Share camera and microphone": {
+      "en": "Share camera and microphone"
+    },
+    "Microphone ready": {
+      "en": "Microphone ready"
+    },
+    "Request sent": {
+      "en": "Request sent"
+    },
+    "Waiting for the streamer to approve you.": {
+      "en": "Waiting for the streamer to approve you."
+    },
+    "Request approved": {
+      "en": "Request approved"
+    },
+    "Your microphone and camera are ready to join the stage.": {
+      "en": "Your microphone and camera are ready to join the stage."
+    },
+    "Your microphone is ready to join the stage.": {
+      "en": "Your microphone is ready to join the stage."
+    },
+    "Request declined": {
+      "en": "Request declined"
+    },
+    "You can choose another mode and send a new request.": {
+      "en": "You can choose another mode and send a new request."
+    },
+    "You are on stage": {
+      "en": "You are on stage"
+    },
+    "Your selected microphone and camera are live.": {
+      "en": "Your selected microphone and camera are live."
+    },
+    "Your selected microphone is live.": {
+      "en": "Your selected microphone is live."
+    },
+    "Cancelling...": {
+      "en": "Cancelling..."
+    },
+    "Cancel request": {
+      "en": "Cancel request"
+    },
+    "Leaving...": {
+      "en": "Leaving..."
+    },
+    "Leave stage": {
+      "en": "Leave stage"
+    },
+    "Preparing...": {
+      "en": "Preparing..."
+    },
+    "Join stage": {
+      "en": "Join stage"
+    },
+    "Send request": {
+      "en": "Send request"
+    },
+    "On stage": {
+      "en": "On stage"
+    },
+    "Request pending": {
+      "en": "Request pending"
+    },
+    "Join as participant": {
+      "en": "Join as participant"
+    },
+    "Requests to join": {
+      "en": "Requests to join"
+    },
+    "Participant requests": {
+      "en": "Participant requests"
+    },
+    "Live source": {
+      "en": "Live source"
+    },
+    "Camera and microphone access is not supported by this browser.": {
+      "en": "Camera and microphone access is not supported by this browser."
+    },
+    "A working microphone is required to join the stage.": {
+      "en": "A working microphone is required to join the stage."
+    },
+    "A working camera is required for audio and video mode.": {
+      "en": "A working camera is required for audio and video mode."
+    },
+    "You joined the participant stage.": {
+      "en": "You joined the participant stage."
+    },
+    "The LiveKit room is still connecting. Try again in a moment.": {
+      "en": "The LiveKit room is still connecting. Try again in a moment."
+    },
+    "Unable to publish your microphone and camera.": {
+      "en": "Unable to publish your microphone and camera."
+    },
+    "Unable to send the participant request.": {
+      "en": "Unable to send the participant request."
+    },
+    "The streamer declined your participant request.": {
+      "en": "The streamer declined your participant request."
+    },
+    "Unable to leave the participant stage.": {
+      "en": "Unable to leave the participant stage."
+    },
+    "Your request was sent to the streamer.": {
+      "en": "Your request was sent to the streamer."
+    },
+    "Participant approved.": {
+      "en": "Participant approved."
+    },
+    "Participant request declined.": {
+      "en": "Participant request declined."
+    },
+    "Unable to update the participant request.": {
+      "en": "Unable to update the participant request."
+    },
+    "LiveKit control room reconnected.": {
+      "en": "LiveKit control room reconnected."
+    },
+    "Your participant controls": {
+      "en": "Your participant controls"
+    },
+    "Stop camera": {
+      "en": "Stop camera"
+    },
+    "Start camera": {
+      "en": "Start camera"
+    },
+    "Unable to change your microphone.": {
+      "en": "Unable to change your microphone."
+    },
+    "Unable to change your camera.": {
+      "en": "Unable to change your camera."
+    },
+    "Remove participant?": {
+      "en": "Remove participant?"
+    },
+    "Remove {name} from this live stream? They will stop publishing immediately.": {
+      "en": "Remove {name} from this live stream? They will stop publishing immediately."
+    },
+    "Remove participant": {
+      "en": "Remove participant"
+    },
+    "Unable to copy the participant invite link.": {
+      "en": "Unable to copy the participant invite link."
+    },
+    "Manage the local gift catalog, images, availability, and prices.": {
+      "en": "Manage the local gift catalog, images, availability, and prices."
+    },
+    "Unable to load gifts": {
+      "en": "Unable to load gifts"
+    },
+    "The gift catalog could not be loaded.": {
+      "en": "The gift catalog could not be loaded."
+    },
+    "Unable to save gift": {
+      "en": "Unable to save gift"
+    },
+    "The gift could not be saved.": {
+      "en": "The gift could not be saved."
+    },
+    "Delete gift?": {
+      "en": "Delete gift?"
+    },
+    "Delete gift": {
+      "en": "Delete gift"
+    },
+    "Unable to delete gift": {
+      "en": "Unable to delete gift"
+    },
+    "The gift could not be deleted.": {
+      "en": "The gift could not be deleted."
+    },
+    "Gift catalog": {
+      "en": "Gift catalog"
+    },
+    "Add Gift": {
+      "en": "Add Gift"
+    },
+    "Loading gifts...": {
+      "en": "Loading gifts..."
+    },
+    "Edit gift": {
+      "en": "Edit gift"
+    },
+    "Edit Gift": {
+      "en": "Edit Gift"
+    },
+    "WebP images are stored locally in the website gifts folder.": {
+      "en": "WebP images are stored locally in the website gifts folder."
+    },
+    "Choose WebP image": {
+      "en": "Choose WebP image"
+    },
+    "Gift name": {
+      "en": "Gift name"
+    },
+    "Display order": {
+      "en": "Display order"
+    },
+    "Enabled for live streams": {
+      "en": "Enabled for live streams"
+    },
+    "Choose a gift": {
+      "en": "Choose a gift"
+    },
+    "Send gift": {
+      "en": "Send gift"
+    },
+    "Manage locally stored Super Stickers, availability, and prices.": {
+      "en": "Manage locally stored Super Stickers, availability, and prices."
+    },
+    "Unable to load Super Stickers": {
+      "en": "Unable to load Super Stickers"
+    },
+    "The Super Sticker catalog could not be loaded.": {
+      "en": "The Super Sticker catalog could not be loaded."
+    },
+    "Unable to save Super Sticker": {
+      "en": "Unable to save Super Sticker"
+    },
+    "The Super Sticker could not be saved.": {
+      "en": "The Super Sticker could not be saved."
+    },
+    "Delete Super Sticker?": {
+      "en": "Delete Super Sticker?"
+    },
+    "Delete Super Sticker": {
+      "en": "Delete Super Sticker"
+    },
+    "Unable to delete Super Sticker": {
+      "en": "Unable to delete Super Sticker"
+    },
+    "The Super Sticker could not be deleted.": {
+      "en": "The Super Sticker could not be deleted."
+    },
+    "Edit Super Sticker": {
+      "en": "Edit Super Sticker"
+    },
+    "Super Sticker catalog": {
+      "en": "Super Sticker catalog"
+    },
+    "Add Super Sticker": {
+      "en": "Add Super Sticker"
+    },
+    "Loading Super Stickers...": {
+      "en": "Loading Super Stickers..."
+    },
+    "WebP stickers are stored locally in the website stickers folder.": {
+      "en": "WebP stickers are stored locally in the website stickers folder."
+    },
+    "Choose WebP sticker": {
+      "en": "Choose WebP sticker"
+    },
+    "Sticker name": {
+      "en": "Sticker name"
+    },
+    "Choose a Super Sticker": {
+      "en": "Choose a Super Sticker"
+    },
+    "Send Super Sticker": {
+      "en": "Send Super Sticker"
+    },
+    "Recharge": {
+      "en": "Recharge"
+    },
+    "Send a gift": {
+      "en": "Send a gift"
+    },
+    "Recharge wallet": {
+      "en": "Recharge wallet"
+    },
+    "Add funds securely with an available payment method.": {
+      "en": "Add funds with one of the available payment methods."
+    },
+    "Close recharge dialog": {
+      "en": "Close recharge dialog"
+    },
+    "Quick top-up amounts": {
+      "en": "Quick top-up amounts"
+    },
+    "Payment method": {
+      "en": "Payment method"
+    },
+    "Loading payment methods...": {
+      "en": "Loading payment methods..."
+    },
+    "Continue to payment": {
+      "en": "Continue to payment"
+    },
+    "Continue with Stripe": {
+      "en": "Continue with Stripe"
+    },
+    "Continue with PayPal": {
+      "en": "Continue with PayPal"
+    },
+    "Continue with payment": {
+      "en": "Continue with payment"
+    },
+    "Send Gift": {
+      "en": "Send Gift"
+    },
+    "Allow pop-ups to open the payment gateway.": {
+      "en": "Allow pop-ups to open the payment gateway."
+    },
+    "Quick tip amounts": {
+      "en": "Quick tip amounts"
+    },
+    "Custom tip": {
+      "en": "Custom tip"
+    },
+    "Custom or preset tip": {
+      "en": "Custom or preset tip"
+    },
+    "Invite a registered PlayHub user to publish camera and microphone in this live room.": {
+      "en": "Invite someone with a PlayHub account to share their camera and microphone in this live stream."
+    },
+    "Streaming connection is reconnecting.": {
+      "en": "Reconnecting to the live stream."
+    },
+    "Streaming connection restored.": {
+      "en": "Streaming connection restored."
+    },
+    "Streaming connection details are unavailable.": {
+      "en": "Streaming connection details are unavailable."
+    },
+    "Stream preview connection details are unavailable.": {
+      "en": "Stream preview connection details are unavailable."
+    },
+    "Unable to reconnect to the live control room.": {
+      "en": "Unable to reconnect to the live control room."
+    },
+    "Scheduled browser streams require the webcam source.": {
+      "en": "Scheduled browser streams require the webcam source."
+    },
+    "Live control room reconnected.": {
+      "en": "Live control room reconnected."
+    },
+    "Connecting to the live stage": {
+      "en": "Connecting to the live stage"
+    },
+    "● real-time streaming": {
+      "en": "● real-time streaming"
+    },
+    "Start streaming from OBS to see the stream preview here.": {
+      "en": "Start streaming from OBS to see the stream preview here."
+    },
+    "Replay recording is unavailable until the recording service is running.": {
+      "en": "Replay recording is unavailable until the recording service is running."
+    },
+    "Your stream is publishing.": {
+      "en": "Your stream is publishing."
+    },
+    "The live room is still connecting. Try again in a moment.": {
+      "en": "The live room is still connecting. Try again in a moment."
+    },
+    "The RTMP ingress service is not running.": {
+      "en": "The RTMP ingress service is not running."
+    },
+    "Streaming credentials are unavailable.": {
+      "en": "Streaming credentials are unavailable."
+    },
+    "The streaming service is not running.": {
+      "en": "The streaming service is not running."
+    },
+    "Browser WebRTC currently requires the webcam source.": {
+      "en": "Browser WebRTC currently requires the webcam source."
+    },
+    "The participant identity is invalid.": {
+      "en": "The participant identity is invalid."
+    },
+    "The recording service did not return a replay recording ID.": {
+      "en": "The recording service did not return a replay recording ID."
+    },
+    "Layout Presets": {
+      "en": "Layout Presets"
+    },
+    "Adaptive grid": {
+      "en": "Adaptive grid"
+    },
+    "Host focus": {
+      "en": "Host focus"
+    },
+    "Split screen": {
+      "en": "Split screen"
+    },
+    "Screen share": {
+      "en": "Screen share"
+    },
+    "Stop screen share": {
+      "en": "Stop screen share"
+    },
+    "Category:": {
+      "en": "Category:"
+    },
+    "View voters": {
+      "en": "View voters"
+    },
+    "Poll voters": {
+      "en": "Poll voters"
+    },
+    "No votes yet": {
+      "en": "No votes yet"
+    },
+    "Load more": {
+      "en": "Load more"
+    },
+    "Unable to load poll voters.": {
+      "en": "Unable to load poll voters."
+    },
+    "Poll voter details are unavailable.": {
+      "en": "Poll voter details are unavailable."
+    },
+    "Stream Moderators": {
+      "en": "Stream Moderators"
+    },
+    "No moderators assigned yet.": {
+      "en": "No moderators assigned yet."
+    },
+    "Moderators": {
+      "en": "Moderators"
+    },
+    "Manage stream moderators": {
+      "en": "Manage stream moderators"
+    },
+    "Moderator added.": {
+      "en": "Moderator added."
+    },
+    "Moderator removed.": {
+      "en": "Moderator removed."
+    },
+    "Unable to add this moderator.": {
+      "en": "Unable to add this moderator."
+    },
+    "Unable to remove this moderator.": {
+      "en": "Unable to remove this moderator."
+    },
+    "Remove moderator?": {
+      "en": "Remove moderator?"
+    },
+    "Remove moderator": {
+      "en": "Remove moderator"
+    },
+    "You are a moderator": {
+      "en": "You are a moderator"
+    },
+    "No pending participant requests": {
+      "en": "No pending participant requests"
+    },
+    "Delete message?": {
+      "en": "Delete message?"
+    },
+    "Delete message": {
+      "en": "Delete message"
+    },
+    "Ban from live chat?": {
+      "en": "Ban from live chat?"
+    },
+    "Ban from chat": {
+      "en": "Ban from chat"
+    },
+    "Ban from live stream?": {
+      "en": "Ban from live stream?"
+    },
+    "Ban from stream": {
+      "en": "Ban from stream"
+    },
+    "Applying...": {
+      "en": "Applying..."
+    },
+    "You no longer have access to this live stream.": {
+      "en": "You no longer have access to this live stream."
+    },
+    "Stickers": {
+      "en": "Stickers"
+    },
+    "Manage locally stored stickers for comments and live streams.": {
+      "en": "Manage locally stored stickers for comments and live streams."
+    },
+    "Unable to load Stickers": {
+      "en": "Unable to load stickers"
+    },
+    "The sticker catalog could not be loaded.": {
+      "en": "The sticker catalog could not be loaded."
+    },
+    "Unable to save Sticker": {
+      "en": "Unable to save sticker"
+    },
+    "The sticker could not be saved.": {
+      "en": "The sticker could not be saved."
+    },
+    "Delete Sticker?": {
+      "en": "Delete Sticker?"
+    },
+    "Delete Sticker": {
+      "en": "Delete Sticker"
+    },
+    "Unable to delete Sticker": {
+      "en": "Unable to delete sticker"
+    },
+    "The sticker could not be deleted.": {
+      "en": "The sticker could not be deleted."
+    },
+    "Sticker catalog": {
+      "en": "Sticker catalog"
+    },
+    "Add Sticker": {
+      "en": "Add Sticker"
+    },
+    "Loading Stickers...": {
+      "en": "Loading Stickers..."
+    },
+    "Sticker": {
+      "en": "Sticker"
+    },
+    "Edit Sticker": {
+      "en": "Edit Sticker"
+    },
+    "PNG, GIF, and WebP stickers are stored locally in the website stickers folder.": {
+      "en": "PNG, GIF, and WebP stickers are stored locally in the website stickers folder."
+    },
+    "Choose sticker image": {
+      "en": "Choose sticker image"
+    },
+    "Enabled for comments and live streams": {
+      "en": "Enabled for comments and live streams"
+    },
+    "Search stickers": {
+      "en": "Search stickers"
+    },
+    "No stickers found.": {
+      "en": "No stickers found."
+    },
+    "Add sticker": {
+      "en": "Add sticker"
+    },
+    "Remove sticker": {
+      "en": "Remove sticker"
+    },
+    "User suggestions": {
+      "en": "User suggestions"
+    },
+    "No users found.": {
+      "en": "No users found."
+    },
+    "Choose a sticker to send": {
+      "en": "Choose a sticker to send"
+    },
+    "Sticker categories": {
+      "en": "Sticker categories"
+    },
+    "Close Super Stickers": {
+      "en": "Close Super Stickers"
+    },
+    "Create, target, schedule, and measure advertising placements across the website.": {
+      "en": "Create, target, schedule, and measure advertising placements across the website."
+    },
+    "After website header": {
+      "en": "After website header"
+    },
+    "Left sidebar": {
+      "en": "Left sidebar"
+    },
+    "Before footer": {
+      "en": "Before footer"
+    },
+    "Home feed": {
+      "en": "Home feed"
+    },
+    "Between videos": {
+      "en": "Between videos"
+    },
+    "Below video player": {
+      "en": "Below video player"
+    },
+    "Watch sidebar": {
+      "en": "Watch sidebar"
+    },
+    "Shorts feed": {
+      "en": "Shorts feed"
+    },
+    "Channel content": {
+      "en": "Channel content"
+    },
+    "Live pages": {
+      "en": "Live pages"
+    },
+    "Between community posts": {
+      "en": "Between community posts"
+    },
+    "Floating bottom": {
+      "en": "Floating bottom"
+    },
+    "Unable to load Ads": {
+      "en": "Unable to load ads"
+    },
+    "The advertising catalog could not be loaded.": {
+      "en": "The advertising catalog could not be loaded."
+    },
+    "Unable to save Ad": {
+      "en": "Unable to save ad"
+    },
+    "The ad could not be saved.": {
+      "en": "The ad could not be saved."
+    },
+    "Delete Ad?": {
+      "en": "Delete Ad?"
+    },
+    "Delete Ad": {
+      "en": "Delete Ad"
+    },
+    "Unable to delete Ad": {
+      "en": "Unable to delete ad"
+    },
+    "The ad could not be deleted.": {
+      "en": "The ad could not be deleted."
+    },
+    "Total Ads": {
+      "en": "Total Ads"
+    },
+    "Active Placements": {
+      "en": "Active Placements"
+    },
+    "Impressions": {
+      "en": "Impressions"
+    },
+    "Recorded views": {
+      "en": "Recorded views"
+    },
+    "Clicks": {
+      "en": "Clicks"
+    },
+    "Website Ads": {
+      "en": "Website Ads"
+    },
+    "Create Ad": {
+      "en": "Create Ad"
+    },
+    "Loading Ads...": {
+      "en": "Loading Ads..."
+    },
+    "Ad": {
+      "en": "Ad"
+    },
+    "Placement": {
+      "en": "Placement"
+    },
+    "Targeting": {
+      "en": "Targeting"
+    },
+    "Edit Ad": {
+      "en": "Edit Ad"
+    },
+    "Disable Ad": {
+      "en": "Disable Ad"
+    },
+    "Enable Ad": {
+      "en": "Enable Ad"
+    },
+    "Internal name": {
+      "en": "Internal name"
+    },
+    "Creative type": {
+      "en": "Creative type"
+    },
+    "Display style": {
+      "en": "Display style"
+    },
+    "Text": {
+      "en": "Text"
+    },
+    "Seamless": {
+      "en": "Seamless"
+    },
+    "Sticky": {
+      "en": "Sticky"
+    },
+    "Floating": {
+      "en": "Floating"
+    },
+    "HTML content": {
+      "en": "HTML content"
+    },
+    "Image URL": {
+      "en": "Image URL"
+    },
+    "Headline": {
+      "en": "Headline"
+    },
+    "Destination URL": {
+      "en": "Destination URL"
+    },
+    "Device": {
+      "en": "Device"
+    },
+    "All devices": {
+      "en": "All devices"
+    },
+    "Desktop": {
+      "en": "Desktop"
+    },
+    "Mobile": {
+      "en": "Mobile"
+    },
+    "Tablet": {
+      "en": "Tablet"
+    },
+    "Guests": {
+      "en": "Guests"
+    },
+    "Logged-in users": {
+      "en": "Logged-in users"
+    },
+    "Insert every": {
+      "en": "Insert every"
+    },
+    "Items in feed placements": {
+      "en": "Feed items between ads"
+    },
+    "Height (px)": {
+      "en": "Height (px)"
+    },
+    "Maximum width (px)": {
+      "en": "Maximum width (px)"
+    },
+    "Background color": {
+      "en": "Background color"
+    },
+    "Starts at": {
+      "en": "Starts at"
+    },
+    "Ends at": {
+      "en": "Ends at"
+    },
+    "Ad label": {
+      "en": "Ad label"
+    },
+    "Show sponsored label": {
+      "en": "Show sponsored label"
+    },
+    "Allow dismissal": {
+      "en": "Allow dismissal"
+    },
+    "Open links in new tab": {
+      "en": "Open links in new tab"
+    },
+    "HTML ads run in an isolated sandbox on the public website.": {
+      "en": "HTML ads run in an isolated sandbox on the public website."
+    },
+    "Enter HTML to preview the ad.": {
+      "en": "Enter HTML to preview the ad."
+    },
+    "Enter an image URL to preview the ad.": {
+      "en": "Enter an image URL to preview the ad."
+    },
+    "Ad headline": {
+      "en": "Ad headline"
+    },
+    "Ad description": {
+      "en": "Ad description"
+    },
+    "Sponsored content": {
+      "en": "Sponsored content"
+    },
+    "Sponsored": {
+      "en": "Sponsored"
+    },
+    "Dismiss ad": {
+      "en": "Dismiss ad"
+    },
+    "Configure the creative, placement, targeting, schedule, and display behavior.": {
+      "en": "Configure the creative, placement, targeting, schedule, and display behavior."
+    },
+    "Ready Pre-Flights": {
+      "en": "Streams ready to go live"
+    },
+    "Ended Streams": {
+      "en": "Ended Streams"
+    },
+    "Loading live streams...": {
+      "en": "Loading live streams..."
+    },
+    "Close ad editor": {
+      "en": "Close ad editor"
+    },
+    "Open start calendar": {
+      "en": "Open start calendar"
+    },
+    "Open end calendar": {
+      "en": "Open end calendar"
+    },
+    "Ad created.": {
+      "en": "Ad created."
+    },
+    "Add a goal title and amount before scheduling.": {
+      "en": "Add a goal title and amount before scheduling."
+    },
+    "Add a stream description before scheduling.": {
+      "en": "Add a stream description before scheduling."
+    },
+    "Add a stream description before starting.": {
+      "en": "Add a stream description before starting."
+    },
+    "Complete the required stream details before starting.": {
+      "en": "Complete the required stream details before starting."
+    },
+    "Live stream description is required.": {
+      "en": "Live stream description is required."
+    },
+    "Add a stream title before scheduling.": {
+      "en": "Add a stream title before scheduling."
+    },
+    "Add at least one invited viewer before scheduling.": {
+      "en": "Add at least one invited viewer before scheduling."
+    },
+    "Ad deleted.": {
+      "en": "Ad deleted."
+    },
+    "Add moderator": {
+      "en": "Add moderator"
+    },
+    "Add stream moderator?": {
+      "en": "Add stream moderator?"
+    },
+    "Ad impression already completed.": {
+      "en": "Ad impression already completed."
+    },
+    "Ad impression completed.": {
+      "en": "Ad impression completed."
+    },
+    "Ad updated.": {
+      "en": "Ad updated."
+    },
+    "Advanced generated LiveKit options": {
+      "en": "Advanced generated LiveKit options"
+    },
+    "Apply configuration": {
+      "en": "Apply configuration"
+    },
+    "Automatic": {
+      "en": "Automatic"
+    },
+    "A valid phone number is required when using phone delivery.": {
+      "en": "A valid phone number is required when using phone delivery."
+    },
+    "Backstage": {
+      "en": "Backstage"
+    },
+    "Billing information": {
+      "en": "Billing information"
+    },
+    "Billing information updated successfully.": {
+      "en": "Billing information updated successfully."
+    },
+    "Bookmarks": {
+      "en": "Bookmarks"
+    },
+    "Branding": {
+      "en": "Branding"
+    },
+    "Camera is off": {
+      "en": "Camera is off"
+    },
+    "Chapters": {
+      "en": "Chapters"
+    },
+    "Chat Replay": {
+      "en": "Chat Replay"
+    },
+    "Choose sticker": {
+      "en": "Choose sticker"
+    },
+    "Clips": {
+      "en": "Clips"
+    },
+    "Clips created from this replay will appear here.": {
+      "en": "Clips created from this replay will appear here."
+    },
+    "Close billing information": {
+      "en": "Close billing information"
+    },
+    "Close payment history": {
+      "en": "Close payment history"
+    },
+    "Communities": {
+      "en": "Communities"
+    },
+    "Complete the required stream settings before scheduling.": {
+      "en": "Complete the required stream settings before scheduling."
+    },
+    "Compose and runtime files": {
+      "en": "Compose and runtime files"
+    },
+    "Configured targets": {
+      "en": "Configured targets"
+    },
+    "Connecting to the recording room...": {
+      "en": "Connecting to the recording room..."
+    },
+    "Contribution already processed.": {
+      "en": "Contribution already processed."
+    },
+    "Copy replay link": {
+      "en": "Copy replay link"
+    },
+    "Detected issues": {
+      "en": "Detected issues"
+    },
+    "Device session not found.": {
+      "en": "Device session not found."
+    },
+    "Device signed out successfully.": {
+      "en": "Device signed out successfully."
+    },
+    "Docker Configuration": {
+      "en": "Docker Configuration"
+    },
+    "Docker container file paths": {
+      "en": "Docker container file paths"
+    },
+    "Do not collapse settings blocks": {
+      "en": "Do not collapse settings blocks"
+    },
+    "Enabled contributions will appear here.": {
+      "en": "Enabled contributions will appear here."
+    },
+    "Engagement settings saved.": {
+      "en": "Engagement settings saved."
+    },
+    "Featured live streams": {
+      "en": "Featured live streams"
+    },
+    "General settings reset.": {
+      "en": "General settings reset."
+    },
+    "Gift added.": {
+      "en": "Gift added."
+    },
+    "Gift deleted.": {
+      "en": "Gift deleted."
+    },
+    "Gift preview": {
+      "en": "Gift preview"
+    },
+    "Gifts Received": {
+      "en": "Gifts Received"
+    },
+    "Gift updated.": {
+      "en": "Gift updated."
+    },
+    "Hide pinned message": {
+      "en": "Hide pinned message"
+    },
+    "HTML ad preview": {
+      "en": "HTML ad preview"
+    },
+    "Invite a participant": {
+      "en": "Invite a participant"
+    },
+    "Invite Guest": {
+      "en": "Invite Guest"
+    },
+    "Latest tips": {
+      "en": "Latest tips"
+    },
+    "Layout": {
+      "en": "Layout"
+    },
+    "Live chat message deleted.": {
+      "en": "Live chat message deleted."
+    },
+    "Live control panels": {
+      "en": "Live control panels"
+    },
+    "Live Control Room": {
+      "en": "Live Control Room"
+    },
+    "LiveKit and Docker logs": {
+      "en": "LiveKit and Docker logs"
+    },
+    "LiveKit did not return a connection result.": {
+      "en": "LiveKit did not return a connection result."
+    },
+    "LiveKit Docker": {
+      "en": "LiveKit Docker"
+    },
+    "LiveKit signaling and authenticated API connection succeeded.": {
+      "en": "LiveKit signaling and authenticated API connection succeeded."
+    },
+    "LiveKit SSL certificates": {
+      "en": "LiveKit SSL certificates"
+    },
+    "Live polls": {
+      "en": "Live polls"
+    },
+    "Live stream": {
+      "en": "Live stream"
+    },
+    "Live stream ended.": {
+      "en": "Live stream ended."
+    },
+    "Live stream recording": {
+      "en": "Live stream recording"
+    },
+    "Live stream scheduled.": {
+      "en": "Live stream scheduled."
+    },
+    "Live Time": {
+      "en": "Live Time"
+    },
+    "Live Viewers": {
+      "en": "Live Viewers"
+    },
+    "Loaded": {
+      "en": "Loaded"
+    },
+    "Loading billing information...": {
+      "en": "Loading billing information..."
+    },
+    "Loading chat replay": {
+      "en": "Loading chat replay"
+    },
+    "Loading payment history...": {
+      "en": "Loading payment history..."
+    },
+    "Loading replay...": {
+      "en": "Loading replay..."
+    },
+    "Loading replays...": {
+      "en": "Loading replays..."
+    },
+    "Manage All": {
+      "en": "Manage All"
+    },
+    "Measuring stream performance...": {
+      "en": "Measuring stream performance..."
+    },
+    "Membership payments recorded for your account.": {
+      "en": "Membership payments recorded for your account."
+    },
+    "Moderators cannot delete the streamer’s messages.": {
+      "en": "Moderators cannot delete the streamer’s messages."
+    },
+    "Mute All": {
+      "en": "Mute All"
+    },
+    "New chat messages": {
+      "en": "New chat messages"
+    },
+    "New Followers": {
+      "en": "New Followers"
+    },
+    "No authenticated viewers or participants yet.": {
+      "en": "No authenticated viewers or participants yet."
+    },
+    "No contributions received yet.": {
+      "en": "No contributions received yet."
+    },
+    "No other replays available yet.": {
+      "en": "No other replays available yet."
+    },
+    "No payment transactions yet.": {
+      "en": "No payment transactions yet."
+    },
+    "No recent activity": {
+      "en": "No recent activity"
+    },
+    "No replay chat yet": {
+      "en": "No replay chat yet"
+    },
+    "No replay clips yet": {
+      "en": "No replay clips yet"
+    },
+    "No tips or gifts yet": {
+      "en": "No tips or gifts yet"
+    },
+    "Paid transactions": {
+      "en": "Paid transactions"
+    },
+    "Participant controls": {
+      "en": "Participant controls"
+    },
+    "Participant role": {
+      "en": "Participant role"
+    },
+    "Participants": {
+      "en": "Participants"
+    },
+    "Payment card numbers are handled by the configured payment provider and are never stored in your PlayHub profile.": {
+      "en": "Payment card numbers are handled by the configured payment provider and are never stored in your PlayHub profile."
+    },
+    "Payment history": {
+      "en": "Payment history"
+    },
+    "Peak Viewers": {
+      "en": "Peak Viewers"
+    },
+    "Please enable JavaScript to use PlayHub.": {
+      "en": "Please enable JavaScript to use PlayHub."
+    },
+    "Poll created.": {
+      "en": "Poll created."
+    },
+    "Poll deleted.": {
+      "en": "Poll deleted."
+    },
+    "Poll updated.": {
+      "en": "Poll updated."
+    },
+    "Preparing RTMP URL": {
+      "en": "Preparing RTMP URL"
+    },
+    "Preparing stream key": {
+      "en": "Preparing stream key"
+    },
+    "Price": {
+      "en": "Price"
+    },
+    "Project-local LiveKit file paths": {
+      "en": "Project-local LiveKit file paths"
+    },
+    "Pull image": {
+      "en": "Pull image"
+    },
+    "Quality": {
+      "en": "Quality"
+    },
+    "Question": {
+      "en": "Question"
+    },
+    "Reconnect": {
+      "en": "Reconnect"
+    },
+    "Replay": {
+      "en": "Replay"
+    },
+    "REPLAY": {
+      "en": "REPLAY"
+    },
+    "Replay actions": {
+      "en": "Replay actions"
+    },
+    "Replay chat messages": {
+      "en": "Replay chat messages"
+    },
+    "Replay processing": {
+      "en": "Replay processing"
+    },
+    "Replay sections": {
+      "en": "Replay sections"
+    },
+    "Replay stats and actions": {
+      "en": "Replay stats and actions"
+    },
+    "Replay Views": {
+      "en": "Replay Views"
+    },
+    "Response": {
+      "en": "Response"
+    },
+    "Restart": {
+      "en": "Restart"
+    },
+    "Revenue & Tips": {
+      "en": "Revenue & Tips"
+    },
+    "RTMP credentials are ready.": {
+      "en": "RTMP credentials are ready."
+    },
+    "RTMP ingress": {
+      "en": "RTMP ingress"
+    },
+    "Schedule must be in the future.": {
+      "en": "Schedule must be in the future."
+    },
+    "Search or enter your country": {
+      "en": "Search or enter your country"
+    },
+    "Select an option": {
+      "en": "Select an option"
+    },
+    "Short video player. Click or tap once to mute or unmute. Press and hold to pause. Use the navigation arrows to change Shorts.": {
+      "en": "Short video player. Click or tap once to mute or unmute. Press and hold to pause. Use the navigation arrows to change Shorts."
+    },
+    "Spotlight": {
+      "en": "Spotlight"
+    },
+    "Start": {
+      "en": "Start"
+    },
+    "Sticker added.": {
+      "en": "Sticker added."
+    },
+    "Sticker deleted.": {
+      "en": "Sticker deleted."
+    },
+    "Sticker preview": {
+      "en": "Sticker preview"
+    },
+    "Sticker updated.": {
+      "en": "Sticker updated."
+    },
+    "Stop": {
+      "en": "Stop"
+    },
+    "Stop All Cams": {
+      "en": "Stop All Cams"
+    },
+    "Stream Diagnostics": {
+      "en": "Stream Diagnostics"
+    },
+    "Streaming Engine": {
+      "en": "Streaming Engine"
+    },
+    "Stream moderation": {
+      "en": "Stream moderation"
+    },
+    "Stream settings sections": {
+      "en": "Stream settings sections"
+    },
+    "Submit admin search": {
+      "en": "Submit admin search"
+    },
+    "Submitted": {
+      "en": "Submitted"
+    },
+    "Target bitrate": {
+      "en": "Target bitrate"
+    },
+    "The current password is incorrect.": {
+      "en": "The current password is incorrect."
+    },
+    "The default quality must be enabled as an upload rendition.": {
+      "en": "The default quality must be enabled as an upload rendition."
+    },
+    "The end date must be later than the start date.": {
+      "en": "The end date must be later than the start date."
+    },
+    "The invited user must sign in with that account before opening the link.": {
+      "en": "The invited user must sign in with that account before opening the link."
+    },
+    "The logo must be a safe SVG file.": {
+      "en": "The logo must be a safe SVG file."
+    },
+    "The new password must be different from the current one.": {
+      "en": "The new password must be different from the current one."
+    },
+    "The provided credentials are incorrect.": {
+      "en": "The provided credentials are incorrect."
+    },
+    "The two-factor authentication code is invalid.": {
+      "en": "The two-factor authentication code is invalid."
+    },
+    "This account has been suspended. Contact support if you believe this is a mistake.": {
+      "en": "This account has been suspended. Contact support if you believe this is a mistake."
+    },
+    "This is a replay of the live chat.": {
+      "en": "This is a replay of the live chat."
+    },
+    "This live stream is private.": {
+      "en": "This live stream is private."
+    },
+    "Thumbnail already available.": {
+      "en": "Thumbnail already available."
+    },
+    "Thumbnail uploaded.": {
+      "en": "Thumbnail uploaded."
+    },
+    "Ticket details are unavailable.": {
+      "en": "Ticket details are unavailable."
+    },
+    "Tips & Gifts": {
+      "en": "Tips & Gifts"
+    },
+    "Top Moments": {
+      "en": "Top Moments"
+    },
+    "Total contributions": {
+      "en": "Total contributions"
+    },
+    "Try again": {
+      "en": "Try again"
+    },
+    "Types": {
+      "en": "Types"
+    },
+    "Typography": {
+      "en": "Typography"
+    },
+    "Unable to send a verification code to the selected method.": {
+      "en": "Unable to send a verification code to the selected method."
+    },
+    "Use an HTTPS, HTTP, or website-relative URL.": {
+      "en": "Use an HTTPS, HTTP, or website-relative URL."
+    },
+    "Used for invoices, receipts, and billing support.": {
+      "en": "Used for invoices, receipts, and billing support."
+    },
+    "Use logout to sign out from the current device.": {
+      "en": "Use logout to sign out from the current device."
+    },
+    "Verified account": {
+      "en": "Verified account"
+    },
+    "Video bitrate": {
+      "en": "Video bitrate"
+    },
+    "Viewer": {
+      "en": "Viewer"
+    },
+    "Viewer restriction removed.": {
+      "en": "Viewer restriction removed."
+    },
+    "Viewers and participants": {
+      "en": "Viewers and participants"
+    },
+    "View more": {
+      "en": "View more"
+    },
+    "Visible live chat messages will appear here after the replay is ready.": {
+      "en": "Visible live chat messages will appear here after the replay is ready."
+    },
+    "Vote recorded.": {
+      "en": "Vote recorded."
+    },
+    "Waiting for RTMP video": {
+      "en": "Waiting for RTMP video"
+    },
+    "Your ad markup": {
+      "en": "Your ad markup"
+    },
+    "Your participant video will appear here.": {
+      "en": "Your participant video will appear here."
+    },
+    "Also permanently delete all videos uploaded by these users": {
+      "en": "Also permanently delete all videos uploaded by these users"
+    },
+    "Also permanently delete all videos uploaded by this user": {
+      "en": "Also permanently delete all videos uploaded by this user"
+    },
+    "Loading your videos...": {
+      "en": "Loading your videos..."
+    },
+    "No videos match your search.": {
+      "en": "No videos match your search."
+    },
+    "User and uploaded videos permanently deleted.": {
+      "en": "User and uploaded videos permanently deleted."
+    },
+    "Upcoming stream view": {
+      "en": "Upcoming stream view"
+    },
+    "Sort videos": {
+      "en": "Sort videos"
+    },
+    "Choose another filter to view available videos.": {
+      "en": "Choose another filter to view available videos."
+    },
+    "Video removed from playlist.": {
+      "en": "Video removed from playlist."
+    },
+    "This feedback is saved on this device. You can continue watching or choose another video.": {
+      "en": "This feedback is saved on this device. You can continue watching or choose another video."
+    },
+    "Unable to save this preference.": {
+      "en": "Unable to save this preference."
+    },
+    "No system log entries were found.": {
+      "en": "No system log entries were found."
+    },
+    "System logs unavailable": {
+      "en": "System logs unavailable"
+    },
+    "The system logs could not be loaded.": {
+      "en": "The system logs could not be loaded."
+    },
+    "Export Category Analytics": {
+      "en": "Export Category Analytics"
+    },
+    "Export Traffic Sources": {
+      "en": "Export Traffic Sources"
+    },
+    "Export Device Data": {
+      "en": "Export Device Data"
+    },
+    "View Analytics": {
+      "en": "View Analytics"
+    },
+    "Export Transactions": {
+      "en": "Export Transactions"
+    },
+    "Payment Settings": {
+      "en": "Payment Settings"
+    },
+    "Unable to update notification preferences.": {
+      "en": "Unable to update notification preferences."
+    },
+    "You cannot mute your own notifications.": {
+      "en": "You cannot mute your own notifications."
+    },
+    "Login & Registration Preview": {
+      "en": "Login & Registration Preview"
+    },
+    "Edit the content shown on the black side of login, registration, and password recovery pages. Enter one feature per line, up to four features.": {
+      "en": "Edit the content shown on the black side of login, registration, and password recovery pages. Enter one feature per line, up to four features."
+    },
+    "Edit installed language metadata, translations, plural forms, and patterns.": {
+      "en": "Edit installed language metadata, translations, plural forms, and patterns."
+    },
+    "Language catalog": {
+      "en": "Language catalog"
+    },
+    "Select language": {
+      "en": "Select language"
+    },
+    "Translations": {
+      "en": "Translations"
+    },
+    "Plural forms": {
+      "en": "Plural forms"
+    },
+    "Patterns": {
+      "en": "Patterns"
+    },
+    "Metadata": {
+      "en": "Metadata"
+    },
+    "Search translation keys or values...": {
+      "en": "Search translation keys or values..."
+    },
+    "Unable to load languages": {
+      "en": "Unable to load languages"
+    },
+    "The language catalog could not be loaded.": {
+      "en": "The language catalog could not be loaded."
+    },
+    "Unable to load language": {
+      "en": "Unable to load language"
+    },
+    "The selected language could not be loaded.": {
+      "en": "The selected language could not be loaded."
+    },
+    "Discard unsaved language changes?": {
+      "en": "Discard unsaved language changes?"
+    },
+    "Your edits will be lost when you switch or reload the language.": {
+      "en": "Your edits will be lost when you switch or reload the language."
+    },
+    "Discard changes": {
+      "en": "Discard changes"
+    },
+    "Language updated": {
+      "en": "Language updated"
+    },
+    "Unable to save language": {
+      "en": "Unable to save language"
+    },
+    "The language file could not be saved.": {
+      "en": "The language file could not be saved."
+    },
+    "No language files were found.": {
+      "en": "No language files were found."
+    },
+    "Entries": {
+      "en": "Entries"
+    },
+    "Source matches": {
+      "en": "Source matches"
+    },
+    "Right to left": {
+      "en": "Right to left"
+    },
+    "Left to right": {
+      "en": "Left to right"
+    },
+    "Modified": {
+      "en": "Modified"
+    },
+    "Loading language values...": {
+      "en": "Loading language values..."
+    },
+    "Translation key": {
+      "en": "Translation key"
+    },
+    "Translation": {
+      "en": "Translation"
+    },
+    "No translations found.": {
+      "en": "No translations found."
+    },
+    "Plural key / Form": {
+      "en": "Plural key / Form"
+    },
+    "No plural forms are configured for this language.": {
+      "en": "No plural forms are configured for this language."
+    },
+    "Pattern": {
+      "en": "Pattern"
+    },
+    "Value": {
+      "en": "Value"
+    },
+    "No patterns are configured for this language.": {
+      "en": "No patterns are configured for this language."
+    },
+    "Language code": {
+      "en": "Language code"
+    },
+    "File": {
+      "en": "File"
+    },
+    "Native name": {
+      "en": "Native name"
+    },
+    "Direction": {
+      "en": "Direction"
+    },
+    "This language file changed after it was loaded. Reload it before saving.": {
+      "en": "This language file changed after it was loaded. Reload it before saving."
+    },
+    "Submit between 1 and 500 language changes at a time.": {
+      "en": "Submit between 1 and 500 language changes at a time."
+    },
+    "Each language change must contain a section, key, and text value.": {
+      "en": "Each language change must contain a section, key, and text value."
+    },
+    "A language value cannot exceed 20,000 characters.": {
+      "en": "A language value cannot exceed 20,000 characters."
+    },
+    "The selected plural form does not exist.": {
+      "en": "The selected plural form does not exist."
+    },
+    "Direction must be ltr or rtl.": {
+      "en": "Direction must be ltr or rtl."
+    },
+    "Language names must contain 1 to 100 characters.": {
+      "en": "Language names must contain 1 to 100 characters."
+    },
+    "The selected language key cannot be edited.": {
+      "en": "The selected language key cannot be edited."
+    },
+    "The language directory is not writable by the web server.": {
+      "en": "The language directory is not writable by the web server."
+    },
+    "Unable to lock the language file.": {
+      "en": "Unable to lock the language file."
+    },
+    "Unable to create a temporary language file.": {
+      "en": "Unable to create a temporary language file."
+    },
+    "Unable to write the language file.": {
+      "en": "Unable to write the language file."
+    },
+    "The generated language file is invalid.": {
+      "en": "The generated language file is invalid."
+    },
+    "Unable to replace the language file.": {
+      "en": "Unable to replace the language file."
+    },
+    "The language file must return an array.": {
+      "en": "The language file must return an array."
+    },
+    "Language not found.": {
+      "en": "Language not found."
+    },
+    "Language directory not found.": {
+      "en": "Language directory not found."
+    },
+    "The selected language directory is read-only. Update its server permissions before editing.": {
+      "en": "The selected language directory is read-only. Update its server permissions before editing."
+    },
+    "Your video was imported.": {
+      "en": "Your video was imported."
+    },
+    "Your video is ready.": {
+      "en": "Your video is ready."
+    },
+    "Your short is ready.": {
+      "en": "Your short is ready."
+    },
+    "Paste a public video URL to detect its provider and fetch the details automatically.": {
+      "en": "Paste a public video URL to detect its provider and fetch the details automatically."
+    },
+    "Automatic detection": {
+      "en": "Automatic detection"
+    },
+    "Video URL (direct or yt-dlp)": {
+      "en": "Video URL (direct or yt-dlp)"
+    },
+    "Provider detected automatically": {
+      "en": "Provider detected automatically"
+    },
+    "Selected provider": {
+      "en": "Selected provider"
+    },
+    "Subtitle languages found: {count}": {
+      "en": "Subtitle languages found: {count}"
+    },
+    "Chapters found: {count}": {
+      "en": "Chapters found: {count}"
+    },
+    "None found": {
+      "en": "None found"
+    },
+    "Available subtitles and a transcript will be imported.": {
+      "en": "Available subtitles and a transcript will be imported."
+    },
+    "No available subtitle tracks found.": {
+      "en": "No available subtitle tracks found."
+    },
+    "Review or disable them before publishing.": {
+      "en": "Review or disable them before publishing."
+    },
+    "You can add chapters manually in Review.": {
+      "en": "You can add chapters manually in Review."
+    },
+    "Imports video details, available subtitles and chapters from YouTube.": {
+      "en": "Imports video details, available subtitles and chapters from YouTube."
+    },
+    "Imports Twitch live channels, videos, and clips and plays them with the Twitch embed player.": {
+      "en": "Imports Twitch live channels, videos, and clips and plays them with the Twitch embed player."
+    },
+    "Accepts a direct video file (MP4/WebM) or any site supported by yt-dlp. Title, description, tags and thumbnail are read with yt-dlp; playback stays at the original host.": {
+      "en": "Accepts a direct video file (MP4/WebM) or any site supported by yt-dlp. Title, description, tags and thumbnail are read with yt-dlp; playback stays at the original host."
+    },
+    "Short detected from provider": {
+      "en": "Short detected from provider"
+    },
+    "Video chapters": {
+      "en": "Video chapters"
+    },
+    "Upload with chapters": {
+      "en": "Upload with chapters"
+    },
+    "Enable named segments in the video timeline.": {
+      "en": "Enable named segments in the video timeline."
+    },
+    "Draft segments from video duration": {
+      "en": "Draft segments from video duration"
+    },
+    "Custom chapter list": {
+      "en": "Custom chapter list"
+    },
+    "Video chapter segments": {
+      "en": "Video chapter segments"
+    },
+    "Segment name": {
+      "en": "Segment name"
+    },
+    "Remove segment": {
+      "en": "Remove segment"
+    },
+    "Add segment": {
+      "en": "Add segment"
+    },
+    "Upload CUE / TXT": {
+      "en": "Upload CUE / TXT"
+    },
+    "Keeps your temporary playback queue available when you reload.": {
+      "en": "Keeps your temporary playback queue available when you reload."
+    },
+    "Your {SITENAME} verification code": {
+      "en": "Your {SITENAME} verification code"
+    },
+    "Your {SITENAME} verification code is: {VERIFICATION_CODE}\n\nThis code expires in {EXPIRY_MINUTES} minutes.": {
+      "en": "Your {SITENAME} verification code is: {VERIFICATION_CODE}\n\nThis code expires in {EXPIRY_MINUTES} minutes."
+    },
+    "Reset your {SITENAME} password": {
+      "en": "Reset your {SITENAME} password"
+    },
+    "Hello {USERNAME},\n\nYour {SITENAME} password reset code is: {RESET_CODE}\n\nThis code expires in {EXPIRY_MINUTES} minutes.": {
+      "en": "Hello {USERNAME},\n\nYour {SITENAME} password reset code is: {RESET_CODE}\n\nThis code expires in {EXPIRY_MINUTES} minutes."
+    },
+    "You have been invited to {SITENAME}": {
+      "en": "You have been invited to {SITENAME}"
+    },
+    "Hello {USERNAME},\n\nYou have been invited to {SITENAME} as {ROLE}.\n\nLogin email: {USER_EMAIL}\nTemporary password: {TEMPORARY_PASSWORD}\nLogin: {LOGIN_URL}\n\nPlease sign in and update your password.": {
+      "en": "Hello {USERNAME},\n\nYou have been invited to {SITENAME} as {ROLE}.\n\nLogin email: {USER_EMAIL}\nTemporary password: {TEMPORARY_PASSWORD}\nLogin: {LOGIN_URL}\n\nPlease sign in and update your password."
+    },
+    "Your {SITENAME} account has been restricted": {
+      "en": "Your {SITENAME} account has been restricted"
+    },
+    "Hello {USERNAME},\n\nYour {SITENAME} account has been restricted until {BAN_EXPIRES_AT}.\n\nRestrictions:\n{RESTRICTIONS}\n\nIf you believe this is a mistake, contact {SUPPORT_EMAIL}.": {
+      "en": "Hello {USERNAME},\n\nYour {SITENAME} account has been restricted until {BAN_EXPIRES_AT}.\n\nRestrictions:\n{RESTRICTIONS}\n\nIf you believe this is a mistake, contact {SUPPORT_EMAIL}."
+    },
+    "You are now a {SITENAME} moderator": {
+      "en": "You are now a {SITENAME} moderator"
+    },
+    "Hello {USERNAME},\n\nYou have been assigned the Moderator role on {SITENAME}. You can now access the moderation tools available to your role.\n\nModeration dashboard: {MODERATION_URL}": {
+      "en": "Hello {USERNAME},\n\nYou have been assigned the Moderator role on {SITENAME}. You can now access the moderation tools available to your role.\n\nModeration dashboard: {MODERATION_URL}"
+    },
+    "You are moderating \"{STREAM_TITLE}\" on {SITENAME}": {
+      "en": "You are moderating \"{STREAM_TITLE}\" on {SITENAME}"
+    },
+    "Hello {USERNAME},\n\nYou have been assigned as a moderator for the live stream \"{STREAM_TITLE}\". Open the stream to access your moderation controls.\n\nOpen stream: {STREAM_URL}": {
+      "en": "Hello {USERNAME},\n\nYou have been assigned as a moderator for the live stream \"{STREAM_TITLE}\". Open the stream to access your moderation controls.\n\nOpen stream: {STREAM_URL}"
+    },
+    "No playlists created": {
+      "en": "No playlists created"
+    },
+    "Automatic (original language)": {
+      "en": "Automatic (original language)"
+    },
+    "Upload chapter file": {
+      "en": "Upload chapter file"
+    },
+    "CUE or TXT timestamp list, up to 512 KB": {
+      "en": "CUE or TXT timestamp list, up to 512 KB"
+    },
+    "Import a BitChute video or embed URL. Uses the original stream when available, with the official BitChute player as fallback.": {
+      "en": "Import a BitChute video or embed URL. Uses the original stream when available, with the official BitChute player as fallback."
+    },
+    "Import an Odysee video URL. Uses the original stream when available, with the official Odysee player as fallback.": {
+      "en": "Import an Odysee video URL. Uses the original stream when available, with the official Odysee player as fallback."
+    },
+    "Import a Rumble video or embed URL. Playback uses the original stream when available, with the official Rumble player as fallback.": {
+      "en": "Import a Rumble video or embed URL. Playback uses the original stream when available, with the official Rumble player as fallback."
+    },
+    "Enter the 6-digit code sent to your phone.": {
+      "en": "Enter the 6-digit code sent to your phone."
+    },
+    "Enter the 6-digit code sent to your email.": {
+      "en": "Enter the 6-digit code sent to your email."
+    },
+    "Enter the 6-digit code from your phone to disable two-factor authentication.": {
+      "en": "Enter the 6-digit code from your phone to disable two-factor authentication."
+    },
+    "Enter the 6-digit code from your email to disable two-factor authentication.": {
+      "en": "Enter the 6-digit code from your email to disable two-factor authentication."
+    }
+  }
+}

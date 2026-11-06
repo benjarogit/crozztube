@@ -1,0 +1,39 @@
+{
+  "context": "German complete count phrases with one/other categories and local numbers; mandatory Shorts portrait/60s rule remains distinct from optional9:16 recommendation.",
+  "messages": {
+    "Shorts must be 60 seconds or less. Vertical 9:16 is recommended.": {
+      "en": "Shorts must be 60 seconds or less and vertical. A 9:16 aspect ratio is recommended.",
+      "de": "Shorts dürfen höchstens 60 Sekunden lang sein und müssen im Hochformat sein. Das Seitenverhältnis 9:16 wird empfohlen."
+    }
+  },
+  "metadata": {
+    "de": {
+      "__patterns": {
+        "count_user": "{count} Nutzer",
+        "count_user_one": "{count} Nutzer",
+        "count_user_other": "{count} Nutzer",
+        "count_video": "{count} Videos",
+        "count_video_one": "{count} Video",
+        "count_video_other": "{count} Videos",
+        "count_comment": "{count} Kommentare",
+        "count_comment_one": "{count} Kommentar",
+        "count_comment_other": "{count} Kommentare",
+        "count_subscriber": "{count} Abonnenten",
+        "count_subscriber_one": "{count} Abonnent",
+        "count_subscriber_other": "{count} Abonnenten",
+        "count_view": "{count} Aufrufe",
+        "count_view_one": "{count} Aufruf",
+        "count_view_other": "{count} Aufrufe",
+        "count_like": "{count} Likes",
+        "count_like_one": "{count} Like",
+        "count_like_other": "{count} Likes",
+        "count_reply": "{count} Antworten",
+        "count_reply_one": "{count} Antwort",
+        "count_reply_other": "{count} Antworten",
+        "count_playlist": "{count} Playlists",
+        "count_playlist_one": "{count} Playlist",
+        "count_playlist_other": "{count} Playlists"
+      }
+    }
+  }
+}

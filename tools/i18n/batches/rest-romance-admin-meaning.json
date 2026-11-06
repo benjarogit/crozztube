@@ -1,0 +1,256 @@
+{
+  "context": "Editorial review in administrator moderation, Creator management, analytics and email settings. Reports are moderation reports; Appeals are moderation appeals, not phone calls. Applied is partnership application status. Fake users are test accounts; source data and permission behavior remain unchanged.",
+  "messages": {
+    "System Health": {
+      "fr": "État du système",
+      "es": "Estado del sistema",
+      "pt": "Estado do sistema",
+      "pt_br": "Estado do sistema",
+      "it": "Stato del sistema",
+      "ca": "Estat del sistema",
+      "gl": "Estado do sistema",
+      "eo": "Stato de la sistemo"
+    },
+    "Health data unavailable": {
+      "fr": "État du système indisponible",
+      "es": "Estado del sistema no disponible",
+      "pt": "Estado do sistema indisponível",
+      "pt_br": "Estado do sistema indisponível",
+      "it": "Stato del sistema non disponibile",
+      "ca": "Estat del sistema no disponible",
+      "gl": "Estado do sistema non dispoñible",
+      "eo": "Stato de la sistemo ne disponeblas"
+    },
+    "Watch Time Trend": {
+      "fr": "Évolution du temps de visionnage",
+      "es": "Evolución del tiempo de reproducción",
+      "pt": "Evolução do tempo de visualização",
+      "pt_br": "Evolução do tempo de exibição",
+      "it": "Andamento del tempo di visualizzazione",
+      "ca": "Evolució del temps de visualització",
+      "gl": "Evolución do tempo de visualización",
+      "eo": "Evoluo de spektotempo"
+    },
+    "Top Performing Content": {
+      "fr": "Contenus les plus performants",
+      "es": "Contenido con mejor rendimiento",
+      "pt": "Conteúdos com melhor desempenho",
+      "pt_br": "Conteúdos com melhor desempenho",
+      "it": "Contenuti con i migliori risultati",
+      "ca": "Contingut amb més bon rendiment",
+      "gl": "Contido con mellor rendemento",
+      "eo": "Enhavo kun la plej bonaj rezultoj"
+    },
+    "Top Performing Categories": {
+      "fr": "Catégories les plus performantes",
+      "es": "Categorías con mejor rendimiento",
+      "pt": "Categorias com melhor desempenho",
+      "pt_br": "Categorias com melhor desempenho",
+      "it": "Categorie con i migliori risultati",
+      "ca": "Categories amb més bon rendiment",
+      "gl": "Categorías con mellor rendemento",
+      "eo": "Kategorioj kun la plej bonaj rezultoj"
+    },
+    "Top Earning Creators": {
+      "fr": "Créateurs avec le plus de revenus",
+      "es": "Creadores con más ingresos",
+      "pt": "Criadores com mais receitas",
+      "pt_br": "Criadores com mais ganhos",
+      "it": "Creator con più ricavi",
+      "ca": "Creadors amb més ingressos",
+      "gl": "Creadores con máis ingresos",
+      "eo": "Kreintoj kun la plej altaj enspezoj"
+    },
+    "Applied": {
+      "fr": "Candidature envoyée",
+      "es": "Solicitud enviada",
+      "pt": "Candidatura enviada",
+      "pt_br": "Candidatura enviada",
+      "it": "Candidatura inviata",
+      "ca": "Sol·licitud enviada",
+      "gl": "Solicitude enviada",
+      "eo": "Kandidatiĝo sendita"
+    },
+    "Appeals": {
+      "fr": "Recours",
+      "es": "Apelaciones",
+      "pt": "Recursos",
+      "pt_br": "Recursos",
+      "it": "Ricorsi",
+      "ca": "Recursos",
+      "gl": "Recursos",
+      "eo": "Apelacioj"
+    },
+    "Recent Reports / Moderation Queue": {
+      "fr": "Signalements récents et file de modération",
+      "es": "Denuncias recientes y cola de moderación",
+      "pt": "Denúncias recentes e fila de moderação",
+      "pt_br": "Denúncias recentes e fila de moderação",
+      "it": "Segnalazioni recenti e coda di moderazione",
+      "ca": "Denúncies recents i cua de moderació",
+      "gl": "Denuncias recentes e cola de moderación",
+      "eo": "Lastatempaj denuncoj kaj moderiga atendovico"
+    },
+    "Report Categories": {
+      "fr": "Catégories de signalement",
+      "es": "Categorías de denuncia",
+      "pt": "Categorias de denúncia",
+      "pt_br": "Categorias de denúncia",
+      "it": "Categorie di segnalazione",
+      "ca": "Categories de denúncia",
+      "gl": "Categorías de denuncia",
+      "eo": "Kategorioj de denuncoj"
+    },
+    "Assign Reports": {
+      "fr": "Attribuer les signalements",
+      "es": "Asignar denuncias",
+      "pt": "Atribuir denúncias",
+      "pt_br": "Atribuir denúncias",
+      "it": "Assegna segnalazioni",
+      "ca": "Assigna denúncies",
+      "gl": "Asignar denuncias",
+      "eo": "Asigni denuncojn"
+    },
+    "Bulk Resolve Reports": {
+      "fr": "Clôturer plusieurs signalements",
+      "es": "Resolver varias denuncias",
+      "pt": "Resolver várias denúncias",
+      "pt_br": "Resolver várias denúncias",
+      "it": "Risolvi più segnalazioni",
+      "ca": "Resol diverses denúncies",
+      "gl": "Resolver varias denuncias",
+      "eo": "Solvi plurajn denuncojn"
+    },
+    "Report Settings": {
+      "fr": "Paramètres des signalements",
+      "es": "Ajustes de denuncias",
+      "pt": "Definições de denúncias",
+      "pt_br": "Configurações de denúncias",
+      "it": "Impostazioni delle segnalazioni",
+      "ca": "Configuració de denúncies",
+      "gl": "Axustes das denuncias",
+      "eo": "Agordoj de denuncoj"
+    },
+    "View Report Guidelines": {
+      "fr": "Consulter les règles de signalement",
+      "es": "Ver las normas de denuncia",
+      "pt": "Ver as orientações de denúncia",
+      "pt_br": "Ver as orientações de denúncia",
+      "it": "Consulta le linee guida per le segnalazioni",
+      "ca": "Consulta les normes de denúncia",
+      "gl": "Ver as normas de denuncia",
+      "eo": "Vidi la gvidliniojn pri denuncoj"
+    },
+    "All Creators": {
+      "fr": "Tous les créateurs",
+      "es": "Todos los creadores",
+      "pt": "Todos os criadores",
+      "pt_br": "Todos os criadores",
+      "it": "Tutti i creator",
+      "ca": "Tots els creadors",
+      "gl": "Todos os creadores",
+      "eo": "Ĉiuj kreintoj"
+    },
+    "Invite Creator": {
+      "fr": "Inviter un créateur",
+      "es": "Invitar a un creador",
+      "pt": "Convidar criador",
+      "pt_br": "Convidar criador",
+      "it": "Invita un creator",
+      "ca": "Convida un creador",
+      "gl": "Convidar un creador",
+      "eo": "Inviti kreinton"
+    },
+    "Export Creators": {
+      "fr": "Exporter les créateurs",
+      "es": "Exportar creadores",
+      "pt": "Exportar criadores",
+      "pt_br": "Exportar criadores",
+      "it": "Esporta i creator",
+      "ca": "Exporta els creadors",
+      "gl": "Exportar creadores",
+      "eo": "Eksporti kreintojn"
+    },
+    "Creator Segments": {
+      "fr": "Groupes de créateurs",
+      "es": "Grupos de creadores",
+      "pt": "Grupos de criadores",
+      "pt_br": "Grupos de criadores",
+      "it": "Gruppi di creator",
+      "ca": "Grups de creadors",
+      "gl": "Grupos de creadores",
+      "eo": "Grupoj de kreintoj"
+    },
+    "Bulk Verify Creators": {
+      "fr": "Vérifier plusieurs créateurs",
+      "es": "Verificar varios creadores",
+      "pt": "Verificar vários criadores",
+      "pt_br": "Verificar vários criadores",
+      "it": "Verifica più creator",
+      "ca": "Verifica diversos creadors",
+      "gl": "Verificar varios creadores",
+      "eo": "Konfirmi plurajn kreintojn"
+    },
+    "Items Per Page": {
+      "fr": "Éléments par page",
+      "es": "Elementos por página",
+      "pt": "Itens por página",
+      "pt_br": "Itens por página",
+      "it": "Elementi per pagina",
+      "ca": "Elements per pàgina",
+      "gl": "Elementos por páxina",
+      "eo": "Eroj en paĝo"
+    },
+    "From Email": {
+      "fr": "Adresse e-mail d’expédition",
+      "es": "Correo del remitente",
+      "pt": "E-mail do remetente",
+      "pt_br": "E-mail do remetente",
+      "it": "Email del mittente",
+      "ca": "Correu electrònic del remitent",
+      "gl": "Correo electrónico do remitente",
+      "eo": "Retpoŝtadreso de sendinto",
+      "fr_ca": "Adresse courriel d’expédition"
+    },
+    "Test Connection": {
+      "fr": "Tester la connexion",
+      "es": "Probar conexión",
+      "pt": "Testar ligação",
+      "pt_br": "Testar conexão",
+      "it": "Verifica la connessione",
+      "ca": "Prova la connexió",
+      "gl": "Probar a conexión",
+      "eo": "Provi konekton"
+    },
+    "Generate Fake Users": {
+      "fr": "Créer des comptes de test",
+      "es": "Crear cuentas de prueba",
+      "pt": "Criar contas de teste",
+      "pt_br": "Criar contas de teste",
+      "it": "Crea account di prova",
+      "ca": "Crea comptes de prova",
+      "gl": "Crear contas de proba",
+      "eo": "Krei testajn kontojn"
+    },
+    "Generate fake users": {
+      "fr": "Créer des comptes de test",
+      "es": "Crear cuentas de prueba",
+      "pt": "Criar contas de teste",
+      "pt_br": "Criar contas de teste",
+      "it": "Crea account di prova",
+      "ca": "Crea comptes de prova",
+      "gl": "Crear contas de proba",
+      "eo": "Krei testajn kontojn"
+    },
+    "Fake": {
+      "fr": "Compte de test",
+      "es": "Cuenta de prueba",
+      "pt": "Conta de teste",
+      "pt_br": "Conta de teste",
+      "it": "Account di prova",
+      "ca": "Compte de prova",
+      "gl": "Conta de proba",
+      "eo": "Testa konto"
+    }
+  }
+}

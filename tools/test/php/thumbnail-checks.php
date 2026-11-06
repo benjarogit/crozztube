@@ -68,12 +68,13 @@ try {
         $video->forceFill(['slug' => 'crz-thumbnail-test-'.$suffix.'-'.bin2hex(random_bytes(3)), 'thumbnail_path' => null,
             'original_thumbnail_url' => 'https://i.ytimg.com/test-'.$suffix.'.jpg', 'thumbnail_source_url' => 'https://i.ytimg.com/test-'.$suffix.'.jpg',
             'thumbnail_source_version' => hash('sha256', 'https://i.ytimg.com/test-'.$suffix.'.jpg'), 'thumbnail_is_custom' => false,
-            'metadata_overrides' => [], 'video_width' => 1080, 'video_height' => 1920, 'duration_seconds' => 180, 'source_type' => 'import']);
+            'import_url' => null, 'import_provider' => null, 'video_path' => '', 'caption_metadata' => [], 'captions_path' => null, 'chapters' => [], 'renditions' => [],
+            'metadata_overrides' => [], 'video_width' => 1080, 'video_height' => 1920, 'duration_seconds' => 60, 'source_type' => 'import']);
         $video->save();
         return $video;
     };
-    foreach ([[1, 1080, 1920, true], [60, 1080, 1920, true], [180, 1080, 1920, true], [181, 1080, 1920, false],
-        [180.01, 1080, 1920, false], [180, 1080, 1080, true], [60, 1920, 1080, false], [0, 1080, 1920, false], [60, null, null, false]] as [$d, $w, $h, $expected]) {
+    foreach ([[1, 1080, 1920, true], [60, 1080, 1920, true], [180, 1080, 1920, false], [181, 1080, 1920, false],
+        [60.01, 1080, 1920, false], [60, 1080, 1080, false], [60, 1920, 1080, false], [0, 1080, 1920, false], [60, null, null, false]] as [$d, $w, $h, $expected]) {
         check(ShortVideos::qualifies($d, $w, $h) === $expected, "short rule $d/$w/$h");
     }
     check(! ShortVideos::qualifies(30, 1080, 1920, 'live_replay'), 'live replay stays outside Shorts');

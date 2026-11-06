@@ -1,0 +1,260 @@
+{
+  "context": "Complete Galician editorial review of85 project-default help/API/FAQ/refund/privacy/terms/cookie messages, personal singular and whole instructions. Preserves processed data lists, creator/account responsibilities, conditional refund/retention meaning, API identifiers and technical paths. Stored operator content remains authoritative and unchanged.",
+  "messages": {
+    "Company": {
+      "gl": "Información"
+    },
+    "About us": {
+      "gl": "Quen somos"
+    },
+    "PlayHub is the video platform running on this deployment, built for creators, viewers, communities, and platform operators.": {
+      "gl": "PlayHub reúne creadores, espectadores e comunidades. Comparte vídeos, descubre canles e fai medrar a túa comunidade."
+    },
+    "What PlayHub does": {
+      "gl": "Que podes facer en PlayHub"
+    },
+    "PlayHub provides creator channels, video uploads, scheduled publishing, subscriptions, comments, playlists, watch later, live content pages, and administration tools from one platform.\\n\\nThe upload system supports categories and languages from the API, processes uploaded videos, stores thumbnails and captions, and keeps scheduled content private until its release time.": {
+      "gl": "Explora canles, sube vídeos e programa publicacións. Subscríbete aos teus creadores favoritos, participa nos comentarios e garda vídeos en listas de reprodución ou en «Ver máis tarde». PlayHub tamén inclúe páxinas de directos e ferramentas de administración.\n\nEscolle entre as categorías e os idiomas dispoñibles ao subir vídeos. PlayHub procesa os vídeos, garda as miniaturas e os subtítulos e mantén privados os vídeos programados ata a súa publicación."
+    },
+    "For creators": {
+      "gl": "Para creadores"
+    },
+    "Creators can upload videos, manage visibility, add thumbnails and captions, publish scheduled content, review their library, and track content from Creator Studio.\\n\\nCreator profile pages, subscriptions, community posts, comments, and playlists are part of the same account and content system.": {
+      "gl": "No estudio de creación podes subir vídeos, escoller quen os pode ver, engadir miniaturas e subtítulos, programar publicacións e xestionar a túa biblioteca.\n\nA túa canle, as subscricións, as publicacións da comunidade, os comentarios e as listas de reprodución forman parte da túa conta."
+    },
+    "For viewers": {
+      "gl": "Para espectadores"
+    },
+    "Viewers can browse categories, search videos, watch content, subscribe to channels, save videos to watch later, comment, receive notifications, and manage language and accessibility preferences.": {
+      "gl": "Explora categorías, busca vídeos e subscríbete ás canles que che gustan. Garda vídeos para máis tarde, participa nos comentarios e recibe notificacións. Tamén podes escoller o idioma e as opcións de accesibilidade."
+    },
+    "Contact us": {
+      "gl": "Contacta connosco"
+    },
+    "Use the right PlayHub channel for account help, content reports, technical issues, and administrator requests.": {
+      "gl": "Atopa axuda para a túa conta, denuncias de contido, problemas técnicos e solicitudes á administración."
+    },
+    "Account and creator support": {
+      "gl": "Axuda para contas e creadores"
+    },
+    "Sign in and use Settings for account, profile, password, notification, privacy, and creator preferences. Creator upload and content issues should include the video title, channel, browser, and any processing error shown on the upload page.": {
+      "gl": "Inicia sesión e abre a configuración para xestionar a conta, o perfil, o contrasinal, as notificacións, a privacidade e as preferencias de creador. Se tes un problema cunha subida ou cun contido, indica o título do vídeo, a canle, o navegador e os erros que aparezan na páxina de subida."
+    },
+    "Safety and content reports": {
+      "gl": "Seguridade e denuncias de contido"
+    },
+    "Use the report actions on videos, comments, and community posts when content may violate platform rules. These reports include the content reference so administrators can review the exact item.": {
+      "gl": "Se un vídeo, comentario ou publicación da comunidade pode incumprir as normas, usa o seu botón de denuncia. Así a administración recibe a referencia exacta do contido que debe revisar."
+    },
+    "Business or administrative contact": {
+      "gl": "Contacto comercial ou administrativo"
+    },
+    "Official contact addresses, billing contacts, and external support channels should be configured by the PlayHub site administrator for this deployment. This page intentionally does not display unverified email addresses.": {
+      "gl": "A administración do sitio configura os enderezos oficiais de contacto, os contactos de facturación e as canles de axuda externas. Aquí non se amosan enderezos de correo sen verificar."
+    },
+    "Developers": {
+      "gl": "Desenvolvedores"
+    },
+    "Technical notes for integrations with the current PlayHub API and upload workflow.": {
+      "gl": "Indicacións técnicas para integrar a API de PlayHub e as funcións de subida."
+    },
+    "API surface": {
+      "gl": "Visión xeral da API"
+    },
+    "Public JSON endpoints include /api/health for deployment status and /api/upload-options for upload categories, languages, limits, chunk size, and trending tags.\\n\\nAuthenticated APIs use the existing Laravel Sanctum token flow. Account, upload, creator, playlist, notification, comment, like, subscription, and admin endpoints are served under /api.": {
+      "gl": "Os puntos de acceso JSON públicos inclúen /api/health para o estado da plataforma e /api/upload-options para categorías, idiomas, límites, tamaño dos bloques e etiquetas en tendencia.\n\nAs API protexidas usan o sistema de tokens de Laravel Sanctum. Os puntos de acceso para contas, subidas, creadores, listas de reprodución, notificacións, comentarios, Gústame, subscricións e administración están baixo /api."
+    },
+    "Uploads": {
+      "gl": "Subidas"
+    },
+    "Large uploads use upload sessions: create a session, send numbered chunks, then complete the session with title, description, category, language, visibility, schedule, thumbnail, captions, and monetization fields.\\n\\nThe processing job encodes renditions, creates thumbnails when needed, stores captions, and marks videos ready when processing completes. Future scheduled videos remain private until the scheduler releases them.": {
+      "gl": "Para ficheiros grandes, crea unha sesión de subida, envía os bloques numerados e completa a sesión con título, descrición, categoría, idioma, visibilidade, programación, miniatura, subtítulos e monetización.\n\nO procesamento crea as versións do vídeo e as miniaturas necesarias, garda os subtítulos e marca o vídeo como listo ao rematar. Os vídeos programados seguen privados ata que o sistema de programación os publica."
+    },
+    "Integration rules": {
+      "gl": "Normas de integración"
+    },
+    "Use JSON for normal API requests and FormData for file uploads. Do not bypass validation: categories and languages use configured IDs, visibility is limited to public, unlisted, or private, and captions accept SRT, VTT, or TXT files.": {
+      "gl": "Usa JSON para as solicitudes habituais á API e FormData para subir ficheiros. Respecta a validación: as categorías e os idiomas usan os ID configurados, a visibilidade admite public, unlisted ou private e os subtítulos poden ser ficheiros SRT, VTT ou TXT."
+    },
+    "Support": {
+      "gl": "Axuda"
+    },
+    "FAQ": {
+      "gl": "Preguntas frecuentes"
+    },
+    "Answers for the PlayHub features currently available in this deployment.": {
+      "gl": "Respostas sobre as funcións dispoñibles neste sitio."
+    },
+    "How do uploads work?": {
+      "gl": "Como subo un vídeo?"
+    },
+    "Select one or more video files, enter required details, choose category and language, add a thumbnail, choose visibility, and publish. Large files are uploaded in chunks before the server starts processing.": {
+      "gl": "Selecciona un ou varios ficheiros de vídeo, enche os datos obrigatorios, escolle categoría e idioma, engade unha miniatura, escolle a visibilidade e publica. Os ficheiros grandes sóbense por bloques antes de que o servidor comece a procesalos."
+    },
+    "Can I schedule a video?": {
+      "gl": "Podo programar un vídeo?"
+    },
+    "Yes. Use the native schedule date and time field on the upload page. The backend stores scheduled_at, processes the video, keeps it private while the date is in the future, and releases it when the Laravel scheduler runs after the scheduled time.": {
+      "gl": "Si. Escolle a data e a hora de publicación na páxina de subida. O vídeo procésase e segue privado ata o momento escollido. O sistema de programación publícao na súa seguinte execución."
+    },
+    "Why is my video still processing?": {
+      "gl": "Por que o meu vídeo aínda se está procesando?"
+    },
+    "Uploaded videos are encoded into playable renditions. Processing time depends on file size, duration, server load, and queue status. The upload page and Creator Studio show the current processing status.": {
+      "gl": "Despois da subida, PlayHub crea versións do vídeo que se poden reproducir. O tempo necesario depende do tamaño do ficheiro, da duración do vídeo, da carga do servidor e da cola. Podes consultar o estado na páxina de subida ou no estudio de creación."
+    },
+    "Can I change privacy later?": {
+      "gl": "Podo cambiar a visibilidade máis tarde?"
+    },
+    "Creator Studio content management uses the same visibility model: public, unlisted, or private. Scheduled videos use requested visibility after release.": {
+      "gl": "Si. No estudio de creación podes escoller entre público, non listado e privado. Os vídeos programados usan a visibilidade escollida despois de publicarse."
+    },
+    "Help Center": {
+      "gl": "Centro de axuda"
+    },
+    "Find practical support for account access, uploads, playback, creator tools, and moderation.": {
+      "gl": "Atopa axuda para acceder á conta, subir e ver vídeos, usar as ferramentas de creación e moderar contido."
+    },
+    "Account help": {
+      "gl": "Axuda coa túa conta"
+    },
+    "Use Settings to update your profile, security, password, two-factor delivery, devices, preferences, and notification options. If you cannot access your account, use the login flow and provide the account email to the site administrator.": {
+      "gl": "Na configuración podes xestionar o perfil, a seguridade, o contrasinal, a recepción de códigos de verificación, os dispositivos, as preferencias e as notificacións. Se non podes acceder á conta, usa a axuda da páxina de inicio de sesión e indica á administración o correo da túa conta."
+    },
+    "Upload and processing help": {
+      "gl": "Axuda con subidas e procesamento"
+    },
+    "Check the upload queue, chunk upload progress, processing stage, thumbnail selection, captions file type, and required title, description, category, and visibility fields.": {
+      "gl": "Revisa a cola de subida, o progreso da transferencia e o estado do procesamento. Comproba tamén a miniatura, o formato dos subtítulos e os datos obrigatorios do título, a descrición, a categoría e a visibilidade."
+    },
+    "Viewing and community help": {
+      "gl": "Axuda con vídeos e comunidade"
+    },
+    "Playback, comments, likes, watch later, subscriptions, notifications, messages, playlists, and language settings are available through the main navigation and account menu.": {
+      "gl": "A navegación principal e o menú da túa conta dan acceso á reprodución, os comentarios, Gústame, Ver máis tarde, subscricións, notificacións, mensaxes, listas de reprodución e configuración de idioma."
+    },
+    "Moderation help": {
+      "gl": "Axuda coa moderación"
+    },
+    "Use built-in report actions for videos and comments so admins receive the exact content reference. Admin dashboard pages show users, content, reports, monetization, analytics, support, roles, and system settings.": {
+      "gl": "Denuncia os vídeos e comentarios desde o propio contido para que a administración reciba a referencia exacta. O panel de administración amosa usuarios, contido, denuncias, monetización, estatísticas, axuda, roles e configuración do sistema."
+    },
+    "Refund Policy": {
+      "gl": "Política de reembolsos"
+    },
+    "Refund handling for paid PlayHub features depends on billing records attached to this deployment.": {
+      "gl": "Os reembolsos das funcións de pagamento de PlayHub dependen dos rexistros de facturación deste sitio."
+    },
+    "Eligibility": {
+      "gl": "Requisitos"
+    },
+    "If no paid transaction exists in the connected billing provider or platform records, there is no platform charge to refund. Refunds can only be reviewed against payment records, subscription IDs, invoices, or transaction references.": {
+      "gl": "Se non hai ningunha transacción pagada no provedor de pagamentos conectado nin nos rexistros da plataforma, non hai ningún cobramento da plataforma que reembolsar. Só se poden revisar reembolsos con rexistros de pagamento, ID de subscrición, facturas ou referencias de transaccións."
+    },
+    "Creator and Pro features": {
+      "gl": "Funcións para creadores e plan Pro"
+    },
+    "If paid creator features or a Pro plan are enabled for this deployment, refund requests should include the account email, transaction ID, subscription ID, payment date, and reason for the request. Administrators should verify the request against payment-provider records before issuing any refund.": {
+      "gl": "Se este sitio ofrece funcións de pagamento para creadores ou un plan Pro, inclúe na solicitude de reembolso o correo da conta, os ID de transacción e subscrición, a data de pagamento e o motivo. Antes de emitir un reembolso, a administración debería contrastar a solicitude cos rexistros do provedor de pagamentos."
+    },
+    "Non-refundable cases": {
+      "gl": "Casos sen dereito a reembolso"
+    },
+    "PlayHub cannot refund third-party bank fees, chargeback fees, external service fees, or payments made outside the configured platform billing flow. Content removals or account restrictions do not automatically create a refund unless required by law or the active billing terms.": {
+      "gl": "PlayHub non pode reembolsar comisións bancarias de terceiros, comisións por devolución de cargos, tarifas de servizos externos nin pagamentos feitos fóra do sistema de facturación configurado. A retirada de contido ou as restricións dunha conta non dan dereito automaticamente a un reembolso, salvo que o esixan a lei ou as condicións de facturación aplicables."
+    },
+    "Legal": {
+      "gl": "Información legal"
+    },
+    "Privacy Policy": {
+      "gl": "Política de privacidade"
+    },
+    "How this PlayHub deployment handles account, content, activity, security, and preference data.": {
+      "gl": "Como trata este sitio PlayHub os datos de contas, contido, actividade, seguridade e preferencias."
+    },
+    "Data processed by PlayHub": {
+      "gl": "Datos que trata PlayHub"
+    },
+    "PlayHub stores account details, creator profile data, uploaded videos, thumbnails, captions, categories, languages, playlists, comments, likes, subscriptions, watch-later records, notifications, messages, reports, device/session data, language preference, theme preference, and security settings needed to operate the platform.": {
+      "gl": "PlayHub garda datos das contas, perfís de creadores, vídeos subidos, miniaturas, subtítulos, categorías, idiomas, listas de reprodución, comentarios, Gústame, subscricións, listas de «Ver máis tarde», notificacións, mensaxes, denuncias, datos de dispositivos e sesións, preferencias de idioma e tema e configuración de seguridade necesarios para o funcionamento da plataforma."
+    },
+    "How data is used": {
+      "gl": "Como se usan os datos"
+    },
+    "Data is used to authenticate users, publish and process content, show videos and channels, personalize account preferences, prevent abuse, support moderation, provide admin analytics, and keep creator and viewer features working.": {
+      "gl": "Os datos úsanse para autenticar os usuarios, publicar e procesar contido, amosar vídeos e canles, personalizar preferencias, previr abusos, facilitar a moderación, ofrecer estatísticas de administración e manter as funcións para creadores e espectadores."
+    },
+    "Controls": {
+      "gl": "Que podes xestionar"
+    },
+    "Users can update profile and preference data in Settings, manage uploaded content in Creator Studio, change password and two-factor options in Security settings, and use report tools for content safety. Administrators can manage users, content, reports, roles, and system settings from the admin dashboard.": {
+      "gl": "Podes actualizar o perfil e as preferencias na configuración e xestionar os vídeos subidos no estudio de creación. Na configuración de seguridade podes cambiar o contrasinal e as opcións de autenticación de dous factores. As ferramentas de denuncia permiten pedir a revisión de contido. A administración pode xestionar usuarios, contido, denuncias, roles e configuración do sistema."
+    },
+    "Retention and access": {
+      "gl": "Conservación e acceso"
+    },
+    "Uploaded media and account records are retained while needed for platform operation, legal compliance, security, moderation, and user-requested features. Deleting users or content should also remove associated server media files where implemented by the admin tools.": {
+      "gl": "Os ficheiros subidos e os datos das contas consérvanse mentres sexan necesarios para o funcionamento da plataforma, as obrigas legais, a seguridade, a moderación e as funcións pedidas polos usuarios. Ao eliminar usuarios ou contido, tamén deberían eliminarse os ficheiros asociados do servidor cando as ferramentas de administración implementen esa función."
+    },
+    "Terms of Service": {
+      "gl": "Condicións de uso"
+    },
+    "Rules for using this PlayHub deployment as a viewer, creator, or administrator.": {
+      "gl": "Normas para usar este sitio PlayHub como espectador, creador ou administrador."
+    },
+    "Accounts": {
+      "gl": "Contas"
+    },
+    "You are responsible for your account credentials, profile activity, uploaded content, comments, messages, and any creator or admin actions performed from your account. Use strong passwords and keep two-factor delivery methods current.": {
+      "gl": "Es responsable das credenciais da túa conta, da actividade do perfil, dos contidos subidos, dos comentarios, das mensaxes e de calquera acción de creador ou administrador realizada desde a túa conta. Usa contrasinais seguros e mantén ao día os métodos para recibir os códigos de autenticación de dous factores."
+    },
+    "Content rules": {
+      "gl": "Normas de contido"
+    },
+    "Do not upload content you do not have rights to publish. Do not post illegal, abusive, harmful, deceptive, spam, malware, harassment, or privacy-violating content. PlayHub administrators may restrict, remove, suspend, verify, or delete users and content according to platform rules and applicable law.": {
+      "gl": "Sube só contido que teñas dereito a publicar. Non publiques contido ilegal, abusivo, daniño, enganoso, correo lixo nin software malicioso. Non acoses outras persoas nin vulneres a súa privacidade. A administración de PlayHub pode restrinxir, retirar, suspender, verificar ou eliminar usuarios e contido segundo as normas da plataforma e a lexislación aplicable."
+    },
+    "Creator uploads": {
+      "gl": "Subidas de creadores"
+    },
+    "Creators must provide accurate titles, descriptions, categories, languages, thumbnails, captions, visibility, and scheduling settings. Scheduled videos are not public until their scheduled time and successful processing.": {
+      "gl": "Os creadores deben proporcionar títulos, descricións, categorías, idiomas, miniaturas, subtítulos e configuracións de visibilidade e programación correctos. Os vídeos programados só se fan públicos cando chega a hora escollida e o procesamento remata correctamente."
+    },
+    "Service operation": {
+      "gl": "Funcionamento do servizo"
+    },
+    "PlayHub may process uploads, create video renditions, generate thumbnails, store metadata, collect engagement activity, and provide analytics. Availability can depend on server queues, storage, media processing, network conditions, and administrator configuration.": {
+      "gl": "PlayHub pode procesar subidas, crear versións de vídeo e miniaturas, gardar metadatos, recompilar interaccións e ofrecer estatísticas. A dispoñibilidade pode depender das colas do servidor, do almacenamento, do procesamento multimedia, da rede e da configuración da administración."
+    },
+    "Cookie Policy": {
+      "gl": "Política de cookies"
+    },
+    "How PlayHub uses cookies and browser storage for sessions, security, preferences, and playback.": {
+      "gl": "Como usa PlayHub as cookies e o almacenamento do navegador para as sesións, a seguridade, as preferencias e a reprodución."
+    },
+    "Essential storage": {
+      "gl": "Almacenamento esencial"
+    },
+    "PlayHub uses essential cookies and browser storage for login sessions, API authentication, CSRF/security behavior, language selection, theme selection, account menu state, and other features required for the application to work.": {
+      "gl": "PlayHub usa cookies e almacenamento do navegador esenciais para as sesións de acceso, a autenticación da API, a protección CSRF e a seguridade, a elección de idioma e tema, o estado do menú da conta e outras funcións necesarias do sitio."
+    },
+    "Preference storage": {
+      "gl": "Almacenamento de preferencias"
+    },
+    "The frontend stores preferences such as selected language, theme, playback queue, watch progress, and interface state so the experience remains consistent across page navigation and reloads.": {
+      "gl": "A interface garda o idioma, o tema, a cola de reprodución, o progreso dos vídeos e o estado da interface para que se conserven cando cambias de páxina ou a volves cargar."
+    },
+    "Media and analytics storage": {
+      "gl": "Almacenamento multimedia e de estatísticas"
+    },
+    "Playback progress, watch-later state, likes, comments, subscriptions, notifications, and admin analytics are saved when linked to authenticated platform features.": {
+      "gl": "O progreso de reprodución, a lista «Ver máis tarde», os Gústame, comentarios, subscricións, notificacións e estatísticas de administración gárdanse cando están vinculados a funcións que requiren iniciar sesión."
+    },
+    "Your choices": {
+      "gl": "As túas opcións"
+    },
+    "You can clear browser cookies and local storage in your browser settings. Clearing essential storage may sign you out, reset language/theme preferences, remove local playback state, and require you to log in again.": {
+      "gl": "Podes borrar as cookies e os datos locais na configuración do navegador. Borrar datos esenciais pode pechar a túa sesión, restablecer o idioma e o tema, eliminar o estado local de reprodución e facer necesario que volvas iniciar sesión."
+    }
+  }
+}

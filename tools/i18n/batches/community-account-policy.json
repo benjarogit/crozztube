@@ -1,0 +1,30 @@
+{
+  "context": "Editorial personal address in default account responsibilities, browser-storage choices and security help. Original responsibilities, possible logout/reset effects and support requirements retained; saved legal/admin documents excluded.",
+  "messages": {
+    "You are responsible for your account credentials, profile activity, uploaded content, comments, messages, and any creator or admin actions performed from your account. Use strong passwords and keep two-factor delivery methods current.": {
+      "ru": "Ты отвечаешь за данные для входа, действия в своём профиле, загруженные материалы, комментарии, сообщения и любые действия автора или администратора, выполненные через твой аккаунт. Используй надёжные пароли и поддерживай в актуальном состоянии способы получения кодов двухфакторной аутентификации.",
+      "cs": "Zodpovídáš za své přihlašovací údaje, aktivity profilu, nahraný obsah, komentáře, zprávy a všechny akce Creatora nebo správce provedené z tvého účtu. Používej silná hesla a udržuj aktuální způsoby doručování kódů dvoufázového ověření.",
+      "ko_kr": "로그인 정보, 프로필 활동, 업로드한 콘텐츠, 댓글, 메시지와 계정에서 이루어지는 모든 크리에이터 및 관리자 활동은 계정 사용자의 책임이에요. 안전한 비밀번호를 사용하고 2단계 인증 코드를 받을 수단을 최신 상태로 유지해 주세요.",
+      "zh_cn": "你需要对自己的登录信息、个人主页活动、上传内容、评论、消息，以及通过账户进行的创作者或管理员操作负责。请使用安全的密码，并及时更新接收双重验证代码的方式。",
+      "zh_tw": "你需要對自己的登入資訊、個人頁面活動、上傳內容、留言、訊息，以及透過帳號進行的創作者或管理員操作負責。請使用安全的密碼，並及時更新接收雙重驗證碼的方式。",
+      "zh_hk": "你需要對自己的登入資料、個人頁面活動、上載內容、留言、訊息，以及透過帳戶進行的創作者或管理員操作負責。請使用安全的密碼，並及時更新接收雙重驗證碼的方式。",
+      "es": "Eres responsable de tus datos de acceso, la actividad de tu perfil, el contenido que subes, tus comentarios y mensajes, y cualquier acción de Creator o de administración realizada desde tu cuenta. Usa contraseñas seguras y mantén actualizados los métodos para recibir códigos de verificación en dos pasos."
+    },
+    "You can clear browser cookies and local storage in your browser settings. Clearing essential storage may sign you out, reset language/theme preferences, remove local playback state, and require you to log in again.": {
+      "ru": "В настройках браузера можно удалить файлы cookie и локальные данные. Удаление необходимых данных может завершить твой сеанс, сбросить язык и тему, удалить локальное состояние воспроизведения и потребовать повторного входа.",
+      "cs": "V nastavení prohlížeče můžeš vymazat cookies a místní data. Vymazání nezbytných dat tě může odhlásit, obnovit výchozí jazyk a vzhled, smazat místní stav přehrávání a vyžadovat nové přihlášení.",
+      "ko_kr": "브라우저 설정에서 쿠키와 로컬 데이터를 지울 수 있어요. 필수 데이터를 지우면 로그아웃되거나 언어와 테마 설정이 초기화되고 로컬 재생 상태가 삭제될 수 있어요. 다시 로그인해야 할 수도 있어요.",
+      "zh_cn": "你可以在浏览器设置中清除 Cookie 和本地数据。清除必要数据可能会让你退出登录、重置语言和主题设置、删除本地播放状态，并需要重新登录。",
+      "zh_tw": "你可以在瀏覽器設定中清除 Cookie 和本機資料。清除必要資料可能會讓你登出、重設語言和主題設定、刪除本機播放狀態，並需要重新登入。",
+      "zh_hk": "你可以在瀏覽器設定中清除 Cookie 和本機資料。清除必要資料可能會讓你登出、重設語言和主題設定、刪除本機播放狀態，並需要重新登入。"
+    },
+    "Use Settings to update your profile, security, password, two-factor delivery, devices, preferences, and notification options. If you cannot access your account, use the login flow and provide the account email to the site administrator.": {
+      "ru": "В настройках можно изменить профиль, параметры безопасности, пароль, способ получения кодов двухфакторной аутентификации, устройства, предпочтения и уведомления. Если войти не получается, воспользуйся помощью на странице входа и сообщи администратору адрес электронной почты своего аккаунта.",
+      "cs": "V nastavení můžeš upravit profil, zabezpečení, heslo, doručování kódů dvoufázového ověření, zařízení, předvolby a oznámení. Pokud se nemůžeš přihlásit, využij pomoc na přihlašovací stránce a sděl správci e-mailovou adresu svého účtu.",
+      "ko_kr": "설정에서 프로필, 보안, 비밀번호, 2단계 인증 코드 수신 방법, 기기, 환경설정과 알림을 관리할 수 있어요. 계정에 접근할 수 없다면 로그인 도움말을 이용하고 사이트 운영팀에 계정 이메일 주소를 알려 주세요.",
+      "zh_cn": "在设置里，你可以管理个人资料、安全、密码、双重验证代码接收方式、设备、偏好和通知。如果无法登录，请使用登录页面的帮助，并向网站管理员提供账户的邮箱地址。",
+      "zh_tw": "在設定裡，你可以管理個人資料、安全、密碼、雙重驗證碼接收方式、裝置、偏好和通知。如果無法登入，請使用登入頁面的協助，並向網站管理員提供帳號的電子郵件地址。",
+      "zh_hk": "在設定內，你可以管理個人資料、安全、密碼、雙重驗證碼接收方式、裝置、偏好和通知。如果無法登入，請使用登入頁面的協助，並向網站管理員提供帳戶的電郵地址。"
+    }
+  }
+}

@@ -68,6 +68,7 @@ class GeneralSettings
             'defaultThemeMode' => $settings['defaultThemeMode'],
             'loadingDisplay' => $settings['loadingDisplay'],
             'defaultLanguage' => $settings['defaultLanguage'],
+            'languageAliases' => (object) LanguageLocales::ALIASES,
             'fontFamily' => $settings['fontFamily'],
             'fontImportUrl' => $settings['fontImportUrl'],
             'showSidebarToggle' => (bool) $settings['showSidebarToggle'],
@@ -139,7 +140,7 @@ class GeneralSettings
         $languages = [];
         foreach (glob($root.DIRECTORY_SEPARATOR.'*'.DIRECTORY_SEPARATOR.'*.php') ?: [] as $file) {
             $locale = strtolower(basename(dirname($file)));
-            if (preg_match('/^[a-z0-9_-]+$/', $locale)) $languages[$locale] = true;
+            if (preg_match('/^[a-z0-9_-]+$/', $locale) && ! LanguageLocales::isAlias($locale)) $languages[$locale] = true;
         }
         $languages = array_keys($languages);
         sort($languages);
@@ -210,7 +211,7 @@ class GeneralSettings
     private static function normalizeLanguage(string $language, array $disabled = []): string
     {
         $languages = array_values(array_diff(self::languageIdentifiers(), $disabled));
-        $language = strtolower(str_replace('-', '_', trim($language)));
+        $language = LanguageLocales::canonical($language);
         if (in_array($language, $languages, true)) return $language;
 
         $shortCode = explode('_', $language)[0] ?? '';
@@ -219,7 +220,7 @@ class GeneralSettings
             if (explode('_', $candidate)[0] === $shortCode) return $candidate;
         }
 
-        $configured = strtolower(str_replace('-', '_', (string) config('app.locale', 'en')));
+        $configured = LanguageLocales::canonical((string) config('app.locale', 'en'));
         if (in_array($configured, $languages, true)) return $configured;
         if (in_array('en', $languages, true)) return 'en';
 

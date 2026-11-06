@@ -4,6 +4,7 @@ namespace CrzSourceResolver;
 
 use App\Plugins\PluginContext;
 use CrzSourceResolver\Models\CrozztubeImportSource;
+use CrzSourceResolver\Support\AudioTracks;
 use RuntimeException;
 use Symfony\Component\Process\Process;
 
@@ -121,6 +122,69 @@ class Resolver
      */
     public function resolve(string $url, ?int $videoId = null): array
     {
+        $provider = \App\Support\MediaSourceMetadata::providerForUrl($url);
+        $callback = \App\Support\VideoImportSettings::providers()[$provider ?? '']['source_candidates'] ?? null;
+        if (! is_callable($callback)) return $this->fromMetadata($this->extract($url));
+
+        $discovery = $callback($url);
+        if (! is_array($discovery) || ! is_array($discovery['playback_candidates'] ?? null)
+            || ! is_array($discovery['metadata'] ?? null)) {
+            throw new \App\Support\ResolverFailure('permanent', 'The provider returned invalid source candidates.');
+        }
+        if ($videoId !== null && ($video = \App\Models\Video::query()->find($videoId))) {
+            $expectedId = \App\Support\MediaSourceMetadata::providerIdForVideo($video, $provider);
+            if ($expectedId && $expectedId !== ($discovery['metadata']['provider_id'] ?? null)) {
+                throw new \App\Support\ResolverFailure('permanent', 'The provider video identity has changed.');
+            }
+        }
+        $failure = null;
+        foreach (array_slice($discovery['playback_candidates'], 0, 3) as $candidate) {
+            // Provider callbacks own their CDN allowlist; the shared contract still
+            // rejects credentials, custom ports and non-HTTP transport before extraction.
+            $parts = is_string($candidate) ? parse_url($candidate) : false;
+            if (! is_array($parts) || ! filter_var($candidate, FILTER_VALIDATE_URL)
+                || ! in_array(strtolower($parts['scheme'] ?? ''), ['http', 'https'], true)
+                || isset($parts['user']) || isset($parts['pass'])
+                || (isset($parts['port']) && $parts['port'] !== (strtolower($parts['scheme']) === 'https' ? 443 : 80))) continue;
+            try {
+                $extracted = $this->extract($candidate, 45.0);
+                // Generic extraction of a direct master reports its URL on each
+                // format, but may omit top-level manifest_url. Keep the provider's
+                // validated master so already muxed A/V need not use a split proxy.
+                if (str_ends_with(strtolower((string) parse_url($candidate, PHP_URL_PATH)), '.m3u8')) {
+                    $extracted['manifest_url'] = $candidate;
+                }
+                $resolved = $this->fromMetadata($extracted);
+                // Generic direct-file metadata (title/ID/chapters) must not replace
+                // the provider's verified record or erase its chapter information.
+                $resolved['metadata'] = array_replace($resolved['metadata'], array_filter(
+                    $discovery['metadata'], static fn ($value): bool => $value !== null && $value !== [] && $value !== ''
+                ));
+                foreach (['title', 'duration_seconds', 'thumbnail_url', 'chapters'] as $key) {
+                    if (isset($resolved['metadata'][$key])) $resolved[$key] = $resolved['metadata'][$key];
+                }
+
+                return $resolved;
+            } catch (\Throwable $exception) {
+                $exception = $exception instanceof \App\Support\ResolverFailure ? $exception
+                    : new \App\Support\ResolverFailure($exception instanceof \Symfony\Component\Process\Exception\ProcessTimedOutException ? 'transient' : 'unknown', 'Provider source extraction failed.');
+                // A transiently broken backup should still be retryable even if
+                // a preceding host has permanently removed its copy.
+                if ($failure?->category !== 'transient') $failure = $exception;
+            }
+        }
+
+        throw $failure ?? new \App\Support\ResolverFailure('permanent', 'No compatible provider playback source.');
+    }
+
+    public static function supportsSourceCandidates(): bool
+    {
+        return true;
+    }
+
+    /** Raw extractor output; separated so provider fallback ordering can be verified without network calls. */
+    protected function extract(string $url, float $timeout = 180.0): array
+    {
         $binary = $this->stringSetting('ytdlp_command', 'yt-dlp');
 
         $process = new Process(
@@ -128,7 +192,7 @@ class Resolver
             null,
             null,
             null,
-            180.0
+            $timeout
         );
         $process->run();
 
@@ -143,12 +207,22 @@ class Resolver
             throw new \App\Support\ResolverFailure('unknown', 'yt-dlp returned invalid JSON.');
         }
 
+        return $data;
+    }
+
+    /** Select sources without losing the extractor's audio language/role information. */
+    public function fromMetadata(array $data): array
+    {
+
         $formats = array_values(array_filter(
             is_array($data['formats'] ?? null) ? $data['formats'] : [],
             fn ($format): bool => is_array($format)
                 && is_string($format['url'] ?? null)
                 && filter_var($format['url'], FILTER_VALIDATE_URL) !== false
+                && ! ($format['has_drm'] ?? false)
         ));
+
+        $originalLanguage = AudioTracks::originalLanguage($formats);
 
         $progressive = array_filter($formats, function (array $format): bool {
             if (! str_starts_with((string) ($format['protocol'] ?? ''), 'http')) {
@@ -175,8 +249,13 @@ class Resolver
                 && ($format['height'] ?? 0) > 0;
         });
 
-        usort($progressive, fn (array $a, array $b): int => [$b['height'] ?? 0, $b['tbr'] ?? 0] <=> [$a['height'] ?? 0, $a['tbr'] ?? 0]);
+        usort($progressive, fn (array $a, array $b): int =>
+            [AudioTracks::preference($b, $originalLanguage), $b['height'] ?? 0, $b['tbr'] ?? 0]
+            <=> [AudioTracks::preference($a, $originalLanguage), $a['height'] ?? 0, $a['tbr'] ?? 0]);
         $bestProgressive = $progressive[0] ?? null;
+        if ($originalLanguage && $bestProgressive && AudioTracks::preference($bestProgressive, $originalLanguage) < 100) {
+            $bestProgressive = null;
+        }
 
         $manifest = is_string($data['manifest_url'] ?? null) && filter_var($data['manifest_url'], FILTER_VALIDATE_URL)
             ? $data['manifest_url']
@@ -185,7 +264,14 @@ class Resolver
         // HLS-Einzel-Playlists (z. B. YouTube ohne Master-Manifest):
         // Video-Playlists (m3u8, vcodec != none) + Audio-Playlists (m3u8, vcodec == none).
         $hlsVideo = [];
-        $hlsAudio = [];
+        $allHlsVideoMuxed = true;
+        $audioTracks = AudioTracks::hls($formats);
+        if ($originalLanguage && empty($audioTracks[0]['original'])) {
+            // The original can exist only as DASH while HLS exposes a dub.
+            // Don't silently substitute that dub as the native default.
+            $audioTracks = [];
+            $manifest = null;
+        }
         foreach ($formats as $format) {
             $protocol = (string) ($format['protocol'] ?? '');
             if (! str_starts_with($protocol, 'm3u8')) {
@@ -201,6 +287,9 @@ class Resolver
             $vcodec = (string) ($format['vcodec'] ?? 'none');
 
             if ($height > 0 && $vcodec !== 'none') {
+                $allHlsVideoMuxed = $allHlsVideoMuxed
+                    && is_string($format['acodec'] ?? null)
+                    && ! in_array($format['acodec'], ['', 'none', 'unknown'], true);
                 $hlsVideo[] = [
                     'height' => $height,
                     'width' => (int) ($format['width'] ?? 0),
@@ -208,8 +297,6 @@ class Resolver
                     'codecs' => $vcodec,
                     'url' => $url,
                 ];
-            } elseif ($height === 0 && $vcodec === 'none') {
-                $hlsAudio[] = $url;
             }
         }
 
@@ -228,12 +315,20 @@ class Resolver
         }
         $variants = array_slice($variants, 0, 8);
 
-        if (count($hlsAudio) > 1) {
-            usort($hlsAudio, fn (string $a, string $b): int => (int) basename(parse_url($b, PHP_URL_PATH) ?: '') <=> (int) basename(parse_url($a, PHP_URL_PATH) ?: ''));
-        }
-        $audioUrl = $hlsAudio[0] ?? null;
+        $audioUrl = $audioTracks[0]['url'] ?? null;
 
-        if ($this->preferHls() && $manifest) {
+        if ($manifest && $variants !== [] && $allHlsVideoMuxed && ! $originalLanguage
+            && count($audioTracks) <= 1 && ! ($audioTracks[0]['descriptive'] ?? false)
+            && ($this->preferHls() || ! $bestProgressive)) {
+            // Every video rendition already carries audio. A separate audio-only
+            // quality entry is not an alternate language: the published master
+            // preserves relative init/segment URLs and byte-range delivery itself.
+            [$kind, $mediaUrl] = ['hls', $manifest];
+        } elseif ($variants !== [] && $audioUrl !== null && ($this->preferHls() || count($audioTracks) > 1 || ! $bestProgressive)) {
+            // A local master preserves alternate languages and marks the original
+            // as default instead of inheriting a regional dub from a remote master.
+            [$kind, $mediaUrl] = ['hls-synth', ''];
+        } elseif ($this->preferHls() && $manifest) {
             [$kind, $mediaUrl] = ['hls', $manifest];
         } elseif ($bestProgressive) {
             [$kind, $mediaUrl] = ['mp4', (string) $bestProgressive['url']];
@@ -252,7 +347,7 @@ class Resolver
 
         $ttlCandidates = [$mediaUrl];
         if ($kind === 'hls-synth') {
-            $ttlCandidates = [...array_column($variants, 'url'), (string) $audioUrl];
+            $ttlCandidates = [...array_column($variants, 'url'), ...array_column($audioTracks, 'url')];
         }
 
         $ttl = null;
@@ -296,6 +391,7 @@ class Resolver
             'download_url' => $downloadUrl,
             'variants' => $variants,
             'audio_url' => $audioUrl,
+            'audio_tracks' => $audioTracks,
             'ttl_seconds' => $ttl,
             'title' => is_string($data['title'] ?? null) ? $data['title'] : null,
             'duration_seconds' => $duration,
@@ -352,6 +448,7 @@ class Resolver
             'media_url' => $mediaUrl,
             'download_url' => $resolved['download_url'],
             'audio_url' => $resolved['audio_url'],
+            'audio_tracks' => $resolved['audio_tracks'],
             'variants' => $resolved['variants'],
             'kind' => $resolved['kind'],
             'state' => 'fresh',

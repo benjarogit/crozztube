@@ -1,0 +1,90 @@
+{
+  "context": "Editorial complete count messages for views/subscribers/likes/replies/videos/users/comments/playlists in Hebrew, Iranian Persian, Afghan Dari, Hindi, Bangladeshi Bengali, Thai and Vietnamese. RTL/Persian labels avoid incorrect dual/plural inflections at 0/1/2; Hindi comment label is count-neutral; Bengali/Thai native classifiers retained. Named count is formatted separately by actual selected locale. Only these 8 full patterns reviewed; old unrelated pattern/plural metadata remains pending.",
+  "messages": {},
+  "metadata": {
+    "he_il": {
+      "__patterns": {
+        "count_view": "צפיות: {count}",
+        "count_subscriber": "מנויים: {count}",
+        "count_like": "לייקים: {count}",
+        "count_reply": "תשובות: {count}",
+        "count_video": "סרטונים: {count}",
+        "count_user": "משתמשים: {count}",
+        "count_comment": "תגובות: {count}",
+        "count_playlist": "פלייליסטים: {count}"
+      }
+    },
+    "fa_ir": {
+      "__patterns": {
+        "count_view": "بازدیدها: {count}",
+        "count_subscriber": "مشترک‌ها: {count}",
+        "count_like": "پسندها: {count}",
+        "count_reply": "پاسخ‌ها: {count}",
+        "count_video": "ویدیوها: {count}",
+        "count_user": "کاربرها: {count}",
+        "count_comment": "نظرها: {count}",
+        "count_playlist": "فهرست‌های پخش: {count}"
+      }
+    },
+    "fa_af": {
+      "__patterns": {
+        "count_view": "بازدیدها: {count}",
+        "count_subscriber": "مشترک‌ها: {count}",
+        "count_like": "پسندها: {count}",
+        "count_reply": "پاسخ‌ها: {count}",
+        "count_video": "ویدیوها: {count}",
+        "count_user": "کاربرها: {count}",
+        "count_comment": "نظرها: {count}",
+        "count_playlist": "فهرست‌های پخش: {count}"
+      }
+    },
+    "hi_in": {
+      "__patterns": {
+        "count_view": "{count} बार देखा गया",
+        "count_subscriber": "{count} सब्सक्राइबर",
+        "count_like": "{count} लाइक",
+        "count_reply": "{count} जवाब",
+        "count_video": "{count} वीडियो",
+        "count_user": "{count} यूज़र",
+        "count_comment": "टिप्पणियाँ: {count}",
+        "count_playlist": "{count} प्लेलिस्ट"
+      }
+    },
+    "bn_bd": {
+      "__patterns": {
+        "count_view": "{count} বার দেখা হয়েছে",
+        "count_subscriber": "{count} সাবস্ক্রাইবার",
+        "count_like": "{count} লাইক",
+        "count_reply": "{count} উত্তর",
+        "count_video": "{count}টি ভিডিও",
+        "count_user": "{count} জন ব্যবহারকারী",
+        "count_comment": "{count}টি মন্তব্য",
+        "count_playlist": "{count}টি প্লেলিস্ট"
+      }
+    },
+    "th": {
+      "__patterns": {
+        "count_view": "การดู {count} ครั้ง",
+        "count_subscriber": "ผู้ติดตาม {count} คน",
+        "count_like": "ถูกใจ {count} ครั้ง",
+        "count_reply": "การตอบกลับ {count} รายการ",
+        "count_video": "วิดีโอ {count} รายการ",
+        "count_user": "ผู้ใช้ {count} คน",
+        "count_comment": "ความคิดเห็น {count} รายการ",
+        "count_playlist": "เพลย์ลิสต์ {count} รายการ"
+      }
+    },
+    "vi": {
+      "__patterns": {
+        "count_view": "{count} lượt xem",
+        "count_subscriber": "{count} người đăng ký",
+        "count_like": "{count} lượt thích",
+        "count_reply": "{count} phản hồi",
+        "count_video": "{count} video",
+        "count_user": "{count} người dùng",
+        "count_comment": "{count} bình luận",
+        "count_playlist": "{count} danh sách phát"
+      }
+    }
+  }
+}

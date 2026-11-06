@@ -1,7 +1,7 @@
 import { test, expect, type APIRequestContext } from '@playwright/test';
 
 const USER = process.env.TEST_USER || 'benny';
-const PASSWORD = process.env.TEST_PASSWORD || 'meZVRW0bYEbpHsJc';
+const PASSWORD = process.env.TEST_PASSWORD || '';
 
 type VideoRef = { id: number; slug: string };
 
@@ -25,6 +25,7 @@ async function firstImportedVideo(request: APIRequestContext): Promise<VideoRef>
 }
 
 test.beforeAll(async ({ request }) => {
+  if (!PASSWORD) throw new Error('Set TEST_PASSWORD in your local environment before authenticated tests.');
   const response = await request.post('/api/auth/login', {
     data: { login: USER, password: PASSWORD, device_name: 'playwright-harness' },
   });

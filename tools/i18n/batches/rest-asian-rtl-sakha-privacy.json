@@ -1,0 +1,11 @@
+{
+  "context": "Source-assisted Sakha editorial privacy link: Mozilla sah/toolkit/toolkit/about/aboutRights.ftl rights-intro-point-4 provides informal singular Эн and the complete how-we-use-information clause; translatewiki Project:Privacy_policy/sah supplies native title Кистээһин сиэрэ. Narrow neutral adaptation, feedback/browser-specific claims removed. References https://raw.githubusercontent.com/mozilla-l10n/firefox-l10n/main/sah/toolkit/toolkit/about/aboutRights.ftl and https://translatewiki.net/wiki/Project%3APrivacy_policy/sah . No acceptance of the rest of Sakha.",
+  "messages": {
+    "Find out how we handle your data in our privacy policy.": {
+      "sah": "Эн тускунан информацияны хайдах туһанарбыт туһунан кистээһин сиэригэр суруллубут."
+    },
+    "We never share your data with third parties.": {
+      "sah": "Эн тускунан информацияны хайдах туһанарбыт туһунан кистээһин сиэригэр суруллубут."
+    }
+  }
+}

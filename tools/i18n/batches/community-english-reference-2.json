@@ -1,0 +1,611 @@
+{
+  "context": "English reference editorial pass: comment actions/errors, discovery, subscription and Watch Later states, player/debug controls, sharing and account preferences. Short action labels retained; technical share-sheet jargon and incomplete catch-up state clarified. Context review remains separate.",
+  "messages": {
+    "Recent activity": {
+      "en": "Recent activity"
+    },
+    "Stay updated on comments, likes, follows, playlists, and video activity.": {
+      "en": "Stay updated on comments, likes, follows, playlists, and video activity."
+    },
+    "Toggle theme": {
+      "en": "Toggle theme"
+    },
+    "Add emoji": {
+      "en": "Add emoji"
+    },
+    "Choose emoji": {
+      "en": "Choose emoji"
+    },
+    "Loading emojis...": {
+      "en": "Loading emojis..."
+    },
+    "Loading emojis…": {
+      "en": "Loading emojis…"
+    },
+    "Attach image": {
+      "en": "Attach image"
+    },
+    "Selected images": {
+      "en": "Selected images"
+    },
+    "Remove image": {
+      "en": "Remove image"
+    },
+    "Only JPG, PNG, WEBP or GIF images are allowed.": {
+      "en": "Only JPG, PNG, WEBP or GIF images are allowed."
+    },
+    "Images must be 5 MB or smaller.": {
+      "en": "Images must be 5 MB or smaller."
+    },
+    "You can attach up to 4 images.": {
+      "en": "You can attach up to 4 images."
+    },
+    "Message image": {
+      "en": "Message image"
+    },
+    "Image attachment": {
+      "en": "Image attachment"
+    },
+    "Message cannot be empty.": {
+      "en": "Message cannot be empty."
+    },
+    "Comment link copied.": {
+      "en": "Comment link copied."
+    },
+    "Unable to copy comment link.": {
+      "en": "Unable to copy comment link."
+    },
+    "Comment pinned.": {
+      "en": "Comment pinned."
+    },
+    "Comment unpinned.": {
+      "en": "Comment unpinned."
+    },
+    "Unable to update pinned comment.": {
+      "en": "Unable to update pinned comment."
+    },
+    "Comment reported for review.": {
+      "en": "Comment reported for review."
+    },
+    "Unable to report comment.": {
+      "en": "Unable to report comment."
+    },
+    "Comment deleted.": {
+      "en": "Comment deleted."
+    },
+    "Unable to delete comment.": {
+      "en": "Unable to delete comment."
+    },
+    "Unable to save comment like.": {
+      "en": "Unable to save comment like."
+    },
+    "Unable to load replies.": {
+      "en": "Unable to load replies."
+    },
+    "Unable to publish comment.": {
+      "en": "Unable to publish comment."
+    },
+    "Unable to save reply.": {
+      "en": "Unable to save reply."
+    },
+    "Reply": {
+      "en": "Reply"
+    },
+    "Reply added": {
+      "en": "Reply added"
+    },
+    "Add a comment...": {
+      "en": "Add a comment..."
+    },
+    "Login to comment": {
+      "en": "Login to comment"
+    },
+    "Add a reply...": {
+      "en": "Add a reply..."
+    },
+    "Comments": {
+      "en": "Comments"
+    },
+    "Sort comments": {
+      "en": "Sort comments"
+    },
+    "Top comments": {
+      "en": "Top comments"
+    },
+    "Newest first": {
+      "en": "Newest first"
+    },
+    "Like comment": {
+      "en": "Like comment"
+    },
+    "Comment options": {
+      "en": "Comment options"
+    },
+    "Copy Link": {
+      "en": "Copy Link"
+    },
+    "Pin Comment": {
+      "en": "Pin Comment"
+    },
+    "Unpin Comment": {
+      "en": "Unpin Comment"
+    },
+    "Mute User": {
+      "en": "Mute User"
+    },
+    "Reported": {
+      "en": "Reported"
+    },
+    "Report Comment": {
+      "en": "Report Comment"
+    },
+    "Delete Comment": {
+      "en": "Delete Comment"
+    },
+    "Pinned": {
+      "en": "Pinned"
+    },
+    "No comments yet. Be the first to comment.": {
+      "en": "No comments yet. Be the first to comment."
+    },
+    "Hide replies": {
+      "en": "Hide replies"
+    },
+    "Loading replies...": {
+      "en": "Loading replies..."
+    },
+    "Recent Comments": {
+      "en": "Recent Comments"
+    },
+    "View Video": {
+      "en": "View Video"
+    },
+    "All clear — new comments will appear here.": {
+      "en": "No new comments. They’ll appear here when they arrive."
+    },
+    "Recently": {
+      "en": "Recently"
+    },
+    "Just now": {
+      "en": "Just now"
+    },
+    "Date to be announced": {
+      "en": "Date to be announced"
+    },
+    "Community event": {
+      "en": "Community event"
+    },
+    "Grow your channel": {
+      "en": "Grow your channel"
+    },
+    "Explore tools and tips to grow faster and reach more viewers.": {
+      "en": "Explore tools and tips to grow faster and reach more viewers."
+    },
+    "Explore Growth Hub": {
+      "en": "Explore Growth Hub"
+    },
+    "Discover amazing content and creators across PlayHub.": {
+      "en": "Discover amazing content and creators across PlayHub."
+    },
+    "Featured": {
+      "en": "Featured"
+    },
+    "Watch Now": {
+      "en": "Watch Now"
+    },
+    "Trending Now": {
+      "en": "Trending Now"
+    },
+    "Trending Categories": {
+      "en": "Trending Categories"
+    },
+    "New & Noteworthy": {
+      "en": "New & Noteworthy"
+    },
+    "No videos available yet.": {
+      "en": "No videos available yet."
+    },
+    "No recent videos available yet.": {
+      "en": "No recent videos available yet."
+    },
+    "No categories found.": {
+      "en": "No categories found."
+    },
+    "Trending Tags": {
+      "en": "Trending Tags"
+    },
+    "No trending tags found.": {
+      "en": "No trending tags found."
+    },
+    "Creators": {
+      "en": "Creators"
+    },
+    "No creators found.": {
+      "en": "No creators found."
+    },
+    "See what content is popular across PlayHub right now.": {
+      "en": "See what content is popular across PlayHub right now."
+    },
+    "Trending Videos": {
+      "en": "Trending Videos"
+    },
+    "Total Views": {
+      "en": "Total Views"
+    },
+    "Top Category": {
+      "en": "Top Category"
+    },
+    "Engagement": {
+      "en": "Engagement"
+    },
+    "Uploads": {
+      "en": "Uploads"
+    },
+    "Likes + comments": {
+      "en": "Likes + comments"
+    },
+    "Loading trending videos...": {
+      "en": "Loading trending videos..."
+    },
+    "Top Trending Videos": {
+      "en": "Top Trending Videos"
+    },
+    "Trending by Category": {
+      "en": "Trending by Category"
+    },
+    "Recently Trending": {
+      "en": "Recently Trending"
+    },
+    "No trending videos available yet.": {
+      "en": "No trending videos available yet."
+    },
+    "Rising Creators": {
+      "en": "Rising Creators"
+    },
+    "Trending Searches": {
+      "en": "Trending Searches"
+    },
+    "Popular Hashtags": {
+      "en": "Popular Hashtags"
+    },
+    "Hot Topics": {
+      "en": "Hot Topics"
+    },
+    "No category activity yet.": {
+      "en": "No category activity yet."
+    },
+    "See the latest from channels you follow.": {
+      "en": "See the latest from channels you follow."
+    },
+    "Log in to view your subscriptions.": {
+      "en": "Log in to view your subscriptions."
+    },
+    "Loading subscriptions...": {
+      "en": "Loading subscriptions..."
+    },
+    "Newest uploads": {
+      "en": "Newest uploads"
+    },
+    "No videos from subscribed channels yet.": {
+      "en": "No videos from subscribed channels yet."
+    },
+    "Popular from your subscriptions": {
+      "en": "Popular from your subscriptions"
+    },
+    "No popular subscription videos yet.": {
+      "en": "No popular subscription videos yet."
+    },
+    "Continue watching from subscriptions": {
+      "en": "Continue watching from subscriptions"
+    },
+    "No unfinished subscribed videos yet.": {
+      "en": "No videos in progress from your subscriptions."
+    },
+    "Subscription summary": {
+      "en": "Subscription summary"
+    },
+    "Recent uploads": {
+      "en": "Recent uploads"
+    },
+    "Total views": {
+      "en": "Total views"
+    },
+    "In progress": {
+      "en": "In progress"
+    },
+    "Your subscriptions": {
+      "en": "Your subscriptions"
+    },
+    "No subscriptions found.": {
+      "en": "No subscriptions found."
+    },
+    "Recently active creators": {
+      "en": "Recently active creators"
+    },
+    "Subscribe to channels to see activity.": {
+      "en": "Subscribe to channels to see activity."
+    },
+    "Channels you watch most": {
+      "en": "Channels you watch most"
+    },
+    "Based on your subscribed channels.": {
+      "en": "Based on your subscribed channels."
+    },
+    "No subscribed channels yet.": {
+      "en": "No subscribed channels yet."
+    },
+    "Videos you saved to watch when you have time.": {
+      "en": "Videos you saved to watch when you have time."
+    },
+    "Recently Added": {
+      "en": "Recently Added"
+    },
+    "Log in to view your Watch Later videos.": {
+      "en": "Log in to see your Watch Later videos."
+    },
+    "Loading saved videos...": {
+      "en": "Loading saved videos..."
+    },
+    "Continue from where you left off": {
+      "en": "Continue from where you left off"
+    },
+    "Recently saved": {
+      "en": "Recently saved"
+    },
+    "No Watch Later videos saved yet.": {
+      "en": "No Watch Later videos saved yet."
+    },
+    "Save videos to build your Watch Later list.": {
+      "en": "Save videos to build your Watch Later list."
+    },
+    "Saved categories": {
+      "en": "Saved categories"
+    },
+    "No saved categories yet.": {
+      "en": "No saved categories yet."
+    },
+    "Watch later summary": {
+      "en": "Watch later summary"
+    },
+    "Total saved videos": {
+      "en": "Total saved videos"
+    },
+    "Total duration": {
+      "en": "Total duration"
+    },
+    "Unwatched": {
+      "en": "Unwatched"
+    },
+    "View full library": {
+      "en": "View full library"
+    },
+    "Sort & organize": {
+      "en": "Sort & organize"
+    },
+    "Recently added": {
+      "en": "Recently added"
+    },
+    "Title A-Z": {
+      "en": "Title A-Z"
+    },
+    "Duration: Longest": {
+      "en": "Duration: Longest"
+    },
+    "Duration: Shortest": {
+      "en": "Duration: Shortest"
+    },
+    "From your saved channels": {
+      "en": "From your saved channels"
+    },
+    "Video link copied.": {
+      "en": "Video link copied."
+    },
+    "Unable to copy video link.": {
+      "en": "Unable to copy video link."
+    },
+    "Loop": {
+      "en": "Loop"
+    },
+    "Miniplayer": {
+      "en": "Miniplayer"
+    },
+    "Copy video URL": {
+      "en": "Copy video URL"
+    },
+    "Copy video URL at current time": {
+      "en": "Copy video URL at current time"
+    },
+    "Copy embed code": {
+      "en": "Copy embed code"
+    },
+    "Copy debug info": {
+      "en": "Copy debug info"
+    },
+    "Troubleshoot playback issue": {
+      "en": "Troubleshoot playback issue"
+    },
+    "Stats for nerds": {
+      "en": "Playback stats",
+      "de": "Wiedergabestatistiken",
+      "fr": "Statistiques de lecture",
+      "nl": "Afspeelstatistieken"
+    },
+    "Close stats": {
+      "en": "Close stats"
+    },
+    "Loop enabled.": {
+      "en": "Loop enabled."
+    },
+    "Loop disabled.": {
+      "en": "Loop disabled."
+    },
+    "Video URL at current time copied.": {
+      "en": "Video URL at current time copied."
+    },
+    "Embed code copied.": {
+      "en": "Embed code copied."
+    },
+    "Debug info copied.": {
+      "en": "Debug info copied."
+    },
+    "Unable to copy player information.": {
+      "en": "Unable to copy player information."
+    },
+    "Miniplayer is not available for this video.": {
+      "en": "Miniplayer is not available for this video."
+    },
+    "Miniplayer could not be opened.": {
+      "en": "Miniplayer could not be opened."
+    },
+    "Playback debug info copied. Paste it into your support request.": {
+      "en": "Playback debug info copied. Paste it into your support request."
+    },
+    "Viewport": {
+      "en": "Viewport"
+    },
+    "Buffered": {
+      "en": "Buffered"
+    },
+    "Volume": {
+      "en": "Volume"
+    },
+    "Frames": {
+      "en": "Frames"
+    },
+    "Network": {
+      "en": "Network"
+    },
+    "Ready state": {
+      "en": "Ready state"
+    },
+    "Share sheet opened.": {
+      "en": "Sharing options opened.",
+      "de": "Teilen-Optionen geöffnet.",
+      "fr": "Les options de partage sont ouvertes.",
+      "nl": "De deelopties zijn geopend."
+    },
+    "Sharing is not available, link copied instead.": {
+      "en": "Sharing is not available, link copied instead."
+    },
+    "Sharing was cancelled.": {
+      "en": "Sharing was cancelled."
+    },
+    "Saved to Watch Later.": {
+      "en": "Saved to Watch Later."
+    },
+    "Removed from Watch Later.": {
+      "en": "Removed from Watch Later."
+    },
+    "Removed from queue.": {
+      "en": "Removed from queue."
+    },
+    "Added to queue.": {
+      "en": "Added to queue."
+    },
+    "Create an account to save videos to playlists.": {
+      "en": "Create an account to save videos to playlists."
+    },
+    "Unable to load playlists.": {
+      "en": "Unable to load playlists."
+    },
+    "Your channel is not ready yet.": {
+      "en": "Your channel is not ready yet."
+    },
+    "Report submitted for review.": {
+      "en": "Report submitted for review."
+    },
+    "We’ll show fewer videos like this.": {
+      "en": "We’ll show fewer videos like this."
+    },
+    "Add to playlist": {
+      "en": "Add to playlist"
+    },
+    "Create playlist": {
+      "en": "Create playlist"
+    },
+    "New playlist": {
+      "en": "New playlist"
+    },
+    "Playlist title": {
+      "en": "Playlist title"
+    },
+    "Privacy": {
+      "en": "Privacy"
+    },
+    "Create": {
+      "en": "Create"
+    },
+    "Profile / Account": {
+      "en": "Profile / Account"
+    },
+    "Privacy & Safety": {
+      "en": "Privacy & Safety"
+    },
+    "Security": {
+      "en": "Security"
+    },
+    "Playback & Experience": {
+      "en": "Playback & Experience"
+    },
+    "Appearance": {
+      "en": "Appearance"
+    },
+    "Connected Accounts": {
+      "en": "Connected Accounts"
+    },
+    "Billing & Plan": {
+      "en": "Billing & Plan"
+    },
+    "Display name": {
+      "en": "Display name"
+    },
+    "Username": {
+      "en": "Username"
+    },
+    "Bio": {
+      "en": "Bio"
+    },
+    "Channel URL": {
+      "en": "Channel URL"
+    },
+    "Change avatar": {
+      "en": "Change avatar"
+    },
+    "JPG, PNG or WEBP. Max 5MB.": {
+      "en": "JPG, PNG or WEBP. Max 5MB."
+    },
+    "Your display name": {
+      "en": "Your display name"
+    },
+    "Tell viewers what your channel is about.": {
+      "en": "Tell viewers what your channel is about."
+    },
+    "Public profile": {
+      "en": "Public profile"
+    },
+    "Show subscriptions": {
+      "en": "Show subscriptions"
+    },
+    "Default quality": {
+      "en": "Default quality"
+    },
+    "Captions": {
+      "en": "Captions"
+    },
+    "Update password": {
+      "en": "Update password"
+    },
+    "Current password": {
+      "en": "Current password"
+    },
+    "New password": {
+      "en": "New password"
+    },
+    "Confirm new password": {
+      "en": "Confirm new password"
+    },
+    "Two-factor authentication": {
+      "en": "Two-factor authentication"
+    }
+  }
+}

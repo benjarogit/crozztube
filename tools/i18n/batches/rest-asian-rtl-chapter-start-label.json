@@ -1,0 +1,23 @@
+{
+  "context": "Editorial complete accessible start-time field label, named chapter number preserved; actual chapter editor label/source inspected.",
+  "messages": {
+    "Chapter {number} start time": {
+      "ar": "وقت بدء الفصل {number}",
+      "ja": "チャプター{number}の開始時刻",
+      "ko_kr": "챕터 {number} 시작 시간",
+      "zh_cn": "章节 {number} 的开始时间",
+      "zh_tw": "章節 {number} 的開始時間",
+      "zh_hk": "章節 {number} 的開始時間",
+      "tr_tr": "{number}. bölümün başlangıç zamanı",
+      "id_id": "Waktu mulai bab {number}",
+      "ms_my": "Masa mula bab {number}",
+      "he_il": "זמן התחלה של פרק {number}",
+      "fa_ir": "زمان شروع فصل {number}",
+      "fa_af": "زمان شروع فصل {number}",
+      "hi_in": "अध्याय {number} का शुरू होने का समय",
+      "bn_bd": "অধ্যায় {number}-এর শুরুর সময়",
+      "th": "เวลาเริ่มบทที่ {number}",
+      "vi": "Thời gian bắt đầu chương {number}"
+    }
+  }
+}

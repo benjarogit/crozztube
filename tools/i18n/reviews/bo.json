@@ -1,0 +1,138 @@
+{
+  "version": 1,
+  "locale": "bo",
+  "messages": {
+    "19766ed6ccb2f4a32778eed80d1928d2c87a18d7c275ccb163ec6709d3eb2e27": {
+      "source_hash": "19766ed6ccb2f4a32778eed80d1928d2c87a18d7c275ccb163ec6709d3eb2e27",
+      "translation_hash": "a12a34c6dc2ee62b5ae084c0d695980d6884784aab30a2461aeb112338e5b006",
+      "status": "editorial",
+      "contexts": [
+        "Source-assisted editorial UI labels from primary MediaWiki localization JSON at https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/{sah,bo,dz,ky,ckb,am,yo,sd}.json. Exact generic mainpage/cancel/edit/search/login/logout/email/savechanges/register meanings checked against CrozzTube controls. Explicitly formal Yoruba createaccount, Amharic logout and Sindhi plural/honorific imperative actions excluded; no wholesale register/corpus acceptance. Values below are short interface labels, not legal or user content."
+      ],
+      "reviewed_at": "2026-11-06T10:59:35+00:00"
+    },
+    "3a78695388b38b5cceefaf6796b0137877514593543b91af2752d5a17e3d736c": {
+      "source_hash": "3a78695388b38b5cceefaf6796b0137877514593543b91af2752d5a17e3d736c",
+      "translation_hash": "95308bab498d617d72b2a79e0aaea509dc04f2ba62e2d3cac76c8a44a0aa77a6",
+      "status": "verified",
+      "contexts": [
+        "Source-assisted editorial UI labels from primary MediaWiki localization JSON at https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/{sah,bo,dz,ky,ckb,am,yo,sd}.json. Exact generic mainpage/cancel/edit/search/login/logout/email/savechanges/register meanings checked against CrozzTube controls. Explicitly formal Yoruba createaccount, Amharic logout and Sindhi plural/honorific imperative actions excluded; no wholesale register/corpus acceptance. Values below are short interface labels, not legal or user content.",
+        "Source-assisted short labels in actual mobile Home navigation/login/register-link at390px; editable login input retained; no overflow/runtime errors/application writes. Only observed labels, no full-locale acceptance."
+      ],
+      "reviewed_at": "2026-11-06T10:59:35+00:00",
+      "verified_at": "2026-11-06T11:03:26.770Z"
+    },
+    "3c784a16cf27568e948bbdffd5d250bb35e98454112f9196c59f7636666699f7": {
+      "source_hash": "3c784a16cf27568e948bbdffd5d250bb35e98454112f9196c59f7636666699f7",
+      "translation_hash": "3c784a16cf27568e948bbdffd5d250bb35e98454112f9196c59f7636666699f7",
+      "status": "editorial",
+      "contexts": [
+        "Technical semantic correction after inspecting every assigned value: Shorts is the video format name, never trousers; the file-format list contains literal identifiers, not translated/transliterated words. Only these two protected labels are reviewed here; this is not linguistic acceptance of any locale."
+      ],
+      "reviewed_at": "2026-11-06T10:21:15+00:00"
+    },
+    "408b9ccc4e36c5bf30437f2d9ad7e51d51c874f6fd4146fdd6b2df9c34d7f791": {
+      "source_hash": "408b9ccc4e36c5bf30437f2d9ad7e51d51c874f6fd4146fdd6b2df9c34d7f791",
+      "translation_hash": "408b9ccc4e36c5bf30437f2d9ad7e51d51c874f6fd4146fdd6b2df9c34d7f791",
+      "status": "editorial",
+      "contexts": [
+        "Technical semantic correction after inspecting every assigned value: Shorts is the video format name, never trousers; the file-format list contains literal identifiers, not translated/transliterated words. Only these two protected labels are reviewed here; this is not linguistic acceptance of any locale."
+      ],
+      "reviewed_at": "2026-11-06T10:21:15+00:00"
+    },
+    "464c4ffd019e1e9691dcf0537c797353ef2b1c1d4833d3d463e5b74ae4547344": {
+      "source_hash": "464c4ffd019e1e9691dcf0537c797353ef2b1c1d4833d3d463e5b74ae4547344",
+      "translation_hash": "d47faadc0f0a6897314b108485261d1b1c724301c591a49e69442796771ba456",
+      "status": "editorial",
+      "contexts": [
+        "Source-assisted editorial UI labels from primary MediaWiki localization JSON at https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/{sah,bo,dz,ky,ckb,am,yo,sd}.json. Exact generic mainpage/cancel/edit/search/login/logout/email/savechanges/register meanings checked against CrozzTube controls. Explicitly formal Yoruba createaccount, Amharic logout and Sindhi plural/honorific imperative actions excluded; no wholesale register/corpus acceptance. Values below are short interface labels, not legal or user content."
+      ],
+      "reviewed_at": "2026-11-06T10:59:35+00:00"
+    },
+    "49616145514e9abf1fc47d631fccccff2ed974cc260d38848181a07e0fa9972f": {
+      "source_hash": "49616145514e9abf1fc47d631fccccff2ed974cc260d38848181a07e0fa9972f",
+      "translation_hash": "c2a3762ef7155476f1bc13c666f9038221d111f36cffba83e08f5c4282702974",
+      "status": "editorial",
+      "contexts": [
+        "Source-assisted editorial UI labels from primary MediaWiki localization JSON at https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/{sah,bo,dz,ky,ckb,am,yo,sd}.json. Exact generic mainpage/cancel/edit/search/login/logout/email/savechanges/register meanings checked against CrozzTube controls. Explicitly formal Yoruba createaccount, Amharic logout and Sindhi plural/honorific imperative actions excluded; no wholesale register/corpus acceptance. Values below are short interface labels, not legal or user content."
+      ],
+      "reviewed_at": "2026-11-06T10:59:35+00:00"
+    },
+    "49c266baaaa70981ea188fa714d5c40cf13830d786a861c9943ae0d26a7f3fe9": {
+      "source_hash": "49c266baaaa70981ea188fa714d5c40cf13830d786a861c9943ae0d26a7f3fe9",
+      "translation_hash": "aaf95d592d2a7b972bcbeb9ab67eeba82196092727a2617c05b37a2ca2a74590",
+      "status": "editorial",
+      "contexts": [
+        "Source-assisted editorial UI labels from primary MediaWiki localization JSON at https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/{sah,bo,dz,ky,ckb,am,yo,sd}.json. Exact generic mainpage/cancel/edit/search/login/logout/email/savechanges/register meanings checked against CrozzTube controls. Explicitly formal Yoruba createaccount, Amharic logout and Sindhi plural/honorific imperative actions excluded; no wholesale register/corpus acceptance. Values below are short interface labels, not legal or user content."
+      ],
+      "reviewed_at": "2026-11-06T10:59:35+00:00"
+    },
+    "798ca2ce18bf2038bc13aaa33ebfe6db7020df5b4bba40f68e21462a9207db3d": {
+      "source_hash": "798ca2ce18bf2038bc13aaa33ebfe6db7020df5b4bba40f68e21462a9207db3d",
+      "translation_hash": "5fad5000d737ccee50dae323e04ebbfe437adef067b08fe74e858ba632bf5732",
+      "status": "editorial",
+      "contexts": [
+        "Source-assisted editorial UI labels from primary MediaWiki localization JSON at https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/{sah,bo,dz,ky,ckb,am,yo,sd}.json. Exact generic mainpage/cancel/edit/search/login/logout/email/savechanges/register meanings checked against CrozzTube controls. Explicitly formal Yoruba createaccount, Amharic logout and Sindhi plural/honorific imperative actions excluded; no wholesale register/corpus acceptance. Values below are short interface labels, not legal or user content."
+      ],
+      "reviewed_at": "2026-11-06T10:59:35+00:00"
+    },
+    "86033f75a4c0876adfabca55e558f0ae8f9fa098506123fae47b7601411cc3e2": {
+      "source_hash": "86033f75a4c0876adfabca55e558f0ae8f9fa098506123fae47b7601411cc3e2",
+      "translation_hash": "5fad5000d737ccee50dae323e04ebbfe437adef067b08fe74e858ba632bf5732",
+      "status": "verified",
+      "contexts": [
+        "Source-assisted editorial UI labels from primary MediaWiki localization JSON at https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/{sah,bo,dz,ky,ckb,am,yo,sd}.json. Exact generic mainpage/cancel/edit/search/login/logout/email/savechanges/register meanings checked against CrozzTube controls. Explicitly formal Yoruba createaccount, Amharic logout and Sindhi plural/honorific imperative actions excluded; no wholesale register/corpus acceptance. Values below are short interface labels, not legal or user content.",
+        "Source-assisted short labels in actual mobile Home navigation/login/register-link at390px; editable login input retained; no overflow/runtime errors/application writes. Only observed labels, no full-locale acceptance."
+      ],
+      "reviewed_at": "2026-11-06T10:59:35+00:00",
+      "verified_at": "2026-11-06T11:03:26.770Z"
+    },
+    "969ccbd3cf6300ecd5c880459d81ae9027df7517563184a1b8b15282db230621": {
+      "source_hash": "969ccbd3cf6300ecd5c880459d81ae9027df7517563184a1b8b15282db230621",
+      "translation_hash": "95f203aa9d7ce5b962a7c49edccc9994c79b095f8e32baad0273ee110bbfca14",
+      "status": "editorial",
+      "contexts": [
+        "Source-assisted editorial UI labels from primary MediaWiki localization JSON at https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/{sah,bo,dz,ky,ckb,am,yo,sd}.json. Exact generic mainpage/cancel/edit/search/login/logout/email/savechanges/register meanings checked against CrozzTube controls. Explicitly formal Yoruba createaccount, Amharic logout and Sindhi plural/honorific imperative actions excluded; no wholesale register/corpus acceptance. Values below are short interface labels, not legal or user content."
+      ],
+      "reviewed_at": "2026-11-06T10:59:35+00:00"
+    },
+    "9d6322c1f4d9d3f38aed8bfbe0b2bcadf66ad82c008476fa62541fa069138e94": {
+      "source_hash": "9d6322c1f4d9d3f38aed8bfbe0b2bcadf66ad82c008476fa62541fa069138e94",
+      "translation_hash": "cf650e995331f39cfb450959a6b0c553d7a864ddb73755fe91999adc72e39e32",
+      "status": "editorial",
+      "contexts": [
+        "Source-assisted editorial UI labels from primary MediaWiki localization JSON at https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/{sah,bo,dz,ky,ckb,am,yo,sd}.json. Exact generic mainpage/cancel/edit/search/login/logout/email/savechanges/register meanings checked against CrozzTube controls. Explicitly formal Yoruba createaccount, Amharic logout and Sindhi plural/honorific imperative actions excluded; no wholesale register/corpus acceptance. Values below are short interface labels, not legal or user content."
+      ],
+      "reviewed_at": "2026-11-06T10:59:35+00:00"
+    },
+    "bfd402b2f6f3812529b55596136d3a11c51616317e3b1cd999928e2d4eae7d3f": {
+      "source_hash": "bfd402b2f6f3812529b55596136d3a11c51616317e3b1cd999928e2d4eae7d3f",
+      "translation_hash": "cf650e995331f39cfb450959a6b0c553d7a864ddb73755fe91999adc72e39e32",
+      "status": "editorial",
+      "contexts": [
+        "Source-assisted editorial UI labels from primary MediaWiki localization JSON at https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/{sah,bo,dz,ky,ckb,am,yo,sd}.json. Exact generic mainpage/cancel/edit/search/login/logout/email/savechanges/register meanings checked against CrozzTube controls. Explicitly formal Yoruba createaccount, Amharic logout and Sindhi plural/honorific imperative actions excluded; no wholesale register/corpus acceptance. Values below are short interface labels, not legal or user content."
+      ],
+      "reviewed_at": "2026-11-06T10:59:35+00:00"
+    },
+    "c189840cf7e2d6f6fdeefde1ac59dfdf50bb75642eb569b4e38a5614d6f12ac2": {
+      "source_hash": "c189840cf7e2d6f6fdeefde1ac59dfdf50bb75642eb569b4e38a5614d6f12ac2",
+      "translation_hash": "cf650e995331f39cfb450959a6b0c553d7a864ddb73755fe91999adc72e39e32",
+      "status": "verified",
+      "contexts": [
+        "Source-assisted editorial UI labels from primary MediaWiki localization JSON at https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/{sah,bo,dz,ky,ckb,am,yo,sd}.json. Exact generic mainpage/cancel/edit/search/login/logout/email/savechanges/register meanings checked against CrozzTube controls. Explicitly formal Yoruba createaccount, Amharic logout and Sindhi plural/honorific imperative actions excluded; no wholesale register/corpus acceptance. Values below are short interface labels, not legal or user content.",
+        "Source-assisted short labels in actual mobile Home navigation/login/register-link at390px; editable login input retained; no overflow/runtime errors/application writes. Only observed labels, no full-locale acceptance."
+      ],
+      "reviewed_at": "2026-11-06T10:59:35+00:00",
+      "verified_at": "2026-11-06T11:03:26.770Z"
+    },
+    "d0527e4b3d658351dae74be7b10c7531a7ac98493c6b257ab62774853bcc74b2": {
+      "source_hash": "d0527e4b3d658351dae74be7b10c7531a7ac98493c6b257ab62774853bcc74b2",
+      "translation_hash": "c2a3762ef7155476f1bc13c666f9038221d111f36cffba83e08f5c4282702974",
+      "status": "editorial",
+      "contexts": [
+        "Source-assisted editorial UI labels from primary MediaWiki localization JSON at https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/{sah,bo,dz,ky,ckb,am,yo,sd}.json. Exact generic mainpage/cancel/edit/search/login/logout/email/savechanges/register meanings checked against CrozzTube controls. Explicitly formal Yoruba createaccount, Amharic logout and Sindhi plural/honorific imperative actions excluded; no wholesale register/corpus acceptance. Values below are short interface labels, not legal or user content."
+      ],
+      "reviewed_at": "2026-11-06T10:59:35+00:00"
+    }
+  }
+}

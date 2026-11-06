@@ -1,0 +1,971 @@
+{
+  "context": "Editorial complete authentication preview, upload completion, saved-state controls, discovery/empty states, messaging and notifications in Arabic, Japanese, Korean, Turkish, Indonesian and Malay. Privacy labels describe existing owner/admin-only private access, per parent source decision; Chinese private labels included. Shorts is the format, not clothes.",
+  "messages": {
+    "SRT, VTT up to 5MB": {
+      "ar": "SRT، VTT حتى 5 ميجابايت",
+      "ja": "SRT、VTT 最大 5MB",
+      "ko_kr": "SRT, VTT 최대 5MB",
+      "tr_tr": "SRT, VTT 5 MB'a kadar",
+      "id_id": "SRT, VTT hingga 5MB",
+      "ms_my": "SRT, VTT sehingga 5MB"
+    },
+    "Yes, it's made for kids": {
+      "ar": "نعم، هذا الفيديو مخصّص للأطفال",
+      "ja": "はい、子供向けに作られています",
+      "ko_kr": "네, 아동용 동영상이에요",
+      "tr_tr": "Evet, çocuklara özel",
+      "id_id": "Ya, ini dibuat untuk anak-anak",
+      "ms_my": "Ya, ia dibuat untuk kanak-kanak"
+    },
+    "Monetize this video": {
+      "ar": "تحقيق الدخل من هذا الفيديو",
+      "ja": "この動画を収益化する",
+      "ko_kr": "이 동영상으로 수익 창출",
+      "tr_tr": "Bu videodan para kazan",
+      "id_id": "Monetisasikan video ini",
+      "ms_my": "Wangkan video ini"
+    },
+    "Anyone can watch this video": {
+      "ar": "يمكن لأي شخص مشاهدة هذا الفيديو",
+      "ja": "誰でもこの動画を見られます",
+      "ko_kr": "누구나 이 동영상을 볼 수 있어요",
+      "tr_tr": "Bu videoyu herkes izleyebilir",
+      "id_id": "Siapa pun dapat menonton video ini",
+      "ms_my": "Sesiapa sahaja boleh menonton video ini"
+    },
+    "Anyone can search for and watch this video": {
+      "ar": "يمكن لأي شخص البحث عن هذا الفيديو ومشاهدته",
+      "ja": "誰でもこの動画を検索して視聴できます",
+      "ko_kr": "누구나 이 동영상을 검색하고 시청할 수 있어요",
+      "tr_tr": "Herkes bu videoyu arayabilir ve izleyebilir",
+      "id_id": "Siapapun dapat mencari dan menonton video ini",
+      "ms_my": "Sesiapa sahaja boleh mencari dan menonton video ini"
+    },
+    "Anyone with the link can watch": {
+      "ar": "يمكن لأي شخص لديه الرابط المشاهدة",
+      "ja": "リンクを知っている人は誰でも視聴できます",
+      "ko_kr": "링크를 아는 사람은 누구나 볼 수 있어요",
+      "tr_tr": "Bağlantıya sahip olan herkes izleyebilir",
+      "id_id": "Siapa pun yang memiliki tautan dapat menonton",
+      "ms_my": "Sesiapa sahaja yang mempunyai pautan boleh menonton"
+    },
+    "Anyone with the link can watch this video": {
+      "ar": "يمكن لأي شخص لديه الرابط مشاهدة هذا الفيديو",
+      "ja": "リンクを知っている人は誰でもこの動画を見られます",
+      "ko_kr": "링크를 아는 사람은 누구나 이 동영상을 볼 수 있어요",
+      "tr_tr": "Bağlantıya sahip olan herkes bu videoyu izleyebilir",
+      "id_id": "Siapa pun yang memiliki tautan dapat menonton video ini",
+      "ms_my": "Sesiapa sahaja yang mempunyai pautan boleh menonton video ini"
+    },
+    "Only you and people you choose": {
+      "ar": "لا يشاهد الفيديو إلا أنت ومشرفو الموقع",
+      "ja": "自分とサイト管理者だけが視聴できます",
+      "ko_kr": "나와 사이트 관리자만 볼 수 있어요",
+      "tr_tr": "Yalnızca sen ve site yöneticileri izleyebilir",
+      "id_id": "Hanya kamu dan admin situs yang bisa menonton",
+      "ms_my": "Hanya kamu dan pentadbir laman boleh menonton",
+      "zh_cn": "只有你和网站管理员能观看",
+      "zh_tw": "只有你和網站管理員能觀看",
+      "zh_hk": "只有你和網站管理員能觀看"
+    },
+    "Only you and people you choose can watch": {
+      "ar": "لا يشاهد الفيديو إلا أنت ومشرفو الموقع",
+      "ja": "自分とサイト管理者だけが視聴できます",
+      "ko_kr": "나와 사이트 관리자만 볼 수 있어요",
+      "tr_tr": "Yalnızca sen ve site yöneticileri izleyebilir",
+      "id_id": "Hanya kamu dan admin situs yang bisa menonton",
+      "ms_my": "Hanya kamu dan pentadbir laman boleh menonton",
+      "zh_cn": "只有你和网站管理员能观看",
+      "zh_tw": "只有你和網站管理員能觀看",
+      "zh_hk": "只有你和網站管理員能觀看"
+    },
+    "Thumbnail preview": {
+      "ar": "معاينة الصورة المصغرة",
+      "ja": "サムネイルプレビュー",
+      "ko_kr": "썸네일 미리보기",
+      "tr_tr": "Küçük resim önizlemesi",
+      "id_id": "Pratinjau gambar mini",
+      "ms_my": "Pratonton gambar kecil"
+    },
+    "No thumbnail selected.": {
+      "ar": "لم يتم تحديد أي صورة مصغرة.",
+      "ja": "サムネイルが選択されていません。",
+      "ko_kr": "아직 선택한 썸네일이 없어요.",
+      "tr_tr": "Küçük resim seçilmedi.",
+      "id_id": "Belum ada gambar mini yang dipilih.",
+      "ms_my": "Belum ada gambar kecil dipilih."
+    },
+    "More options": {
+      "ar": "المزيد من الخيارات",
+      "ja": "その他のオプション",
+      "ko_kr": "추가 옵션",
+      "tr_tr": "Daha fazla seçenek",
+      "id_id": "Opsi lainnya",
+      "ms_my": "Lebih banyak pilihan"
+    },
+    "Previous thumbnails": {
+      "ar": "الصور المصغرة السابقة",
+      "ja": "以前のサムネイル",
+      "ko_kr": "이전 썸네일",
+      "tr_tr": "Önceki küçük resimler",
+      "id_id": "Gambar mini sebelumnya",
+      "ms_my": "Gambar kecil sebelumnya"
+    },
+    "Next thumbnails": {
+      "ar": "الصور المصغرة التالية",
+      "ja": "次のサムネイル",
+      "ko_kr": "다음 썸네일",
+      "tr_tr": "Sonraki küçük resimler",
+      "id_id": "Gambar mini berikutnya",
+      "ms_my": "Gambar kecil seterusnya"
+    },
+    "Creating thumbnails from video frames...": {
+      "ar": "جارٍ إنشاء صور مصغرة من لقطات الفيديو…",
+      "ja": "動画のフレームからサムネイルを作成中…",
+      "ko_kr": "동영상 장면으로 썸네일을 만드는 중…",
+      "tr_tr": "Video karelerinden küçük resimler oluşturuluyor...",
+      "id_id": "Membuat gambar mini dari cuplikan video…",
+      "ms_my": "Membuat gambar kecil daripada bingkai video…"
+    },
+    "Select a video to create frame thumbnails.": {
+      "ar": "اختر فيديو لإنشاء صور مصغرة من لقطاته.",
+      "ja": "動画を選ぶと、その場面からサムネイルを作れるよ。",
+      "ko_kr": "동영상을 선택하면 영상 속 장면으로 썸네일을 만들 수 있어요.",
+      "tr_tr": "Video karelerinden küçük resim oluşturmak için bir video seç.",
+      "id_id": "Pilih video untuk membuat gambar mini dari cuplikannya.",
+      "ms_my": "Pilih video untuk membuat gambar kecil daripada bingkainya."
+    },
+    "Upload summary": {
+      "ar": "ملخّص الرفع",
+      "ja": "アップロードの概要",
+      "ko_kr": "업로드 요약",
+      "tr_tr": "Yükleme özeti",
+      "id_id": "Ringkasan unggahan",
+      "ms_my": "Ringkasan muat naik"
+    },
+    "Video file": {
+      "ar": "ملف فيديو",
+      "ja": "動画ファイル",
+      "ko_kr": "동영상 파일",
+      "tr_tr": "Video dosyası",
+      "id_id": "File video",
+      "ms_my": "Fail video"
+    },
+    "File size": {
+      "ar": "حجم الملف",
+      "ja": "ファイルサイズ",
+      "ko_kr": "파일 크기",
+      "tr_tr": "Dosya boyutu",
+      "id_id": "Ukuran berkas",
+      "ms_my": "Saiz fail"
+    },
+    "File type": {
+      "ar": "نوع الملف",
+      "ja": "ファイルの種類",
+      "ko_kr": "파일 형식",
+      "tr_tr": "Dosya türü",
+      "id_id": "Jenis berkas",
+      "ms_my": "Jenis fail"
+    },
+    "Last modified": {
+      "ar": "آخر تعديل",
+      "ja": "最終更新日",
+      "ko_kr": "최종 수정됨",
+      "tr_tr": "Son değiştirilme tarihi",
+      "id_id": "Terakhir diubah",
+      "ms_my": "Terakhir diubah suai"
+    },
+    "Video uploaded": {
+      "ar": "تم رفع الفيديو",
+      "ja": "動画をアップロードしました",
+      "ko_kr": "동영상 업로드됨",
+      "tr_tr": "Video yüklendi",
+      "id_id": "Video diunggah",
+      "ms_my": "Video dimuat naik"
+    },
+    "Your video was uploaded and processing has started.": {
+      "ar": "تم رفع فيديوك وبدأت معالجته.",
+      "ja": "動画がアップロードされ、処理が開始されました。",
+      "ko_kr": "동영상을 업로드했어요. 처리가 시작됐어요.",
+      "tr_tr": "Videon yüklendi ve işleme başladı.",
+      "id_id": "Videomu sudah diunggah dan mulai diproses.",
+      "ms_my": "Video kamu sudah dimuat naik dan mula diproses."
+    },
+    "View on PlayHub": {
+      "ar": "عرض على PlayHub",
+      "ja": "PlayHubで見る",
+      "ko_kr": "PlayHub에서 보기",
+      "tr_tr": "PlayHub'da görüntüle",
+      "id_id": "Lihat di PlayHub",
+      "ms_my": "Lihat di PlayHub"
+    },
+    "Go to Dashboard": {
+      "ar": "انتقل إلى لوحة المعلومات",
+      "ja": "ダッシュボードに移動",
+      "ko_kr": "대시보드로 이동",
+      "tr_tr": "Kontrol Paneline Git",
+      "id_id": "Buka Dasbor",
+      "ms_my": "Pergi ke Papan Pemuka"
+    },
+    "Loading video": {
+      "ar": "جارٍ تحميل الفيديو",
+      "ja": "動画を読み込み中",
+      "ko_kr": "동영상을 불러오는 중",
+      "tr_tr": "Video yükleniyor",
+      "id_id": "Memuat video",
+      "ms_my": "Memuatkan video"
+    },
+    "Preparing preview and thumbnails...": {
+      "ar": "جارٍ تحضير المعاينة والصور المصغرة...",
+      "ja": "プレビューとサムネイルを準備しています...",
+      "ko_kr": "미리보기와 썸네일을 준비하는 중…",
+      "tr_tr": "Önizleme ve küçük resimler hazırlanıyor...",
+      "id_id": "Menyiapkan pratinjau dan gambar mini…",
+      "ms_my": "Menyediakan pratonton dan gambar kecil…"
+    },
+    "Tips for better reach": {
+      "ar": "نصائح للوصول بشكل أفضل",
+      "ja": "もっと多くの人に届けるヒント",
+      "ko_kr": "더 많은 사람에게 다가가는 팁",
+      "tr_tr": "Daha iyi erişim için ipuçları",
+      "id_id": "Kiat untuk jangkauan yang lebih baik",
+      "ms_my": "Petua untuk capaian yang lebih baik"
+    },
+    "Use a clear and engaging title": {
+      "ar": "استخدم عنوانًا واضحًا وجذابًا",
+      "ja": "内容が伝わる、目を引くタイトルを付けよう",
+      "ko_kr": "내용이 잘 드러나고 눈길을 끄는 제목을 써 보세요.",
+      "tr_tr": "Açık ve ilgi çekici bir başlık kullan",
+      "id_id": "Gunakan judul yang jelas dan menarik",
+      "ms_my": "Gunakan tajuk yang jelas dan menarik"
+    },
+    "Add a custom thumbnail": {
+      "ar": "أضف صورة مصغرة مخصصة",
+      "ja": "カスタムサムネイルを追加する",
+      "ko_kr": "직접 만든 썸네일 추가",
+      "tr_tr": "Kendi küçük resmini ekle",
+      "id_id": "Tambahkan gambar mini khusus",
+      "ms_my": "Tambah gambar kecil sendiri"
+    },
+    "Write a detailed description": {
+      "ar": "اكتب وصفا مفصلا",
+      "ja": "動画の内容を詳しく書こう",
+      "ko_kr": "동영상 내용을 자세히 소개해 주세요.",
+      "tr_tr": "Ayrıntılı bir açıklama yaz",
+      "id_id": "Tulis deskripsi rinci",
+      "ms_my": "Tulis penerangan terperinci"
+    },
+    "Choose the right category": {
+      "ar": "اختر الفئة المناسبة",
+      "ja": "動画に合ったカテゴリを選ぼう",
+      "ko_kr": "동영상에 맞는 카테고리를 선택해 주세요.",
+      "tr_tr": "Uygun kategoriyi seç",
+      "id_id": "Pilih kategori yang tepat",
+      "ms_my": "Pilih kategori yang betul"
+    },
+    "Learn more": {
+      "ar": "تعلم المزيد",
+      "ja": "さらに詳しく",
+      "ko_kr": "자세히 알아보기",
+      "tr_tr": "Daha fazla bilgi al",
+      "id_id": "Pelajari lebih lanjut",
+      "ms_my": "Ketahui lebih lanjut"
+    },
+    "Video preview": {
+      "ar": "معاينة الفيديو",
+      "ja": "動画のプレビュー",
+      "ko_kr": "동영상 미리보기",
+      "tr_tr": "Video önizlemesi",
+      "id_id": "Pratinjau video",
+      "ms_my": "Pratonton video"
+    },
+    "All changes saved": {
+      "ar": "تم حفظ كافة التغييرات",
+      "ja": "すべての変更が保存されました",
+      "ko_kr": "모든 변경사항을 저장했어요",
+      "tr_tr": "Tüm değişiklikler kaydedildi",
+      "id_id": "Semua perubahan disimpan",
+      "ms_my": "Semua perubahan disimpan"
+    },
+    "Preview": {
+      "ar": "معاينة",
+      "ja": "プレビュー",
+      "ko_kr": "미리보기",
+      "tr_tr": "Önizleme",
+      "id_id": "Pratinjau",
+      "ms_my": "Pratonton"
+    },
+    "Discard": {
+      "ar": "تجاهل",
+      "ja": "変更を破棄",
+      "ko_kr": "변경사항 버리기",
+      "tr_tr": "Değişiklikleri sil",
+      "id_id": "Buang",
+      "ms_my": "Buang"
+    },
+    "Save Draft": {
+      "ar": "حفظ المسودة",
+      "ja": "下書きを保存",
+      "ko_kr": "초안 저장",
+      "tr_tr": "Taslağı Kaydet",
+      "id_id": "Simpan Draf",
+      "ms_my": "Simpan Draf"
+    },
+    "Next": {
+      "ar": "التالي",
+      "ja": "次へ",
+      "ko_kr": "다음",
+      "tr_tr": "Sonraki",
+      "id_id": "Selanjutnya",
+      "ms_my": "Seterusnya"
+    },
+    "Back": {
+      "ar": "العودة",
+      "ja": "戻る",
+      "ko_kr": "뒤로",
+      "tr_tr": "Geri",
+      "id_id": "Kembali",
+      "ms_my": "Kembali"
+    },
+    "Edit": {
+      "ar": "تحرير",
+      "ja": "編集",
+      "ko_kr": "편집",
+      "tr_tr": "Düzenle",
+      "id_id": "Sunting",
+      "ms_my": "Sunting"
+    },
+    "Save": {
+      "ar": "حفظ",
+      "ja": "保存",
+      "ko_kr": "저장",
+      "tr_tr": "Kaydet",
+      "id_id": "Simpan",
+      "ms_my": "Simpan"
+    },
+    "Saving...": {
+      "ar": "جارٍ الحفظ...",
+      "ja": "保存中...",
+      "ko_kr": "저장 중...",
+      "tr_tr": "Kaydediliyor...",
+      "id_id": "Menyimpan...",
+      "ms_my": "Menyimpan..."
+    },
+    "Saving": {
+      "ar": "جارٍ الحفظ",
+      "ja": "保存中",
+      "ko_kr": "저장 중",
+      "tr_tr": "Kaydediliyor",
+      "id_id": "Menyimpan",
+      "ms_my": "Menyimpan"
+    },
+    "Saved": {
+      "ar": "تم الحفظ",
+      "ja": "保存されました",
+      "ko_kr": "저장됨",
+      "tr_tr": "Kaydedildi",
+      "id_id": "Disimpan",
+      "ms_my": "Disimpan"
+    },
+    "Save for later": {
+      "ar": "حفظ لوقت لاحق",
+      "ja": "後で見るに保存",
+      "ko_kr": "나중에 보기에 저장",
+      "tr_tr": "Sonrası için kaydet",
+      "id_id": "Simpan untuk nanti",
+      "ms_my": "Simpan untuk kemudian"
+    },
+    "Save Changes": {
+      "ar": "حفظ التغييرات",
+      "ja": "変更を保存",
+      "ko_kr": "변경 사항 저장",
+      "tr_tr": "Değişiklikleri Kaydet",
+      "id_id": "Simpan Perubahan",
+      "ms_my": "Simpan Perubahan"
+    },
+    "Cancel": {
+      "ar": "إلغاء",
+      "ja": "キャンセル",
+      "ko_kr": "취소",
+      "tr_tr": "İptal",
+      "id_id": "Batalkan",
+      "ms_my": "Batal"
+    },
+    "Login": {
+      "ar": "تسجيل الدخول",
+      "ja": "ログイン",
+      "ko_kr": "로그인",
+      "tr_tr": "Giriş yap",
+      "id_id": "Masuk",
+      "ms_my": "Log masuk"
+    },
+    "Logout": {
+      "ar": "تسجيل الخروج",
+      "ja": "ログアウト",
+      "ko_kr": "로그아웃",
+      "tr_tr": "Oturumu kapat",
+      "id_id": "Keluar",
+      "ms_my": "Log keluar"
+    },
+    "Create account": {
+      "ar": "إنشاء حساب",
+      "ja": "アカウントを作成する",
+      "ko_kr": "계정 만들기",
+      "tr_tr": "Hesap oluştur",
+      "id_id": "Buat akun",
+      "ms_my": "Buat akaun"
+    },
+    "Create an account": {
+      "ar": "إنشاء حساب",
+      "ja": "アカウントを作成する",
+      "ko_kr": "계정 만들기",
+      "tr_tr": "Hesap oluştur",
+      "id_id": "Buat akun",
+      "ms_my": "Buat akaun"
+    },
+    "Already have an account?": {
+      "ar": "هل لديك حساب بالفعل؟",
+      "ja": "アカウントはもうある？",
+      "ko_kr": "이미 계정이 있나요?",
+      "tr_tr": "Zaten bir hesabın var mı?",
+      "id_id": "Sudah punya akun?",
+      "ms_my": "Sudah mempunyai akaun?"
+    },
+    "Welcome back": {
+      "ar": "مرحبًا بعودتك",
+      "ja": "おかえりなさい",
+      "ko_kr": "다시 만나서 반가워요",
+      "tr_tr": "Tekrar hoş geldin",
+      "id_id": "Selamat datang kembali",
+      "ms_my": "Selamat kembali"
+    },
+    "Create your channel": {
+      "ar": "أنشئ قناتك",
+      "ja": "チャンネルを作成する",
+      "ko_kr": "채널 만들기",
+      "tr_tr": "Kanalını oluştur",
+      "id_id": "Buat kanalmu",
+      "ms_my": "Buat saluran kamu"
+    },
+    "Email": {
+      "ar": "البريد الإلكتروني",
+      "ja": "電子メール",
+      "ko_kr": "이메일",
+      "tr_tr": "E-posta",
+      "id_id": "Email",
+      "ms_my": "E-mel"
+    },
+    "Password": {
+      "ar": "كلمة المرور",
+      "ja": "パスワード",
+      "ko_kr": "비밀번호",
+      "tr_tr": "Şifre",
+      "id_id": "Kata sandi",
+      "ms_my": "Kata laluan"
+    },
+    "Confirm password": {
+      "ar": "تأكيد كلمة المرور",
+      "ja": "パスワードの確認",
+      "ko_kr": "비밀번호 확인",
+      "tr_tr": "Şifreyi onayla",
+      "id_id": "Konfirmasikan kata sandi",
+      "ms_my": "Sahkan kata laluan"
+    },
+    "Two-factor code": {
+      "ar": "رمز التحقق بخطوتين",
+      "ja": "2段階認証コード",
+      "ko_kr": "2단계 인증 코드",
+      "tr_tr": "İki adımlı doğrulama kodu",
+      "id_id": "Kode dua faktor",
+      "ms_my": "Kod dua faktor"
+    },
+    "6-digit code from email/phone": {
+      "ar": "رمز مكون من 6 أرقام من البريد الإلكتروني/الهاتف",
+      "ja": "メール/電話からの6桁のコード",
+      "ko_kr": "이메일/전화의 6자리 코드",
+      "tr_tr": "E-postadan/telefondan gelen 6 haneli kod",
+      "id_id": "Kode 6 digit dari email/telepon",
+      "ms_my": "Kod 6 digit daripada e-mel/telefon"
+    },
+    "Logging in...": {
+      "ar": "جارٍ تسجيل الدخول…",
+      "ja": "ログイン中...",
+      "ko_kr": "로그인 중...",
+      "tr_tr": "Giriş yapılıyor...",
+      "id_id": "Sedang masuk…",
+      "ms_my": "Sedang log masuk…"
+    },
+    "Creating...": {
+      "ar": "جارٍ الإنشاء...",
+      "ja": "作成中...",
+      "ko_kr": "만드는 중...",
+      "tr_tr": "Oluşturuluyor...",
+      "id_id": "Membuat...",
+      "ms_my": "Mencipta..."
+    },
+    "Name": {
+      "ar": "الاسم",
+      "ja": "名前",
+      "ko_kr": "이름",
+      "tr_tr": "İsim",
+      "id_id": "Nama",
+      "ms_my": "Nama"
+    },
+    "Video CMS & Streaming Platform UI Kit": {
+      "ar": "فيديوهاتك. مجتمعك.",
+      "ja": "あなたの動画、あなたのコミュニティ。",
+      "ko_kr": "내 동영상, 내 커뮤니티.",
+      "tr_tr": "Senin videoların. Senin topluluğun.",
+      "id_id": "Videomu. Komunitasmu.",
+      "ms_my": "Video kamu. Komuniti kamu."
+    },
+    "Clean light and true black dark layouts for creators, communities and streaming products.": {
+      "ar": "شارك فيديوهاتك، واكتشف صنّاع محتوى جددًا، واعثر على مجتمعك.",
+      "ja": "動画をシェアして、新しいクリエイターや仲間を見つけよう。",
+      "ko_kr": "동영상을 공유하고, 새로운 크리에이터와 나만의 커뮤니티를 만나 보세요.",
+      "tr_tr": "Videolarını paylaş, yeni içerik üreticilerini keşfet ve topluluğunu bul.",
+      "id_id": "Bagikan videomu, temukan kreator baru, dan cari komunitasmu.",
+      "ms_my": "Kongsi video kamu, temui pencipta baharu dan cari komuniti kamu."
+    },
+    "Scalable design system": {
+      "ar": "شارك ما تحب",
+      "ja": "好きなことをシェアしよう",
+      "ko_kr": "좋아하는 것을 나눠 보세요",
+      "tr_tr": "Sevdiğin şeyleri paylaş",
+      "id_id": "Bagikan hal yang kamu sukai",
+      "ms_my": "Kongsi perkara yang kamu suka"
+    },
+    "Light & dark themes": {
+      "ar": "اكتشف شيئًا جديدًا",
+      "ja": "新しい発見をしよう",
+      "ko_kr": "새로운 것을 발견해 보세요",
+      "tr_tr": "Yeni şeyler keşfet",
+      "id_id": "Temukan hal baru",
+      "ms_my": "Temui perkara baharu"
+    },
+    "Accessible components": {
+      "ar": "تعرّف على أشخاص يشاركونك اهتماماتك",
+      "ja": "同じことが好きな仲間と出会おう",
+      "ko_kr": "같은 관심사를 가진 사람들을 만나 보세요",
+      "tr_tr": "İlgi alanlarını paylaşan insanlarla tanış",
+      "id_id": "Temui orang dengan minat yang sama",
+      "ms_my": "Temui orang yang berkongsi minat kamu"
+    },
+    "Built for creator workflows": {
+      "ar": "ابتكر على راحتك",
+      "ja": "自分のペースで作ろう",
+      "ko_kr": "내 속도에 맞춰 만들어 보세요",
+      "tr_tr": "Kendi hızında üret",
+      "id_id": "Berkreasi sesuai ritmemu",
+      "ms_my": "Berkarya mengikut rentak kamu"
+    },
+    "Log in to upload, comment, subscribe and manage your creator studio.": {
+      "ar": "سجّل الدخول لرفع فيديوهاتك والتعليق والاشتراك وإدارة استوديوك.",
+      "ja": "ログインして動画を投稿したり、コメントやチャンネル登録をしたり、クリエイタースタジオを使おう。",
+      "ko_kr": "로그인하면 동영상을 올리고, 댓글을 달고, 채널을 구독하고, 크리에이터 스튜디오를 관리할 수 있어요.",
+      "tr_tr": "Video yüklemek, yorum yapmak, abone olmak ve stüdyonu yönetmek için giriş yap.",
+      "id_id": "Masuk untuk mengunggah video, berkomentar, berlangganan, dan mengelola studio kreatormu.",
+      "ms_my": "Log masuk untuk memuat naik, mengulas, melanggan dan mengurus studio pencipta kamu."
+    },
+    "Start your PlayHub creator account with working registration and API authentication.": {
+      "ar": "أنشئ حسابك على PlayHub وابدأ بمشاركة فيديوهاتك.",
+      "ja": "PlayHubのアカウントを作って、動画をシェアしよう。",
+      "ko_kr": "PlayHub 계정을 만들고 동영상을 공유해 보세요.",
+      "tr_tr": "PlayHub hesabını oluştur ve videolarını paylaşmaya başla.",
+      "id_id": "Buat akun PlayHub dan mulai bagikan videomu.",
+      "ms_my": "Buat akaun PlayHub dan mula berkongsi video kamu."
+    },
+    "Featured Documentary": {
+      "ar": "فيلم وثائقي مميز",
+      "ja": "注目のドキュメンタリー",
+      "ko_kr": "특집 다큐멘터리",
+      "tr_tr": "Öne Çıkan Belgesel",
+      "id_id": "Dokumenter Unggulan",
+      "ms_my": "Dokumentari Pilihan"
+    },
+    "Watch now": {
+      "ar": "شاهد الآن",
+      "ja": "今すぐ見る",
+      "ko_kr": "지금 시청하기",
+      "tr_tr": "Şimdi izle",
+      "id_id": "Tonton sekarang",
+      "ms_my": "Tonton sekarang"
+    },
+    "Trending now": {
+      "ar": "الرائج الآن",
+      "ja": "今のトレンド",
+      "ko_kr": "지금 인기 급상승",
+      "tr_tr": "Şu anda trend",
+      "id_id": "Sedang tren sekarang",
+      "ms_my": "Trend kini"
+    },
+    "Continue watching": {
+      "ar": "مواصلة المشاهدة",
+      "ja": "視聴を続ける",
+      "ko_kr": "계속 시청",
+      "tr_tr": "İzlemeye devam et",
+      "id_id": "Lanjutkan menonton",
+      "ms_my": "Teruskan menonton"
+    },
+    "Recommended creators": {
+      "ar": "صنّاع محتوى نقترحهم لك",
+      "ja": "おすすめクリエイター",
+      "ko_kr": "추천 크리에이터",
+      "tr_tr": "Önerilen içerik üreticileri",
+      "id_id": "Kreator pilihan untukmu",
+      "ms_my": "Pencipta yang disyorkan"
+    },
+    "Trending videos": {
+      "ar": "مقاطع الفيديو الرائجة",
+      "ja": "話題の動画",
+      "ko_kr": "인기 동영상",
+      "tr_tr": "Trend olan videolar",
+      "id_id": "Video yang sedang tren",
+      "ms_my": "Video sohor kini"
+    },
+    "Browse by Category": {
+      "ar": "تصفح حسب الفئة",
+      "ja": "カテゴリ別に参照",
+      "ko_kr": "카테고리별로 찾아보기",
+      "tr_tr": "Kategoriye Göre Gözat",
+      "id_id": "Jelajahi berdasarkan Kategori",
+      "ms_my": "Semak imbas mengikut Kategori"
+    },
+    "No creators available yet.": {
+      "ar": "لا يوجد صنّاع محتوى حتى الآن.",
+      "ja": "クリエイターはまだいません。",
+      "ko_kr": "아직 등록된 크리에이터가 없어요.",
+      "tr_tr": "Henüz içerik üreticisi yok.",
+      "id_id": "Belum ada kreator.",
+      "ms_my": "Belum ada pencipta."
+    },
+    "No videos found for this category.": {
+      "ar": "لم نعثر على فيديوهات في هذه الفئة.",
+      "ja": "このカテゴリの動画は見つかりませんでした。",
+      "ko_kr": "이 카테고리에서 동영상을 찾지 못했어요.",
+      "tr_tr": "Bu kategoride video bulunamadı.",
+      "id_id": "Tidak ada video yang ditemukan untuk kategori ini.",
+      "ms_my": "Tiada video ditemui untuk kategori ini."
+    },
+    "No trending videos yet.": {
+      "ar": "لا توجد فيديوهات رائجة حتى الآن.",
+      "ja": "話題の動画はまだありません。",
+      "ko_kr": "아직 인기 급상승 동영상이 없어요.",
+      "tr_tr": "Henüz trend olan video yok.",
+      "id_id": "Belum ada video yang sedang tren.",
+      "ms_my": "Belum ada video sohor kini."
+    },
+    "Loading videos...": {
+      "ar": "جارٍ تحميل مقاطع الفيديو...",
+      "ja": "動画を読み込んでいます...",
+      "ko_kr": "동영상 로드 중...",
+      "tr_tr": "Videolar yükleniyor...",
+      "id_id": "Memuat video...",
+      "ms_my": "Memuatkan video..."
+    },
+    "Watch the latest cinematic stories from creators on PlayHub.": {
+      "ar": "شاهد أحدث القصص السينمائية من المبدعين على PlayHub.",
+      "ja": "PlayHub でクリエイターによる最新の映画ストーリーをご覧ください。",
+      "ko_kr": "PlayHub에서 제작자의 최신 영화 스토리를 시청하세요.",
+      "tr_tr": "İçerik üreticilerinin en yeni sinematik hikâyelerini PlayHub’da izle.",
+      "id_id": "Tonton cerita sinematik terbaru dari pembuat konten di PlayHub.",
+      "ms_my": "Tonton cerita sinematik terkini daripada pencipta di PlayHub."
+    },
+    "Creator": {
+      "ar": "صانع محتوى",
+      "ja": "クリエイター",
+      "ko_kr": "크리에이터",
+      "tr_tr": "İçerik üretici",
+      "id_id": "Kreator",
+      "ms_my": "Pencipta"
+    },
+    "Subscribe": {
+      "ar": "اشترك",
+      "ja": "チャンネル登録",
+      "ko_kr": "구독",
+      "tr_tr": "Abone ol",
+      "id_id": "Berlangganan",
+      "ms_my": "Langgan"
+    },
+    "Unsubscribe": {
+      "ar": "إلغاء الاشتراك",
+      "ja": "チャンネル登録を解除",
+      "ko_kr": "구독 취소",
+      "tr_tr": "Abonelikten çık",
+      "id_id": "Berhenti berlangganan",
+      "ms_my": "Nyahlanggan"
+    },
+    "Your channel": {
+      "ar": "قناتك",
+      "ja": "あなたのチャンネル",
+      "ko_kr": "내 채널",
+      "tr_tr": "Kanalın",
+      "id_id": "Kanalmu",
+      "ms_my": "Saluran kamu"
+    },
+    "Subscription failed.": {
+      "ar": "فشل الاشتراك.",
+      "ja": "チャンネル登録ができませんでした。",
+      "ko_kr": "구독에 실패했습니다.",
+      "tr_tr": "Abonelik başarısız oldu.",
+      "id_id": "Langganan gagal.",
+      "ms_my": "Langganan gagal."
+    },
+    "subscribers": {
+      "ar": "المشتركين",
+      "ja": "登録者",
+      "ko_kr": "구독자",
+      "tr_tr": "aboneler",
+      "id_id": "pelanggan",
+      "ms_my": "pelanggan"
+    },
+    "views": {
+      "ar": "مشاهدات",
+      "ja": "回視聴",
+      "ko_kr": "조회수",
+      "tr_tr": "görüntüleme",
+      "id_id": "dilihat",
+      "ms_my": "pandangan"
+    },
+    "watched": {
+      "ar": "تمت مشاهدته",
+      "ja": "視聴済み",
+      "ko_kr": "시청함",
+      "tr_tr": "izlendi",
+      "id_id": "menonton",
+      "ms_my": "ditonton"
+    },
+    "Search result types": {
+      "ar": "أنواع نتائج البحث",
+      "ja": "検索結果の種類",
+      "ko_kr": "검색결과 유형",
+      "tr_tr": "Arama sonucu türleri",
+      "id_id": "Jenis hasil pencarian",
+      "ms_my": "Jenis hasil carian"
+    },
+    "Videos": {
+      "ar": "فيديوهات",
+      "ja": "動画",
+      "ko_kr": "동영상",
+      "tr_tr": "Videolar",
+      "id_id": "Video",
+      "ms_my": "Video"
+    },
+    "Channels": {
+      "ar": "القنوات",
+      "ja": "チャンネル",
+      "ko_kr": "채널",
+      "tr_tr": "Kanallar",
+      "id_id": "Kanal",
+      "ms_my": "Saluran"
+    },
+    "Shorts": {
+      "ar": "Shorts",
+      "ja": "Shorts",
+      "ko_kr": "Shorts",
+      "tr_tr": "Shorts",
+      "id_id": "Shorts",
+      "ms_my": "Shorts"
+    },
+    "Community": {
+      "ar": "المجتمع",
+      "ja": "コミュニティ",
+      "ko_kr": "커뮤니티",
+      "tr_tr": "Topluluk",
+      "id_id": "Komunitas",
+      "ms_my": "Komuniti"
+    },
+    "See all": {
+      "ar": "شاهد الكل",
+      "ja": "全て見る",
+      "ko_kr": "모두 보기",
+      "tr_tr": "Tümünü gör",
+      "id_id": "Lihat semuanya",
+      "ms_my": "Lihat semua"
+    },
+    "Search filters": {
+      "ar": "مرشحات البحث",
+      "ja": "検索フィルター",
+      "ko_kr": "검색 필터",
+      "tr_tr": "Arama filtreleri",
+      "id_id": "Filter pencarian",
+      "ms_my": "Penapis carian"
+    },
+    "Clear all": {
+      "ar": "مسح الكل",
+      "ja": "すべてクリア",
+      "ko_kr": "모두 지우기",
+      "tr_tr": "Tümünü temizle",
+      "id_id": "Hapus semuanya",
+      "ms_my": "Kosongkan semua"
+    },
+    "Related searches": {
+      "ar": "عمليات البحث ذات الصلة",
+      "ja": "関連する検索",
+      "ko_kr": "관련 검색어",
+      "tr_tr": "İlgili aramalar",
+      "id_id": "Pencarian terkait",
+      "ms_my": "Carian berkaitan"
+    },
+    "Messages": {
+      "ar": "الرسائل",
+      "ja": "メッセージ",
+      "ko_kr": "메시지",
+      "tr_tr": "Mesajlar",
+      "id_id": "Pesan",
+      "ms_my": "Mesej"
+    },
+    "New message": {
+      "ar": "رسالة جديدة",
+      "ja": "新しいメッセージ",
+      "ko_kr": "새 메시지",
+      "tr_tr": "Yeni mesaj",
+      "id_id": "Pesan baru",
+      "ms_my": "Mesej baharu"
+    },
+    "Primary": {
+      "ar": "الرسائل الرئيسية",
+      "ja": "プライマリー",
+      "ko_kr": "기본",
+      "tr_tr": "Birincil",
+      "id_id": "Utama",
+      "ms_my": "Utama"
+    },
+    "Requests": {
+      "ar": "الطلبات",
+      "ja": "リクエスト",
+      "ko_kr": "요청사항",
+      "tr_tr": "İstekler",
+      "id_id": "Permintaan",
+      "ms_my": "Permintaan"
+    },
+    "Mentions": {
+      "ar": "الإشارات",
+      "ja": "メンション",
+      "ko_kr": "멘션",
+      "tr_tr": "Bahsetmeler",
+      "id_id": "Sebutan",
+      "ms_my": "Sebutan"
+    },
+    "No messages found": {
+      "ar": "لم يتم العثور على رسائل",
+      "ja": "メッセージが見つかりませんでした",
+      "ko_kr": "메시지를 찾지 못했어요",
+      "tr_tr": "Mesaj bulunamadı",
+      "id_id": "Tidak ada pesan yang ditemukan",
+      "ms_my": "Tiada mesej ditemui"
+    },
+    "Try another search or switch tabs.": {
+      "ar": "حاول إجراء بحث آخر أو تبديل علامات التبويب.",
+      "ja": "別の言葉で検索するか、タブを切り替えてみてね。",
+      "ko_kr": "다른 단어로 검색하거나 탭을 바꿔 보세요.",
+      "tr_tr": "Başka bir arama dene veya sekme değiştir.",
+      "id_id": "Coba penelusuran lain atau ganti tab.",
+      "ms_my": "Cuba carian lain atau tukar tab."
+    },
+    "View all messages": {
+      "ar": "عرض جميع الرسائل",
+      "ja": "すべてのメッセージを表示",
+      "ko_kr": "모든 메시지 보기",
+      "tr_tr": "Tüm mesajları görüntüle",
+      "id_id": "Lihat semua pesan",
+      "ms_my": "Lihat semua mesej"
+    },
+    "Manage creator conversations, requests, and mentions.": {
+      "ar": "تابع محادثات صنّاع المحتوى وطلبات الرسائل والإشارات.",
+      "ja": "クリエイターとの会話、リクエスト、メンションを確認しよう。",
+      "ko_kr": "크리에이터와의 대화, 메시지 요청, 멘션을 관리해 보세요.",
+      "tr_tr": "İçerik üreticileriyle konuşmalarını, istekleri ve bahsetmeleri yönet.",
+      "id_id": "Kelola percakapan, permintaan, dan sebutan kreator.",
+      "ms_my": "Urus perbualan, permintaan dan sebutan pencipta."
+    },
+    "Notifications": {
+      "ar": "الإشعارات",
+      "ja": "通知",
+      "ko_kr": "알림",
+      "tr_tr": "Bildirimler",
+      "id_id": "Pemberitahuan",
+      "ms_my": "Pemberitahuan"
+    },
+    "Open notifications": {
+      "ar": "فتح الإشعارات",
+      "ja": "通知を開く",
+      "ko_kr": "알림 열기",
+      "tr_tr": "Bildirimleri aç",
+      "id_id": "Buka notifikasi",
+      "ms_my": "Buka pemberitahuan"
+    },
+    "Open messages": {
+      "ar": "افتح الرسائل",
+      "ja": "メッセージを開く",
+      "ko_kr": "메시지 열기",
+      "tr_tr": "Mesajları aç",
+      "id_id": "Buka pesan",
+      "ms_my": "Buka mesej"
+    },
+    "Open account menu": {
+      "ar": "فتح قائمة الحساب",
+      "ja": "アカウントメニューを開く",
+      "ko_kr": "계정 메뉴 열기",
+      "tr_tr": "Hesap menüsünü aç",
+      "id_id": "Buka menu akun",
+      "ms_my": "Buka menu akaun"
+    },
+    "Open profile menu": {
+      "ar": "فتح قائمة الملف الشخصي",
+      "ja": "プロフィールメニューを開く",
+      "ko_kr": "프로필 메뉴 열기",
+      "tr_tr": "Profil menüsünü aç",
+      "id_id": "Buka menu profil",
+      "ms_my": "Buka menu profil"
+    },
+    "Mark all as read": {
+      "ar": "وضع علامة على الكل كمقروءة",
+      "ja": "すべて既読としてマークする",
+      "ko_kr": "모두 읽음으로 표시",
+      "tr_tr": "Tümünü okundu olarak işaretle",
+      "id_id": "Tandai semua sebagai telah dibaca",
+      "ms_my": "Tandai semua sebagai dibaca"
+    },
+    "Loading notifications...": {
+      "ar": "جارٍ تحميل الإشعارات...",
+      "ja": "通知を読み込んでいます...",
+      "ko_kr": "알림 로드 중...",
+      "tr_tr": "Bildirimler yükleniyor...",
+      "id_id": "Memuat notifikasi...",
+      "ms_my": "Memuatkan pemberitahuan..."
+    },
+    "No notifications yet.": {
+      "ar": "لا توجد إشعارات حتى الآن.",
+      "ja": "まだ通知はありません。",
+      "ko_kr": "아직 알림이 없어요.",
+      "tr_tr": "Henüz bildirim yok.",
+      "id_id": "Belum ada pemberitahuan.",
+      "ms_my": "Tiada pemberitahuan lagi."
+    },
+    "New": {
+      "ar": "جديد",
+      "ja": "新しい",
+      "ko_kr": "새로운",
+      "tr_tr": "Yeni",
+      "id_id": "Baru",
+      "ms_my": "Baharu"
+    },
+    "Earlier": {
+      "ar": "في وقت سابق",
+      "ja": "以前",
+      "ko_kr": "이전",
+      "tr_tr": "Daha önce",
+      "id_id": "Sebelumnya",
+      "ms_my": "Tadi"
+    },
+    "unread": {
+      "ar": "غير مقروءة",
+      "ja": "未読",
+      "ko_kr": "읽지 않은",
+      "tr_tr": "okunmamış",
+      "id_id": "belum dibaca",
+      "ms_my": "belum dibaca"
+    }
+  }
+}

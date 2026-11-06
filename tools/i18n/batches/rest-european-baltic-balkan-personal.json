@@ -1,0 +1,192 @@
+{
+  "context": "Whole-message personal-address correction in Estonian/Latvian/Lithuanian/Slovenian/Croatian/Bosnian/Macedonian/Albanian/Serbian. Actual account/channel labels and form/chat/upload prompts; correct singular verb forms and script, no formal customer pronouns. Serbian Cyrillic retained.",
+  "messages": {
+    "Your subscriptions": {
+      "et": "Sinu tellimused",
+      "lv": "Tavi abonementi",
+      "lt": "Tavo prenumeratos",
+      "sl": "Tvoje naročnine",
+      "hr": "Tvoje pretplate",
+      "bs": "Tvoje pretplate",
+      "mk": "Твоите претплати",
+      "sq": "Abonimet e tua",
+      "sr": "Твоје претплате"
+    },
+    "Your display name": {
+      "et": "Sinu kuvatav nimi",
+      "lv": "Tavs redzamais vārds",
+      "lt": "Tavo rodomas vardas",
+      "sl": "Tvoje prikazno ime",
+      "hr": "Tvoje ime za prikaz",
+      "bs": "Tvoje ime za prikaz",
+      "mk": "Твоето име за прикажување",
+      "sq": "Emri yt i shfaqur",
+      "sr": "Твоје име за приказ"
+    },
+    "Tell viewers what your channel is about.": {
+      "et": "Räägi vaatajatele, millest sinu kanal räägib.",
+      "lv": "Pastāsti skatītājiem, par ko ir tavs kanāls.",
+      "lt": "Papasakok žiūrovams, apie ką tavo kanalas.",
+      "sl": "Povej gledalcem, o čem govori tvoj kanal.",
+      "hr": "Reci gledateljima o čemu je tvoj kanal.",
+      "bs": "Reci gledaocima o čemu je tvoj kanal.",
+      "mk": "Кажи им на гледачите за што е твојот канал.",
+      "sq": "Tregoju shikuesve për çfarë është kanali yt.",
+      "sr": "Реци гледаоцима о чему је твој канал."
+    },
+    "Please fill all password fields.": {
+      "et": "Täida kõik parooliväljad.",
+      "lv": "Aizpildi visus paroles laukus.",
+      "lt": "Užpildyk visus slaptažodžio laukus.",
+      "sl": "Izpolni vsa polja za geslo.",
+      "hr": "Ispuni sva polja za lozinku.",
+      "bs": "Popuni sva polja za lozinku.",
+      "mk": "Пополни ги сите полиња за лозинка.",
+      "sq": "Plotëso të gjitha fushat e fjalëkalimit.",
+      "sr": "Попуни сва поља за лозинку."
+    },
+    "Already have an account?": {
+      "et": "Kas sul on juba konto?",
+      "lv": "Vai tev jau ir konts?",
+      "lt": "Jau turi paskyrą?",
+      "sl": "Že imaš račun?",
+      "hr": "Već imaš račun?",
+      "bs": "Već imaš račun?",
+      "mk": "Веќе имаш сметка?",
+      "sq": "Ke tashmë një llogari?",
+      "sr": "Већ имаш налог?"
+    },
+    "Login to comment": {
+      "et": "Kommenteerimiseks logi sisse",
+      "lv": "Piesakies, lai komentētu",
+      "lt": "Prisijunk ir komentuok",
+      "sl": "Prijavi se za komentiranje",
+      "hr": "Prijavi se za komentiranje",
+      "bs": "Prijavi se za komentiranje",
+      "mk": "Најави се за да коментираш",
+      "sq": "Hyr për të komentuar",
+      "sr": "Пријави се да коментаришеш"
+    },
+    "We’re here to help.": {
+      "et": "Oleme siin, et sind aidata.",
+      "lv": "Esam šeit, lai tev palīdzētu.",
+      "lt": "Esame čia, kad tau padėtume.",
+      "sl": "Tukaj smo, da ti pomagamo.",
+      "hr": "Tu smo da ti pomognemo.",
+      "bs": "Tu smo da ti pomognemo.",
+      "mk": "Тука сме да ти помогнеме.",
+      "sq": "Jemi këtu për të të ndihmuar.",
+      "sr": "Ту смо да ти помогнемо."
+    },
+    "Sign in to join live chat": {
+      "et": "Otsevestlusega liitumiseks logi sisse",
+      "lv": "Piesakies, lai pievienotos tiešraides sarunai",
+      "lt": "Prisijunk ir dalyvauk tiesioginiame pokalbyje",
+      "sl": "Prijavi se in se pridruži klepetu v živo",
+      "hr": "Prijavi se i pridruži razgovoru uživo",
+      "bs": "Prijavi se i pridruži razgovoru uživo",
+      "mk": "Најави се за да се приклучиш на разговорот во живо",
+      "sq": "Hyr për t’u bashkuar në bisedën drejtpërdrejt",
+      "sr": "Пријави се и придружи се разговору уживо"
+    },
+    "Choose who can watch your video": {
+      "et": "Vali, kes saab sinu videot vaadata",
+      "lv": "Izvēlies, kas var skatīties tavu video",
+      "lt": "Pasirink, kas gali žiūrėti tavo vaizdo įrašą",
+      "sl": "Izberi, kdo si lahko ogleda tvoj video",
+      "hr": "Odaberi tko može gledati tvoj video",
+      "bs": "Odaberi ko može gledati tvoj video",
+      "mk": "Избери кој може да го гледа твоето видео",
+      "sq": "Zgjidh kush mund ta shohë videon tënde",
+      "sr": "Изабери ко може да гледа твој видео"
+    },
+    "Review your video settings": {
+      "et": "Kontrolli oma video seadeid",
+      "lv": "Pārbaudi sava video iestatījumus",
+      "lt": "Patikrink savo vaizdo įrašo nustatymus",
+      "sl": "Preveri nastavitve svojega videa",
+      "hr": "Provjeri postavke svog videa",
+      "bs": "Provjeri postavke svog videa",
+      "mk": "Провери ги поставките на твоето видео",
+      "sq": "Kontrollo cilësimet e videos tënde",
+      "sr": "Провери подешавања свог видеа"
+    },
+    "Publish and share your video": {
+      "et": "Avalda oma video ja jaga seda",
+      "lv": "Publicē un kopīgo savu video",
+      "lt": "Paskelbk savo vaizdo įrašą ir juo pasidalyk",
+      "sl": "Objavi in deli svoj video",
+      "hr": "Objavi i podijeli svoj video",
+      "bs": "Objavi i podijeli svoj video",
+      "mk": "Објави и сподели го твоето видео",
+      "sq": "Publiko dhe shpërndaje videon tënde",
+      "sr": "Објави и подели свој видео"
+    },
+    "Create your channel": {
+      "et": "Loo oma kanal",
+      "lv": "Izveido savu kanālu",
+      "lt": "Sukurk savo kanalą",
+      "sl": "Ustvari svoj kanal",
+      "hr": "Izradi svoj kanal",
+      "bs": "Kreiraj svoj kanal",
+      "mk": "Создај свој канал",
+      "sq": "Krijo kanalin tënd",
+      "sr": "Направи свој канал"
+    },
+    "Your channel is not ready yet.": {
+      "et": "Sinu kanal pole veel valmis.",
+      "lv": "Tavs kanāls vēl nav gatavs.",
+      "lt": "Tavo kanalas dar neparuoštas.",
+      "sl": "Tvoj kanal še ni pripravljen.",
+      "hr": "Tvoj kanal još nije spreman.",
+      "bs": "Tvoj kanal još nije spreman.",
+      "mk": "Твојот канал сè уште не е подготвен.",
+      "sq": "Kanali yt nuk është ende gati.",
+      "sr": "Твој канал још није спреман."
+    },
+    "Your choices": {
+      "et": "Sinu valikud",
+      "lv": "Tava izvēle",
+      "lt": "Tavo pasirinkimai",
+      "sl": "Tvoje izbire",
+      "hr": "Tvoji izbori",
+      "bs": "Tvoji izbori",
+      "mk": "Твојот избор",
+      "sq": "Zgjedhjet e tua",
+      "sr": "Твоји избори"
+    },
+    "Your playlists": {
+      "et": "Sinu esitusloendid",
+      "lv": "Tavi atskaņošanas saraksti",
+      "lt": "Tavo grojaraščiai",
+      "sl": "Tvoji seznami predvajanja",
+      "hr": "Tvoji popisi za reprodukciju",
+      "bs": "Tvoje liste za reprodukciju",
+      "mk": "Твоите плејлисти",
+      "sq": "Listat e tua të luajtjes",
+      "sr": "Твоје листе за репродукцију"
+    },
+    "Your Reminders": {
+      "et": "Sinu meeldetuletused",
+      "lv": "Tavi atgādinājumi",
+      "lt": "Tavo priminimai",
+      "sl": "Tvoji opomniki",
+      "hr": "Tvoji podsjetnici",
+      "bs": "Tvoji podsjetnici",
+      "mk": "Твоите потсетници",
+      "sq": "Kujtesat e tua",
+      "sr": "Твоји подсетници"
+    },
+    "Your ad markup": {
+      "et": "Sinu reklaamikood",
+      "lv": "Tavs reklāmas kods",
+      "lt": "Tavo reklamos kodas",
+      "sl": "Tvoja oglasna koda",
+      "hr": "Tvoj oglasni kod",
+      "bs": "Tvoj oglasni kod",
+      "mk": "Твојот код за реклами",
+      "sq": "Kodi yt i reklamës",
+      "sr": "Твој код огласа"
+    }
+  }
+}

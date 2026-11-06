@@ -1,0 +1,77 @@
+{
+  "context": "Viewer modernization: Home global discovery headings, real-seconds remaining watch time, whole named category shelf navigation labels, explicit like toggle accessible names, watch queue labels. English/German reference; provider titles, categories, track labels and chapter cue text stay literal. Reviewed at Home/Watch narrow and desktop surfaces in viewer-experience browser tests.",
+  "messages": {
+    "Discover videos": {
+      "en": "Discover videos",
+      "de": "Videos entdecken"
+    },
+    "Discover creators": {
+      "en": "Discover creators",
+      "de": "Creator entdecken"
+    },
+    "{time} left": {
+      "en": "{time} left",
+      "de": "Noch {time}"
+    },
+    "{percent}% watched": {
+      "en": "{percent}% watched",
+      "de": "{percent} % angesehen"
+    },
+    "Watch progress": {
+      "en": "Watch progress",
+      "de": "Wiedergabefortschritt"
+    },
+    "Previous videos in {category}": {
+      "en": "Previous videos in {category}",
+      "de": "Vorherige Videos in {category}"
+    },
+    "Next videos in {category}": {
+      "en": "Next videos in {category}",
+      "de": "Nächste Videos in {category}"
+    },
+    "Videos in {category}": {
+      "en": "Videos in {category}",
+      "de": "Videos in {category}"
+    },
+    "Like video": {
+      "en": "Like video",
+      "de": "Video liken"
+    },
+    "Unlike video": {
+      "en": "Unlike video",
+      "de": "Like zurücknehmen"
+    },
+    "Queue": {
+      "en": "Queue",
+      "de": "Warteschlange"
+    },
+    "Save": {
+      "en": "Save",
+      "de": "Speichern"
+    },
+    "Import an AUF1 video page. Uses the published original stream when available, with the official player as fallback.": {
+      "en": "Import an AUF1 video page. Uses the published original stream when available, with the official player as fallback.",
+      "de": "Füge den Link zu einem AUF1-Video ein. Wenn verfügbar, wird der veröffentlichte Originalstream genutzt. Der offizielle Player steht als Mirror bereit."
+    },
+    "Use an AUF1 video page URL, not a channel, search, news post, radio, or live URL.": {
+      "en": "Use an AUF1 video page URL, not a channel, search, news post, radio, or live URL.",
+      "de": "Füge den Link zu einem aufgezeichneten AUF1-Video ein. Links zu Kanälen, Suchergebnissen, Textmeldungen, Radio oder Livestreams werden noch nicht unterstützt."
+    },
+    "AUF1 video metadata is currently unavailable. Try again later.": {
+      "en": "AUF1 video metadata is currently unavailable. Try again later.",
+      "de": "Die AUF1-Videodetails sind gerade nicht verfügbar. Versuch es später erneut."
+    },
+    "AUF1 video metadata could not be verified. Use an available recorded video page.": {
+      "en": "AUF1 video metadata could not be verified. Use an available recorded video page.",
+      "de": "Die AUF1-Videodetails konnten nicht geprüft werden. Verwende den Link zu einem verfügbaren aufgezeichneten Video."
+    },
+    "AUF1 video playback is currently unavailable. Try again later.": {
+      "en": "AUF1 video playback is currently unavailable. Try again later.",
+      "de": "Das AUF1-Video lässt sich gerade nicht abspielen. Versuch es später erneut."
+    },
+    "Subtitles": {
+      "en": "Subtitles",
+      "de": "Untertitel"
+    }
+  }
+}

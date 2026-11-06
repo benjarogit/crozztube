@@ -1,0 +1,149 @@
+{
+  "context": "Whole friendly creator guidance and own-channel states in seven language families: real uploaded-file processing confirmation remains distinct from external import; first playlists, new audiences, stream setup, profile editing and image limit. No commercial guarantees added and original video/post contents unchanged.",
+  "messages": {
+    "Your video was uploaded and processing has started.": {
+      "ru": "Твоё видео загружено. Обработка уже началась.",
+      "uk": "Твоє відео завантажено. Обробка вже почалася.",
+      "sk": "Tvoje video sa nahralo a začalo sa spracovanie.",
+      "bg": "Видеото ти е качено и обработката започна.",
+      "el": "Το βίντεό σου ανέβηκε και η επεξεργασία ξεκίνησε.",
+      "ro": "Videoclipul tău a fost încărcat și a început procesarea.",
+      "hu": "A videód feltöltődött, és elkezdődött a feldolgozása."
+    },
+    "From your saved channels": {
+      "ru": "Из твоих сохранённых каналов",
+      "uk": "Із твоїх збережених каналів",
+      "sk": "Z tvojich uložených kanálov",
+      "bg": "От запазените ти канали",
+      "el": "Από τα αποθηκευμένα κανάλια σου",
+      "ro": "Din canalele tale salvate",
+      "hu": "A mentett csatornáidról"
+    },
+    "Based on your channel data": {
+      "ru": "На основе данных твоего канала",
+      "uk": "На основі даних твого каналу",
+      "sk": "Podľa údajov tvojho kanála",
+      "bg": "Според данните на канала ти",
+      "el": "Με βάση τα δεδομένα του καναλιού σου",
+      "ro": "Pe baza datelor canalului tău",
+      "hu": "A csatornád adatai alapján"
+    },
+    "Your channel is not ready yet.": {
+      "ru": "Твой канал ещё не готов.",
+      "uk": "Твій канал ще не готовий.",
+      "sk": "Tvoj kanál ešte nie je pripravený.",
+      "bg": "Каналът ти още не е готов.",
+      "el": "Το κανάλι σου δεν είναι ακόμη έτοιμο.",
+      "ro": "Canalul tău nu este încă pregătit.",
+      "hu": "A csatornád még nem áll készen."
+    },
+    "Tell viewers what your channel is about.": {
+      "ru": "Расскажи зрителям о своём канале.",
+      "uk": "Розкажи глядачам про свій канал.",
+      "sk": "Povedz divákom, o čom je tvoj kanál.",
+      "bg": "Разкажи на зрителите за какво е каналът ти.",
+      "el": "Πες στους θεατές με τι ασχολείται το κανάλι σου.",
+      "ro": "Spune-le spectatorilor despre ce este canalul tău.",
+      "hu": "Mondd el a nézőknek, miről szól a csatornád."
+    },
+    "Grow your channel": {
+      "ru": "Развивай свой канал",
+      "uk": "Розвивай свій канал",
+      "sk": "Rozvíjaj svoj kanál",
+      "bg": "Развивай канала си",
+      "el": "Ανάπτυξε το κανάλι σου",
+      "ro": "Dezvoltă-ți canalul",
+      "hu": "Fejleszd a csatornádat"
+    },
+    "Organize your videos into a playlist": {
+      "ru": "Собери свои видео в плейлист",
+      "uk": "Збери свої відео в плейлист",
+      "sk": "Usporiadaj svoje videá do playlistu",
+      "bg": "Подреди видеата си в плейлист",
+      "el": "Οργάνωσε τα βίντεό σου σε λίστα αναπαραγωγής",
+      "ro": "Organizează-ți videoclipurile într-o listă de redare",
+      "hu": "Rendezd a videóidat lejátszási listába"
+    },
+    "Create your first playlist to organize videos from your channel and saved library.": {
+      "ru": "Создай первый плейлист и собери в нём видео со своего канала и из сохранённой библиотеки.",
+      "uk": "Створи перший плейлист і збери в ньому відео зі свого каналу та збереженої бібліотеки.",
+      "sk": "Vytvor svoj prvý playlist a usporiadaj videá zo svojho kanála a uloženej knižnice.",
+      "bg": "Създай първия си плейлист, за да подредиш видеа от канала си и запазената библиотека.",
+      "el": "Φτιάξε την πρώτη σου λίστα αναπαραγωγής για να οργανώσεις βίντεο από το κανάλι σου και την αποθηκευμένη βιβλιοθήκη.",
+      "ro": "Creează prima ta listă de redare ca să organizezi videoclipurile de pe canalul tău și din biblioteca salvată.",
+      "hu": "Hozd létre az első lejátszási listádat a csatornád és a mentett könyvtárad videóinak rendezéséhez."
+    },
+    "Use playlists to organize your content and make it easier for your audience to discover more videos.": {
+      "ru": "Собирай видео в плейлисты, чтобы зрителям было проще находить другие твои видео.",
+      "uk": "Збирай відео в плейлисти, щоб глядачам було легше знаходити інші твої відео.",
+      "sk": "Usporiadaj obsah do playlistov, aby diváci ľahšie objavili ďalšie tvoje videá.",
+      "bg": "Подреди съдържанието си в плейлисти, за да могат зрителите по-лесно да откриват още твои видеа.",
+      "el": "Οργάνωσε το περιεχόμενό σου σε λίστες αναπαραγωγής για να βρίσκουν οι θεατές πιο εύκολα περισσότερα βίντεο.",
+      "ro": "Organizează-ți conținutul în liste de redare, ca spectatorii să descopere mai ușor alte videoclipuri.",
+      "hu": "Rendezd a tartalmadat lejátszási listákba, hogy a nézők könnyebben találjanak további videókat."
+    },
+    "Upload your first video and give viewers a clear reason to subscribe.": {
+      "ru": "Загрузи первое видео и покажи зрителям, почему стоит подписаться на твой канал.",
+      "uk": "Завантаж перше відео й покажи глядачам, чому варто підписатися на твій канал.",
+      "sk": "Nahraj prvé video a ukáž divákom, prečo sa oplatí odoberať tvoj kanál.",
+      "bg": "Качи първото си видео и покажи на зрителите защо си струва да се абонират за канала ти.",
+      "el": "Ανέβασε το πρώτο σου βίντεο και δώσε στους θεατές έναν καλό λόγο να εγγραφούν.",
+      "ro": "Încarcă primul tău videoclip și arată-le spectatorilor de ce merită să se aboneze la canalul tău.",
+      "hu": "Töltsd fel az első videódat, és mutasd meg a nézőknek, miért érdemes feliratkozniuk."
+    },
+    "Create short vertical videos to reach viewers who have not found your channel yet.": {
+      "ru": "Создавай короткие вертикальные видео, чтобы твой канал увидели новые зрители.",
+      "uk": "Створюй короткі вертикальні відео, щоб твій канал побачили нові глядачі.",
+      "sk": "Vytváraj krátke videá na výšku a oslov divákov, ktorí tvoj kanál ešte neobjavili.",
+      "bg": "Създавай кратки вертикални видеа, за да достигнеш до зрители, които още не са открили канала ти.",
+      "el": "Φτιάξε σύντομα κατακόρυφα βίντεο για να σε γνωρίσουν θεατές που δεν έχουν βρει ακόμη το κανάλι σου.",
+      "ro": "Creează videoclipuri scurte pe verticală pentru spectatorii care încă nu ți-au descoperit canalul.",
+      "hu": "Készíts rövid, álló videókat, hogy azok a nézők is rád találjanak, akik még nem ismerik a csatornádat."
+    },
+    "Ask a question in your next upload and reply quickly when comments arrive.": {
+      "ru": "Задай зрителям вопрос в следующем видео и отвечай на комментарии по мере их появления.",
+      "uk": "Постав глядачам запитання в наступному відео й відповідай на коментарі, щойно вони з’являються.",
+      "sk": "V ďalšom videu polož otázku a odpovedaj na nové komentáre.",
+      "bg": "Задай въпрос в следващото си видео и отговаряй бързо на новите коментари.",
+      "el": "Κάνε μια ερώτηση στο επόμενο βίντεό σου και απάντα γρήγορα στα νέα σχόλια.",
+      "ro": "Pune o întrebare în următorul videoclip și răspunde rapid la comentariile noi.",
+      "hu": "Tegyél fel egy kérdést a következő videódban, és válaszolj gyorsan az új hozzászólásokra."
+    },
+    "Update your bio, channel details, and public creator presence.": {
+      "ru": "Обнови описание профиля, сведения о канале и свою публичную страницу автора.",
+      "uk": "Онови опис профілю, відомості про канал і свою публічну сторінку автора.",
+      "sk": "Aktualizuj svoj životopis, údaje o kanáli a verejný profil tvorcu.",
+      "bg": "Обнови биографията си, данните за канала и публичния си профил на създател.",
+      "el": "Ενημέρωσε το βιογραφικό σου, τα στοιχεία του καναλιού και το δημόσιο προφίλ σου ως δημιουργού.",
+      "ro": "Actualizează-ți biografia, detaliile canalului și profilul public de creator.",
+      "hu": "Frissítsd a bemutatkozásodat, a csatornád adatait és a nyilvános alkotói profilodat."
+    },
+    "Explore tools and tips to grow faster, improve your channel, and reach more viewers.": {
+      "ru": "Открой инструменты и советы, которые помогут развить канал и найти новых зрителей.",
+      "uk": "Переглянь інструменти й поради, які допоможуть розвивати канал і знаходити нових глядачів.",
+      "sk": "Objav nástroje a tipy, ktoré ti pomôžu rozvíjať kanál a osloviť viac divákov.",
+      "bg": "Разгледай инструменти и съвети, които ще ти помогнат да развиваш канала си и да достигаш до повече зрители.",
+      "el": "Ανακάλυψε εργαλεία και συμβουλές για να βελτιώσεις το κανάλι σου και να φτάσεις σε περισσότερους θεατές.",
+      "ro": "Descoperă instrumente și sfaturi care te ajută să-ți dezvolți canalul și să ajungi la mai mulți spectatori.",
+      "hu": "Fedezz fel eszközöket és tippeket a csatornád fejlesztéséhez és több néző eléréséhez."
+    },
+    "Set up your stream and go live with your community.": {
+      "ru": "Настрой трансляцию и выходи в эфир для своего сообщества.",
+      "uk": "Налаштуй трансляцію й виходь у прямий ефір для своєї спільноти.",
+      "sk": "Nastav si vysielanie a vysielaj naživo pre svoju komunitu.",
+      "bg": "Настрой излъчването си и се включи на живо със своята общност.",
+      "el": "Ρύθμισε τη μετάδοσή σου και βγες ζωντανά με την κοινότητά σου.",
+      "ro": "Pregătește-ți transmisia și intră în direct cu comunitatea ta.",
+      "hu": "Állítsd be a közvetítésedet, és találkozz élőben a közösségeddel."
+    },
+    "You can attach up to 4 images.": {
+      "ru": "Можно прикрепить до 4 изображений.",
+      "uk": "Можеш прикріпити до 4 зображень.",
+      "sk": "Môžeš priložiť najviac 4 obrázky.",
+      "bg": "Можеш да прикачиш до 4 изображения.",
+      "el": "Μπορείς να επισυνάψεις έως 4 εικόνες.",
+      "ro": "Poți atașa cel mult 4 imagini.",
+      "hu": "Legfeljebb 4 képet csatolhatsz."
+    }
+  }
+}

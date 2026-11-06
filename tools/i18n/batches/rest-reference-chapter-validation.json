@@ -1,0 +1,37 @@
+{
+  "context": "Chapter upload validation uses complete translated messages with named chapter/count/time placeholders; first timestamp0:00 is preserved. Provider chapter timing rules remain distinct from manually authored minimum spacing.",
+  "messages": {
+    "A video can have up to {count} chapters.": {
+      "en": "A video can have up to {count} chapters.",
+      "de": "Ein Video kann bis zu {count} Kapitel haben."
+    },
+    "Chapter {number} has an invalid timestamp.": {
+      "en": "Chapter {number} has an invalid timestamp.",
+      "de": "Die Zeitangabe für Kapitel {number} ist ungültig."
+    },
+    "The first chapter must start at 0:00.": {
+      "en": "The first chapter must start at 0:00.",
+      "de": "Das erste Kapitel muss bei 0:00 beginnen."
+    },
+    "Chapter timestamps must be in order and at least {seconds} seconds apart.": {
+      "en": "Chapter timestamps must be in order and at least {seconds} seconds apart.",
+      "de": "Die Kapitelzeiten müssen aufsteigend sein und mindestens {seconds} Sekunden auseinanderliegen."
+    },
+    "Chapter {number} starts after the video ends.": {
+      "en": "Chapter {number} must start before the video ends.",
+      "de": "Kapitel {number} muss vor dem Ende des Videos beginnen."
+    },
+    "Add a name for chapter {number} or turn off Upload with chapters.": {
+      "en": "Add a name for chapter {number} or turn off Upload with chapters.",
+      "de": "Gib Kapitel {number} einen Namen oder deaktiviere „Mit Kapiteln hochladen“."
+    },
+    "The name for chapter {number} must be 160 characters or fewer.": {
+      "en": "The name for chapter {number} must be 160 characters or fewer.",
+      "de": "Der Name für Kapitel {number} darf höchstens 160 Zeichen lang sein."
+    },
+    "Chapter {number} name": {
+      "en": "Chapter {number} name",
+      "de": "Name für Kapitel {number}"
+    }
+  }
+}

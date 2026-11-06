@@ -1,0 +1,113 @@
+{
+  "context": "Editorial six complete default email subjects/bodies for Hebrew, Iranian Persian, Afghan Dari, Hindi, Bangladeshi Bengali, Thai and Vietnamese. Friendly personal wording, no customer/formal imperatives; neutral status and restrictions remain exact. Persian password vocabulary versus Dari preserved. All literal usernames/roles/titles/credentials/URLs/tokens retained; no administrator overrides changed.",
+  "messages": {
+    "Your {SITENAME} verification code": {
+      "he_il": "קוד האימות שלך ב־{SITENAME}",
+      "fa_ir": "کد تأیید تو در {SITENAME}",
+      "fa_af": "کد تأیید تو در {SITENAME}",
+      "hi_in": "तुम्हारा {SITENAME} सत्यापन कोड",
+      "bn_bd": "তোমার {SITENAME} যাচাইকরণ কোড",
+      "th": "รหัสยืนยัน {SITENAME} ของคุณ",
+      "vi": "Mã xác minh {SITENAME} của bạn"
+    },
+    "Your {SITENAME} verification code is: {VERIFICATION_CODE}\n\nThis code expires in {EXPIRY_MINUTES} minutes.": {
+      "he_il": "קוד האימות שלך ב־{SITENAME}: {VERIFICATION_CODE}\n\nתוקף הקוד בדקות: {EXPIRY_MINUTES}.",
+      "fa_ir": "کد تأیید تو در {SITENAME}: {VERIFICATION_CODE}\n\nاین کد تا {EXPIRY_MINUTES} دقیقه معتبر است.",
+      "fa_af": "کد تأیید تو در {SITENAME}: {VERIFICATION_CODE}\n\nاین کد تا {EXPIRY_MINUTES} دقیقه معتبر است.",
+      "hi_in": "तुम्हारा {SITENAME} सत्यापन कोड: {VERIFICATION_CODE}\n\nयह कोड {EXPIRY_MINUTES} मिनट तक मान्य है।",
+      "bn_bd": "তোমার {SITENAME} যাচাইকরণ কোড: {VERIFICATION_CODE}\n\nএই কোড {EXPIRY_MINUTES} মিনিট পর্যন্ত কার্যকর থাকবে।",
+      "th": "รหัสยืนยัน {SITENAME} ของคุณ: {VERIFICATION_CODE}\n\nรหัสนี้ใช้ได้เป็นเวลา {EXPIRY_MINUTES} นาที",
+      "vi": "Mã xác minh {SITENAME} của bạn: {VERIFICATION_CODE}\n\nMã này có hiệu lực trong {EXPIRY_MINUTES} phút."
+    },
+    "Reset your {SITENAME} password": {
+      "he_il": "איפוס הסיסמה שלך ב־{SITENAME}",
+      "fa_ir": "بازنشانی گذرواژه‌ات در {SITENAME}",
+      "fa_af": "بازنشانی رمز عبورت در {SITENAME}",
+      "hi_in": "अपना {SITENAME} पासवर्ड रीसेट करो",
+      "bn_bd": "তোমার {SITENAME} পাসওয়ার্ড রিসেট করো",
+      "th": "รีเซ็ตรหัสผ่าน {SITENAME} ของคุณ",
+      "vi": "Đặt lại mật khẩu {SITENAME} của bạn"
+    },
+    "Hello {USERNAME},\n\nYour {SITENAME} password reset code is: {RESET_CODE}\n\nThis code expires in {EXPIRY_MINUTES} minutes.": {
+      "he_il": "היי {USERNAME},\n\nהקוד לאיפוס הסיסמה שלך ב־{SITENAME}: {RESET_CODE}\n\nתוקף הקוד בדקות: {EXPIRY_MINUTES}.",
+      "fa_ir": "سلام {USERNAME}،\n\nکد بازنشانی گذرواژه‌ات در {SITENAME}: {RESET_CODE}\n\nاین کد تا {EXPIRY_MINUTES} دقیقه معتبر است.",
+      "fa_af": "سلام {USERNAME}،\n\nکد بازنشانی رمز عبورت در {SITENAME}: {RESET_CODE}\n\nاین کد تا {EXPIRY_MINUTES} دقیقه معتبر است.",
+      "hi_in": "नमस्ते {USERNAME},\n\nतुम्हारा {SITENAME} पासवर्ड रीसेट कोड: {RESET_CODE}\n\nयह कोड {EXPIRY_MINUTES} मिनट तक मान्य है।",
+      "bn_bd": "হ্যালো {USERNAME},\n\nতোমার {SITENAME} পাসওয়ার্ড রিসেট কোড: {RESET_CODE}\n\nএই কোড {EXPIRY_MINUTES} মিনিট পর্যন্ত কার্যকর থাকবে।",
+      "th": "สวัสดี {USERNAME}\n\nรหัสรีเซ็ตรหัสผ่าน {SITENAME} ของคุณ: {RESET_CODE}\n\nรหัสนี้ใช้ได้เป็นเวลา {EXPIRY_MINUTES} นาที",
+      "vi": "Chào {USERNAME},\n\nMã đặt lại mật khẩu {SITENAME} của bạn: {RESET_CODE}\n\nMã này có hiệu lực trong {EXPIRY_MINUTES} phút."
+    },
+    "You have been invited to {SITENAME}": {
+      "he_il": "קיבלת הזמנה ל־{SITENAME}",
+      "fa_ir": "به {SITENAME} دعوت شده‌ای",
+      "fa_af": "به {SITENAME} دعوت شده‌ای",
+      "hi_in": "तुम्हें {SITENAME} पर आने का न्योता मिला है",
+      "bn_bd": "তুমি {SITENAME}-এ যোগ দেওয়ার আমন্ত্রণ পেয়েছ",
+      "th": "คุณได้รับคำเชิญให้เข้าร่วม {SITENAME}",
+      "vi": "Bạn được mời tham gia {SITENAME}"
+    },
+    "Hello {USERNAME},\n\nYou have been invited to {SITENAME} as {ROLE}.\n\nLogin email: {USER_EMAIL}\nTemporary password: {TEMPORARY_PASSWORD}\nLogin: {LOGIN_URL}\n\nPlease sign in and update your password.": {
+      "he_il": "היי {USERNAME},\n\nקיבלת הזמנה להצטרף ל־{SITENAME} בתפקיד: {ROLE}.\n\nכתובת האימייל לכניסה: {USER_EMAIL}\nסיסמה זמנית: {TEMPORARY_PASSWORD}\nכניסה: {LOGIN_URL}\n\nהיכנס ועדכן את הסיסמה שלך.",
+      "fa_ir": "سلام {USERNAME}،\n\nبه {SITENAME} دعوت شده‌ای. نقش تو: {ROLE}\n\nایمیل ورود: {USER_EMAIL}\nگذرواژهٔ موقت: {TEMPORARY_PASSWORD}\nورود: {LOGIN_URL}\n\nوارد شو و گذرواژه‌ات را تغییر بده.",
+      "fa_af": "سلام {USERNAME}،\n\nبه {SITENAME} دعوت شده‌ای. نقش تو: {ROLE}\n\nایمیل ورود: {USER_EMAIL}\nرمز عبور موقت: {TEMPORARY_PASSWORD}\nورود: {LOGIN_URL}\n\nوارد شو و رمز عبورت را تغییر بده.",
+      "hi_in": "नमस्ते {USERNAME},\n\nतुम्हें {SITENAME} पर आने का न्योता मिला है। तुम्हारी भूमिका: {ROLE}\n\nलॉगिन ईमेल: {USER_EMAIL}\nअस्थायी पासवर्ड: {TEMPORARY_PASSWORD}\nलॉगिन: {LOGIN_URL}\n\nलॉगिन करके अपना पासवर्ड बदल लो।",
+      "bn_bd": "হ্যালো {USERNAME},\n\nতুমি {SITENAME}-এ যোগ দেওয়ার আমন্ত্রণ পেয়েছ। তোমার ভূমিকা: {ROLE}\n\nলগইন ইমেইল: {USER_EMAIL}\nঅস্থায়ী পাসওয়ার্ড: {TEMPORARY_PASSWORD}\nলগইন: {LOGIN_URL}\n\nলগইন করে তোমার পাসওয়ার্ড বদলে নাও।",
+      "th": "สวัสดี {USERNAME}\n\nคุณได้รับคำเชิญให้เข้าร่วม {SITENAME} ในบทบาท: {ROLE}\n\nอีเมลเข้าสู่ระบบ: {USER_EMAIL}\nรหัสผ่านชั่วคราว: {TEMPORARY_PASSWORD}\nเข้าสู่ระบบ: {LOGIN_URL}\n\nเข้าสู่ระบบแล้วเปลี่ยนรหัสผ่านของคุณนะ",
+      "vi": "Chào {USERNAME},\n\nBạn được mời tham gia {SITENAME} với vai trò: {ROLE}.\n\nEmail đăng nhập: {USER_EMAIL}\nMật khẩu tạm thời: {TEMPORARY_PASSWORD}\nĐăng nhập: {LOGIN_URL}\n\nĐăng nhập rồi đổi mật khẩu của bạn nhé."
+    },
+    "Your {SITENAME} account has been restricted": {
+      "he_il": "הוטלו הגבלות על החשבון שלך ב־{SITENAME}",
+      "fa_ir": "حسابت در {SITENAME} محدود شده",
+      "fa_af": "حسابت در {SITENAME} محدود شده",
+      "hi_in": "तुम्हारे {SITENAME} खाते पर पाबंदियाँ लगाई गई हैं",
+      "bn_bd": "তোমার {SITENAME} অ্যাকাউন্টে সীমাবদ্ধতা দেওয়া হয়েছে",
+      "th": "บัญชี {SITENAME} ของคุณถูกจำกัดการใช้งาน",
+      "vi": "Tài khoản {SITENAME} của bạn đã bị hạn chế"
+    },
+    "Hello {USERNAME},\n\nYour {SITENAME} account has been restricted until {BAN_EXPIRES_AT}.\n\nRestrictions:\n{RESTRICTIONS}\n\nIf you believe this is a mistake, contact {SUPPORT_EMAIL}.": {
+      "he_il": "היי {USERNAME},\n\nהוטלו הגבלות על החשבון שלך ב־{SITENAME} עד {BAN_EXPIRES_AT}.\n\nההגבלות:\n{RESTRICTIONS}\n\nאם לדעתך מדובר בטעות, פנה אל {SUPPORT_EMAIL}.",
+      "fa_ir": "سلام {USERNAME}،\n\nحسابت در {SITENAME} تا {BAN_EXPIRES_AT} محدود شده است.\n\nمحدودیت‌ها:\n{RESTRICTIONS}\n\nاگر فکر می‌کنی اشتباهی رخ داده، با {SUPPORT_EMAIL} تماس بگیر.",
+      "fa_af": "سلام {USERNAME}،\n\nحسابت در {SITENAME} تا {BAN_EXPIRES_AT} محدود شده است.\n\nمحدودیت‌ها:\n{RESTRICTIONS}\n\nاگر فکر می‌کنی اشتباهی رخ داده، با {SUPPORT_EMAIL} تماس بگیر.",
+      "hi_in": "नमस्ते {USERNAME},\n\nतुम्हारे {SITENAME} खाते पर {BAN_EXPIRES_AT} तक पाबंदियाँ लगाई गई हैं।\n\nपाबंदियाँ:\n{RESTRICTIONS}\n\nअगर तुम्हें लगता है कि यह गलती से हुआ है, तो {SUPPORT_EMAIL} पर संपर्क करो।",
+      "bn_bd": "হ্যালো {USERNAME},\n\nতোমার {SITENAME} অ্যাকাউন্টে {BAN_EXPIRES_AT} পর্যন্ত সীমাবদ্ধতা দেওয়া হয়েছে।\n\nসীমাবদ্ধতা:\n{RESTRICTIONS}\n\nতোমার মনে হলে যে এটা ভুল হয়েছে, {SUPPORT_EMAIL}-এ যোগাযোগ করো।",
+      "th": "สวัสดี {USERNAME}\n\nบัญชี {SITENAME} ของคุณถูกจำกัดการใช้งานจนถึง {BAN_EXPIRES_AT}\n\nข้อจำกัด:\n{RESTRICTIONS}\n\nหากคิดว่าเกิดความผิดพลาด ติดต่อ {SUPPORT_EMAIL} ได้เลย",
+      "vi": "Chào {USERNAME},\n\nTài khoản {SITENAME} của bạn bị hạn chế đến {BAN_EXPIRES_AT}.\n\nCác hạn chế:\n{RESTRICTIONS}\n\nNếu bạn nghĩ đây là nhầm lẫn, hãy liên hệ {SUPPORT_EMAIL}."
+    },
+    "You are now a {SITENAME} moderator": {
+      "he_il": "קיבלת תפקיד ניהול תוכן ב־{SITENAME}",
+      "fa_ir": "حالا ناظر {SITENAME} هستی",
+      "fa_af": "حالا ناظر {SITENAME} هستی",
+      "hi_in": "अब तुम {SITENAME} के मॉडरेटर हो",
+      "bn_bd": "তুমি এখন {SITENAME}-এর মডারেটর",
+      "th": "ตอนนี้คุณเป็นผู้ดูแลเนื้อหาของ {SITENAME} แล้ว",
+      "vi": "Bạn đã trở thành người kiểm duyệt của {SITENAME}"
+    },
+    "Hello {USERNAME},\n\nYou have been assigned the Moderator role on {SITENAME}. You can now access the moderation tools available to your role.\n\nModeration dashboard: {MODERATION_URL}": {
+      "he_il": "היי {USERNAME},\n\nקיבלת תפקיד ניהול תוכן ב־{SITENAME}. עכשיו אפשר להשתמש בכלי ניהול התוכן הזמינים לתפקיד שלך.\n\nלוח ניהול התוכן: {MODERATION_URL}",
+      "fa_ir": "سلام {USERNAME}،\n\nنقش ناظر در {SITENAME} به تو داده شده است. حالا می‌توانی از ابزارهای نظارتی مجاز برای نقشت استفاده کنی.\n\nپیشخوان نظارت: {MODERATION_URL}",
+      "fa_af": "سلام {USERNAME}،\n\nنقش ناظر در {SITENAME} به تو داده شده است. حالا می‌توانی از ابزارهای نظارتی مجاز برای نقشت استفاده کنی.\n\nصفحهٔ مدیریت نظارت: {MODERATION_URL}",
+      "hi_in": "नमस्ते {USERNAME},\n\nतुम्हें {SITENAME} पर मॉडरेटर की भूमिका मिली है। अब तुम अपनी भूमिका के लिए उपलब्ध मॉडरेशन टूल इस्तेमाल कर सकते हो।\n\nमॉडरेशन डैशबोर्ड: {MODERATION_URL}",
+      "bn_bd": "হ্যালো {USERNAME},\n\nতোমাকে {SITENAME}-এ মডারেটরের ভূমিকা দেওয়া হয়েছে। এখন তোমার ভূমিকার জন্য উপলব্ধ মডারেশন টুল ব্যবহার করতে পারো।\n\nমডারেশন ড্যাশবোর্ড: {MODERATION_URL}",
+      "th": "สวัสดี {USERNAME}\n\nคุณได้รับบทบาทผู้ดูแลเนื้อหาบน {SITENAME} ตอนนี้ใช้เครื่องมือดูแลเนื้อหาที่บทบาทนี้อนุญาตได้แล้ว\n\nแดชบอร์ดดูแลเนื้อหา: {MODERATION_URL}",
+      "vi": "Chào {USERNAME},\n\nBạn đã được giao vai trò người kiểm duyệt trên {SITENAME}. Giờ bạn có thể dùng các công cụ kiểm duyệt dành cho vai trò của mình.\n\nBảng điều khiển kiểm duyệt: {MODERATION_URL}"
+    },
+    "You are moderating \"{STREAM_TITLE}\" on {SITENAME}": {
+      "he_il": "קיבלת תפקיד ניהול תוכן בשידור \"{STREAM_TITLE}\" ב־{SITENAME}",
+      "fa_ir": "ناظر پخش «{STREAM_TITLE}» در {SITENAME} شده‌ای",
+      "fa_af": "ناظر پخش «{STREAM_TITLE}» در {SITENAME} شده‌ای",
+      "hi_in": "तुम {SITENAME} पर \"{STREAM_TITLE}\" के मॉडरेटर हो",
+      "bn_bd": "তুমি {SITENAME}-এ \"{STREAM_TITLE}\" মডারেট করছ",
+      "th": "คุณเป็นผู้ดูแลสตรีม \"{STREAM_TITLE}\" บน {SITENAME}",
+      "vi": "Bạn đang kiểm duyệt \"{STREAM_TITLE}\" trên {SITENAME}"
+    },
+    "Hello {USERNAME},\n\nYou have been assigned as a moderator for the live stream \"{STREAM_TITLE}\". Open the stream to access your moderation controls.\n\nOpen stream: {STREAM_URL}": {
+      "he_il": "היי {USERNAME},\n\nקיבלת תפקיד ניהול תוכן בשידור החי \"{STREAM_TITLE}\". פתח את השידור כדי להשתמש בכלי ניהול התוכן.\n\nפתיחת השידור: {STREAM_URL}",
+      "fa_ir": "سلام {USERNAME}،\n\nبه‌عنوان ناظر پخش زندهٔ «{STREAM_TITLE}» انتخاب شده‌ای. پخش را باز کن تا به ابزارهای نظارت دسترسی داشته باشی.\n\nباز کردن پخش: {STREAM_URL}",
+      "fa_af": "سلام {USERNAME}،\n\nبه‌عنوان ناظر پخش زندهٔ «{STREAM_TITLE}» انتخاب شده‌ای. پخش را باز کن تا به ابزارهای نظارت دسترسی داشته باشی.\n\nباز کردن پخش: {STREAM_URL}",
+      "hi_in": "नमस्ते {USERNAME},\n\nतुम्हें \"{STREAM_TITLE}\" लाइव स्ट्रीम का मॉडरेटर बनाया गया है। मॉडरेशन टूल इस्तेमाल करने के लिए स्ट्रीम खोलो।\n\nस्ट्रीम खोलो: {STREAM_URL}",
+      "bn_bd": "হ্যালো {USERNAME},\n\nতোমাকে \"{STREAM_TITLE}\" লাইভ স্ট্রিমের মডারেটর করা হয়েছে। মডারেশন টুল ব্যবহার করতে স্ট্রিমটি খোলো।\n\nস্ট্রিম খোলো: {STREAM_URL}",
+      "th": "สวัสดี {USERNAME}\n\nคุณได้รับมอบหมายให้เป็นผู้ดูแลสตรีมสด \"{STREAM_TITLE}\" เปิดสตรีมเพื่อใช้เครื่องมือดูแลเนื้อหาได้เลย\n\nเปิดสตรีม: {STREAM_URL}",
+      "vi": "Chào {USERNAME},\n\nBạn đã được giao kiểm duyệt buổi phát trực tiếp \"{STREAM_TITLE}\". Mở buổi phát để dùng các công cụ kiểm duyệt.\n\nMở buổi phát: {STREAM_URL}"
+    }
+  }
+}

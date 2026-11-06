@@ -1,0 +1,11 @@
+{
+  "id": "crozztube.bitchute", "name": "CrozzTube BitChute Provider", "version": "1.0.0", "api": 1,
+  "description": "BitChute als Provider mit automatischer URL-Erkennung, Metadaten, yt-dlp-Anreicherung und offiziellem Player-Fallback.",
+  "homepage": "https://www.bitchute.com/", "author": { "name": "CrozzTube" },
+  "requires": { "playhub": ">=0.9.13", "php": ">=8.3.0", "extensions": ["json"] },
+  "dependencies": { "crozztube.source-resolver": ">=0.8.0" },
+  "autoload": { "psr-4": { "CrzBitChute\\": "src/" } },
+  "providers": ["CrzBitChute\\PluginServiceProvider"], "lifecycle": "CrzBitChute\\Lifecycle",
+  "settings": [{ "key": "enrich_metadata", "label": "Metadaten mit yt-dlp ergaenzen", "type": "boolean", "description": "Ergaenzt Metadaten, Kapitel und Untertitel, soweit BitChute und yt-dlp sie anbieten.", "default": true, "public": false }],
+  "capabilities": ["Automatische BitChute-URL-Erkennung", "Beschreibung, Tags und Creator aus der oeffentlichen API", "Native Streams ueber yt-dlp und Source Resolver", "Offizieller BitChute-Player als Fallback"]
+}

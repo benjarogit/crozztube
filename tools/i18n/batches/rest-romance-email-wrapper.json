@@ -1,0 +1,24 @@
+{
+  "context": "Complete built-in email wrapper label and sent-by sentence, selected locale, linked literal site placeholder retained. FR-CA courriel; no edited subjects/bodies or administrator override translation.",
+  "messages": {
+    "Notification": {
+      "fr": "Notification",
+      "es": "Notificación",
+      "pt": "Notificação",
+      "it": "Notifica",
+      "ca": "Notificació",
+      "gl": "Notificación",
+      "eo": "Sciigo"
+    },
+    "This email was sent by {site}.": {
+      "fr": "Cet email a été envoyé par {site}.",
+      "es": "Este correo lo ha enviado {site}.",
+      "pt": "Este email foi enviado por {site}.",
+      "it": "Questa email è stata inviata da {site}.",
+      "ca": "Aquest correu l’ha enviat {site}.",
+      "gl": "Este correo enviouno {site}.",
+      "eo": "Ĉi tiun retmesaĝon sendis {site}.",
+      "fr_ca": "Ce courriel a été envoyé par {site}."
+    }
+  }
+}

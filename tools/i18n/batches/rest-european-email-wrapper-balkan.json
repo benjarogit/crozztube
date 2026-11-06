@@ -1,0 +1,21 @@
+{
+  "context": "Complete Balkan group notification/sent-by email wrappers; arbitrary linked site remains literal.",
+  "messages": {
+    "Notification": {
+      "sl": "Obvestilo",
+      "hr": "Obavijest",
+      "bs": "Obavijest",
+      "sr": "Обавештење",
+      "mk": "Известување",
+      "sq": "Njoftim"
+    },
+    "This email was sent by {site}.": {
+      "sl": "To e-poštno sporočilo je poslalo spletno mesto {site}.",
+      "hr": "Ovu e-poruku poslalo je web-mjesto {site}.",
+      "bs": "Ovu e-poruku poslala je web-stranica {site}.",
+      "sr": "Ову имејл поруку послао је сајт {site}.",
+      "mk": "Оваа е-порака е испратена од {site}.",
+      "sq": "Ky e-mail u dërgua nga {site}."
+    }
+  }
+}

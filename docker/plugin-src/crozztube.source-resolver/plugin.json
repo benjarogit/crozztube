@@ -1,7 +1,7 @@
 {
   "id": "crozztube.source-resolver",
   "name": "CrozzTube Source Resolver",
-  "version": "0.7.1",
+  "version": "0.9.1",
   "api": 1,
   "description": "Loest mit yt-dlp Direkt-URLs (HLS bevorzugt, MP4-Fallback) fuer importierte Videos, Refreshing bei Ablauf mit Single-Flight-Lock, Status-Endpoint fuer wartende Nutzer, provider-neutraler Mirror-Umschalter (Original-Embed), Download-Passthrough fuer progressive MP4. Kein Re-Hosting: alle Streamssegmente spielen ab Original. Health-Endpoint zeigt yt-dlp-/ffprobe-Version und Quellenzustand.",
   "homepage": "https://crozztube.local:8443",
@@ -85,11 +85,12 @@
   ],
   "capabilities": [
     "yt-dlp Direkt-URL Auflösung für importierte Videos",
+    "Originalton und waehlbare HLS-Audiosprachen im Player",
     "Single-Flight Refresh-Lock (Redis/DB) bei abgelaufenen urls",
     "Status-Endpoint für wartende Nutzer (Banner)",
     "Download-Passthrough für progressive MP4",
     "Provider-neutraler Mirror-Umschalter (Embed/Link)",
-    "Embed-Fallback bleibt immer verfügbar, wenn Resolver nicht liefert",
+    "Original-Embed als manueller Mirror bei wartender oder fehlender Direktquelle",
     "Health-Endpoint: yt-dlp-/ffprobe-Version und Quellenzustand"
   ]
 }

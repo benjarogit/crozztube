@@ -1,0 +1,23 @@
+{
+  "context": "Complete native notification header/sender footer for seven additional European languages; linked site token kept literal.",
+  "messages": {
+    "Notification": {
+      "et": "Teavitus",
+      "lv": "Paziņojums",
+      "lt": "Pranešimas",
+      "bel": "Апавяшчэнне",
+      "eu": "Jakinarazpena",
+      "fy": "Melding",
+      "cy": "Hysbysiad"
+    },
+    "This email was sent by {site}.": {
+      "et": "Selle e-kirja saatis {site}.",
+      "lv": "Šo e-pastu nosūtīja {site}.",
+      "lt": "Šį el. laišką išsiuntė {site}.",
+      "bel": "Гэты ліст адпраўлены сайтам {site}.",
+      "eu": "Mezu elektroniko hau {site} webguneak bidali du.",
+      "fy": "Dizze e-mail is ferstjoerd troch {site}.",
+      "cy": "Anfonwyd yr e-bost hwn gan {site}."
+    }
+  }
+}

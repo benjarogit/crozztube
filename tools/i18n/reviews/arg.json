@@ -1,0 +1,206 @@
+{
+  "version": 1,
+  "locale": "arg",
+  "messages": {
+    "1445799c033a2d17e2bad5d8610879e71ff0d73a8a3c2b932b43ad0449dac3a1": {
+      "source_hash": "1445799c033a2d17e2bad5d8610879e71ff0d73a8a3c2b932b43ad0449dac3a1",
+      "translation_hash": "b5b3248c8e729d1d66bd75e06c3fae642e31d0c836f89b169a59354d93fae61b",
+      "status": "editorial",
+      "contexts": [
+        "Focused native settings/navigation terminology checked in Mozilla official Friulian, Occitan and Aragonese preference catalogs. Changes use established short terms; complex sentences, privacy statements and register outside these labels remain explicitly unreviewed."
+      ],
+      "reviewed_at": "2026-11-06T10:30:45+00:00"
+    },
+    "19766ed6ccb2f4a32778eed80d1928d2c87a18d7c275ccb163ec6709d3eb2e27": {
+      "source_hash": "19766ed6ccb2f4a32778eed80d1928d2c87a18d7c275ccb163ec6709d3eb2e27",
+      "translation_hash": "bb9dbb406dcbd5248babc609bb3d021d384398f83dbdb8d53c9b0e32c2aad915",
+      "status": "editorial",
+      "contexts": [
+        "Focused native settings/navigation terminology checked in Mozilla official Friulian, Occitan and Aragonese preference catalogs. Changes use established short terms; complex sentences, privacy statements and register outside these labels remain explicitly unreviewed."
+      ],
+      "reviewed_at": "2026-11-06T10:30:45+00:00"
+    },
+    "1ff57a29d7c9d11bdf61c1b80f2b289b44c1ea844824d4b94a0d52b6ba5fc858": {
+      "source_hash": "1ff57a29d7c9d11bdf61c1b80f2b289b44c1ea844824d4b94a0d52b6ba5fc858",
+      "translation_hash": "f1ace26e4d3fcbd23d7162d65bc9a261d3d332960ada9f400717fb5aff278c36",
+      "status": "editorial",
+      "contexts": [
+        "Focused terminology review: Friulian, Occitan and Aragonese native media/navigation labels checked against Mozilla’s official language sources; Shorts remains the product format. This is not approval of unreviewed long sentences or the rest of these packages."
+      ],
+      "reviewed_at": "2026-11-06T10:26:07+00:00"
+    },
+    "318655cea4bd2096fbfad433d7c019bac40750d1a456fc34d366df41fcc77197": {
+      "source_hash": "318655cea4bd2096fbfad433d7c019bac40750d1a456fc34d366df41fcc77197",
+      "translation_hash": "dfee336770735631febd62318a933fd66d6462c02e4ecfe0eb88a0638c8d0a2b",
+      "status": "editorial",
+      "contexts": [
+        "Focused native settings/navigation terminology checked in Mozilla official Friulian, Occitan and Aragonese preference catalogs. Changes use established short terms; complex sentences, privacy statements and register outside these labels remain explicitly unreviewed."
+      ],
+      "reviewed_at": "2026-11-06T10:30:45+00:00"
+    },
+    "37fd4e355ba33fd221d96b521f19c383896d2deb4e2c85fb9bc9a889c1f5caa5": {
+      "source_hash": "37fd4e355ba33fd221d96b521f19c383896d2deb4e2c85fb9bc9a889c1f5caa5",
+      "translation_hash": "deaf90cfaf1c65bb8ba9a88ff1b594891aa45d13cee2ddf50de9f81b883b391b",
+      "status": "editorial",
+      "contexts": [
+        "Focused terminology review: Friulian, Occitan and Aragonese native media/navigation labels checked against Mozilla’s official language sources; Shorts remains the product format. This is not approval of unreviewed long sentences or the rest of these packages."
+      ],
+      "reviewed_at": "2026-11-06T10:26:07+00:00"
+    },
+    "3a78695388b38b5cceefaf6796b0137877514593543b91af2752d5a17e3d736c": {
+      "source_hash": "3a78695388b38b5cceefaf6796b0137877514593543b91af2752d5a17e3d736c",
+      "translation_hash": "58fcc9468fe1f60716a71caef50fce70a6d2d46f7a2c0d0f45f1f76dc7779625",
+      "status": "editorial",
+      "contexts": [
+        "Focused native settings/navigation terminology checked in Mozilla official Friulian, Occitan and Aragonese preference catalogs. Changes use established short terms; complex sentences, privacy statements and register outside these labels remain explicitly unreviewed."
+      ],
+      "reviewed_at": "2026-11-06T10:30:45+00:00"
+    },
+    "3c784a16cf27568e948bbdffd5d250bb35e98454112f9196c59f7636666699f7": {
+      "source_hash": "3c784a16cf27568e948bbdffd5d250bb35e98454112f9196c59f7636666699f7",
+      "translation_hash": "3c784a16cf27568e948bbdffd5d250bb35e98454112f9196c59f7636666699f7",
+      "status": "editorial",
+      "contexts": [
+        "Focused terminology review: Friulian, Occitan and Aragonese native media/navigation labels checked against Mozilla’s official language sources; Shorts remains the product format. This is not approval of unreviewed long sentences or the rest of these packages."
+      ],
+      "reviewed_at": "2026-11-06T10:26:07+00:00"
+    },
+    "436e61016e26fcb773b9725745cbbf0afe7f001ea26041a814a7712c2925c442": {
+      "source_hash": "436e61016e26fcb773b9725745cbbf0afe7f001ea26041a814a7712c2925c442",
+      "translation_hash": "ec6e6405bf90d5c646e7a76e8c38775642e48eda300706bfd9f90b789c3df389",
+      "status": "editorial",
+      "contexts": [
+        "Focused terminology review: Friulian, Occitan and Aragonese native media/navigation labels checked against Mozilla’s official language sources; Shorts remains the product format. This is not approval of unreviewed long sentences or the rest of these packages."
+      ],
+      "reviewed_at": "2026-11-06T10:26:07+00:00"
+    },
+    "49c266baaaa70981ea188fa714d5c40cf13830d786a861c9943ae0d26a7f3fe9": {
+      "source_hash": "49c266baaaa70981ea188fa714d5c40cf13830d786a861c9943ae0d26a7f3fe9",
+      "translation_hash": "6f9ead072155818bd62d12314d57d08d387ee6100658a414d1d905c6879134bf",
+      "status": "editorial",
+      "contexts": [
+        "Focused native settings/navigation terminology checked in Mozilla official Friulian, Occitan and Aragonese preference catalogs. Changes use established short terms; complex sentences, privacy statements and register outside these labels remain explicitly unreviewed."
+      ],
+      "reviewed_at": "2026-11-06T10:30:45+00:00"
+    },
+    "724e78a3254c899d16ef6324a7abc9a8f5240ffce8bff74976df397c68ce9d78": {
+      "source_hash": "724e78a3254c899d16ef6324a7abc9a8f5240ffce8bff74976df397c68ce9d78",
+      "translation_hash": "9420a659c6b14dbb011e9b312ebe9ac21b494f3928c96e2b57ce5e518b4d4d1e",
+      "status": "editorial",
+      "contexts": [
+        "Focused terminology review: Friulian, Occitan and Aragonese native media/navigation labels checked against Mozilla’s official language sources; Shorts remains the product format. This is not approval of unreviewed long sentences or the rest of these packages."
+      ],
+      "reviewed_at": "2026-11-06T10:26:07+00:00"
+    },
+    "74a883a037bc227f91891ab654a753d3a99f31ab06ae5b5d2b6e594a692b41f8": {
+      "source_hash": "74a883a037bc227f91891ab654a753d3a99f31ab06ae5b5d2b6e594a692b41f8",
+      "translation_hash": "a5483c3044ccf911b68a6ff0b3de71ce31bed7b1e18dd68f55bc835bd67d754e",
+      "status": "editorial",
+      "contexts": [
+        "Focused native settings/navigation terminology checked in Mozilla official Friulian, Occitan and Aragonese preference catalogs. Changes use established short terms; complex sentences, privacy statements and register outside these labels remain explicitly unreviewed."
+      ],
+      "reviewed_at": "2026-11-06T10:30:45+00:00"
+    },
+    "76900f1bfd16c8d4dd3d25e6f46638d7165aee23883ccea6bfe071c514421769": {
+      "source_hash": "76900f1bfd16c8d4dd3d25e6f46638d7165aee23883ccea6bfe071c514421769",
+      "translation_hash": "b7212b851acd52b1f6d0f85918d77bcc9dc1633fed59105e2ba92739765697d4",
+      "status": "editorial",
+      "contexts": [
+        "Focused terminology review: Friulian, Occitan and Aragonese native media/navigation labels checked against Mozilla’s official language sources; Shorts remains the product format. This is not approval of unreviewed long sentences or the rest of these packages."
+      ],
+      "reviewed_at": "2026-11-06T10:26:07+00:00"
+    },
+    "7d9eb7acb13e24625c404401d8e88b2350e32162455885f18276cf802f7701ed": {
+      "source_hash": "7d9eb7acb13e24625c404401d8e88b2350e32162455885f18276cf802f7701ed",
+      "translation_hash": "3801bc33fb34af1f10f05dcced750f48bc1c24d41e499554dad29fa45931b9ee",
+      "status": "editorial",
+      "contexts": [
+        "Focused native settings/navigation terminology checked in Mozilla official Friulian, Occitan and Aragonese preference catalogs. Changes use established short terms; complex sentences, privacy statements and register outside these labels remain explicitly unreviewed."
+      ],
+      "reviewed_at": "2026-11-06T10:30:45+00:00"
+    },
+    "858e4ba7a29fd38b630ed73a79e2738333b3fc6778fafa90252f5556c1262fdc": {
+      "source_hash": "858e4ba7a29fd38b630ed73a79e2738333b3fc6778fafa90252f5556c1262fdc",
+      "translation_hash": "299b1451f66bbf125f5ba62b6e7a111a0ef6e2cdcfaab9ece8822084116e6f7f",
+      "status": "editorial",
+      "contexts": [
+        "Focused terminology review: Friulian, Occitan and Aragonese native media/navigation labels checked against Mozilla’s official language sources; Shorts remains the product format. This is not approval of unreviewed long sentences or the rest of these packages."
+      ],
+      "reviewed_at": "2026-11-06T10:26:07+00:00"
+    },
+    "be91940b79f469101df9a50544b6873aa5509a12f1f93f1cb5e3be3990d344b3": {
+      "source_hash": "be91940b79f469101df9a50544b6873aa5509a12f1f93f1cb5e3be3990d344b3",
+      "translation_hash": "591ce37c0aa9d24015b25455c9beb8beab73354e1b9ea1f5f626957464a876ac",
+      "status": "editorial",
+      "contexts": [
+        "Focused native settings/navigation terminology checked in Mozilla official Friulian, Occitan and Aragonese preference catalogs. Changes use established short terms; complex sentences, privacy statements and register outside these labels remain explicitly unreviewed."
+      ],
+      "reviewed_at": "2026-11-06T10:30:45+00:00"
+    },
+    "c461dbb2bab7d8bc64c03223ead55766cf4f897856579a7162e0e384249d83fc": {
+      "source_hash": "c461dbb2bab7d8bc64c03223ead55766cf4f897856579a7162e0e384249d83fc",
+      "translation_hash": "93f2f9113746c72ac9af00244ad0d5aedaf19e5b8225114eaff4f3d3365377a2",
+      "status": "editorial",
+      "contexts": [
+        "Focused terminology review: Friulian, Occitan and Aragonese native media/navigation labels checked against Mozilla’s official language sources; Shorts remains the product format. This is not approval of unreviewed long sentences or the rest of these packages."
+      ],
+      "reviewed_at": "2026-11-06T10:26:07+00:00"
+    },
+    "c910d474dcd724bff83ddedeb06bf1eceaf9fb3af7c76bb282be057f36e6dffa": {
+      "source_hash": "c910d474dcd724bff83ddedeb06bf1eceaf9fb3af7c76bb282be057f36e6dffa",
+      "translation_hash": "87c0fea14e29b9e67fec72c5cabcceedb228e2a2196dc0a68f33da71332a4820",
+      "status": "editorial",
+      "contexts": [
+        "Focused native settings/navigation terminology checked in Mozilla official Friulian, Occitan and Aragonese preference catalogs. Changes use established short terms; complex sentences, privacy statements and register outside these labels remain explicitly unreviewed."
+      ],
+      "reviewed_at": "2026-11-06T10:30:45+00:00"
+    },
+    "cae7d57bc067a514b8e34c9589631a95c7dc051638ddd2a190773269279a99df": {
+      "source_hash": "cae7d57bc067a514b8e34c9589631a95c7dc051638ddd2a190773269279a99df",
+      "translation_hash": "299b1451f66bbf125f5ba62b6e7a111a0ef6e2cdcfaab9ece8822084116e6f7f",
+      "status": "editorial",
+      "contexts": [
+        "Focused terminology review: Friulian, Occitan and Aragonese native media/navigation labels checked against Mozilla’s official language sources; Shorts remains the product format. This is not approval of unreviewed long sentences or the rest of these packages."
+      ],
+      "reviewed_at": "2026-11-06T10:26:07+00:00"
+    },
+    "f096950eacff59f35d3bc8265325ff3ee19e9cf3e2dbfd657fe207af1439d766": {
+      "source_hash": "f096950eacff59f35d3bc8265325ff3ee19e9cf3e2dbfd657fe207af1439d766",
+      "translation_hash": "17970c7f1cb4eecc1ee1a6ad74660dd1968f32835200f953ada0d3a0e3a3463b",
+      "status": "editorial",
+      "contexts": [
+        "Focused native settings/navigation terminology checked in Mozilla official Friulian, Occitan and Aragonese preference catalogs. Changes use established short terms; complex sentences, privacy statements and register outside these labels remain explicitly unreviewed."
+      ],
+      "reviewed_at": "2026-11-06T10:30:45+00:00"
+    },
+    "f2f6a01889951edcdb1dc93a152a36d1b40e778f2bc6ff90cd5a83ebaed79201": {
+      "source_hash": "f2f6a01889951edcdb1dc93a152a36d1b40e778f2bc6ff90cd5a83ebaed79201",
+      "translation_hash": "177fbd54b41cc8276f0ffc4080efa9a013d00ae879de967d285694deeaa324be",
+      "status": "editorial",
+      "contexts": [
+        "Focused terminology review: Friulian, Occitan and Aragonese native media/navigation labels checked against Mozilla’s official language sources; Shorts remains the product format. This is not approval of unreviewed long sentences or the rest of these packages."
+      ],
+      "reviewed_at": "2026-11-06T10:26:07+00:00"
+    }
+  },
+  "open_questions": [
+    {
+      "message": "Find out how we handle your data in our privacy policy.",
+      "context": "Complete linked login privacy sentence",
+      "reason": "Native terms can be checked in software catalogs, but those sources do not establish an idiomatic informal complete sentence with the approved neutral legal meaning. No guessed translation or linguistic approval applied.",
+      "references": [
+        "https://raw.githubusercontent.com/mozilla-l10n/firefox-l10n/main/an/browser/browser/preferences/preferences.ftl"
+      ]
+    },
+    {
+      "message": "Review or disable them before publishing.",
+      "context": "Import result: automatically found chapters",
+      "reason": "Needs native informal singular instruction; source uses chapters, not caption tracks. Existing English/mixed fallback is not a verified translation."
+    },
+    {
+      "message": "Wait for the provider details to finish loading.",
+      "context": "Trying to leave the import details step while metadata is loading",
+      "reason": "Complete actionable waiting state requires native sentence review, not an isolated-word substitution."
+    }
+  ]
+}

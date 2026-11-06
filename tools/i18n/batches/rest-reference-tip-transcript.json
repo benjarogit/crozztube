@@ -1,0 +1,65 @@
+{
+  "context": "Separate monetary support from playlist advice. Complete Creator support dialog headings/success and live support sentences preserve names/titles as placeholders. Transcript panel owns UI labels directly while provider transcript body remains literal, including its accessible label.",
+  "messages": {
+    "Playlist tip": {
+      "en": "Playlist tip",
+      "de_de": "Tipp für deine Playlist",
+      "de_at": "Tipp für deine Playlist",
+      "de_ch": "Tipp für deine Playlist"
+    },
+    "Send a tip to {name}": {
+      "en": "Send a tip to {name}",
+      "de_de": "Unterstütze {name}",
+      "de_at": "Unterstütze {name}",
+      "de_ch": "Unterstütze {name}"
+    },
+    "Support the creator of “{title}”.": {
+      "en": "Support the creator of “{title}”.",
+      "de_de": "Unterstütze den Creator von „{title}“.",
+      "de_at": "Unterstütze den Creator von „{title}“.",
+      "de_ch": "Unterstütze den Creator von „{title}“."
+    },
+    "Tip sent to {name}.": {
+      "en": "Tip sent to {name}.",
+      "de_de": "Deine Unterstützung wurde an {name} gesendet.",
+      "de_at": "Deine Unterstützung wurde an {name} gesendet.",
+      "de_ch": "Deine Unterstützung wurde an {name} gesendet."
+    },
+    "Support {name} during this live stream.": {
+      "en": "Support {name} during this live stream.",
+      "de_de": "Unterstütze {name} in diesem Livestream.",
+      "de_at": "Unterstütze {name} in diesem Livestream.",
+      "de_ch": "Unterstütze {name} in diesem Livestream."
+    },
+    "Send Super Chat": {
+      "en": "Send Super Chat",
+      "de_de": "Super Chat senden",
+      "de_at": "Super Chat senden",
+      "de_ch": "Super Chat senden"
+    },
+    "Send tip": {
+      "en": "Send tip",
+      "de_de": "Trinkgeld senden",
+      "de_at": "Trinkgeld senden",
+      "de_ch": "Trinkgeld senden"
+    },
+    "Transcript text": {
+      "en": "Transcript text",
+      "de_de": "Transkripttext",
+      "de_at": "Transkripttext",
+      "de_ch": "Transkripttext"
+    },
+    "Loading transcript…": {
+      "en": "Loading transcript…",
+      "de_de": "Transkript wird geladen …",
+      "de_at": "Transkript wird geladen …",
+      "de_ch": "Transkript wird geladen …"
+    },
+    "The transcript could not be loaded.": {
+      "en": "The transcript could not be loaded.",
+      "de_de": "Das Transkript konnte nicht geladen werden.",
+      "de_at": "Das Transkript konnte nicht geladen werden.",
+      "de_ch": "Das Transkript konnte nicht geladen werden."
+    }
+  }
+}

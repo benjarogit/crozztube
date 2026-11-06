@@ -10,16 +10,19 @@ export const shouldUseNativeSelect = () => {
   return mobileBrowser;
 };
 
+const preservesLabel = props => props['data-i18n-skip'] != null && props['data-i18n-skip'] !== false;
+
 const readOptions = (children) => React.Children.toArray(children).flatMap((child) => {
   if (!React.isValidElement(child)) return [];
   if (child.type === React.Fragment) return readOptions(child.props.children);
   if (child.type === 'optgroup') {
-    return [{ label: child.props.label, options: readOptions(child.props.children) }];
+    return [{ label: child.props.label, preserveLabel: preservesLabel(child.props), options: readOptions(child.props.children) }];
   }
   if (child.type !== 'option') return [];
   return [{
     value: child.props.value ?? child.props.children,
     label: child.props.children,
+    preserveLabel: preservesLabel(child.props),
     isDisabled: Boolean(child.props.disabled),
   }];
 });
@@ -118,6 +121,8 @@ const AdaptiveSelect = forwardRef(function AdaptiveSelect({
     unstyled
     value={emptyRequiredOption ? null : selectedOption}
     options={optionTree}
+    formatOptionLabel={(option) => option.preserveLabel ? <span data-i18n-skip>{option.label}</span> : option.label}
+    formatGroupLabel={(group) => group.preserveLabel ? <span data-i18n-skip>{group.label}</span> : group.label}
     onChange={dispatchChange}
     onBlur={onBlur}
     onFocus={onFocus}

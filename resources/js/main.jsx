@@ -17,13 +17,24 @@ import { GoogleImaClient, loadGoogleImaSdk } from './googleImaClient.js';
 import { liveProviderVideo } from './liveProviderMedia.js';
 import { isPlaybackInterrupted, playMediaWhenReady } from './mediaPlayback.js';
 import { inferVideoType, videoStreamType } from './videoSource.js';
+import { embedPermissions, httpEmbedUrl } from './embedPermissions.js';
 import { shortsTagViewTotals } from './shortsTrendingTags.js';
+import { MAX_SHORT_SECONDS, qualifiesShort, isShortVideoRecord } from './shortVideos.js';
+import { formatMessage, languageTag } from './localizationFormat.js';
 import { liveStudioDraftRequest, liveStudioPreflightReady, liveStudioResponseMatches } from './liveStudioDraft.js';
 import { createKlipyCatalog, emptyKlipyCatalog, registerKlipySticker, trackKlipyStickerShare } from './klipyCatalog.js';
 import '@vidstack/react/player/styles/default/theme.css';
 import '@vidstack/react/player/styles/default/layouts/video.css';
 import 'react-international-phone/style.css';
 import './styles.css';
+import { detectImportProvider, resolveImportProvider } from './importProviders.js';
+import { formatChapterTimestamp as formatUploadChapterTimestamp, importChapterDraft } from './importChapters.js';
+import VideoTranscript from './components/VideoTranscript.jsx';
+import ImportMetadataSummary from './components/ImportMetadataSummary.jsx';
+import LocalizedCount from './components/LocalizedCount.jsx';
+import { continueWatchingState } from './viewerCards.js';
+import { accentInk } from './viewerAppearance.js';
+import { watchMenuPosition } from './watchMenuPosition.js';
 import './styles/watch-layout.css';
 import './styles/settings-page.css';
 import './styles/admin-dashboard.css';
@@ -33,13 +44,15 @@ import './styles/shorts-viewer.css';
 import './styles/home-categories.css';
 import './styles/klipy-stickers.css';
 import AdminDashboard from './pages/AdminDashboard.jsx';
-import { I18nProvider, LanguageDialog, LanguageSwitcher, useI18n } from './i18n.jsx';
+import { I18nProvider, LanguageDialog, LanguageSwitcher, useI18n, brandedProjectText } from './i18n.jsx';
 import * as packageCountriesModule from 'countries-list';
 import './styles/responsive-layout.css';
 import './styles/responsive-overlays.css';
 import './styles/responsive-content.css';
 import './styles/image-attachments.css';
 import './styles/sidebar-footer.css';
+import './styles/viewer-experience.css';
+import './styles/upload-studio.css';
 
 const packageCountries = (() => {
   if (!packageCountriesModule || typeof packageCountriesModule !== 'object') return null;
@@ -752,7 +765,8 @@ function setSeoMeta(attribute, key, content) {
 function applySeoMetadata(metadata = {}) {
   if (typeof document === 'undefined' || !metadata?.url) return;
   document.title = metadata.browser_title || metadata.title || document.title;
-  if (metadata.locale) document.documentElement.lang = String(metadata.locale).replace('_', '-');
+  // I18nProvider owns the interface language. Social/video metadata can have a
+  // different locale and must not override the reader's preference.
 
   setSeoMeta('name', 'description', metadata.description);
   setSeoMeta('name', 'robots', metadata.robots);
@@ -874,6 +888,7 @@ function applyWebsiteConfiguration(website = {}, theme = 'light', user = null) {
   const defaultSoft = theme === 'dark'
     ? (defaultPalette?.softDark || colors['primary-soft'] || 'rgba(208,170,88,.22)')
     : (config.defaultPrimarySoftColor || defaultPalette?.softLight || colors['primary-soft'] || '#fff2cf');
+  root.style.setProperty('--viewer-accent-ink', accentInk(userPalette?.primary || defaultPrimary));
   root.style.setProperty('--website-admin-primary', userPalette?.primary || defaultPrimary);
   root.style.setProperty('--website-admin-primary-2', userPalette?.primary2 || defaultSecondary);
   root.style.setProperty('--website-admin-primary-soft', userPalette ? (theme === 'dark' ? userPalette.softDark : userPalette.softLight) : defaultSoft);
@@ -920,7 +935,7 @@ function websiteName(config = null) {
 }
 
 function websiteText(value, config = null) {
-  return String(value ?? '').replace(/PlayHub/g, () => websiteName(config));
+  return brandedProjectText(value, websiteName(config));
 }
 
 function websiteCopy(value) {
@@ -2064,7 +2079,9 @@ function Layout({ children, path, routeKey, navigate, user, setUser, theme, feat
     html.classList.add('mobile-sidebar-scroll-locked');
     body.classList.add('mobile-sidebar-scroll-locked');
     html.style.overflow = 'hidden';
-    body.style.overflow = 'hidden';
+    // Keep the sticky header attached to the viewport: hidden would make body
+    // a separate scroll container while the document retains its scroll offset.
+    body.style.overflow = 'clip';
     html.style.overscrollBehavior = 'none';
     body.style.overscrollBehavior = 'none';
     document.addEventListener('touchmove', stopBackgroundScroll, { passive: false });
@@ -2228,7 +2245,7 @@ const infoPageRoutes = {
 };
 
 function SiteFooter({ navigate, variant = 'default' }) {
-  const { language } = useI18n();
+  const { language, t } = useI18n();
   const [managedLinks, setManagedLinks] = useState(null);
   const year = new Date().getFullYear();
   const brand = websiteBrand();
@@ -2241,7 +2258,7 @@ function SiteFooter({ navigate, variant = 'default' }) {
   }, [language]);
   const visibleFooterGroups = managedLinks === null ? footerGroups : footerGroups.map(([title, links]) => [title, links.map(([label, to]) => {
     const managed = managedLinks.find((page) => page.route === to);
-    return managed ? [managed.navigation_label || label, to] : null;
+    return managed ? [managed.navigation_label || label, to, true] : null;
   }).filter(Boolean)]).filter(([, links]) => links.length);
   const go = (to) => {
     if (!to) return;
@@ -2250,11 +2267,11 @@ function SiteFooter({ navigate, variant = 'default' }) {
   };
 
   if (variant === 'sidebar') return <footer className="site-footer site-footer-sidebar" data-footer-variant="sidebar">
-    <section className="sidebar-footer-brand"><Logo /><p>Watch, create, stream, and manage your {brand.text} experience from one modern video platform.</p></section>
+    <section className="sidebar-footer-brand"><Logo /><p data-i18n-skip>{t('Watch, create and connect with your community on {site}.', { site: brand.text })}</p></section>
     <nav className="sidebar-footer-links" aria-label="Footer navigation">
       {visibleFooterGroups.map(([title, links]) => <section className="sidebar-footer-group" key={title}>
         <h2>{title}</h2>
-        {links.map(([label, to]) => <button type="button" key={to} onClick={() => go(to)}>{label}</button>)}
+        {links.map(([label, to, managed]) => <button data-i18n-skip={managed || undefined} type="button" key={to} onClick={() => go(to)}>{label}</button>)}
       </section>)}
     </nav>
     <div className="sidebar-footer-language"><span>Language</span><LanguageSwitcher compact /></div>
@@ -2266,7 +2283,7 @@ function SiteFooter({ navigate, variant = 'default' }) {
     <div className="site-footer-inner">
       <section className="site-footer-brand">
         <Logo />
-        <p>Watch, create, stream, and manage your {brand.text} experience from one modern video platform.</p>
+        <p data-i18n-skip>{t('Watch, create and connect with your community on {site}.', { site: brand.text })}</p>
         <div className="site-footer-language">
           <span>Language</span>
           <LanguageSwitcher compact />
@@ -2276,7 +2293,7 @@ function SiteFooter({ navigate, variant = 'default' }) {
       <nav className="site-footer-links" aria-label="Footer navigation">
         {visibleFooterGroups.map(([title, links]) => <div className="site-footer-group" key={title}>
           <h2>{title}</h2>
-          {links.map(([label, to]) => <button type="button" key={label} onClick={() => go(to)}>{label}</button>)}
+          {links.map(([label, to, managed]) => <button data-i18n-skip={managed || undefined} type="button" key={label} onClick={() => go(to)}>{label}</button>)}
         </div>)}
       </nav>
     </div>
@@ -2903,7 +2920,7 @@ function Topbar({ user, setUser, navigate, logout, theme, onMenu, sidebarOpen = 
           {searchSuggestionsLoading && <div className="global-search-suggestion-state">Searching...</div>}
           {!searchSuggestionsLoading && searchSuggestions.map((video) => <button type="button" key={video.id || video.slug || video.title} role="option" className="global-search-suggestion" onMouseDown={(event) => event.preventDefault()} onClick={() => selectSearchSuggestion(video)}>
             <Thumbnail video={{ ...video, duration: video.duration || formatDurationSeconds(video.duration_seconds) }} />
-            <span><strong>{video.title}</strong><small>{video.channel?.name || 'Creator'} · {formatNumber(video.views_count || 0)} views</small></span>
+            <span><strong data-i18n-skip>{video.title}</strong><small>{video.channel?.name || 'Creator'} · <LocalizedCount value={formatNumber(video.views_count || 0)} unit="view" /></small></span>
           </button>)}
           {!searchSuggestionsLoading && <button type="button" className="global-search-suggestion search-all" onMouseDown={(event) => event.preventDefault()} onClick={() => submitSearch()}><Icon name="search" size={17} /><span><strong>Search for</strong><small>{globalSearch.trim()}</small></span></button>}
         </div>}
@@ -3624,15 +3641,14 @@ function useBoostImpression(video) {
   return ref;
 }
 
-function Thumbnail({ video, large = false, previewShort = false }) {
+function Thumbnail({ video, large = false, showDuration = true }) {
   const boostRef = useBoostImpression(video);
   const className = `thumb thumb-${large ? 'large' : 'card'}${video.thumbnail_url ? '' : ` theme-${video.theme || 'mountain'}`}`;
   const promoted = video.boost ? <span className="promoted-video-badge"><Icon name="trending" size={12}/> {video.boost.label || 'Promoted'}</span> : null;
   const shortBadge = isShortVideo(video) ? <span className="short-video-badge" title="Short" aria-label="Short"><Icon name="shorts" size={17}/></span> : null;
   const content = video.thumbnail_url
-    ? <><ThumbnailImage video={video} alt="" /><Duration value={video.duration} />{shortBadge}{promoted}{video.sale?.is_paid && <span className="paid-video-badge"><Icon name="wallet" size={12}/> {video.sale.is_purchased ? 'Purchased' : video.sale.price_label}</span>}</>
-    : <><BlankThumbnail /><Duration value={video.duration} />{shortBadge}{promoted}{video.sale?.is_paid && <span className="paid-video-badge"><Icon name="wallet" size={12}/> {video.sale.is_purchased ? 'Purchased' : video.sale.price_label}</span>}</>;
-  if (previewShort && isShortVideo(video)) return <ShortHoverPreview video={video} className={className}>{content}</ShortHoverPreview>;
+    ? <><ThumbnailImage video={video} alt="" />{showDuration && <Duration value={video.duration} />}{shortBadge}{promoted}{video.sale?.is_paid && <span className="paid-video-badge"><Icon name="wallet" size={12}/> {video.sale.is_purchased ? 'Purchased' : video.sale.price_label}</span>}</>
+    : <><BlankThumbnail />{showDuration && <Duration value={video.duration} />}{shortBadge}{promoted}{video.sale?.is_paid && <span className="paid-video-badge"><Icon name="wallet" size={12}/> {video.sale.is_purchased ? 'Purchased' : video.sale.price_label}</span>}</>;
   return <div ref={boostRef} className={className}>{content}</div>;
 }
 function Duration({ value }) { return value ? <span className="duration">{value}</span> : null; }
@@ -3810,10 +3826,11 @@ function useMentionAutocomplete({ auth, value, setValue, inputRef, maxLength = n
 
 function MentionMenu({ id, users, activeIndex, onActiveIndex, onSelect }) {
   if (!users.length) return null;
-  return <span id={id} className="comment-mention-menu" role="listbox">{users.map((user, index) => <button type="button" key={user.id || user.handle} role="option" aria-selected={index === activeIndex} className={index === activeIndex ? 'active' : ''} onMouseEnter={() => onActiveIndex(index)} onMouseDown={(event) => { event.preventDefault(); onSelect(user); }}><Avatar label={user.initials || user.name} image={user.avatar_url}/><span><strong>{user.name}</strong><small>{user.handle}</small></span></button>)}</span>;
+  return <span id={id} className="comment-mention-menu" role="listbox">{users.map((user, index) => <button type="button" key={user.id || user.handle} role="option" aria-selected={index === activeIndex} className={index === activeIndex ? 'active' : ''} onMouseEnter={() => onActiveIndex(index)} onMouseDown={(event) => { event.preventDefault(); onSelect(user); }}><Avatar label={user.initials || user.name} image={user.avatar_url}/><span data-i18n-skip><strong>{user.name}</strong><small>{user.handle}</small></span></button>)}</span>;
 }
 
 function MentionText({ text, navigate, linkHashtags = true }) {
+  const { t } = useI18n();
   const source = String(text || '');
   const pattern = linkHashtags
     ? /(^|[^\p{L}\p{M}\p{N}_])(@[A-Za-z0-9](?:[A-Za-z0-9_.-]{0,38}[A-Za-z0-9])|#[\p{L}\p{N}][\p{L}\p{M}\p{N}_]{1,39})(?![\p{L}\p{M}\p{N}_])/gu
@@ -3826,12 +3843,12 @@ function MentionText({ text, navigate, linkHashtags = true }) {
     const referenceStart = match.index + match[1].length;
     const isHashtag = reference.startsWith('#');
     if (referenceStart > cursor) parts.push(source.slice(cursor, referenceStart));
-    parts.push(navigate ? <button type="button" className={`comment-mention${isHashtag ? ' content-hashtag' : ''}`} title={isHashtag ? `View posts tagged ${reference}` : `View ${reference} channel`} key={`${referenceStart}-${reference}`} onClick={(event) => { event.stopPropagation(); navigate(isHashtag ? `/communities?q=${encodeURIComponent(reference)}` : `/channel/${encodeURIComponent(reference.slice(1))}`); }}>{reference}</button> : <span className="comment-mention" key={`${referenceStart}-${reference}`}>{reference}</span>);
+    parts.push(navigate ? <button type="button" className={`comment-mention${isHashtag ? ' content-hashtag' : ''}`} title={t(isHashtag ? 'View posts tagged {tag}' : 'View {name} channel', { tag: reference, name: reference })} key={`${referenceStart}-${reference}`} onClick={(event) => { event.stopPropagation(); navigate(isHashtag ? `/communities?q=${encodeURIComponent(reference)}` : `/channel/${encodeURIComponent(reference.slice(1))}`); }}>{reference}</button> : <span className="comment-mention" key={`${referenceStart}-${reference}`}>{reference}</span>);
     cursor = referenceStart + reference.length;
   }
   if (cursor < source.length) parts.push(source.slice(cursor));
 
-  return <>{parts}</>;
+  return <span data-i18n-skip>{parts}</span>;
 }
 
 function CommentComposer({
@@ -4002,7 +4019,7 @@ function ExpandableCommentText({ text, renderText = null, className = '' }) {
   const shouldCollapse = value.length > COMMENT_TEXT_LIMIT;
   const displayText = shouldCollapse && !expanded ? `${value.slice(0, COMMENT_TEXT_LIMIT).trimEnd()}...` : value;
   return <>
-    <p className={`comment-expandable-copy ${className}`.trim()}>{renderText ? renderText(displayText) : displayText}</p>
+    <p data-i18n-skip className={`comment-expandable-copy ${className}`.trim()}>{renderText ? renderText(displayText) : displayText}</p>
     {shouldCollapse && <button type="button" className="text-button comment-expand-toggle" onClick={() => setExpanded((open) => !open)}>{expanded ? 'Show less' : 'Show more'}</button>}
   </>;
 }
@@ -4966,7 +4983,7 @@ function StudioCommentsCard({ initialComments, navigate, auth }) {
     {orderedComments.length ? orderedComments.map((comment) => <div className={`studio-comment-row ${comment.pinned ? 'is-pinned' : ''}`} key={comment.id} id={`comment-${comment.id}`}>
       <button type="button" className="studio-comment-avatar profile-avatar-button" onClick={(event) => openProfile(event, navigate, comment.channel)} disabled={!profilePathFor(comment.channel)} aria-label={`Open ${comment.name} profile`}><Avatar label={comment.name} image={assetUrl(comment.channel?.avatar_url || comment.channel?.avatar_path)}/></button>
       <div className="studio-comment-copy">
-        <strong><button type="button" className="comment-author-link" onClick={(event) => openProfile(event, navigate, comment.channel)} disabled={!profilePathFor(comment.channel)}>{comment.name}</button> <span>{comment.time}</span>{comment.pinned && <em className="comment-pin-badge"><Icon name="pin" size={12}/>Pinned</em>}</strong>
+        <strong><button data-i18n-skip type="button" className="comment-author-link" onClick={(event) => openProfile(event, navigate, comment.channel)} disabled={!profilePathFor(comment.channel)}>{comment.name}</button> <span>{comment.time}</span>{comment.pinned && <em className="comment-pin-badge"><Icon name="pin" size={12}/>Pinned</em>}</strong>
         <ExpandableCommentText text={comment.body} renderText={(text) => <MentionText text={text} navigate={navigate} />} />
         {(comment.replyCount || comment.lastReply) && <small className="studio-comment-helper">{comment.replyCount ? `${comment.replyCount} ${comment.replyCount === 1 ? 'reply' : 'replies'}` : ''}{comment.replyCount && comment.lastReply ? ' · ' : ''}{comment.lastReply || ''}</small>}
         {replyingId === comment.id && <form className="studio-comment-reply" onSubmit={(event) => submitReply(event, comment)}>
@@ -5149,105 +5166,6 @@ function applyConfiguredVideoQuality(player, preferredQuality = 'auto') {
   const quality = qualities.getById?.(preferredQuality);
   if (quality) quality.selected = true;
   else qualities.autoSelect?.();
-}
-
-let activeShortPreviewStop = null;
-
-function ShortHoverPreview({ video, className, children }) {
-  const videoRef = useRef(null);
-  const hoverTimerRef = useRef(null);
-  const previewStartRef = useRef(0);
-  const previewEndRef = useRef(0);
-  const [previewMounted, setPreviewMounted] = useState(false);
-  const [previewReady, setPreviewReady] = useState(false);
-  const previewSources = video?.status === 'ready'
-    && video?.visibility === 'public'
-    && String(video?.source_type || 'upload') === 'upload'
-    ? videoSourcesFor(video).filter((source) => source.src && String(source.type || '').startsWith('video/'))
-    : [];
-  const previewSource = previewSources.find((source) => source.quality === 'low' && source.type === 'video/mp4')
-    || previewSources.find((source) => source.quality === 'medium' && source.type === 'video/mp4')
-    || previewSources.find((source) => source.quality === 'high' && source.type === 'video/mp4')
-    || previewSources.find((source) => source.type === 'video/mp4')
-    || previewSources.find((source) => source.quality === 'low')
-    || null;
-
-  const stopPreview = useCallback(() => {
-    window.clearTimeout(hoverTimerRef.current);
-    hoverTimerRef.current = null;
-    const media = videoRef.current;
-    if (media) {
-      media.pause();
-      media.removeAttribute('src');
-      media.load();
-    }
-    if (activeShortPreviewStop === stopPreview) activeShortPreviewStop = null;
-    setPreviewReady(false);
-    setPreviewMounted(false);
-  }, []);
-
-  useEffect(() => {
-    stopPreview();
-  }, [previewSource?.src, stopPreview]);
-
-  useEffect(() => {
-    if (!previewMounted) return undefined;
-    const handleVisibility = () => { if (document.hidden) stopPreview(); };
-    document.addEventListener('visibilitychange', handleVisibility);
-    return () => document.removeEventListener('visibilitychange', handleVisibility);
-  }, [previewMounted, stopPreview]);
-
-  useEffect(() => () => {
-    window.clearTimeout(hoverTimerRef.current);
-    const media = videoRef.current;
-    if (media) {
-      media.pause();
-      media.removeAttribute('src');
-      media.load();
-    }
-    if (activeShortPreviewStop === stopPreview) activeShortPreviewStop = null;
-  }, [stopPreview]);
-
-  const startPreview = (event) => {
-    if (!previewSource || (event.pointerType && event.pointerType !== 'mouse') || document.hidden) return;
-    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
-    if (window.matchMedia?.('(hover: hover) and (pointer: fine)') && !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
-    const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-    if (connection?.saveData || String(connection?.effectiveType || '').includes('2g')) return;
-    window.clearTimeout(hoverTimerRef.current);
-    hoverTimerRef.current = window.setTimeout(() => {
-      hoverTimerRef.current = null;
-      if (document.hidden) return;
-      if (activeShortPreviewStop && activeShortPreviewStop !== stopPreview) activeShortPreviewStop();
-      activeShortPreviewStop = stopPreview;
-      setPreviewMounted(true);
-    }, 0);
-  };
-
-  const handleMetadata = (event) => {
-    const media = event.currentTarget;
-    if (previewSource?.type && !media.canPlayType(previewSource.type)) return stopPreview();
-    media.defaultMuted = true;
-    media.muted = true;
-    media.volume = 0;
-    const duration = Number(media.duration || 0);
-    const start = Number.isFinite(duration) && duration > 10 ? Math.min(2, duration * .08) : 0;
-    previewStartRef.current = start;
-    previewEndRef.current = Number.isFinite(duration) && duration > 0 ? Math.min(duration, start + 8) : start + 8;
-    try { media.currentTime = start; } catch (_) {}
-    const playback = media.play();
-    playback?.catch((error) => { if (error?.name !== 'AbortError') stopPreview(); });
-  };
-
-  const handleTimeUpdate = (event) => {
-    const media = event.currentTarget;
-    if (previewEndRef.current > previewStartRef.current && media.currentTime >= previewEndRef.current - .08) media.pause();
-  };
-
-  return <div className={`${className} short-hover-preview ${previewReady ? 'is-preview-ready' : ''}`} onPointerEnter={startPreview} onPointerLeave={stopPreview} onPointerCancel={stopPreview}>
-    {children}
-    {previewMounted && <video ref={videoRef} className="short-hover-preview-video" src={previewSource.src} preload="metadata" muted playsInline aria-hidden="true" tabIndex={-1} disablePictureInPicture disableRemotePlayback controlsList="nodownload noremoteplayback" onLoadedMetadata={handleMetadata} onPlaying={() => setPreviewReady(true)} onTimeUpdate={handleTimeUpdate} onError={stopPreview} />}
-  </div>;
 }
 
 function videoPosterUrl(video) {
@@ -5475,7 +5393,7 @@ function VideoDescriptionText({ text, tags = [], onSeek }) {
   }
 
   if (cursor < source.length) appendText(source.slice(cursor), cursor);
-  return content.length ? content : source;
+  return <span data-i18n-skip>{content.length ? content : source}</span>;
 }
 
 function externalEmbedUrlAtTime(url, seconds) {
@@ -6124,7 +6042,7 @@ function PersistentVideoPlayer({ path, navigate, auth, defaultVideoQuality = 'au
     <div className="persistent-player-media">
       <button type="button" className="persistent-player-resize" onPointerDown={startResize} onClick={togglePlayerSize} onKeyDown={resizeWithKeyboard} aria-label="Resize minimized player" title="Drag to resize or click to toggle size" />
       <button type="button" className="persistent-player-drag" onPointerDown={startDrag} onKeyDown={moveWithKeyboard} aria-label="Move minimized player" title="Drag to move minimized player"><Icon name="move" size={16}/></button>
-      {sources.length ? <MediaPlayer key={video.slug} ref={playerRef} className="persistent-vidstack-player" src={sources} poster={poster || undefined} title={video.title} preload="auto" load="eager" autoPlay={Boolean(session.playing && visible)} volume={Number(session.volume ?? 1)} muted={Boolean(session.muted)} playsInline viewType="video" streamType={videoStreamType(sources)} googleCast={GOOGLE_CAST_OPTIONS} onCanPlay={() => {
+      {sources.length ? <MediaPlayer data-i18n-skip-attributes key={video.slug} ref={playerRef} className="persistent-vidstack-player" src={sources} poster={poster || undefined} title={video.title} preload="auto" load="eager" autoPlay={Boolean(session.playing && visible)} volume={Number(session.volume ?? 1)} muted={Boolean(session.muted)} playsInline viewType="video" streamType={videoStreamType(sources)} googleCast={GOOGLE_CAST_OPTIONS} onCanPlay={() => {
         const player = playerRef.current;
         if (!player) return;
         setLoading(false);
@@ -6465,27 +6383,30 @@ function Home({ navigate, auth }) {
       onBlurCapture={(event) => setContentFocused(isBrowsingContent(event.relatedTarget, event.currentTarget))}>
       <section className={`home-hero-grid ${!loading && !featureStack.length ? 'without-spotlights' : ''} ${trending.length ? 'has-trending' : 'without-trending'}`}>
         {featured ? <article ref={heroRef} className="hero-feature" role="region" aria-roledescription="carousel" aria-label="Featured" onMouseEnter={() => setHeroHovered(true)} onMouseLeave={() => setHeroHovered(false)} onFocusCapture={() => setHeroFocused(true)} onBlurCapture={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setHeroFocused(false); }}>
-            <Thumbnail key={`hero-media-${featured.id || featured.slug}`} video={featured} large />
+            <Thumbnail key={`hero-media-${featured.id || featured.slug}`} video={featured} large showDuration={false} />
             <button type="button" className="hero-feature-hitbox" aria-label="Watch now" onClick={() => openVideo(featured, navigate)} />
             <div className="hero-copy" key={`hero-copy-${featured.id || featured.slug}`} aria-live="off">
-              <h1>{featured.title}</h1>
-              <p>{featured.description || websiteText('Watch the latest cinematic stories from creators on PlayHub.')}</p>
+              <h1 data-i18n-skip>{featured.title}</h1>
+              <p data-i18n-skip={featured.description ? '' : undefined}>{featured.description || websiteText('Watch the latest cinematic stories from creators on PlayHub.')}</p>
               <div className="hero-buttons">
-                <button type="button" className="btn primary" onClick={() => openVideo(featured, navigate)}><Icon name="play" size={16} /> Watch now</button>
+                <button type="button" className="btn primary" onClick={() => openVideo(featured, navigate)}><Icon name="play" size={18} /> Watch now</button>
                 <button type="button" className={`btn glass ${featured.is_watch_later ? 'active' : ''}`} onClick={saveFeatured} disabled={savingFeatured}><Icon name={featured.is_watch_later ? 'bookmark' : 'plus'} size={16} /><span className="hero-save-label"><span className="hero-save-label-reserve" aria-hidden="true"><span>Save for later</span><span>Saved</span><span>Saving...</span></span><span>{savingFeatured ? 'Saving...' : featured.is_watch_later ? 'Saved' : 'Save for later'}</span></span></button>
               </div>
             </div>
-            {heroSlides.length > 1 && <div className="hero-carousel-controls">
-              <div className="hero-dots" role="group" aria-label="Featured">
-                {heroSlides.map((video, index) => <button type="button" className={`hero-dot ${index === activeHeroIndex ? 'active' : ''}`} key={video.id || video.slug} aria-label={video.title} aria-current={index === activeHeroIndex ? 'true' : undefined} onClick={() => setActiveHeroIndex(index)} />)}
+            {(heroSlides.length > 1 || featured.duration) && <div className="hero-carousel-controls">
+              {heroSlides.length > 1 && <div className="hero-dots" role="group" aria-label="Featured">
+                {heroSlides.map((video, index) => <button data-i18n-skip type="button" className={`hero-dot ${index === activeHeroIndex ? 'active' : ''}`} key={video.id || video.slug} aria-label={video.title} aria-current={index === activeHeroIndex ? 'true' : undefined} onClick={() => setActiveHeroIndex(index)} />)}
+              </div>}
+              <div className="hero-controls-end">
+                <Duration value={featured.duration} />
+                {heroSlides.length > 1 && <button type="button" className="hero-autoplay-toggle" aria-label={heroAutoplay ? 'Pause' : 'Play'} onClick={() => setHeroAutoplay((playing) => !playing)}><Icon name={heroAutoplay ? 'pause' : 'play'} size={14} /></button>}
               </div>
-              <button type="button" className="hero-autoplay-toggle" aria-label={heroAutoplay ? 'Pause' : 'Play'} onClick={() => setHeroAutoplay((playing) => !playing)}><Icon name={heroAutoplay ? 'pause' : 'play'} size={14} /></button>
             </div>}
             {heroSlides.length > 1 && <span key={`hero-progress-${activeHeroIndex}`} className={`hero-autoplay-progress ${heroAutoplayRunning ? 'running' : ''}`} style={{ '--hero-autoplay-delay': `${HERO_AUTOPLAY_DELAY_MS}ms` }} aria-hidden="true" />}
           </article> : <HomeEmptyHero navigate={navigate} loading={loading} />}
         {featureStack.length ? <div className="spotlight-stack">
           {featureStack.map((video) => <button className="spotlight-card" key={video.id} onClick={() => openVideo(video, navigate)}>
-            <div><h3>{video.title}</h3><p>{video.description}</p><span><Icon name="play" size={13}/> Watch now</span></div>
+            <div><h3 data-i18n-skip>{video.title}</h3><p data-i18n-skip>{video.description}</p><span className="spotlight-watch-action"><Icon name="play" size={16}/> Watch now</span></div>
             <Thumbnail video={video} />
           </button>)}
         </div> : <HomeEmptySpotlights loading={loading} />}
@@ -6500,19 +6421,19 @@ function Home({ navigate, auth }) {
       {error && <div className="state-card error">{error}</div>}
       {loading && <div className="state-card">Loading videos...</div>}
 
-      {continueVideos.length ? <Section title="Continue watching" action="View all" onAction={() => navigate('/watch-later')}>
+      {continueVideos.length ? <Section title="Continue watching">
         <div className="continue-grid">{continueVideos.map((video) => <ContinueCard key={video.slug} video={video} navigate={navigate} />)}</div>
       </Section> : null}
-      {shortVideos.length ? <Section title="Shorts" action="View all" onAction={() => navigate('/shorts')}>
-        <div className="shorts-poster-grid">{shortVideos.slice(0, 6).map((video) => <ShortsPosterCard key={video.id || video.slug} video={video} navigate={navigate} />)}</div>
-      </Section> : null}
-      <Section title="Recommended creators" action="View all" onAction={() => navigate('/search?type=channels')}>
-        {creatorChannels.length ? <div className="creator-grid">{creatorChannels.map((channel) => <CreatorCard key={channel.id || channel.slug || channel.name} channel={channel} navigate={navigate} auth={auth} />)}</div> : <div className="state-card">No creators available yet.</div>}
-      </Section>
-      <Section title="Recommended for you" action="View all" onAction={() => navigate('/explore')}>
-        {uploadedVideos.length ? <div className="video-grid">{uploadedVideos.slice(0, 6).map((video, index) => <React.Fragment key={`${video.id}-${index}`}><VideoCard video={{ ...video, rank: index + 1 }} navigate={navigate} /><WebsiteAdSlot placement="video_grid" sequence={index + 1} className="website-ad-grid-span"/></React.Fragment>)}</div> : <HomeEmptyVideoSection navigate={navigate} emptyAll={!uploadedVideos.length} loading={loading} />}
-      </Section>
+      {(loading || uploadedVideos.length > 0) && <Section title="Discover videos" action="View all" onAction={() => navigate('/explore')}>
+        {uploadedVideos.length ? <div className="video-grid">{uploadedVideos.slice(0, 12).map((video, index) => <React.Fragment key={video.id || video.slug}><VideoCard video={{ ...video, rank: null }} navigate={navigate} /><WebsiteAdSlot placement="video_grid" sequence={index + 1} className="website-ad-grid-span"/></React.Fragment>)}</div> : <HomeEmptyVideoSection navigate={navigate} loading={loading} />}
+      </Section>}
       <HomeCategorySections navigate={navigate} viewerId={auth.user?.id}/>
+      {shortVideos.length > 0 && <Section title="Shorts" action="View all" onAction={() => navigate('/shorts')}>
+        <div className="shorts-poster-grid">{shortVideos.slice(0, 6).map((video) => <ShortsPosterCard key={video.id || video.slug} video={video} navigate={navigate} />)}</div>
+      </Section>}
+      {creatorChannels.length > 0 && <Section title="Discover creators" action="View all" onAction={() => navigate('/search?type=channels')}>
+        <div className="creator-grid">{creatorChannels.map((channel) => <CreatorCard key={channel.id || channel.slug || channel.name} channel={channel} navigate={navigate} auth={auth} />)}</div>
+      </Section>}
     </main>
   );
 }
@@ -6547,6 +6468,7 @@ function HomeCategorySections({ navigate, viewerId }) {
 }
 
 function HomeCategoryRow({ category, navigate }) {
+  const { t } = useI18n();
   const sliderRef = useRef(null);
   const [edges, setEdges] = useState({ previous: false, next: false });
   useEffect(() => {
@@ -6580,11 +6502,11 @@ function HomeCategoryRow({ category, navigate }) {
     slider.scrollBy({ left: direction * (rtl ? -1 : 1) * Math.max(240, slider.clientWidth - 80), top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
   };
   return <section className="content-section home-category-section" aria-label={category.name}>
-    <div className="section-title"><h2>{category.name}</h2></div>
+    <div className="section-title"><h2 data-i18n-skip>{category.name}</h2></div>
     <div className="horizontal-videos-shell home-category-slider">
-      {edges.previous && <button type="button" className="carousel-nav carousel-prev" onClick={() => slide(-1)} aria-label={`Previous ${category.name} videos`}><Icon name="chevronLeft" size={20}/></button>}
-      <div className="horizontal-videos compact" ref={sliderRef} tabIndex={0} role="region" aria-label={`${category.name} videos`}>{category.videos.map((video) => <VideoCard key={video.id || video.slug} video={{ ...video, rank: null }} navigate={navigate}/>)}</div>
-      {edges.next && <button type="button" className="carousel-nav carousel-next" onClick={() => slide(1)} aria-label={`Next ${category.name} videos`}><Icon name="chevronRight" size={20}/></button>}
+      {edges.previous && <button type="button" className="carousel-nav carousel-prev" onClick={() => slide(-1)} data-i18n-skip-attributes aria-label={t('Previous videos in {category}', { category: category.name })}><Icon name="chevronLeft" size={20}/></button>}
+      <div className="horizontal-videos compact" ref={sliderRef} tabIndex={0} role="region" data-i18n-skip-attributes aria-label={t('Videos in {category}', { category: category.name })}>{category.videos.map((video) => <VideoCard key={video.id || video.slug} video={{ ...video, rank: null }} navigate={navigate}/>)}</div>
+      {edges.next && <button type="button" className="carousel-nav carousel-next" onClick={() => slide(1)} data-i18n-skip-attributes aria-label={t('Next videos in {category}', { category: category.name })}><Icon name="chevronRight" size={20}/></button>}
     </div>
   </section>;
 }
@@ -6637,20 +6559,53 @@ function Section({ title, action, onAction, children }) {
   return <section className="content-section"><div className="section-title"><h2>{title}</h2>{action && <button type="button" className="text-button" onClick={onAction}>{action}</button>}</div>{children}</section>;
 }
 function TrendingRow({ video, index, navigate }) {
-  return <button className="trending-row" onClick={() => openVideo(video, navigate)}><div className="rank-tile">{index}</div><Thumbnail video={video} /><div><strong>{video.title}</strong><span>{formatNumber(video.views_count)} views · {video.created_label}</span></div><small>↗</small></button>;
+  return <button className="trending-row" onClick={() => openVideo(video, navigate)}><div className="rank-tile">{index}</div><Thumbnail video={video} /><div><strong data-i18n-skip>{video.title}</strong><span><LocalizedCount value={formatNumber(video.views_count)} unit="view" /> · {video.created_label}</span></div><small>↗</small></button>;
+}
+function VideoNavigationLink({ video, navigate, className, children, ...props }) {
+  const path = videoPlaybackPath(video, video.playlist_id ? `?list=${video.playlist_id}` : '');
+  return <a href={path} className={className} {...props} onClick={(event) => {
+    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    event.preventDefault();
+    openVideo(video, navigate, path);
+  }}>{children}</a>;
 }
 function SmallVideoRow({ video, navigate }) {
-  return <button className="small-video-row" onClick={() => navigate(videoPlaybackPath(video, video.playlist_id ? `?list=${video.playlist_id}` : ''))}><Thumbnail video={video} /><div><strong>{video.title}</strong><span className={profilePathFor(video.channel) ? 'channel-inline-link' : ''} onClick={(event) => openProfile(event, navigate, video.channel)}>{video.channel?.name || 'Creator'}</span><small>{formatNumber(video.views_count)} views · {video.created_label}</small></div></button>;
+  return <article className="small-video-row">
+    <VideoNavigationLink video={video} navigate={navigate} className="small-video-link">
+      <Thumbnail video={video}/><strong data-i18n-skip>{video.title}</strong>
+    </VideoNavigationLink>
+    <div className="small-video-details"><button type="button" data-i18n-skip className="channel-inline-link" disabled={!profilePathFor(video.channel)} onClick={(event) => openProfile(event, navigate, video.channel)}>{video.channel?.name || 'Creator'}</button><small><LocalizedCount value={formatNumber(video.views_count)} unit="view" /> · {video.created_label}</small></div>
+  </article>;
 }
 function VideoCard({ video, navigate }) {
-  return <article className="video-card" onClick={() => openVideo(video, navigate)}>{video.rank && <span className="rank-badge">#{video.rank}</span>}<Thumbnail video={video} /><div className="video-body"><div className="video-title-line"><h3>{video.title}</h3><SearchVideoActions video={video} navigate={navigate} /></div><button type="button" className="channel-name channel-link" onClick={(event) => openProfile(event, navigate, video.channel)} disabled={!profilePathFor(video.channel)}>{video.channel?.name || 'Creator'}</button><p className="muted-line">{video.boost ? `${video.boost.label || 'Promoted'} · ` : ''}{formatNumber(video.views_count)} views · {video.created_label}</p>{video.progress ? <div className="progress-line"><i style={{ width: `${video.progress}%` }} /></div> : null}</div></article>;
+  return <article className="video-card">
+    {video.rank && <span className="rank-badge">#{video.rank}</span>}
+    <VideoNavigationLink video={video} navigate={navigate} className="video-card-link">
+      <Thumbnail video={video}/><h3 data-i18n-skip>{video.title}</h3>
+    </VideoNavigationLink>
+    <div className="video-body">
+      <SearchVideoActions video={video} navigate={navigate}/>
+      <button data-i18n-skip type="button" className="channel-name channel-link" onClick={(event) => openProfile(event, navigate, video.channel)} disabled={!profilePathFor(video.channel)}>{video.channel?.name || 'Creator'}</button>
+      <p className="muted-line">{video.boost ? <><span data-i18n-skip={video.boost.label ? '' : undefined}>{video.boost.label || 'Promoted'}</span> · </> : null}<LocalizedCount value={formatNumber(video.views_count)} unit="view" /> · {video.created_label}</p>
+      {video.progress > 0 && <div className="progress-line" aria-hidden="true"><i style={{ width: `${Math.min(100, Math.max(0, Number(video.progress) || 0))}%` }}/></div>}
+    </div>
+  </article>;
 }
 function ContinueCard({ video, navigate }) {
-  return <button className="continue-card" onClick={() => navigate(videoPlaybackPath(video))}><Thumbnail video={video} /><div className="continue-content"><strong>{video.title}</strong><span className={profilePathFor(video.channel) ? 'channel-inline-link' : ''} onClick={(event) => openProfile(event, navigate, video.channel)}>{video.channel?.name || 'Creator'}</span><small>{video.progress || 0}% watched</small><div className="progress-line"><i style={{ width: `${video.progress || 0}%` }} /></div></div></button>;
+  const { t } = useI18n();
+  const { progress, remaining } = continueWatchingState(video);
+  return <article className="continue-card">
+    <VideoNavigationLink video={video} navigate={navigate} className="continue-video-link"><Thumbnail video={video}/><strong data-i18n-skip>{video.title}</strong></VideoNavigationLink>
+    <div className="continue-content">
+      <button type="button" data-i18n-skip className="channel-inline-link" disabled={!profilePathFor(video.channel)} onClick={(event) => openProfile(event, navigate, video.channel)}>{video.channel?.name || 'Creator'}</button>
+      <small data-i18n-skip>{remaining === null ? t('{percent}% watched', { percent: progress }) : t('{time} left', { time: formatDurationSeconds(remaining) || '0:00' })}</small>
+      <div className="progress-line" role="progressbar" aria-label={t('Watch progress')} aria-valuemin={0} aria-valuemax={100} aria-valuenow={progress}><i style={{ width: `${progress}%` }}/></div>
+    </div>
+  </article>;
 }
 function CreatorCard({ channel, navigate = null, auth = null, onRemoveFavorite = null, favoriteBusy = false }) {
   return <article className="creator-card">
-    <button className="creator-card-link" onClick={(event) => openProfile(event, navigate, channel)} disabled={!navigate || !profilePathFor(channel)}><Avatar label={channel.name} image={assetUrl(channel.avatar_url || channel.avatar_path)} /><div><strong>{channel.name}<VerifiedBadge verified={channel.verified} /></strong><span>{formatNumber(channel.subscribers_count)} subscribers</span></div></button>
+    <button className="creator-card-link" onClick={(event) => openProfile(event, navigate, channel)} disabled={!navigate || !profilePathFor(channel)}><Avatar label={channel.name} image={assetUrl(channel.avatar_url || channel.avatar_path)} /><div><strong><span data-i18n-skip className="creator-card-name">{channel.name}</span><VerifiedBadge verified={channel.verified} /></strong><span><LocalizedCount value={formatNumber(channel.subscribers_count)} unit="subscriber" /></span></div></button>
     {onRemoveFavorite ? <button type="button" className="icon-button small" onClick={() => onRemoveFavorite(channel)} disabled={favoriteBusy} aria-label={`Remove ${channel.name} from favorites`}><Icon name="heart" size={17}/></button> : <SubscribeButton channel={channel} auth={auth} navigate={navigate} />}
   </article>;
 }
@@ -6871,7 +6826,7 @@ function SearchResultsPage({ navigate, auth }) {
           <div className="related-search-list">{visibleRelatedSearches.length ? visibleRelatedSearches.map((item) => <button key={item} type="button" onClick={() => navigate(`/search?q=${encodeURIComponent(item)}`)}>{item}<span>↑</span></button>) : <p className="rail-note">No trending tags found.</p>}</div>
         </RailCard>
         <RailCard title="Recommended creators" action={recommendedCreators.length ? (showAllRecommendedCreators ? 'Show less' : 'View all') : null} onAction={openRecommendedCreators}>
-          <div className="recommended-search-creators">{recommendedCreators.length ? visibleRecommendedCreators.map((channel) => <div className="recommended-search-row" key={channel.id || channel.slug || channel.name}><Avatar label={channel.name}/><div><strong>{channel.name}</strong><span>{channel.slug ? `@${channel.slug}` : ''}</span><small>{formatNumber(channel.subscribers_count || 0)} subscribers</small></div><SubscribeButton channel={channel} auth={auth} navigate={navigate} className="btn subtle compact" /></div>) : <p className="rail-note">No creators found.</p>}</div>
+          <div className="recommended-search-creators">{recommendedCreators.length ? visibleRecommendedCreators.map((channel) => <div className="recommended-search-row" key={channel.id || channel.slug || channel.name}><Avatar label={channel.name}/><div><strong data-i18n-skip>{channel.name}</strong><span>{channel.slug ? `@${channel.slug}` : ''}</span><small><LocalizedCount value={formatNumber(channel.subscribers_count || 0)} unit="subscriber" /></small></div><SubscribeButton channel={channel} auth={auth} navigate={navigate} className="btn subtle compact" /></div>) : <p className="rail-note">No creators found.</p>}</div>
         </RailCard>
       </aside>
     </section>
@@ -6901,10 +6856,10 @@ function SearchFeaturedVideo({ video, navigate, onNotInterested = null }) {
   return <article className="search-featured-card">
     <button className="search-featured-thumb" onClick={() => navigate(videoPlaybackPath(video))}><Thumbnail video={video} large /></button>
     <div className="search-featured-info">
-      <button type="button" className="search-title-link featured" onClick={() => navigate(videoPlaybackPath(video))}>{video.title}</button>
+      <button data-i18n-skip type="button" className="search-title-link featured" onClick={() => navigate(videoPlaybackPath(video))}>{video.title}</button>
       <p className="search-result-meta">{video.channel?.name || 'Creator'} <VerifiedBadge verified={video.channel?.verified} /></p>
-      <p className="search-result-meta">{formatNumber(video.views_count)} views <span>•</span> {video.created_label}</p>
-      <p className="search-featured-desc">{video.description}</p>
+      <p className="search-result-meta"><LocalizedCount value={formatNumber(video.views_count)} unit="view" /> <span>•</span> {video.created_label}</p>
+      <p data-i18n-skip className="search-featured-desc">{video.description}</p>
       {labels.length > 0 && <div className="search-badges">{labels.map((label) => <span key={label}>{label}</span>)}</div>}
     </div>
     <SearchVideoActions video={video} navigate={navigate} onNotInterested={onNotInterested} />
@@ -6916,10 +6871,10 @@ function SearchVideoRow({ video, navigate, onNotInterested = null }) {
   return <article className="search-video-row">
     <button onClick={() => navigate(videoPlaybackPath(video))}><Thumbnail video={video}/></button>
     <div>
-      <h3><button type="button" className="search-title-link" onClick={() => navigate(videoPlaybackPath(video))}>{video.title}</button></h3>
+      <h3><button data-i18n-skip type="button" className="search-title-link" onClick={() => navigate(videoPlaybackPath(video))}>{video.title}</button></h3>
       <p className="search-result-meta">{video.channel?.name || 'Creator'} <VerifiedBadge verified={video.channel?.verified} /></p>
-      <p className="search-result-meta">{formatNumber(video.views_count)} views <span>•</span> {video.created_label}</p>
-      <p>{video.description}</p>
+      <p className="search-result-meta"><LocalizedCount value={formatNumber(video.views_count)} unit="view" /> <span>•</span> {video.created_label}</p>
+      <p data-i18n-skip>{video.description}</p>
       {labels.length > 0 && <div className="search-badges">{labels.map((label) => <span key={label}>{label}</span>)}</div>}
     </div>
     <SearchVideoActions video={video} navigate={navigate} onNotInterested={onNotInterested} />
@@ -6994,7 +6949,16 @@ function SearchVideoActions({ video, navigate, onNotInterested = null }) {
     setOpen((value) => !value);
   };
   const stopMenuEvent = (event) => event.stopPropagation();
-  return <div className="search-video-menu-shell" ref={menuRef} onClick={stopMenuEvent}>
+  const handleMenuKeyDown = (event) => {
+    if (event.key === 'Escape' && open) { event.preventDefault(); setOpen(false); triggerRef.current?.focus(); }
+    if (['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key) && open) {
+      const items = [...menuRef.current.querySelectorAll('[role="menuitem"]:not(:disabled)')];
+      const index = items.indexOf(document.activeElement);
+      const next = event.key === 'Home' ? 0 : event.key === 'End' ? items.length - 1 : (index + (event.key === 'ArrowUp' ? -1 : 1) + items.length) % items.length;
+      event.preventDefault(); items[next]?.focus();
+    }
+  };
+  return <div className="search-video-menu-shell" ref={menuRef} onClick={stopMenuEvent} onKeyDown={handleMenuKeyDown}>
     <button ref={triggerRef} type="button" className={`more-button ${open ? 'active' : ''}`} onClick={toggleMenu} aria-label="Video actions" aria-haspopup="menu" aria-expanded={open}><Icon name="more" size={17}/></button>
     {open && <div className={`search-video-action-menu open-${menuPlacement}`} style={menuStyle || undefined} role="menu">
       <button type="button" role="menuitem" onClick={() => navigate(videoPath)}><Icon name="play" size={16}/> Watch video</button>
@@ -7007,7 +6971,7 @@ function SearchVideoActions({ video, navigate, onNotInterested = null }) {
 }
 
 function SearchChannelCard({ channel, navigate, auth }) {
-  return <article className="search-channel-card"><button onClick={(event) => openProfile(event, navigate, channel)} disabled={!navigate || !profilePathFor(channel)}><Avatar label={channel.name}/><div><strong className="search-channel-name"><span className="search-channel-name-text">{channel.name}</span><VerifiedBadge verified={channel.verified} /></strong><small>{formatNumber(channel.subscribers_count || 0)} subscribers</small></div></button>{channel.slug ? <SubscribeButton channel={channel} auth={auth} navigate={navigate} className="text-button" /> : null}</article>;
+  return <article className="search-channel-card"><button onClick={(event) => openProfile(event, navigate, channel)} disabled={!navigate || !profilePathFor(channel)}><Avatar label={channel.name}/><div><strong className="search-channel-name"><span data-i18n-skip className="search-channel-name-text">{channel.name}</span><VerifiedBadge verified={channel.verified} /></strong><small><LocalizedCount value={formatNumber(channel.subscribers_count || 0)} unit="subscriber" /></small></div></button>{channel.slug ? <SubscribeButton channel={channel} auth={auth} navigate={navigate} className="text-button" /> : null}</article>;
 }
 
 function SearchPlaylistCard({ playlist, navigate }) {
@@ -7016,7 +6980,7 @@ function SearchPlaylistCard({ playlist, navigate }) {
 }
 
 function SearchShortCard({ video, navigate }) {
-  return <article className="search-short-card" onClick={() => navigate(shortsDetailPath(video))}><Thumbnail video={video} previewShort/><h3>{video.title}</h3><p>{formatNumber(video.views_count)} views <span>•</span> {video.created_label}</p></article>;
+  return <article className="search-short-card" onClick={() => navigate(shortsDetailPath(video))}><Thumbnail video={video}/><h3 data-i18n-skip>{video.title}</h3><p><LocalizedCount value={formatNumber(video.views_count)} unit="view" /> <span>•</span> {video.created_label}</p></article>;
 }
 
 function CommunityPhotoPaywall({ sale, auth, busy, error, onPurchase }) {
@@ -7197,7 +7161,7 @@ function SearchCommunityPost({ post, navigate, auth }) {
     }
   };
 
-  return <article className="search-community-post"><Avatar label={author.name || 'Creator'}/><div><strong>{author.name || 'Creator'} <VerifiedBadge verified={author.verified} /></strong>{item.body ? <p><MentionText text={item.body} navigate={navigate} /></p> : null}{paidPhotosLocked && <CommunityPhotoPaywall sale={item.sale} auth={auth} busy={busy === 'purchase'} error={purchaseError} onPurchase={purchasePhotos} />}{displayImages.length > 0 && <div className="search-community-image">{galleryItems.length ? <GalleryImage src={attachmentCandidates(displayImages[0])[0]} thumb={attachmentCandidates(displayImages[0])[0]} title={author.name || 'Community post'} description={item.body || ''} galleryItems={galleryItems} itemClassName="search-community-image-gallery"><AttachmentImage attachment={displayImages[0]} alt="" /></GalleryImage> : <AttachmentImage attachment={displayImages[0]} alt="" />}{displayImages.length > 1 && <span>1/{displayImages.length}</span>}</div>}{urlPreview && <a className="search-community-url" href={urlPreview.url} target="_blank" rel="noreferrer">{urlPreview.image ? <img src={urlPreview.image} alt="" /> : <Icon name="link" size={18}/>}<span><strong>{urlPreview.title || urlPreview.url}</strong>{urlPreview.description && <small>{urlPreview.description}</small>}<em>{urlPreview.url}</em></span></a>}{video && <button type="button" className="search-community-video" onClick={() => navigate(videoPlaybackPath(video))}><Thumbnail video={video}/><span>{video.title}</span></button>}{pollOptions.length ? <div className="search-poll">{pollOptions.map((option) => <span key={option.index ?? option.label}><b style={{width:`${option.percent || 0}%`}}/>{option.label} <em>{option.percent || 0}%</em></span>)}</div> : null}{item.type === 'event' && <button type="button" className={`search-community-event ${eventCover ? 'has-cover' : ''}`} onClick={() => navigate(postPath)}>{eventCover && <AttachmentImage attachment={eventCover} className="hosted-event-cover" alt="" />}<span>{eventData.title || 'Community event'}</span>{eventData.starts_at && <small><Icon name="calendar" size={13}/>{communityEventDateLabel(eventData)}</small>}{eventData.location && <small><Icon name="pin" size={13}/>{eventData.location}</small>}</button>}{!hasVisibleContent && <p>Community post</p>}<div className="search-community-actions"><button type="button" className={item.is_liked ? 'active' : ''} onClick={toggleLike} disabled={busy === 'like'}><Icon name="heart" size={14}/>{formatNumber(item.likes_count || 0)}</button><button type="button" onClick={openComments} className={commentsOpen ? 'active' : ''}><Icon name="comment" size={14}/>{formatNumber(item.comments_count || 0)}</button><button type="button" onClick={sharePost} disabled={busy === 'share'}><Icon name="share" size={14}/>{formatNumber(item.shares_count || 0)}</button></div>{commentsOpen && <><form className="search-community-comment-form" onSubmit={submitComment}><div className="search-community-comment-field"><input ref={commentInputRef} value={commentBody} onFocus={(event) => commentMentions.refreshMentionQuery(event.target.value, event.target.selectionStart)} onClick={(event) => commentMentions.refreshMentionQuery(event.target.value, event.target.selectionStart)} onKeyDown={commentMentions.handleMentionKeyDown} onChange={commentMentions.changeMentionValue} placeholder={auth?.user ? 'Add a comment...' : 'Login to comment'} maxLength={2000} aria-autocomplete="list" aria-expanded={commentMentions.mentionQuery !== null && commentMentions.mentionUsers.length > 0} aria-controls={`search-community-comment-mentions-${item.id}`}/>{commentMentions.mentionQuery !== null && <MentionMenu id={`search-community-comment-mentions-${item.id}`} users={commentMentions.mentionUsers} activeIndex={commentMentions.activeMentionIndex} onActiveIndex={commentMentions.setActiveMentionIndex} onSelect={commentMentions.insertMention} />}<div className="comment-emoji-wrapper"><button type="button" className="comment-emoji-button" aria-label="Add emoji" aria-expanded={commentEmojiOpen} onClick={(event) => { setCommentEmojiPlacement(emojiPickerPlacementFor(event.currentTarget)); setCommentEmojiOpen((open) => !open); }}><Icon name="smile" size={18}/></button>{commentEmojiOpen && <div className={`comment-emoji-popover is-${commentEmojiPlacement}`} role="dialog" aria-label="Choose emoji"><Suspense fallback={<span className="comment-emoji-loading">Loading emojis...</span>}><EmojiPicker className="comment-emoji-picker" onEmojiClick={insertCommentEmoji} lazyLoadEmojis emojiStyle='native' previewConfig={{ showPreview: false }} searchPlaceHolder="Search" autoFocusSearch={false} width="100%" height={378}/></Suspense></div>}</div></div><button type="submit" className="btn primary" disabled={busy === 'comment' || !commentBody.trim()}>Publish</button>{commentError && <small>{commentError}</small>}</form><div className="search-community-comments">{commentsLoading ? <div className="state-card compact">Loading comments...</div> : <WatchCommentsPanel video={{ comments_count: item.comments_count || comments.length }} comments={comments} setComments={setComments} body="" setBody={() => {}} onSubmitComment={() => false} auth={auth} navigate={navigate} slug={`community-${item.id}`} notify={setCommentError} commentEndpoint={`/community-posts/${item.id}/comments`} commentLinkBase={postUrl} commentHashPrefix={`post-${item.id}-comment-`} onCommentCountChange={updateCommentCount} hideComposer commentsLimit={2} commentsLoadStep={5} compact />}</div></>}</div></article>;
+  return <article className="search-community-post"><Avatar label={author.name || 'Creator'}/><div><strong><span data-i18n-skip={author.name ? true : undefined}>{author.name || 'Creator'}</span> <VerifiedBadge verified={author.verified} /></strong>{item.body ? <p><MentionText text={item.body} navigate={navigate} /></p> : null}{paidPhotosLocked && <CommunityPhotoPaywall sale={item.sale} auth={auth} busy={busy === 'purchase'} error={purchaseError} onPurchase={purchasePhotos} />}{displayImages.length > 0 && <div className="search-community-image">{galleryItems.length ? <GalleryImage src={attachmentCandidates(displayImages[0])[0]} thumb={attachmentCandidates(displayImages[0])[0]} title={author.name || 'Community post'} description={item.body || ''} galleryItems={galleryItems} itemClassName="search-community-image-gallery"><AttachmentImage attachment={displayImages[0]} alt="" /></GalleryImage> : <AttachmentImage attachment={displayImages[0]} alt="" />}{displayImages.length > 1 && <span>1/{displayImages.length}</span>}</div>}{urlPreview && <a data-i18n-skip className="search-community-url" href={urlPreview.url} target="_blank" rel="noreferrer">{urlPreview.image ? <img src={urlPreview.image} alt="" /> : <Icon name="link" size={18}/>}<span><strong>{urlPreview.title || urlPreview.url}</strong>{urlPreview.description && <small>{urlPreview.description}</small>}<em>{urlPreview.url}</em></span></a>}{video && <button type="button" className="search-community-video" onClick={() => navigate(videoPlaybackPath(video))}><Thumbnail video={video}/><span data-i18n-skip>{video.title}</span></button>}{pollOptions.length ? <div data-i18n-skip className="search-poll">{pollOptions.map((option) => <span key={option.index ?? option.label}><b style={{width:`${option.percent || 0}%`}}/>{option.label} <em>{option.percent || 0}%</em></span>)}</div> : null}{item.type === 'event' && <button type="button" className={`search-community-event ${eventCover ? 'has-cover' : ''}`} onClick={() => navigate(postPath)}>{eventCover && <AttachmentImage attachment={eventCover} className="hosted-event-cover" alt="" />}<span data-i18n-skip={eventData.title ? true : undefined}>{eventData.title || 'Community event'}</span>{eventData.starts_at && <small><Icon name="calendar" size={13}/>{communityEventDateLabel(eventData)}</small>}{eventData.location && <small data-i18n-skip><Icon name="pin" size={13}/>{eventData.location}</small>}</button>}{!hasVisibleContent && <p>Community post</p>}<div className="search-community-actions"><button type="button" className={item.is_liked ? 'active' : ''} onClick={toggleLike} disabled={busy === 'like'}><Icon name="heart" size={14}/>{formatNumber(item.likes_count || 0)}</button><button type="button" onClick={openComments} className={commentsOpen ? 'active' : ''}><Icon name="comment" size={14}/>{formatNumber(item.comments_count || 0)}</button><button type="button" onClick={sharePost} disabled={busy === 'share'}><Icon name="share" size={14}/>{formatNumber(item.shares_count || 0)}</button></div>{commentsOpen && <><form className="search-community-comment-form" onSubmit={submitComment}><div className="search-community-comment-field"><input ref={commentInputRef} value={commentBody} onFocus={(event) => commentMentions.refreshMentionQuery(event.target.value, event.target.selectionStart)} onClick={(event) => commentMentions.refreshMentionQuery(event.target.value, event.target.selectionStart)} onKeyDown={commentMentions.handleMentionKeyDown} onChange={commentMentions.changeMentionValue} placeholder={auth?.user ? 'Add a comment...' : 'Login to comment'} maxLength={2000} aria-autocomplete="list" aria-expanded={commentMentions.mentionQuery !== null && commentMentions.mentionUsers.length > 0} aria-controls={`search-community-comment-mentions-${item.id}`}/>{commentMentions.mentionQuery !== null && <MentionMenu id={`search-community-comment-mentions-${item.id}`} users={commentMentions.mentionUsers} activeIndex={commentMentions.activeMentionIndex} onActiveIndex={commentMentions.setActiveMentionIndex} onSelect={commentMentions.insertMention} />}<div className="comment-emoji-wrapper"><button type="button" className="comment-emoji-button" aria-label="Add emoji" aria-expanded={commentEmojiOpen} onClick={(event) => { setCommentEmojiPlacement(emojiPickerPlacementFor(event.currentTarget)); setCommentEmojiOpen((open) => !open); }}><Icon name="smile" size={18}/></button>{commentEmojiOpen && <div className={`comment-emoji-popover is-${commentEmojiPlacement}`} role="dialog" aria-label="Choose emoji"><Suspense fallback={<span className="comment-emoji-loading">Loading emojis...</span>}><EmojiPicker className="comment-emoji-picker" onEmojiClick={insertCommentEmoji} lazyLoadEmojis emojiStyle='native' previewConfig={{ showPreview: false }} searchPlaceHolder="Search" autoFocusSearch={false} width="100%" height={378}/></Suspense></div>}</div></div><button type="submit" className="btn primary" disabled={busy === 'comment' || !commentBody.trim()}>Publish</button>{commentError && <small>{commentError}</small>}</form><div className="search-community-comments">{commentsLoading ? <div className="state-card compact">Loading comments...</div> : <WatchCommentsPanel video={{ comments_count: item.comments_count || comments.length }} comments={comments} setComments={setComments} body="" setBody={() => {}} onSubmitComment={() => false} auth={auth} navigate={navigate} slug={`community-${item.id}`} notify={setCommentError} commentEndpoint={`/community-posts/${item.id}/comments`} commentLinkBase={postUrl} commentHashPrefix={`post-${item.id}-comment-`} onCommentCountChange={updateCommentCount} hideComposer commentsLimit={2} commentsLoadStep={5} compact />}</div></>}</div></article>;
 }
 
 
@@ -7485,7 +7449,7 @@ function PlaylistsPage({ navigate, auth, routeSearch = '' }) {
         <div className="playlist-toolbar"><label><Icon name="search" size={17}/><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search in this playlist..." />{query && <button type="button" className="search-clear-button" onClick={() => setQuery('')} aria-label="Clear search"><Icon name="close" size={14}/></button>}</label><div><button type="button" className={sort === 'latest' ? 'active' : ''} onClick={() => setSort('latest')}>Latest</button><button type="button" className={sort === 'oldest' ? 'active' : ''} onClick={() => setSort('oldest')}>Oldest</button><button type="button" className={sort === 'popular' ? 'active' : ''} onClick={() => setSort('popular')}>Popular</button></div></div>
         <div className="playlist-video-list-page">{searchLoading ? <div className="state-card">Searching playlist...</div> : filteredVideos.length ? filteredVideos.map((video, index) => {
           const menuId = video.id || video.slug || index;
-          return <div className="playlist-video-row-page" key={menuId} role="button" tabIndex={0} onClick={() => playVideo(video)} onKeyDown={(event) => { if (event.key === 'Enter') playVideo(video); }}><b>{index + 1}</b><Thumbnail video={video}/><span><strong>{video.title || 'Untitled video'}</strong><small>{video.description || video.channel?.name || 'No description yet.'}</small></span><em>{video.channel?.name || playlistChannel.name || 'Creator'}</em><i>{formatNumber(video.views_count || video.views || 0)}</i><time>{video.published_at ? formatPlaylistTime(video.published_at) : 'Recently'}</time><div className="playlist-row-menu-shell" onClick={(event) => event.stopPropagation()}><button type="button" className={openMenuId === menuId ? 'more-button active' : 'more-button'} onClick={() => setOpenMenuId((current) => current === menuId ? null : menuId)} aria-label="More actions"><span>...</span></button>{openMenuId === menuId && <div className="playlist-row-action-menu" role="menu"><button type="button" onClick={() => playVideo(video)}><Icon name="play" size={17}/> Watch video</button><button type="button" onClick={() => copyPlaylistVideoLink(video)}><Icon name="link" size={17}/> Copy link</button><button type="button" onClick={() => video.channel?.slug && navigate(`/channel/${video.channel.slug}`)}><Icon name="users" size={17}/> View creator</button>{isOwner && <button type="button" onClick={() => removeVideoFromPlaylist(video)} className="danger"><Icon name="trash" size={17}/> Remove from playlist</button>}</div>}</div></div>;
+          return <div className="playlist-video-row-page" key={menuId} role="button" tabIndex={0} onClick={() => playVideo(video)} onKeyDown={(event) => { if (event.key === 'Enter') playVideo(video); }}><b>{index + 1}</b><Thumbnail video={video}/><span><strong data-i18n-skip={video.title ? '' : undefined}>{video.title || 'Untitled video'}</strong><small>{video.description || video.channel?.name || 'No description yet.'}</small></span><em>{video.channel?.name || playlistChannel.name || 'Creator'}</em><i>{formatNumber(video.views_count || video.views || 0)}</i><time>{video.published_at ? formatPlaylistTime(video.published_at) : 'Recently'}</time><div className="playlist-row-menu-shell" onClick={(event) => event.stopPropagation()}><button type="button" className={openMenuId === menuId ? 'more-button active' : 'more-button'} onClick={() => setOpenMenuId((current) => current === menuId ? null : menuId)} aria-label="More actions"><span>...</span></button>{openMenuId === menuId && <div className="playlist-row-action-menu" role="menu"><button type="button" onClick={() => playVideo(video)}><Icon name="play" size={17}/> Watch video</button><button type="button" onClick={() => copyPlaylistVideoLink(video)}><Icon name="link" size={17}/> Copy link</button><button type="button" onClick={() => video.channel?.slug && navigate(`/channel/${video.channel.slug}`)}><Icon name="users" size={17}/> View creator</button>{isOwner && <button type="button" onClick={() => removeVideoFromPlaylist(video)} className="danger"><Icon name="trash" size={17}/> Remove from playlist</button>}</div>}</div></div>;
         }) : <div className="state-card">No videos match this playlist search.</div>}</div>
       </article>
       <aside className="playlist-side-stack">
@@ -7585,6 +7549,7 @@ function InfoPage({ pageKey, navigate, routeSearch = '', auth }) {
         setManagedPage({
           ...fallbackPage,
           ...content,
+          customized: Boolean(content.source_locale),
           tag: content.group || fallbackPage.tag,
           sections: (content.sections || []).map((section) => [section.title, String(section.body || '').split(/\n{2,}/).filter(Boolean)]),
         });
@@ -7724,13 +7689,13 @@ function InfoPage({ pageKey, navigate, routeSearch = '', auth }) {
   const defaultSections = page.sections.map(([title, paragraphs], index) => ({ title: `${index + 1}. ${title}`, text: paragraphs.join('\n\n') }));
   const renderActions = () => <div className="info-page-actions">{page.actions.map(([label, path]) => <button key={label} className="btn subtle" onClick={() => openInfoAction(path)}>{label}</button>)}</div>;
   const platformCard = <InfoPlatformCard facts={facts} categories={categories} loading={platform.loading} auth={auth} navigate={navigate} />;
-  const managedEditorial = page.customized && ['developers', 'contact', 'support'].includes(pageKey) ? <section className="info-managed-editorial"><span className="info-eyebrow">{page.tag}</span><h1>{page.title}</h1><p>{page.subtitle}</p><div className="info-managed-sections"><InfoSectionCards sections={page.sections} /></div></section> : null;
-  const breadcrumb = <><InfoBreadcrumb current={page.title} group={page.tag} navigate={navigate} />{managedEditorial}</>;
+  const managedEditorial = page.customized && ['developers', 'contact', 'support'].includes(pageKey) ? <section className="info-managed-editorial"><span className="info-eyebrow">{page.tag}</span><h1 data-i18n-skip={managedPage ? true : undefined}>{page.title}</h1><p data-i18n-skip={managedPage ? true : undefined}>{page.subtitle}</p><div className="info-managed-sections"><InfoSectionCards sections={page.sections} skipTranslations={Boolean(managedPage)} /></div></section> : null;
+  const breadcrumb = <><InfoBreadcrumb skipCurrentTranslation={Boolean(managedPage)} current={page.title} group={page.tag} navigate={navigate} />{managedEditorial}</>;
   const updatedLabel = page.updated_at ? new Date(page.updated_at).toLocaleDateString() : 'June 29, 2026';
 
   if (pageUnavailable) return <InfoShell pageKey={pageKey}><div className="state-card error"><h1>Page unavailable</h1><p>This page is currently disabled by the site administrator.</p><button type="button" className="btn primary compact" onClick={() => navigate('/')}>Back to home</button></div></InfoShell>;
 
-  if (pageKey === 'about') return <InfoShell pageKey={pageKey}>{breadcrumb}<section className="info-about-hero"><div><span className="info-eyebrow">{page.tag}</span><h1>{page.title}</h1><p>{page.subtitle}</p>{renderActions()}</div><div className="info-visual-card"><span>{platform.health?.name || websiteName()}</span><b>{platform.health?.version ? `version ${platform.health.version}` : origin}</b></div></section>{page.customized && <section className="info-managed-sections"><InfoSectionCards sections={page.sections} /></section>}<InfoStatStrip facts={aboutStatFacts} /><section className="info-about-grid"><article className="info-card"><h2>Recent creator channels</h2>{aboutCreators.length ? <div className="info-real-list">{aboutCreators.map((creator) => <button type="button" key={creator.id} onClick={() => creator.slug && navigate(`/channel/${creator.slug}`)}><strong>{creator.name}</strong><span>@{creator.slug || 'creator'} · {formatInfoNumber(creator.videos_count)} videos · {creator.joined || 'recently'}</span></button>)}</div> : <p>{platform.loading ? 'Loading creator channels...' : 'No creator channels found yet.'}</p>}<button className="btn subtle" onClick={() => navigate('/explore')}>Explore creators</button></article><article className="info-card"><h2>Platform capabilities</h2><InfoValueList rows={(aboutCapabilities.length ? aboutCapabilities : [['Platform content', 'Current counts are available.'], ['Creator publishing', 'Uploads, scheduling, and processing are available.']]).map((item) => [item.title, item.text])} /></article></section><section className="info-about-grid"><article className="info-card"><h2>Top content categories</h2>{aboutCategories.length ? <div className="info-chip-list">{aboutCategories.map((category) => <span key={category.slug || category.name}>{category.name} · {formatInfoNumber(category.videos_count)} videos</span>)}</div> : <p>{platform.loading ? 'Loading category activity...' : 'No category activity found yet.'}</p>}</article><article className="info-card"><h2>Operational snapshot</h2><div className="info-fact-list">{[['Published videos', formatInfoNumber(aboutStats.published_videos)], ['Public videos', formatInfoNumber(aboutStats.public_videos)], ['Scheduled videos', formatInfoNumber(aboutStats.scheduled_videos)], ['Comments', formatInfoNumber(aboutStats.comments)], ['Upload limit', about.limits?.max_upload_mb ? `${about.limits.max_upload_mb >= 1024 ? `${about.limits.max_upload_mb / 1024} GB` : `${about.limits.max_upload_mb} MB`}` : uploadLimit], ['Generated', about.generated_at ? new Date(about.generated_at).toLocaleString() : 'Loading...']].map(([label, value]) => <div key={label}><span>{label}</span><strong>{value}</strong></div>)}</div></article></section><InfoCta title="Join the future of video" text={websiteText('Upload, watch, subscribe, moderate, and build with PlayHub tools.')} action="Start uploading" onClick={() => navigate('/upload')} /></InfoShell>;
+  if (pageKey === 'about') return <InfoShell pageKey={pageKey}>{breadcrumb}<section className="info-about-hero"><div><span className="info-eyebrow">{page.tag}</span><h1 data-i18n-skip={managedPage ? true : undefined}>{page.title}</h1><p data-i18n-skip={managedPage ? true : undefined}>{page.subtitle}</p>{renderActions()}</div><div className="info-visual-card"><span>{platform.health?.name || websiteName()}</span><b>{platform.health?.version ? `version ${platform.health.version}` : origin}</b></div></section>{page.customized && <section className="info-managed-sections"><InfoSectionCards sections={page.sections} skipTranslations={Boolean(managedPage)} /></section>}<InfoStatStrip facts={aboutStatFacts} /><section className="info-about-grid"><article className="info-card"><h2>Recent creator channels</h2>{aboutCreators.length ? <div className="info-real-list">{aboutCreators.map((creator) => <button type="button" key={creator.id} onClick={() => creator.slug && navigate(`/channel/${creator.slug}`)}><strong>{creator.name}</strong><span>@{creator.slug || 'creator'} · {formatInfoNumber(creator.videos_count)} videos · {creator.joined || 'recently'}</span></button>)}</div> : <p>{platform.loading ? 'Loading creator channels...' : 'No creator channels found yet.'}</p>}<button className="btn subtle" onClick={() => navigate('/explore')}>Explore creators</button></article><article className="info-card"><h2>Platform capabilities</h2><InfoValueList rows={(aboutCapabilities.length ? aboutCapabilities : [['Platform content', 'Current counts are available.'], ['Creator publishing', 'Uploads, scheduling, and processing are available.']]).map((item) => [item.title, item.text])} /></article></section><section className="info-about-grid"><article className="info-card"><h2>Top content categories</h2>{aboutCategories.length ? <div className="info-chip-list">{aboutCategories.map((category) => <span key={category.slug || category.name}>{category.name} · {formatInfoNumber(category.videos_count)} videos</span>)}</div> : <p>{platform.loading ? 'Loading category activity...' : 'No category activity found yet.'}</p>}</article><article className="info-card"><h2>Operational snapshot</h2><div className="info-fact-list">{[['Published videos', formatInfoNumber(aboutStats.published_videos)], ['Public videos', formatInfoNumber(aboutStats.public_videos)], ['Scheduled videos', formatInfoNumber(aboutStats.scheduled_videos)], ['Comments', formatInfoNumber(aboutStats.comments)], ['Upload limit', about.limits?.max_upload_mb ? `${about.limits.max_upload_mb >= 1024 ? `${about.limits.max_upload_mb / 1024} GB` : `${about.limits.max_upload_mb} MB`}` : uploadLimit], ['Generated', about.generated_at ? new Date(about.generated_at).toLocaleString() : 'Loading...']].map(([label, value]) => <div key={label}><span>{label}</span><strong>{value}</strong></div>)}</div></article></section><InfoCta title="Join the future of video" text={websiteText('Upload, watch, subscribe, moderate, and build with PlayHub tools.')} action="Start uploading" onClick={() => navigate('/upload')} /></InfoShell>;
 
   if (pageKey === 'developers') {
     const developers = platform.developers || {};
@@ -7787,23 +7752,23 @@ function InfoPage({ pageKey, navigate, routeSearch = '', auth }) {
     return <InfoShell pageKey={pageKey}>{breadcrumb}<section className="info-help-hero"><div><span className="info-eyebrow">Help Center</span><h1>How can we help you?</h1><p>{websiteText('Find answers, get support, and learn how to use PlayHub’s upload, account, creator, and admin features.')}</p><form className="info-search-pill info-help-search" role="search" onSubmit={searchHelp}><Icon name="search" size={18}/><input value={faqQuery} onChange={(event) => { setFaqTopic('all'); setFaqQuery(event.target.value); }} placeholder="Search help articles, topics, or questions..." aria-label="Search help articles" />{faqQuery && <button type="button" className="info-help-search-clear" onClick={() => setFaqQuery('')} aria-label="Clear help search"><Icon name="close" size={16}/></button>}<button type="submit" className="info-help-search-submit" aria-label="Search help"><Icon name="chevronRight" size={18}/></button></form><div className="info-popular-tags"><button type="button" onClick={() => openFaq('uploads', 'upload')}>Upload issues</button><button type="button" onClick={() => openFaq('uploads', 'schedule')}>Schedule video</button><button type="button" onClick={() => openFaq('account', 'password')}>Account recovery</button><button type="button" onClick={() => openContact('technical', 'Admin support')}>Admin support</button></div></div><div className="info-help-visual">?</div></section><section className="info-help-layout"><div><h2>Browse by category</h2><div className="info-card-grid six">{supportCategories.map(([title, text, icon, onClick]) => <button type="button" className="info-card compact info-support-category" key={title} onClick={onClick}><b className="info-card-icon"><Icon name={icon} size={21}/></b><h2>{title}</h2><p>{text}</p></button>)}</div><div className="info-two-panels"><InfoArticleList title="Featured articles" rows={featuredArticles} /><InfoArticleList title={faqQuery ? 'Search results' : 'Popular questions'} rows={faqItems.map(([question]) => [question, () => openFaq(faqTopic, question)])} emptyText={faqQuery ? 'No help articles match your search.' : 'No help articles are available.'} /></div></div><aside className="info-page-side"><InfoMiniCard title="Your support" rows={auth?.user ? [['Signed in', auth.user.email || auth.user.name, () => navigate('/settings')], ['Ticket source', 'Contact form', () => openContact()]] : [['Guest mode', 'Sign in for account support', () => navigate('/login')], ['Messages', 'Stored for admins', () => openContact()]]} /><InfoMiniCard title="Quick links" rows={[['Report a problem', 'Use Contact Us', () => openContact('technical', 'Problem report')], ['Account recovery', 'Settings and login', () => openFaq('account', 'password')], ['Payment help', 'Refund page', () => navigate('/refund')], ['Community guidelines', 'Terms of Use', () => navigate('/terms')]]} /><InfoMiniCard title="Community and resources" rows={[['Creator Studio', '/studio', () => navigate('/studio')], ['Upload page', '/upload', () => navigate('/upload')]]} /></aside></section></InfoShell>;
   }
 
-  if (pageKey === 'faq') return <InfoShell pageKey={pageKey}>{breadcrumb}<section className="info-faq-hero"><div><span className="info-eyebrow">{page.tag}</span><h1>{page.title}</h1><p>{page.subtitle}</p><span className="search-inline-field info-faq-search-field"><input value={faqQuery} onChange={(event) => setFaqQuery(event.target.value)} placeholder="Search for answers..." />{faqQuery && <button type="button" className="search-clear-button" onClick={() => setFaqQuery('')} aria-label="Clear search"><Icon name="close" size={14}/></button>}</span></div><div className="info-faq-visual">?</div></section><div className="info-topic-tabs">{faqTopics.map(([key, label]) => <button key={key} type="button" className={faqTopic === key ? 'active' : ''} onClick={() => setFaqTopic(key)}>{label}</button>)}</div><section className="info-faq-layout"><div><h2>{faqTopic === 'all' ? 'Popular questions' : faqTopics.find(([key]) => key === faqTopic)?.[1]}</h2>{faqItems.length ? <InfoAccordion rows={faqItems} /> : <article className="info-card compact"><p>No answers found for this topic and search.</p></article>}</div><aside className="info-page-side"><InfoMiniCard title="Need more help?" rows={[['Email support', 'Use the contact form'], ['Admin visibility', 'Support dashboard'], ['System status', platform.health?.status || 'ok']]} /><InfoCta title="Still can’t find an answer?" text="Send a message and it will be saved for admins." action="Contact Support" onClick={() => navigate('/contact')} /></aside></section></InfoShell>;
+  if (pageKey === 'faq') return <InfoShell pageKey={pageKey}>{breadcrumb}<section className="info-faq-hero"><div><span className="info-eyebrow">{page.tag}</span><h1 data-i18n-skip={managedPage ? true : undefined}>{page.title}</h1><p data-i18n-skip={managedPage ? true : undefined}>{page.subtitle}</p><span className="search-inline-field info-faq-search-field"><input value={faqQuery} onChange={(event) => setFaqQuery(event.target.value)} placeholder="Search for answers..." />{faqQuery && <button type="button" className="search-clear-button" onClick={() => setFaqQuery('')} aria-label="Clear search"><Icon name="close" size={14}/></button>}</span></div><div className="info-faq-visual">?</div></section><div className="info-topic-tabs">{faqTopics.map(([key, label]) => <button key={key} type="button" className={faqTopic === key ? 'active' : ''} onClick={() => setFaqTopic(key)}>{label}</button>)}</div><section className="info-faq-layout"><div><h2>{faqTopic === 'all' ? 'Popular questions' : faqTopics.find(([key]) => key === faqTopic)?.[1]}</h2>{faqItems.length ? <InfoAccordion rows={faqItems} skipTranslations={Boolean(managedFaqItems)} /> : <article className="info-card compact"><p>No answers found for this topic and search.</p></article>}</div><aside className="info-page-side"><InfoMiniCard title="Need more help?" rows={[['Email support', 'Use the contact form'], ['Admin visibility', 'Support dashboard'], ['System status', platform.health?.status || 'ok']]} /><InfoCta title="Still can’t find an answer?" text="Send a message and it will be saved for admins." action="Contact Support" onClick={() => navigate('/contact')} /></aside></section></InfoShell>;
 
-  if (pageKey === 'refund') return <InfoShell pageKey={pageKey}>{breadcrumb}<section className="info-split-policy"><div><span className="info-eyebrow">{page.tag}</span><h1>{page.title}</h1><p>{page.subtitle}</p><span className="info-updated">Last updated: {updatedLabel}</span><InfoAccordion rows={page.sections.map(([title, paragraphs], index) => [`${index + 1}. ${title}`, paragraphs.join('\n\n')])} /></div><aside className="info-page-side"><InfoCta title="Need help?" text="Submit a billing or refund message to admin support." action="Request a refund" onClick={() => setRefundDialogOpen(true)} /><InfoProcess title="Refund request process" rows={[['Submit request', 'Send order details through the refund popup.'], ['Review', 'Admins verify billing records.'], ['Decision', 'You receive a response by email.'], ['Refund issued', 'If approved, payment is returned through the original method.']]} /></aside></section>{refundDialogOpen && <RefundRequestDialog form={refundForm} state={refundState} onChange={updateRefundForm} onSubmit={submitRefundRequest} onClose={() => setRefundDialogOpen(false)} />}</InfoShell>;
+  if (pageKey === 'refund') return <InfoShell pageKey={pageKey}>{breadcrumb}<section className="info-split-policy"><div><span className="info-eyebrow">{page.tag}</span><h1 data-i18n-skip={managedPage ? true : undefined}>{page.title}</h1><p data-i18n-skip={managedPage ? true : undefined}>{page.subtitle}</p><span className="info-updated">Last updated: {updatedLabel}</span><InfoAccordion skipTranslations={Boolean(managedPage)} rows={page.sections.map(([title, paragraphs], index) => [`${index + 1}. ${title}`, paragraphs.join('\n\n')])} /></div><aside className="info-page-side"><InfoCta title="Need help?" text="Submit a billing or refund message to admin support." action="Request a refund" onClick={() => setRefundDialogOpen(true)} /><InfoProcess title="Refund request process" rows={[['Submit request', 'Send order details through the refund popup.'], ['Review', 'Admins verify billing records.'], ['Decision', 'You receive a response by email.'], ['Refund issued', 'If approved, payment is returned through the original method.']]} /></aside></section>{refundDialogOpen && <RefundRequestDialog form={refundForm} state={refundState} onChange={updateRefundForm} onSubmit={submitRefundRequest} onClose={() => setRefundDialogOpen(false)} />}</InfoShell>;
 
-  if (pageKey === 'cookies') return <InfoShell pageKey={pageKey}>{breadcrumb}<section className="info-cookie-hero"><div><span className="info-eyebrow">{page.tag}</span><h1>{page.title}</h1><p>{page.subtitle}</p><span className="info-updated">Last updated: {updatedLabel}</span></div><InfoCta title="You’re in control" text="Manage language, theme, security, and notification settings from your account." action="Open settings" onClick={() => navigate('/settings')} /></section><InfoCookieTable /><section className="info-cookie-grid"><InfoSectionCards sections={page.sections} /></section></InfoShell>;
+  if (pageKey === 'cookies') return <InfoShell pageKey={pageKey}>{breadcrumb}<section className="info-cookie-hero"><div><span className="info-eyebrow">{page.tag}</span><h1 data-i18n-skip={managedPage ? true : undefined}>{page.title}</h1><p data-i18n-skip={managedPage ? true : undefined}>{page.subtitle}</p><span className="info-updated">Last updated: {updatedLabel}</span></div><InfoCta title="You’re in control" text="Manage language, theme, security, and notification settings from your account." action="Open settings" onClick={() => navigate('/settings')} /></section><InfoCookieTable /><section className="info-cookie-grid"><InfoSectionCards sections={page.sections} skipTranslations={Boolean(managedPage)} /></section></InfoShell>;
 
-  if (pageKey === 'privacy' || pageKey === 'terms') return <InfoShell pageKey={pageKey}>{breadcrumb}<section className="info-doc-layout"><InfoToc sections={defaultSections} /><article className="info-doc-article"><span className="info-eyebrow">{page.tag}</span><h1>{page.title}</h1><p>{page.subtitle}</p><span className="info-updated">Last updated: {updatedLabel}</span><InfoDocSections sections={defaultSections} /></article><aside className="info-page-side"><InfoCta title={pageKey === 'privacy' ? 'Questions about privacy?' : 'Related legal pages'} text={pageKey === 'privacy' ? 'Contact support for privacy, data, and account questions.' : 'Review privacy and cookie details for this deployment.'} action={pageKey === 'privacy' ? 'Contact support' : 'Privacy Policy'} onClick={() => navigate(pageKey === 'privacy' ? '/contact' : '/privacy')} />{platformCard}</aside></section></InfoShell>;
+  if (pageKey === 'privacy' || pageKey === 'terms') return <InfoShell pageKey={pageKey}>{breadcrumb}<section className="info-doc-layout"><InfoToc sections={defaultSections} skipTranslations={Boolean(managedPage)} /><article className="info-doc-article"><span className="info-eyebrow">{page.tag}</span><h1 data-i18n-skip={managedPage ? true : undefined}>{page.title}</h1><p data-i18n-skip={managedPage ? true : undefined}>{page.subtitle}</p><span className="info-updated">Last updated: {updatedLabel}</span><InfoDocSections sections={defaultSections} skipTranslations={Boolean(managedPage)} /></article><aside className="info-page-side"><InfoCta title={pageKey === 'privacy' ? 'Questions about privacy?' : 'Related legal pages'} text={pageKey === 'privacy' ? 'Contact support for privacy, data, and account questions.' : 'Review privacy and cookie details for this deployment.'} action={pageKey === 'privacy' ? 'Contact support' : 'Privacy Policy'} onClick={() => navigate(pageKey === 'privacy' ? '/contact' : '/privacy')} />{platformCard}</aside></section></InfoShell>;
 
-  return <InfoShell pageKey={pageKey}>{breadcrumb}<section className="info-page-grid"><div className="info-page-main"><span className="info-eyebrow">{page.tag}</span><h1>{page.title}</h1><p className="info-lead">{page.subtitle}</p><InfoSectionCards sections={page.sections} /></div><aside className="info-page-side">{platformCard}</aside></section></InfoShell>;
+  return <InfoShell pageKey={pageKey}>{breadcrumb}<section className="info-page-grid"><div className="info-page-main"><span className="info-eyebrow">{page.tag}</span><h1 data-i18n-skip={managedPage ? true : undefined}>{page.title}</h1><p className="info-lead" data-i18n-skip={managedPage ? true : undefined}>{page.subtitle}</p><InfoSectionCards sections={page.sections} skipTranslations={Boolean(managedPage)} /></div><aside className="info-page-side">{platformCard}</aside></section></InfoShell>;
 }
 
 function InfoShell({ pageKey, children }) {
   return <main className={`content-area info-page info-page-${pageKey}`}>{children}</main>;
 }
 
-function InfoBreadcrumb({ current, group, navigate }) {
-  return <nav className="info-breadcrumb"><button onClick={() => navigate('/')}>Home</button><span>›</span>{group && <><span>{group}</span><span>›</span></>}<strong>{current}</strong></nav>;
+function InfoBreadcrumb({ current, group, navigate, skipCurrentTranslation = false }) {
+  return <nav className="info-breadcrumb"><button onClick={() => navigate('/')}>Home</button><span>›</span>{group && <><span>{group}</span><span>›</span></>}<strong data-i18n-skip={skipCurrentTranslation || undefined}>{current}</strong></nav>;
 }
 
 function InfoPlatformCard({ facts, categories, loading, auth, navigate }) {
@@ -7852,8 +7817,8 @@ function RefundRequestDialog({ form, state, onChange, onSubmit, onClose }) {
   </div>;
 }
 
-function InfoAccordion({ rows }) {
-  return <div className="info-accordion">{rows.map(([title, text], index) => <details key={title} open={index === 0}><summary><span>{title}</span><b>{index === 0 ? '−' : '+'}</b></summary><p className="managed-page-copy">{text}</p></details>)}</div>;
+function InfoAccordion({ rows, skipTranslations = false }) {
+  return <div className="info-accordion" data-i18n-skip={skipTranslations || undefined}>{rows.map(([title, text], index) => <details key={title} open={index === 0}><summary><span>{title}</span><b>{index === 0 ? '−' : '+'}</b></summary><p className="managed-page-copy">{text}</p></details>)}</div>;
 }
 
 function InfoProcess({ title, rows }) {
@@ -7872,7 +7837,7 @@ function InfoFaqCard({ navigate }) {
   return <article className="info-card compact"><h2>Frequently asked questions</h2><div className="info-article-list">{['How do I report inappropriate content?', 'I need help with my account', 'How can I become a creator?'].map((row) => <button key={row} onClick={() => navigate('/faq')}>{row}<span>⌄</span></button>)}</div></article>;
 }
 
-function InfoToc({ sections }) {
+function InfoToc({ sections, skipTranslations = false }) {
   const [activeIndex, setActiveIndex] = useState(0);
   useEffect(() => {
     if (typeof window === 'undefined') return undefined;
@@ -7893,15 +7858,15 @@ function InfoToc({ sections }) {
     document.getElementById(`info-section-${index}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     if (typeof window !== 'undefined') window.history.replaceState(null, '', `#info-section-${index}`);
   };
-  return <aside className="info-toc"><strong>On this page</strong>{sections.map((section, index) => <button key={section.title} type="button" className={activeIndex === index ? 'active' : ''} onClick={() => scrollToSection(index)} aria-current={activeIndex === index ? 'true' : undefined}>{section.title}</button>)}</aside>;
+  return <aside className="info-toc"><strong>On this page</strong>{sections.map((section, index) => <button key={section.title} type="button" className={activeIndex === index ? 'active' : ''} data-i18n-skip={skipTranslations || undefined} onClick={() => scrollToSection(index)} aria-current={activeIndex === index ? 'true' : undefined}>{section.title}</button>)}</aside>;
 }
 
-function InfoDocSections({ sections }) {
-  return <div className="info-doc-sections">{sections.map((section, index) => <section id={`info-section-${index}`} key={section.title}><h2>{section.title}</h2><p className="managed-page-copy">{section.text}</p></section>)}</div>;
+function InfoDocSections({ sections, skipTranslations = false }) {
+  return <div className="info-doc-sections" data-i18n-skip={skipTranslations || undefined}>{sections.map((section, index) => <section id={`info-section-${index}`} key={section.title}><h2>{section.title}</h2><p className="managed-page-copy">{section.text}</p></section>)}</div>;
 }
 
-function InfoSectionCards({ sections }) {
-  return <>{sections.map(([title, paragraphs]) => <article className="info-card" key={title}><h2>{title}</h2>{paragraphs.map((paragraph) => <p className="managed-page-copy" key={paragraph}>{paragraph}</p>)}</article>)}</>;
+function InfoSectionCards({ sections, skipTranslations = false }) {
+  return <>{sections.map(([title, paragraphs]) => <article className="info-card" data-i18n-skip={skipTranslations || undefined} key={title}><h2>{title}</h2>{paragraphs.map((paragraph) => <p className="managed-page-copy" key={paragraph}>{paragraph}</p>)}</article>)}</>;
 }
 
 function InfoCookieTable() {
@@ -7912,7 +7877,7 @@ function InfoCookieTable() {
 function PersonRow({ person, index, follow = true, bell = false, channel = null, auth = null, navigate = null, onSubscriptionChange = null, avatar = null }) {
   const [name, handle, meta] = person;
   const avatarImage = assetUrl(avatar || channel?.avatar_url || channel?.avatar_path);
-  return <div className="person-row"><span className="person-rank">{index ? index : ''}</span><button type="button" className="person-profile-link" onClick={(event) => openProfile(event, navigate, channel)} disabled={!navigate || !profilePathFor(channel)}><Avatar label={name} image={avatarImage} /><div><strong>{name}</strong><span>{handle || meta}</span>{handle && <small>{meta}</small>}</div></button>{channel ? <SubscribeButton channel={channel} auth={auth} navigate={navigate} compact onChange={onSubscriptionChange} /> : follow && navigate ? <button type="button" className="btn small" onClick={() => navigate(`/search?q=${encodeURIComponent(name)}&type=channels`)}>View</button> : bell && navigate ? <button type="button" className="icon-button mini-icon" onClick={() => navigate('/notifications')} aria-label="Notifications"><Icon name="bell" size={16} /></button> : null}</div>;
+  return <div className="person-row"><span className="person-rank">{index ? index : ''}</span><button type="button" className="person-profile-link" onClick={(event) => openProfile(event, navigate, channel)} disabled={!navigate || !profilePathFor(channel)}><Avatar label={name} image={avatarImage} /><div><strong data-i18n-skip>{name}</strong><span data-i18n-skip={handle ? true : undefined}>{handle || meta}</span>{handle && <small>{meta}</small>}</div></button>{channel ? <SubscribeButton channel={channel} auth={auth} navigate={navigate} compact onChange={onSubscriptionChange} /> : follow && navigate ? <button type="button" className="btn small" onClick={() => navigate(`/search?q=${encodeURIComponent(name)}&type=channels`)}>View</button> : bell && navigate ? <button type="button" className="icon-button mini-icon" onClick={() => navigate('/notifications')} aria-label="Notifications"><Icon name="bell" size={16} /></button> : null}</div>;
 }
 
 function TextRankList({ items }) {
@@ -7920,7 +7885,7 @@ function TextRankList({ items }) {
 }
 
 function TagCloud({ tags, onTagClick = null, more = true, onMoreClick = null }) {
-  return <div className="tag-cloud">{tags.map((tag) => <button type="button" key={tag} onClick={() => onTagClick?.(tag)}>#{tag}</button>)}{more && <button type="button" onClick={onMoreClick}>More⌄</button>}</div>;
+  return <div className="tag-cloud">{tags.map((tag) => <button data-i18n-skip type="button" key={tag} onClick={() => onTagClick?.(tag)}>#{tag}</button>)}{more && <button type="button" onClick={onMoreClick}>More⌄</button>}</div>;
 }
 
 function MetricStrip({ metrics = null }) {
@@ -7937,7 +7902,7 @@ function CollectionCard({ icon, title, meta, dashed = false }) {
 
 function ContinueWideCard({ video, navigate }) {
   const progress = Math.max(0, Math.min(100, Number(video.progress || 0)));
-  return <button className="continue-wide-card" onClick={() => navigate(videoPlaybackPath(video))}><Thumbnail video={video} /><div className="wide-progress" style={{ '--progress': `${progress}%` }}><span>{progress}%</span><i /></div><strong>{video.title}</strong><p className={profilePathFor(video.channel) ? 'channel-inline-link' : ''} onClick={(event) => openProfile(event, navigate, video.channel)}><Avatar label={video.channel?.name || 'Creator'} />{video.channel?.name || 'Creator'} <VerifiedBadge verified={video.channel?.verified} /></p><small>{formatNumber(video.views_count)} views · Saved {video.created_label}</small></button>;
+  return <button className="continue-wide-card" onClick={() => navigate(videoPlaybackPath(video))}><Thumbnail video={video} /><div className="wide-progress" style={{ '--progress': `${progress}%` }}><span>{progress}%</span><i /></div><strong data-i18n-skip>{video.title}</strong><p className={profilePathFor(video.channel) ? 'channel-inline-link' : ''} onClick={(event) => openProfile(event, navigate, video.channel)}><Avatar label={video.channel?.name || 'Creator'} />{video.channel?.name || 'Creator'} <VerifiedBadge verified={video.channel?.verified} /></p><small><LocalizedCount value={formatNumber(video.views_count)} unit="view" /> · Saved {video.created_label}</small></button>;
 }
 
 
@@ -8042,18 +8007,20 @@ const liveOverlayThemeOptions = [
 
 const liveQualityBitrates = Object.freeze({ auto: 3000, '480p': 1500, '720p': 3000, '1080p': 6000, '1440p': 12000, '2160p': 24000 });
 
-const liveMediaTranslationWords = Object.freeze([
+const mediaTranslationWords = Object.freeze([
   'Announcements', 'Accessibility', 'AirPlay', 'Audio', 'Auto', 'Boost', 'Captions', 'Caption Styles', 'Captions look like this',
   'Chapters', 'Closed-Captions Off', 'Closed-Captions On', 'Connected', 'Continue', 'Connecting', 'Default', 'Disabled',
   'Disconnected', 'Display Background', 'Download', 'Enter Fullscreen', 'Enter PiP', 'Exit Fullscreen', 'Exit PiP', 'Font',
   'Family', 'Fullscreen', 'Google Cast', 'Keyboard Animations', 'LIVE', 'Loop', 'Mute', 'Normal', 'Off', 'Pause', 'Play',
   'Playback', 'PiP', 'Quality', 'Replay', 'Reset', 'Seek Backward', 'Seek Forward', 'Seek', 'Settings', 'Skip To Live',
   'Speed', 'Size', 'Color', 'Opacity', 'Shadow', 'Text', 'Text Background', 'Track', 'Unmute', 'Volume',
+  'Monospaced Serif', 'Proportional Serif', 'Monospaced Sans-Serif', 'Proportional Sans-Serif', 'Casual', 'Cursive',
+  'Small Capitals', 'None', 'Drop Shadow', 'Raised', 'Depressed', 'Outline', 'Audio Boost',
 ]);
 
-function useLiveMediaTranslations() {
+function useMediaTranslations() {
   const { t } = useI18n();
-  return useMemo(() => Object.fromEntries(liveMediaTranslationWords.map((word) => [word, t(word)])), [t]);
+  return useMemo(() => Object.fromEntries(mediaTranslationWords.map((word) => [word, t(word)])), [t]);
 }
 
 function normalizeLiveOverlayTheme(value) {
@@ -8644,7 +8611,7 @@ function liveAudienceParticipants(room) {
 }
 
 function LiveParticipantTile({ item, selected = false, spotlight = false, lowerThirds = true, viewer = false, moderator = false, muteAudio = false, onSelect = () => {}, onSpotlight = () => {}, onRemove = null }) {
-  const mediaTranslations = useLiveMediaTranslations();
+  const mediaTranslations = useMediaTranslations();
   const attachedVideoRef = useRef(null);
   const audioRef = useRef(null);
   const videoTrack = item.screenTrack || item.cameraTrack;
@@ -8675,7 +8642,7 @@ function LiveParticipantTile({ item, selected = false, spotlight = false, lowerT
   const badgeLabel = ['guest','cohost'].includes(item.role) && item.name ? item.name : roleLabel;
   const videoUnavailable = !videoTrack || (item.screenTrack ? item.screenPublication?.isMuted : item.cameraMuted);
   return <article className={`live-participant-tile ${viewer ? 'viewer' : ''} ${selected ? 'selected' : ''} ${spotlight ? 'spotlight' : ''} ${item.isSpeaking ? 'speaking' : ''}`} onClick={viewer ? undefined : () => onSelect(item.identity)}>
-    {videoSource && <MediaPlayer key={videoTrack.mediaStreamTrack.id} className="watch-vidstack-player live-control-vidstack-player" src={videoSource} title={`${item.name} live preview`} load="eager" autoPlay playsInline muted={item.isLocal} streamType="live" viewType="video" onProviderSetup={attachVideoProvider}><MediaProvider/>{!viewer && <DefaultVideoLayout icons={defaultLayoutIcons} translations={mediaTranslations}/>}</MediaPlayer>}
+    {videoSource && <MediaPlayer data-i18n-skip-attributes key={videoTrack.mediaStreamTrack.id} className="watch-vidstack-player live-control-vidstack-player" src={videoSource} title={`${item.name} live preview`} load="eager" autoPlay playsInline muted={item.isLocal} streamType="live" viewType="video" onProviderSetup={attachVideoProvider}><MediaProvider/>{!viewer && <DefaultVideoLayout data-i18n-skip icons={defaultLayoutIcons} translations={mediaTranslations}/>}</MediaPlayer>}
     {!item.isLocal && !muteAudio && <audio ref={audioRef} autoPlay />}
     {videoUnavailable && <div className="live-participant-fallback"><Avatar label={item.name}/><strong>Camera is off</strong></div>}
     <span className={`live-participant-role role-${item.role}`} data-i18n-skip>{badgeLabel}</span>
@@ -8687,7 +8654,7 @@ function LiveParticipantTile({ item, selected = false, spotlight = false, lowerT
 }
 
 function LiveViewerMediaPlayer({ videoTrack, audioTracks = [], title = 'Live stream', poster = '', preview = false, onPlayingChange = null, overlay = null }) {
-  const mediaTranslations = useLiveMediaTranslations();
+  const mediaTranslations = useMediaTranslations();
   const providerVideoRef = useRef(null);
   const attachedTracksRef = useRef([]);
   const mediaTracks = useMemo(() => [videoTrack, ...audioTracks].filter((track) => track?.mediaStreamTrack), [videoTrack, audioTracks]);
@@ -8727,9 +8694,9 @@ function LiveViewerMediaPlayer({ videoTrack, audioTracks = [], title = 'Live str
 
   if (!source) return null;
   const sourceKey = mediaTracks.map((track) => track.mediaStreamTrack.id).join(':');
-  return <MediaPlayer key={sourceKey} className={preview ? 'live-feature-preview-player' : 'watch-vidstack-player live-viewer-vidstack-player'} src={source} title={title} poster={poster || undefined} load="eager" autoPlay playsInline muted={preview || !audioTracks.length} streamType="live" viewType="video" onProviderSetup={attachProvider} onPlaying={() => preview && onPlayingChange?.(true)} onPause={() => preview && onPlayingChange?.(false)} onEnded={() => preview && onPlayingChange?.(false)} onError={() => preview && onPlayingChange?.(false)} aria-hidden={preview || undefined} tabIndex={preview ? -1 : undefined}>
+  return <MediaPlayer data-i18n-skip-attributes key={sourceKey} className={preview ? 'live-feature-preview-player' : 'watch-vidstack-player live-viewer-vidstack-player'} src={source} title={title} poster={poster || undefined} load="eager" autoPlay playsInline muted={preview || !audioTracks.length} streamType="live" viewType="video" onProviderSetup={attachProvider} onPlaying={() => preview && onPlayingChange?.(true)} onPause={() => preview && onPlayingChange?.(false)} onEnded={() => preview && onPlayingChange?.(false)} onError={() => preview && onPlayingChange?.(false)} aria-hidden={preview || undefined} tabIndex={preview ? -1 : undefined}>
     <MediaProvider/>
-    {!preview && <DefaultVideoLayout icons={defaultLayoutIcons} translations={mediaTranslations}/>}
+    {!preview && <DefaultVideoLayout data-i18n-skip icons={defaultLayoutIcons} translations={mediaTranslations}/>}
     {overlay}
   </MediaPlayer>;
 }
@@ -8901,6 +8868,7 @@ function LiveWalletTopupDialog({ open, onClose }) {
 }
 
 function CreatorTipDialog({ open, creator, video = null, settings = {}, navigate, onClose, onSent }) {
+  const { t } = useI18n();
   const minimum = Math.max(.01, Number(settings?.minimum || 1));
   const maximum = Math.max(minimum, Number(settings?.maximum || 500));
   const currency = String(settings?.currency || 'usd').toUpperCase();
@@ -8934,7 +8902,7 @@ function CreatorTipDialog({ open, creator, video = null, settings = {}, navigate
         method: 'POST',
         body: JSON.stringify({ amount: numericAmount, video_id: video?.id || null, message: message.trim() || null, idempotency_key: idempotencyKeyRef.current }),
       });
-      onSent?.(response.message || `Tip sent to ${creator.name || 'creator'}.`);
+      onSent?.(response.message || t('Tip sent to {name}.', { name: creator.name || t('Creator') }));
       onClose?.();
     } catch (requestError) {
       setError(requestError.message || 'Unable to send this tip.');
@@ -8945,7 +8913,7 @@ function CreatorTipDialog({ open, creator, video = null, settings = {}, navigate
 
   return <div className="collection-modal-backdrop live-contribution-backdrop creator-tip-backdrop" role="dialog" aria-modal="true" aria-labelledby="creator-tip-title" onMouseDown={(event) => { if (event.target === event.currentTarget && !busy) onClose?.(); }}>
     <section className="live-contribution-dialog creator-tip-dialog">
-      <header><div><span><Icon name="wallet" size={21}/></span><div><h2 id="creator-tip-title">Tip {creator.name || 'this creator'}</h2><p>{video ? `Support the creator of “${video.title}”.` : 'Send a tip or donation directly to this creator.'}</p></div></div><button type="button" onClick={onClose} disabled={busy} aria-label="Close tip dialog"><Icon name="close" size={18}/></button></header>
+      <header><div><span><Icon name="wallet" size={21}/></span><div><h2 id="creator-tip-title" data-i18n-skip>{t('Send a tip to {name}', { name: creator.name || t('Creator') })}</h2><p data-i18n-skip>{video ? t('Support the creator of “{title}”.', { title: video.title }) : t('Send a tip or donation directly to this creator.')}</p></div></div><button type="button" onClick={onClose} disabled={busy} aria-label="Close tip dialog"><Icon name="close" size={18}/></button></header>
       <form onSubmit={submit}>
         {presets.length > 0 && <div className="creator-tip-presets" aria-label="Suggested tip amounts">{presets.map((value) => <button type="button" className={Number(amount) === value ? 'selected' : ''} key={value} onClick={() => setAmount(value.toFixed(2))} disabled={busy}><span data-i18n-skip>{currency} {value.toFixed(2)}</span></button>)}</div>}
         <label>Amount <span data-i18n-skip>{currency}</span><input type="number" min={minimum} max={maximum} step="0.01" value={amount} onChange={(event) => setAmount(event.target.value)} required autoFocus /></label>
@@ -8960,7 +8928,7 @@ function CreatorTipDialog({ open, creator, video = null, settings = {}, navigate
 
 function GoLivePage({ initialStream = null }) {
   const { t } = useI18n();
-  const mediaTranslations = useLiveMediaTranslations();
+  const mediaTranslations = useMediaTranslations();
   const accentColors = ['#6b2cff','#2f86f6','#29c3b5','#55ba43','#f4ad19','#f36724','#ed4f92'];
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState('');
@@ -10570,7 +10538,7 @@ function GoLivePage({ initialStream = null }) {
         <div className="go-live-one-top">
           <article className="go-live-one-card go-live-one-preview">
             <div className="go-live-one-card-title"><h2>Stream Preview</h2><span>{form.source_type === 'webcam' ? 'Webcam preview' : 'RTMP preview'}</span></div>
-            <div className={`go-live-one-player live-overlay-stage ${overlayThemeClass}`} style={{ '--live-overlay-accent': overlayAccent }}>{form.source_type === 'webcam' && previewStream ? <MediaPlayer ref={mediaPlayerRef} className="go-live-vidstack-player" src={{ src: previewStream, type: 'video/object' }} title={form.title || 'Webcam preview'} muted autoPlay playsInline streamType="live" viewType="video" onProviderSetup={(provider) => { webcamPreviewVideoRef.current = liveProviderVideo(provider); }}><MediaProvider/><DefaultVideoLayout icons={defaultLayoutIcons} translations={mediaTranslations}/></MediaPlayer> : form.source_type === 'rtmp' ? <><video ref={rtmpPreviewVideoRef} className="livekit-viewer-video" autoPlay muted playsInline onPlaying={() => { setRtmpPreviewPlaying(true); setPreviewError(''); }} onWaiting={() => setRtmpPreviewPlaying(false)} onStalled={() => setRtmpPreviewPlaying(false)} onEmptied={() => setRtmpPreviewPlaying(false)} onEnded={() => setRtmpPreviewPlaying(false)} onError={() => { setRtmpPreviewPlaying(false); setPreviewError('Unable to play the RTMP preview. Check the OBS video output.'); }}/>{!rtmpPreviewPlaying && <div className="go-live-preview-empty"><span><Icon name="live" size={30}/></span><strong>Waiting for RTMP video</strong><p>Start streaming from OBS to see the stream preview here.</p></div>}</> : <div className="go-live-preview-empty"><span><Icon name="studio" size={30}/></span><strong>Camera preview is off</strong><p>{features.webcam_preview ? 'Allow camera and microphone access to prepare your preview.' : 'Webcam preview is disabled by the site administrator.'}</p>{features.webcam_preview && <button type="button" className="btn primary compact" onClick={() => startPreview()} disabled={busy === 'preview'}>{busy === 'preview' ? 'Starting...' : 'Start camera preview'}</button>}</div>}<LiveStreamOverlay details={false}/><LiveEngagementAlert alert={controlEngagementAlert}/><LiveTipCelebration tip={controlTipCelebration}/></div>
+            <div className={`go-live-one-player live-overlay-stage ${overlayThemeClass}`} style={{ '--live-overlay-accent': overlayAccent }}>{form.source_type === 'webcam' && previewStream ? <MediaPlayer data-i18n-skip-attributes ref={mediaPlayerRef} className="go-live-vidstack-player" src={{ src: previewStream, type: 'video/object' }} title={form.title || 'Webcam preview'} muted autoPlay playsInline streamType="live" viewType="video" onProviderSetup={(provider) => { webcamPreviewVideoRef.current = liveProviderVideo(provider); }}><MediaProvider/><DefaultVideoLayout data-i18n-skip icons={defaultLayoutIcons} translations={mediaTranslations}/></MediaPlayer> : form.source_type === 'rtmp' ? <><video ref={rtmpPreviewVideoRef} className="livekit-viewer-video" autoPlay muted playsInline onPlaying={() => { setRtmpPreviewPlaying(true); setPreviewError(''); }} onWaiting={() => setRtmpPreviewPlaying(false)} onStalled={() => setRtmpPreviewPlaying(false)} onEmptied={() => setRtmpPreviewPlaying(false)} onEnded={() => setRtmpPreviewPlaying(false)} onError={() => { setRtmpPreviewPlaying(false); setPreviewError('Unable to play the RTMP preview. Check the OBS video output.'); }}/>{!rtmpPreviewPlaying && <div className="go-live-preview-empty"><span><Icon name="live" size={30}/></span><strong>Waiting for RTMP video</strong><p>Start streaming from OBS to see the stream preview here.</p></div>}</> : <div className="go-live-preview-empty"><span><Icon name="studio" size={30}/></span><strong>Camera preview is off</strong><p>{features.webcam_preview ? 'Allow camera and microphone access to prepare your preview.' : 'Webcam preview is disabled by the site administrator.'}</p>{features.webcam_preview && <button type="button" className="btn primary compact" onClick={() => startPreview()} disabled={busy === 'preview'}>{busy === 'preview' ? 'Starting...' : 'Start camera preview'}</button>}</div>}<LiveStreamOverlay details={false}/><LiveEngagementAlert alert={controlEngagementAlert}/><LiveTipCelebration tip={controlTipCelebration}/></div>
             {previewError && <small className="go-live-field-error">{previewError}</small>}
           </article>
 
@@ -10713,7 +10681,7 @@ function pingLiveAdTracking(ad, eventName) {
 
 function LiveDetailPage({ slug, navigate, auth, initialRoomData = null, defaultVideoQuality = 'auto' }) {
   const { t } = useI18n();
-  const mediaTranslations = useLiveMediaTranslations();
+  const mediaTranslations = useMediaTranslations();
   const [descriptionOpen, setDescriptionOpen] = useState(false);
   const [chatDraft, setChatDraft] = useState('');
   const [chatItems, setChatItems] = useState([]);
@@ -11899,7 +11867,7 @@ function LiveDetailPage({ slug, navigate, auth, initialRoomData = null, defaultV
 
           <article className={`live-player-card live-viewer-player-card live-replay-player-card is-${replayFrame.orientation}`} style={{ '--replay-aspect-ratio': `${replayFrame.width} / ${replayFrame.height}`, '--replay-player-max-width': `${Math.round(replayFrame.ratio * 720)}px` }}>
             <div className={`live-detail-player-scene live-viewer-player-scene live-replay-player-scene live-overlay-stage ${viewerOverlay.className}`} style={viewerOverlay.style}>
-              {replayReady ? <MediaPlayer ref={replayPlayerRef} className="live-viewer-vidstack-player live-viewer-replay-player" src={replaySources} title={stream.title} poster={replayPoster || undefined} load="eager" playsInline streamType="on-demand" viewType="video" googleCast={GOOGLE_CAST_OPTIONS} onLoadedMetadata={() => { const media = replayPlayerRef.current?.querySelector?.('video'); if (media?.videoWidth && media?.videoHeight) setReplayMediaDimensions({ width: media.videoWidth, height: media.videoHeight }); }} onCanPlay={() => { if (!replayQualityAppliedRef.current) { applyConfiguredVideoQuality(replayPlayerRef.current, defaultVideoQuality); replayQualityAppliedRef.current = true; } }}><MediaProvider mediaProps={REMOTE_PLAYBACK_MEDIA_PROPS}/><DefaultVideoLayout icons={defaultLayoutIcons} translations={mediaTranslations}/></MediaPlayer> : replayPoster ? <img className="live-viewer-poster" src={replayPoster} alt=""/> : null}
+              {replayReady ? <MediaPlayer data-i18n-skip-attributes ref={replayPlayerRef} className="live-viewer-vidstack-player live-viewer-replay-player" src={replaySources} title={stream.title} poster={replayPoster || undefined} load="eager" playsInline streamType="on-demand" viewType="video" googleCast={GOOGLE_CAST_OPTIONS} onLoadedMetadata={() => { const media = replayPlayerRef.current?.querySelector?.('video'); if (media?.videoWidth && media?.videoHeight) setReplayMediaDimensions({ width: media.videoWidth, height: media.videoHeight }); }} onCanPlay={() => { if (!replayQualityAppliedRef.current) { applyConfiguredVideoQuality(replayPlayerRef.current, defaultVideoQuality); replayQualityAppliedRef.current = true; } }}><MediaProvider mediaProps={REMOTE_PLAYBACK_MEDIA_PROPS}/><DefaultVideoLayout data-i18n-skip icons={defaultLayoutIcons} translations={mediaTranslations}/></MediaPlayer> : replayPoster ? <img className="live-viewer-poster" src={replayPoster} alt=""/> : null}
               <LiveStreamOverlay title={stream.title} creator={stream.creator}/>
               {liveLoading && !replayReady && <div className="livekit-viewer-status">Loading replay...</div>}
               {!liveLoading && !replayReady && <div className="livekit-viewer-status"><strong>Replay processing</strong><span>The replay will appear here when processing is complete.</span></div>}
@@ -11988,7 +11956,7 @@ function LiveDetailPage({ slug, navigate, auth, initialRoomData = null, defaultV
 
           <section id="replay-chapters" className="studio-card live-replay-chapters-card">
             <header><div><h2>Chapters</h2></div><button type="button" className="text-button" onClick={() => replayChapters.length > 5 ? setReplayChaptersExpanded((open) => !open) : setShareNotice('All chapters are visible.')}>{replayChaptersExpanded ? 'Show less' : 'View all'}</button></header>
-            <div>{visibleChapters.map((chapter, index) => <button type="button" key={`${chapter.seconds}-${chapter.title}`} onClick={() => seekReplay(chapter.seconds)}><span>{replayPoster ? <img src={replayPoster} alt=""/> : <Icon name="play" size={16}/>}</span><time>{replaySeekTime(chapter.seconds)}</time><strong>{chapter.title}</strong>{index === 0 && <small>Start</small>}</button>)}</div>
+            <div>{visibleChapters.map((chapter, index) => <button type="button" key={`${chapter.seconds}-${chapter.title}`} onClick={() => seekReplay(chapter.seconds)}><span>{replayPoster ? <img src={replayPoster} alt=""/> : <Icon name="play" size={16}/>}</span><time>{replaySeekTime(chapter.seconds)}</time><strong data-i18n-skip>{chapter.title}</strong>{index === 0 && <small>Start</small>}</button>)}</div>
           </section>
         </aside>
       </section>
@@ -12011,7 +11979,7 @@ function LiveDetailPage({ slug, navigate, auth, initialRoomData = null, defaultV
       <div className="live-viewer-main-column">
       <article className="live-player-card live-viewer-player-card">
         <div className={`live-detail-player-scene live-viewer-player-scene live-overlay-stage ${viewerOverlay.className}`} style={viewerOverlay.style}>
-          {multiParticipantStage ? <div className={`live-viewer-participant-stage participant-count-${Math.min(6, viewerStageParticipants.length)}`}>{viewerStageParticipants.map((participant) => <LiveParticipantTile key={participant.identity} item={participant} viewer moderator={canModerate} lowerThirds onRemove={requestParticipantRemoval}/>)}</div> : selectedViewerVideo ? <LiveViewerMediaPlayer videoTrack={selectedViewerVideo} audioTracks={viewerAudioTracks} title={stream.title} poster={liveStream?.thumbnail_url || ''} overlay={<LiveStreamOverlay title={stream.title} creator={stream.creator}/>}/> : replayReady ? <MediaPlayer ref={replayPlayerRef} className="live-viewer-vidstack-player live-viewer-replay-player" src={replaySources} title={stream.title} poster={replayVideo.thumbnail_url || liveStream?.thumbnail_url || ''} load="eager" playsInline streamType="on-demand" viewType="video" googleCast={GOOGLE_CAST_OPTIONS} onCanPlay={() => { if (!replayQualityAppliedRef.current) { applyConfiguredVideoQuality(replayPlayerRef.current, defaultVideoQuality); replayQualityAppliedRef.current = true; } }}><MediaProvider mediaProps={REMOTE_PLAYBACK_MEDIA_PROPS}/><DefaultVideoLayout icons={defaultLayoutIcons} translations={mediaTranslations}/></MediaPlayer> : liveStream?.thumbnail_url ? <img className="live-viewer-poster" src={liveStream.thumbnail_url} alt=""/> : null}
+          {multiParticipantStage ? <div className={`live-viewer-participant-stage participant-count-${Math.min(6, viewerStageParticipants.length)}`}>{viewerStageParticipants.map((participant) => <LiveParticipantTile key={participant.identity} item={participant} viewer moderator={canModerate} lowerThirds onRemove={requestParticipantRemoval}/>)}</div> : selectedViewerVideo ? <LiveViewerMediaPlayer videoTrack={selectedViewerVideo} audioTracks={viewerAudioTracks} title={stream.title} poster={liveStream?.thumbnail_url || ''} overlay={<LiveStreamOverlay title={stream.title} creator={stream.creator}/>}/> : replayReady ? <MediaPlayer data-i18n-skip-attributes ref={replayPlayerRef} className="live-viewer-vidstack-player live-viewer-replay-player" src={replaySources} title={stream.title} poster={replayVideo.thumbnail_url || liveStream?.thumbnail_url || ''} load="eager" playsInline streamType="on-demand" viewType="video" googleCast={GOOGLE_CAST_OPTIONS} onCanPlay={() => { if (!replayQualityAppliedRef.current) { applyConfiguredVideoQuality(replayPlayerRef.current, defaultVideoQuality); replayQualityAppliedRef.current = true; } }}><MediaProvider mediaProps={REMOTE_PLAYBACK_MEDIA_PROPS}/><DefaultVideoLayout data-i18n-skip icons={defaultLayoutIcons} translations={mediaTranslations}/></MediaPlayer> : liveStream?.thumbnail_url ? <img className="live-viewer-poster" src={liveStream.thumbnail_url} alt=""/> : null}
           {liveLoading && <div className="livekit-viewer-status">Connecting to live stream...</div>}
           {!liveLoading && liveStream?.status === 'scheduled' && <div className="livekit-viewer-status"><strong>Scheduled live stream</strong><span>This stream has not started yet.</span></div>}
           {!liveLoading && ['waiting-for-source', 'live'].includes(liveStream?.status) && !selectedViewerVideo && !multiParticipantStage && <div className="livekit-viewer-status"><strong>Waiting for live video</strong><span>The broadcast is connected and video will appear here.</span></div>}
@@ -12025,7 +11993,7 @@ function LiveDetailPage({ slug, navigate, auth, initialRoomData = null, defaultV
           <LiveTipCelebration tip={viewerTipCelebration}/>
           <LiveStreamPollCard poll={activePoll} busy={Boolean(pollBusy)} onVote={voteLivePoll}/>
           {liveAd?.ad?.media_url && <div className="live-viewer-ad-overlay">
-            <MediaPlayer ref={liveAdPlayerRef} className="live-viewer-ad-player" src={[{ src: liveAd.ad.media_url, type: liveAd.ad.mime_type || inferVideoType({ src: liveAd.ad.media_url }) }]} title={liveAd.ad.title || liveAd.ad.name || 'Advertisement'} load="eager" autoPlay muted playsInline streamType="on-demand" viewType="video" onCanPlay={() => liveAdPlayerRef.current?.play?.().catch?.(() => {})} onPlaying={handleLiveAdPlaying} onTimeUpdate={handleLiveAdTimeUpdate} onEnded={completeLiveAd} onError={() => { pingLiveAdTracking(liveAd.ad, 'error'); setLiveAd(null); setContributionNotice('The live advertisement could not be played.'); }}><MediaProvider/><DefaultVideoLayout icons={defaultLayoutIcons} translations={mediaTranslations}/></MediaPlayer>
+            <MediaPlayer data-i18n-skip-attributes ref={liveAdPlayerRef} className="live-viewer-ad-player" src={[{ src: liveAd.ad.media_url, type: liveAd.ad.mime_type || inferVideoType({ src: liveAd.ad.media_url }) }]} title={liveAd.ad.title || liveAd.ad.name || 'Advertisement'} load="eager" autoPlay muted playsInline streamType="on-demand" viewType="video" onCanPlay={() => liveAdPlayerRef.current?.play?.().catch?.(() => {})} onPlaying={handleLiveAdPlaying} onTimeUpdate={handleLiveAdTimeUpdate} onEnded={completeLiveAd} onError={() => { pingLiveAdTracking(liveAd.ad, 'error'); setLiveAd(null); setContributionNotice('The live advertisement could not be played.'); }}><MediaProvider/><DefaultVideoLayout data-i18n-skip icons={defaultLayoutIcons} translations={mediaTranslations}/></MediaPlayer>
             <div className="live-viewer-ad-label"><span>Advertisement</span><strong data-i18n-skip>{liveAd.ad.title || liveAd.ad.name || 'Sponsored message'}</strong>{liveAd.ad.click_url && <button type="button" onClick={() => { pingLiveAdTracking(liveAd.ad, 'click'); window.open(liveAd.ad.click_url, '_blank', 'noopener,noreferrer'); }}>Visit sponsor</button>}</div>
           </div>}
         </div>
@@ -12118,7 +12086,7 @@ function LiveDetailPage({ slug, navigate, auth, initialRoomData = null, defaultV
     <LiveParticipantJoinDialog open={participantJoinOpen} busy={Boolean(participantBusy)} mode={participantMode} status={participantStatus} canPublish={participantCanPublish} publishing={participantPublishing} media={participantMedia} error={participantError} onMode={(mode) => { setParticipantMode(mode); setParticipantError(''); }} onSubmit={submitParticipantRequest} onCancelRequest={leaveParticipantStage} onLeave={leaveParticipantStage} onClose={() => setParticipantJoinOpen(false)}/>
     <LiveWalletTopupDialog open={walletTopupOpen} onClose={() => setWalletTopupOpen(false)}/>
     <AppConfirmDialog dialog={moderationConfirm} busy={Boolean(moderationBusy)} onCancel={() => setModerationConfirm(null)} onConfirm={confirmModerationAction}/>
-      {contributionType && <div className="collection-modal-backdrop live-contribution-backdrop" role="dialog" aria-modal="true" aria-labelledby="live-contribution-title" onMouseDown={(event) => { if (event.target === event.currentTarget && !contributionBusy) setContributionType(''); }}><section className="live-contribution-dialog"><header><div><span>{selectedContributionAsset?.image_url ? <img src={selectedContributionAsset.image_url} alt=""/> : contributionOptions.find(([type]) => type === contributionType)?.[2] || '✦'}</span><div><h2 id="live-contribution-title">Send {contributionType === 'gift' ? 'Gift' : contributionType === 'tip' ? 'Tip' : contributionOptions.find(([type]) => type === contributionType)?.[1] || 'support'}</h2><p>Support <b data-i18n-skip>{stream.creator}</b> during this live stream.</p></div></div><button type="button" onClick={() => setContributionType('')} disabled={contributionBusy} aria-label="Close"><Icon name="close" size={18}/></button></header><form onSubmit={submitContribution}>{contributionAssetCatalog.length ? <div className="live-gift-picker" role="radiogroup" aria-label={contributionType === 'gift' ? 'Choose a gift' : 'Choose a Super Sticker'}>{contributionAssetCatalog.map((item) => <button type="button" role="radio" aria-checked={String(selectedContributionAsset?.id) === String(item.id)} className={String(selectedContributionAsset?.id) === String(item.id) ? 'selected' : ''} key={item.id} onClick={() => { if (contributionType === 'gift') setSelectedGiftId(item.id); else setSelectedSuperStickerId(item.id); setContributionAmount(Number(item.price || item.price_cents / 100).toFixed(2)); }}><img src={item.image_url} alt="" loading="lazy"/><strong data-i18n-skip>{item.name}</strong><span data-i18n-skip>{item.currency || contributionCurrency} {item.price}</span></button>)}</div> : <><label>Amount <span data-i18n-skip>{contributionCurrency}</span><input type="number" min={contributionMin} max={contributionMax} step="0.01" value={contributionAmount} onChange={(event) => setContributionAmount(event.target.value)} required autoFocus/></label><small>Allowed range: <span data-i18n-skip>{contributionCurrency} {contributionMin.toFixed(2)} - {contributionMax.toFixed(2)}</span></small></>}<label>Message <em>(optional)</em><textarea value={contributionMessage} onChange={(event) => setContributionMessage(event.target.value)} maxLength={500} placeholder="Add a message for the creator"/></label>{contributionError && <div className="go-live-notice error" role="alert">{contributionError}</div>}<footer><button type="button" className="btn subtle" onClick={() => setContributionType('')} disabled={contributionBusy}>Cancel</button><button type="submit" className="btn primary" disabled={contributionBusy || (['gift','super_sticker'].includes(contributionType) ? !selectedContributionAsset : Number(contributionAmount) < contributionMin || Number(contributionAmount) > contributionMax)}>{contributionBusy ? 'Sending...' : contributionType === 'gift' ? 'Send gift' : contributionType === 'super_sticker' ? 'Send Super Sticker' : 'Send contribution'}</button></footer></form></section></div>}
+      {contributionType && <div className="collection-modal-backdrop live-contribution-backdrop" role="dialog" aria-modal="true" aria-labelledby="live-contribution-title" onMouseDown={(event) => { if (event.target === event.currentTarget && !contributionBusy) setContributionType(''); }}><section className="live-contribution-dialog"><header><div><span>{selectedContributionAsset?.image_url ? <img src={selectedContributionAsset.image_url} alt=""/> : contributionOptions.find(([type]) => type === contributionType)?.[2] || '✦'}</span><div><h2 id="live-contribution-title" data-i18n-skip>{t(({gift: 'Send gift', tip: 'Send tip', super_sticker: 'Send Super Sticker', super_chat: 'Send Super Chat'})[contributionType] || 'Send contribution')}</h2><p data-i18n-skip>{t('Support {name} during this live stream.', { name: stream.creator })}</p></div></div><button type="button" onClick={() => setContributionType('')} disabled={contributionBusy} aria-label="Close"><Icon name="close" size={18}/></button></header><form onSubmit={submitContribution}>{contributionAssetCatalog.length ? <div className="live-gift-picker" role="radiogroup" aria-label={contributionType === 'gift' ? 'Choose a gift' : 'Choose a Super Sticker'}>{contributionAssetCatalog.map((item) => <button type="button" role="radio" aria-checked={String(selectedContributionAsset?.id) === String(item.id)} className={String(selectedContributionAsset?.id) === String(item.id) ? 'selected' : ''} key={item.id} onClick={() => { if (contributionType === 'gift') setSelectedGiftId(item.id); else setSelectedSuperStickerId(item.id); setContributionAmount(Number(item.price || item.price_cents / 100).toFixed(2)); }}><img src={item.image_url} alt="" loading="lazy"/><strong data-i18n-skip>{item.name}</strong><span data-i18n-skip>{item.currency || contributionCurrency} {item.price}</span></button>)}</div> : <><label>Amount <span data-i18n-skip>{contributionCurrency}</span><input type="number" min={contributionMin} max={contributionMax} step="0.01" value={contributionAmount} onChange={(event) => setContributionAmount(event.target.value)} required autoFocus/></label><small>Allowed range: <span data-i18n-skip>{contributionCurrency} {contributionMin.toFixed(2)} - {contributionMax.toFixed(2)}</span></small></>}<label>Message <em>(optional)</em><textarea value={contributionMessage} onChange={(event) => setContributionMessage(event.target.value)} maxLength={500} placeholder="Add a message for the creator"/></label>{contributionError && <div className="go-live-notice error" role="alert">{contributionError}</div>}<footer><button type="button" className="btn subtle" onClick={() => setContributionType('')} disabled={contributionBusy}>Cancel</button><button type="submit" className="btn primary" disabled={contributionBusy || (['gift','super_sticker'].includes(contributionType) ? !selectedContributionAsset : Number(contributionAmount) < contributionMin || Number(contributionAmount) > contributionMax)}>{contributionBusy ? 'Sending...' : contributionType === 'gift' ? 'Send gift' : contributionType === 'super_sticker' ? 'Send Super Sticker' : 'Send contribution'}</button></footer></form></section></div>}
   </main>;
 }
 
@@ -12765,12 +12733,12 @@ function ExplorePage({ navigate, auth }) {
     {error && <div className="state-card error">{error}</div>}
     {loading && <div className="state-card">Loading videos...</div>}
     <div className="two-column-page"><section className="page-main-column">
-      {featured ? <div className="explore-feature-grid"><button className="explore-banner" onClick={() => navigate(videoPlaybackPath(featured))}><Thumbnail video={featured} large /><div><span className="pill filled">Featured</span><h2>{featured.title}</h2><p>{featured.description || websiteText('Watch the latest videos from PlayHub creators.')}</p><span className="btn glass"><Icon name="play" size={16}/> Watch Now</span></div></button><div className="side-video-stack">{top.slice(1,5).map((video) => <SmallVideoRow key={video.id} video={video} navigate={navigate} />)}</div></div> : <div className="state-card">{emptyVideoMessage}</div>}
+      {featured ? <div className="explore-feature-grid"><button className="explore-banner" onClick={() => navigate(videoPlaybackPath(featured))}><Thumbnail video={featured} large /><div><span className="pill filled">Featured</span><h2 data-i18n-skip>{featured.title}</h2><p data-i18n-skip>{featured.description || websiteText('Watch the latest videos from PlayHub creators.')}</p><span className="btn glass"><Icon name="play" size={16}/> Watch Now</span></div></button><div className="side-video-stack">{top.slice(1,5).map((video) => <SmallVideoRow key={video.id} video={video} navigate={navigate} />)}</div></div> : <div className="state-card">{emptyVideoMessage}</div>}
       <FilterBar items={categoryFilterItems} active={selectedCategoryIndex} onSelect={setActiveCategory} />
       <PageSection title="Trending Now">{top.length ? <HorizontalVideos videos={top} navigate={navigate} compact /> : <div className="state-card">{emptyVideoMessage}</div>}</PageSection>
       <PageSection title="Trending Categories"><div className="category-strip">{realCategories.map((label) => <button type="button" className="category-tile" key={label} onClick={() => navigate(`/search?q=${encodeURIComponent(label)}`)}><Icon name={categoryIcon(label)}/><span>{label}</span></button>)}</div></PageSection>
       <PageSection title="New & Noteworthy">{newest.length ? <HorizontalVideos videos={newest} navigate={navigate} compact /> : <div className="state-card">{emptyRecentMessage}</div>}</PageSection>
-    </section><aside className="right-rail"><RailCard title="Trending Categories" action={realCategories.length > 5 ? (showAllTrendingCategories ? 'Show less' : 'View all') : null} onAction={() => setShowAllTrendingCategories((open) => !open)}>{realCategories.length ? <TextRankList items={(showAllTrendingCategories ? realCategories : realCategories.slice(0, 5)).map((name) => [name])} /> : <p className="rail-note">No categories found.</p>}</RailCard><RailCard title="Trending Tags" action={trendingTags.length > 12 ? (showAllTrendingTags ? 'Show less' : 'View all') : null} onAction={() => setShowAllTrendingTags((open) => !open)}>{trendingTags.length ? <TagCloud tags={showAllTrendingTags ? trendingTags : trendingTags.slice(0, 12)} onTagClick={openTagSearch} more={!showAllTrendingTags && trendingTags.length > 12} onMoreClick={() => setShowAllTrendingTags(true)} /> : <p className="rail-note">No trending tags found.</p>}</RailCard><RailCard title="Creators" className="creators-rail" action={creators.length > 5 ? (showAllCreators ? 'Show less' : 'View all') : (creators.length ? 'View all' : null)} onAction={openCreators}>{creators.length ? visibleCreators.map((channel) => <PersonRow key={channel.id || channel.name} person={[channel.name, '', `${formatNumber(channel.subscribers_count || 0)} subscribers`]} index={null} follow={false} channel={channel} auth={auth} navigate={navigate} />) : <p className="rail-note">No creators found.</p>}</RailCard></aside></div></main>;
+    </section><aside className="right-rail"><RailCard title="Trending Categories" action={realCategories.length > 5 ? (showAllTrendingCategories ? 'Show less' : 'View all') : null} onAction={() => setShowAllTrendingCategories((open) => !open)}>{realCategories.length ? <TextRankList items={(showAllTrendingCategories ? realCategories : realCategories.slice(0, 5)).map((name) => [name])} /> : <p className="rail-note">No categories found.</p>}</RailCard><RailCard title="Trending Tags" action={trendingTags.length > 12 ? (showAllTrendingTags ? 'Show less' : 'View all') : null} onAction={() => setShowAllTrendingTags((open) => !open)}>{trendingTags.length ? <TagCloud tags={showAllTrendingTags ? trendingTags : trendingTags.slice(0, 12)} onTagClick={openTagSearch} more={!showAllTrendingTags && trendingTags.length > 12} onMoreClick={() => setShowAllTrendingTags(true)} /> : <p className="rail-note">No trending tags found.</p>}</RailCard><RailCard title="Creators" className="creators-rail" action={creators.length > 5 ? (showAllCreators ? 'Show less' : 'View all') : (creators.length ? 'View all' : null)} onAction={openCreators}>{creators.length ? visibleCreators.map((channel) => <PersonRow key={channel.id || channel.name} person={[channel.name, '', <LocalizedCount value={formatNumber(channel.subscribers_count || 0)} unit="subscriber" />]} index={null} follow={false} channel={channel} auth={auth} navigate={navigate} />) : <p className="rail-note">No creators found.</p>}</RailCard></aside></div></main>;
 }
 
 function TrendingPage({ navigate, auth }) {
@@ -12841,7 +12809,7 @@ function TrendingPage({ navigate, auth }) {
   return <main className="content-area catalog-page trending-page"><PageHero title="Trending" subtitle={websiteText('See what content is popular across PlayHub right now.')} /><FilterBar items={pageFilters.trending} active={activeFilter} onSelect={selectFilter} /><MetricStrip metrics={metrics} />
     {error && <div className="state-card error">{error}</div>}
     {loading && <div className="state-card">Loading trending videos...</div>}
-    <div className="two-column-page"><section className="page-main-column"><PageSection title="Top Trending Videos">{displayVideos.length ? <HorizontalVideos videos={displayVideos.map((video, index) => ({ ...video, rank: index + 1 }))} navigate={navigate} compact /> : <div className="state-card">{emptyFilterMessage}</div>}</PageSection><PageSection title="Trending by Category"><FilterBar items={categoryFilterItems} active={activeCategoryIndex} onSelect={setSelectedCategory} />{categoryVideos.length ? <HorizontalVideos videos={categoryVideos.slice(0, 12)} navigate={navigate} compact /> : <div className="state-card">{emptyFilterMessage}</div>}</PageSection><PageSection title="Recently Trending">{newest.length ? <HorizontalVideos videos={newest.slice(0, 12)} navigate={navigate} compact /> : <div className="state-card">{emptyFilterMessage}</div>}</PageSection></section><aside className="right-rail"><RailCard title="Rising Creators" className="rising-creators-rail">{creators.length ? creators.map((channel, i)=><PersonRow key={channel.id || channel.name} person={[channel.name, '', `${formatNumber(channel.subscribers_count || 0)} subscribers`]} index={i+1} follow={false} channel={channel} auth={auth} navigate={navigate} />) : <p className="rail-note">No creators found.</p>}</RailCard><RailCard title="Trending Searches">{trendingTags.length ? <TextRankList items={trendingTags.slice(0, 5).map((tag) => [tag])} /> : <p className="rail-note">No trending tags found.</p>}</RailCard><RailCard title="Popular Hashtags">{trendingTags.length ? <TagCloud tags={trendingTags.slice(0, 10)} onTagClick={openTagSearch} /> : <p className="rail-note">No tags found.</p>}</RailCard><RailCard title="Hot Topics"><div className="topic-list">{categoryCounts.length ? categoryCounts.slice(0, 5).map(([item, count])=><div key={item}><Icon name={categoryIcon(item)} size={16}/><strong>{item}</strong><small>{count} videos</small></div>) : <p className="rail-note">No category activity yet.</p>}</div></RailCard></aside></div></main>;
+    <div className="two-column-page"><section className="page-main-column"><PageSection title="Top Trending Videos">{displayVideos.length ? <HorizontalVideos videos={displayVideos.map((video, index) => ({ ...video, rank: index + 1 }))} navigate={navigate} compact /> : <div className="state-card">{emptyFilterMessage}</div>}</PageSection><PageSection title="Trending by Category"><FilterBar items={categoryFilterItems} active={activeCategoryIndex} onSelect={setSelectedCategory} />{categoryVideos.length ? <HorizontalVideos videos={categoryVideos.slice(0, 12)} navigate={navigate} compact /> : <div className="state-card">{emptyFilterMessage}</div>}</PageSection><PageSection title="Recently Trending">{newest.length ? <HorizontalVideos videos={newest.slice(0, 12)} navigate={navigate} compact /> : <div className="state-card">{emptyFilterMessage}</div>}</PageSection></section><aside className="right-rail"><RailCard title="Rising Creators" className="rising-creators-rail">{creators.length ? creators.map((channel, i)=><PersonRow key={channel.id || channel.name} person={[channel.name, '', <LocalizedCount value={formatNumber(channel.subscribers_count || 0)} unit="subscriber" />]} index={i+1} follow={false} channel={channel} auth={auth} navigate={navigate} />) : <p className="rail-note">No creators found.</p>}</RailCard><RailCard title="Trending Searches">{trendingTags.length ? <TextRankList items={trendingTags.slice(0, 5).map((tag) => [tag])} /> : <p className="rail-note">No trending tags found.</p>}</RailCard><RailCard title="Popular Hashtags">{trendingTags.length ? <TagCloud tags={trendingTags.slice(0, 10)} onTagClick={openTagSearch} /> : <p className="rail-note">No tags found.</p>}</RailCard><RailCard title="Hot Topics"><div className="topic-list">{categoryCounts.length ? categoryCounts.slice(0, 5).map(([item, count])=><div key={item}><Icon name={categoryIcon(item)} size={16}/><strong>{item}</strong><small>{count} videos</small></div>) : <p className="rail-note">No category activity yet.</p>}</div></RailCard></aside></div></main>;
 }
 
 function ShortsPage({ navigate, auth }) {
@@ -12852,15 +12820,15 @@ function ShortsFeatureCard({ video, navigate }) {
   const channel = video.channel || {};
   const handle = String(channel.handle || channel.username || channel.slug || '').trim();
   const displayHandle = handle ? (handle.startsWith('@') ? handle : `@${handle}`) : '';
-  return <article className="shorts-feature-card" onClick={() => navigate(shortsDetailPath(video))}><ShortsPoster video={video} /><div><h3>{video.title}</h3><button type="button" className="channel-inline-link" onClick={(event) => openProfile(event, navigate, video.channel)} disabled={!profilePathFor(video.channel)}><Avatar label={channel.name || 'Creator'} image={channel.avatar_url}/><span className="shorts-channel-copy"><span className="shorts-channel-name-line"><span className="shorts-channel-name">{channel.name || 'Creator'}</span><VerifiedBadge verified={channel.verified || video.channel?.verified} /></span>{displayHandle && <span className="shorts-channel-handle">{displayHandle}</span>}</span></button><p>{formatNumber(video.views_count || 0)} views</p></div></article>;
+  return <article className="shorts-feature-card" onClick={() => navigate(shortsDetailPath(video))}><ShortsPoster video={video} /><div><h3 data-i18n-skip>{video.title}</h3><button type="button" className="channel-inline-link" onClick={(event) => openProfile(event, navigate, video.channel)} disabled={!profilePathFor(video.channel)}><Avatar label={channel.name || 'Creator'} image={channel.avatar_url}/><span className="shorts-channel-copy"><span className="shorts-channel-name-line"><span data-i18n-skip className="shorts-channel-name">{channel.name || 'Creator'}</span><VerifiedBadge verified={channel.verified || video.channel?.verified} /></span>{displayHandle && <span className="shorts-channel-handle">{displayHandle}</span>}</span></button><p><LocalizedCount value={formatNumber(video.views_count || 0)} unit="view" /></p></div></article>;
 }
 
 function ShortsPosterCard({ video, navigate }) {
-  return <article className="shorts-poster-card" onClick={() => navigate(shortsDetailPath(video))}><ShortsPoster video={video} /><div className="shorts-card-copy"><h3>{video.title}</h3><button type="button" className="more-button" aria-label="Share short" onClick={(event) => { event.stopPropagation(); shareShortVideo(video); }}><Icon name="share" size={16}/></button><button type="button" className="channel-inline-link" onClick={(event) => openProfile(event, navigate, video.channel)} disabled={!profilePathFor(video.channel)}><Avatar label={video.channel?.name || 'Creator'} image={video.channel?.avatar_url}/>{video.channel?.name || 'Creator'} <VerifiedBadge verified={video.channel?.verified} /></button><p>{formatNumber(video.views_count || 0)} views</p></div></article>;
+  return <article className="shorts-poster-card"><VideoNavigationLink video={video} navigate={navigate} className="shorts-card-link"><ShortsPoster video={video} /><h3 data-i18n-skip>{video.title}</h3></VideoNavigationLink><div className="shorts-card-copy"><button type="button" className="more-button" aria-label="Share short" onClick={(event) => { event.stopPropagation(); shareShortVideo(video); }}><Icon name="share" size={16}/></button><button type="button" className="channel-inline-link" onClick={(event) => openProfile(event, navigate, video.channel)} disabled={!profilePathFor(video.channel)}><Avatar label={video.channel?.name || 'Creator'} image={video.channel?.avatar_url}/>{video.channel?.name || 'Creator'} <VerifiedBadge verified={video.channel?.verified} /></button><p><LocalizedCount value={formatNumber(video.views_count || 0)} unit="view" /></p></div></article>;
 }
 
 function ShortsPoster({ video }) {
-  return <ShortHoverPreview video={video} className="shorts-poster">{isNewShort(video) && <em className="shorts-new-badge">New</em>}{video.thumbnail_url ? <ThumbnailImage video={video} alt="" /> : <BlankThumbnail />}<span>{video.duration || formatDurationSeconds(video.duration_seconds) || '0:00'}</span></ShortHoverPreview>;
+  return <div className="shorts-poster">{isNewShort(video) && <em className="shorts-new-badge">New</em>}{video.thumbnail_url ? <ThumbnailImage video={video} alt="" /> : <BlankThumbnail />}<span>{video.duration || formatDurationSeconds(video.duration_seconds) || '0:00'}</span></div>;
 }
 
 function isNewShort(video) {
@@ -12883,13 +12851,11 @@ async function shareShortVideo(video) {
 }
 
 function isShortVideo(video) {
-  if (video?.source_type === 'live_replay') return false;
-  if (typeof video?.is_short === 'boolean') return video.is_short;
-  const duration = Number(video?.duration_seconds || 0);
-  return duration > 0 && duration <= 180 && Number(video?.video_width) > 0 && Number(video?.video_height) >= Number(video?.video_width);
+  return isShortVideoRecord(video);
 }
 
 function externalShortEmbedUrl(value, provider) {
+  if (!httpEmbedUrl(value)) return '';
   try {
     const url = new URL(value);
     if (provider === 'dailymotion') {
@@ -13094,6 +13060,31 @@ function ShortsDetailPage({ slug, navigate, auth }) {
       .finally(() => { if (!cancelled) setLoading(false); });
     return () => { cancelled = true; localDataRequestRef.current = ''; };
   }, [slug, loadAttempt]);
+
+  useEffect(() => {
+    if (!video?.playback_pending || !video?.slug) return undefined;
+    const pendingSlug = video.slug;
+    let cancelled = false;
+    let timer;
+    const deadline = Date.now() + 180_000;
+    const poll = async () => {
+      try {
+        const status = await api.request(`/source-resolver/status/slug/${encodeURIComponent(pendingSlug)}`);
+        if (cancelled || status.source?.state === 'error') return;
+        if (status.source?.fresh) {
+          const data = await api.request(`/videos/${encodeURIComponent(pendingSlug)}`);
+          if (cancelled) return;
+          const resolved = prepareUploaded(data.video);
+          shortDetailsCacheRef.current[pendingSlug] = resolved;
+          setVideo((current) => current?.slug === pendingSlug ? { ...current, ...resolved } : current);
+          if (!resolved.playback_pending) return;
+        }
+      } catch (_) { /* A temporary status failure can be retried. */ }
+      if (!cancelled && Date.now() < deadline) timer = window.setTimeout(poll, 3000);
+    };
+    timer = window.setTimeout(poll, 3000);
+    return () => { cancelled = true; window.clearTimeout(timer); };
+  }, [video?.slug, video?.playback_pending]);
 
   useEffect(() => {
     if (!notice) return undefined;
@@ -13977,7 +13968,7 @@ function ShortsDetailPage({ slug, navigate, auth }) {
           <div className={`shorts-detail-player-card ${slideDirection ? `is-sliding-${slideDirection}` : ''} ${providerEmbedUrl ? 'has-provider-ui' : ''}`} ref={playerCardRef} tabIndex={0} onMouseDown={handleShortsMouseDown} onContextMenu={handleShortsContextMenu} onKeyDown={handleShortsKeyDown} aria-label="Short video player. Click or tap to play or pause. Hold to pause temporarily. Swipe, scroll or use the arrow keys to change Shorts.">
             <div className="shorts-detail-player">
               {outgoingShort && slideDirection && <div className="shorts-detail-outgoing-media" aria-hidden="true">{outgoingShort.thumbnail_url ? <ThumbnailImage video={outgoingShort} alt="" /> : <div className="thumb-vignette" />}</div>}
-              {providerEmbedUrl ? <iframe key={`${video.slug}-${providerEmbedUrl}`} className="shorts-detail-provider-embed" src={providerEmbedUrl} title={video.title} allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowFullScreen /> : providerPlayerSource ? <MediaPlayer key={video.slug} ref={videoRef} className="shorts-detail-provider-player" src={videoSources} poster={resolvedThumbnail || undefined} title={video.title} load="eager" autoPlay muted={isMuted} loop={shouldLoopCurrentShort} playsInline viewType="video" streamType={videoStreamType(videoSources)} onDurationChange={updatePlaybackProgress} onTimeUpdate={updatePlaybackProgress} onEnded={handleShortEnded} onPlay={() => setIsPlaying(true)} onPause={() => setIsPlaying(false)}><MediaProvider /></MediaPlayer> : videoSources.length ? <video key={video.slug} ref={videoRef} playsInline preload="auto" autoPlay muted={isMuted} loop={shouldLoopCurrentShort} poster={resolvedThumbnail || undefined} onLoadedMetadata={updatePlaybackProgress} onDurationChange={updatePlaybackProgress} onTimeUpdate={updatePlaybackProgress} onEnded={handleShortEnded} onPlay={() => setIsPlaying(true)} onPause={() => setIsPlaying(false)}>{videoSources.map((source) => <source key={source.src} src={source.src} type={source.type || 'video/mp4'} />)}</video> : (video.thumbnail_url ? <ThumbnailImage video={video} alt="" /> : <div className="thumb-vignette" />)}
+              {providerEmbedUrl ? <iframe data-i18n-skip key={`${video.slug}-${providerEmbedUrl}`} className="shorts-detail-provider-embed" src={providerEmbedUrl} title={video.title} allow={embedPermissions() || undefined} allowFullScreen /> : providerPlayerSource ? <MediaPlayer data-i18n-skip-attributes key={video.slug} ref={videoRef} className="shorts-detail-provider-player" src={videoSources} poster={resolvedThumbnail || undefined} title={video.title} load="eager" autoPlay muted={isMuted} loop={shouldLoopCurrentShort} playsInline viewType="video" streamType={videoStreamType(videoSources)} onDurationChange={updatePlaybackProgress} onTimeUpdate={updatePlaybackProgress} onEnded={handleShortEnded} onPlay={() => setIsPlaying(true)} onPause={() => setIsPlaying(false)}><MediaProvider /></MediaPlayer> : videoSources.length ? <video key={video.slug} ref={videoRef} playsInline preload="auto" autoPlay muted={isMuted} loop={shouldLoopCurrentShort} poster={resolvedThumbnail || undefined} onLoadedMetadata={updatePlaybackProgress} onDurationChange={updatePlaybackProgress} onTimeUpdate={updatePlaybackProgress} onEnded={handleShortEnded} onPlay={() => setIsPlaying(true)} onPause={() => setIsPlaying(false)}>{videoSources.map((source) => <source key={source.src} src={source.src} type={source.type || 'video/mp4'} />)}</video> : (video.thumbnail_url ? <ThumbnailImage video={video} alt="" /> : <div className="thumb-vignette" />)}
               {!providerEmbedUrl && videoSources.length > 0 && <div className="shorts-detail-progress"><span style={{ transform: `scaleX(${playbackProgress / 100})` }} /><input type="range" min={0} max={100} step={0.1} value={playbackProgress} aria-label="Seek short" aria-valuetext={`${Math.round(playbackProgress)}%`} onChange={seekShort} /></div>}
               {!providerEmbedUrl && videoSources.length > 0 && <div className="shorts-detail-top-actions"><button type="button" aria-label={isPlaying ? 'Pause' : 'Play'} title={isPlaying ? 'Pause (Space)' : 'Play (Space)'} onClick={togglePlayback}><Icon name={isPlaying ? 'pause' : 'play'} size={20}/></button><button type="button" aria-label={isMuted ? 'Unmute' : 'Mute'} title={isMuted ? 'Unmute (M)' : 'Mute (M)'} onClick={toggleMute}><Icon name={isMuted ? 'mute' : 'volume'} size={20}/></button></div>}
             </div>
@@ -13987,7 +13978,7 @@ function ShortsDetailPage({ slug, navigate, auth }) {
             </div>
             <div className="shorts-detail-overlay">
               <div className="shorts-detail-creator"><ShortsUploaderLink channel={video.channel} navigate={navigate} /><button type="button" className={`btn primary compact ${isSubscribed ? 'active' : ''}`} onClick={toggleFollow} disabled={subscribeDisabled}>{subscribeLabel}</button></div>
-              <h1><button type="button" className="shorts-detail-description-trigger" aria-expanded={activePanel === 'details'} aria-controls="shorts-viewer-panel" onClick={(event) => openPanel('details', event)}>{video.title}</button></h1>
+              <h1><button data-i18n-skip type="button" className="shorts-detail-description-trigger" aria-expanded={activePanel === 'details'} aria-controls="shorts-viewer-panel" onClick={(event) => openPanel('details', event)}>{video.title}</button></h1>
               {shortTags.length > 0 && <p className="shorts-detail-tags">{shortTags.map((tag) => <button key={String(tag)} type="button" onClick={() => navigate(`/search?q=${encodeURIComponent(String(tag).replace(/^#/, ''))}`)}>#{String(tag).replace(/^#/, '')}</button>)}</p>}
               <button type="button" className="shorts-detail-related-trigger" onClick={(event) => openPanel('related', event)} aria-expanded={activePanel === 'related'} aria-controls="shorts-viewer-panel"><Icon name="shorts" size={15}/> Discover more Shorts <Icon name="chevronRight" size={14}/></button>
             </div>
@@ -14006,7 +13997,7 @@ function ShortsDetailPage({ slug, navigate, auth }) {
         <div className="shorts-detail-panel-head"><h2 id="shorts-panel-title">{panelTitle}</h2><button type="button" className="shorts-detail-panel-close" aria-label="Close panel" onClick={closePanel}><Icon name="close" size={24}/></button></div>
         <div className="shorts-detail-panel-body">
           {activePanel === 'comments' && <article className="shorts-detail-comments-card"><WatchCommentsPanel key={video.slug} video={video} comments={comments} setComments={updateVisibleComments} body={commentBody} setBody={(value) => ownsCommentState() && setCommentBody(String(value).slice(0, 500))} onSubmitComment={submitComment} auth={auth} navigate={navigate} slug={video.slug} setVideo={updateVisibleVideo} notify={(message) => ownsCommentState() && setNotice(message)} commentEndpoint={`/videos/${encodeURIComponent(video.slug)}/comments`} commentLinkBase={`${window.location.origin}${shortsDetailPath(video)}`} commentHashPrefix={`short-${video.slug}-comment-`} commentsLimit={5} commentsLoadStep={5} commentsHasMore={commentsHasMore} loadingMoreComments={loadingMoreComments} onLoadMoreComments={loadMoreComments} replyPageSize={5} compact /></article>}
-          {activePanel === 'details' && <article className="shorts-detail-info-card"><h2>{video.title}</h2><p className="shorts-detail-meta">{formatNumber(video.views_count || 0)} views <span>·</span> {formatShortsTimeAgo(video.published_at || video.created_at)}</p><div className="shorts-detail-author"><ShortsUploaderLink channel={video.channel} navigate={navigate} showSubscribers /><button type="button" className={`btn primary compact ${isSubscribed ? 'active' : ''}`} onClick={toggleFollow} disabled={subscribeDisabled}>{subscribeLabel}</button></div><div className={`shorts-detail-description ${canExpandShortDescription ? 'can-expand' : ''} ${descriptionOpen ? 'open' : ''}`}><p>{displayedShortDescription}</p>{canExpandShortDescription && <button type="button" className="text-button" onClick={() => setDescriptionOpen((open) => !open)}>{descriptionOpen ? 'Show less' : 'Show more'}</button>}</div>{shortTags.length > 0 && <TagCloud tags={shortTags} onTagClick={(tag) => navigate(`/search?q=${encodeURIComponent(String(tag).replace(/^#/, ''))}`)} />}</article>}
+          {activePanel === 'details' && <article className="shorts-detail-info-card"><h2 data-i18n-skip>{video.title}</h2><p className="shorts-detail-meta"><LocalizedCount value={formatNumber(video.views_count || 0)} unit="view" /> <span>·</span> {formatShortsTimeAgo(video.published_at || video.created_at)}</p><div className="shorts-detail-author"><ShortsUploaderLink channel={video.channel} navigate={navigate} showSubscribers /><button type="button" className={`btn primary compact ${isSubscribed ? 'active' : ''}`} onClick={toggleFollow} disabled={subscribeDisabled}>{subscribeLabel}</button></div><div className={`shorts-detail-description ${canExpandShortDescription ? 'can-expand' : ''} ${descriptionOpen ? 'open' : ''}`}><p>{displayedShortDescription}</p>{canExpandShortDescription && <button type="button" className="text-button" onClick={() => setDescriptionOpen((open) => !open)}>{descriptionOpen ? 'Show less' : 'Show more'}</button>}</div>{shortTags.length > 0 && <TagCloud tags={shortTags} onTagClick={(tag) => navigate(`/search?q=${encodeURIComponent(String(tag).replace(/^#/, ''))}`)} />}</article>}
           {activePanel === 'related' && <div className="shorts-detail-related-grid">{related.length ? related.map((item) => <ShortsMiniCard key={item.id || item.slug} video={item} navigate={navigate} onSelect={(selected) => activateLocalShort(selected, 1)} />) : <p className="rail-note">You’re all caught up. More Shorts will appear here as creators publish them.</p>}<WebsiteAdSlot placement="shorts_feed" /></div>}
         </div>
       </aside>}
@@ -14016,11 +14007,11 @@ function ShortsDetailPage({ slug, navigate, auth }) {
 }
 
 function ShortsMiniCard({ video, navigate, onSelect = null }) {
-  return <button type="button" className="shorts-mini-card" onClick={() => onSelect ? onSelect(video) : navigate(shortsDetailPath(video))}><ShortsPoster video={video}/><strong>{video.title}</strong><span>@{video.channel?.slug || video.channel?.name || 'creator'}</span><small>{formatNumber(video.views_count || 0)} views</small></button>;
+  return <button type="button" className="shorts-mini-card" onClick={() => onSelect ? onSelect(video) : navigate(shortsDetailPath(video))}><ShortsPoster video={video}/><strong data-i18n-skip>{video.title}</strong><span>@{video.channel?.slug || video.channel?.name || 'creator'}</span><small><LocalizedCount value={formatNumber(video.views_count || 0)} unit="view" /></small></button>;
 }
 
 function ShortsSideRow({ video, navigate, onSelect = null }) {
-  return <button type="button" className="shorts-side-row" onClick={() => onSelect ? onSelect(video) : navigate(shortsDetailPath(video))}><ShortsPoster video={video}/><span><strong>{video.title}</strong><small>{formatNumber(video.views_count || 0)} views</small></span></button>;
+  return <button type="button" className="shorts-side-row" onClick={() => onSelect ? onSelect(video) : navigate(shortsDetailPath(video))}><ShortsPoster video={video}/><span><strong data-i18n-skip>{video.title}</strong><small><LocalizedCount value={formatNumber(video.views_count || 0)} unit="view" /></small></span></button>;
 }
 
 const subscriptionVideoDate = (video) => {
@@ -14084,7 +14075,7 @@ function SubscriptionsPage({ navigate, auth }) {
     {!auth.user && <div className="state-card">Log in to view your subscriptions.</div>}
     {error && <div className="state-card error">{error}</div>}
     {loading && <div className="state-card">Loading subscriptions...</div>}
-    <div className="two-column-page"><section className="page-main-column"><PageSection title="Newest uploads"><SubscriptionVideos videos={mainVideos} navigate={navigate} view={viewMode} empty="No videos from subscribed channels yet." /></PageSection><PageSection title="Popular from your subscriptions">{viewMode === 'list' ? <SubscriptionVideos videos={popularVideos} navigate={navigate} view="list" empty="No popular subscription videos yet." /> : <div className="live-grid">{popularVideos.length ? popularVideos.map((video)=><article className="live-card" key={video.id} onClick={() => navigate(videoPlaybackPath(video))}><Thumbnail video={video}/><h3>{video.title}</h3><p>{video.channel?.name}</p></article>) : <div className="state-card">No popular subscription videos yet.</div>}</div>}</PageSection><PageSection title="Continue watching from subscriptions"><SubscriptionVideos videos={filteredContinueVideos} navigate={navigate} view={viewMode} empty="No unfinished subscribed videos yet." /></PageSection></section><aside className="right-rail"><RailCard title="Subscription summary" action={null}><div className="summary-grid"><div><span>Channels</span><strong>{channels.length}</strong></div><div><span>Recent uploads</span><strong>{filteredVideos.length}</strong></div><div><span>Total views</span><strong>{formatNumber(filteredVideos.reduce((sum, video) => sum + Number(video.views_count || 0), 0))}</strong></div><div><span>In progress</span><strong>{filteredContinueVideos.length}</strong></div></div></RailCard><RailCard title={`Your subscriptions (${channels.length})`} action={channels.length > 5 ? (subscriptionsExpanded ? 'Show less' : 'View all') : null} onAction={() => setSubscriptionsExpanded((open) => !open)}>{channels.length ? visibleSubscriptions.map((channel)=><PersonRow key={channel.id || channel.name} person={[channel.name, channel.slug ? `@${channel.slug}` : '', `${formatNumber(channel.videos_count || 0)} videos`]} follow={false} channel={channel} auth={auth} navigate={navigate} onSubscriptionChange={handleSubscriptionChange} />) : <p className="rail-note">No subscriptions found.</p>}</RailCard><RailCard title="Recently active creators" action={channels.length > 5 ? (activeCreatorsExpanded ? 'Show less' : 'View all') : null} onAction={() => setActiveCreatorsExpanded((open) => !open)}>{channels.length ? visibleActiveCreators.map((channel)=><PersonRow key={channel.id || channel.name} person={[channel.name, `${formatNumber(channel.videos_count || 0)} public videos`, '']} follow={false} channel={channel} auth={auth} navigate={navigate} onSubscriptionChange={handleSubscriptionChange} />) : <p className="rail-note">Subscribe to channels to see activity.</p>}</RailCard><RailCard title="Channels you watch most" action={null}><div className="avatar-stack">{channels.slice(0,6).map((channel)=><Avatar key={channel.id || channel.name} label={channel.name} />)}{channels.length > 6 && <span>+{channels.length - 6}</span>}</div><p className="rail-note">{channels.length ? 'Based on your subscribed channels.' : 'No subscribed channels yet.'}</p></RailCard></aside></div></main>;
+    <div className="two-column-page"><section className="page-main-column"><PageSection title="Newest uploads"><SubscriptionVideos videos={mainVideos} navigate={navigate} view={viewMode} empty="No videos from subscribed channels yet." /></PageSection><PageSection title="Popular from your subscriptions">{viewMode === 'list' ? <SubscriptionVideos videos={popularVideos} navigate={navigate} view="list" empty="No popular subscription videos yet." /> : <div className="live-grid">{popularVideos.length ? popularVideos.map((video)=><article className="live-card" key={video.id} onClick={() => navigate(videoPlaybackPath(video))}><Thumbnail video={video}/><h3 data-i18n-skip>{video.title}</h3><p data-i18n-skip>{video.channel?.name}</p></article>) : <div className="state-card">No popular subscription videos yet.</div>}</div>}</PageSection><PageSection title="Continue watching from subscriptions"><SubscriptionVideos videos={filteredContinueVideos} navigate={navigate} view={viewMode} empty="No unfinished subscribed videos yet." /></PageSection></section><aside className="right-rail"><RailCard title="Subscription summary" action={null}><div className="summary-grid"><div><span>Channels</span><strong>{channels.length}</strong></div><div><span>Recent uploads</span><strong>{filteredVideos.length}</strong></div><div><span>Total views</span><strong>{formatNumber(filteredVideos.reduce((sum, video) => sum + Number(video.views_count || 0), 0))}</strong></div><div><span>In progress</span><strong>{filteredContinueVideos.length}</strong></div></div></RailCard><RailCard title={`Your subscriptions (${channels.length})`} action={channels.length > 5 ? (subscriptionsExpanded ? 'Show less' : 'View all') : null} onAction={() => setSubscriptionsExpanded((open) => !open)}>{channels.length ? visibleSubscriptions.map((channel)=><PersonRow key={channel.id || channel.name} person={[channel.name, channel.slug ? `@${channel.slug}` : '', `${formatNumber(channel.videos_count || 0)} videos`]} follow={false} channel={channel} auth={auth} navigate={navigate} onSubscriptionChange={handleSubscriptionChange} />) : <p className="rail-note">No subscriptions found.</p>}</RailCard><RailCard title="Recently active creators" action={channels.length > 5 ? (activeCreatorsExpanded ? 'Show less' : 'View all') : null} onAction={() => setActiveCreatorsExpanded((open) => !open)}>{channels.length ? visibleActiveCreators.map((channel)=><PersonRow key={channel.id || channel.name} person={[channel.name, `${formatNumber(channel.videos_count || 0)} public videos`, '']} follow={false} channel={channel} auth={auth} navigate={navigate} onSubscriptionChange={handleSubscriptionChange} />) : <p className="rail-note">Subscribe to channels to see activity.</p>}</RailCard><RailCard title="Channels you watch most" action={null}><div className="avatar-stack">{channels.slice(0,6).map((channel)=><Avatar key={channel.id || channel.name} label={channel.name} />)}{channels.length > 6 && <span>+{channels.length - 6}</span>}</div><p className="rail-note">{channels.length ? 'Based on your subscribed channels.' : 'No subscribed channels yet.'}</p></RailCard></aside></div></main>;
 }
 
 function FavoritesPage({ navigate, auth }) {
@@ -14178,7 +14169,7 @@ function WatchLaterPage({ navigate, auth }) {
     {!auth.user && <div className="state-card">Log in to view your Watch Later videos.</div>}
     {error && <div className="state-card error">{error}</div>}
     {loading && <div className="state-card">Loading saved videos...</div>}
-    <div className="two-column-page"><section className="page-main-column"><section className="panel-section"><div className="section-title"><h2>{inProgress.length ? 'Continue from where you left off' : 'Recently saved'}</h2><button type="button" className="text-button" onClick={() => { setWatchLaterFilter('All'); setSortMode('recent'); }}>View all</button></div><div className="wide-video-grid watch-later-continue-row">{(inProgress.length ? inProgress : sortedSaved.slice(0, 4)).map((video)=><ContinueWideCard key={video.id} video={video} navigate={navigate} />)}{!sortedSaved.length && <div className="state-card">{saved.length ? 'No videos match this filter.' : 'No Watch Later videos saved yet.'}</div>}</div></section><PageSection title="Recently saved" sub={sortedSaved.length ? `${sortedSaved.length} saved videos` : null}>{sortedSaved.length ? <HorizontalVideos videos={sortedSaved} navigate={navigate} compact /> : <div className="state-card">{saved.length ? 'No videos match this filter.' : 'Save videos to build your Watch Later list.'}</div>}</PageSection><PageSection title="Saved categories"><div className="collections-grid">{categoryCounts.length ? categoryCounts.map(([title, count]) => <CollectionCard key={title} icon="🎥" title={title} meta={`${count} videos`} />) : <div className="state-card">No saved categories yet.</div>}</div></PageSection></section><aside className="right-rail"><RailCard title="Watch later summary" action={null}><div className="summary-grid"><div><span>Total saved videos</span><strong>{saved.length}</strong></div><div><span>Total duration</span><strong>{totalDuration}</strong></div><div><span>Unwatched</span><strong>{saved.filter((video) => !video.progress).length}</strong></div><div><span>In progress</span><strong>{saved.filter((video) => Number(video.progress || 0) > 0).length}</strong></div></div><button type="button" className="text-button" onClick={() => { setWatchLaterFilter('All'); setSortMode('recent'); }}>View full library →</button></RailCard><RailCard title="Sort & organize" action={null}><div className="sort-list"><button type="button" className={activeSortMode === 'recent' ? 'active' : ''} onClick={() => updateWatchLaterSort('recent')}>Recently added</button><button type="button" className={activeSortMode === 'title' ? 'active' : ''} onClick={() => updateWatchLaterSort('title')}>Title A-Z</button><button type="button" className={activeSortMode === 'duration_desc' ? 'active' : ''} onClick={() => updateWatchLaterSort('duration_desc')}>Duration: Longest</button><button type="button" className={activeSortMode === 'duration_asc' ? 'active' : ''} onClick={() => updateWatchLaterSort('duration_asc')}>Duration: Shortest</button></div></RailCard><RailCard title="Saved categories">{categoryCounts.length ? <TextRankList items={categoryCounts.slice(0,5).map(([name]) => [name])} /> : <p className="rail-note">No categories found.</p>}</RailCard><RailCard title="From your saved channels" className="creators-rail">{[...new Map(saved.map((video) => [video.channel?.id || video.channel?.name, video.channel]).filter(([key]) => key)).values()].slice(0,3).map((channel)=><PersonRow key={channel.id || channel.name} person={[channel.name, `${formatNumber(channel.subscribers_count || 0)} subscribers`, '']} follow={false} avatar={channel.avatar_url || channel.avatar_path} />)}</RailCard></aside></div></main>;
+    <div className="two-column-page"><section className="page-main-column"><section className="panel-section"><div className="section-title"><h2>{inProgress.length ? 'Continue from where you left off' : 'Recently saved'}</h2><button type="button" className="text-button" onClick={() => { setWatchLaterFilter('All'); setSortMode('recent'); }}>View all</button></div><div className="wide-video-grid watch-later-continue-row">{(inProgress.length ? inProgress : sortedSaved.slice(0, 4)).map((video)=><ContinueWideCard key={video.id} video={video} navigate={navigate} />)}{!sortedSaved.length && <div className="state-card">{saved.length ? 'No videos match this filter.' : 'No Watch Later videos saved yet.'}</div>}</div></section><PageSection title="Recently saved" sub={sortedSaved.length ? `${sortedSaved.length} saved videos` : null}>{sortedSaved.length ? <HorizontalVideos videos={sortedSaved} navigate={navigate} compact /> : <div className="state-card">{saved.length ? 'No videos match this filter.' : 'Save videos to build your Watch Later list.'}</div>}</PageSection><PageSection title="Saved categories"><div className="collections-grid">{categoryCounts.length ? categoryCounts.map(([title, count]) => <CollectionCard key={title} icon="🎥" title={title} meta={`${count} videos`} />) : <div className="state-card">No saved categories yet.</div>}</div></PageSection></section><aside className="right-rail"><RailCard title="Watch later summary" action={null}><div className="summary-grid"><div><span>Total saved videos</span><strong>{saved.length}</strong></div><div><span>Total duration</span><strong>{totalDuration}</strong></div><div><span>Unwatched</span><strong>{saved.filter((video) => !video.progress).length}</strong></div><div><span>In progress</span><strong>{saved.filter((video) => Number(video.progress || 0) > 0).length}</strong></div></div><button type="button" className="text-button" onClick={() => { setWatchLaterFilter('All'); setSortMode('recent'); }}>View full library →</button></RailCard><RailCard title="Sort & organize" action={null}><div className="sort-list"><button type="button" className={activeSortMode === 'recent' ? 'active' : ''} onClick={() => updateWatchLaterSort('recent')}>Recently added</button><button type="button" className={activeSortMode === 'title' ? 'active' : ''} onClick={() => updateWatchLaterSort('title')}>Title A-Z</button><button type="button" className={activeSortMode === 'duration_desc' ? 'active' : ''} onClick={() => updateWatchLaterSort('duration_desc')}>Duration: Longest</button><button type="button" className={activeSortMode === 'duration_asc' ? 'active' : ''} onClick={() => updateWatchLaterSort('duration_asc')}>Duration: Shortest</button></div></RailCard><RailCard title="Saved categories">{categoryCounts.length ? <TextRankList items={categoryCounts.slice(0,5).map(([name]) => [name])} /> : <p className="rail-note">No categories found.</p>}</RailCard><RailCard title="From your saved channels" className="creators-rail">{[...new Map(saved.map((video) => [video.channel?.id || video.channel?.name, video.channel]).filter(([key]) => key)).values()].slice(0,3).map((channel)=><PersonRow key={channel.id || channel.name} person={[channel.name, <LocalizedCount value={formatNumber(channel.subscribers_count || 0)} unit="subscriber" />, '']} follow={false} avatar={channel.avatar_url || channel.avatar_path} />)}</RailCard></aside></div></main>;
 }
 
 function BookmarksPage({ navigate, auth }) {
@@ -14254,7 +14245,7 @@ function LikedVideosPage({ navigate, auth }) {
     {!auth.user && <div className="state-card">Log in to view your liked videos.</div>}
     {error && <div className="state-card error">{error}</div>}
     {loading && <div className="state-card">Loading liked videos...</div>}
-    <div className="two-column-page"><section className="page-main-column"><section className="panel-section"><div className="section-title"><h2>Liked videos</h2></div><div className="wide-video-grid">{visibleLiked.slice(0, 4).map((video) => <button className="continue-wide-card" key={video.id} onClick={() => navigate(videoPlaybackPath(video))}><Thumbnail video={video} /><strong>{video.title}</strong><p className={profilePathFor(video.channel) ? 'channel-inline-link' : ''} onClick={(event) => openProfile(event, navigate, video.channel)}><Avatar label={video.channel?.name || 'Creator'} />{video.channel?.name || 'Creator'} <VerifiedBadge verified={video.channel?.verified} /></p><small>{formatNumber(video.views_count)} views · {video.created_label}</small></button>)}{!loading && !visibleLiked.length && <div className="state-card">No liked videos yet.</div>}</div></section><PageSection title="All liked videos" action={null}>{visibleLiked.length ? <HorizontalVideos videos={visibleLiked} navigate={navigate} compact /> : <div className="state-card">Like videos to save them here.</div>}</PageSection><PageSection title="Liked categories" action={null}><div className="collections-grid">{categoryCounts.length ? categoryCounts.map(([title, count]) => <CollectionCard key={title} icon="🎥" title={title} meta={`${count} videos`} />) : <div className="state-card">No liked categories yet.</div>}</div></PageSection></section><aside className="right-rail"><RailCard title="Liked videos summary" action={null}><div className="summary-grid"><div><span>Total liked videos</span><strong>{liked.length}</strong></div><div><span>Total duration</span><strong>{totalDuration}</strong></div><div><span>Shorts</span><strong>{shortsCount}</strong></div><div><span>Videos</span><strong>{liked.length - shortsCount}</strong></div></div></RailCard><RailCard title="Liked categories">{categoryCounts.length ? <TextRankList items={categoryCounts.slice(0,5).map(([name]) => [name])} /> : <p className="rail-note">No categories found.</p>}</RailCard><RailCard title="Creators you liked">{likedChannels.length ? likedChannels.slice(0,5).map((channel, index) => <PersonRow key={channel.id || channel.name} index={index + 1} person={[channel.name, channel.slug ? `@${channel.slug}` : '', `${formatNumber(channel.subscribers_count || 0)} subscribers`]} follow={false} channel={channel} auth={auth} navigate={navigate} />) : <p className="rail-note">No liked creators yet.</p>}</RailCard></aside></div></main>;
+    <div className="two-column-page"><section className="page-main-column"><section className="panel-section"><div className="section-title"><h2>Liked videos</h2></div><div className="wide-video-grid">{visibleLiked.slice(0, 4).map((video) => <button className="continue-wide-card" key={video.id} onClick={() => navigate(videoPlaybackPath(video))}><Thumbnail video={video} /><strong data-i18n-skip>{video.title}</strong><p className={profilePathFor(video.channel) ? 'channel-inline-link' : ''} onClick={(event) => openProfile(event, navigate, video.channel)}><Avatar label={video.channel?.name || 'Creator'} />{video.channel?.name || 'Creator'} <VerifiedBadge verified={video.channel?.verified} /></p><small><LocalizedCount value={formatNumber(video.views_count)} unit="view" /> · {video.created_label}</small></button>)}{!loading && !visibleLiked.length && <div className="state-card">No liked videos yet.</div>}</div></section><PageSection title="All liked videos" action={null}>{visibleLiked.length ? <HorizontalVideos videos={visibleLiked} navigate={navigate} compact /> : <div className="state-card">Like videos to save them here.</div>}</PageSection><PageSection title="Liked categories" action={null}><div className="collections-grid">{categoryCounts.length ? categoryCounts.map(([title, count]) => <CollectionCard key={title} icon="🎥" title={title} meta={`${count} videos`} />) : <div className="state-card">No liked categories yet.</div>}</div></PageSection></section><aside className="right-rail"><RailCard title="Liked videos summary" action={null}><div className="summary-grid"><div><span>Total liked videos</span><strong>{liked.length}</strong></div><div><span>Total duration</span><strong>{totalDuration}</strong></div><div><span>Shorts</span><strong>{shortsCount}</strong></div><div><span>Videos</span><strong>{liked.length - shortsCount}</strong></div></div></RailCard><RailCard title="Liked categories">{categoryCounts.length ? <TextRankList items={categoryCounts.slice(0,5).map(([name]) => [name])} /> : <p className="rail-note">No categories found.</p>}</RailCard><RailCard title="Creators you liked">{likedChannels.length ? likedChannels.slice(0,5).map((channel, index) => <PersonRow key={channel.id || channel.name} index={index + 1} person={[channel.name, channel.slug ? `@${channel.slug}` : '', <LocalizedCount value={formatNumber(channel.subscribers_count || 0)} unit="subscriber" />]} follow={false} channel={channel} auth={auth} navigate={navigate} />) : <p className="rail-note">No liked creators yet.</p>}</RailCard></aside></div></main>;
 }
 
 function AdminLogin({ navigate, auth, path }) {
@@ -14806,6 +14797,7 @@ function registrationCountdown(seconds) {
 }
 
 function Register({ navigate, auth, settings = {}, socialProviders = {}, socialError = '' }) {
+  const { t } = useI18n();
   const registration = { enabled: true, phoneEnabled: false, usernameRequired: false, confirmationMethod: 'none', passwordStrengthEnabled: true, passwordStrengthLevel: 0, captchaEnabled: false, captchaProvider: 'simple', googleCaptchaSiteKey: '', codeDigits: 4, codeExpiresSeconds: 300, maxResends: 3, ...settings };
   const confirmationMethod = registration.confirmationMethod === 'sms' ? 'sms' : registration.confirmationMethod === 'email' ? 'email' : 'none';
   const phoneRegistrationEnabled = Boolean(registration.phoneEnabled) || confirmationMethod === 'sms';
@@ -15069,7 +15061,7 @@ function Register({ navigate, auth, settings = {}, socialProviders = {}, socialE
   if (step === 1) {
     return <AuthShell title="Create your channel" subtitle={stepOneSubtitle} socialProviders={socialProviders} socialIntent="register"><form onSubmit={startRegistration} className="form">{error && <div className="error">{error}</div>}{registration.enabled === false && <div className="error">Registration is currently disabled.</div>}{stepOneIsPhone ? <label>Phone number<AuthPhoneInput value={form.phone} onChange={(phone) => setForm({ ...form, phone })} country={phoneCountry} onCountryChange={setPhoneCountry} />{renderAvailabilityStatus(phoneStatus, 'phone')}</label> : <label>Email<input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} required autoComplete="email" placeholder="Enter your email address" />{renderAvailabilityStatus(emailStatus, 'email')}</label>}<button disabled={busy || registration.enabled === false || firstStepBlocked} className="btn primary full">{busy ? 'Sending...' : 'Next'}</button><button type="button" className="text-button center" onClick={() => navigate('/login')}>Already have an account?</button></form></AuthShell>;
   }
-  return <AuthShell title="Create your channel" subtitle={websiteText('Join PlayHub to upload, connect with your audience, and grow your brand.')} socialProviders={socialProviders} socialIntent="register"><form onSubmit={submit} className="form">{error && <div className="error">{error}</div>}{verificationRequired && phoneChallengeMessage && <div className="state-card compact">{phoneChallengeMessage}</div>}<div className="auth-step-summary"><span>{summaryLabel}</span><strong>{summaryValue}</strong><button type="button" className="text-button" onClick={() => setStep(1)}>Back</button></div><label>Name<input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value.slice(0, 80) })} required maxLength="80" aria-invalid={nameBlocked || undefined} autoComplete="name" placeholder="Enter your full name" />{renderAvailabilityStatus(nameStatus)}</label>{registration.usernameRequired && <label>Username<input value={form.username} onChange={(e) => setForm({ ...form, username: e.target.value.replace(/[^A-Za-z0-9_-]/g, '').slice(0, 30) })} required minLength="4" maxLength="30" autoComplete="username" placeholder="Choose a unique username" />{renderAvailabilityStatus(usernameStatus, 'username')}</label>}{stepOneIsPhone && <label>Email<input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} required autoComplete="email" placeholder="Enter your email address" />{renderAvailabilityStatus(emailStatus, 'email')}</label>}{phoneRegistrationEnabled && !stepOneIsPhone && <label>Phone number<AuthPhoneInput value={form.phone} onChange={(phone) => setForm({ ...form, phone })} country={phoneCountry} onCountryChange={setPhoneCountry} />{renderAvailabilityStatus(phoneStatus, 'phone')}</label>}{verificationRequired && <div className="phone-code-field"><span>{codeLabel}</span><div className="phone-code-inputs">{phoneCodeChars.map((digit, index) => <input key={index} ref={(node) => { phoneCodeRefs.current[index] = node; }} type="text" inputMode="numeric" autoComplete={index === 0 ? 'one-time-code' : 'off'} maxLength={1} value={digit.trim()} onChange={(e) => updatePhoneCodeDigit(index, e.target.value)} onKeyDown={(e) => handlePhoneCodeKeyDown(e, index)} onPaste={handlePhoneCodePaste} disabled={phoneCodeExpired} required />)}</div><small>{phoneChallengeRemaining > 0 ? <><span>Code expires in</span> <b data-i18n-skip>{registrationCountdown(phoneChallengeRemaining)}</b></> : 'Code expired.'}</small>{phoneCodeExpired && resendsRemaining > 0 && <button type="button" className="text-button center" onClick={() => requestRegistrationChallenge(true)} disabled={resendBusy || busy}>{resendBusy ? 'Sending...' : 'Request a new code'}</button>}</div>}<label>Password<input type="password" value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} required minLength="6" placeholder="Create a strong password" /></label>{registration.passwordStrengthEnabled && form.password && <div className={`password-feedback ${passwordFeedback?.ok ? 'good' : 'bad'}`} role="status" aria-live="polite"><strong>{passwordFeedback?.ok ? 'Password looks good.' : 'Password needs work.'}</strong>{!passwordFeedback?.ok && <ul>{passwordFeedback?.missing.map((item) => <li key={item}>{item}</li>)}</ul>}</div>}<label>Confirm password<input type="password" value={form.password_confirmation} onChange={(e) => setForm({ ...form, password_confirmation: e.target.value })} required minLength="6" placeholder="Confirm your password" /></label>{registration.captchaEnabled && captchaProvider === 'simple' && <><button type="button" className="captcha-preview" onClick={loadCaptcha} title="Refresh captcha" aria-label="Refresh captcha">{captcha?.image ? <img src={captcha.image} alt="Captcha image" /> : <span>Loading captcha...</span>}</button><label>Security check<input value={form.captcha_answer} onChange={(e) => setForm({ ...form, captcha_answer: e.target.value })} required placeholder="Enter the text from the image." /></label><button type="button" className="text-button center" onClick={loadCaptcha}>Refresh captcha</button></>}{registration.captchaEnabled && captchaProvider === 'google' && (registration.googleCaptchaSiteKey ? <div ref={googleCaptchaRef} className="notranslate" /> : <div className="error">Google captcha is not configured.</div>)}<button disabled={busy || registration.enabled === false || phoneCodeExpired || nameBlocked || usernameBlocked || emailBlocked || phoneBlocked} className="btn primary full">{busy ? 'Creating...' : 'Create account'}</button></form></AuthShell>;
+  return <AuthShell title="Create your channel" subtitle={websiteText('Join PlayHub to upload, connect with your audience, and grow your brand.')} socialProviders={socialProviders} socialIntent="register"><form onSubmit={submit} className="form">{error && <div className="error">{error}</div>}{verificationRequired && phoneChallengeMessage && <div className="state-card compact">{phoneChallengeMessage}</div>}<div className="auth-step-summary"><span>{summaryLabel}</span><strong>{summaryValue}</strong><button type="button" className="text-button" onClick={() => setStep(1)}>Back</button></div><label>Name<input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value.slice(0, 80) })} required maxLength="80" aria-invalid={nameBlocked || undefined} autoComplete="name" placeholder="Enter your full name" />{renderAvailabilityStatus(nameStatus)}</label>{registration.usernameRequired && <label>Username<input value={form.username} onChange={(e) => setForm({ ...form, username: e.target.value.replace(/[^A-Za-z0-9_-]/g, '').slice(0, 30) })} required minLength="4" maxLength="30" autoComplete="username" placeholder="Choose a unique username" />{renderAvailabilityStatus(usernameStatus, 'username')}</label>}{stepOneIsPhone && <label>Email<input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} required autoComplete="email" placeholder="Enter your email address" />{renderAvailabilityStatus(emailStatus, 'email')}</label>}{phoneRegistrationEnabled && !stepOneIsPhone && <label>Phone number<AuthPhoneInput value={form.phone} onChange={(phone) => setForm({ ...form, phone })} country={phoneCountry} onCountryChange={setPhoneCountry} />{renderAvailabilityStatus(phoneStatus, 'phone')}</label>}{verificationRequired && <div className="phone-code-field"><span>{codeLabel}</span><div className="phone-code-inputs">{phoneCodeChars.map((digit, index) => <input key={index} ref={(node) => { phoneCodeRefs.current[index] = node; }} type="text" inputMode="numeric" autoComplete={index === 0 ? 'one-time-code' : 'off'} maxLength={1} value={digit.trim()} onChange={(e) => updatePhoneCodeDigit(index, e.target.value)} onKeyDown={(e) => handlePhoneCodeKeyDown(e, index)} onPaste={handlePhoneCodePaste} disabled={phoneCodeExpired} required />)}</div><small data-i18n-skip>{phoneChallengeRemaining > 0 ? t('Code expires in {time}', { time: registrationCountdown(phoneChallengeRemaining) }) : t('Code expired.')}</small>{phoneCodeExpired && resendsRemaining > 0 && <button type="button" className="text-button center" onClick={() => requestRegistrationChallenge(true)} disabled={resendBusy || busy}>{resendBusy ? 'Sending...' : 'Request a new code'}</button>}</div>}<label>Password<input type="password" value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} required minLength="6" placeholder="Create a strong password" /></label>{registration.passwordStrengthEnabled && form.password && <div className={`password-feedback ${passwordFeedback?.ok ? 'good' : 'bad'}`} role="status" aria-live="polite"><strong>{passwordFeedback?.ok ? 'Password looks good.' : 'Password needs work.'}</strong>{!passwordFeedback?.ok && <ul>{passwordFeedback?.missing.map((item) => <li key={item}>{item}</li>)}</ul>}</div>}<label>Confirm password<input type="password" value={form.password_confirmation} onChange={(e) => setForm({ ...form, password_confirmation: e.target.value })} required minLength="6" placeholder="Confirm your password" /></label>{registration.captchaEnabled && captchaProvider === 'simple' && <><button type="button" className="captcha-preview" onClick={loadCaptcha} title="Refresh captcha" aria-label="Refresh captcha">{captcha?.image ? <img src={captcha.image} alt="Captcha image" /> : <span>Loading captcha...</span>}</button><label>Security check<input value={form.captcha_answer} onChange={(e) => setForm({ ...form, captcha_answer: e.target.value })} required placeholder="Enter the text from the image." /></label><button type="button" className="text-button center" onClick={loadCaptcha}>Refresh captcha</button></>}{registration.captchaEnabled && captchaProvider === 'google' && (registration.googleCaptchaSiteKey ? <div ref={googleCaptchaRef} className="notranslate" /> : <div className="error">Google captcha is not configured.</div>)}<button disabled={busy || registration.enabled === false || phoneCodeExpired || nameBlocked || usernameBlocked || emailBlocked || phoneBlocked} className="btn primary full">{busy ? 'Creating...' : 'Create account'}</button></form></AuthShell>;
 }
 function startSocialAuth(provider, intent = 'login') {
   if (typeof window === 'undefined') return;
@@ -15089,12 +15081,18 @@ function SocialProviderLogo({ provider }) {
 
 function AuthShell({ title, subtitle, children, social = true, socialProviders = {}, socialIntent = 'login' }) {
   const website = useWebsiteConfiguration();
+  const { t } = useI18n();
   const preview = website.authPreview && typeof website.authPreview === 'object' ? website.authPreview : {};
-  const previewTitle = typeof preview.title === 'string' ? preview.title : 'Video CMS & Streaming Platform UI Kit';
-  const previewDescription = typeof preview.description === 'string' ? preview.description : 'Clean light and true black dark layouts for creators, communities and streaming products.';
+  const defaultPreviewTitle = 'Video CMS & Streaming Platform UI Kit';
+  const defaultPreviewDescription = 'Clean light and true black dark layouts for creators, communities and streaming products.';
+  const previewTitle = typeof preview.title === 'string' ? preview.title : defaultPreviewTitle;
+  const previewDescription = typeof preview.description === 'string' ? preview.description : defaultPreviewDescription;
   const previewFeatures = [preview.feature1, preview.feature2, preview.feature3, preview.feature4]
-    .map((item, index) => typeof item === 'string' ? item : ['Scalable design system', 'Light & dark themes', 'Accessible components', 'Built for creator workflows'][index])
-    .filter((item) => item.trim() !== '');
+    .map((item, index) => {
+      const fallback = ['Scalable design system', 'Light & dark themes', 'Accessible components', 'Built for creator workflows'][index];
+      const text = typeof item === 'string' ? item : fallback;
+      return { text, custom: text !== fallback };
+    }).filter((item) => item.text.trim() !== '');
   const closeAuth = () => {
     if (typeof window === 'undefined') return;
     if (window.history.length > 1) {
@@ -15104,16 +15102,17 @@ function AuthShell({ title, subtitle, children, social = true, socialProviders =
     }
   };
   const providerItems = [
-    ['google', 'Google', socialProviders.google?.enabled],
-    ['facebook', 'Facebook', socialProviders.facebook?.enabled],
-    ['apple', 'Apple', socialProviders.apple?.enabled],
+    ['google', 'Google', socialProviders.google?.enabled, 'Log in with Google', 'Sign up with Google'],
+    ['facebook', 'Facebook', socialProviders.facebook?.enabled, 'Log in with Facebook', 'Sign up with Facebook'],
+    ['apple', 'Apple', socialProviders.apple?.enabled, 'Log in with Apple', 'Sign up with Apple'],
   ].filter(([, , enabled]) => enabled);
-  const socialAction = socialIntent === 'register' ? 'Sign up' : 'Log in';
-  return <main className="auth-page"><button type="button" className="auth-close-button" onClick={closeAuth} aria-label="Close"><Icon name="close" size={18}/></button><section className="auth-preview"><Logo website={website} /><h1>{previewTitle}</h1><p>{previewDescription}</p>{previewFeatures.length > 0 && <ul>{previewFeatures.map((item, index) => <li key={`${index}-${item}`}>{item}</li>)}</ul>}</section><section className="auth-card"><div className="auth-language"><LanguageSwitcher /></div><div className="auth-head"><h2>{title}</h2><p>{subtitle}</p></div>{children}{social && providerItems.length > 0 && <><div className="auth-divider"><span>or</span></div><div className="auth-social-row">{providerItems.map(([provider, label]) => <button key={provider} type="button" className={`auth-social-button ${provider}`} onClick={() => startSocialAuth(provider, socialIntent)}><SocialProviderLogo provider={provider} />{socialAction} with {label}</button>)}</div></>}<p className="auth-safe-note"><Icon name="shield" size={16}/> We never share your data with third parties.</p></section></main>;
+  return <main className="auth-page"><button type="button" className="auth-close-button" onClick={closeAuth} aria-label="Close"><Icon name="close" size={18}/></button><section className="auth-preview"><Logo website={website} /><h1 data-i18n-skip={previewTitle !== defaultPreviewTitle || undefined}>{previewTitle}</h1><p data-i18n-skip={previewDescription !== defaultPreviewDescription || undefined}>{previewDescription}</p>{previewFeatures.length > 0 && <ul>{previewFeatures.map((item, index) => <li data-i18n-skip={item.custom || undefined} key={`${index}-${item.text}`}>{item.text}</li>)}</ul>}</section><section className="auth-card"><div className="auth-language"><LanguageSwitcher /></div><div className="auth-head"><h2>{title}</h2><p>{subtitle}</p></div>{children}{social && providerItems.length > 0 && <><div className="auth-divider"><span>or</span></div><div className="auth-social-row">{providerItems.map(([provider, label, , loginLabel, registerLabel]) => <button key={provider} type="button" className={`auth-social-button ${provider}`} onClick={() => startSocialAuth(provider, socialIntent)}><SocialProviderLogo provider={provider} /><span data-i18n-skip>{t(socialIntent === 'register' ? registerLabel : loginLabel)}</span></button>)}</div></>}<p className="auth-safe-note"><Icon name="shield" size={16}/><a href="/privacy">Find out how we handle your data in our privacy policy.</a></p></section></main>;
 }
 
 
 function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEnabled = true }) {
+  const { t } = useI18n();
+  const mediaTranslations = useMediaTranslations();
   const playerRef = useRef(null);
   const playbackRequestRef = useRef(null);
   const playerAdPlayerRef = useRef(null);
@@ -15164,7 +15163,7 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
   const [localLiked, setLocalLiked] = useState(false);
   const [localSubscribed, setLocalSubscribed] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [dropdownPlacement, setDropdownPlacement] = useState('down');
+  const [dropdownLayout, setDropdownLayout] = useState(null);
   const [descriptionExpanded, setDescriptionExpanded] = useState(false);
   const [watchNotice, setWatchNotice] = useState('');
   const [watchToast, setWatchToast] = useState('');
@@ -15621,10 +15620,10 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
   useEffect(() => {
     if (!dropdownOpen) return undefined;
     const closeOnOutside = (event) => {
-      if (!event.target.closest('.video-detail-menu-shell')) setDropdownOpen(false);
+      if (!detailMenuShellRef.current?.contains(event.target) && !detailMenuRef.current?.contains(event.target)) setDropdownOpen(false);
     };
     const closeOnEscape = (event) => {
-      if (event.key === 'Escape') setDropdownOpen(false);
+      if (event.key === 'Escape') { setDropdownOpen(false); detailMenuShellRef.current?.querySelector('button')?.focus(); }
     };
     document.addEventListener('mousedown', closeOnOutside);
     document.addEventListener('keydown', closeOnEscape);
@@ -15634,26 +15633,62 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
     };
   }, [dropdownOpen]);
 
-  useEffect(() => {
-    if (!dropdownOpen) return undefined;
+  useLayoutEffect(() => {
+    if (!dropdownOpen) { setDropdownLayout(null); return undefined; }
+    const shell = detailMenuShellRef.current;
+    const menu = detailMenuRef.current;
+    if (!shell || !menu) return undefined;
     const updatePlacement = () => {
-      const shell = detailMenuShellRef.current;
-      const menu = detailMenuRef.current;
-      if (!shell || !menu) return;
       const rect = shell.getBoundingClientRect();
-      const menuHeight = menu.offsetHeight || 420;
-      const spaceBelow = window.innerHeight - rect.bottom;
-      const spaceAbove = rect.top;
-      setDropdownPlacement(spaceBelow < menuHeight + 14 && spaceAbove > spaceBelow ? 'up' : 'down');
+      const viewport = window.visualViewport;
+      const offsetTop = viewport?.offsetTop || 0;
+      const viewportBottom = offsetTop + (viewport?.height || window.innerHeight);
+      const headerBottom = document.querySelector('.topbar')?.getBoundingClientRect().bottom || 0;
+      const top = Math.max(offsetTop, headerBottom) + 8;
+      const bottom = viewportBottom - 12;
+      const offsetLeft = viewport?.offsetLeft || 0;
+      const bounds = { top, bottom, left: offsetLeft + 12, right: offsetLeft + (viewport?.width || window.innerWidth) - 12 };
+      const layout = watchMenuPosition(rect, bounds, menu.scrollHeight);
+      // Touch uses the incumbent bottom sheet; its full available height still
+      // excludes the sticky header, including in short landscape viewports.
+      layout.sheetMaxHeight = Math.max(0, viewportBottom - top);
+      setDropdownLayout((current) => current && Object.keys(layout).every((key) => current[key] === layout[key]) ? current : layout);
     };
     updatePlacement();
+    const observer = new ResizeObserver(updatePlacement);
+    observer.observe(menu);
+    observer.observe(shell);
+    const header = document.querySelector('.topbar');
+    if (header) observer.observe(header);
     window.addEventListener('resize', updatePlacement);
     window.addEventListener('scroll', updatePlacement, true);
+    window.visualViewport?.addEventListener('resize', updatePlacement);
+    window.visualViewport?.addEventListener('scroll', updatePlacement);
     return () => {
+      observer.disconnect();
       window.removeEventListener('resize', updatePlacement);
       window.removeEventListener('scroll', updatePlacement, true);
+      window.visualViewport?.removeEventListener('resize', updatePlacement);
+      window.visualViewport?.removeEventListener('scroll', updatePlacement);
     };
   }, [dropdownOpen]);
+
+  useLayoutEffect(() => {
+    if (dropdownOpen && dropdownLayout) detailMenuRef.current?.querySelector('button:not(:disabled)')?.focus({ preventScroll: true });
+  }, [dropdownOpen, Boolean(dropdownLayout)]);
+
+  const handleDetailMenuKeys = (event) => {
+    const items = [...(detailMenuRef.current?.querySelectorAll('button:not(:disabled)') || [])];
+    if (['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) {
+      event.preventDefault();
+      const index = items.indexOf(document.activeElement);
+      const next = event.key === 'Home' ? 0 : event.key === 'End' ? items.length - 1 : (index + (event.key === 'ArrowUp' ? -1 : 1) + items.length) % items.length;
+      items[next]?.focus();
+    } else if (event.key === 'Tab') {
+      setDropdownOpen(false);
+      detailMenuShellRef.current?.querySelector('button')?.focus({ preventScroll: true });
+    }
+  };
 
   useEffect(() => {
     if (!watchNotice) return undefined;
@@ -16136,16 +16171,19 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
     }
   };
   const captionType = (video?.captions_url || '').split('?')[0].split('.').pop()?.toLowerCase();
-  const textTracks = video?.captions_url ? [{
+  const textTracks = useMemo(() => video?.caption_tracks?.length ? video.caption_tracks.map((track) => ({
+    src: track.url, type: track.format === 'webvtt' ? 'vtt' : track.format,
+    kind: 'subtitles', label: track.label, lang: track.language, default: track.default,
+  })) : video?.captions_url ? [{
     src: video.captions_url,
     type: ['vtt', 'srt', 'ssa', 'ass'].includes(captionType) ? captionType : 'vtt',
     kind: 'subtitles',
     label: video.language || 'Captions',
     lang: video.language_code || 'en',
     default: true,
-  }] : [];
-  const videoSources = videoSourcesFor(video);
-  const embedUrl = video?.embed_url || '';
+  }] : [], [video?.caption_tracks, video?.captions_url, video?.language, video?.language_code]);
+  const videoSources = useMemo(() => videoSourcesFor(video), [video]);
+  const embedUrl = httpEmbedUrl(video?.embed_url);
   const posterUrl = resolvedThumbnail;
   const videoChapters = useMemo(
     () => {
@@ -16245,7 +16283,7 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
   const copyVideoUrlAtCurrentTime = () => copyPlayerText(watchUrlAtTime(currentUrl(), currentPlaybackSeconds()), 'Video URL at current time copied.');
   const copyEmbedCode = () => {
     const embedSource = new URL(`/embed/${encodeURIComponent(video?.slug || slug)}`, window.location.origin).toString();
-    const code = `<iframe width="560" height="315" src="${escapeGalleryHtml(embedSource)}" title="${escapeGalleryHtml(video?.title || `${websiteName()} video`)}" frameborder="0" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
+    const code = `<iframe width="560" height="315" src="${escapeGalleryHtml(embedSource)}" title="${escapeGalleryHtml(video?.title || `${websiteName()} video`)}" frameborder="0" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
     return copyPlayerText(code, 'Embed code copied.');
   };
   const copyDebugInfo = async (showNotice = true) => {
@@ -16664,10 +16702,10 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
   ];
   void playerStatsTick;
 
-  const theaterButton = <button type="button" className="vds-button watch-theater-button" aria-label={theaterMode ? 'Exit theater mode' : 'Enter theater mode'} aria-pressed={theaterMode} title={`${theaterMode ? 'Default view' : 'Theater mode'} (T)`} onClick={() => updateTheaterMode(!theaterMode)}><Icon name="theater" size={22}/></button>;
+  const theaterButton = <button type="button" className="vds-button watch-theater-button" aria-label={t(theaterMode ? 'Exit theater mode' : 'Enter theater mode')} aria-pressed={theaterMode} title={`${t(theaterMode ? 'Default view' : 'Theater mode')} (T)`} onClick={() => updateTheaterMode(!theaterMode)}><Icon name="theater" size={22}/></button>;
   const googleImaLayer = <>
     <div ref={googleImaContainerRef} className={`watch-player-ima-container ${googleImaActive ? 'is-active' : ''}`} aria-hidden={!googleImaActive} />
-    {googleImaActive && googleImaLoading && <div className="watch-player-ima-loading" aria-live="polite">Loading ad...</div>}
+    {googleImaActive && googleImaLoading && <div className="watch-player-ima-loading" aria-live="polite" data-i18n-skip>{t('Loading ad...')}</div>}
   </>;
   const pendingPlayerAdOverlay = <button type="button" className={`watch-poster-overlay watch-ad-pending ${videoSources.length ? 'is-content-mounted' : ''}`} onClick={playCurrentVideo} disabled={playerAdResolving} aria-label={`Play ${video.title}`}>
     {posterUrl && <ThumbnailImage video={video} src={posterUrl} alt="" draggable="false" />}
@@ -16681,7 +16719,7 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
     <div ref={watchPlayerStageRef} className={`watch-player-stage ${scrollMiniplayer ? 'has-scroll-miniplayer' : ''}`}>
       <div ref={watchVideoPlayerRef} className={`video-player ${scrollMiniplayer ? 'is-scroll-miniplayer' : ''}`} onPointerDownCapture={initializeGoogleImaFromUserGesture} onKeyDownCapture={initializeGoogleImaFromUserGesture} onContextMenu={openPlayerContextMenu}>
         {!isPaidVideoLocked && playerAdStarted && !googleImaActive && <div className="watch-player-ad">
-          <MediaPlayer key={`${activePlayerAd?.id || 'ad'}-${activePlayerAd?.media_url || ''}`} ref={playerAdPlayerRef} className="watch-player-ad-media" src={activePlayerAdSource} title={activePlayerAd?.title || activePlayerAd?.name || 'Advertisement'} poster={posterUrl || undefined} load="eager" autoPlay muted playsInline viewType="video" streamType="on-demand" onCanPlay={() => playerAdPlayerRef.current?.play?.().catch?.(() => {})} onEnded={() => finishPlayerAd()} onError={() => finishPlayerAd(false)} onTimeUpdate={handlePlayerAdTimeUpdate}>
+          <MediaPlayer data-i18n-skip-attributes key={`${activePlayerAd?.id || 'ad'}-${activePlayerAd?.media_url || ''}`} ref={playerAdPlayerRef} className="watch-player-ad-media" src={activePlayerAdSource} title={activePlayerAd?.title || activePlayerAd?.name || 'Advertisement'} poster={posterUrl || undefined} load="eager" autoPlay muted playsInline viewType="video" streamType="on-demand" onCanPlay={() => playerAdPlayerRef.current?.play?.().catch?.(() => {})} onEnded={() => finishPlayerAd()} onError={() => finishPlayerAd(false)} onTimeUpdate={handlePlayerAdTimeUpdate}>
             <MediaProvider />
             <DefaultVideoGestures />
           </MediaPlayer>
@@ -16695,13 +16733,13 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
           {posterUrl && <ThumbnailImage video={video} src={posterUrl} alt="" draggable="false" />}
           <span className="watch-poster-gradient" />
           <div className="paid-video-paywall-content"><span><Icon name="wallet" size={25}/></span><h2>Purchase to watch</h2><p>Buy permanent access to this video from {video.channel?.name || 'this creator'}.</p>{video.sale.tax?.enabled ? <div className="paid-video-tax-breakdown" data-i18n-skip><span><em>Video price</em><b>{video.sale.price_label}</b></span><span><em>{video.sale.tax.label} ({Number(video.sale.tax.rate_percent)}%)</em><b>{video.sale.tax.amount_label}</b></span><span className="total"><em>Total</em><b>{video.sale.total_label}</b></span></div> : <strong data-i18n-skip>{video.sale.price_label}</strong>}{videoPurchaseError && <div className="go-live-notice error" role="alert">{videoPurchaseError}{/insufficient wallet balance/i.test(videoPurchaseError) && <button type="button" className="settings-text-action" onClick={() => navigate('/wallet')}>Add funds</button>}</div>}<button type="button" className="btn primary" onClick={purchaseVideo} disabled={videoPurchaseBusy || (auth.user && !video.sale.purchase_available)}><Icon name="wallet" size={17}/>{videoPurchaseBusy ? 'Purchasing...' : !auth.user ? 'Log in to purchase' : video.sale.purchase_available ? `Buy for ${video.sale.total_label || video.sale.price_label}` : 'Purchases unavailable'}</button></div>
-        </div> : embedUrl ? playerAdPending ? pendingPlayerAdOverlay : <iframe key={activeEmbedUrl} className="watch-embed-player" src={activeEmbedUrl} title={video.title} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen /> : videoSources.length ? <>
-          <MediaPlayer key={video.slug} ref={playerRef} className="watch-vidstack-player" src={videoSources} poster={posterUrl || undefined} title={video.title} preload="metadata" load="eager" autoPlay={shouldAutoplayCurrentVideo && !playerAdStarted && !playerAdPending} loop={playerLoopEnabled} playsInline viewType="video" streamType={videoStreamType(videoSources)} googleCast={GOOGLE_CAST_OPTIONS} onCanPlay={handleCanPlay} onDurationChange={(duration) => { if (Number.isFinite(Number(duration)) && Number(duration) > 0) setPlayerDuration(Number(duration)); }} onPlay={() => { setPlayerBuffering(true); persistentPlaybackRef.current.started = true; recordPlayback(true); }} onPlaying={() => { setPlayerStarted(true); setPlayerPlaying(true); setPlayerBuffering(false); setPlayerError(''); syncPersistentPlayback(true, true, true); }} onWaiting={() => { if (!playerRef.current?.paused) setPlayerBuffering(true); }} onEnded={handleContentEnded} onTimeUpdate={handleContentTimeUpdate} onPause={() => { if (playerMediaElement(playerRef.current)?.paused !== false) { playbackRequestRef.current?.abort(); playbackRequestRef.current = null; } setPlayerPlaying(false); setScrollMiniplayerActive(false); setPlayerBuffering(false); recordPlayback(true); window.requestAnimationFrame(() => { if (connectedMediaPlayer(playerRef.current)) syncPersistentPlayback(true, false); }); }} onVolumeChange={() => { syncPersistentPlayback(true); recordPlayback(true); }} onError={handlePlayerError}>
+        </div> : embedUrl ? playerAdPending ? pendingPlayerAdOverlay : <iframe data-i18n-skip key={activeEmbedUrl} className="watch-embed-player" src={activeEmbedUrl} title={video.title} allow={embedPermissions() || undefined} allowFullScreen /> : videoSources.length ? <>
+          <MediaPlayer data-i18n-skip-attributes key={video.slug} ref={playerRef} className="watch-vidstack-player" src={videoSources} poster={posterUrl || undefined} title={video.title} preload={videoStreamType(videoSources) === 'unknown' ? 'none' : 'metadata'} load="eager" autoPlay={shouldAutoplayCurrentVideo && !playerAdStarted && !playerAdPending} loop={playerLoopEnabled} playsInline viewType="video" streamType={videoStreamType(videoSources)} googleCast={GOOGLE_CAST_OPTIONS} onCanPlay={handleCanPlay} onDurationChange={(duration) => { if (Number.isFinite(Number(duration)) && Number(duration) > 0) setPlayerDuration(Number(duration)); }} onPlay={() => { setPlayerBuffering(true); persistentPlaybackRef.current.started = true; recordPlayback(true); }} onPlaying={() => { setPlayerStarted(true); setPlayerPlaying(true); setPlayerBuffering(false); setPlayerError(''); syncPersistentPlayback(true, true, true); }} onWaiting={() => { if (!playerRef.current?.paused) setPlayerBuffering(true); }} onEnded={handleContentEnded} onTimeUpdate={handleContentTimeUpdate} onPause={() => { if (playerMediaElement(playerRef.current)?.paused !== false) { playbackRequestRef.current?.abort(); playbackRequestRef.current = null; } setPlayerPlaying(false); setScrollMiniplayerActive(false); setPlayerBuffering(false); recordPlayback(true); window.requestAnimationFrame(() => { if (connectedMediaPlayer(playerRef.current)) syncPersistentPlayback(true, false); }); }} onVolumeChange={() => { syncPersistentPlayback(true); recordPlayback(true); }} onError={handlePlayerError}>
             <MediaProvider mediaProps={REMOTE_PLAYBACK_MEDIA_PROPS}>
               {textTracks.map((track) => <Track key={track.src} {...track} />)}
-              {chapterTrackContent && <Track id={`video-chapters-${video.id || video.slug}`} content={chapterTrackContent} type="json" kind="chapters" label="Chapters" lang={video.language_code || 'en'} default />}
+              {chapterTrackContent && <Track id={`video-chapters-${video.id || video.slug}`} content={chapterTrackContent} type="json" kind="chapters" label={t('Chapters')} lang={video.language_code || 'en'} default />}
             </MediaProvider>
-            <DefaultVideoLayout icons={defaultLayoutIcons} thumbnails={chapterThumbnails} sliderChaptersMinWidth={0} slots={{ largeLayout: { centerControlsGroupCenter: showPlayerBuffering || isProviderVideo ? null : <PlayButton className="watch-center-play-button" aria-label="Play"><CenterPlayIcon /></PlayButton>, beforeFullscreenButton: theaterButton } }} />
+            <DefaultVideoLayout data-i18n-skip icons={defaultLayoutIcons} translations={mediaTranslations} thumbnails={chapterThumbnails} sliderChaptersMinWidth={0} slots={{ largeLayout: { centerControlsGroupCenter: showPlayerBuffering || isProviderVideo ? null : <PlayButton className="watch-center-play-button" aria-label={t('Play')}><CenterPlayIcon /></PlayButton>, beforeFullscreenButton: theaterButton } }} />
             {googleImaLayer}
           </MediaPlayer>
           {playerAdPending ? pendingPlayerAdOverlay : showPosterOverlay && <button type="button" className={`watch-poster-overlay ${showPlayerBuffering ? 'is-loading' : ''}`} onClick={playCurrentVideo} disabled={showPlayerBuffering} aria-label={`Play ${video.title}`}>
@@ -16737,48 +16775,53 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
     </div>
       <WebsiteAdSlot placement="watch_below_player"/>
       <div className="watch-info">
-        <h1>{video.title}</h1>
-        <p className="muted-line">{formatNumber(video.views_count)} views · {video.created_label || 'Recently'}</p>
+        <h1 data-i18n-skip>{video.title}</h1>
+        <p className="muted-line"><LocalizedCount value={formatNumber(video.views_count)} unit="view" /> · {video.created_label || 'Recently'}</p>
         {watchNotice && <div className="watch-action-notice" aria-live="polite">{watchNotice}</div>}
         <div className="watch-toolbar">
-          <button type="button" className="channel-identity profile-identity-button" onClick={(event) => openProfile(event, navigate, video.channel)} disabled={!profilePathFor(video.channel)}><Avatar label={video.channel?.name || 'Channel'} image={assetUrl(video.channel?.avatar_url || video.channel?.avatar_path)} /><div><strong>{video.channel?.name || 'Channel'}<VerifiedBadge verified={video.channel?.verified} /></strong><span className="channel-subscriber-count">{formatNumber(video.channel?.subscribers_count || 0)} subscribers</span></div></button>
+          <button type="button" className="channel-identity profile-identity-button" onClick={(event) => openProfile(event, navigate, video.channel)} disabled={!profilePathFor(video.channel)}><Avatar label={video.channel?.name || 'Channel'} image={assetUrl(video.channel?.avatar_url || video.channel?.avatar_path)} /><div><strong><span data-i18n-skip>{video.channel?.name || t('Channel')}</span><VerifiedBadge verified={video.channel?.verified} /></strong><span className="channel-subscriber-count"><LocalizedCount value={formatNumber(video.channel?.subscribers_count || 0)} unit="subscriber" /></span></div></button>
           <button className={`btn ${subscribed || isOwnVideoChannel ? 'subtle' : 'primary'}`} onClick={subscribe} disabled={isOwnVideoChannel}>{isOwnVideoChannel ? 'Your channel' : subscribed ? 'Unsubscribe' : 'Subscribe'}</button>
           <div className="action-bar">
-            <button className={`action-pill ${liked ? 'active' : ''}`} onClick={like}><Icon name="like" size={18} /> {formatNumber(video.likes_count)}</button>
-            <button type="button" className="action-pill" onClick={() => document.querySelector('.watch-comments-card')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}><Icon name="comment" size={18} /> {formatNumber(video.comments_count)}</button>
-            {canTipVideoCreator && <button type="button" className="action-pill creator-tip-action" onClick={() => auth.user ? setCreatorTipOpen(true) : navigate('/login')}><Icon name="wallet" size={18} /> Tip</button>}
-            <button className={`action-pill ${isWatchLater ? 'active' : ''}`} onClick={saveVideo}><Icon name="clock" size={18} /> {isWatchLater ? 'Remove from Watch later' : 'Add to Watch later'}</button>
+            <button className={`action-pill ${liked ? 'active' : ''}`} onClick={like} aria-label={t(liked ? 'Unlike video' : 'Like video')} aria-pressed={liked}><Icon name="like" size={18} /> {formatNumber(video.likes_count)}</button>
+            <button type="button" className="action-pill" aria-label={t('Comments')} onClick={() => document.querySelector('.watch-comments-card')?.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' })}><Icon name="comment" size={18} /> {formatNumber(video.comments_count)}</button>
+            <button className={`action-pill ${isWatchLater ? 'active' : ''}`} onClick={saveVideo} aria-label={t(isWatchLater ? 'Remove from Watch later' : 'Add to Watch later')} aria-pressed={isWatchLater}><Icon name="bookmark" size={18}/><span data-i18n-skip>{t(isWatchLater ? 'Saved' : 'Save')}</span></button>
             <button className="action-pill" onClick={shareVideo}><Icon name="share" size={18} /> Share</button>
             <div className="video-detail-menu-shell" ref={detailMenuShellRef}>
-              <button className={`action-pill icon-only ${dropdownOpen ? 'active' : ''}`} onClick={toggleVideoDropdown} aria-label="Video actions" aria-expanded={dropdownOpen}><Icon name="more" size={18} /></button>
-              {dropdownOpen && <div ref={detailMenuRef} className={`video-detail-action-menu open-${dropdownPlacement}`}>
-                {isOwnVideoChannel && <><button type="button" className="video-detail-action-item" onClick={() => runVideoMenuAction('edit')}><Icon name="edit" size={20}/><span>Edit video</span></button>{!video.is_short && video.source_type !== 'live_replay' && <button type="button" className="video-detail-action-item" onClick={() => runVideoMenuAction('boost')}><Icon name="trending" size={20}/><span>Boost video</span></button>}<button type="button" className={`video-detail-action-item ${videoMenuState.pinned ? 'is-selected' : ''}`} onClick={() => runVideoMenuAction('pin')} disabled={videoMenuState.pinning}><Icon name={videoMenuState.pinned ? 'pinOff' : 'pin'} size={20}/><span>{videoMenuState.pinning ? 'Saving...' : videoMenuState.pinned ? 'Unpin from profile' : 'Pin to profile'}</span></button><div className="video-detail-menu-divider" /></>}
-                <button type="button" className="video-detail-action-item" onClick={() => runVideoMenuAction('playlist')}><Icon name="queue" size={20}/><span>{videoMenuState.playlist ? 'Remove from Playlist' : 'Add to Playlist'}</span></button>
+              <button className={`action-pill icon-only ${dropdownOpen ? 'active' : ''}`} onClick={toggleVideoDropdown} aria-label="Video actions" aria-haspopup="menu" aria-controls={`watch-video-actions-${slug}`} aria-expanded={dropdownOpen}><Icon name="more" size={18} /></button>
+              {dropdownOpen && createPortal(<div ref={detailMenuRef} id={`watch-video-actions-${slug}`} role="menu" aria-label={t('Video actions')} className={`video-detail-action-menu watch-detail-menu open-${dropdownLayout?.placement || 'down'}`} onKeyDown={handleDetailMenuKeys} style={dropdownLayout ? { top: dropdownLayout.top, left: dropdownLayout.left, width: dropdownLayout.width, maxHeight: dropdownLayout.maxHeight, '--watch-menu-sheet-max-height': `${dropdownLayout.sheetMaxHeight}px` } : { visibility: 'hidden' }}>
+                {canTipVideoCreator && <button type="button" role="menuitem" className="video-detail-action-item creator-tip-action" onClick={() => { setDropdownOpen(false); auth.user ? setCreatorTipOpen(true) : navigate('/login'); }}><Icon name="wallet" size={20}/><span>Send tip</span></button>}
+                {isOwnVideoChannel && <><button type="button" role="menuitem" className="video-detail-action-item" onClick={() => runVideoMenuAction('edit')}><Icon name="edit" size={20}/><span>Edit video</span></button>{!video.is_short && video.source_type !== 'live_replay' && <button type="button" role="menuitem" className="video-detail-action-item" onClick={() => runVideoMenuAction('boost')}><Icon name="trending" size={20}/><span>Boost video</span></button>}<button type="button" role="menuitem" className={`video-detail-action-item ${videoMenuState.pinned ? 'is-selected' : ''}`} onClick={() => runVideoMenuAction('pin')} disabled={videoMenuState.pinning}><Icon name={videoMenuState.pinned ? 'pinOff' : 'pin'} size={20}/><span>{videoMenuState.pinning ? 'Saving...' : videoMenuState.pinned ? 'Unpin from profile' : 'Pin to profile'}</span></button><div className="video-detail-menu-divider" /></>}
+                <button type="button" role="menuitem" className="video-detail-action-item" onClick={() => runVideoMenuAction('playlist')}><Icon name="queue" size={20}/><span>{videoMenuState.playlist ? 'Remove from Playlist' : 'Add to Playlist'}</span></button>
                 <div className="video-detail-menu-divider" />
-                <button type="button" className="video-detail-action-item" onClick={() => runVideoMenuAction('share')}><Icon name="share" size={20}/><span>Share Video</span></button>
-                <button type="button" className="video-detail-action-item" onClick={() => runVideoMenuAction('copy')}><Icon name="link" size={20}/><span>Copy Link</span></button>
+                <button type="button" role="menuitem" className="video-detail-action-item" onClick={() => runVideoMenuAction('share')}><Icon name="share" size={20}/><span>Share Video</span></button>
+                <button type="button" role="menuitem" className="video-detail-action-item" onClick={() => runVideoMenuAction('copy')}><Icon name="link" size={20}/><span>Copy Link</span></button>
                 <div className="video-detail-menu-divider" />
-                <button type="button" className="video-detail-action-item" onClick={() => runVideoMenuAction('watchLater')}><Icon name="clock" size={20}/><span>{isWatchLater ? 'Remove from Watch later' : 'Add to Watch later'}</span></button>
+                <button type="button" role="menuitem" className="video-detail-action-item" onClick={() => runVideoMenuAction('watchLater')}><Icon name="clock" size={20}/><span>{isWatchLater ? 'Remove from Watch later' : 'Add to Watch later'}</span></button>
                 <div className="video-detail-menu-divider" />
-                <button type="button" className={`video-detail-action-item ${videoMenuState.reported ? 'is-selected' : ''}`} onClick={() => runVideoMenuAction('report')}><Icon name="flag" size={20}/><span>{videoMenuState.reported ? 'Reported' : 'Report Video'}</span></button>
-                {!isOwnVideoChannel && <button type="button" className={`video-detail-action-item danger ${videoMenuState.hidden ? 'is-selected' : ''}`} onClick={() => runVideoMenuAction('notInterested')}><Icon name="block" size={20}/><span>{videoMenuState.hidden ? 'Marked Not Interested' : 'Not Interested'}</span></button>}
-                {canDeleteVideo && <><div className="video-detail-menu-divider" /><button type="button" className="video-detail-action-item danger" onClick={() => runVideoMenuAction('delete')} disabled={videoDeleting}><Icon name="trash" size={20}/><span>{videoDeleting ? 'Deleting...' : 'Delete Video'}</span></button></>}
-              </div>}
+                <button type="button" role="menuitem" className={`video-detail-action-item ${videoMenuState.reported ? 'is-selected' : ''}`} onClick={() => runVideoMenuAction('report')}><Icon name="flag" size={20}/><span>{videoMenuState.reported ? 'Reported' : 'Report Video'}</span></button>
+                {!isOwnVideoChannel && <button type="button" role="menuitem" className={`video-detail-action-item danger ${videoMenuState.hidden ? 'is-selected' : ''}`} onClick={() => runVideoMenuAction('notInterested')}><Icon name="block" size={20}/><span>{videoMenuState.hidden ? 'Marked Not Interested' : 'Not Interested'}</span></button>}
+                {canDeleteVideo && <><div className="video-detail-menu-divider" /><button type="button" role="menuitem" className="video-detail-action-item danger" onClick={() => runVideoMenuAction('delete')} disabled={videoDeleting}><Icon name="trash" size={20}/><span>{videoDeleting ? 'Deleting...' : 'Delete Video'}</span></button></>}
+              </div>, document.body)}
             </div>
           </div>
         </div>
         {videoMenuState.hidden && <div className="watch-hidden-feedback"><Icon name="block" size={18}/><div><strong>Marked as not interested</strong><span>This feedback is saved on this device. You can continue watching or choose another video.</span></div><button className="text-button" onClick={() => { try { const current = JSON.parse(localStorage.getItem(notInterestedVideosKey) || '[]'); localStorage.setItem(notInterestedVideosKey, JSON.stringify((Array.isArray(current) ? current : []).filter((item) => item !== video.slug))); } catch (_) {} setVideoMenuState((state) => ({ ...state, hidden: false })); notify('Not interested feedback removed.'); }}>Undo</button></div>}
         <div className={`description-card ${descriptionExpanded ? 'expanded' : ''}`}><p dir="auto" data-i18n-skip={watchDescription ? true : undefined}>{watchDescription ? <VideoDescriptionText text={watchDescription} onSeek={isPaidVideoLocked ? null : seekToDescriptionTime} /> : 'No description yet.'}</p>{watchDescription && <button className="text-button" onClick={() => setDescriptionExpanded((expanded) => !expanded)}>{descriptionExpanded ? 'Show less' : 'Show more'}</button>}</div>
-        {watchTags.length > 0 && <div className="watch-tag-list" aria-label="Tags">{watchTags.map((tag) => <button key={tag} type="button" className="watch-tag-chip" onClick={() => navigate(`/search?q=${encodeURIComponent(`#${tag}`)}`)}>#{tag}</button>)}</div>}
+        {!isPaidVideoLocked && videoChapters.length > 0 && <details className="watch-chapters"><summary data-i18n-skip>{t('Chapters')}</summary><ol>{videoChapters.map((chapter) => <li key={chapter.startTime}><button type="button" onClick={() => seekToDescriptionTime(chapter.startTime)}><time data-i18n-skip>{formatDurationSeconds(chapter.startTime) || '0:00'}</time><span data-i18n-skip dir="auto">{chapter.text}</span></button></li>)}</ol></details>}
+        {video.transcript_url && <VideoTranscript key={`${video.slug}-${video.transcript_url}`} url={video.transcript_url} />}
+        {watchTags.length > 0 && <div className="watch-tag-list" aria-label="Tags">{watchTags.map((tag) => <button key={tag} type="button" className="watch-tag-chip" data-i18n-skip onClick={() => navigate(`/search?q=${encodeURIComponent(`#${tag}`)}`)}>#{tag}</button>)}</div>}
       </div>
-      <WatchCommentsPanel video={video} comments={comments} setComments={setComments} body={body} setBody={setBody} onSubmitComment={comment} auth={auth} navigate={navigate} slug={slug} setVideo={setVideo} notify={notify} commentsLimit={20} commentsLoadStep={20} commentsHasMore={commentsHasMore} loadingMoreComments={loadingMoreComments} onLoadMoreComments={loadMoreComments} />
+
     </section>
     <aside ref={watchSidebarRef} className="watch-sidebar">
       <WebsiteAdSlot placement="watch_sidebar"/>
-      <div className="section-title compact">{playlistContextId && <small className="watch-playlist-context">Playlist{watchPlaylist?.title ? ` · ${watchPlaylist.title}` : ''}</small>}<h2>Up Next</h2><button type="button" className={`watch-autoplay-toggle ${autoplayEnabled ? 'active' : ''}`} role="switch" aria-checked={autoplayEnabled} onClick={toggleAutoplay} disabled={autoplaySaving}><span>Autoplay</span><i /></button></div>
-      {upNextLoading && !queuedUpNext.length && !combinedUpNext.length ? <div className="state-card">Loading videos...</div> : combinedUpNext.length ? combinedUpNext.map((item, index) => <React.Fragment key={item.slug || item.id}><SmallVideoRow video={item} navigate={navigate}/><WebsiteAdSlot placement="watch_up_next" sequence={index + 1}/></React.Fragment>) : <div className="state-card">{playlistContextId ? 'No more videos' : 'No more videos available.'}</div>}
+      <div className="section-title compact">{playlistContextId && <small className="watch-playlist-context">Playlist{watchPlaylist?.title ? <> · <span data-i18n-skip>{watchPlaylist.title}</span></> : null}</small>}<h2>Up Next</h2><button type="button" className={`watch-autoplay-toggle ${autoplayEnabled ? 'active' : ''}`} role="switch" aria-checked={autoplayEnabled} onClick={toggleAutoplay} disabled={autoplaySaving}><span>Autoplay</span><i /></button></div>
+      {upNextLoading && !queuedUpNext.length && !combinedUpNext.length ? <div className="state-card">Loading videos...</div> : combinedUpNext.length ? combinedUpNext.map((item, index) => <React.Fragment key={item.slug || item.id}>{index === 0 && queuedUpNext.length > 0 && <h3 className="watch-up-next-label">Queue</h3>}{index === queuedUpNext.length && queuedUpNext.length > 0 && !playlistContextId && <h3 className="watch-up-next-label">Discover videos</h3>}<SmallVideoRow video={item} navigate={navigate}/><WebsiteAdSlot placement="watch_up_next" sequence={index + 1}/></React.Fragment>) : <div className="state-card">{playlistContextId ? 'No more videos' : 'No more videos available.'}</div>}
       {hasMoreUpNext && <button type="button" className="btn subtle full" disabled={upNextLoading} onClick={loadMoreUpNext}>{upNextLoading ? 'Loading videos...' : 'Load more'}</button>}
     </aside>
+    <section className="watch-comments-section">
+      <WatchCommentsPanel video={video} comments={comments} setComments={setComments} body={body} setBody={setBody} onSubmitComment={comment} auth={auth} navigate={navigate} slug={slug} setVideo={setVideo} notify={notify} commentsLimit={20} commentsLoadStep={20} commentsHasMore={commentsHasMore} loadingMoreComments={loadingMoreComments} onLoadMoreComments={loadMoreComments} />
+    </section>
     {playlistPickerOpen && <AddToPlaylistModal video={video} playlists={userPlaylists} loading={playlistLoading} error={playlistError} savingId={playlistSavingId} onClose={() => setPlaylistPickerOpen(false)} onRefresh={loadUserPlaylists} onToggle={togglePlaylistVideo} onCreate={() => { setPlaylistPickerOpen(false); setPlaylistCreateOpen(true); }} />}
     {playlistCreateOpen && <NewPlaylistModal videos={[video]} initialAddVideos initialVideoIds={[video.id]} onClose={() => setPlaylistCreateOpen(false)} onCreate={createWatchPlaylist} />}
     <CreatorTipDialog open={creatorTipOpen} creator={video.channel} video={video} settings={creatorTips || {}} navigate={navigate} onClose={() => setCreatorTipOpen(false)} onSent={notify} />
@@ -17062,8 +17105,8 @@ function EditVideoPage({ slug, navigate, auth }) {
               </div>
               <div className="upload-field-stack upload-settings-grid">
                 <div><label className="upload-label">Thumbnail</label><div className="thumbnail-upload-row">{previewThumb ? <Thumbnail video={previewThumb} /> : <div className="upload-file-icon"><Icon name="upload" size={22}/></div>}<button type="button" className="btn subtle compact" onClick={() => thumbInputRef.current?.click()}><Icon name="upload" size={15}/> Upload thumbnail</button><input ref={thumbInputRef} type="file" accept="image/*" hidden onChange={(e) => { const file = e.target.files?.[0] || null; setThumb(file); setSelectedGeneratedThumb(null); e.target.value = ''; }} /></div><small>JPG, PNG up to 5MB</small></div>
-                <div><label className="upload-label">Category</label><AdaptiveSelect className="upload-input" value={form.category_id} onChange={(e) => updateForm({ category_id: e.target.value })}>{uploadOptions.categories.length ? uploadOptions.categories.map((item) => <option key={item.id} value={item.id}>{item.name}</option>) : <option value="">No categories available</option>}</AdaptiveSelect></div>
-                <div><label className="upload-label">Language</label><AdaptiveSelect className="upload-input" value={form.language_id} onChange={(e) => updateForm({ language_id: e.target.value })}>{uploadOptions.languages.length ? uploadOptions.languages.map((item) => <option key={item.id} value={item.id}>{item.name}</option>) : <option value="">No languages available</option>}</AdaptiveSelect></div>
+                <div><label className="upload-label">Category</label><AdaptiveSelect className="upload-input" value={form.category_id} onChange={(e) => updateForm({ category_id: e.target.value })}>{uploadOptions.categories.length ? uploadOptions.categories.map((item) => <option data-i18n-skip key={item.id} value={item.id}>{item.name}</option>) : <option value="">No categories available</option>}</AdaptiveSelect></div>
+                <div><label className="upload-label">Language</label><AdaptiveSelect className="upload-input" value={form.language_id} onChange={(e) => updateForm({ language_id: e.target.value })}>{uploadOptions.languages.length ? uploadOptions.languages.map((item) => <option data-i18n-skip key={item.id} value={item.id}>{item.name}</option>) : <option value="">No languages available</option>}</AdaptiveSelect></div>
                 <div><label className="upload-label">Playlist</label><input className="upload-input" value={form.playlist} placeholder="No playlist selected" onChange={(e) => updateForm({ playlist: e.target.value })} /></div>
                 <div><label className="upload-label">Schedule</label><div className="community-native-date-field upload-native-date-field"><input ref={scheduleInputRef} type="datetime-local" value={form.scheduled_at} min={scheduleMin} onChange={(e) => updateForm({ scheduled_at: e.target.value })} /><button type="button" onClick={openNativeSchedulePicker} aria-label="Open schedule calendar"><Icon name="calendar" size={16}/></button></div></div>
                 <div className="upload-wide-field"><label className="upload-label">Visibility <b>*</b></label><div className="upload-radio-group compact">{[
@@ -17195,7 +17238,7 @@ function BoostVideoPage({ slug, navigate }) {
 
     <section className="boost-layout">
       <div className="boost-main-column">
-        <div className="boost-video-summary"><Thumbnail video={video}/><div><span>Campaign video</span><h2>{video.title}</h2><p>{video.visibility === 'public' && video.status === 'ready' ? 'Ready for promotion' : 'Video must be public and ready before promotion.'}</p></div><button type="button" className="btn subtle compact" onClick={() => navigate(videoPlaybackPath(video))}>View</button></div>
+        <div className="boost-video-summary"><Thumbnail video={video}/><div><span>Campaign video</span><h2 data-i18n-skip>{video.title}</h2><p>{video.visibility === 'public' && video.status === 'ready' ? 'Ready for promotion' : 'Video must be public and ready before promotion.'}</p></div><button type="button" className="btn subtle compact" onClick={() => navigate(videoPlaybackPath(video))}>View</button></div>
 
         {current ? <BoostCampaignDetails campaign={current} currency={currency} busy={busy} onAction={(action) => action === 'cancel' ? setConfirm(current) : updateCampaign(current, action)} /> : !settings.enabled ? <div className="state-card">Video boosts are currently disabled by the administrator.</div> : !boostable ? <div className="state-card">Make this video public and wait until processing is complete before starting a boost.</div> : <form className="boost-setup-panel" onSubmit={submit}>
           <header><div><h2>Campaign budget</h2><p>Choose how qualified promotion activity is billed.</p></div><span>Funds are reserved when the campaign starts</span></header>
@@ -17246,16 +17289,6 @@ function uploadChapterTimestampSeconds(value) {
   const parts = raw.split(':').map(Number);
   if (parts[parts.length - 1] > 59 || (parts.length === 3 && parts[1] > 59)) return null;
   return parts.reduce((total, part) => total * 60 + part, 0);
-}
-
-function formatUploadChapterTimestamp(value) {
-  const seconds = Math.max(0, Math.floor(Number(value) || 0));
-  const hours = Math.floor(seconds / 3600);
-  const minutes = Math.floor((seconds % 3600) / 60);
-  const remainder = seconds % 60;
-  return hours > 0
-    ? `${hours}:${String(minutes).padStart(2, '0')}:${String(remainder).padStart(2, '0')}`
-    : `${minutes}:${String(remainder).padStart(2, '0')}`;
 }
 
 function parseTimestampChapterRows(text) {
@@ -17337,20 +17370,21 @@ function generatedUploadChapterRows(duration) {
   }));
 }
 
-function validateUploadChapterRows(rows, duration = 0, requireTitles = true) {
-  if (!Array.isArray(rows) || rows.length < 2) return { error: 'Add at least two chapters or turn off Upload with chapters.', chapters: [] };
-  if (rows.length > VIDEO_CHAPTER_MAX) return { error: `A video can have up to ${VIDEO_CHAPTER_MAX} chapters.`, chapters: [] };
+function validateUploadChapterRows(rows, duration = 0, requireTitles = true, source = 'manual', t = formatMessage) {
+  if (!Array.isArray(rows) || rows.length < 2) return { error: t('Add at least two chapters or turn off Upload with chapters.'), chapters: [] };
+  if (rows.length > VIDEO_CHAPTER_MAX) return { error: t('A video can have up to {count} chapters.', { count: VIDEO_CHAPTER_MAX }), chapters: [] };
   const mediaDuration = Math.floor(Number(duration) || 0);
   const chapters = [];
+  const minimum = source === 'provider' ? 1 : VIDEO_CHAPTER_MIN_SECONDS;
   for (const [index, row] of rows.entries()) {
     const startTime = uploadChapterTimestampSeconds(row.start);
     const title = String(row.title || '').trim();
-    if (startTime === null) return { error: `Segment ${index + 1} has an invalid timestamp.`, chapters: [] };
-    if (index === 0 && startTime !== 0) return { error: 'The first segment must start at 0:00.', chapters: [] };
-    if (index > 0 && startTime - chapters[index - 1].start_time < VIDEO_CHAPTER_MIN_SECONDS) return { error: 'Segment timestamps must be in order and at least 10 seconds apart.', chapters: [] };
-    if (mediaDuration > 0 && startTime >= mediaDuration) return { error: `Segment ${index + 1} starts after the video ends.`, chapters: [] };
-    if (requireTitles && !title) return { error: `Add a name for segment ${index + 1} or turn off Upload with chapters.`, chapters: [] };
-    if (title.length > 160) return { error: `Segment ${index + 1} must be 160 characters or fewer.`, chapters: [] };
+    if (startTime === null) return { error: t('Chapter {number} has an invalid timestamp.', { number: index + 1 }), chapters: [] };
+    if (index === 0 && startTime !== 0 && source !== 'provider') return { error: t('The first chapter must start at 0:00.'), chapters: [] };
+    if (index > 0 && startTime - chapters[index - 1].start_time < minimum) return { error: t('Chapter timestamps must be in order and at least {seconds} seconds apart.', { seconds: minimum }), chapters: [] };
+    if (mediaDuration > 0 && startTime >= mediaDuration) return { error: t('Chapter {number} starts after the video ends.', { number: index + 1 }), chapters: [] };
+    if (requireTitles && !title) return { error: t('Add a name for chapter {number} or turn off Upload with chapters.', { number: index + 1 }), chapters: [] };
+    if (title.length > 160) return { error: t('The name for chapter {number} must be 160 characters or fewer.', { number: index + 1 }), chapters: [] };
     chapters.push({ start_time: startTime, title });
   }
   return { error: '', chapters };
@@ -17401,6 +17435,7 @@ function PublishingAccessPage({ capability = 'upload', navigate, auth }) {
 }
 
 function Upload({ navigate, globalUploadItems = [], globalUploadItemsRef, setGlobalUploadItems = () => {}, uploadType = 'video', features = {} }) {
+  const { t } = useI18n();
   const fileInputRef = useRef(null);
   const thumbInputRef = useRef(null);
   const thumbSliderRef = useRef(null);
@@ -17431,13 +17466,14 @@ function Upload({ navigate, globalUploadItems = [], globalUploadItemsRef, setGlo
   const [selectedGeneratedThumb, setSelectedGeneratedThumb] = useState(null);
   const [generatingThumbnails, setGeneratingThumbnails] = useState(false);
   const importFetchKeyRef = useRef('');
+  const importAutofillRef = useRef({ title: '', description: '', tags: '' });
   const [publishedVideo, setPublishedVideo] = useState(null);
   const [error, setError] = useState('');
   const [uploadOptions, setUploadOptions] = useState({ categories: [], languages: [], playlists: [], max_upload_mb: null, chunk_size_mb: 8, video_sales: {} });
   const [uploadOptionsLoaded, setUploadOptionsLoaded] = useState(false);
   const localUploadsEnabled = features?.uploads?.file_uploads_enabled !== false;
   const [uploadMode, setUploadMode] = useState(localUploadsEnabled ? 'local' : 'import');
-  const [importForm, setImportForm] = useState({ provider: '', url: '' });
+  const [importForm, setImportForm] = useState({ provider: 'auto', url: '' });
   const [importMetadata, setImportMetadata] = useState(null);
   const [importFetching, setImportFetching] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -17457,7 +17493,7 @@ function Upload({ navigate, globalUploadItems = [], globalUploadItemsRef, setGlo
   const busyUploadStatuses = ['uploading', 'importing', 'assembling', 'processing'];
   const lockedUploadStatuses = [...busyUploadStatuses, 'completed', 'failed'];
   const isShortUpload = uploadType === 'short';
-  const automaticallyShort = uploadMode !== 'import' && selectedDurationSeconds > 0 && selectedDurationSeconds <= 180 && selectedVideoDimensions.width > 0 && selectedVideoDimensions.height >= selectedVideoDimensions.width;
+  const automaticallyShort = uploadMode !== 'import' && qualifiesShort(selectedDurationSeconds, selectedVideoDimensions.width, selectedVideoDimensions.height);
   const willUploadShort = isShortUpload || automaticallyShort || (uploadMode === 'import' && importMetadata?.is_short === true);
   const chaptersFeatureEnabled = !willUploadShort && features?.uploads?.chapters_enabled !== false;
   const useShortThumbnailDesign = willUploadShort;
@@ -17483,7 +17519,7 @@ function Upload({ navigate, globalUploadItems = [], globalUploadItemsRef, setGlo
   const importProviders = (importSettings.providers || []).filter((provider) => provider.enabled);
   const importEnabled = Boolean(importSettings.enabled && importProviders.length);
   const showUploadSourcePanel = localUploadsEnabled && !isShortUpload && (!uploadOptionsLoaded || importEnabled);
-  const selectedImportProvider = importProviders.find((provider) => provider.key === importForm.provider) || importProviders[0] || null;
+  const selectedImportProvider = resolveImportProvider(importForm, importSettings.providers || []);
   const isImportMode = importEnabled && uploadMode === 'import';
   const videoSales = uploadOptions.video_sales || {};
   const canSellVideo = !isShortUpload && !isImportMode && Boolean(videoSales.enabled);
@@ -17513,28 +17549,15 @@ function Upload({ navigate, globalUploadItems = [], globalUploadItemsRef, setGlo
     },
   ] : [];
   const activeQueueItem = queueItems.find((item) => item.id === selectedUploadId) || queueItems.find((item) => item.file) || queueItems[0] || null;
-  const findImportProviderForUrl = (value) => {
-    const url = String(value || '').trim();
-    if (!/^https?:\/\/\S+$/i.test(url)) return null;
-    let parsedUrl = null;
-    try {
-      parsedUrl = new URL(url);
-    } catch (_) {
-      return null;
-    }
-    const host = parsedUrl.hostname.toLowerCase();
-    const providerMatch = importProviders.find((provider) => provider.key !== 'direct' && (provider.domains || []).some((domain) => {
-      const normalizedDomain = String(domain || '').toLowerCase();
-      return normalizedDomain && (host === normalizedDomain || host.endsWith(`.${normalizedDomain}`));
-    }));
-    if (providerMatch) return providerMatch;
-    const directProvider = importProviders.find((provider) => provider.key === 'direct');
-    return directProvider && /\.(mp4|m4v|mov|webm|mkv|avi|m3u8|mpd)$/i.test(parsedUrl.pathname) ? directProvider : null;
-  };
+  const findImportProviderForUrl = (value) => detectImportProvider(value, importSettings.providers || []);
   const matchedImportProvider = findImportProviderForUrl(importForm.url);
   const importUrlLooksFetchable = /^https?:\/\/\S+$/i.test(importForm.url.trim());
-  const importUrlWarning = isImportMode && importUrlLooksFetchable && !matchedImportProvider ? 'Import URL does not match the selected provider.' : '';
+  const importUrlWarning = !isImportMode || !importUrlLooksFetchable ? ''
+    : !selectedImportProvider ? 'Use a valid HTTP or HTTPS video URL.'
+    : !selectedImportProvider.enabled ? `${selectedImportProvider.label} imports are disabled.`
+    : selectedImportProvider.key !== 'direct' && matchedImportProvider?.key !== selectedImportProvider.key ? 'Import URL does not match the selected provider.' : '';
   const importFetchDisabled = importFetching || !importUrlLooksFetchable || Boolean(importUrlWarning);
+  const importDuplicate = isImportMode ? importMetadata?.duplicate : null;
 
   const updateUploadItem = (id, patch) => {
     if (!id) return;
@@ -17632,40 +17655,34 @@ function Upload({ navigate, globalUploadItems = [], globalUploadItemsRef, setGlo
     sale_price: videoSales.minimum_price || '0.99',
   });
   const updateForm = (patch) => setForm((current) => {
-    const next = { ...current, ...patch };
+    const next = { ...current, ...(typeof patch === 'function' ? patch(current) : patch) };
     updateUploadItem(selectedUploadId, { form: next });
     return next;
   });
   const updateImportForm = (patch) => {
-    const nextUrl = 'url' in patch ? patch.url : importForm.url;
-    const detectedProvider = 'url' in patch ? findImportProviderForUrl(nextUrl) : null;
-    setImportForm((current) => ({ ...current, ...patch, ...(detectedProvider ? { provider: detectedProvider.key } : {}) }));
+    setImportForm((current) => ({ ...current, ...patch }));
     if ('url' in patch || 'provider' in patch) {
+      importFetchKeyRef.current = '';
+      setImportFetching(false);
       setImportMetadata(null);
       setSelectedDurationSeconds(0);
       setChapterDraft({ rows: [], source: 'generated', fileName: '', disabled: true, initialized: false });
     }
-    if ('url' in patch) setError(/^https?:\/\/\S+$/i.test(String(nextUrl || '').trim()) && !detectedProvider ? 'Import URL does not match the selected provider.' : '');
+    setError('');
   };
   const changeUploadMode = (mode) => {
     if (mode === uploadMode || (mode === 'import' && !importEnabled)) return;
     setUploadMode(mode);
     setSelectedDurationSeconds(mode === 'local' ? Number(activeQueueItem?.durationSeconds || 0) : Number(importMetadata?.duration_seconds || 0));
-    setChapterDraft({ rows: [], source: 'generated', fileName: '', disabled: true, initialized: false });
+    const emptyChapters = { rows: [], source: 'generated', fileName: '', disabled: true, initialized: false };
+    setChapterDraft(mode === 'import' ? importChapterDraft(emptyChapters, importMetadata, selectedImportProvider?.label) : emptyChapters);
     setError('');
   };
   const fetchImportMetadata = async (urlValue = importForm.url, providerKey = selectedImportProvider?.key) => {
     const url = String(urlValue || '').trim();
-    const detectedProvider = findImportProviderForUrl(url);
-    const resolvedProviderKey = detectedProvider?.key || providerKey;
-    if (/^https?:\/\/\S+$/i.test(url) && !detectedProvider) {
-      setError('Import URL does not match the selected provider.');
-      return;
-    }
+    const resolvedProviderKey = providerKey;
+    if (importUrlWarning) { setError(importUrlWarning); return; }
     if (!resolvedProviderKey || !url) return;
-    if (detectedProvider && providerKey !== detectedProvider.key) {
-      setImportForm((current) => ({ ...current, provider: detectedProvider.key }));
-    }
     const fetchKey = `${resolvedProviderKey}|${url}`;
     importFetchKeyRef.current = fetchKey;
     setImportFetching(true);
@@ -17680,26 +17697,14 @@ function Upload({ navigate, globalUploadItems = [], globalUploadItemsRef, setGlo
       setImportMetadata(metadata);
       if (metadata) {
         setSelectedDurationSeconds(Math.max(0, Number(metadata.duration_seconds) || 0));
-        updateForm({
-          title: form.title.trim() ? form.title : metadata.title || '',
-          description: form.description.trim() ? form.description : String(metadata.description || '').slice(0, 5000),
-          tags: form.tags.trim() ? form.tags : Array.isArray(metadata.tags) ? metadata.tags.join(', ') : '',
-        });
-        const importedChapters = (Array.isArray(metadata.chapters) ? metadata.chapters : [])
-          .map((chapter) => ({
-            start: formatUploadChapterTimestamp(chapter?.start_time),
-            title: String(chapter?.title || '').trim().slice(0, 160),
-          }))
-          .filter((chapter) => chapter.title)
-          .slice(0, VIDEO_CHAPTER_MAX);
-        if (chaptersFeatureEnabled && importedChapters.length >= 2) {
-          updateChapterDraft({
-            rows: importedChapters,
-            source: 'timestamps',
-            fileName: 'Imported from YouTube',
-            disabled: false,
-            initialized: true,
-          });
+        const previous = importAutofillRef.current;
+        const incoming = { title: metadata.title || '', description: String(metadata.description || '').slice(0, 5000),
+          tags: Array.isArray(metadata.tags) ? metadata.tags.join(', ') : '' };
+        updateForm((current) => Object.fromEntries(Object.entries(incoming).map(([key, value]) =>
+          [key, !current[key].trim() || current[key] === previous[key] ? value : current[key]])));
+        importAutofillRef.current = incoming;
+        if (chaptersFeatureEnabled) {
+          updateChapterDraft((current) => importChapterDraft(current, metadata, selectedImportProvider?.label));
         }
       }
     } catch (err) {
@@ -17741,23 +17746,23 @@ function Upload({ navigate, globalUploadItems = [], globalUploadItemsRef, setGlo
   const selectedPlaylist = uploadOptions.playlists.find((item) => String(item.id) === String(form.playlist));
   const tagItems = form.tags.split(',').map((item) => item.trim()).filter(Boolean).slice(0, 10);
   const shortAspectRatio = selectedVideoDimensions.height ? selectedVideoDimensions.width / selectedVideoDimensions.height : 0;
-  const shortDurationValid = !isShortUpload || (selectedDurationSeconds > 0 && selectedDurationSeconds <= 180);
-  const shortAspectValid = !isShortUpload || (selectedVideoDimensions.width > 0 && selectedVideoDimensions.height >= selectedVideoDimensions.width);
+  const shortDurationValid = !isShortUpload || (selectedDurationSeconds > 0 && selectedDurationSeconds <= MAX_SHORT_SECONDS);
+  const shortAspectValid = !isShortUpload || (selectedVideoDimensions.width > 0 && selectedVideoDimensions.height > selectedVideoDimensions.width);
   const shortRulesValid = shortDurationValid && shortAspectValid;
   const scheduleMin = datetimeLocalUploadScheduleMinimum();
   const scheduleValid = isUploadScheduleDatetimeLocal(form.scheduled_at);
   const localDetailsComplete = Boolean(video && form.title.trim() && form.description.trim() && form.category_id && shortRulesValid && scheduleValid && salePriceValid);
-  const importDetailsComplete = Boolean(isImportMode && selectedImportProvider && importUrlLooksFetchable && !importUrlWarning && (form.title.trim() || importMetadata?.title) && form.category_id && scheduleValid);
+  const importDetailsComplete = Boolean(isImportMode && !importFetching && selectedImportProvider && importUrlLooksFetchable && !importUrlWarning && !importDuplicate && (form.title.trim() || importMetadata?.title) && form.category_id && scheduleValid);
   const detailsComplete = isImportMode ? importDetailsComplete : localDetailsComplete;
   const thumbnailComplete = isImportMode ? true : Boolean(thumb || selectedGeneratedThumb);
   const chapterValidation = chaptersFeatureEnabled && !chapterDraft.disabled
-    ? validateUploadChapterRows(chapterDraft.rows, selectedDurationSeconds)
+    ? validateUploadChapterRows(chapterDraft.rows, selectedDurationSeconds, true, chapterDraft.source, t)
     : { error: '', chapters: [] };
   const lastChapterStart = uploadChapterTimestampSeconds(chapterDraft.rows[chapterDraft.rows.length - 1]?.start);
   const canAddChapter = chapterDraft.rows.length < VIDEO_CHAPTER_MAX
     && (!selectedDurationSeconds || lastChapterStart === null || lastChapterStart + VIDEO_CHAPTER_MIN_SECONDS < selectedDurationSeconds);
   const scheduleErrorMessage = `Schedule must be at least ${UPLOAD_SCHEDULE_LEAD_MINUTES} minutes in the future so upload and processing can finish before release.`;
-  const detailsErrorMessage = importUrlWarning || (!scheduleValid ? scheduleErrorMessage : !form.category_id ? 'Select a category before continuing.' : 'Complete the video details first.');
+  const detailsErrorMessage = importDuplicate?.message || importUrlWarning || (isImportMode && importFetching ? 'Wait for the provider details to finish loading.' : !scheduleValid ? scheduleErrorMessage : !form.category_id ? 'Select a category before continuing.' : 'Complete the video details first.');
   const canOpenStep = (targetStep) => {
     if (targetStep === 1) return true;
     if (isImportMode && targetStep === 2) return false;
@@ -17779,7 +17784,7 @@ function Upload({ navigate, globalUploadItems = [], globalUploadItemsRef, setGlo
     setForm((current) => current.visibility === defaultUploadVisibility ? current : { ...current, visibility: defaultUploadVisibility });
   }, [defaultUploadVisibility, video, globalUploadItems.length]);
   useEffect(() => {
-    if (!chaptersFeatureEnabled || !selectedDurationSeconds) return;
+    if (uploadMode === 'import' || !chaptersFeatureEnabled || !selectedDurationSeconds) return;
     setChapterDraft((current) => {
       if (current.initialized) return current;
       const rows = generatedUploadChapterRows(selectedDurationSeconds);
@@ -17787,21 +17792,19 @@ function Upload({ navigate, globalUploadItems = [], globalUploadItemsRef, setGlo
       updateUploadItem(selectedUploadId, { chapterDraft: next });
       return next;
     });
-  }, [chaptersFeatureEnabled, selectedDurationSeconds, selectedUploadId]);
+  }, [uploadMode, chaptersFeatureEnabled, selectedDurationSeconds, selectedUploadId]);
   useEffect(() => {
     api.request('/upload-options').then((data) => {
       const categories = data.categories || [];
       const languages = data.languages || [];
       const playlists = data.playlists || [];
       const videoImport = data.video_import || { enabled: false, providers: [] };
-      const firstImportProvider = (videoImport.providers || []).find((provider) => provider.enabled);
       const videoSalesSettings = data.video_sales || {};
       setUploadOptions({ categories, languages, playlists, max_upload_mb: data.max_upload_mb || null, chunk_size_mb: data.chunk_size_mb || 8, video_import: videoImport, video_sales: videoSalesSettings });
-      setImportForm((current) => ({ ...current, provider: current.provider || firstImportProvider?.key || '' }));
       setForm((current) => ({
         ...current,
         category_id: current.category_id || '',
-        language_id: current.language_id || languages[0]?.id || '',
+        language_id: current.language_id || '',
         sale_price: current.sale_price || videoSalesSettings.minimum_price || '0.99',
       }));
     }).catch((err) => setError(err.message)).finally(() => setUploadOptionsLoaded(true));
@@ -17809,27 +17812,15 @@ function Upload({ navigate, globalUploadItems = [], globalUploadItemsRef, setGlo
   useEffect(() => {
     if (!importEnabled && uploadMode === 'import' && localUploadsEnabled) setUploadMode('local');
     if (!localUploadsEnabled && uploadMode !== 'import') setUploadMode('import');
-    if (importEnabled && !selectedImportProvider && importProviders[0]) {
-      setImportForm((current) => ({ ...current, provider: importProviders[0].key }));
-    }
   }, [importEnabled, uploadMode, selectedImportProvider, importProviders]);
   useEffect(() => {
     const url = importForm.url.trim();
     const providerKey = selectedImportProvider?.key;
-    if (!isImportMode || !providerKey || !/^https?:\/\/\S+$/i.test(url)) return undefined;
-    const detectedProvider = findImportProviderForUrl(url);
-    if (!detectedProvider) {
-      setError('Import URL does not match the selected provider.');
-      return undefined;
-    }
-    if (detectedProvider.key !== providerKey) {
-      setImportForm((current) => ({ ...current, provider: detectedProvider.key }));
-      return undefined;
-    }
+    if (!isImportMode || !providerKey || importUrlWarning || !/^https?:\/\/\S+$/i.test(url)) return undefined;
     if (importMetadata?.provider === providerKey && importMetadata?.source_url === url) return undefined;
-    const timer = window.setTimeout(() => fetchImportMetadata(url, detectedProvider.key), 600);
+    const timer = window.setTimeout(() => fetchImportMetadata(url, providerKey), 600);
     return () => window.clearTimeout(timer);
-  }, [isImportMode, selectedImportProvider?.key, importForm.url, importMetadata?.provider, importMetadata?.source_url]);
+  }, [isImportMode, selectedImportProvider?.key, importForm.url, importUrlWarning, importMetadata?.provider, importMetadata?.source_url]);
   useEffect(() => () => {
     if (selectedVideoUrl) URL.revokeObjectURL(selectedVideoUrl);
   }, [selectedVideoUrl]);
@@ -18049,7 +18040,7 @@ function Upload({ navigate, globalUploadItems = [], globalUploadItemsRef, setGlo
     }
     try {
       const parsed = parseUploadChapterRows(file.name, await readUploadChapterFile(file));
-      const validation = validateUploadChapterRows(parsed.rows, selectedDurationSeconds, false);
+      const validation = validateUploadChapterRows(parsed.rows, selectedDurationSeconds, false, parsed.source, t);
       if (validation.error) throw new Error(validation.error);
       updateChapterDraft({ rows: parsed.rows, source: parsed.source, fileName: file.name, disabled: false, initialized: true });
     } catch (err) {
@@ -18058,12 +18049,14 @@ function Upload({ navigate, globalUploadItems = [], globalUploadItemsRef, setGlo
   };
   const updateChapterRow = (index, patch) => updateChapterDraft((current) => ({
     ...current,
+    automatic: false,
     rows: current.rows.map((row, rowIndex) => rowIndex === index ? { ...row, ...patch } : row),
   }));
   const removeChapterRow = (index) => updateChapterDraft((current) => ({
     ...current,
     rows: current.rows.filter((_, rowIndex) => rowIndex !== index),
-    source: current.source === 'generated' ? 'generated' : 'manual',
+    source: ['generated', 'provider'].includes(current.source) ? current.source : 'manual',
+    automatic: false,
     fileName: '',
   }));
   const addChapterRow = () => updateChapterDraft((current) => {
@@ -18076,14 +18069,15 @@ function Upload({ navigate, globalUploadItems = [], globalUploadItemsRef, setGlo
       ...current,
       disabled: false,
       initialized: true,
-      source: current.rows.length ? (current.source === 'generated' ? 'generated' : 'manual') : 'manual',
+      source: current.rows.length ? (['generated', 'provider'].includes(current.source) ? current.source : 'manual') : 'manual',
+      automatic: false,
       fileName: current.rows.length ? current.fileName : '',
       rows: [...current.rows, { start: formatUploadChapterTimestamp(nextStart), title: '' }],
     };
   });
   const toggleUploadWithChapters = (enabled) => updateChapterDraft((current) => {
     const rows = enabled && current.rows.length < 2 ? generatedUploadChapterRows(selectedDurationSeconds) : current.rows;
-    return { ...current, rows, disabled: !enabled, initialized: current.initialized || rows.length >= 2 };
+    return { ...current, rows, disabled: !enabled, initialized: true, automatic: false };
   });
 
   const waitForProcessing = async (slug, itemId, updateQueueItem, updateOverall, isLast) => {
@@ -18129,7 +18123,7 @@ function Upload({ navigate, globalUploadItems = [], globalUploadItemsRef, setGlo
     if (isImportMode) {
       const importItemId = 'import-video';
       if (!detailsComplete) {
-        setError(importUrlWarning || (!scheduleValid ? scheduleErrorMessage : 'Complete the import details first.'));
+        setError(detailsErrorMessage);
         setStep(1);
         return;
       }
@@ -18176,7 +18170,7 @@ function Upload({ navigate, globalUploadItems = [], globalUploadItemsRef, setGlo
       return;
     }
     if (!shortRulesValid) {
-      setError(!shortDurationValid ? 'Shorts must be 180 seconds or less.' : 'Shorts must be square or vertical.');
+      setError(!shortDurationValid ? 'Shorts must be 60 seconds or less.' : 'Shorts must use a vertical portrait aspect ratio.');
       setStep(1);
       return;
     }
@@ -18186,7 +18180,7 @@ function Upload({ navigate, globalUploadItems = [], globalUploadItemsRef, setGlo
       return;
     }
     if (!detailsComplete) {
-      setError(isShortUpload && !shortRulesValid ? (!shortDurationValid ? 'Shorts must be 180 seconds or less.' : 'Shorts must be square or vertical.') : detailsErrorMessage);
+      setError(isShortUpload && !shortRulesValid ? (!shortDurationValid ? 'Shorts must be 60 seconds or less.' : 'Shorts must use a vertical portrait aspect ratio.') : detailsErrorMessage);
       setStep(1);
       return;
     }
@@ -18386,24 +18380,31 @@ function Upload({ navigate, globalUploadItems = [], globalUploadItemsRef, setGlo
         <section className="upload-top-grid upload-wizard-top-grid">
           {isImportMode ? <article className="upload-panel upload-drop-panel upload-import-panel">
             <div className="upload-import-box">
-              <div className="upload-cloud"><Icon name="link" size={40}/></div>
-              <h2>Import video from URL</h2>
-              <p>{websiteText('Select an enabled service and paste a public video URL. PlayHub will fetch the details and play it from the original provider.')}</p>
-              <label className="upload-import-field">
-                <span>Service</span>
-                <AdaptiveSelect className="upload-input" value={selectedImportProvider?.key || ''} onChange={(event) => updateImportForm({ provider: event.target.value })}>
+              <div className="upload-import-heading">
+                <span className="upload-import-icon"><Icon name="link" size={24}/></span>
+                <div><h2>Import video from URL</h2>
+                  <p>Paste a public video URL to detect its provider and fetch the details automatically.</p></div>
+              </div>
+              <div className="upload-import-field">
+                <label htmlFor="upload-import-service">Service</label>
+                <AdaptiveSelect id="upload-import-service" className="upload-input" value={importForm.provider || 'auto'} onChange={(event) => updateImportForm({ provider: event.target.value })}>
+                  <option value="auto">Automatic detection</option>
                   {importProviders.map((provider) => <option key={provider.key} value={provider.key}>{provider.label}</option>)}
                 </AdaptiveSelect>
-              </label>
-              <label className="upload-import-field">
-                <span>Video URL</span>
+              </div>
+              <div className="upload-import-field">
+                <label htmlFor="upload-import-url">Video URL</label>
                 <div className="upload-import-url-row">
-                  <input className="upload-input" value={importForm.url} onChange={(event) => updateImportForm({ url: event.target.value })} placeholder={selectedImportProvider?.key === 'direct' ? 'https://example.com/video.mp4' : 'https://www.youtube.com/watch?v=...'} />
-                  <button type="button" className="btn subtle compact" onClick={() => fetchImportMetadata()} disabled={importFetchDisabled}>{importFetching ? 'Fetching...' : 'Fetch details'}</button>
+                  <input id="upload-import-url" className="upload-input" value={importForm.url} onChange={(event) => updateImportForm({ url: event.target.value })} placeholder="https://…" aria-describedby={importUrlWarning ? 'upload-import-url-warning' : undefined} aria-invalid={Boolean(importUrlWarning)} />
+                  <button type="button" className="btn subtle compact upload-fetch-button" onClick={() => fetchImportMetadata()} disabled={importFetchDisabled} aria-busy={importFetching}>
+                    <span className="upload-fetch-indicator" aria-hidden="true">{importFetching ? <span className="upload-fetch-spinner" /> : <Icon name="search" size={16}/>}</span>
+                    <span>{importFetching ? 'Fetching...' : 'Fetch details'}</span>
+                  </button>
                 </div>
-                {importUrlWarning && <small className="upload-import-warning" role="status">{importUrlWarning}</small>}
-              </label>
-              {selectedImportProvider?.help && <small>{selectedImportProvider.help}</small>}
+                {importUrlWarning && <small id="upload-import-url-warning" className="upload-import-warning" role="status">{importUrlWarning}</small>}
+              </div>
+              <ImportMetadataSummary provider={selectedImportProvider} automatic={importForm.provider === 'auto'} metadata={importMetadata} fetching={importFetching} />
+              {importDuplicate && <div className="upload-import-duplicate upload-import-warning" role="alert"><Icon name="info" size={18}/><div>{importDuplicate.message}{importDuplicate.existing_video?.url && <button type="button" className="text-button" onClick={() => navigate(importDuplicate.existing_video.url)}>Open existing video</button>}</div></div>}
             </div>
           </article> : <article className="upload-panel upload-drop-panel">
             <div
@@ -18417,8 +18418,8 @@ function Upload({ navigate, globalUploadItems = [], globalUploadItemsRef, setGlo
               onDrop={(event) => { event.preventDefault(); setDragging(false); handleVideoFiles(event.dataTransfer.files); }}
             >
               <div className="upload-cloud"><Icon name="upload" size={44}/></div>
-              <h2>Drag and drop your {isShortUpload ? 'short' : 'video'} file here</h2>
-              <p>MP4, MOV, AVI, MKV, WEBM{maxUploadLabel ? ` up to ${maxUploadLabel}` : ''}<br/>{isShortUpload ? 'Shorts must be 180 seconds or less and square or vertical.' : 'Recommended: 1080p or higher'}</p>
+              <h2 data-i18n-skip>{t(isShortUpload ? 'Drag and drop your short file here' : 'Drag and drop your video file here')}</h2>
+              <p>MP4, MOV, AVI, MKV, WEBM{maxUploadLabel ? ` up to ${maxUploadLabel}` : ''}<br/>{isShortUpload ? 'Shorts must be 60 seconds or less and vertical.' : 'Recommended: 1080p or higher'}</p>
               <div className="upload-drop-actions">
                 <button type="button" className="btn primary" onClick={(event) => { event.stopPropagation(); fileInputRef.current?.click(); }}><Icon name="upload" size={17}/> Select files</button>
               </div>
@@ -18437,19 +18438,19 @@ function Upload({ navigate, globalUploadItems = [], globalUploadItemsRef, setGlo
             <div className="upload-field-stack">
               <label className="upload-label">Title <b>*</b><span>{form.title.length} / 100</span></label>
               <input className="upload-input" value={form.title} maxLength={100} placeholder="Enter video title" onChange={(e) => updateForm({ title: e.target.value })} required />
-              {isShortUpload && (selectedDurationSeconds > 0 || selectedVideoDimensions.width > 0) && <div className={`upload-saved ${shortRulesValid ? '' : 'error'}`}><span>{shortRulesValid ? '✓' : '!'}</span> {Math.round(selectedDurationSeconds || 0)}s · {selectedVideoDimensions.width || '?'}×{selectedVideoDimensions.height || '?'} · Shorts require 180s max and square or vertical video</div>}
-              {!isShortUpload && automaticallyShort && <div className="upload-saved"><span>✓</span> This video will be published as a Short because it is at most 180 seconds and square or vertical.</div>}
+              {isShortUpload && (selectedDurationSeconds > 0 || selectedVideoDimensions.width > 0) && <div className={`upload-saved ${shortRulesValid ? '' : 'error'}`}><span>{shortRulesValid ? '✓' : '!'}</span> <span data-i18n-skip>{t('Video: {seconds}s · {width}×{height}. Shorts must be 60 seconds or less and vertical.', { seconds: Math.round(selectedDurationSeconds || 0), width: selectedVideoDimensions.width || '?', height: selectedVideoDimensions.height || '?' })}</span></div>}
+              {!isShortUpload && automaticallyShort && <div className="upload-saved"><span>✓</span> This video will be published as a Short because it is at most 60 seconds and vertical.</div>}
               <label className="upload-label">Description <b>*</b><span>{form.description.length} / 5000</span></label>
               <textarea className="upload-input upload-textarea" rows={7} value={form.description} maxLength={5000} placeholder="Enter video description" onChange={(e) => updateForm({ description: e.target.value })} />
               <label className="upload-label">Tags <span>{tagItems.length} / 10</span></label>
               <LiveTagsInput className="upload-tags-box" value={form.tags} onChange={(tags) => updateForm({ tags })}/>
             </div>
             <div className="upload-field-stack upload-settings-grid">
-              <div><label className="upload-label">Category <b>*</b></label><AdaptiveSelect className="upload-input" value={form.category_id} required onChange={(e) => updateForm({ category_id: e.target.value })}><option value="" disabled>{uploadOptionsLoaded && !uploadOptions.categories.length ? 'No categories available' : '-'}</option>{uploadOptions.categories.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}</AdaptiveSelect></div>
+              <div><label className="upload-label">Category <b>*</b></label><AdaptiveSelect className="upload-input" value={form.category_id} required onChange={(e) => updateForm({ category_id: e.target.value })}><option value="" disabled>{uploadOptionsLoaded && !uploadOptions.categories.length ? 'No categories available' : '-'}</option>{uploadOptions.categories.map((item) => <option data-i18n-skip key={item.id} value={item.id}>{item.name}</option>)}</AdaptiveSelect></div>
               <div><label className="upload-label">Thumbnail</label><div className={`thumbnail-upload-row ${useShortThumbnailDesign ? 'short-thumbnail-row' : ''}`}>{previewThumb ? <Thumbnail video={previewThumb} /> : <div className="upload-file-icon"><Icon name={isImportMode ? 'play' : 'upload'} size={22}/></div>}{isImportMode ? <span className="upload-import-note">{previewThumb ? importMetadata?.is_short ? 'Short detected from provider' : 'Fetched from provider' : 'Fetch details to preview'}</span> : <button type="button" className="btn subtle compact" onClick={() => goStep(2)}><Icon name="upload" size={15}/> Upload thumbnail</button>}</div><small>{isImportMode ? 'Provider thumbnails are saved as remote metadata.' : 'JPG, PNG up to 5MB'}</small></div>
-              <div><label className="upload-label">Playlist</label><AdaptiveSelect className="upload-input" value={form.playlist} searchable onChange={(e) => updateForm({ playlist: e.target.value })}><option value="">{uploadOptionsLoaded && !uploadOptions.playlists.length ? 'No playlists created' : 'No playlist selected'}</option>{uploadOptions.playlists.map((item) => <option key={item.id} value={item.id}>{item.title}</option>)}</AdaptiveSelect></div>
+              <div><label className="upload-label">Playlist</label><AdaptiveSelect className="upload-input" value={form.playlist} searchable onChange={(e) => updateForm({ playlist: e.target.value })}><option value="">{uploadOptionsLoaded && !uploadOptions.playlists.length ? 'No playlists created' : 'No playlist selected'}</option>{uploadOptions.playlists.map((item) => <option data-i18n-skip key={item.id} value={item.id}>{item.title}</option>)}</AdaptiveSelect></div>
               <div><label className="upload-label">Schedule</label><div className="community-native-date-field upload-native-date-field"><input ref={scheduleInputRef} type="datetime-local" value={form.scheduled_at} min={scheduleMin} onChange={(e) => updateForm({ scheduled_at: e.target.value })} /><button type="button" onClick={openNativeSchedulePicker} aria-label="Open schedule calendar"><Icon name="calendar" size={16}/></button></div></div>
-              <div><label className="upload-label">Language</label><AdaptiveSelect className="upload-input" value={form.language_id} onChange={(e) => updateForm({ language_id: e.target.value })}>{uploadOptions.languages.length ? uploadOptions.languages.map((item) => <option key={item.id} value={item.id}>{item.name}</option>) : <option value="">Loading languages...</option>}</AdaptiveSelect></div>
+              <div><label className="upload-label">Language</label><AdaptiveSelect className="upload-input" value={form.language_id} onChange={(e) => updateForm({ language_id: e.target.value })}><option value="">{isImportMode ? 'Automatic (original language)' : 'Select language'}</option>{uploadOptions.languages.map((item) => <option data-i18n-skip key={item.id} value={item.id}>{item.name}</option>)}</AdaptiveSelect></div>
               <label className="upload-switch-row"><span className="upload-switch"><input type="checkbox" checked={form.made_for_kids} onChange={(e) => updateForm({ made_for_kids: e.target.checked })}/><i /></span> Yes, it's made for kids</label>
               <div className="upload-wide-field"><label className="upload-label">Visibility <b>*</b></label><div className="upload-radio-group compact">{[
                 ['public', 'Public', 'Anyone can watch this video'],
@@ -18522,14 +18523,14 @@ function Upload({ navigate, globalUploadItems = [], globalUploadItemsRef, setGlo
       <div className="review-main-stack">
         <article className="upload-panel review-details-card">
           <div className="upload-panel-head"><h2>Video details</h2><button type="button" className="btn subtle compact" onClick={() => goStep(1)}>Edit</button></div>
-          <ReviewRow label="Title" value={form.title} />
+          <ReviewRow label="Title" value={form.title} preserveValue />
           <ReviewRow label="Content type" value={willUploadShort ? 'Short' : 'Video'} />
-          <ReviewRow label="Description" value={form.description.split('\n')[0]} />
-          {tagItems.length > 0 && <ReviewRow label="Tags" value={<div className="review-tags">{tagItems.map((tag) => <span key={tag}>#{tag}</span>)}</div>} />}
+          <ReviewRow label="Description" value={form.description.split('\n')[0]} preserveValue />
+          {tagItems.length > 0 && <ReviewRow label="Tags" value={<div className="review-tags">{tagItems.map((tag) => <span key={tag}>#{tag}</span>)}</div>} preserveValue />}
           {previewThumb && <ReviewRow label="Thumbnail" value={<div className={`review-thumb ${useShortThumbnailDesign ? 'short-thumbnail-row' : ''}`}><Thumbnail video={previewThumb}/></div>} />}
-          <ReviewRow label="Category" value={selectedCategory?.name || ''} />
-          <ReviewRow label="Language" value={selectedLanguage?.name || ''} />
-          {selectedPlaylist && <ReviewRow label="Playlist" value={selectedPlaylist.title} />}
+          <ReviewRow label="Category" value={selectedCategory?.name || ''} preserveValue />
+          <ReviewRow label="Language" value={selectedLanguage?.name || ''} preserveValue />
+          {selectedPlaylist && <ReviewRow label="Playlist" value={selectedPlaylist.title} preserveValue />}
           {form.sale_enabled && canSellVideo && <ReviewRow label="Paid access" value={`${String(videoSales.currency || 'usd').toUpperCase()} ${Number(form.sale_price).toFixed(2)}`} />}
           {isImportMode && <ReviewRow label="Import source" value={`${selectedImportProvider?.label || 'Provider'} · ${importForm.url.trim()}`} />}
         </article>
@@ -18538,15 +18539,15 @@ function Upload({ navigate, globalUploadItems = [], globalUploadItemsRef, setGlo
           <label className="upload-chapters-disable"><input type="checkbox" checked={!chapterDraft.disabled} onChange={(event) => toggleUploadWithChapters(event.target.checked)} /><span><strong>Upload with chapters</strong><small>Enable named segments in the video timeline.</small></span></label>
           {!chapterDraft.disabled && <>
             <div className="upload-chapter-list" aria-label="Video chapter segments">
-              <div className="upload-chapter-columns"><span>Start</span><span>Segment name</span><span /></div>
+              <div className="upload-chapter-columns"><span>Start</span><span>Chapter name</span><span /></div>
               {chapterDraft.rows.map((row, index) => <div className="upload-chapter-row" key={`${index}-${chapterDraft.source}`}>
-                <label><span className="sr-only">Segment {index + 1} start time</span><input value={row.start} readOnly={index === 0} inputMode="numeric" placeholder="0:00" onChange={(event) => updateChapterRow(index, { start: event.target.value })} /></label>
-                <label><span className="sr-only">Segment {index + 1} name</span><input value={row.title} maxLength={160} placeholder={`Segment ${index + 1} name`} onChange={(event) => updateChapterRow(index, { title: event.target.value })} /></label>
-                <button type="button" onClick={() => removeChapterRow(index)} disabled={index === 0 || chapterDraft.rows.length <= 2} aria-label={`Remove segment ${index + 1}`} title="Remove segment"><Icon name="trash" size={16}/></button>
+                <label><span className="sr-only" data-i18n-skip>{t('Chapter {number} start time', { number: index + 1 })}</span><input value={row.start} readOnly={index === 0} inputMode="numeric" placeholder="0:00" onChange={(event) => updateChapterRow(index, { start: event.target.value })} /></label>
+                <label data-i18n-skip><span className="sr-only">{t('Chapter {number} name', { number: index + 1 })}</span><input value={row.title} maxLength={160} placeholder={t('Chapter {number} name', { number: index + 1 })} onChange={(event) => updateChapterRow(index, { title: event.target.value })} /></label>
+                <button type="button" onClick={() => removeChapterRow(index)} disabled={index === 0 || chapterDraft.rows.length <= 2} aria-label={t('Remove chapter {number}', { number: index + 1 })} title="Remove segment"><Icon name="trash" size={16}/></button>
               </div>)}
             </div>
             <div className="upload-chapter-actions"><button type="button" className="btn subtle compact" onClick={addChapterRow} disabled={!canAddChapter}><Icon name="plus" size={14}/> Add segment</button><span>{chapterDraft.rows.length} / {VIDEO_CHAPTER_MAX}</span></div>
-            {chapterValidation.error && <div className="upload-chapter-error" role="status">{chapterValidation.error}</div>}
+            {chapterValidation.error && <div className="upload-chapter-error" role="status" data-i18n-skip>{chapterValidation.error}</div>}
           </>}
         </article>}
       </div>
@@ -18560,8 +18561,8 @@ function Upload({ navigate, globalUploadItems = [], globalUploadItemsRef, setGlo
   const renderPublishStep = () => <section className="upload-publish-success">
     <div className="publish-checkmark">✓</div>
     <h2>{isImportMode ? 'Video imported' : 'Video uploaded'}</h2>
-    <p>Your {isImportMode ? 'video was imported' : publishedVideo?.is_short || willUploadShort ? 'short was uploaded' : 'video was uploaded'} and processing has started.</p>
-    <article className={`publish-video-card upload-panel ${useShortThumbnailDesign ? 'short-thumbnail-row' : ''}`}>{publishThumb ? <Thumbnail video={publishThumb}/>: <div className="upload-file-icon"><Icon name="play" size={22}/></div>}<div><strong>{publishedVideo?.title || form.title}</strong><span>{[publishedVideo?.status, publishedVideo?.visibility, publishedVideo?.category, publishedVideo?.language].filter(Boolean).join(' · ')}</span><button type="button" className="btn subtle compact" onClick={() => navigate(successSlug ? videoPlaybackPath(publishedVideo || { slug: successSlug, is_short: isShortUpload }) : '/profile/videos')}>{websiteText('View on PlayHub')} ↗</button></div></article>
+    <p>{t(isImportMode ? 'Your video was imported.' : publishedVideo?.is_short || willUploadShort ? 'Your short is ready.' : 'Your video is ready.')}</p>
+    <article className={`publish-video-card upload-panel ${useShortThumbnailDesign ? 'short-thumbnail-row' : ''}`}>{publishThumb ? <Thumbnail video={publishThumb}/>: <div className="upload-file-icon"><Icon name="play" size={22}/></div>}<div><strong data-i18n-skip>{publishedVideo?.title || form.title}</strong><span>{[publishedVideo?.status, publishedVideo?.visibility, publishedVideo?.category, publishedVideo?.language].filter(Boolean).join(' · ')}</span><button type="button" className="btn subtle compact" onClick={() => navigate(successSlug ? videoPlaybackPath(publishedVideo || { slug: successSlug, is_short: isShortUpload }) : '/profile/videos')}>{websiteText('View on PlayHub')} ↗</button></div></article>
     <div className="upload-wizard-actions centered"><button type="button" className="btn primary" onClick={() => navigate('/studio')}>Go to Dashboard</button></div>
   </section>;
 
@@ -18587,7 +18588,7 @@ function Upload({ navigate, globalUploadItems = [], globalUploadItemsRef, setGlo
 function UploadStepsCard({ steps, step }) {
   return <article className="upload-panel upload-steps-panel">
     <h2>Upload steps</h2>
-    {steps.map((item) => <div className="upload-step" key={item.number}><span className={step === item.number ? 'active' : step > item.number ? 'done' : ''}>{step > item.number ? '✓' : item.number}</span><div><strong>{item.title}</strong><small>{item.subtitle}</small></div></div>)}
+    <ol className="upload-steps-list">{steps.map((item) => <li className="upload-step" key={item.number} aria-current={step === item.number ? 'step' : undefined}><span aria-hidden="true" className={step === item.number ? 'active' : step > item.number ? 'done' : ''}>{step > item.number ? <Icon name="checkCircle" size={18}/> : item.number}</span><div><strong>{item.title}</strong><small>{item.subtitle}</small></div></li>)}</ol>
   </article>;
 }
 
@@ -18603,8 +18604,8 @@ function UploadPreviewCard({ selectedVideoUrl, previewThumb }) {
   return <article className="upload-panel upload-preview-card"><h2>Video preview</h2><div className="upload-preview-frame">{selectedVideoUrl ? <video src={selectedVideoUrl} autoPlay muted loop playsInline preload="metadata" /> : previewThumb ? <Thumbnail video={previewThumb} large /> : <div className="upload-preview-empty">Select a video to preview it.</div>}</div></article>;
 }
 
-function ReviewRow({ label, value, compact = false }) {
-  return <div className={`review-row ${compact ? 'compact' : ''}`}><strong>{label}</strong><div>{value}</div></div>;
+function ReviewRow({ label, value, compact = false, preserveValue = false }) {
+  return <div className={`review-row ${compact ? 'compact' : ''}`}><strong>{label}</strong><div data-i18n-skip={preserveValue ? '' : undefined}>{value}</div></div>;
 }
 
 
@@ -18703,12 +18704,16 @@ const MEMBERSHIP_PLANS = Object.freeze([
   { id: 'vip', name: 'VIP', storage: 'Unlimited', priceUsd: 99, badge: 'Unlimited', description: 'Unlimited storage for top creators with the largest media libraries.', features: ['Unlimited storage', 'Highest priority', 'VIP support', 'Full creator suite'] },
 ]);
 
-const membershipPriceLabel = (price) => {
+const membershipPriceLabel = (price, language = '') => {
   const amount = Number(price || 0);
+  try {
+    const locale = languageTag(language);
+    if (amount > 0 && locale && Intl.NumberFormat.supportedLocalesOf([locale]).length) {
+      return new Intl.NumberFormat(locale, { style: 'currency', currency: 'USD', minimumFractionDigits: amount % 1 ? 2 : 0, maximumFractionDigits: 2 }).format(amount);
+    }
+  } catch (_) {}
   return amount > 0 ? `$${amount.toLocaleString(undefined, { minimumFractionDigits: amount % 1 ? 2 : 0, maximumFractionDigits: 2 })}` : 'Free';
 };
-
-const membershipMonthlyPriceLabel = (price) => `${membershipPriceLabel(price)}/month`;
 
 const membershipPlansForStorage = (storage = {}) => {
   const serverPlans = Array.isArray(storage.membership_plans) ? storage.membership_plans : [];
@@ -19000,6 +19005,7 @@ function WalletPage({ navigate }) {
 }
 
 function ManagePlanPage({ navigate, auth }) {
+  const { language, t } = useI18n();
   const user = auth.user;
   const storage = user?.storage || {};
   const plans = useMemo(() => membershipPlansForStorage(storage), [storage]);
@@ -19149,7 +19155,7 @@ function ManagePlanPage({ navigate, auth }) {
       {plans.map((plan) => {
         const isCurrent = plan.id === currentPlanId;
         const isSelected = plan.id === selectedPlan;
-        const priceLabel = membershipPriceLabel(plan.priceUsd);
+        const priceLabel = membershipPriceLabel(plan.priceUsd, language);
         const providerSaving = paymentProviders.some((provider) => savingPlan === `${provider.id}:${plan.id}`);
         return <article className={`settings-card plan-option-card ${isSelected ? 'selected' : ''} ${isCurrent ? 'current' : ''}`} key={plan.id}>
           <div className="plan-option-head">
@@ -19164,7 +19170,7 @@ function ManagePlanPage({ navigate, auth }) {
             {plan.features.map((feature) => <li key={feature}><Icon name="checkCircle" size={15}/>{feature}</li>)}
           </ul>
           <button type="button" className={`btn ${isSelected ? 'primary' : 'subtle'} full`} onClick={() => choosePlan(plan.id)} disabled={isCurrent || savingPlan === plan.id || providerSaving || savingPlan === 'payment-confirm'}>
-            {savingPlan === plan.id || providerSaving ? 'Opening checkout...' : isCurrent ? 'Selected plan' : plan.paid ? <><span>{defaultPaymentProvider ? 'Subscribe for' : 'Payment unavailable'}</span>{defaultPaymentProvider && <span data-i18n-skip>{membershipMonthlyPriceLabel(plan.priceUsd)}</span>}</> : `Select ${plan.name}`}
+            {savingPlan === plan.id || providerSaving ? 'Opening checkout...' : isCurrent ? 'Selected plan' : plan.paid ? <span data-i18n-skip>{defaultPaymentProvider ? t('Subscribe for {price} per month', { price: membershipPriceLabel(plan.priceUsd, language) }) : t('Payment unavailable')}</span> : `Select ${plan.name}`}
           </button>
         </article>;
       })}
@@ -19173,13 +19179,13 @@ function ManagePlanPage({ navigate, auth }) {
       <div>
         <span>Selected plan</span>
         <strong>{selected.name}</strong>
-        <small className="plan-price">{selected.paid ? <><span data-i18n-skip>{membershipPriceLabel(selected.priceUsd)}</span> <span>/ month</span></> : 'Free'}</small>
+        <small className="plan-price">{selected.paid ? <><span data-i18n-skip>{membershipPriceLabel(selected.priceUsd, language)}</span> <span>/ month</span></> : 'Free'}</small>
         <p>{selected.description}</p>
         {selectedRequiresPayment && paymentProviders.length > 1 && <div className="plan-payment-actions">
           {paymentProviders.map((provider) => <button type="button" className="btn subtle compact" key={provider.id} onClick={() => choosePlan(selected.id, provider.id)} disabled={Boolean(savingPlan)}>{savingPlan === `${provider.id}:${selected.id}` ? 'Opening checkout...' : provider.id === 'stripe' ? 'Subscribe with Stripe' : 'Subscribe with PayPal'}</button>)}
         </div>}
       </div>
-      <button type="button" className="btn primary" onClick={() => choosePlan(selected.id)} disabled={selected.id === currentPlanId || savingPlan === selected.id || savingPlan === 'payment-confirm' || (selectedRequiresPayment && !defaultPaymentProvider)}>{savingPlan === selected.id || savingPlan === 'payment-confirm' || savingPlan === `${defaultPaymentProvider}:${selected.id}` ? 'Opening checkout...' : selected.id === currentPlanId ? 'Plan active' : selectedRequiresPayment ? <><span>{defaultPaymentProvider ? 'Subscribe for' : 'Payment unavailable'}</span>{defaultPaymentProvider && <span data-i18n-skip>{membershipMonthlyPriceLabel(selected.priceUsd)}</span>}</> : 'Confirm plan'}</button>
+      <button type="button" className="btn primary" onClick={() => choosePlan(selected.id)} disabled={selected.id === currentPlanId || savingPlan === selected.id || savingPlan === 'payment-confirm' || (selectedRequiresPayment && !defaultPaymentProvider)}>{savingPlan === selected.id || savingPlan === 'payment-confirm' || savingPlan === `${defaultPaymentProvider}:${selected.id}` ? 'Opening checkout...' : selected.id === currentPlanId ? 'Plan active' : selectedRequiresPayment ? <span data-i18n-skip>{defaultPaymentProvider ? t('Subscribe for {price} per month', { price: membershipPriceLabel(selected.priceUsd, language) }) : t('Payment unavailable')}</span> : 'Confirm plan'}</button>
     </section>
   </main>;
 }
@@ -20363,7 +20369,7 @@ function SettingsPage({ navigate, auth, theme, website = {}, routeSearch = '' })
           <h3>Two-factor authentication</h3>
           {twoFactorMode === 'enable' && <>
             <p className="settings-muted-text" style={{marginBottom: 12}}>
-              Enter the 6-digit code sent to your {twoFactorMethod === 'phone' ? 'phone' : 'email'}.
+              {twoFactorMethod === 'phone' ? 'Enter the 6-digit code sent to your phone.' : 'Enter the 6-digit code sent to your email.'}
             </p>
             <div className="settings-credential-block">
               <SettingsField label="Verification code">
@@ -20380,7 +20386,7 @@ function SettingsPage({ navigate, auth, theme, website = {}, routeSearch = '' })
 
           {twoFactorMode === 'disable' && <>
             <p className="settings-muted-text" style={{marginBottom: 12}}>
-              Enter the 6-digit code from your {twoFactorMethod === 'phone' ? 'phone' : 'email'} to disable two-factor authentication.
+              {twoFactorMethod === 'phone' ? 'Enter the 6-digit code from your phone to disable two-factor authentication.' : 'Enter the 6-digit code from your email to disable two-factor authentication.'}
             </p>
             <div className="settings-credential-block">
               <SettingsField label="Verification code">
@@ -20541,7 +20547,7 @@ function SettingsPage({ navigate, auth, theme, website = {}, routeSearch = '' })
               <Avatar label={comment.user?.initials || comment.user?.name || 'U'} image={comment.user?.avatar_url} />
               <div>
                 <strong>{comment.user?.name || 'Unknown user'}</strong>
-                <span>{comment.body || 'No comment text.'}</span>
+                <span data-i18n-skip={comment.body ? '' : undefined}>{comment.body || 'No comment text.'}</span>
                 <small>{comment.target?.title || 'Content'} · {comment.time || dateLabel(comment.created_at)}</small>
               </div>
               <div className="settings-comment-actions">
@@ -20837,7 +20843,7 @@ function StudioAnalyticsPage({ navigate }) {
         <div className="analytics-content-table">
           <div className="analytics-content-head"><span>Content</span><span>Views</span><span>Engagements</span><span>Avg viewed</span><span>Watch time</span></div>
           {topContent.map((video) => <button type="button" className="analytics-content-row" key={video.id} onClick={() => navigate(videoPlaybackPath(video))}>
-            <span className="analytics-content-title"><Thumbnail video={video}/><span><strong>{video.title}</strong><small>{video.content_type} · {shortDate(video.published_at)}</small></span></span>
+            <span className="analytics-content-title"><Thumbnail video={video}/><span><strong data-i18n-skip>{video.title}</strong><small>{video.content_type} · {shortDate(video.published_at)}</small></span></span>
             <span data-label="Views"><strong>{formatNumber(video.views_count || 0)}</strong></span>
             <span data-label="Engagements"><strong>{formatNumber(video.engagements || 0)}</strong></span>
             <span data-label="Avg viewed"><strong>{Number(video.average_percentage || 0).toFixed(1)}%</strong></span>
@@ -20873,6 +20879,7 @@ function StudioAnalyticsPage({ navigate }) {
 
 
 function Studio({ navigate, path, auth, features }) {
+  const { count: formatCount } = useI18n();
   if (path === '/studio/content') return <StudioContentPage navigate={navigate} auth={auth} features={features} />;
   if (path === '/studio/analytics') return <StudioAnalyticsPage navigate={navigate} />;
   if (path === '/studio/growth') return <StudioGrowthHubPage navigate={navigate} auth={auth} />;
@@ -20935,7 +20942,7 @@ function Studio({ navigate, path, auth, features }) {
   const rows = studioDisplayedVideos.slice(0, 5).map((video) => ({
     video,
     visibility: String(video.visibility || 'private').replace(/^\w/, (char) => char.toUpperCase()),
-    performance: `${formatNumber(video.views_count)} views`,
+    performance: formatCount(formatNumber(video.views_count), 'view'),
     status: video.status === 'ready' ? 'Published' : String(video.status || 'processing').replace(/^\w/, (char) => char.toUpperCase()),
     date: shortDate(video.published_at || video.created_at),
   }));
@@ -21024,7 +21031,7 @@ function Studio({ navigate, path, auth, features }) {
           <article className="studio-card top-performing-card">
             <div className="studio-card-head compact"><h2>Top Performing Content</h2><span>Last 28 days</span></div>
             <div className="performing-list">
-              {topVideos.length ? topVideos.map((video) => <div className="performing-row" key={video.id}><Thumbnail video={video}/><div><strong>{video.title}</strong><span>{formatNumber(video.views_count)} views</span></div><em>{formatNumber(video.likes_count)} likes</em></div>) : <div className="state-card">No performance data yet.</div>}
+              {topVideos.length ? topVideos.map((video) => <div className="performing-row" key={video.id}><Thumbnail video={video}/><div><strong data-i18n-skip>{video.title}</strong><span><LocalizedCount value={formatNumber(video.views_count)} unit="view" /></span></div><em>{formatNumber(video.likes_count)} likes</em></div>) : <div className="state-card">No performance data yet.</div>}
             </div>
             <button type="button" className="studio-card-link" onClick={() => navigate('/studio/analytics')}>View all analytics <span>→</span></button>
           </article>
@@ -21088,7 +21095,7 @@ function ChannelTrailerModal({ videos = [], channel = {}, busy = false, error = 
           const selected = Number(video.id) === currentId;
           return <button type="button" key={video.id} className={selected ? 'active' : ''} onClick={() => onSave?.(video.id)} disabled={busy || selected}>
             <Thumbnail video={video}/>
-            <span><strong>{video.title}</strong><small>{formatNumber(video.views_count || 0)} views · {dateLabel(video.published_at || video.created_at)}</small></span>
+            <span><strong data-i18n-skip>{video.title}</strong><small><LocalizedCount value={formatNumber(video.views_count || 0)} unit="view" /> · {dateLabel(video.published_at || video.created_at)}</small></span>
             <em>{selected ? 'Current trailer' : 'Set as trailer'}</em>
           </button>;
         }) : <div className="state-card">No public videos available for channel trailer.</div>}
@@ -21182,7 +21189,7 @@ function StudioGrowthHubPage({ navigate, auth }) {
       <aside className="growth-side-column">
         <article className="studio-card growth-top-card">
           <div className="studio-card-head compact"><h2>Top content to learn from</h2><span>{formatNumber(videos.length)} uploads</span></div>
-          <div className="growth-top-list">{topVideos.length ? topVideos.map((video) => <button type="button" key={video.id} onClick={() => navigate(videoPlaybackPath(video))}><Thumbnail video={video}/><span><strong>{video.title}</strong><small>{formatNumber(video.views_count || 0)} views · {formatNumber(video.likes_count || 0)} likes</small></span></button>) : <p className="rail-note">Upload videos to unlock performance lessons.</p>}</div>
+          <div className="growth-top-list">{topVideos.length ? topVideos.map((video) => <button type="button" key={video.id} onClick={() => navigate(videoPlaybackPath(video))}><Thumbnail video={video}/><span><strong data-i18n-skip>{video.title}</strong><small><LocalizedCount value={formatNumber(video.views_count || 0)} unit="view" /> · {formatNumber(video.likes_count || 0)} likes</small></span></button>) : <p className="rail-note">Upload videos to unlock performance lessons.</p>}</div>
         </article>
         <article className="studio-card growth-tips-card">
           <div className="studio-card-head compact"><h2>Tips to reach more viewers</h2><span>Creator checklist</span></div>
@@ -23052,7 +23059,7 @@ function CreatorProfileHomeTab({ profile, videos, playlists, navigate, search, c
   };
   return <>
     {featuredNotice && <div className="profile-action-notice" aria-live="polite">{featuredNotice}</div>}
-    <article className="studio-card channel-featured-card"><button className="channel-featured-media" onClick={() => navigate(featuredPath)}><Thumbnail video={featured} large />{featuredIsShort && <span className="channel-featured-short-badge"><Icon name="play" size={12}/> Short</span>}<span className="channel-featured-play"><Icon name="play" size={22}/></span></button><div className="channel-featured-copy">{isSelectedFeatured && <span className="text-badge">Pinned</span>}<h2>{featured.title}</h2><div className="channel-featured-meta"><span>{profile.name}</span><span>•</span><span>{formatNumber(featured.views_count)} views</span><span>•</span><span>{dateLabel(featured.published_at || featured.created_at)}</span></div><p>{featured.description || 'No description provided.'}</p><button className="btn subtle" onClick={() => navigate(featuredPath)}><Icon name="play" size={15}/> Watch now</button></div><span className="channel-featured-menu-shell"><button type="button" className={featuredMenuOpen ? 'more-button active' : 'more-button'} aria-label="More actions" aria-expanded={featuredMenuOpen} onClick={() => setFeaturedMenuOpen((open) => !open)}><Icon name="more" size={17} /></button>{featuredMenuOpen && <span className="channel-featured-action-menu" role="menu"><button type="button" role="menuitem" onClick={() => { setFeaturedMenuOpen(false); navigate(featuredPath); }}><Icon name="play" size={16}/> Watch video</button><button type="button" role="menuitem" onClick={copyFeaturedLink}><Icon name="link" size={16}/> Copy link</button><button type="button" role="menuitem" onClick={shareFeatured}><Icon name="share" size={16}/> Share</button>{canEdit && <button type="button" role="menuitem" className={isSelectedFeatured ? 'is-selected' : ''} onClick={togglePinnedVideo} disabled={featuredSaving || pinningVideoId === featured.id}><Icon name={isSelectedFeatured ? 'pinOff' : 'pin'} size={16}/> {featuredSaving || pinningVideoId === featured.id ? 'Saving...' : isSelectedFeatured ? 'Unpin from profile' : 'Pin to profile'}</button>}</span>}</span></article>
+    <article className="studio-card channel-featured-card"><button className="channel-featured-media" onClick={() => navigate(featuredPath)}><Thumbnail video={featured} large />{featuredIsShort && <span className="channel-featured-short-badge"><Icon name="play" size={12}/> Short</span>}<span className="channel-featured-play"><Icon name="play" size={22}/></span></button><div className="channel-featured-copy">{isSelectedFeatured && <span className="text-badge">Pinned</span>}<h2 data-i18n-skip>{featured.title}</h2><div className="channel-featured-meta"><span>{profile.name}</span><span>•</span><span>{formatNumber(featured.views_count)} views</span><span>•</span><span>{dateLabel(featured.published_at || featured.created_at)}</span></div><p data-i18n-skip={featured.description ? '' : undefined}>{featured.description || 'No description provided.'}</p><button className="btn subtle" onClick={() => navigate(featuredPath)}><Icon name="play" size={15}/> Watch now</button></div><span className="channel-featured-menu-shell"><button type="button" className={featuredMenuOpen ? 'more-button active' : 'more-button'} aria-label="More actions" aria-expanded={featuredMenuOpen} onClick={() => setFeaturedMenuOpen((open) => !open)}><Icon name="more" size={17} /></button>{featuredMenuOpen && <span className="channel-featured-action-menu" role="menu"><button type="button" role="menuitem" onClick={() => { setFeaturedMenuOpen(false); navigate(featuredPath); }}><Icon name="play" size={16}/> Watch video</button><button type="button" role="menuitem" onClick={copyFeaturedLink}><Icon name="link" size={16}/> Copy link</button><button type="button" role="menuitem" onClick={shareFeatured}><Icon name="share" size={16}/> Share</button>{canEdit && <button type="button" role="menuitem" className={isSelectedFeatured ? 'is-selected' : ''} onClick={togglePinnedVideo} disabled={featuredSaving || pinningVideoId === featured.id}><Icon name={isSelectedFeatured ? 'pinOff' : 'pin'} size={16}/> {featuredSaving || pinningVideoId === featured.id ? 'Saving...' : isSelectedFeatured ? 'Unpin from profile' : 'Pin to profile'}</button>}</span>}</span></article>
     <section className="profile-section"><div className="section-title"><h2>Recent uploads</h2><button className="text-button" onClick={() => search.openSearch('videos')}>View all</button></div><div className="profile-upload-grid">{recentUploads.map((item) => <article className="profile-video-card" key={item.video.id} onClick={() => navigate(videoPlaybackPath(item.video))}><Thumbnail video={item.video} /><h3>{item.video.title}</h3><p>{item.views} views <span>•</span> {item.time}</p></article>)}</div></section>
     {playlists.length > 0 && <section className="profile-section"><div className="section-title"><h2>Playlists</h2><button className="text-button" onClick={() => search.openSearch('playlists')}>View all</button></div><div className="profile-playlist-grid">{playlists.map((playlist) => <article className="profile-playlist-card" key={playlist.id || playlist.title} role="link" tabIndex={0} onClick={() => navigate(`/playlists?id=${playlist.id}`)} onKeyDown={(event) => { if (event.key === 'Enter') navigate(`/playlists?id=${playlist.id}`); }}>{playlist.video ? <Thumbnail video={playlist.video} /> : <div className="playlist-gradient-thumb" style={{ '--playlist-color': playlist.color }}><Icon name="playlist" size={24}/></div>}<div className="profile-playlist-meta"><Icon name="library" size={14}/><span>{playlist.count} {playlist.count === 1 ? 'video' : 'videos'}</span></div></article>)}</div></section>}
   </>;
@@ -23184,7 +23191,7 @@ function CreatorProfileShortsTab({ shorts, navigate, search, canEdit = false }) 
     : [...filteredShorts].sort((a, b) => new Date(b.video?.published_at || b.video?.created_at || 0) - new Date(a.video?.published_at || a.video?.created_at || 0));
   const pagedShorts = visibleShorts.slice(0, visibleCount);
   if (search.query.trim()) return <ProfileChannelSearchResults search={search} contextLabel="Shorts" />;
-  return <section className="profile-shorts-tab"><div className="profile-video-toolbar shorts-toolbar"><label className="profile-video-search"><Icon name="search" size={17}/><input ref={search.inputRef} value={search.query} onChange={(e) => { search.setQuery(e.target.value); search.setActiveFilter('shorts'); }} placeholder="Search shorts..." />{search.query ? <button type="button" className="search-clear-button" onClick={() => search.setQuery('')} aria-label="Clear search"><Icon name="close" size={15}/></button> : null}</label><div className="profile-video-filters">{filters.map((filter) => <button key={filter} type="button" className={`chip ${activeFilter === filter ? 'active' : ''}`} onClick={() => setActiveFilter(filter)}>{filter}</button>)}</div><button className="sort-box profile-video-sort" type="button" onClick={() => setActiveFilter(activeFilter === 'Popular' ? 'Latest' : 'Popular')}>Sort by: {activeFilter === 'Popular' ? 'Popular' : 'Latest'} <span>⌄</span></button>{canEdit && <button type="button" className="btn primary compact" onClick={() => navigate('/upload/shorts')}><Icon name="upload" size={15}/> Upload Short</button>}</div>{visibleShorts.length ? <><div className="profile-shorts-grid">{pagedShorts.map((item) => <ProfileShortResultCard key={item.video.slug || item.video.id} item={item} navigate={navigate} />)}</div>{visibleShorts.length > pagedShorts.length && <div className="profile-load-more-wrap"><button type="button" className="profile-load-more" onClick={() => setVisibleCount((count) => Math.min(count + 12, visibleShorts.length))}>Load more shorts <span>⌄</span></button></div>}</> : <div className="state-card">{shorts.length ? 'No shorts match this filter.' : 'No shorts uploaded yet. Shorts appear here after a square or vertical video of at most 180 seconds is imported.'}{canEdit && <button type="button" className="btn primary compact" onClick={() => navigate('/upload/shorts')}><Icon name="upload" size={15}/> Upload Short</button>}</div>}</section>;
+  return <section className="profile-shorts-tab"><div className="profile-video-toolbar shorts-toolbar"><label className="profile-video-search"><Icon name="search" size={17}/><input ref={search.inputRef} value={search.query} onChange={(e) => { search.setQuery(e.target.value); search.setActiveFilter('shorts'); }} placeholder="Search shorts..." />{search.query ? <button type="button" className="search-clear-button" onClick={() => search.setQuery('')} aria-label="Clear search"><Icon name="close" size={15}/></button> : null}</label><div className="profile-video-filters">{filters.map((filter) => <button key={filter} type="button" className={`chip ${activeFilter === filter ? 'active' : ''}`} onClick={() => setActiveFilter(filter)}>{filter}</button>)}</div><button className="sort-box profile-video-sort" type="button" onClick={() => setActiveFilter(activeFilter === 'Popular' ? 'Latest' : 'Popular')}>Sort by: {activeFilter === 'Popular' ? 'Popular' : 'Latest'} <span>⌄</span></button>{canEdit && <button type="button" className="btn primary compact" onClick={() => navigate('/upload/shorts')}><Icon name="upload" size={15}/> Upload Short</button>}</div>{visibleShorts.length ? <><div className="profile-shorts-grid">{pagedShorts.map((item) => <ProfileShortResultCard key={item.video.slug || item.video.id} item={item} navigate={navigate} />)}</div>{visibleShorts.length > pagedShorts.length && <div className="profile-load-more-wrap"><button type="button" className="profile-load-more" onClick={() => setVisibleCount((count) => Math.min(count + 12, visibleShorts.length))}>Load more shorts <span>⌄</span></button></div>}</> : <div className="state-card">{shorts.length ? 'No shorts match this filter.' : 'No shorts uploaded yet. Shorts appear here after a vertical video of at most 60 seconds is imported.'}{canEdit && <button type="button" className="btn primary compact" onClick={() => navigate('/upload/shorts')}><Icon name="upload" size={15}/> Upload Short</button>}</div>}</section>;
 }
 
 function CommunitiesRailCard({ title, action = 'View all', onAction, children }) {
@@ -23553,7 +23560,7 @@ function CommunityComposer({ channel, profile, videos, setPosts, auth, navigate 
       {mode === 'video' && <div className="community-composer-extra">
         <AdaptiveSelect value={videoId} onChange={(event) => setVideoId(event.target.value)}>
           <option value="">Select one of your published videos</option>
-          {videos.map((video) => <option key={video.id} value={video.id}>{video.title}</option>)}
+          {videos.map((video) => <option data-i18n-skip key={video.id} value={video.id}>{video.title}</option>)}
         </AdaptiveSelect>
       </div>}
       {mode === 'event' && <div className="community-composer-extra community-event-editor">
@@ -24132,7 +24139,7 @@ function CreatorProfileLibraryTab({ library, playlists, videos, canEdit, loading
   const visiblePlaylists = (playlists || []).filter(matchesPlaylist);
   const subscriptions = (library.subscriptions || []).filter(matchesChannel);
   const uploads = (library.uploads || []).filter(matchesVideo);
-  const videoMeta = (video) => `${formatNumber(video.views_count || 0)} views • ${dateLabel(video.published_at || video.created_at)}`;
+  const videoMeta = (video) => <><LocalizedCount value={formatNumber(video.views_count || 0)} unit="view" /> • {dateLabel(video.published_at || video.created_at)}</>;
   const openChannel = (slug) => { if (slug) navigate(`/channel/${slug}`); };
   const handleCreatePlaylist = async (playlist) => {
     await onCreatePlaylist(playlist);
@@ -24153,7 +24160,7 @@ function CreatorProfileLibraryTab({ library, playlists, videos, canEdit, loading
       <div className="library-watch-grid">
         {watchLater.map((video) => <article className="library-watch-card" key={video.id} onClick={() => navigate(videoPlaybackPath(video))}>
           <Thumbnail video={video}/>
-          <div className="library-watch-meta"><h3>{video.title}</h3><span>Saved</span></div>
+          <div className="library-watch-meta"><h3 data-i18n-skip>{video.title}</h3><span>Saved</span></div>
           <p>{videoMeta(video)}</p>
         </article>)}
         {!loading && !watchLater.length && <div className="state-card library-empty-state">No saved watch-later videos yet.</div>}
@@ -24172,7 +24179,7 @@ function CreatorProfileLibraryTab({ library, playlists, videos, canEdit, loading
     {showSection('Liked Videos') && <article className="studio-card library-section-card liked-library-card">
       <div className="section-title"><h2>Liked videos</h2><button type="button" className="text-button" onClick={() => setActiveFilter('Liked Videos')}>View all</button></div>
       <div className="library-liked-grid">
-        {likedVideos.map((video) => <button type="button" className="library-liked-card" key={video.id} onClick={() => navigate(videoPlaybackPath(video))}><Thumbnail video={video}/><div><strong>{video.title}</strong><span>{videoMeta(video)}</span></div><span className="more-button"><Icon name="more" size={15}/></span></button>)}
+        {likedVideos.map((video) => <button type="button" className="library-liked-card" key={video.id} onClick={() => navigate(videoPlaybackPath(video))}><Thumbnail video={video}/><div><strong data-i18n-skip>{video.title}</strong><span>{videoMeta(video)}</span></div><span className="more-button"><Icon name="more" size={15}/></span></button>)}
         {!loading && !likedVideos.length && <div className="state-card library-empty-state">No liked videos yet.</div>}
       </div>
     </article>}
@@ -24180,7 +24187,7 @@ function CreatorProfileLibraryTab({ library, playlists, videos, canEdit, loading
     {showSection('Purchased') && <article className="studio-card library-section-card liked-library-card">
       <div className="section-title"><h2>Purchased videos</h2><button type="button" className="text-button" onClick={() => setActiveFilter('Purchased')}>View all</button></div>
       <div className="library-liked-grid">
-        {purchasedVideos.map((video) => <button type="button" className="library-liked-card" key={video.id} onClick={() => navigate(videoPlaybackPath(video))}><Thumbnail video={video}/><div><strong>{video.title}</strong><span>{video.channel?.name || 'Creator'} · {video.sale?.price_label}</span></div><span className="more-button"><Icon name="play" size={15}/></span></button>)}
+        {purchasedVideos.map((video) => <button type="button" className="library-liked-card" key={video.id} onClick={() => navigate(videoPlaybackPath(video))}><Thumbnail video={video}/><div><strong data-i18n-skip>{video.title}</strong><span>{video.channel?.name || 'Creator'} · {video.sale?.price_label}</span></div><span className="more-button"><Icon name="play" size={15}/></span></button>)}
         {!loading && !purchasedVideos.length && <div className="state-card library-empty-state">No purchased videos yet.</div>}
       </div>
     </article>}
@@ -24190,7 +24197,7 @@ function CreatorProfileLibraryTab({ library, playlists, videos, canEdit, loading
       <div className="library-download-table subscription-table">
         <div className="download-table-head"><span>Channel</span><span>Subscribers</span><span>Videos</span><span>Activity</span><span>Status</span><span></span></div>
         {subscriptions.map((channel) => <div className="download-table-row" key={channel.id} role="button" tabIndex={0} onClick={() => openChannel(channel.slug)} onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openChannel(channel.slug); } }}>
-          <div className="download-title"><Avatar label={channel.name} image={assetUrl(channel.avatar_url || channel.avatar_path)}/><strong>{channel.name}</strong></div><span>{formatNumber(channel.subscribers_count || 0)}</span><span>{formatNumber(channel.videos_count || 0)}</span><span>{dateLabel(channel.updated_at || channel.created_at)}</span><span className="subscription-status">Subscribed</span><button type="button" className="more-button" onClick={(event) => { event.stopPropagation(); openChannel(channel.slug); }}><Icon name="more" size={16}/></button>
+          <div className="download-title"><Avatar label={channel.name} image={assetUrl(channel.avatar_url || channel.avatar_path)}/><strong data-i18n-skip>{channel.name}</strong></div><span>{formatNumber(channel.subscribers_count || 0)}</span><span>{formatNumber(channel.videos_count || 0)}</span><span>{dateLabel(channel.updated_at || channel.created_at)}</span><span className="subscription-status">Subscribed</span><button type="button" className="more-button" onClick={(event) => { event.stopPropagation(); openChannel(channel.slug); }}><Icon name="more" size={16}/></button>
         </div>)}
         {!loading && !subscriptions.length && <div className="state-card library-empty-state">No subscriptions yet.</div>}
       </div>
@@ -24199,7 +24206,7 @@ function CreatorProfileLibraryTab({ library, playlists, videos, canEdit, loading
     {showSection('Your Videos') && <article className="library-section-card no-card-shell">
       <div className="section-title"><h2>Your videos</h2><button type="button" className="text-button" onClick={() => navigate('/studio/content')}>Manage</button></div>
       <div className="library-collections-grid">
-        {uploads.map((video) => <button type="button" className="library-collection-card" key={video.id} onClick={() => navigate(videoPlaybackPath(video))}><span><Icon name="play" size={18}/></span><div><strong>{video.title}</strong><small>{videoMeta(video)}</small></div></button>)}
+        {uploads.map((video) => <button type="button" className="library-collection-card" key={video.id} onClick={() => navigate(videoPlaybackPath(video))}><span><Icon name="play" size={18}/></span><div><strong data-i18n-skip>{video.title}</strong><small>{videoMeta(video)}</small></div></button>)}
         {!loading && !uploads.length && <div className="state-card library-empty-state">No uploaded videos yet.</div>}
       </div>
     </article>}
@@ -24235,7 +24242,7 @@ function AddToPlaylistModal({ video, playlists, loading, error, savingId, onClos
       </header>
       <div className="add-to-playlist-video">
         <Thumbnail video={video} />
-        <div><strong>{video?.title}</strong><small>{video?.channel?.name || websiteName()} · {formatNumber(video?.views_count || 0)} views</small></div>
+        <div><strong data-i18n-skip>{video?.title}</strong><small>{video?.channel?.name || websiteName()} · {formatNumber(video?.views_count || 0)} views</small></div>
       </div>
       <div className="add-to-playlist-body">
         {error && <div className="profile-action-notice" aria-live="polite">{error}</div>}
@@ -24357,8 +24364,8 @@ function NewPlaylistModal({ videos, onClose, onCreate, initialAddVideos = false,
           <label className="playlist-field"><span>Playlist Name <b>*</b></span><div className="playlist-input-wrap"><input value={name} onChange={(event) => setName(event.target.value.slice(0, 60))} placeholder="e.g. Travel Vlogs 2025" autoFocus={!shouldUseNativeSelect()} required /><em>{name.length}/60</em></div></label>
           <label className="playlist-field"><span>Description <small>(optional)</small></span><div className="playlist-input-wrap textarea"><textarea value={description} onChange={(event) => setDescription(event.target.value.slice(0, 200))} placeholder="What’s this playlist about?" rows={4} /><em>{description.length}/200</em></div></label>
           <div className="playlist-field"><span>Select Color</span><div className="playlist-color-row">{colorOptions.map((color) => <button type="button" key={color} className={selectedColor === color ? 'active' : ''} style={{ '--playlist-color': color }} onClick={() => setSelectedColor(color)}>{selectedColor === color ? '✓' : ''}</button>)}</div><p className="playlist-help"><Icon name="help" size={17}/> This color will represent your playlist</p></div>
-          <div className="playlist-field"><span>Privacy</span><label className="playlist-privacy-select"><span>{activePrivacy.icon}</span><AdaptiveSelect value={privacy} onChange={(event) => setPrivacy(event.target.value)}>{privacyOptions.map((option) => <option key={option.id} value={option.id}>{option.title}</option>)}</AdaptiveSelect><small>{activePrivacy.text}</small><Icon name="trending" size={16}/></label></div>
-          <div className="playlist-field add-playlist-videos"><span>Add to Playlist</span><label className="playlist-checkbox-row"><input type="checkbox" checked={addVideos} onChange={(event) => setAddVideos(event.target.checked)} /><i /> <strong>Add videos to this playlist now</strong></label>{addVideos && <div className="playlist-video-picker"><label className="profile-video-search collection-video-search"><Icon name="search" size={17}/><input value={videoQuery} onChange={(event) => setVideoQuery(event.target.value)} placeholder="Search videos to add..." />{videoQuery && <button type="button" className="search-clear-button" onClick={() => setVideoQuery('')} aria-label="Clear search"><Icon name="close" size={15}/></button>}</label><div className="collection-video-list playlist-video-list">{filteredVideos.map((video) => <button type="button" key={video.id} className="collection-video-row" onClick={() => toggleVideo(video.id)}><span className={`collection-check ${selectedVideoIds.includes(Number(video.id)) ? 'checked' : ''}`}>{selectedVideoIds.includes(Number(video.id)) ? '✓' : ''}</span><Thumbnail video={video}/><div><strong>{video.title}</strong><small>{video.channel?.name || websiteName()} · {formatNumber(video.views_count)} views</small></div></button>)}{videosLoading && !filteredVideos.length ? <div className="state-card">Loading your videos...</div> : null}{!videosLoading && !filteredVideos.length ? <div className="state-card">No videos match your search.</div> : null}</div>{videosError && <div className="profile-action-notice" aria-live="polite">{videosError}</div>}<div className="collection-selected-footer"><span>{selectedCount} {selectedCount === 1 ? 'video' : 'videos'} selected</span><button type="button" onClick={() => { setSelectedVideos([]); setCoverVideoId(''); }}>Clear</button></div></div>}</div>
+          <div className="playlist-field"><span>Privacy</span><label className="playlist-privacy-select"><span>{activePrivacy.icon}</span><AdaptiveSelect value={privacy} onChange={(event) => setPrivacy(event.target.value)}>{privacyOptions.map((option) => <option data-i18n-skip key={option.id} value={option.id}>{option.title}</option>)}</AdaptiveSelect><small>{activePrivacy.text}</small><Icon name="trending" size={16}/></label></div>
+          <div className="playlist-field add-playlist-videos"><span>Add to Playlist</span><label className="playlist-checkbox-row"><input type="checkbox" checked={addVideos} onChange={(event) => setAddVideos(event.target.checked)} /><i /> <strong>Add videos to this playlist now</strong></label>{addVideos && <div className="playlist-video-picker"><label className="profile-video-search collection-video-search"><Icon name="search" size={17}/><input value={videoQuery} onChange={(event) => setVideoQuery(event.target.value)} placeholder="Search videos to add..." />{videoQuery && <button type="button" className="search-clear-button" onClick={() => setVideoQuery('')} aria-label="Clear search"><Icon name="close" size={15}/></button>}</label><div className="collection-video-list playlist-video-list">{filteredVideos.map((video) => <button type="button" key={video.id} className="collection-video-row" onClick={() => toggleVideo(video.id)}><span className={`collection-check ${selectedVideoIds.includes(Number(video.id)) ? 'checked' : ''}`}>{selectedVideoIds.includes(Number(video.id)) ? '✓' : ''}</span><Thumbnail video={video}/><div><strong data-i18n-skip>{video.title}</strong><small>{video.channel?.name || websiteName()} · <LocalizedCount value={formatNumber(video.views_count)} unit="view" /></small></div></button>)}{videosLoading && !filteredVideos.length ? <div className="state-card">Loading your videos...</div> : null}{!videosLoading && !filteredVideos.length ? <div className="state-card">No videos match your search.</div> : null}</div>{videosError && <div className="profile-action-notice" aria-live="polite">{videosError}</div>}<div className="collection-selected-footer"><span>{selectedCount} {selectedCount === 1 ? 'video' : 'videos'} selected</span><button type="button" onClick={() => { setSelectedVideos([]); setCoverVideoId(''); }}>Clear</button></div></div>}</div>
           {formError && <div className="profile-action-notice" aria-live="polite">{formError}</div>}
         </section>
         <aside className="playlist-preview-panel">
@@ -24368,7 +24375,7 @@ function NewPlaylistModal({ videos, onClose, onCreate, initialAddVideos = false,
             <div className="playlist-preview-copy"><strong>{trimmedName || 'Playlist Name'}</strong><small>{selectedCount} {selectedCount === 1 ? 'video' : 'videos'} <b>•</b> {privacy}</small></div>
           </article>
           {coverVideos.length ? <div className="playlist-cover-slider"><strong>Playlist cover</strong><div>{coverVideos.map((video) => <button type="button" key={video.id} className={Number(coverVideoId) === Number(video.id) ? 'active' : ''} onClick={() => setCoverVideoId(video.id)}><Thumbnail video={video}/><span>{Number(coverVideoId) === Number(video.id) ? 'Cover selected' : 'Select cover'}</span></button>)}</div></div> : <p className="playlist-cover-empty">No playlist videos available for cover selection.</p>}
-          <div className="playlist-tip-card"><span><Icon name="help" size={22}/></span><div><strong>Tip</strong><p>Use playlists to organize your content and make it easier for your audience to discover more videos.</p></div></div>
+          <div className="playlist-tip-card"><span><Icon name="help" size={22}/></span><div><strong>Playlist tip</strong><p>Use playlists to organize your content and make it easier for your audience to discover more videos.</p></div></div>
         </aside>
       </div>
       <footer className="playlist-modal-footer"><button type="button" className="btn subtle" onClick={onClose} disabled={saving}>Cancel</button><button type="submit" className="btn primary" disabled={!trimmedName || saving}><Icon name={isEditing ? 'settings' : 'plus'} size={18}/> {saving ? (isEditing ? 'Saving...' : 'Creating...') : (isEditing ? 'Save playlist' : 'Create Playlist')}</button></footer>
@@ -24437,7 +24444,7 @@ function NewCollectionModal({ videos, onClose, onCreate }) {
           <div className="collection-field"><span>3. Choose an icon</span><div className="collection-icon-grid">{iconOptions.map((icon) => <button type="button" key={icon} className={selectedIcon === icon ? 'active' : ''} onClick={() => setSelectedIcon(icon)}>{icon}</button>)}</div></div>
           <div className="collection-field"><span>4. Pick a color</span><div className="collection-color-row">{colorOptions.map((color) => <button type="button" key={color} className={selectedColor === color ? 'active' : ''} onClick={() => setSelectedColor(color)} style={{ '--collection-color': color }}>{selectedColor === color ? '✓' : ''}</button>)}</div></div>
           <div className="collection-field"><span>5. Privacy</span><div className="collection-privacy-grid">{privacyOptions.map((option) => <button type="button" key={option.id} className={privacy === option.id ? 'active' : ''} onClick={() => setPrivacy(option.id)}><i>{privacy === option.id ? '●' : '○'}</i><b>{option.icon}</b><strong>{option.title}</strong><small>{option.text}</small></button>)}</div></div>
-          <div className="collection-field add-videos-field"><span>6. Add videos <small>(optional)</small></span><label className="profile-video-search collection-video-search"><Icon name="search" size={17}/><input value={videoQuery} onChange={(event) => setVideoQuery(event.target.value)} placeholder="Search videos to add to this collection..." />{videoQuery && <button type="button" className="search-clear-button" onClick={() => setVideoQuery('')} aria-label="Clear search"><Icon name="close" size={15}/></button>}</label><div className="collection-video-list">{filteredVideos.map((video) => <button type="button" key={video.id} className="collection-video-row" onClick={() => toggleVideo(video.id)}><span className={`collection-check ${selectedVideos.includes(video.id) ? 'checked' : ''}`}>{selectedVideos.includes(video.id) ? '✓' : ''}</span><Thumbnail video={video}/><div><strong>{video.title}</strong><small>{video.channel?.name || websiteName()} · {formatNumber(video.views_count)} views</small></div></button>)}</div><div className="collection-selected-footer"><span>{selectedCount} {selectedCount === 1 ? 'video' : 'videos'} selected</span><button type="button" onClick={() => setSelectedVideos([])}>Clear</button></div></div>
+          <div className="collection-field add-videos-field"><span>6. Add videos <small>(optional)</small></span><label className="profile-video-search collection-video-search"><Icon name="search" size={17}/><input value={videoQuery} onChange={(event) => setVideoQuery(event.target.value)} placeholder="Search videos to add to this collection..." />{videoQuery && <button type="button" className="search-clear-button" onClick={() => setVideoQuery('')} aria-label="Clear search"><Icon name="close" size={15}/></button>}</label><div className="collection-video-list">{filteredVideos.map((video) => <button type="button" key={video.id} className="collection-video-row" onClick={() => toggleVideo(video.id)}><span className={`collection-check ${selectedVideos.includes(video.id) ? 'checked' : ''}`}>{selectedVideos.includes(video.id) ? '✓' : ''}</span><Thumbnail video={video}/><div><strong data-i18n-skip>{video.title}</strong><small>{video.channel?.name || websiteName()} · <LocalizedCount value={formatNumber(video.views_count)} unit="view" /></small></div></button>)}</div><div className="collection-selected-footer"><span>{selectedCount} {selectedCount === 1 ? 'video' : 'videos'} selected</span><button type="button" onClick={() => setSelectedVideos([])}>Clear</button></div></div>
         </section>
         <aside className="collection-preview-panel"><div><h3>Preview</h3><p>This is how your collection will appear in Saved collections.</p></div><article className="collection-preview-card"><span style={{ '--collection-color': selectedColor }}>{selectedIcon}</span><div><strong>{displayName}</strong><small>{selectedCount} {selectedCount === 1 ? 'video' : 'videos'}</small></div></article></aside>
       </div>
@@ -24463,7 +24470,7 @@ function ProfileLibrarySideCards({ library = {}, navigate = () => {} }) {
     ['Your videos', library.uploads?.length || 0],
   ];
   return <>
-    <article className="studio-card library-recent-card"><div className="studio-card-head compact"><h2>Recently saved</h2></div>{recent.map((video) => <button type="button" className="library-recent-row" key={video.id} onClick={() => navigate(videoPlaybackPath(video))}><Thumbnail video={video}/><div><strong>{video.title}</strong><span>{dateLabel(video.published_at || video.created_at)}</span></div></button>)}{!recent.length && <p className="muted-small">No watch-later videos yet.</p>}<button className="btn subtle full" onClick={() => navigate('/watch-later')}>View all</button></article>
+    <article className="studio-card library-recent-card"><div className="studio-card-head compact"><h2>Recently saved</h2></div>{recent.map((video) => <button type="button" className="library-recent-row" key={video.id} onClick={() => navigate(videoPlaybackPath(video))}><Thumbnail video={video}/><div><strong data-i18n-skip>{video.title}</strong><span>{dateLabel(video.published_at || video.created_at)}</span></div></button>)}{!recent.length && <p className="muted-small">No watch-later videos yet.</p>}<button className="btn subtle full" onClick={() => navigate('/watch-later')}>View all</button></article>
     <article className="studio-card profile-quick-links library-quick-links"><h2>Quick links</h2>{quick.map(([item, icon, to, count]) => <button type="button" key={item} onClick={() => navigate(to)}><Icon name={icon} size={15}/><span>{item}</span><em>{formatNumber(count)}</em></button>)}</article>
     <article className="studio-card library-summary-card"><h2>Library summary</h2>{summary.map(([label, value]) => <div className="library-summary-row" key={label}><span>{label}</span><b>{formatNumber(value)}</b></div>)}</article>
   </>;
@@ -24634,7 +24641,7 @@ function StudioTableRow({ row, navigate, onVideoUpdate = null, onVideoDelete = n
   return <><div className="studio-table-row">
     <button className="studio-video-cell" onClick={() => navigate(watchPath)}><Thumbnail video={row.video}/><span><strong>{row.video.title}</strong><small>{row.video.duration || row.status}</small></span></button>
     <span className={`visibility-pill ${isPublic ? 'public' : 'unlisted'}`}>{isPublic ? '●' : '∞'} {row.visibility}</span>
-    <span className="performance-cell"><b>{row.performance}</b><TinySparkline type="wave"/></span>
+    <span className="performance-cell"><b data-i18n-skip>{row.performance}</b><TinySparkline type="wave"/></span>
     <span className="publish-status">● {row.status}</span>
     <span className="table-date">{row.date}</span>
     <span className="content-row-menu-shell studio-row-menu-shell">

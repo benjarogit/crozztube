@@ -1,0 +1,137 @@
+{
+  "context": "Editorial all six built-in email templates, subjects and complete bodies: verification/reset expiry, invitation role and temporary credentials, account restriction, site/live moderation assignment. Arabic, Japanese, Korean, three Chinese variants, Turkish, Indonesian and Malaysian Malay. Friendly direct language, ordinary JP/KO grammar without customer honorifics. Named tokens, literal role/title/user values and all functional meanings preserved; administrator overrides untouched. Numeric expiry phrased as a labelled duration or native invariant units to avoid false plural assembly.",
+  "messages": {
+    "Your {SITENAME} verification code": {
+      "ar": "رمز التحقق الخاص بك على {SITENAME}",
+      "ja": "{SITENAME}の確認コード",
+      "ko_kr": "{SITENAME} 인증 코드",
+      "zh_cn": "你的 {SITENAME} 验证码",
+      "zh_tw": "你的 {SITENAME} 驗證碼",
+      "zh_hk": "你的 {SITENAME} 驗證碼",
+      "tr_tr": "{SITENAME} doğrulama kodun",
+      "id_id": "Kode verifikasi {SITENAME} kamu",
+      "ms_my": "Kod pengesahan {SITENAME} kamu"
+    },
+    "Your {SITENAME} verification code is: {VERIFICATION_CODE}\n\nThis code expires in {EXPIRY_MINUTES} minutes.": {
+      "ar": "رمز التحقق الخاص بك على {SITENAME}: {VERIFICATION_CODE}\n\nمدة صلاحية الرمز بالدقائق: {EXPIRY_MINUTES}.",
+      "ja": "{SITENAME}の確認コード：{VERIFICATION_CODE}\n\nこのコードの有効期限は{EXPIRY_MINUTES}分だよ。",
+      "ko_kr": "{SITENAME} 인증 코드: {VERIFICATION_CODE}\n\n이 코드는 {EXPIRY_MINUTES}분 동안 유효해요.",
+      "zh_cn": "你的 {SITENAME} 验证码：{VERIFICATION_CODE}\n\n此验证码将在 {EXPIRY_MINUTES} 分钟后失效。",
+      "zh_tw": "你的 {SITENAME} 驗證碼：{VERIFICATION_CODE}\n\n此驗證碼將在 {EXPIRY_MINUTES} 分鐘後失效。",
+      "zh_hk": "你的 {SITENAME} 驗證碼：{VERIFICATION_CODE}\n\n此驗證碼將在 {EXPIRY_MINUTES} 分鐘後失效。",
+      "tr_tr": "{SITENAME} doğrulama kodun: {VERIFICATION_CODE}\n\nBu kodun geçerlilik süresi {EXPIRY_MINUTES} dakika.",
+      "id_id": "Kode verifikasi {SITENAME} kamu: {VERIFICATION_CODE}\n\nKode ini berlaku selama {EXPIRY_MINUTES} menit.",
+      "ms_my": "Kod pengesahan {SITENAME} kamu: {VERIFICATION_CODE}\n\nKod ini sah selama {EXPIRY_MINUTES} minit."
+    },
+    "Reset your {SITENAME} password": {
+      "ar": "إعادة تعيين كلمة مرورك على {SITENAME}",
+      "ja": "{SITENAME}のパスワードを再設定",
+      "ko_kr": "{SITENAME} 비밀번호 재설정",
+      "zh_cn": "重置你的 {SITENAME} 密码",
+      "zh_tw": "重設你的 {SITENAME} 密碼",
+      "zh_hk": "重設你的 {SITENAME} 密碼",
+      "tr_tr": "{SITENAME} parolanı sıfırla",
+      "id_id": "Reset kata sandi {SITENAME} kamu",
+      "ms_my": "Tetapkan semula kata laluan {SITENAME} kamu"
+    },
+    "Hello {USERNAME},\n\nYour {SITENAME} password reset code is: {RESET_CODE}\n\nThis code expires in {EXPIRY_MINUTES} minutes.": {
+      "ar": "مرحبًا {USERNAME}،\n\nرمز إعادة تعيين كلمة مرورك على {SITENAME}: {RESET_CODE}\n\nمدة صلاحية الرمز بالدقائق: {EXPIRY_MINUTES}.",
+      "ja": "{USERNAME}、こんにちは。\n\n{SITENAME}のパスワード再設定コード：{RESET_CODE}\n\nこのコードの有効期限は{EXPIRY_MINUTES}分だよ。",
+      "ko_kr": "안녕하세요, {USERNAME}.\n\n{SITENAME} 비밀번호 재설정 코드: {RESET_CODE}\n\n이 코드는 {EXPIRY_MINUTES}분 동안 유효해요.",
+      "zh_cn": "{USERNAME}，你好！\n\n你的 {SITENAME} 密码重置验证码：{RESET_CODE}\n\n此验证码将在 {EXPIRY_MINUTES} 分钟后失效。",
+      "zh_tw": "{USERNAME}，你好！\n\n你的 {SITENAME} 密碼重設驗證碼：{RESET_CODE}\n\n此驗證碼將在 {EXPIRY_MINUTES} 分鐘後失效。",
+      "zh_hk": "{USERNAME}，你好！\n\n你的 {SITENAME} 密碼重設驗證碼：{RESET_CODE}\n\n此驗證碼將在 {EXPIRY_MINUTES} 分鐘後失效。",
+      "tr_tr": "Merhaba {USERNAME},\n\n{SITENAME} parola sıfırlama kodun: {RESET_CODE}\n\nBu kodun geçerlilik süresi {EXPIRY_MINUTES} dakika.",
+      "id_id": "Hai {USERNAME},\n\nKode reset kata sandi {SITENAME} kamu: {RESET_CODE}\n\nKode ini berlaku selama {EXPIRY_MINUTES} menit.",
+      "ms_my": "Hai {USERNAME},\n\nKod tetapan semula kata laluan {SITENAME} kamu: {RESET_CODE}\n\nKod ini sah selama {EXPIRY_MINUTES} minit."
+    },
+    "You have been invited to {SITENAME}": {
+      "ar": "وصلتك دعوة للانضمام إلى {SITENAME}",
+      "ja": "{SITENAME}への招待が届いたよ",
+      "ko_kr": "{SITENAME} 초대가 도착했어요",
+      "zh_cn": "你收到了 {SITENAME} 的邀请",
+      "zh_tw": "你收到了 {SITENAME} 的邀請",
+      "zh_hk": "你收到了 {SITENAME} 的邀請",
+      "tr_tr": "{SITENAME} davetin var",
+      "id_id": "Kamu diundang ke {SITENAME}",
+      "ms_my": "Kamu dijemput ke {SITENAME}"
+    },
+    "Hello {USERNAME},\n\nYou have been invited to {SITENAME} as {ROLE}.\n\nLogin email: {USER_EMAIL}\nTemporary password: {TEMPORARY_PASSWORD}\nLogin: {LOGIN_URL}\n\nPlease sign in and update your password.": {
+      "ar": "مرحبًا {USERNAME}،\n\nوصلتك دعوة للانضمام إلى {SITENAME} بالدور التالي: {ROLE}.\n\nبريد تسجيل الدخول: {USER_EMAIL}\nكلمة المرور المؤقتة: {TEMPORARY_PASSWORD}\nرابط تسجيل الدخول: {LOGIN_URL}\n\nسجّل الدخول وغيّر كلمة مرورك.",
+      "ja": "{USERNAME}、こんにちは。\n\n{SITENAME}に招待されたよ。割り当てられた役割：{ROLE}\n\nログイン用メールアドレス：{USER_EMAIL}\n仮パスワード：{TEMPORARY_PASSWORD}\nログイン：{LOGIN_URL}\n\nログインして、パスワードを変更してね。",
+      "ko_kr": "안녕하세요, {USERNAME}.\n\n{SITENAME}에 초대되었어요. 부여된 역할: {ROLE}\n\n로그인 이메일: {USER_EMAIL}\n임시 비밀번호: {TEMPORARY_PASSWORD}\n로그인: {LOGIN_URL}\n\n로그인한 다음 비밀번호를 바꿔 주세요.",
+      "zh_cn": "{USERNAME}，你好！\n\n你已受邀加入 {SITENAME}，分配的角色为：{ROLE}。\n\n登录邮箱：{USER_EMAIL}\n临时密码：{TEMPORARY_PASSWORD}\n登录链接：{LOGIN_URL}\n\n登录后记得修改密码。",
+      "zh_tw": "{USERNAME}，你好！\n\n你已受邀加入 {SITENAME}，指派的角色為：{ROLE}。\n\n登入信箱：{USER_EMAIL}\n臨時密碼：{TEMPORARY_PASSWORD}\n登入連結：{LOGIN_URL}\n\n登入後記得變更密碼。",
+      "zh_hk": "{USERNAME}，你好！\n\n你已獲邀加入 {SITENAME}，獲指派的角色為：{ROLE}。\n\n登入電郵：{USER_EMAIL}\n臨時密碼：{TEMPORARY_PASSWORD}\n登入連結：{LOGIN_URL}\n\n登入後記得更改密碼。",
+      "tr_tr": "Merhaba {USERNAME},\n\n{SITENAME} topluluğuna şu rolle davet edildin: {ROLE}.\n\nGiriş e-posta adresin: {USER_EMAIL}\nGeçici parolan: {TEMPORARY_PASSWORD}\nGiriş: {LOGIN_URL}\n\nGiriş yapıp parolanı değiştir.",
+      "id_id": "Hai {USERNAME},\n\nKamu diundang ke {SITENAME} dengan peran: {ROLE}.\n\nEmail untuk masuk: {USER_EMAIL}\nKata sandi sementara: {TEMPORARY_PASSWORD}\nMasuk: {LOGIN_URL}\n\nMasuk lalu ubah kata sandimu.",
+      "ms_my": "Hai {USERNAME},\n\nKamu dijemput ke {SITENAME} dengan peranan: {ROLE}.\n\nE-mel untuk log masuk: {USER_EMAIL}\nKata laluan sementara: {TEMPORARY_PASSWORD}\nLog masuk: {LOGIN_URL}\n\nLog masuk dan tukar kata laluan kamu."
+    },
+    "Your {SITENAME} account has been restricted": {
+      "ar": "تم تقييد حسابك على {SITENAME}",
+      "ja": "{SITENAME}のアカウントが制限されました",
+      "ko_kr": "{SITENAME} 계정이 제한되었어요",
+      "zh_cn": "你的 {SITENAME} 账号已受到限制",
+      "zh_tw": "你的 {SITENAME} 帳號已受到限制",
+      "zh_hk": "你的 {SITENAME} 帳戶已受到限制",
+      "tr_tr": "{SITENAME} hesabın kısıtlandı",
+      "id_id": "Akun {SITENAME} kamu dibatasi",
+      "ms_my": "Akaun {SITENAME} kamu disekat"
+    },
+    "Hello {USERNAME},\n\nYour {SITENAME} account has been restricted until {BAN_EXPIRES_AT}.\n\nRestrictions:\n{RESTRICTIONS}\n\nIf you believe this is a mistake, contact {SUPPORT_EMAIL}.": {
+      "ar": "مرحبًا {USERNAME}،\n\nتم تقييد حسابك على {SITENAME} حتى {BAN_EXPIRES_AT}.\n\nالقيود:\n{RESTRICTIONS}\n\nإذا كنت تعتقد أن هذا خطأ، تواصل مع {SUPPORT_EMAIL}.",
+      "ja": "{USERNAME}、こんにちは。\n\n{SITENAME}のアカウントは{BAN_EXPIRES_AT}まで制限されています。\n\n制限内容：\n{RESTRICTIONS}\n\n間違いだと思う場合は、{SUPPORT_EMAIL}に連絡してね。",
+      "ko_kr": "안녕하세요, {USERNAME}.\n\n{SITENAME} 계정이 {BAN_EXPIRES_AT}까지 제한되었어요.\n\n제한 사항:\n{RESTRICTIONS}\n\n잘못된 조치라고 생각하면 {SUPPORT_EMAIL}로 연락해 주세요.",
+      "zh_cn": "{USERNAME}，你好！\n\n你的 {SITENAME} 账号已受到限制，截止时间为 {BAN_EXPIRES_AT}。\n\n限制内容：\n{RESTRICTIONS}\n\n如果你认为处理有误，请联系 {SUPPORT_EMAIL}。",
+      "zh_tw": "{USERNAME}，你好！\n\n你的 {SITENAME} 帳號已受到限制，截止時間為 {BAN_EXPIRES_AT}。\n\n限制內容：\n{RESTRICTIONS}\n\n如果你認為處理有誤，請聯絡 {SUPPORT_EMAIL}。",
+      "zh_hk": "{USERNAME}，你好！\n\n你的 {SITENAME} 帳戶已受到限制，截止時間為 {BAN_EXPIRES_AT}。\n\n限制內容：\n{RESTRICTIONS}\n\n如果你認為處理有誤，請聯絡 {SUPPORT_EMAIL}。",
+      "tr_tr": "Merhaba {USERNAME},\n\n{SITENAME} hesabın {BAN_EXPIRES_AT} tarihine kadar kısıtlandı.\n\nKısıtlamalar:\n{RESTRICTIONS}\n\nBir yanlışlık olduğunu düşünüyorsan {SUPPORT_EMAIL} adresinden iletişime geç.",
+      "id_id": "Hai {USERNAME},\n\nAkun {SITENAME} kamu dibatasi hingga {BAN_EXPIRES_AT}.\n\nPembatasan:\n{RESTRICTIONS}\n\nKalau menurutmu ini keliru, hubungi {SUPPORT_EMAIL}.",
+      "ms_my": "Hai {USERNAME},\n\nAkaun {SITENAME} kamu dikenakan sekatan sehingga {BAN_EXPIRES_AT}.\n\nSekatan:\n{RESTRICTIONS}\n\nKalau kamu rasa ini kesilapan, hubungi {SUPPORT_EMAIL}."
+    },
+    "You are now a {SITENAME} moderator": {
+      "ar": "أصبحت الآن مشرفًا على {SITENAME}",
+      "ja": "{SITENAME}のモデレーターになったよ",
+      "ko_kr": "{SITENAME} 중재자가 되었어요",
+      "zh_cn": "你已成为 {SITENAME} 的版主",
+      "zh_tw": "你已成為 {SITENAME} 的版主",
+      "zh_hk": "你已成為 {SITENAME} 的版主",
+      "tr_tr": "Artık {SITENAME} moderatörüsün",
+      "id_id": "Kamu sekarang menjadi moderator {SITENAME}",
+      "ms_my": "Kamu kini moderator {SITENAME}"
+    },
+    "Hello {USERNAME},\n\nYou have been assigned the Moderator role on {SITENAME}. You can now access the moderation tools available to your role.\n\nModeration dashboard: {MODERATION_URL}": {
+      "ar": "مرحبًا {USERNAME}،\n\nأُسند إليك دور المشرف على {SITENAME}. يمكنك الآن استخدام أدوات الإشراف المتاحة لدورك.\n\nلوحة الإشراف: {MODERATION_URL}",
+      "ja": "{USERNAME}、こんにちは。\n\n{SITENAME}のモデレーターに割り当てられたよ。自分の役割に応じたモデレーションツールが使えるようになったよ。\n\nモデレーションダッシュボード：{MODERATION_URL}",
+      "ko_kr": "안녕하세요, {USERNAME}.\n\n{SITENAME} 중재자 역할이 부여되었어요. 이제 역할에 허용된 중재 도구를 사용할 수 있어요.\n\n중재 대시보드: {MODERATION_URL}",
+      "zh_cn": "{USERNAME}，你好！\n\n你已获得 {SITENAME} 的版主角色。现在可以使用该角色权限内的管理工具了。\n\n版主控制台：{MODERATION_URL}",
+      "zh_tw": "{USERNAME}，你好！\n\n你已獲指派為 {SITENAME} 的版主。現在可以使用此角色權限內的管理工具了。\n\n版主控制台：{MODERATION_URL}",
+      "zh_hk": "{USERNAME}，你好！\n\n你已獲指派為 {SITENAME} 的版主。現在可以使用此角色權限內的管理工具了。\n\n版主控制台：{MODERATION_URL}",
+      "tr_tr": "Merhaba {USERNAME},\n\n{SITENAME} moderatör rolüne atandın. Artık rolüne açık moderasyon araçlarını kullanabilirsin.\n\nModerasyon paneli: {MODERATION_URL}",
+      "id_id": "Hai {USERNAME},\n\nKamu mendapat peran Moderator di {SITENAME}. Sekarang kamu bisa memakai alat moderasi yang tersedia untuk peranmu.\n\nDasbor moderasi: {MODERATION_URL}",
+      "ms_my": "Hai {USERNAME},\n\nKamu diberi peranan Moderator di {SITENAME}. Kini kamu boleh menggunakan alat moderasi yang tersedia untuk peranan kamu.\n\nPapan pemuka moderasi: {MODERATION_URL}"
+    },
+    "You are moderating \"{STREAM_TITLE}\" on {SITENAME}": {
+      "ar": "أنت مشرف على البث «{STREAM_TITLE}» على {SITENAME}",
+      "ja": "{SITENAME}の「{STREAM_TITLE}」のモデレーターになったよ",
+      "ko_kr": "{SITENAME}에서 \"{STREAM_TITLE}\" 방송을 관리하게 되었어요",
+      "zh_cn": "你将负责管理 {SITENAME} 上的“{STREAM_TITLE}”直播",
+      "zh_tw": "你將負責管理 {SITENAME} 上的「{STREAM_TITLE}」直播",
+      "zh_hk": "你將負責管理 {SITENAME} 上的「{STREAM_TITLE}」直播",
+      "tr_tr": "{SITENAME} üzerinde \"{STREAM_TITLE}\" yayınını yönetiyorsun",
+      "id_id": "Kamu memoderasi \"{STREAM_TITLE}\" di {SITENAME}",
+      "ms_my": "Kamu memoderasi \"{STREAM_TITLE}\" di {SITENAME}"
+    },
+    "Hello {USERNAME},\n\nYou have been assigned as a moderator for the live stream \"{STREAM_TITLE}\". Open the stream to access your moderation controls.\n\nOpen stream: {STREAM_URL}": {
+      "ar": "مرحبًا {USERNAME}،\n\nأُسند إليك الإشراف على البث المباشر «{STREAM_TITLE}». افتح البث لاستخدام أدوات الإشراف.\n\nافتح البث: {STREAM_URL}",
+      "ja": "{USERNAME}、こんにちは。\n\nライブ配信「{STREAM_TITLE}」のモデレーターに割り当てられたよ。配信を開くとモデレーションツールが使えるよ。\n\n配信を開く：{STREAM_URL}",
+      "ko_kr": "안녕하세요, {USERNAME}.\n\n\"{STREAM_TITLE}\" 라이브 방송의 중재자로 지정되었어요. 방송을 열면 중재 도구를 사용할 수 있어요.\n\n방송 열기: {STREAM_URL}",
+      "zh_cn": "{USERNAME}，你好！\n\n你已被设为“{STREAM_TITLE}”直播的版主。打开直播即可使用管理工具。\n\n打开直播：{STREAM_URL}",
+      "zh_tw": "{USERNAME}，你好！\n\n你已被設為「{STREAM_TITLE}」直播的版主。開啟直播即可使用管理工具。\n\n開啟直播：{STREAM_URL}",
+      "zh_hk": "{USERNAME}，你好！\n\n你已被設為「{STREAM_TITLE}」直播的版主。開啟直播即可使用管理工具。\n\n開啟直播：{STREAM_URL}",
+      "tr_tr": "Merhaba {USERNAME},\n\n\"{STREAM_TITLE}\" canlı yayınına moderatör olarak atandın. Moderasyon araçlarına ulaşmak için yayını aç.\n\nYayını aç: {STREAM_URL}",
+      "id_id": "Hai {USERNAME},\n\nKamu ditunjuk sebagai moderator siaran langsung \"{STREAM_TITLE}\". Buka siarannya untuk memakai alat moderasi.\n\nBuka siaran: {STREAM_URL}",
+      "ms_my": "Hai {USERNAME},\n\nKamu dilantik sebagai moderator siaran langsung \"{STREAM_TITLE}\". Buka siaran untuk menggunakan alat moderasi.\n\nBuka siaran: {STREAM_URL}"
+    }
+  }
+}

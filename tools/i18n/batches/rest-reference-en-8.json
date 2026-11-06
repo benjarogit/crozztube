@@ -1,0 +1,1250 @@
+{
+  "context": "English reference editorial pass for community/bookmarks, livestream setup/readiness, theme/design settings, support tickets, LiveKit/RTMP/WebRTC/TURN configuration, certificates, Docker status and scheduler administration. Technical parameters retained where administrators need them. Obsolete promises about future broadcasting replaced with present configuration requirements; names/examples/time quantities/fragments excluded.",
+  "messages": {
+    "All Categories": {
+      "en": "All Categories"
+    },
+    "All Posts": {
+      "en": "All Posts"
+    },
+    "Autoplay next": {
+      "en": "Autoplay next"
+    },
+    "Avg Viewers": {
+      "en": "Avg Viewers"
+    },
+    "Bookmarks summary": {
+      "en": "Bookmarks summary"
+    },
+    "Clear Filters": {
+      "en": "Clear Filters"
+    },
+    "Close connected accounts": {
+      "en": "Close connected accounts"
+    },
+    "Close search": {
+      "en": "Close search"
+    },
+    "Community creator rankings will appear after posts get engagement.": {
+      "en": "Community creator rankings will appear after posts get engagement."
+    },
+    "Current Poll": {
+      "en": "Current Poll"
+    },
+    "Date Range": {
+      "en": "Date Range"
+    },
+    "Discover updates, polls, images, videos, and events from PlayHub creators.": {
+      "en": "Discover updates, polls, images, videos, and events from PlayHub creators."
+    },
+    "Join Membership": {
+      "en": "Join Membership"
+    },
+    "Join the conversation": {
+      "en": "Join the conversation"
+    },
+    "Live Updates": {
+      "en": "Live Updates"
+    },
+    "Load more bookmarks": {
+      "en": "Load more bookmarks"
+    },
+    "Load more posts": {
+      "en": "Load more posts"
+    },
+    "Loading bookmarks...": {
+      "en": "Loading bookmarks..."
+    },
+    "Marked Not Interested": {
+      "en": "Marked Not Interested"
+    },
+    "Most Recent": {
+      "en": "Most Recent"
+    },
+    "Most Relevant": {
+      "en": "Most Relevant"
+    },
+    "No bookmarked channels yet.": {
+      "en": "No bookmarked channels yet."
+    },
+    "No bookmarked posts yet.": {
+      "en": "No bookmarked posts yet."
+    },
+    "No community posts match this search.": {
+      "en": "No community posts match this search."
+    },
+    "No suggested communities yet.": {
+      "en": "No suggested communities yet."
+    },
+    "No trending topics yet.": {
+      "en": "No trending topics yet."
+    },
+    "No upcoming events yet.": {
+      "en": "No upcoming events yet."
+    },
+    "No videos match this filter.": {
+      "en": "No videos match this filter."
+    },
+    "Open search": {
+      "en": "Open search"
+    },
+    "Quick Links": {
+      "en": "Quick Links"
+    },
+    "Recent Performance": {
+      "en": "Recent Performance"
+    },
+    "Recently Saved": {
+      "en": "Recently Saved"
+    },
+    "Recently Uploaded": {
+      "en": "Recently Uploaded"
+    },
+    "Reminder Set": {
+      "en": "Reminder Set"
+    },
+    "Replay Stats": {
+      "en": "Replay Stats"
+    },
+    "Save community posts to see them here.": {
+      "en": "Save community posts to see them here."
+    },
+    "Saved channels": {
+      "en": "Saved channels"
+    },
+    "Saved post types": {
+      "en": "Saved post types"
+    },
+    "Search communities, creators, topics...": {
+      "en": "Search communities, creators, topics..."
+    },
+    "Send Reply": {
+      "en": "Send Reply"
+    },
+    "Send Tip": {
+      "en": "Send Tip"
+    },
+    "Set Reminder": {
+      "en": "Set Reminder"
+    },
+    "Short video player. Click or tap once to mute or unmute. Press and hold to pause. Swipe, scroll, or use arrows to change Shorts.": {
+      "en": "Short video player. Click or tap once to mute or unmute. Press and hold to pause. Swipe, scroll, or use arrows to change Shorts."
+    },
+    "Sign in": {
+      "en": "Sign in"
+    },
+    "Sign in to like, comment, save posts, and publish community updates from your channel.": {
+      "en": "Sign in to like, comment, save posts, and publish community updates from your channel."
+    },
+    "Signing out...": {
+      "en": "Signing out..."
+    },
+    "Social Links": {
+      "en": "Social Links"
+    },
+    "Start Time": {
+      "en": "Start Time"
+    },
+    "Stream Filters": {
+      "en": "Stream Filters"
+    },
+    "Stream Goal": {
+      "en": "Stream Goal"
+    },
+    "Suggested Communities": {
+      "en": "Suggested Communities"
+    },
+    "This Month": {
+      "en": "This Month"
+    },
+    "This Week": {
+      "en": "This Week"
+    },
+    "Top Community Creators": {
+      "en": "Top Community Creators"
+    },
+    "Top Supporter": {
+      "en": "Top Supporter"
+    },
+    "Total bookmarks": {
+      "en": "Total bookmarks"
+    },
+    "Up Next": {
+      "en": "Up Next"
+    },
+    "Upcoming Events": {
+      "en": "Upcoming Events"
+    },
+    "Viewer Count": {
+      "en": "Viewer Count"
+    },
+    "Watching Now": {
+      "en": "Watching Now"
+    },
+    "Your Reminders": {
+      "en": "Your Reminders"
+    },
+    "Choose a public video to feature at the top of your channel profile.": {
+      "en": "Choose a public video to feature at the top of your channel profile."
+    },
+    "Clear trailer": {
+      "en": "Clear trailer"
+    },
+    "Current trailer": {
+      "en": "Current trailer"
+    },
+    "No public videos available for channel trailer.": {
+      "en": "No public videos available for channel trailer."
+    },
+    "Set as trailer": {
+      "en": "Set as trailer"
+    },
+    "Subscription view": {
+      "en": "Subscription view"
+    },
+    "Ad interval": {
+      "en": "Ad interval"
+    },
+    "Add a clear live stream title": {
+      "en": "Add a clear live stream title"
+    },
+    "Add important information for viewers": {
+      "en": "Add important information for viewers"
+    },
+    "Add label": {
+      "en": "Add label"
+    },
+    "Admin active": {
+      "en": "Admin active"
+    },
+    "Admin background": {
+      "en": "Admin background"
+    },
+    "Admin base font size": {
+      "en": "Admin base font size"
+    },
+    "Admin border": {
+      "en": "Admin border"
+    },
+    "Admin heading": {
+      "en": "Admin heading"
+    },
+    "Admin hover": {
+      "en": "Admin hover"
+    },
+    "Admin muted": {
+      "en": "Admin muted"
+    },
+    "Admin page title size": {
+      "en": "Admin page title size"
+    },
+    "Admin panel": {
+      "en": "Admin panel"
+    },
+    "Admin Panel Colors": {
+      "en": "Admin Panel Colors"
+    },
+    "Admin primary": {
+      "en": "Admin primary"
+    },
+    "Admin primary gradient": {
+      "en": "Admin primary gradient"
+    },
+    "Admin primary soft": {
+      "en": "Admin primary soft"
+    },
+    "Admin sidebar width": {
+      "en": "Admin sidebar width"
+    },
+    "Admin soft": {
+      "en": "Admin soft"
+    },
+    "Admin strong border": {
+      "en": "Admin strong border"
+    },
+    "Admin text": {
+      "en": "Admin text"
+    },
+    "Alert sound": {
+      "en": "Alert sound"
+    },
+    "All pre-flight checks are complete.": {
+      "en": "All checks are complete. You’re ready to go live."
+    },
+    "Allow camera and microphone access to prepare your preview.": {
+      "en": "Allow camera and microphone access to prepare your preview."
+    },
+    "Allowed quality and latency": {
+      "en": "Allowed quality and latency"
+    },
+    "Appearance controls": {
+      "en": "Appearance controls"
+    },
+    "Ask your audience a question": {
+      "en": "Ask your audience a question"
+    },
+    "Assigned Agent": {
+      "en": "Assigned Agent"
+    },
+    "At Risk": {
+      "en": "At Risk"
+    },
+    "Audience and moderation": {
+      "en": "Audience and moderation"
+    },
+    "Audio bitrate": {
+      "en": "Audio bitrate"
+    },
+    "Auto / Source": {
+      "en": "Auto / Source"
+    },
+    "Backup Size": {
+      "en": "Backup Size"
+    },
+    "Base font size": {
+      "en": "Base font size"
+    },
+    "Basic moderation": {
+      "en": "Basic moderation"
+    },
+    "Bold weight": {
+      "en": "Bold weight"
+    },
+    "Button font size": {
+      "en": "Button font size"
+    },
+    "Camera and microphone ready": {
+      "en": "Camera and microphone ready"
+    },
+    "Camera preview is off": {
+      "en": "Camera preview is off"
+    },
+    "Captions language": {
+      "en": "Captions language"
+    },
+    "Channel memberships": {
+      "en": "Channel memberships"
+    },
+    "Choose category": {
+      "en": "Choose category"
+    },
+    "Collapsed sidebar width": {
+      "en": "Collapsed sidebar width"
+    },
+    "Complete the pre-flight checklist before starting.": {
+      "en": "Complete the checklist before going live."
+    },
+    "Contribution alerts": {
+      "en": "Contribution alerts"
+    },
+    "Copyright Claims": {
+      "en": "Copyright Claims"
+    },
+    "Create poll": {
+      "en": "Create poll"
+    },
+    "Creator features": {
+      "en": "Creator features"
+    },
+    "Current custom font": {
+      "en": "Current custom font"
+    },
+    "Custom blocked terms": {
+      "en": "Custom blocked terms"
+    },
+    "Custom moderation": {
+      "en": "Custom moderation"
+    },
+    "Dark admin colors": {
+      "en": "Dark admin colors"
+    },
+    "Dark colors": {
+      "en": "Dark colors"
+    },
+    "Default radius": {
+      "en": "Default radius"
+    },
+    "Delete poll": {
+      "en": "Delete poll"
+    },
+    "Describe the funding goal": {
+      "en": "Describe the funding goal"
+    },
+    "Disconnect grace": {
+      "en": "Disconnect grace"
+    },
+    "Display duration": {
+      "en": "Display duration"
+    },
+    "DVR window (minutes)": {
+      "en": "DVR window (minutes)"
+    },
+    "Edit user failed": {
+      "en": "Edit user failed"
+    },
+    "Engine configured": {
+      "en": "Engine configured"
+    },
+    "Favicon upload": {
+      "en": "Favicon upload"
+    },
+    "Follower alerts": {
+      "en": "Follower alerts"
+    },
+    "Follower, subscription and contribution alerts": {
+      "en": "Follower, subscription and contribution alerts"
+    },
+    "Font sizes": {
+      "en": "Font sizes"
+    },
+    "Font weights": {
+      "en": "Font weights"
+    },
+    "Frame rate": {
+      "en": "Frame rate"
+    },
+    "Goal alerts": {
+      "en": "Goal alerts"
+    },
+    "Goal amount": {
+      "en": "Goal amount"
+    },
+    "Goal bar": {
+      "en": "Goal bar"
+    },
+    "Goal title": {
+      "en": "Goal title"
+    },
+    "Heavy weight": {
+      "en": "Heavy weight"
+    },
+    "Invited usernames": {
+      "en": "Invited usernames"
+    },
+    "Invited viewers": {
+      "en": "Invited viewers"
+    },
+    "Keep forever": {
+      "en": "Keep forever"
+    },
+    "Keyframe interval": {
+      "en": "Keyframe interval"
+    },
+    "Large radius": {
+      "en": "Large radius"
+    },
+    "Last Backup": {
+      "en": "Last Backup"
+    },
+    "Last Update": {
+      "en": "Last Update"
+    },
+    "Last Updated": {
+      "en": "Last Updated"
+    },
+    "Latest admin response": {
+      "en": "Latest admin response"
+    },
+    "Layout sizes": {
+      "en": "Layout sizes"
+    },
+    "Light admin colors": {
+      "en": "Light admin colors"
+    },
+    "Light colors": {
+      "en": "Light colors"
+    },
+    "Live ads": {
+      "en": "Live ads"
+    },
+    "Live chat": {
+      "en": "Live chat"
+    },
+    "Live monetization": {
+      "en": "Live monetization"
+    },
+    "Live stream thumbnail": {
+      "en": "Live stream thumbnail"
+    },
+    "Live thumbnails": {
+      "en": "Live thumbnails"
+    },
+    "Loading live studio...": {
+      "en": "Loading live studio..."
+    },
+    "Loading ticket...": {
+      "en": "Loading ticket..."
+    },
+    "Logo text size": {
+      "en": "Logo text size"
+    },
+    "Logo upload": {
+      "en": "Logo upload"
+    },
+    "Low latency": {
+      "en": "Low latency"
+    },
+    "Manage branding, colors, typography, navigation controls, and global design tokens.": {
+      "en": "Manage branding, colors, typography, navigation controls, and global design tokens."
+    },
+    "Mark ticket resolved after sending": {
+      "en": "Mark ticket resolved after sending"
+    },
+    "Maximum tip": {
+      "en": "Maximum tip"
+    },
+    "Media engine deferred": {
+      "en": "Media engine deferred"
+    },
+    "Medium weight": {
+      "en": "Medium weight"
+    },
+    "Minimum tip": {
+      "en": "Minimum tip"
+    },
+    "Moderation off": {
+      "en": "Moderation off"
+    },
+    "Monetization settings valid": {
+      "en": "Monetization settings valid"
+    },
+    "Muted text": {
+      "en": "Muted text"
+    },
+    "Navigation font size": {
+      "en": "Navigation font size"
+    },
+    "Next Backup": {
+      "en": "Next Backup"
+    },
+    "No message body available.": {
+      "en": "This message has no text."
+    },
+    "No polls created yet.": {
+      "en": "No polls created yet."
+    },
+    "No stream labels added.": {
+      "en": "No stream labels added."
+    },
+    "No thumbnail uploaded": {
+      "en": "No thumbnail uploaded"
+    },
+    "Normal latency": {
+      "en": "Normal latency"
+    },
+    "Normal weight": {
+      "en": "Normal weight"
+    },
+    "Not connected": {
+      "en": "Not connected"
+    },
+    "Not tested": {
+      "en": "Not tested"
+    },
+    "On Track": {
+      "en": "On Track"
+    },
+    "Panel active": {
+      "en": "Panel active"
+    },
+    "Panel hover": {
+      "en": "Panel hover"
+    },
+    "Pick color": {
+      "en": "Pick color"
+    },
+    "Pinned message": {
+      "en": "Pinned message"
+    },
+    "Pinned messages": {
+      "en": "Pinned messages"
+    },
+    "Pre-flight / Health": {
+      "en": "Stream readiness and health"
+    },
+    "Preview resolution": {
+      "en": "Preview resolution"
+    },
+    "Primary gradient": {
+      "en": "Primary gradient"
+    },
+    "Primary soft": {
+      "en": "Primary soft"
+    },
+    "Publish Date": {
+      "en": "Publish Date"
+    },
+    "Recent Uploads": {
+      "en": "Recent Uploads"
+    },
+    "Remove poll option": {
+      "en": "Remove poll option"
+    },
+    "Remove stream label": {
+      "en": "Remove stream label"
+    },
+    "Replay retention": {
+      "en": "Replay retention"
+    },
+    "Report Type": {
+      "en": "Report Type"
+    },
+    "Reported Item": {
+      "en": "Reported Item"
+    },
+    "Request Date": {
+      "en": "Request Date"
+    },
+    "Reset failed": {
+      "en": "Reset failed"
+    },
+    "Reset to defaults": {
+      "en": "Reset to defaults"
+    },
+    "Reset website configuration": {
+      "en": "Reset website configuration"
+    },
+    "Reset website configuration to defaults? This cannot be undone.": {
+      "en": "Reset website configuration to defaults? This cannot be undone."
+    },
+    "Responded by": {
+      "en": "Responded by"
+    },
+    "Round trip": {
+      "en": "Round-trip time"
+    },
+    "RTMP (engine required)": {
+      "en": "RTMP (engine required)"
+    },
+    "RTMP preview": {
+      "en": "RTMP preview"
+    },
+    "RTMP preview is unavailable": {
+      "en": "RTMP preview is unavailable"
+    },
+    "RTMP preview will be available after the streaming engine is configured.": {
+      "en": "Set up the streaming service to see the RTMP preview."
+    },
+    "Run pre-flight test": {
+      "en": "Check stream readiness"
+    },
+    "Save alerts": {
+      "en": "Save alerts"
+    },
+    "Save Live Streaming Settings": {
+      "en": "Save Live Streaming Settings"
+    },
+    "Save pinned message": {
+      "en": "Save pinned message"
+    },
+    "Save replay": {
+      "en": "Save replay"
+    },
+    "Save stream labels": {
+      "en": "Save stream labels"
+    },
+    "Save Website Configuration": {
+      "en": "Save Website Configuration"
+    },
+    "Saved polls": {
+      "en": "Saved polls"
+    },
+    "Saved with this live stream draft.": {
+      "en": "Saved with this live stream draft."
+    },
+    "Scheduling and tool limits": {
+      "en": "Scheduling and tool limits"
+    },
+    "Section title size": {
+      "en": "Section title size"
+    },
+    "Send response": {
+      "en": "Send response"
+    },
+    "Separate terms with commas": {
+      "en": "Separate terms with commas"
+    },
+    "Separate usernames with commas": {
+      "en": "Separate usernames with commas"
+    },
+    "Shape & Layout": {
+      "en": "Shape & Layout"
+    },
+    "Sidebar width": {
+      "en": "Sidebar width"
+    },
+    "Signed-in viewers": {
+      "en": "Signed-in viewers"
+    },
+    "Slow mode interval": {
+      "en": "Slow mode interval"
+    },
+    "Soft text": {
+      "en": "Soft text"
+    },
+    "Standard moderation": {
+      "en": "Standard moderation"
+    },
+    "Start camera preview": {
+      "en": "Start camera preview"
+    },
+    "Start unavailable": {
+      "en": "Start unavailable"
+    },
+    "Stream labels": {
+      "en": "Stream labels"
+    },
+    "Streaming engine not configured": {
+      "en": "Streaming engine not configured"
+    },
+    "Streaming engine required": {
+      "en": "Streaming engine required"
+    },
+    "Strict moderation": {
+      "en": "Strict moderation"
+    },
+    "Strong border": {
+      "en": "Strong border"
+    },
+    "Subscription alerts": {
+      "en": "Subscription alerts"
+    },
+    "Support request": {
+      "en": "Support request"
+    },
+    "Support ticket": {
+      "en": "Support ticket"
+    },
+    "Target bitrate (Kbps)": {
+      "en": "Target bitrate (Kbps)"
+    },
+    "Tell viewers what this live stream is about": {
+      "en": "Tell viewers what this live stream is about"
+    },
+    "The logo must be an SVG file.": {
+      "en": "The logo must be an SVG file."
+    },
+    "Topbar height": {
+      "en": "Topbar height"
+    },
+    "Ultra-low latency": {
+      "en": "Ultra-low latency"
+    },
+    "Upload speed": {
+      "en": "Upload speed"
+    },
+    "User message": {
+      "en": "User message"
+    },
+    "Webcam preview": {
+      "en": "Webcam preview"
+    },
+    "Webcam preview works locally. Public broadcasting and RTMP credentials will be added with the streaming engine.": {
+      "en": "Preview your camera locally. Broadcasting requires a configured streaming service."
+    },
+    "Website Colors": {
+      "en": "Website Colors"
+    },
+    "Website Configuration": {
+      "en": "Website Configuration"
+    },
+    "Website configuration not saved": {
+      "en": "Website configuration not saved"
+    },
+    "Write the reply that will be saved and emailed to the user...": {
+      "en": "Write the reply that will be saved and emailed to the user..."
+    },
+    "Your studio settings can be prepared now. Public broadcasting will be enabled with the media engine.": {
+      "en": "You can prepare your studio settings now. Set up the streaming service to broadcast."
+    },
+    "Activate poll": {
+      "en": "Activate poll"
+    },
+    "Cancel edit": {
+      "en": "Cancel edit"
+    },
+    "Close poll": {
+      "en": "Close poll"
+    },
+    "Creator defaults": {
+      "en": "Creator defaults"
+    },
+    "Edit poll": {
+      "en": "Edit poll"
+    },
+    "Save poll": {
+      "en": "Save poll"
+    },
+    "Schedule poll": {
+      "en": "Schedule poll"
+    },
+    "Webcam preview is disabled by the site administrator.": {
+      "en": "Webcam preview is disabled by the site administrator."
+    },
+    "WebRTC engine configured on this server": {
+      "en": "WebRTC engine configured on this server"
+    },
+    "Set the LiveKit server credentials to enable broadcasting": {
+      "en": "Set the LiveKit server credentials to enable broadcasting"
+    },
+    "LiveKit WebRTC is ready for browser broadcasting.": {
+      "en": "LiveKit WebRTC is ready for browser broadcasting."
+    },
+    "Webcam preview works locally. Public broadcasting requires the LiveKit media engine.": {
+      "en": "Webcam preview works locally. Public broadcasting requires the LiveKit media engine."
+    },
+    "You are live": {
+      "en": "You are live"
+    },
+    "Your camera and microphone are publishing through LiveKit.": {
+      "en": "Your camera and microphone are publishing through LiveKit."
+    },
+    "Ending...": {
+      "en": "Ending..."
+    },
+    "End live stream": {
+      "en": "End live stream"
+    },
+    "Connecting to live stream...": {
+      "en": "Connecting to live stream..."
+    },
+    "This stream has not started yet.": {
+      "en": "This stream has not started yet."
+    },
+    "No chat messages yet.": {
+      "en": "No chat messages yet."
+    },
+    "Sign in to join live chat": {
+      "en": "Sign in to join live chat"
+    },
+    "Creator goal": {
+      "en": "Creator goal"
+    },
+    "Unable to connect to this live stream.": {
+      "en": "Unable to connect to this live stream."
+    },
+    "Unable to send the chat message.": {
+      "en": "Unable to send the chat message."
+    },
+    "Unable to start the live stream.": {
+      "en": "Unable to start the live stream."
+    },
+    "Unable to end the live stream.": {
+      "en": "Unable to end the live stream."
+    },
+    "LiveKit connection details are unavailable.": {
+      "en": "LiveKit connection details are unavailable."
+    },
+    "A working camera and microphone are required to start broadcasting.": {
+      "en": "A working camera and microphone are required to start broadcasting."
+    },
+    "Start the camera preview and allow camera and microphone access before broadcasting.": {
+      "en": "Start the camera preview and allow camera and microphone access before broadcasting."
+    },
+    "LiveKit WebRTC currently requires the webcam source.": {
+      "en": "LiveKit WebRTC currently requires the webcam source."
+    },
+    "Start the live stream before activating its media source.": {
+      "en": "Start the live stream before activating its media source."
+    },
+    "LiveKit is not configured.": {
+      "en": "LiveKit is not configured."
+    },
+    "Sign in to watch this live stream.": {
+      "en": "Sign in to watch this live stream."
+    },
+    "LiveKit server configuration": {
+      "en": "LiveKit server configuration"
+    },
+    "Docker image": {
+      "en": "Docker image"
+    },
+    "Container status": {
+      "en": "Container status"
+    },
+    "Running": {
+      "en": "Running"
+    },
+    "Stopped": {
+      "en": "Stopped"
+    },
+    "WebRTC engine is accepting connections": {
+      "en": "WebRTC engine is accepting connections"
+    },
+    "Save configuration to request a container restart": {
+      "en": "Save configuration to request a container restart"
+    },
+    "Enable LiveKit server": {
+      "en": "Enable LiveKit server"
+    },
+    "LiveKit WebSocket URL": {
+      "en": "LiveKit WebSocket URL"
+    },
+    "LiveKit API key": {
+      "en": "LiveKit API key"
+    },
+    "LiveKit API secret": {
+      "en": "LiveKit API secret"
+    },
+    "API secret configured. Leave blank to keep the current secret.": {
+      "en": "An API secret is saved. Leave this blank to keep it."
+    },
+    "Minimum 32 characters": {
+      "en": "Minimum 32 characters"
+    },
+    "Signaling port": {
+      "en": "Signaling port"
+    },
+    "TLS is provided by the website Nginx proxy": {
+      "en": "TLS is provided by the website Nginx proxy"
+    },
+    "WebRTC TCP port": {
+      "en": "WebRTC TCP port"
+    },
+    "WebRTC UDP port range start": {
+      "en": "WebRTC UDP port range start"
+    },
+    "WebRTC UDP port range end": {
+      "en": "WebRTC UDP port range end"
+    },
+    "Discover public IP using STUN": {
+      "en": "Discover public IP using STUN"
+    },
+    "Public node IPv4 override": {
+      "en": "Public node IPv4 override"
+    },
+    "Optional when STUN discovery is enabled": {
+      "en": "Optional when STUN discovery is enabled"
+    },
+    "LiveKit region": {
+      "en": "LiveKit region"
+    },
+    "Optional region identifier": {
+      "en": "Optional region identifier"
+    },
+    "LiveKit log level": {
+      "en": "LiveKit log level"
+    },
+    "Debug": {
+      "en": "Debug"
+    },
+    "Info": {
+      "en": "Info"
+    },
+    "Warning": {
+      "en": "Warning"
+    },
+    "Error": {
+      "en": "Error"
+    },
+    "Empty room timeout (seconds)": {
+      "en": "Empty room timeout (seconds)"
+    },
+    "Participant departure timeout (seconds)": {
+      "en": "Participant departure timeout (seconds)"
+    },
+    "Maximum participants per room": {
+      "en": "Maximum participants per room"
+    },
+    "0 means unlimited": {
+      "en": "0 means unlimited"
+    },
+    "Generated configuration": {
+      "en": "Generated configuration"
+    },
+    "Stored inside the PlayHub project": {
+      "en": "Stored inside the PlayHub project"
+    },
+    "Live streaming settings saved. LiveKit container restart requested.": {
+      "en": "Live streaming settings saved. LiveKit container restart requested."
+    },
+    "LiveKit UDP port range end must be greater than or equal to its start.": {
+      "en": "LiveKit UDP port range end must be greater than or equal to its start."
+    },
+    "LiveKit server is not running.": {
+      "en": "LiveKit server is not running."
+    },
+    "Container ID": {
+      "en": "Container ID"
+    },
+    "Image ID": {
+      "en": "Image ID"
+    },
+    "Docker status updated": {
+      "en": "Docker status updated"
+    },
+    "Restarting": {
+      "en": "Restarting"
+    },
+    "Paused": {
+      "en": "Paused"
+    },
+    "Missing": {
+      "en": "Missing"
+    },
+    "LiveKit service is reachable; Docker status unavailable": {
+      "en": "LiveKit service is reachable; Docker status unavailable"
+    },
+    "Docker status unavailable": {
+      "en": "Docker status unavailable"
+    },
+    "Docker status snapshot is stale": {
+      "en": "Docker status snapshot is stale"
+    },
+    "Container is starting": {
+      "en": "Container is starting"
+    },
+    "Container is not running": {
+      "en": "Container is not running"
+    },
+    "Snapshot is stale": {
+      "en": "Snapshot is stale"
+    },
+    "Read-only Docker snapshot": {
+      "en": "Read-only Docker snapshot"
+    },
+    "Status exporter unavailable": {
+      "en": "Status exporter unavailable"
+    },
+    "LiveKit TURN/TLS certificates": {
+      "en": "LiveKit TURN/TLS certificates"
+    },
+    "Certificate directory": {
+      "en": "Certificate directory"
+    },
+    "Enable embedded TURN/TLS": {
+      "en": "Enable embedded TURN/TLS"
+    },
+    "TURN/TLS domain": {
+      "en": "TURN/TLS domain"
+    },
+    "Must match the certificate domain": {
+      "en": "Must match the certificate domain"
+    },
+    "TURN/TLS port": {
+      "en": "TURN/TLS port"
+    },
+    "Open this port in the firewall when enabled": {
+      "en": "Open this port in the firewall when enabled"
+    },
+    "Certificate file path": {
+      "en": "Certificate file path"
+    },
+    "Private key file path": {
+      "en": "Private key file path"
+    },
+    "Website WebSocket TLS": {
+      "en": "Website WebSocket TLS"
+    },
+    "Managed by Nginx": {
+      "en": "Managed by Nginx"
+    },
+    "Keep the existing wss:// URL; this certificate setup is for LiveKit embedded TURN/TLS.": {
+      "en": "Keep the existing wss:// URL; this certificate setup is for LiveKit embedded TURN/TLS."
+    },
+    "A TURN/TLS domain is required when embedded TURN/TLS is enabled.": {
+      "en": "A TURN/TLS domain is required when embedded TURN/TLS is enabled."
+    },
+    "Add readable certificate and private-key files inside livekit/runtime/certs before enabling embedded TURN/TLS.": {
+      "en": "Add readable certificate and private-key files inside livekit/runtime/certs before enabling embedded TURN/TLS."
+    },
+    "LiveKit certificate paths must be relative to livekit/runtime/certs.": {
+      "en": "LiveKit certificate paths must be relative to livekit/runtime/certs."
+    },
+    "Manage the active crontab for this server user.": {
+      "en": "Manage the active crontab for this server user."
+    },
+    "Cron jobs could not be loaded.": {
+      "en": "Cron jobs could not be loaded."
+    },
+    "Loading cron jobs...": {
+      "en": "Loading cron jobs..."
+    },
+    "Laravel scheduler installed": {
+      "en": "Laravel scheduler installed"
+    },
+    "Laravel scheduler missing": {
+      "en": "Laravel scheduler missing"
+    },
+    "Server user": {
+      "en": "Server user"
+    },
+    "web server user": {
+      "en": "web server user"
+    },
+    "Install Laravel Scheduler": {
+      "en": "Install Laravel Scheduler"
+    },
+    "Reload": {
+      "en": "Reload"
+    },
+    "Current cron jobs": {
+      "en": "Current cron jobs"
+    },
+    "Disable": {
+      "en": "Disable"
+    },
+    "Enable": {
+      "en": "Enable"
+    },
+    "No cron jobs are installed for this user.": {
+      "en": "No cron jobs are installed for this user."
+    },
+    "Crontab Content": {
+      "en": "Crontab Content"
+    },
+    "Comments and environment variables are preserved. Saving replaces the active crontab for this server user.": {
+      "en": "Comments and environment variables are preserved. Saving replaces the active crontab for this server user."
+    },
+    "Save Cron Jobs": {
+      "en": "Save Cron Jobs"
+    },
+    "Cron jobs saved": {
+      "en": "Cron jobs saved"
+    },
+    "Cron jobs saved.": {
+      "en": "Cron jobs saved."
+    },
+    "Cron save failed": {
+      "en": "Cron save failed"
+    },
+    "Cron jobs could not be saved.": {
+      "en": "Cron jobs could not be saved."
+    },
+    "LiveKit TURN server": {
+      "en": "LiveKit TURN server"
+    },
+    "TURN mode": {
+      "en": "TURN mode"
+    },
+    "TLS certificate mode": {
+      "en": "TLS certificate mode"
+    },
+    "Default non-TLS mode": {
+      "en": "Default non-TLS mode"
+    },
+    "TURN via TLS": {
+      "en": "TURN via TLS"
+    },
+    "Open this TCP port in the firewall when enabled": {
+      "en": "Open this TCP port in the firewall when enabled"
+    },
+    "Keep the existing wss:// URL; these certificates are only for LiveKit embedded TURN/TLS.": {
+      "en": "Keep the existing wss:// URL; these certificates are only for LiveKit embedded TURN/TLS."
+    },
+    "TURN/UDP port": {
+      "en": "TURN/UDP port"
+    },
+    "Default non-TLS TURN server port; open this UDP port in the firewall": {
+      "en": "Default non-TLS TURN server port; open this UDP port in the firewall"
+    },
+    "LiveKit TURN/UDP port must be outside the WebRTC UDP port range.": {
+      "en": "LiveKit TURN/UDP port must be outside the WebRTC UDP port range."
+    },
+    "LiveKit TURN/TLS port must not match the signaling or WebRTC TCP port.": {
+      "en": "LiveKit TURN/TLS port must not match the signaling or WebRTC TCP port."
+    },
+    "Source": {
+      "en": "Source"
+    },
+    "Accept participants": {
+      "en": "Accept participants"
+    },
+    "Participants are disabled for this stream.": {
+      "en": "Participants are disabled for this stream."
+    },
+    "Gender": {
+      "en": "Gender"
+    },
+    "Male": {
+      "en": "Male"
+    },
+    "Female": {
+      "en": "Female"
+    },
+    "Scheduled live stream": {
+      "en": "Scheduled live stream"
+    },
+    "Waiting for live video": {
+      "en": "Waiting for live video"
+    },
+    "The broadcast is connected and video will appear here.": {
+      "en": "The broadcast is connected and video will appear here."
+    },
+    "Stream ended": {
+      "en": "Stream ended"
+    },
+    "The replay will appear here when processing is complete.": {
+      "en": "The replay will appear here when processing is complete."
+    },
+    "Live stream link copied.": {
+      "en": "Live stream link copied."
+    },
+    "About the creator": {
+      "en": "About the creator"
+    },
+    "Watching on PlayHub": {
+      "en": "Watching on PlayHub"
+    },
+    "Live chat is turned off": {
+      "en": "Live chat is turned off"
+    },
+    "The creator disabled chat for this stream.": {
+      "en": "The creator disabled chat for this stream."
+    },
+    "Live chat is not active": {
+      "en": "Live chat is not active"
+    },
+    "Chat will be available when the stream starts.": {
+      "en": "Chat will be available when the stream starts."
+    },
+    "Be the first to join the conversation.": {
+      "en": "Be the first to join the conversation."
+    },
+    "Vote recorded. Results update automatically.": {
+      "en": "Vote recorded. Results update automatically."
+    },
+    "Auto quality": {
+      "en": "Auto quality"
+    },
+    "Stream schedule": {
+      "en": "Stream schedule"
+    },
+    "LIVE POLL": {
+      "en": "LIVE POLL"
+    },
+    "STREAM GOAL": {
+      "en": "STREAM GOAL"
+    },
+    "No chat messages yet": {
+      "en": "No chat messages yet"
+    },
+    "Subscribers only": {
+      "en": "Subscribers only"
+    },
+    "Live chat has ended": {
+      "en": "Live chat has ended"
+    },
+    "Chat is closed for this broadcast.": {
+      "en": "Chat is closed for this broadcast."
+    },
+    "Loading live chat": {
+      "en": "Loading live chat"
+    },
+    "New messages": {
+      "en": "New messages"
+    },
+    "Quick emojis": {
+      "en": "Quick emojis"
+    },
+    "Say something nice...": {
+      "en": "Say something nice..."
+    },
+    "Sending message": {
+      "en": "Sending message"
+    },
+    "Live chat messages": {
+      "en": "Live chat messages"
+    }
+  }
+}

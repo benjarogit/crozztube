@@ -82,19 +82,22 @@ class VideoSales
         ], fn ($value): bool => $value !== null));
     }
 
-    public static function captionsUrl(Video $video, ?DateTimeInterface $expiresAt = null): ?string
+    public static function captionsUrl(Video $video, ?DateTimeInterface $expiresAt = null, ?int $track = null, bool $transcript = false): ?string
     {
-        if (! $video->captions_path) {
+        if (! $video->captions_path && VideoCaptions::stored($video) === []) {
             return null;
         }
 
+        $parameters = ['video' => $video->id, 'v' => $video->mediaVersion()];
+        if ($track !== null) $parameters['track'] = $track;
+        if ($transcript) $parameters['transcript'] = 1;
+
         if (! self::requiresSignedMedia($video)) {
-            return route('media.video-captions', ['video' => $video->id, 'v' => $video->mediaVersion()]);
+            return route('media.video-captions', $parameters);
         }
 
         return URL::temporarySignedRoute('media.video-captions', $expiresAt ?? now()->addHours(6), [
-            'video' => $video->id,
-            'v' => $video->mediaVersion(),
+            ...$parameters,
             ...self::privateMediaViewerClaims($video),
         ]);
     }

@@ -1,0 +1,146 @@
+{
+  "context": "Editorial pass: empty discovery/search states, event fields, admin/moderator access errors, email/SMS configuration, code expiry/security labels and profile verification. User names, sample video titles, code examples and date samples excluded.",
+  "messages": {
+    "No trending videos yet.": {
+      "de": "Noch keine angesagten Videos."
+    },
+    "Add a valid phone number to enable phone delivery": {
+      "de": "Gib eine gültige Telefonnummer an, um Bestätigungscodes auf deinem Telefon zu empfangen."
+    },
+    "Admin search results": {
+      "de": "Suchergebnisse der Verwaltung"
+    },
+    "Event link (optional)": {
+      "de": "Veranstaltungslink (optional)"
+    },
+    "Failed access attempts (7d)": {
+      "de": "Fehlgeschlagene Zugriffsversuche (7 Tage)"
+    },
+    "Loading API capabilities.": {
+      "de": "API-Funktionen werden geladen …"
+    },
+    "Loading API metadata...": {
+      "de": "API-Metadaten werden geladen …"
+    },
+    "Location or livestream room (optional)": {
+      "de": "Ort oder Livestream-Raum (optional)"
+    },
+    "Mass import notification sent.": {
+      "de": "Benachrichtigung zum Sammelimport gesendet."
+    },
+    "Max file size: 5MB (JPG, PNG)": {
+      "de": "Maximale Dateigröße: 5 MB (JPG, PNG)"
+    },
+    "Missing report target": {
+      "de": "Der zu meldende Inhalt fehlt"
+    },
+    "No admin results found.": {
+      "de": "Keine Ergebnisse in der Verwaltung gefunden."
+    },
+    "Permissions changed (7d)": {
+      "de": "Berechtigungsänderungen (7 Tage)"
+    },
+    "Phone is available as a backup delivery method.": {
+      "de": "Das Telefon steht als alternativer Zustellweg zur Verfügung."
+    },
+    "Search in streams...": {
+      "de": "Livestreams durchsuchen …"
+    },
+    "Search videos to add to this collection...": {
+      "de": "Suche Videos für diese Sammlung …"
+    },
+    "Unable to load admin data.": {
+      "de": "Die Verwaltungsdaten konnten nicht geladen werden."
+    },
+    "Content review, comment removal, video approval, and user restrictions": {
+      "de": "Inhalte prüfen, Kommentare entfernen, Videos freigeben und Nutzer einschränken"
+    },
+    "Require moderator review": {
+      "de": "Moderationsprüfung erforderlich"
+    },
+    "Uploads pending review": {
+      "de": "Uploads warten auf Prüfung"
+    },
+    "Email notification was not sent.": {
+      "de": "Die E-Mail-Benachrichtigung wurde nicht gesendet."
+    },
+    "Admin or moderator access required.": {
+      "de": "Du brauchst Zugriff als Admin oder Moderator."
+    },
+    "Moderators cannot ban their own account.": {
+      "de": "Moderatoren können ihr eigenes Konto nicht sperren."
+    },
+    "Moderators cannot ban staff accounts.": {
+      "de": "Moderatoren können Konten des Teams nicht sperren."
+    },
+    "Moderators cannot suspend their own account.": {
+      "de": "Moderatoren können ihr eigenes Konto nicht sperren."
+    },
+    "Moderators cannot suspend staff accounts.": {
+      "de": "Moderatoren können Konten des Teams nicht sperren."
+    },
+    "Moderators cannot clear bans for their own account.": {
+      "de": "Moderatoren können Sperren ihres eigenen Kontos nicht aufheben."
+    },
+    "Moderators cannot clear bans for staff accounts.": {
+      "de": "Moderatoren können Sperren von Teamkonten nicht aufheben."
+    },
+    "Required strength (1-10)": {
+      "de": "Erforderliche Passwortstärke (1–10)"
+    },
+    "Email delivery is unavailable. Configure SMTP Email settings in the admin dashboard and try again.": {
+      "de": "Der E-Mail-Versand ist nicht verfügbar. Richte in der Verwaltung die SMTP-Einstellungen ein und versuch es erneut."
+    },
+    "SMS delivery is unavailable. Configure SMS OTP settings in the admin dashboard and try again.": {
+      "de": "Der SMS-Versand ist nicht verfügbar. Richte in der Verwaltung den SMS-Codeversand ein und versuch es erneut."
+    },
+    "Captcha after bad logins": {
+      "de": "Captcha nach fehlgeschlagenen Anmeldungen"
+    },
+    "Required strength (0-10)": {
+      "de": "Erforderliche Passwortstärke (0–10)"
+    },
+    "SMS code expires (minutes)": {
+      "de": "Gültigkeit des SMS-Codes (Minuten)"
+    },
+    "Invalid code attempts": {
+      "de": "Fehlversuche bei der Codeeingabe"
+    },
+    "Invalid IP block (minutes)": {
+      "de": "IP-Sperre bei Fehlversuchen (Minuten)"
+    },
+    "Collect phone number": {
+      "de": "Telefonnummer abfragen"
+    },
+    "Verification code digits": {
+      "de": "Länge des Bestätigungscodes"
+    },
+    "Verification code expires (minutes)": {
+      "de": "Gültigkeit des Bestätigungscodes (Minuten)"
+    },
+    "Verification resend attempts": {
+      "de": "Erlaubte erneute Codeanforderungen"
+    },
+    "Verify profile badge": {
+      "de": "Profil verifizieren"
+    },
+    "Remove profile badge": {
+      "de": "Verifizierungsabzeichen entfernen"
+    },
+    "Remove the verified profile badge from this user?": {
+      "de": "Möchtest du das Verifizierungsabzeichen dieses Nutzers entfernen?"
+    },
+    "Profile badge verified.": {
+      "de": "Profil verifiziert."
+    },
+    "Profile badge removed.": {
+      "de": "Verifizierungsabzeichen entfernt."
+    },
+    "Enter creator email addresses, usernames, or handles to verify their profile badges.": {
+      "de": "Gib die E-Mail-Adressen, Nutzernamen oder Handles der Creator ein, die du verifizieren möchtest."
+    },
+    "Creator profile badges verified.": {
+      "de": "Creator-Profile verifiziert."
+    }
+  }
+}

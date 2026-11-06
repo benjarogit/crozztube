@@ -1,0 +1,108 @@
+{
+  "context": "Complete support/tip and transcript messages following confirmed reference context split: financial tip distinct from playlist advice; named creator/title fields literal, no implied payment change. Actual transcript UI and failure/loading labels; transcript contents remain provider-owned. Personal FR/ES/AR-UY/PT/BR/IT/CA/GL/EO, regional spelling retained.",
+  "messages": {
+    "Playlist tip": {
+      "fr": "Astuce pour ta playlist",
+      "es": "Consejo para tu lista de reproducción",
+      "pt": "Dica para a tua lista de reprodução",
+      "it": "Consiglio per la tua playlist",
+      "ca": "Consell per a la teva llista de reproducció",
+      "gl": "Consello para a túa lista de reprodución",
+      "eo": "Konsilo por via ludlisto",
+      "pt_br": "Dica para sua playlist"
+    },
+    "Send a tip to {name}": {
+      "fr": "Envoie un pourboire à {name}",
+      "es": "Envía una propina a {name}",
+      "pt": "Envia uma gorjeta a {name}",
+      "it": "Invia una mancia a {name}",
+      "ca": "Envia una propina a {name}",
+      "gl": "Envía unha propina a {name}",
+      "eo": "Sendu trinkmonon al {name}",
+      "pt_br": "Envie uma gorjeta a {name}",
+      "es_ar": "Enviá una propina a {name}",
+      "es_uy": "Enviá una propina a {name}"
+    },
+    "Support the creator of “{title}”.": {
+      "fr": "Soutiens le créateur de « {title} ».",
+      "es": "Apoya al creador de «{title}».",
+      "pt": "Apoia o criador de «{title}».",
+      "it": "Sostieni il creator di «{title}».",
+      "ca": "Dona suport al creador de «{title}».",
+      "gl": "Apoia o creador de «{title}».",
+      "eo": "Subtenu la kreinton de «{title}».",
+      "pt_br": "Apoie o criador de «{title}».",
+      "es_ar": "Apoyá al creador de «{title}».",
+      "es_uy": "Apoyá al creador de «{title}»."
+    },
+    "Tip sent to {name}.": {
+      "fr": "Le pourboire a été envoyé à {name}.",
+      "es": "Se ha enviado la propina a {name}.",
+      "pt": "A gorjeta foi enviada a {name}.",
+      "it": "La mancia è stata inviata a {name}.",
+      "ca": "S’ha enviat la propina a {name}.",
+      "gl": "Enviouse a propina a {name}.",
+      "eo": "La trinkmono estas sendita al {name}."
+    },
+    "Support {name} during this live stream.": {
+      "fr": "Soutiens {name} pendant ce direct.",
+      "es": "Apoya a {name} durante este directo.",
+      "pt": "Apoia {name} durante esta transmissão em direto.",
+      "it": "Sostieni {name} durante questa diretta.",
+      "ca": "Dona suport a {name} durant aquest directe.",
+      "gl": "Apoia a {name} durante este directo.",
+      "eo": "Subtenu {name} dum ĉi tiu rekta elsendo.",
+      "pt_br": "Apoie {name} durante esta transmissão ao vivo.",
+      "pt_pt": "Apoia {name} durante esta transmissão em directo.",
+      "pt_ao": "Apoia {name} durante esta transmissão em directo.",
+      "es_ar": "Apoyá a {name} durante este directo.",
+      "es_uy": "Apoyá a {name} durante este directo."
+    },
+    "Send Super Chat": {
+      "fr": "Envoyer un Super Chat",
+      "es": "Enviar Super Chat",
+      "pt": "Enviar Super Chat",
+      "it": "Invia Super Chat",
+      "ca": "Envia un Super Chat",
+      "gl": "Enviar Super Chat",
+      "eo": "Sendu Super Chat"
+    },
+    "Send tip": {
+      "fr": "Envoyer un pourboire",
+      "es": "Enviar propina",
+      "pt": "Enviar gorjeta",
+      "it": "Invia mancia",
+      "ca": "Envia una propina",
+      "gl": "Enviar propina",
+      "eo": "Sendu trinkmonon"
+    },
+    "Transcript text": {
+      "fr": "Texte de la transcription",
+      "es": "Texto de la transcripción",
+      "pt": "Texto da transcrição",
+      "it": "Testo della trascrizione",
+      "ca": "Text de la transcripció",
+      "gl": "Texto da transcrición",
+      "eo": "Teksto de la transskribo"
+    },
+    "Loading transcript…": {
+      "fr": "Chargement de la transcription…",
+      "es": "Cargando transcripción…",
+      "pt": "A carregar a transcrição…",
+      "it": "Caricamento della trascrizione…",
+      "ca": "S’està carregant la transcripció…",
+      "gl": "Cargando a transcrición…",
+      "eo": "Ŝargado de la transskribo…",
+      "pt_br": "Carregando a transcrição…"
+    },
+    "The transcript could not be loaded.": {
+      "fr": "La transcription n’a pas pu être chargée.",
+      "es": "No se ha podido cargar la transcripción.",
+      "pt": "Não foi possível carregar a transcrição.",
+      "it": "Non è stato possibile caricare la trascrizione.",
+      "ca": "No s’ha pogut carregar la transcripció.",
+      "gl": "Non se puido cargar a transcrición.",
+      "eo": "Ne eblis ŝargi la transskribon."
+    }
+  }
+}

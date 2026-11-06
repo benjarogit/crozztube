@@ -1,0 +1,345 @@
+{
+  "context": "Whole German reference messages: confirmed broken mixed-language Creator/Playlist labels, footer, channel lists, private messages, playlist empty/loading/error states and API help. Canonical Creator and Playlist preserved; playback queue distinguished from a saved Playlist. Sample author descriptions/names excluded. Swiss ss and Austrian standard forms retained.",
+  "messages": {
+    "Authenticated APIs use the existing Laravel Sanctum token flow. Account, upload, creator, playlist, notification, comment, like, subscription, and admin endpoints are served under /api.": {
+      "de_de": "Authentifizierte API-Aufrufe verwenden Laravel-Sanctum-Tokens. Unter /api findest du Endpunkte für Konten, Uploads, Creator, Playlists, Benachrichtigungen, Kommentare, Likes, Abonnements und die Administration.",
+      "de_at": "Authentifizierte API-Aufrufe verwenden Laravel-Sanctum-Tokens. Unter /api findest du Endpunkte für Konten, Uploads, Creator, Playlists, Benachrichtigungen, Kommentare, Likes, Abonnements und die Administration.",
+      "de_ch": "Authentifizierte API-Aufrufe verwenden Laravel-Sanctum-Tokens. Unter /api findest du Endpunkte für Konten, Uploads, Creator, Playlists, Benachrichtigungen, Kommentare, Likes, Abonnements und die Administration."
+    },
+    "Creator channels": {
+      "de_de": "Creator-Kanäle",
+      "de_at": "Creator-Kanäle",
+      "de_ch": "Creator-Kanäle"
+    },
+    "Creator data": {
+      "de_de": "Creator-Daten",
+      "de_at": "Creator-Daten",
+      "de_ch": "Creator-Daten"
+    },
+    "Creator profile pages, subscriptions, community posts, comments, and playlists are part of the same account and content system.": {
+      "de_de": "Creator-Profile, Abonnements, Communitybeiträge, Kommentare und Playlists gehören zum selben Konto- und Inhaltssystem.",
+      "de_at": "Creator-Profile, Abonnements, Communitybeiträge, Kommentare und Playlists gehören zum selben Konto- und Inhaltssystem.",
+      "de_ch": "Creator-Profile, Abonnements, Communitybeiträge, Kommentare und Playlists gehören zum selben Konto- und Inhaltssystem."
+    },
+    "Creator publishing": {
+      "de_de": "Inhalte als Creator veröffentlichen",
+      "de_at": "Inhalte als Creator veröffentlichen",
+      "de_ch": "Inhalte als Creator veröffentlichen"
+    },
+    "Creators can upload videos, manage visibility, add thumbnails and captions, publish scheduled content, review their library, and track content from Creator Studio.": {
+      "de_de": "Im Creator Studio kannst du Videos hochladen, die Sichtbarkeit wählen, Vorschaubilder und Untertitel hinzufügen, Veröffentlichungen planen und deine Bibliothek verwalten.",
+      "de_at": "Im Creator Studio kannst du Videos hochladen, die Sichtbarkeit wählen, Vorschaubilder und Untertitel hinzufügen, Veröffentlichungen planen und deine Bibliothek verwalten.",
+      "de_ch": "Im Creator Studio kannst du Videos hochladen, die Sichtbarkeit wählen, Vorschaubilder und Untertitel hinzufügen, Veröffentlichungen planen und deine Bibliothek verwalten."
+    },
+    "How can I become a creator?": {
+      "de_de": "Wie kann ich Creator werden?",
+      "de_at": "Wie kann ich Creator werden?",
+      "de_ch": "Wie kann ich Creator werden?"
+    },
+    "How do I become a creator?": {
+      "de_de": "Wie werde ich Creator?",
+      "de_at": "Wie werde ich Creator?",
+      "de_ch": "Wie werde ich Creator?"
+    },
+    "Keeps your temporary playback queue on this device.": {
+      "de_de": "Speichert deine vorübergehende Wiedergabewarteschlange auf diesem Gerät.",
+      "de_at": "Speichert deine vorübergehende Wiedergabewarteschlange auf diesem Gerät.",
+      "de_ch": "Speichert deine vorübergehende Wiedergabewarteschlange auf diesem Gerät."
+    },
+    "Loading creator and content counts.": {
+      "de_de": "Creator- und Inhaltszahlen werden geladen …",
+      "de_at": "Creator- und Inhaltszahlen werden geladen …",
+      "de_ch": "Creator- und Inhaltszahlen werden geladen …"
+    },
+    "Loading creator channels...": {
+      "de_de": "Creator-Kanäle werden geladen …",
+      "de_at": "Creator-Kanäle werden geladen …",
+      "de_ch": "Creator-Kanäle werden geladen …"
+    },
+    "No creator channels found yet.": {
+      "de_de": "Noch keine Creator-Kanäle gefunden.",
+      "de_at": "Noch keine Creator-Kanäle gefunden.",
+      "de_ch": "Noch keine Creator-Kanäle gefunden."
+    },
+    "PlayHub is a video platform for uploading, watching, scheduling, managing, and moderating creator content from one account.": {
+      "de_de": "Bei PlayHub kannst du mit einem Konto Videos ansehen, hochladen, planen und verwalten sowie Inhalte moderieren.",
+      "de_at": "Bei PlayHub kannst du mit einem Konto Videos ansehen, hochladen, planen und verwalten sowie Inhalte moderieren.",
+      "de_ch": "Bei PlayHub kannst du mit einem Konto Videos ansehen, hochladen, planen und verwalten sowie Inhalte moderieren."
+    },
+    "PlayHub provides creator channels, video uploads, scheduled publishing, subscriptions, comments, playlists, watch later, live content pages, and administration tools from one platform.": {
+      "de_de": "PlayHub vereint Creator-Kanäle, Video-Uploads, geplante Veröffentlichungen, Abonnements, Kommentare, Playlists, „Später ansehen“, Livestreamseiten und Verwaltungstools auf einer Plattform.",
+      "de_at": "PlayHub vereint Creator-Kanäle, Video-Uploads, geplante Veröffentlichungen, Abonnements, Kommentare, Playlists, „Später ansehen“, Livestreamseiten und Verwaltungstools auf einer Plattform.",
+      "de_ch": "PlayHub vereint Creator-Kanäle, Video-Uploads, geplante Veröffentlichungen, Abonnements, Kommentare, Playlists, „Später ansehen“, Livestreamseiten und Verwaltungstools auf einer Plattform."
+    },
+    "Recent creator channels": {
+      "de_de": "Neue Creator-Kanäle",
+      "de_at": "Neue Creator-Kanäle",
+      "de_ch": "Neue Creator-Kanäle"
+    },
+    "View creator": {
+      "de_de": "Creator ansehen",
+      "de_at": "Creator ansehen",
+      "de_ch": "Creator ansehen"
+    },
+    "Playlist Name": {
+      "de_de": "Name der Playlist",
+      "de_at": "Name der Playlist",
+      "de_ch": "Name der Playlist"
+    },
+    "Unable to search playlist.": {
+      "de_de": "Die Playlist konnte nicht durchsucht werden.",
+      "de_at": "Die Playlist konnte nicht durchsucht werden.",
+      "de_ch": "Die Playlist konnte nicht durchsucht werden."
+    },
+    "Creator checklist": {
+      "de_de": "Checkliste für Creator",
+      "de_at": "Checkliste für Creator",
+      "de_ch": "Checkliste für Creator"
+    },
+    "About This Creator": {
+      "de_de": "Über diesen Creator",
+      "de_at": "Über diesen Creator",
+      "de_ch": "Über diesen Creator"
+    },
+    "All Playlists": {
+      "de_de": "Alle Playlists",
+      "de_at": "Alle Playlists",
+      "de_ch": "Alle Playlists"
+    },
+    "Built for creators, viewers, and developers.": {
+      "de_de": "Für Creator, Zuschauer und Entwickler.",
+      "de_at": "Für Creator, Zuschauer und Entwickler.",
+      "de_ch": "Für Creator, Zuschauer und Entwickler."
+    },
+    "CREATOR": {
+      "de_de": "CREATOR",
+      "de_at": "CREATOR",
+      "de_ch": "CREATOR"
+    },
+    "Creators Live": {
+      "de_de": "Creator live",
+      "de_at": "Creator live",
+      "de_ch": "Creator live"
+    },
+    "Delete playlist?": {
+      "de_de": "Playlist löschen?",
+      "de_at": "Playlist löschen?",
+      "de_ch": "Playlist löschen?"
+    },
+    "Filter playlists": {
+      "de_de": "Playlists filtern",
+      "de_at": "Playlists filtern",
+      "de_ch": "Playlists filtern"
+    },
+    "No playlists match this filter.": {
+      "de_de": "Keine Playlists passen zu diesem Filter.",
+      "de_at": "Keine Playlists passen zu diesem Filter.",
+      "de_ch": "Keine Playlists passen zu diesem Filter."
+    },
+    "No playlists yet.": {
+      "de_de": "Noch keine Playlists.",
+      "de_at": "Noch keine Playlists.",
+      "de_ch": "Noch keine Playlists."
+    },
+    "No playlists yet. Create one to save this video.": {
+      "de_de": "Erstelle deine erste Playlist, um dieses Video zu speichern.",
+      "de_at": "Erstelle deine erste Playlist, um dieses Video zu speichern.",
+      "de_ch": "Erstelle deine erste Playlist, um dieses Video zu speichern."
+    },
+    "No playlists yet. Create your first playlist.": {
+      "de_de": "Noch keine Playlists. Erstelle deine erste Playlist.",
+      "de_at": "Noch keine Playlists. Erstelle deine erste Playlist.",
+      "de_ch": "Noch keine Playlists. Erstelle deine erste Playlist."
+    },
+    "No public playlists available.": {
+      "de_de": "Keine öffentlichen Playlists verfügbar.",
+      "de_at": "Keine öffentlichen Playlists verfügbar.",
+      "de_ch": "Keine öffentlichen Playlists verfügbar."
+    },
+    "Playlist created.": {
+      "de_de": "Playlist erstellt.",
+      "de_at": "Playlist erstellt.",
+      "de_ch": "Playlist erstellt."
+    },
+    "Playlist deleted.": {
+      "de_de": "Playlist gelöscht.",
+      "de_at": "Playlist gelöscht.",
+      "de_ch": "Playlist gelöscht."
+    },
+    "Playlist view": {
+      "de_de": "Playlistansicht",
+      "de_at": "Playlistansicht",
+      "de_ch": "Playlistansicht"
+    },
+    "Popular Creators": {
+      "de_de": "Beliebte Creator",
+      "de_at": "Beliebte Creator",
+      "de_ch": "Beliebte Creator"
+    },
+    "Popular Live Creators": {
+      "de_de": "Beliebte Creator mit Livestreams",
+      "de_at": "Beliebte Creator mit Livestreams",
+      "de_ch": "Beliebte Creator mit Livestreams"
+    },
+    "Popular Upcoming Creators": {
+      "de_de": "Beliebte Creator mit geplanten Livestreams",
+      "de_at": "Beliebte Creator mit geplanten Livestreams",
+      "de_ch": "Beliebte Creator mit geplanten Livestreams"
+    },
+    "Saved playlists": {
+      "de_de": "Gespeicherte Playlists",
+      "de_at": "Gespeicherte Playlists",
+      "de_ch": "Gespeicherte Playlists"
+    },
+    "Search playlists...": {
+      "de_de": "Playlists suchen …",
+      "de_at": "Playlists suchen …",
+      "de_ch": "Playlists suchen …"
+    },
+    "See all playlists": {
+      "de_de": "Alle Playlists ansehen",
+      "de_at": "Alle Playlists ansehen",
+      "de_ch": "Alle Playlists ansehen"
+    },
+    "Sign in to see playlists.": {
+      "de_de": "Melde dich an, um Playlists zu sehen.",
+      "de_at": "Melde dich an, um Playlists zu sehen.",
+      "de_ch": "Melde dich an, um Playlists zu sehen."
+    },
+    "Sort playlists": {
+      "de_de": "Playlists sortieren",
+      "de_at": "Playlists sortieren",
+      "de_ch": "Playlists sortieren"
+    },
+    "Start a private message with another creator.": {
+      "de_de": "Schreib einem anderen Creator eine private Nachricht.",
+      "de_at": "Schreib einem anderen Creator eine private Nachricht.",
+      "de_ch": "Schreib einem anderen Creator eine private Nachricht."
+    },
+    "Tip for Creators": {
+      "de_de": "Tipp für Creator",
+      "de_at": "Tipp für Creator",
+      "de_ch": "Tipp für Creator"
+    },
+    "Top creators": {
+      "de_de": "Top-Creator",
+      "de_at": "Top-Creator",
+      "de_ch": "Top-Creator"
+    },
+    "Top Live Creators": {
+      "de_de": "Top-Creator mit Livestreams",
+      "de_at": "Top-Creator mit Livestreams",
+      "de_ch": "Top-Creator mit Livestreams"
+    },
+    "Unable to delete playlist.": {
+      "de_de": "Die Playlist konnte nicht gelöscht werden.",
+      "de_at": "Die Playlist konnte nicht gelöscht werden.",
+      "de_ch": "Die Playlist konnte nicht gelöscht werden."
+    },
+    "Unable to update playlist.": {
+      "de_de": "Die Playlist konnte nicht aktualisiert werden.",
+      "de_at": "Die Playlist konnte nicht aktualisiert werden.",
+      "de_ch": "Die Playlist konnte nicht aktualisiert werden."
+    },
+    "Invite creator": {
+      "de_de": "Creator einladen",
+      "de_at": "Creator einladen",
+      "de_ch": "Creator einladen"
+    },
+    "Verify creators": {
+      "de_de": "Creator verifizieren",
+      "de_at": "Creator verifizieren",
+      "de_ch": "Creator verifizieren"
+    },
+    "Creator emails or handles": {
+      "de_de": "E-Mail-Adressen oder Nutzernamen der Creator",
+      "de_at": "E-Mail-Adressen oder Nutzernamen der Creator",
+      "de_ch": "E-Mail-Adressen oder Nutzernamen der Creator"
+    },
+    "Send creator announcement": {
+      "de_de": "Mitteilung an Creator senden",
+      "de_at": "Mitteilung an Creator senden",
+      "de_ch": "Mitteilung an Creator senden"
+    },
+    "Creators verified.": {
+      "de_de": "Creator verifiziert.",
+      "de_at": "Creator verifiziert.",
+      "de_ch": "Creator verifiziert."
+    },
+    "Creator announcement sent.": {
+      "de_de": "Mitteilung an die Creator gesendet.",
+      "de_at": "Mitteilung an die Creator gesendet.",
+      "de_ch": "Mitteilung an die Creator gesendet."
+    },
+    "Creator management": {
+      "de_de": "Creator verwalten",
+      "de_at": "Creator verwalten",
+      "de_ch": "Creator verwalten"
+    },
+    "Creator earnings": {
+      "de_de": "Creator-Einnahmen",
+      "de_at": "Creator-Einnahmen",
+      "de_ch": "Creator-Einnahmen"
+    },
+    "Creator Earnings": {
+      "de_de": "Creator-Einnahmen",
+      "de_at": "Creator-Einnahmen",
+      "de_ch": "Creator-Einnahmen"
+    },
+    "Creator earning": {
+      "de_de": "Creator-Einnahmen",
+      "de_at": "Creator-Einnahmen",
+      "de_ch": "Creator-Einnahmen"
+    },
+    "Creator Dark": {
+      "de_de": "Dunkles Creator-Design",
+      "de_at": "Dunkles Creator-Design",
+      "de_ch": "Dunkles Creator-Design"
+    },
+    "Clean Light": {
+      "de_de": "Klares helles Design",
+      "de_at": "Klares helles Design",
+      "de_ch": "Klares helles Design"
+    },
+    "Community creator rankings will appear after posts get engagement.": {
+      "de_de": "Die Creator-Rangliste erscheint, sobald es Reaktionen auf Communitybeiträge gibt.",
+      "de_at": "Die Creator-Rangliste erscheint, sobald es Reaktionen auf Communitybeiträge gibt.",
+      "de_ch": "Die Creator-Rangliste erscheint, sobald es Reaktionen auf Communitybeiträge gibt."
+    },
+    "Top Community Creators": {
+      "de_de": "Top-Creator der Community",
+      "de_at": "Top-Creator der Community",
+      "de_ch": "Top-Creator der Community"
+    },
+    "Creator defaults": {
+      "de_de": "Standardeinstellungen für Creator",
+      "de_at": "Standardeinstellungen für Creator",
+      "de_ch": "Standardeinstellungen für Creator"
+    },
+    "Creator goal": {
+      "de_de": "Creator-Ziel",
+      "de_at": "Creator-Ziel",
+      "de_ch": "Creator-Ziel"
+    },
+    "Community and resources": {
+      "de_de": "Community und weitere Infos",
+      "de_at": "Community und weitere Infos",
+      "de_ch": "Community und weitere Infos"
+    },
+    "Admin support": {
+      "de_de": "Hilfe vom Adminteam",
+      "de_at": "Hilfe vom Adminteam",
+      "de_ch": "Hilfe vom Adminteam"
+    },
+    "Account context": {
+      "de_de": "Angaben zum Konto",
+      "de_at": "Angaben zum Konto",
+      "de_ch": "Angaben zum Konto"
+    },
+    "Account lifetime": {
+      "de_de": "Seit der Kontoerstellung",
+      "de_at": "Seit der Kontoerstellung",
+      "de_ch": "Seit der Kontoerstellung"
+    }
+  }
+}

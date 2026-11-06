@@ -1,0 +1,245 @@
+{
+  "context": "Chinese whole-message editorial pass: upload, discovery, saved videos, Playlists, account support, Creator growth, wallet and live setup. Simplified/traditional scripts authored separately; Hong Kong upload, account, privacy, email and wallet terminology preserved. No creator names or imported content rewritten.",
+  "messages": {
+    "Drag and drop your video file here": {
+      "zh_cn": "把你的视频文件拖到这里",
+      "zh_tw": "把你的影片檔案拖到這裡",
+      "zh_hk": "把你的影片檔案拖到這裡"
+    },
+    "Choose who can watch your video": {
+      "zh_cn": "选择谁可以观看你的视频",
+      "zh_tw": "選擇誰可以觀看你的影片",
+      "zh_hk": "選擇誰可以觀看你的影片"
+    },
+    "Review your video settings": {
+      "zh_cn": "检查你的视频设置",
+      "zh_tw": "檢查你的影片設定",
+      "zh_hk": "檢查你的影片設定"
+    },
+    "Publish and share your video": {
+      "zh_cn": "发布并分享你的视频",
+      "zh_tw": "發布並分享你的影片",
+      "zh_hk": "發布並分享你的影片"
+    },
+    "Create your channel": {
+      "zh_cn": "创建你的频道",
+      "zh_tw": "建立你的頻道",
+      "zh_hk": "建立你的頻道"
+    },
+    "Log in to upload, comment, subscribe and manage your creator studio.": {
+      "zh_cn": "登录后就能上传视频、发表评论、订阅频道和管理创作者工作室。",
+      "zh_tw": "登入後就能上傳影片、留言、訂閱頻道和管理創作者工作室。",
+      "zh_hk": "登入後就能上載影片、留言、訂閱頻道和管理創作者工作室。"
+    },
+    "Start your PlayHub creator account with working registration and API authentication.": {
+      "zh_cn": "创建你的 PlayHub 账户，加入创作者社区。",
+      "zh_tw": "建立你的 PlayHub 帳號，加入創作者社群。",
+      "zh_hk": "建立你的 PlayHub 帳戶，加入創作者社群。"
+    },
+    "Grow your channel": {
+      "zh_cn": "让你的频道成长",
+      "zh_tw": "讓你的頻道成長",
+      "zh_hk": "讓你的頻道成長"
+    },
+    "See the latest from channels you follow.": {
+      "zh_cn": "看看你关注的频道有什么新动态。",
+      "zh_tw": "看看你追蹤的頻道有什麼新動態。",
+      "zh_hk": "看看你追蹤的頻道有什麼新動態。"
+    },
+    "Log in to view your subscriptions.": {
+      "zh_cn": "登录后就能查看你订阅的频道。",
+      "zh_tw": "登入後就能查看你訂閱的頻道。",
+      "zh_hk": "登入後就能查看你訂閱的頻道。"
+    },
+    "Popular from your subscriptions": {
+      "zh_cn": "你订阅频道的热门内容",
+      "zh_tw": "你訂閱頻道的熱門內容",
+      "zh_hk": "你訂閱頻道的熱門內容"
+    },
+    "Channels you watch most": {
+      "zh_cn": "你最常看的频道",
+      "zh_tw": "你最常看的頻道",
+      "zh_hk": "你最常看的頻道"
+    },
+    "Based on your subscribed channels.": {
+      "zh_cn": "根据你订阅的频道推荐。",
+      "zh_tw": "根據你訂閱的頻道推薦。",
+      "zh_hk": "根據你訂閱的頻道推薦。"
+    },
+    "Videos you saved to watch when you have time.": {
+      "zh_cn": "你保存下来准备以后看的视频。",
+      "zh_tw": "你儲存下來準備之後看的影片。",
+      "zh_hk": "你儲存下來準備之後看的影片。"
+    },
+    "Log in to view your Watch Later videos.": {
+      "zh_cn": "登录后就能查看你的“稍后观看”视频。",
+      "zh_tw": "登入後就能查看你的「稍後觀看」影片。",
+      "zh_hk": "登入後就能查看你的「稍後觀看」影片。"
+    },
+    "Save videos to build your Watch Later list.": {
+      "zh_cn": "把想看的视频加入“稍后观看”，有空再看。",
+      "zh_tw": "把想看的影片加入「稍後觀看」，有空再看。",
+      "zh_hk": "把想看的影片加入「稍後觀看」，有空再看。"
+    },
+    "From your saved channels": {
+      "zh_cn": "来自你保存的频道",
+      "zh_tw": "來自你儲存的頻道",
+      "zh_hk": "來自你儲存的頻道"
+    },
+    "Use playlists and series to keep your content easy to find and watch.": {
+      "zh_cn": "用播放列表和系列整理视频，让大家更容易找到和观看。",
+      "zh_tw": "用播放清單和系列整理影片，讓大家更容易找到和觀看。",
+      "zh_hk": "用播放清單和系列整理影片，讓大家更容易找到和觀看。"
+    },
+    "Tell viewers about your channel...": {
+      "zh_cn": "介绍一下你的频道吧…",
+      "zh_tw": "介紹一下你的頻道吧…",
+      "zh_hk": "介紹一下你的頻道吧…"
+    },
+    "Add an about section so viewers know what your channel is about.": {
+      "zh_cn": "添加频道介绍，让观众了解你的内容。",
+      "zh_tw": "加入頻道介紹，讓觀眾了解你的內容。",
+      "zh_hk": "加入頻道介紹，讓觀眾了解你的內容。"
+    },
+    "Go to Upload, choose your video file, add required details, select category and language, add a thumbnail, then publish. Large files upload in chunks.": {
+      "zh_cn": "打开上传页面，选择视频文件并填写必要信息。选好分类和语言，添加缩略图后就能发布。大文件会分段上传。",
+      "zh_tw": "打開上傳頁面，選擇影片檔案並填寫必要資訊。選好分類和語言，加入縮圖後就能發布。大型檔案會分段上傳。",
+      "zh_hk": "打開上載頁面，選擇影片檔案並填寫必要資料。選好分類和語言，加入縮圖後就能發布。大型檔案會分段上載。"
+    },
+    "How can we help you?": {
+      "zh_cn": "有什么需要我们帮忙的吗？",
+      "zh_tw": "有什麼需要我們幫忙的嗎？",
+      "zh_hk": "有什麼需要我們幫忙的嗎？"
+    },
+    "How can we help?": {
+      "zh_cn": "有什么需要我们帮忙的吗？",
+      "zh_tw": "有什麼需要我們幫忙的嗎？",
+      "zh_hk": "有什麼需要我們幫忙的嗎？"
+    },
+    "How to upload your first video": {
+      "zh_cn": "上传你的第一个视频",
+      "zh_tw": "上傳你的第一部影片",
+      "zh_hk": "上載你的第一部影片"
+    },
+    "Manage language, theme, security, and notification settings from your account.": {
+      "zh_cn": "在账户里管理语言、主题、安全和通知设置。",
+      "zh_tw": "在帳號裡管理語言、主題、安全和通知設定。",
+      "zh_hk": "在帳戶內管理語言、主題、安全和通知設定。"
+    },
+    "We’re here to help.": {
+      "zh_cn": "有问题，我们来帮你。",
+      "zh_tw": "有問題，我們來幫你。",
+      "zh_hk": "有問題，我們來幫你。"
+    },
+    "Organize your videos into a playlist": {
+      "zh_cn": "用播放列表整理你的视频",
+      "zh_tw": "用播放清單整理你的影片",
+      "zh_hk": "用播放清單整理你的影片"
+    },
+    "This color will represent your playlist": {
+      "zh_cn": "用这个颜色标记你的播放列表",
+      "zh_tw": "用這個顏色標記你的播放清單",
+      "zh_hk": "用這個顏色標記你的播放清單"
+    },
+    "Only you can view this playlist": {
+      "zh_cn": "只有你能查看这个播放列表",
+      "zh_tw": "只有你能查看這份播放清單",
+      "zh_hk": "只有你能查看這份播放清單"
+    },
+    "Use playlists to organize your content and make it easier for your audience to discover more videos.": {
+      "zh_cn": "用播放列表整理视频，让观众更容易发现更多内容。",
+      "zh_tw": "用播放清單整理影片，讓觀眾更容易發現更多內容。",
+      "zh_hk": "用播放清單整理影片，讓觀眾更容易發現更多內容。"
+    },
+    "Create your first playlist to organize videos from your channel and saved library.": {
+      "zh_cn": "创建你的第一个播放列表，整理频道和收藏库里的视频。",
+      "zh_tw": "建立你的第一份播放清單，整理頻道和收藏庫裡的影片。",
+      "zh_hk": "建立你的第一份播放清單，整理頻道和收藏庫裡的影片。"
+    },
+    "This playlist belongs to your PlayHub account.": {
+      "zh_cn": "这个播放列表属于你的 PlayHub 账户。",
+      "zh_tw": "這份播放清單屬於你的 PlayHub 帳號。",
+      "zh_hk": "這份播放清單屬於你的 PlayHub 帳戶。"
+    },
+    "Explore tools and tips to grow faster, improve your channel, and reach more viewers.": {
+      "zh_cn": "看看这些工具和建议，帮助你的频道成长，吸引更多观众。",
+      "zh_tw": "看看這些工具和建議，幫助你的頻道成長，吸引更多觀眾。",
+      "zh_hk": "看看這些工具和建議，幫助你的頻道成長，吸引更多觀眾。"
+    },
+    "Based on your channel data": {
+      "zh_cn": "根据你的频道数据",
+      "zh_tw": "根據你的頻道數據",
+      "zh_hk": "根據你的頻道數據"
+    },
+    "Upload your first video and give viewers a clear reason to subscribe.": {
+      "zh_cn": "上传你的第一个视频，让观众知道为什么值得订阅。",
+      "zh_tw": "上傳你的第一部影片，讓觀眾知道為什麼值得訂閱。",
+      "zh_hk": "上載你的第一部影片，讓觀眾知道為什麼值得訂閱。"
+    },
+    "Create short vertical videos to reach viewers who have not found your channel yet.": {
+      "zh_cn": "制作竖屏短视频，让更多人发现你的频道。",
+      "zh_tw": "製作直式短片，讓更多人發現你的頻道。",
+      "zh_hk": "製作直向短片，讓更多人發現你的頻道。"
+    },
+    "Update your bio, channel details, and public creator presence.": {
+      "zh_cn": "更新你的个人简介、频道信息和公开创作者资料。",
+      "zh_tw": "更新你的個人簡介、頻道資訊和公開創作者資料。",
+      "zh_hk": "更新你的個人簡介、頻道資料和公開創作者檔案。"
+    },
+    "Update thumbnails and titles after you have enough impressions to compare.": {
+      "zh_cn": "等展示次数足够比较时，再调整缩略图和标题。",
+      "zh_tw": "等曝光次數足夠比較時，再調整縮圖和標題。",
+      "zh_hk": "等曝光次數足夠比較時，再調整縮圖和標題。"
+    },
+    "Unable to read your Google account details.": {
+      "zh_cn": "没能读取你的 Google 账户信息。",
+      "zh_tw": "無法讀取你的 Google 帳號資訊。",
+      "zh_hk": "無法讀取你的 Google 帳戶資料。"
+    },
+    "Unable to read your Facebook account details.": {
+      "zh_cn": "没能读取你的 Facebook 账户信息。",
+      "zh_tw": "無法讀取你的 Facebook 帳號資訊。",
+      "zh_hk": "無法讀取你的 Facebook 帳戶資料。"
+    },
+    "Manage your available balance, top-ups, and withdrawals.": {
+      "zh_cn": "管理你的可用余额、充值和提现。",
+      "zh_tw": "管理你的可用餘額、儲值和提款。",
+      "zh_hk": "管理你的可用結餘、增值和提款。"
+    },
+    "Top-ups and withdrawal requests from your wallet.": {
+      "zh_cn": "你的钱包充值和提现申请。",
+      "zh_tw": "你的錢包儲值和提款申請。",
+      "zh_hk": "你的錢包增值和提款申請。"
+    },
+    "Set up your stream and go live with your community.": {
+      "zh_cn": "准备好直播，和你的社区一起互动吧。",
+      "zh_tw": "準備好直播，和你的社群一起互動吧。",
+      "zh_hk": "準備好直播，和你的社群一起互動吧。"
+    },
+    "Sign in to like, comment, save posts, and publish community updates from your channel.": {
+      "zh_cn": "登录后就能点赞、评论、收藏帖子，并通过频道分享社区动态。",
+      "zh_tw": "登入後就能按讚、留言、儲存貼文，並透過頻道分享社群動態。",
+      "zh_hk": "登入後就能按讚、留言、儲存貼文，並透過頻道分享社群動態。"
+    },
+    "Your studio settings can be prepared now. Public broadcasting will be enabled with the media engine.": {
+      "zh_cn": "现在可以先设置你的工作室。媒体引擎启用后，就能公开直播。",
+      "zh_tw": "現在可以先設定你的工作室。媒體引擎啟用後，就能公開直播。",
+      "zh_hk": "現在可以先設定你的工作室。媒體引擎啟用後，就能公開直播。"
+    },
+    "Payment card numbers are handled by the configured payment provider and are never stored in your PlayHub profile.": {
+      "zh_cn": "银行卡号由已配置的支付服务商处理，不会保存在你的 PlayHub 个人资料中。",
+      "zh_tw": "付款卡號由設定的付款服務商處理，不會儲存在你的 PlayHub 個人資料中。",
+      "zh_hk": "付款卡號由設定的付款服務商處理，不會儲存在你的 PlayHub 個人資料中。"
+    },
+    "Search or enter your country": {
+      "zh_cn": "搜索或输入你的国家或地区",
+      "zh_tw": "搜尋或輸入你的國家或地區",
+      "zh_hk": "搜尋或輸入你的國家或地區"
+    },
+    "This account has been suspended. Contact support if you believe this is a mistake.": {
+      "zh_cn": "这个账户已被停用。如果你认为有误，可以联系支持团队。",
+      "zh_tw": "這個帳號已停用。如果你認為有誤，可以聯絡支援團隊。",
+      "zh_hk": "這個帳戶已停用。如果你認為有誤，可以聯絡支援團隊。"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "context": "Actual custom theater button inside the otherwise directly localized Vidstack layout. Whole enter/exit labels and default/theater tooltips reflect keyboard T state; no provider titles are translated.",
+  "messages": {
+    "Enter theater mode": {
+      "en": "Enter theater mode",
+      "de_de": "Kinomodus einschalten",
+      "de_at": "Kinomodus einschalten",
+      "de_ch": "Kinomodus einschalten"
+    },
+    "Exit theater mode": {
+      "en": "Exit theater mode",
+      "de_de": "Kinomodus verlassen",
+      "de_at": "Kinomodus verlassen",
+      "de_ch": "Kinomodus verlassen"
+    },
+    "Default view": {
+      "en": "Default view",
+      "de_de": "Standardansicht",
+      "de_at": "Standardansicht",
+      "de_ch": "Standardansicht"
+    },
+    "Theater mode": {
+      "en": "Theater mode",
+      "de_de": "Kinomodus",
+      "de_at": "Kinomodus",
+      "de_ch": "Kinomodus"
+    }
+  }
+}

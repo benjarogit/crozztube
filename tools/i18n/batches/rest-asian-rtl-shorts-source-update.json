@@ -1,0 +1,41 @@
+{
+  "context": "Editorial follow-up to current complete EN reference: local-upload empty state waits until processing completes (distinct from imported-video success); portrait is mandatory while exact9:16 remains a recommendation. All16 regional messages read separately; max60 retained, no180/square fallback.",
+  "messages": {
+    "No shorts uploaded yet. Shorts appear here after a 60-second-or-less video finishes processing.": {
+      "ar": "لا توجد فيديوهات Shorts بعد. ارفع فيديو عموديًا لا تتجاوز مدته 60 ثانية. سيظهر هنا بعد اكتمال معالجته.",
+      "ja": "まだShortsはないよ。60秒以内の縦向き動画をアップロードしてね。処理が終わるとここに表示されるよ。",
+      "ko_kr": "아직 Shorts가 없어요. 60초 이하의 세로 동영상을 업로드해 주세요. 처리가 끝나면 여기에 표시돼요.",
+      "zh_cn": "还没有 Shorts。上传一段不超过 60 秒的竖屏视频，处理完成后就会显示在这里。",
+      "zh_tw": "還沒有 Shorts。上傳一部不超過 60 秒的直向影片，處理完成後就會顯示在這裡。",
+      "zh_hk": "還沒有 Shorts。上載一部不超過 60 秒的直向影片，處理完成後就會顯示在這裡。",
+      "tr_tr": "Henüz Shorts yok. En fazla 60 saniyelik dikey bir video yükle. İşleme tamamlanınca burada görünecek.",
+      "id_id": "Belum ada Shorts. Unggah video vertikal berdurasi maksimal 60 detik. Videonya akan muncul di sini setelah selesai diproses.",
+      "ms_my": "Belum ada Shorts. Muat naik video menegak berdurasi maksimum 60 saat. Video akan muncul di sini selepas pemprosesan selesai.",
+      "he_il": "עדיין אין Shorts. העלה סרטון לאורך של עד 60 שניות. הוא יופיע כאן בסיום העיבוד.",
+      "fa_ir": "هنوز ویدیوی Shorts نداری. یک ویدیوی عمودی با مدت حداکثر 60 ثانیه بارگذاری کن. پس از پایان پردازش اینجا نمایش داده می‌شود.",
+      "fa_af": "هنوز ویدیوی Shorts نداری. یک ویدیوی عمودی با مدت حداکثر 60 ثانیه بارگذاری کن. پس از پایان پردازش اینجا نمایش داده می‌شود.",
+      "hi_in": "अभी कोई Shorts नहीं है। ज़्यादा से ज़्यादा 60 सेकंड का वर्टिकल वीडियो अपलोड करो। प्रोसेसिंग पूरी होने पर वह यहाँ दिखेगा।",
+      "bn_bd": "এখনও কোনো Shorts নেই। সর্বোচ্চ 60 সেকেন্ডের খাড়া ভিডিও আপলোড করো। প্রসেসিং শেষ হলে সেটি এখানে দেখা যাবে।",
+      "th": "ยังไม่มี Shorts อัปโหลดวิดีโอแนวตั้งที่ยาวไม่เกิน 60 วินาที เมื่อประมวลผลเสร็จแล้วจะแสดงที่นี่",
+      "vi": "Chưa có Shorts. Tải lên video dọc dài tối đa 60 giây nhé. Video sẽ xuất hiện ở đây khi xử lý xong."
+    },
+    "Shorts must be 60 seconds or less. Vertical 9:16 is recommended.": {
+      "ar": "يجب أن تكون فيديوهات Shorts عمودية وألا تتجاوز مدتها 60 ثانية. نوصي بنسبة أبعاد 9:16.",
+      "ja": "Shortsは60秒以内の縦向き動画にしてね。縦横比は9:16がおすすめだよ。",
+      "ko_kr": "Shorts는 60초 이하의 세로 동영상이어야 해요. 화면 비율은 9:16을 권장해요.",
+      "zh_cn": "Shorts 必须是时长不超过 60 秒的竖屏视频。推荐使用 9:16 的画面比例。",
+      "zh_tw": "Shorts 必須是長度不超過 60 秒的直向影片。建議使用 9:16 的畫面比例。",
+      "zh_hk": "Shorts 必須是長度不超過 60 秒的直向影片。建議使用 9:16 的畫面比例。",
+      "tr_tr": "Shorts en fazla 60 saniye ve dikey olmalı. 9:16 en boy oranı önerilir.",
+      "id_id": "Shorts harus vertikal dan berdurasi maksimal 60 detik. Rasio aspek 9:16 disarankan.",
+      "ms_my": "Shorts mesti menegak dan berdurasi maksimum 60 saat. Nisbah bidang 9:16 disyorkan.",
+      "he_il": "סרטוני Shorts חייבים להיות לאורך ובמשך של עד 60 שניות. מומלץ יחס תצוגה של 9:16.",
+      "fa_ir": "ویدیوهای Shorts باید عمودی و حداکثر 60 ثانیه باشند. نسبت تصویر 9:16 پیشنهاد می‌شود.",
+      "fa_af": "ویدیوهای Shorts باید عمودی و حداکثر 60 ثانیه باشند. نسبت تصویر 9:16 پیشنهاد می‌شود.",
+      "hi_in": "Shorts वर्टिकल होने चाहिए और 60 सेकंड से ज़्यादा लंबे नहीं हो सकते। 9:16 का आस्पेक्ट रेशियो सुझाया जाता है।",
+      "bn_bd": "Shorts খাড়া হতে হবে এবং 60 সেকেন্ডের বেশি লম্বা হতে পারবে না। 9:16 অনুপাত ব্যবহার করলে ভালো হয়।",
+      "th": "Shorts ต้องเป็นวิดีโอแนวตั้งและยาวไม่เกิน 60 วินาที แนะนำอัตราส่วนภาพ 9:16",
+      "vi": "Shorts phải là video dọc dài tối đa 60 giây. Tỷ lệ khung hình 9:16 được khuyên dùng."
+    }
+  }
+}

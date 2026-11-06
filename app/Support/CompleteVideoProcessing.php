@@ -14,7 +14,7 @@ class CompleteVideoProcessing
             $video = Video::query()->lockForUpdate()->findOrFail($videoId);
             $private = $video->publish_as_draft || $video->scheduled_at?->isFuture()
                 || ($video->approval_status ?: 'approved') !== 'approved';
-            $isShort = Video::isShortContent($video->source_type, $media['duration_seconds'] ?? $video->duration_seconds, $video->is_short, (bool) $video->sale_enabled);
+            $isShort = Video::isShortContent($video->source_type, $media['duration_seconds'] ?? $video->duration_seconds, $video->is_short, (bool) $video->sale_enabled, $media['video_width'] ?? $video->video_width, $media['video_height'] ?? $video->video_height);
             $video->update([
                 ...$media,
                 'is_short' => $isShort,

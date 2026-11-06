@@ -12,6 +12,7 @@ class NormalizeApiResponse
     public function handle(Request $request, Closure $next): Response
     {
         $response = $next($request);
+        $response = \App\Http\Middleware\LocalizeResponseMessages::apply($response, $request);
         $requestId = AttachRequestId::for($request);
 
         if (! $response instanceof JsonResponse || $response->getStatusCode() === 204) {

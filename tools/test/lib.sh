@@ -7,7 +7,7 @@ CURL_TIMEOUT="${CURL_TIMEOUT:-60}"
 CURL=(curl -sk --max-time "$CURL_TIMEOUT")
 
 TEST_USER="${TEST_USER:-benny}"
-TEST_PASSWORD="${TEST_PASSWORD:-meZVRW0bYEbpHsJc}"
+TEST_PASSWORD="${TEST_PASSWORD:-}"
 
 DB_CONTAINER="${DB_CONTAINER:-crozztube-mysql}"
 DB_NAME="${DB_NAME:-crozztube}"
@@ -96,6 +96,7 @@ need_cmd() {
 }
 
 login() {
+    [[ -n "$TEST_PASSWORD" ]] || { fail "Set TEST_PASSWORD in your local environment before authenticated tests."; return 1; }
     local body
     body=$("${CURL[@]}" -X POST "$BASE_URL/api/auth/login" \
         -H 'Accept: application/json' -H 'Content-Type: application/json' \

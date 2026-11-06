@@ -1,0 +1,402 @@
+{
+  "context": "Editorial count grammar for Catalan, Galician and Esperanto. Named singular/other categories, complete count headings without singular/plural adjective concatenation. Native time-unit nouns and temporal patterns; no neighbouring-language fallback or Latin metadata copied into unsupported languages.",
+  "messages": {},
+  "metadata": {
+    "ca": {
+      "__patterns": {
+        "ago": "fa {count} {unit}",
+        "selected_users": "Selecció: {count} {users}",
+        "showing": "{items}: del {from} al {to}, d’un total de {total}",
+        "unread": "Sense llegir: {count}",
+        "saved_videos": "Vídeos desats: {count}",
+        "published": "Publicats: {count}"
+      },
+      "__plurals": {
+        "years": {
+          "one": "any",
+          "other": "anys"
+        },
+        "year": {
+          "one": "any",
+          "other": "anys"
+        },
+        "months": {
+          "one": "mes",
+          "other": "mesos"
+        },
+        "month": {
+          "one": "mes",
+          "other": "mesos"
+        },
+        "weeks": {
+          "one": "setmana",
+          "other": "setmanes"
+        },
+        "week": {
+          "one": "setmana",
+          "other": "setmanes"
+        },
+        "days": {
+          "one": "dia",
+          "other": "dies"
+        },
+        "day": {
+          "one": "dia",
+          "other": "dies"
+        },
+        "hours": {
+          "one": "hora",
+          "other": "hores"
+        },
+        "hour": {
+          "one": "hora",
+          "other": "hores"
+        },
+        "minutes": {
+          "one": "minut",
+          "other": "minuts"
+        },
+        "minute": {
+          "one": "minut",
+          "other": "minuts"
+        },
+        "seconds": {
+          "one": "segon",
+          "other": "segons"
+        },
+        "second": {
+          "one": "segon",
+          "other": "segons"
+        },
+        "users": {
+          "one": "usuari",
+          "other": "usuaris"
+        },
+        "user": {
+          "one": "usuari",
+          "other": "usuaris"
+        },
+        "videos": {
+          "one": "vídeo",
+          "other": "vídeos"
+        },
+        "video": {
+          "one": "vídeo",
+          "other": "vídeos"
+        },
+        "comments": {
+          "one": "comentari",
+          "other": "comentaris"
+        },
+        "comment": {
+          "one": "comentari",
+          "other": "comentaris"
+        },
+        "subscribers": {
+          "one": "subscriptor",
+          "other": "subscriptors"
+        },
+        "subscriber": {
+          "one": "subscriptor",
+          "other": "subscriptors"
+        },
+        "views": {
+          "one": "visualització",
+          "other": "visualitzacions"
+        },
+        "view": {
+          "one": "visualització",
+          "other": "visualitzacions"
+        },
+        "likes": {
+          "one": "m’agrada",
+          "other": "m’agrades"
+        },
+        "like": {
+          "one": "m’agrada",
+          "other": "m’agrades"
+        },
+        "replies": {
+          "one": "resposta",
+          "other": "respostes"
+        },
+        "reply": {
+          "one": "resposta",
+          "other": "respostes"
+        },
+        "playlists": {
+          "one": "llista de reproducció",
+          "other": "llistes de reproducció"
+        },
+        "playlist": {
+          "one": "llista de reproducció",
+          "other": "llistes de reproducció"
+        }
+      }
+    },
+    "gl": {
+      "__patterns": {
+        "ago": "hai {count} {unit}",
+        "selected_users": "Selección: {count} {users}",
+        "showing": "{items}: do {from} ao {to}, dun total de {total}",
+        "unread": "Sen ler: {count}",
+        "saved_videos": "Vídeos gardados: {count}",
+        "published": "Publicados: {count}"
+      },
+      "__plurals": {
+        "years": {
+          "one": "ano",
+          "other": "anos"
+        },
+        "year": {
+          "one": "ano",
+          "other": "anos"
+        },
+        "months": {
+          "one": "mes",
+          "other": "meses"
+        },
+        "month": {
+          "one": "mes",
+          "other": "meses"
+        },
+        "weeks": {
+          "one": "semana",
+          "other": "semanas"
+        },
+        "week": {
+          "one": "semana",
+          "other": "semanas"
+        },
+        "days": {
+          "one": "día",
+          "other": "días"
+        },
+        "day": {
+          "one": "día",
+          "other": "días"
+        },
+        "hours": {
+          "one": "hora",
+          "other": "horas"
+        },
+        "hour": {
+          "one": "hora",
+          "other": "horas"
+        },
+        "minutes": {
+          "one": "minuto",
+          "other": "minutos"
+        },
+        "minute": {
+          "one": "minuto",
+          "other": "minutos"
+        },
+        "seconds": {
+          "one": "segundo",
+          "other": "segundos"
+        },
+        "second": {
+          "one": "segundo",
+          "other": "segundos"
+        },
+        "users": {
+          "one": "usuario",
+          "other": "usuarios"
+        },
+        "user": {
+          "one": "usuario",
+          "other": "usuarios"
+        },
+        "videos": {
+          "one": "vídeo",
+          "other": "vídeos"
+        },
+        "video": {
+          "one": "vídeo",
+          "other": "vídeos"
+        },
+        "comments": {
+          "one": "comentario",
+          "other": "comentarios"
+        },
+        "comment": {
+          "one": "comentario",
+          "other": "comentarios"
+        },
+        "subscribers": {
+          "one": "subscritor",
+          "other": "subscritores"
+        },
+        "subscriber": {
+          "one": "subscritor",
+          "other": "subscritores"
+        },
+        "views": {
+          "one": "visualización",
+          "other": "visualizacións"
+        },
+        "view": {
+          "one": "visualización",
+          "other": "visualizacións"
+        },
+        "likes": {
+          "one": "gústame",
+          "other": "gústames"
+        },
+        "like": {
+          "one": "gústame",
+          "other": "gústames"
+        },
+        "replies": {
+          "one": "resposta",
+          "other": "respostas"
+        },
+        "reply": {
+          "one": "resposta",
+          "other": "respostas"
+        },
+        "playlists": {
+          "one": "lista de reprodución",
+          "other": "listas de reprodución"
+        },
+        "playlist": {
+          "one": "lista de reprodución",
+          "other": "listas de reprodución"
+        }
+      }
+    },
+    "eo": {
+      "__patterns": {
+        "ago": "antaŭ {count} {unit}",
+        "selected_users": "Elekto: {count} {users}",
+        "showing": "{items}: de {from} ĝis {to} el {total}",
+        "unread": "Nelegitaj: {count}",
+        "saved_videos": "Konservitaj filmetoj: {count}",
+        "published": "Publikigitaj: {count}"
+      },
+      "__plurals": {
+        "years": {
+          "one": "jaro",
+          "other": "jaroj"
+        },
+        "year": {
+          "one": "jaro",
+          "other": "jaroj"
+        },
+        "months": {
+          "one": "monato",
+          "other": "monatoj"
+        },
+        "month": {
+          "one": "monato",
+          "other": "monatoj"
+        },
+        "weeks": {
+          "one": "semajno",
+          "other": "semajnoj"
+        },
+        "week": {
+          "one": "semajno",
+          "other": "semajnoj"
+        },
+        "days": {
+          "one": "tago",
+          "other": "tagoj"
+        },
+        "day": {
+          "one": "tago",
+          "other": "tagoj"
+        },
+        "hours": {
+          "one": "horo",
+          "other": "horoj"
+        },
+        "hour": {
+          "one": "horo",
+          "other": "horoj"
+        },
+        "minutes": {
+          "one": "minuto",
+          "other": "minutoj"
+        },
+        "minute": {
+          "one": "minuto",
+          "other": "minutoj"
+        },
+        "seconds": {
+          "one": "sekundo",
+          "other": "sekundoj"
+        },
+        "second": {
+          "one": "sekundo",
+          "other": "sekundoj"
+        },
+        "users": {
+          "one": "uzanto",
+          "other": "uzantoj"
+        },
+        "user": {
+          "one": "uzanto",
+          "other": "uzantoj"
+        },
+        "videos": {
+          "one": "filmeto",
+          "other": "filmetoj"
+        },
+        "video": {
+          "one": "filmeto",
+          "other": "filmetoj"
+        },
+        "comments": {
+          "one": "komento",
+          "other": "komentoj"
+        },
+        "comment": {
+          "one": "komento",
+          "other": "komentoj"
+        },
+        "subscribers": {
+          "one": "abonanto",
+          "other": "abonantoj"
+        },
+        "subscriber": {
+          "one": "abonanto",
+          "other": "abonantoj"
+        },
+        "views": {
+          "one": "spektado",
+          "other": "spektadoj"
+        },
+        "view": {
+          "one": "spektado",
+          "other": "spektadoj"
+        },
+        "likes": {
+          "one": "ŝato",
+          "other": "ŝatoj"
+        },
+        "like": {
+          "one": "ŝato",
+          "other": "ŝatoj"
+        },
+        "replies": {
+          "one": "respondo",
+          "other": "respondoj"
+        },
+        "reply": {
+          "one": "respondo",
+          "other": "respondoj"
+        },
+        "playlists": {
+          "one": "ludlisto",
+          "other": "ludlistoj"
+        },
+        "playlist": {
+          "one": "ludlisto",
+          "other": "ludlistoj"
+        }
+      }
+    }
+  }
+}

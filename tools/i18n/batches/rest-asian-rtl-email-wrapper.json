@@ -1,0 +1,27 @@
+{
+  "context": "Editorial standard email wrapper Notification label and full sent-by sentence. Site placeholder stays literal/linkable; regional email terms retained. No author/template override altered.",
+  "messages": {
+    "Notification": {
+      "ar": "إشعار",
+      "ja": "お知らせ",
+      "ko_kr": "알림",
+      "zh_cn": "通知",
+      "zh_tw": "通知",
+      "zh_hk": "通知",
+      "tr_tr": "Bildirim",
+      "id_id": "Pemberitahuan",
+      "ms_my": "Pemberitahuan"
+    },
+    "This email was sent by {site}.": {
+      "ar": "أُرسلت هذه الرسالة من {site}.",
+      "ja": "このメールは{site}から送信されました。",
+      "ko_kr": "이 이메일은 {site}에서 보냈어요.",
+      "zh_cn": "此邮件由 {site} 发送。",
+      "zh_tw": "這封電子郵件由 {site} 寄出。",
+      "zh_hk": "這封電郵由 {site} 發出。",
+      "tr_tr": "Bu e-postayı {site} gönderdi.",
+      "id_id": "Email ini dikirim oleh {site}.",
+      "ms_my": "E-mel ini dihantar oleh {site}."
+    }
+  }
+}

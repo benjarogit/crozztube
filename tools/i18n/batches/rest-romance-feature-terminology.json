@@ -1,0 +1,58 @@
+{
+  "context": "Second editorial consistency pass: native Creator Studio/Playlist equivalents match navigation and account guidance; channel/subscription address is personal and European/Brazilian Portuguese remain distinct. No arbitrary English terminology enforced outside German.",
+  "messages": {
+    "Log in to upload, comment, subscribe and manage your creator studio.": {
+      "fr": "Connecte-toi pour mettre des vidéos en ligne, commenter, t’abonner et gérer ton studio de création.",
+      "es": "Entra para subir videos, comentar, suscribirte y gestionar tu estudio de creación.",
+      "es_es": "Entra para subir vídeos, comentar, suscribirte y gestionar tu estudio de creación.",
+      "pt": "Entra para carregares vídeos, comentares, subscreveres canais e gerires o teu estúdio de criação.",
+      "pt_br": "Entre para enviar vídeos, comentar, se inscrever em canais e gerenciar seu estúdio de criação.",
+      "it": "Accedi per caricare video, commentare, iscriverti ai canali e gestire il tuo studio per creator.",
+      "ca": "Inicia la sessió per pujar vídeos, comentar, subscriure’t a canals i gestionar el teu estudi de creació.",
+      "gl": "Inicia sesión para subir vídeos, comentar, subscribirte a canles e xestionar o teu estudio de creación.",
+      "eo": "Ensalutu por alŝuti filmetojn, komenti, aboni kanalojn kaj administri vian studion por kreintoj."
+    },
+    "Create an account, open Creator Studio, complete your channel profile, then upload or organize videos from your dashboard.": {
+      "fr": "Crée un compte, ouvre le studio de création et complète le profil de ta chaîne. Tu pourras ensuite mettre en ligne et organiser tes vidéos.",
+      "es": "Crea una cuenta, abre el estudio de creación y completa el perfil de tu canal. Después podrás subir y organizar tus videos.",
+      "es_es": "Crea una cuenta, abre el estudio de creación y completa el perfil de tu canal. Después podrás subir y organizar tus vídeos.",
+      "pt": "Cria uma conta, abre o estúdio de criação e preenche o perfil do teu canal. Depois podes carregar e organizar vídeos no teu painel.",
+      "pt_br": "Crie uma conta, abra o estúdio de criação e preencha o perfil do seu canal. Depois você pode enviar e organizar vídeos no painel.",
+      "it": "Crea un account, apri lo studio per creator e completa il profilo del tuo canale. Poi potrai caricare e organizzare i tuoi video.",
+      "ca": "Crea un compte, obre l’estudi de creació i completa el perfil del canal. Després podràs pujar i organitzar vídeos des del tauler.",
+      "gl": "Crea unha conta, abre o estudio de creación e completa o perfil da túa canle. Despois poderás subir e organizar vídeos desde o panel.",
+      "eo": "Kreu konton, malfermu la studion por kreintoj kaj kompletigu la profilon de via kanalo. Poste vi povos alŝuti kaj ordigi viajn filmetojn."
+    },
+    "Use playlists and series to keep your content easy to find and watch.": {
+      "fr": "Organise tes vidéos en playlists et en séries pour les rendre plus faciles à trouver et à regarder.",
+      "es": "Organiza tus videos en listas de reproducción y series para que sean más fáciles de encontrar y ver.",
+      "es_es": "Organiza tus vídeos en listas de reproducción y series para que sean más fáciles de encontrar y ver.",
+      "pt": "Organiza os teus vídeos em listas de reprodução e séries para ser mais fácil encontrá-los e vê-los.",
+      "pt_br": "Organize seus vídeos em playlists e séries para ficar mais fácil encontrar e assistir.",
+      "it": "Organizza i tuoi video in playlist e serie per renderli più facili da trovare e guardare.",
+      "ca": "Organitza els vídeos en llistes de reproducció i sèries perquè siguin més fàcils de trobar i mirar.",
+      "gl": "Organiza os vídeos en listas de reprodución e series para que sexan máis fáciles de atopar e ver.",
+      "eo": "Ordigu viajn filmetojn en ludlistoj kaj serioj por faciligi ilian trovadon kaj spektadon."
+    },
+    "Your channel": {
+      "fr": "Ta chaîne",
+      "es": "Tu canal",
+      "pt": "O teu canal",
+      "pt_br": "Seu canal",
+      "it": "Il tuo canale",
+      "ca": "El teu canal",
+      "gl": "A túa canle",
+      "eo": "Via kanalo"
+    },
+    "Popular from your subscriptions": {
+      "fr": "Les vidéos populaires de tes abonnements",
+      "es": "Popular en tus suscripciones",
+      "pt": "Em destaque nas tuas subscrições",
+      "pt_br": "Em alta nas suas inscrições",
+      "it": "Popolari tra le tue iscrizioni",
+      "ca": "Popular entre les teves subscripcions",
+      "gl": "Popular entre as túas subscricións",
+      "eo": "Popularaj el viaj abonoj"
+    }
+  }
+}

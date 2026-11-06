@@ -1,0 +1,437 @@
+{
+  "context": "Editorial full upload/import workflow: public URL instructions, local files, queue and calendar controls, thumbnail/source metadata, CUE/TXT chapter controls and parsing failures, owner-approved 60-second portrait-only Shorts validation (legacy source keys retained for compatibility). All existing limits and private/provider data retained. Regional Spanish vídeo and Portuguese variants explicit.",
+  "messages": {
+    "Import a public video URL, fetch provider details, and publish it with external playback.": {
+      "fr": "Importe une vidéo à partir d’un lien public, récupère ses détails et publie-la avec une lecture depuis la plateforme d’origine.",
+      "es": "Importa un video desde un enlace público, carga sus datos y publícalo con reproducción desde la plataforma original.",
+      "pt": "Importa um vídeo de uma ligação pública, obtém os dados e publica-o com reprodução na plataforma de origem.",
+      "pt_br": "Importe um vídeo de um link público, carregue os dados e publique com reprodução na plataforma de origem.",
+      "it": "Importa un video da un link pubblico, recupera i dettagli e pubblicalo con riproduzione dalla piattaforma originale.",
+      "ca": "Importa un vídeo des d’un enllaç públic, carrega’n les dades i publica’l amb reproducció des de la plataforma original.",
+      "gl": "Importa un vídeo desde unha ligazón pública, carga os datos e publícao con reprodución desde a plataforma orixinal.",
+      "eo": "Importu filmeton per publika ligilo, ŝargu ĝiajn detalojn kaj publikigu ĝin kun reproduktado ĉe la originala platformo.",
+      "es_es": "Importa un vídeo desde un enlace público, carga sus datos y publícalo con reproducción desde la plataforma original."
+    },
+    "Import a public video URL. Playback stays at the original provider.": {
+      "fr": "Importe une vidéo à partir d’un lien public. La lecture reste sur la plateforme d’origine.",
+      "es": "Importa un video desde un enlace público. Se seguirá reproduciendo desde la plataforma original.",
+      "pt": "Importa um vídeo de uma ligação pública. A reprodução continua na plataforma de origem.",
+      "pt_br": "Importe um vídeo de um link público. A reprodução continua na plataforma de origem.",
+      "it": "Importa un video da un link pubblico. La riproduzione resta sulla piattaforma originale.",
+      "ca": "Importa un vídeo des d’un enllaç públic. Es continuarà reproduint des de la plataforma original.",
+      "gl": "Importa un vídeo desde unha ligazón pública. A reprodución segue na plataforma orixinal.",
+      "eo": "Importu filmeton per publika ligilo. Reproduktado restas ĉe la originala platformo.",
+      "es_es": "Importa un vídeo desde un enlace público. Se seguirá reproduciendo desde la plataforma original."
+    },
+    "Choose a local video file or import a public video from an enabled provider.": {
+      "fr": "Choisis un fichier vidéo sur ton appareil ou importe une vidéo publique depuis une plateforme activée.",
+      "es": "Elige un archivo de tu dispositivo o importa un video público de una plataforma habilitada.",
+      "pt": "Escolhe um ficheiro de vídeo no teu dispositivo ou importa um vídeo público de uma plataforma activa.",
+      "pt_br": "Escolha um arquivo de vídeo no seu dispositivo ou importe um vídeo público de uma plataforma habilitada.",
+      "it": "Scegli un file video dal tuo dispositivo oppure importa un video pubblico da una piattaforma abilitata.",
+      "ca": "Tria un fitxer de vídeo del dispositiu o importa un vídeo públic d’una plataforma activada.",
+      "gl": "Escolle un ficheiro de vídeo do teu dispositivo ou importa un vídeo público dunha plataforma activada.",
+      "eo": "Elektu videodosieron el via aparato aŭ importu publikan filmeton de ŝaltita platformo.",
+      "es_es": "Elige un archivo de tu dispositivo o importa un vídeo público de una plataforma habilitada.",
+      "pt_pt_ao90": "Escolhe um ficheiro de vídeo no teu dispositivo ou importa um vídeo público de uma plataforma ativa."
+    },
+    "Share your story with the world. Upload, customize, and publish your video.": {
+      "fr": "Partage ton histoire. Ajoute ta vidéo, personnalise-la et publie-la.",
+      "es": "Comparte tu historia. Sube tu video, personalízalo y publícalo.",
+      "pt": "Partilha a tua história. Carrega o teu vídeo, personaliza-o e publica-o.",
+      "pt_br": "Compartilhe sua história. Envie seu vídeo, personalize e publique.",
+      "it": "Condividi la tua storia. Carica il video, personalizzalo e pubblicalo.",
+      "ca": "Comparteix la teva història. Puja el vídeo, personalitza’l i publica’l.",
+      "gl": "Comparte a túa historia. Sube o vídeo, personalízao e publícao.",
+      "eo": "Kunhavigu vian rakonton. Alŝutu, agordu kaj publikigu vian filmeton.",
+      "es_es": "Comparte tu historia. Sube tu vídeo, personalízalo y publícalo."
+    },
+    "Upload source": {
+      "fr": "Source de la vidéo",
+      "es": "Origen del video",
+      "pt": "Origem do vídeo",
+      "pt_br": "Origem do vídeo",
+      "it": "Origine del video",
+      "ca": "Origen del vídeo",
+      "gl": "Orixe do vídeo",
+      "eo": "Fonto de la filmeto",
+      "es_es": "Origen del vídeo"
+    },
+    "Import source": {
+      "fr": "Source d’importation",
+      "es": "Origen de importación",
+      "pt": "Origem da importação",
+      "pt_br": "Origem da importação",
+      "it": "Origine dell’importazione",
+      "ca": "Origen de la importació",
+      "gl": "Orixe da importación",
+      "eo": "Importa fonto"
+    },
+    "Local upload": {
+      "fr": "Depuis cet appareil",
+      "es": "Desde este dispositivo",
+      "pt": "Deste dispositivo",
+      "pt_br": "Deste dispositivo",
+      "it": "Da questo dispositivo",
+      "ca": "Des d’aquest dispositiu",
+      "gl": "Desde este dispositivo",
+      "eo": "El ĉi tiu aparato"
+    },
+    "Import from URL": {
+      "fr": "Depuis un lien",
+      "es": "Desde un enlace",
+      "pt": "De uma ligação",
+      "pt_br": "De um link",
+      "it": "Da un link",
+      "ca": "Des d’un enllaç",
+      "gl": "Desde unha ligazón",
+      "eo": "Per ligilo"
+    },
+    "Import queue": {
+      "fr": "File d’importation",
+      "es": "Cola de importación",
+      "pt": "Fila de importação",
+      "pt_br": "Fila de importação",
+      "it": "Coda di importazione",
+      "ca": "Cua d’importació",
+      "gl": "Cola de importación",
+      "eo": "Importa atendovico"
+    },
+    "Upload queue": {
+      "fr": "File de mise en ligne",
+      "es": "Cola de subida",
+      "pt": "Fila de carregamento",
+      "pt_br": "Fila de envio",
+      "it": "Coda di caricamento",
+      "ca": "Cua de pujada",
+      "gl": "Cola de subida",
+      "eo": "Alŝuta atendovico"
+    },
+    "Cancel upload": {
+      "fr": "Annuler l’envoi",
+      "es": "Cancelar subida",
+      "pt": "Cancelar carregamento",
+      "pt_br": "Cancelar envio",
+      "it": "Annulla caricamento",
+      "ca": "Cancel·la la pujada",
+      "gl": "Cancelar subida",
+      "eo": "Nuligi alŝuton"
+    },
+    "Queue item actions": {
+      "fr": "Actions sur cet élément",
+      "es": "Acciones del elemento",
+      "pt": "Acções deste item",
+      "pt_br": "Ações deste item",
+      "it": "Azioni sull’elemento",
+      "ca": "Accions de l’element",
+      "gl": "Accións do elemento",
+      "eo": "Agoj por la ero",
+      "pt_pt_ao90": "Ações deste item"
+    },
+    "No categories available": {
+      "fr": "Aucune catégorie disponible",
+      "es": "No hay categorías disponibles",
+      "pt": "Não há categorias disponíveis",
+      "pt_br": "Nenhuma categoria disponível",
+      "it": "Nessuna categoria disponibile",
+      "ca": "No hi ha categories disponibles",
+      "gl": "Non hai categorías dispoñibles",
+      "eo": "Neniuj kategorioj disponeblas"
+    },
+    "No playlists created": {
+      "fr": "Aucune playlist créée",
+      "es": "Aún no has creado listas de reproducción",
+      "pt": "Ainda não criaste listas de reprodução",
+      "pt_br": "Você ainda não criou playlists",
+      "it": "Non hai ancora creato playlist",
+      "ca": "Encara no has creat llistes de reproducció",
+      "gl": "Aínda non creaches listas de reprodución",
+      "eo": "Vi ankoraŭ ne kreis ludlistojn"
+    },
+    "Select language": {
+      "fr": "Choisir la langue",
+      "es": "Elegir idioma",
+      "pt": "Escolher idioma",
+      "pt_br": "Escolher idioma",
+      "it": "Scegli la lingua",
+      "ca": "Tria la llengua",
+      "gl": "Escoller idioma",
+      "eo": "Elekti lingvon"
+    },
+    "Fetch details to preview": {
+      "fr": "Charge les détails pour afficher l’aperçu",
+      "es": "Carga los datos para ver la vista previa",
+      "pt": "Obtém os dados para veres a pré-visualização",
+      "pt_br": "Carregue os dados para ver a prévia",
+      "it": "Carica i dettagli per vedere l’anteprima",
+      "ca": "Carrega les dades per veure la previsualització",
+      "gl": "Carga os datos para ver a vista previa",
+      "eo": "Ŝargu la detalojn por antaŭrigardi"
+    },
+    "Fetched from provider": {
+      "fr": "Récupéré depuis la plateforme",
+      "es": "Obtenido de la plataforma",
+      "pt": "Obtido da plataforma",
+      "pt_br": "Obtido da plataforma",
+      "it": "Recuperato dalla piattaforma",
+      "ca": "Obtingut de la plataforma",
+      "gl": "Obtido da plataforma",
+      "eo": "Ricevita de la platformo"
+    },
+    "Provider thumbnails are saved as remote metadata.": {
+      "fr": "Les miniatures restent référencées par leurs liens d’origine.",
+      "es": "Se guardan los enlaces originales de las miniaturas.",
+      "pt": "As miniaturas ficam referenciadas pelas suas ligações de origem.",
+      "pt_br": "As miniaturas ficam referenciadas pelos links originais.",
+      "it": "Le miniature restano collegate tramite i link originali.",
+      "ca": "Les miniatures es conserven com a enllaços als originals.",
+      "gl": "As miniaturas gárdanse como ligazóns aos orixinais.",
+      "eo": "La originalaj ligiloj de la bildetoj estas konservataj."
+    },
+    "Open schedule calendar": {
+      "fr": "Ouvrir le calendrier de publication",
+      "es": "Abrir calendario de publicación",
+      "pt": "Abrir calendário de publicação",
+      "pt_br": "Abrir calendário de publicação",
+      "it": "Apri il calendario di pubblicazione",
+      "ca": "Obre el calendari de publicació",
+      "gl": "Abrir o calendario de publicación",
+      "eo": "Malfermi la publikigan kalendaron"
+    },
+    "Open existing video": {
+      "fr": "Ouvrir la vidéo existante",
+      "es": "Abrir el video existente",
+      "pt": "Abrir o vídeo existente",
+      "pt_br": "Abrir o vídeo existente",
+      "it": "Apri il video esistente",
+      "ca": "Obre el vídeo existent",
+      "gl": "Abrir o vídeo existente",
+      "eo": "Malfermi la ekzistantan filmeton",
+      "es_es": "Abrir el vídeo existente"
+    },
+    "Importing remote video...": {
+      "fr": "Importation de la vidéo…",
+      "es": "Importando el video…",
+      "pt": "A importar o vídeo…",
+      "pt_br": "Importando o vídeo…",
+      "it": "Importazione del video…",
+      "ca": "S’està important el vídeo…",
+      "gl": "Importando o vídeo…",
+      "eo": "Importante la filmeton…",
+      "es_es": "Importando el vídeo…"
+    },
+    "Upload a thumbnail before continuing.": {
+      "fr": "Ajoute une miniature avant de continuer.",
+      "es": "Añade una miniatura antes de continuar.",
+      "pt": "Adiciona uma miniatura antes de continuares.",
+      "pt_br": "Adicione uma miniatura antes de continuar.",
+      "it": "Aggiungi una miniatura prima di continuare.",
+      "ca": "Afegeix una miniatura abans de continuar.",
+      "gl": "Engade unha miniatura antes de continuar.",
+      "eo": "Alŝutu bildeton antaŭ ol daŭrigi."
+    },
+    "Complete the upload before opening this section.": {
+      "fr": "Termine la mise en ligne avant d’ouvrir cette section.",
+      "es": "Termina la subida antes de abrir esta sección.",
+      "pt": "Conclui o carregamento antes de abrires esta secção.",
+      "pt_br": "Conclua o envio antes de abrir esta seção.",
+      "it": "Completa il caricamento prima di aprire questa sezione.",
+      "ca": "Acaba la pujada abans d’obrir aquesta secció.",
+      "gl": "Remata a subida antes de abrir esta sección.",
+      "eo": "Finu la alŝuton antaŭ ol malfermi ĉi tiun sekcion."
+    },
+    "Upload with chapters": {
+      "fr": "Ajouter des chapitres",
+      "es": "Añadir capítulos",
+      "pt": "Adicionar capítulos",
+      "pt_br": "Adicionar capítulos",
+      "it": "Aggiungi capitoli",
+      "ca": "Afegeix capítols",
+      "gl": "Engadir capítulos",
+      "eo": "Aldoni ĉapitrojn"
+    },
+    "Video chapters": {
+      "fr": "Chapitres de la vidéo",
+      "es": "Capítulos del video",
+      "pt": "Capítulos do vídeo",
+      "pt_br": "Capítulos do vídeo",
+      "it": "Capitoli del video",
+      "ca": "Capítols del vídeo",
+      "gl": "Capítulos do vídeo",
+      "eo": "Ĉapitroj de la filmeto",
+      "es_es": "Capítulos del vídeo"
+    },
+    "Video chapter segments": {
+      "fr": "Segments de la vidéo",
+      "es": "Segmentos del video",
+      "pt": "Segmentos do vídeo",
+      "pt_br": "Segmentos do vídeo",
+      "it": "Segmenti del video",
+      "ca": "Segments del vídeo",
+      "gl": "Segmentos do vídeo",
+      "eo": "Segmentoj de la filmeto",
+      "es_es": "Segmentos del vídeo"
+    },
+    "Enable named segments in the video timeline.": {
+      "fr": "Ajoute des segments nommés dans la chronologie de la vidéo.",
+      "es": "Añade segmentos con nombre a la línea de tiempo del video.",
+      "pt": "Adiciona segmentos com nome à linha temporal do vídeo.",
+      "pt_br": "Adicione segmentos com nome à linha do tempo do vídeo.",
+      "it": "Aggiungi segmenti con nome alla linea temporale del video.",
+      "ca": "Afegeix segments amb nom a la línia de temps del vídeo.",
+      "gl": "Engade segmentos con nome á liña de tempo do vídeo.",
+      "eo": "Aldonu nomitajn segmentojn al la tempolinio de la filmeto.",
+      "es_es": "Añade segmentos con nombre a la línea de tiempo del vídeo."
+    },
+    "Upload chapter file": {
+      "fr": "Importer un fichier de chapitres",
+      "es": "Cargar archivo de capítulos",
+      "pt": "Carregar ficheiro de capítulos",
+      "pt_br": "Enviar arquivo de capítulos",
+      "it": "Importa un file di capitoli",
+      "ca": "Importa un fitxer de capítols",
+      "gl": "Cargar un ficheiro de capítulos",
+      "eo": "Importi ĉapitran dosieron"
+    },
+    "Upload CUE / TXT": {
+      "fr": "Importer un fichier CUE ou TXT",
+      "es": "Cargar CUE o TXT",
+      "pt": "Carregar CUE ou TXT",
+      "pt_br": "Enviar CUE ou TXT",
+      "it": "Importa CUE o TXT",
+      "ca": "Importa CUE o TXT",
+      "gl": "Cargar CUE ou TXT",
+      "eo": "Importi CUE aŭ TXT"
+    },
+    "CUE or TXT timestamp list, up to 512 KB": {
+      "fr": "Liste d’horodatages CUE ou TXT, jusqu’à 512 Ko",
+      "es": "Lista de marcas de tiempo CUE o TXT, hasta 512 KB",
+      "pt": "Lista de tempos em CUE ou TXT, até 512 KB",
+      "pt_br": "Lista de tempos em CUE ou TXT, até 512 KB",
+      "it": "Elenco di tempi CUE o TXT, fino a 512 KB",
+      "ca": "Llista de marques de temps CUE o TXT, fins a 512 KB",
+      "gl": "Lista de marcas de tempo CUE ou TXT, ata 512 KB",
+      "eo": "Tempomarka listo en CUE aŭ TXT, ĝis 512 KB"
+    },
+    "Choose a .cue or .txt timestamp list.": {
+      "fr": "Choisis une liste d’horodatages au format .cue ou .txt.",
+      "es": "Elige una lista de marcas de tiempo .cue o .txt.",
+      "pt": "Escolhe uma lista de tempos em .cue ou .txt.",
+      "pt_br": "Escolha uma lista de tempos em .cue ou .txt.",
+      "it": "Scegli un elenco di tempi .cue o .txt.",
+      "ca": "Tria una llista de marques de temps .cue o .txt.",
+      "gl": "Escolle unha lista de marcas de tempo .cue ou .txt.",
+      "eo": "Elektu tempomarkan liston en .cue aŭ .txt."
+    },
+    "Chapter files can be up to 512 KB.": {
+      "fr": "Le fichier de chapitres ne doit pas dépasser 512 Ko.",
+      "es": "El archivo de capítulos no puede superar los 512 KB.",
+      "pt": "O ficheiro de capítulos pode ter até 512 KB.",
+      "pt_br": "O arquivo de capítulos pode ter até 512 KB.",
+      "it": "Il file dei capitoli non può superare 512 KB.",
+      "ca": "El fitxer de capítols no pot superar els 512 KB.",
+      "gl": "O ficheiro de capítulos non pode superar os 512 KB.",
+      "eo": "La ĉapitra dosiero povas havi ĝis 512 KB."
+    },
+    "Unable to read this chapter file.": {
+      "fr": "Ce fichier de chapitres n’a pas pu être lu.",
+      "es": "No se pudo leer el archivo de capítulos.",
+      "pt": "Não foi possível ler o ficheiro de capítulos.",
+      "pt_br": "Não foi possível ler o arquivo de capítulos.",
+      "it": "Non è stato possibile leggere il file dei capitoli.",
+      "ca": "No s’ha pogut llegir el fitxer de capítols.",
+      "gl": "Non se puido ler o ficheiro de capítulos.",
+      "eo": "Ne eblis legi ĉi tiun ĉapitran dosieron."
+    },
+    "Custom chapter list": {
+      "fr": "Liste de chapitres personnalisée",
+      "es": "Lista de capítulos personalizada",
+      "pt": "Lista de capítulos personalizada",
+      "pt_br": "Lista de capítulos personalizada",
+      "it": "Elenco di capitoli personalizzato",
+      "ca": "Llista de capítols personalitzada",
+      "gl": "Lista de capítulos personalizada",
+      "eo": "Propra ĉapitra listo"
+    },
+    "Draft segments from video duration": {
+      "fr": "Créer des segments à partir de la durée",
+      "es": "Crear segmentos según la duración",
+      "pt": "Criar segmentos a partir da duração",
+      "pt_br": "Criar segmentos a partir da duração",
+      "it": "Crea segmenti dalla durata del video",
+      "ca": "Crea segments a partir de la durada",
+      "gl": "Crear segmentos segundo a duración",
+      "eo": "Krei segmentojn laŭ la daŭro"
+    },
+    "Add segment": {
+      "fr": "Ajouter un segment",
+      "es": "Añadir segmento",
+      "pt": "Adicionar segmento",
+      "pt_br": "Adicionar segmento",
+      "it": "Aggiungi segmento",
+      "ca": "Afegeix un segment",
+      "gl": "Engadir segmento",
+      "eo": "Aldoni segmenton"
+    },
+    "Remove segment": {
+      "fr": "Supprimer le segment",
+      "es": "Eliminar segmento",
+      "pt": "Remover segmento",
+      "pt_br": "Remover segmento",
+      "it": "Rimuovi segmento",
+      "ca": "Suprimeix el segment",
+      "gl": "Eliminar segmento",
+      "eo": "Forigi segmenton"
+    },
+    "Segment name": {
+      "fr": "Nom du segment",
+      "es": "Nombre del segmento",
+      "pt": "Nome do segmento",
+      "pt_br": "Nome do segmento",
+      "it": "Nome del segmento",
+      "ca": "Nom del segment",
+      "gl": "Nome do segmento",
+      "eo": "Nomo de segmento"
+    },
+    "Short detected from provider": {
+      "fr": "Short reconnu sur la plateforme",
+      "es": "Short detectado en la plataforma",
+      "pt": "Short detectado na plataforma",
+      "pt_br": "Short detectado na plataforma",
+      "it": "Short riconosciuto sulla piattaforma",
+      "ca": "Short detectat a la plataforma",
+      "gl": "Short detectado na plataforma",
+      "eo": "Short rekonita ĉe la platformo"
+    },
+    "Shorts must be 180 seconds or less.": {
+      "fr": "Un Short ne peut pas dépasser 60 secondes.",
+      "es": "Los Shorts deben durar 60 segundos o menos.",
+      "pt": "Os Shorts devem ter no máximo 60 segundos.",
+      "pt_br": "Os Shorts devem ter no máximo 60 segundos.",
+      "it": "Gli Shorts devono durare al massimo 60 secondi.",
+      "ca": "Els Shorts han de durar com a màxim 60 segons.",
+      "gl": "Os Shorts deben durar como máximo 60 segundos.",
+      "eo": "Shorts devas daŭri maksimume 60 sekundojn."
+    },
+    "Shorts must be square or vertical.": {
+      "fr": "Un Short doit être au format vertical.",
+      "es": "Los Shorts deben tener formato vertical.",
+      "pt": "Os Shorts devem ter formato vertical.",
+      "pt_br": "Os Shorts devem ter formato vertical.",
+      "it": "Gli Shorts devono essere in formato verticale.",
+      "ca": "Els Shorts han de tenir format vertical.",
+      "gl": "Os Shorts deben ter formato vertical.",
+      "eo": "Shorts devas havi vertikalan formaton."
+    },
+    "Shorts must be 180 seconds or less and square or vertical.": {
+      "fr": "Un Short ne peut pas dépasser 60 secondes et doit être vertical.",
+      "es": "Los Shorts deben durar 60 segundos o menos y tener formato vertical.",
+      "pt": "Os Shorts devem ter no máximo 60 segundos e ter formato vertical.",
+      "pt_br": "Os Shorts devem ter no máximo 60 segundos e ter formato vertical.",
+      "it": "Gli Shorts devono durare al massimo 60 secondi ed essere verticali.",
+      "ca": "Els Shorts han de durar com a màxim 60 segons i tenir format vertical.",
+      "gl": "Os Shorts deben durar como máximo 60 segundos e ter formato vertical.",
+      "eo": "Shorts devas daŭri maksimume 60 sekundojn kaj havi vertikalan formaton."
+    }
+  }
+}

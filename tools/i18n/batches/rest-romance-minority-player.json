@@ -1,0 +1,60 @@
+{
+  "context": "Focused terminology review: Friulian, Occitan and Aragonese native media/navigation labels checked against Mozilla’s official language sources; Shorts remains the product format. This is not approval of unreviewed long sentences or the rest of these packages.",
+  "references": [
+    "https://raw.githubusercontent.com/mozilla-l10n/firefox-l10n/main/fur/browser/browser/browserContext.ftl",
+    "https://raw.githubusercontent.com/mozilla-l10n/firefox-l10n/main/oc/browser/browser/browserContext.ftl",
+    "https://raw.githubusercontent.com/mozilla-l10n/firefox-l10n/main/an/browser/browser/browserContext.ftl"
+  ],
+  "messages": {
+    "Back": {
+      "fur": "Indaûr",
+      "oci": "Pagina precedenta",
+      "arg": "Enta zaga"
+    },
+    "Next": {
+      "fur": "Indenant",
+      "oci": "Pagina seguenta",
+      "arg": "Enta debant"
+    },
+    "Play": {
+      "fur": "Riprodûs",
+      "oci": "Legir",
+      "arg": "Reproducir"
+    },
+    "Pause": {
+      "fur": "Met in pause",
+      "oci": "Pausa",
+      "arg": "Aturar"
+    },
+    "Stop": {
+      "fur": "Ferme",
+      "oci": "Arrestar",
+      "arg": "Aturar"
+    },
+    "Loop": {
+      "fur": "Ripeti",
+      "oci": "Tornar legir",
+      "arg": "Bucle"
+    },
+    "Fullscreen": {
+      "fur": "Plen visôr",
+      "oci": "Ecran complèt",
+      "arg": "Pantalla completa"
+    },
+    "Exit fullscreen": {
+      "fur": "Jes de modalitât a plen visôr",
+      "oci": "Sortir del mòde ecran complèt",
+      "arg": "Salir d’a pantalla completa"
+    },
+    "Copy Link": {
+      "fur": "Copie colegament",
+      "oci": "Copiar lo ligam",
+      "arg": "Copiar o vinclo"
+    },
+    "Shorts": {
+      "fur": "Shorts",
+      "oci": "Shorts",
+      "arg": "Shorts"
+    }
+  }
+}

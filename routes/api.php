@@ -206,58 +206,21 @@ Route::get('/integrations/public', fn (Request $request) => response()->json(arr
 
 Route::get('/captcha/simple', [AuthController::class, 'simpleCaptcha']);
 
-Route::get('/i18n', function () {
-    $root = realpath((string) config('playhub.language_path', base_path('lang')));
-    $disabledLanguages = GeneralSettings::settings()['disabledLanguages'] ?? [];
-    $languages = collect($root === false ? [] : (glob($root.DIRECTORY_SEPARATOR.'*'.DIRECTORY_SEPARATOR.'*.php') ?: []))
-        ->map(function (string $file) use ($disabledLanguages): ?array {
-            $locale = basename(dirname($file));
-            if (! preg_match('/^[a-z0-9_-]+$/i', $locale) || in_array(strtolower($locale), $disabledLanguages, true)) {
-                return null;
-            }
+Route::get('/i18n', function (\App\Services\LocalizationService $localization) {
+    $catalog = $localization->catalog();
+    $catalog['languages'] = array_map(static fn (array $language): array => [
+        ...$language, 'nativeLabel' => $language['native_label'],
+    ], $catalog['languages']);
 
-            $translations = require $file;
-            $meta = $translations['__meta'] ?? [];
-
-            return [
-                'code' => $meta['code'] ?? strtolower($locale),
-                'label' => $meta['label'] ?? strtoupper($locale),
-                'nativeLabel' => $meta['native_label'] ?? ($meta['label'] ?? strtoupper($locale)),
-            ];
-        })
-        ->filter()
-        ->unique('code')
-        ->sortBy('code')
-        ->values();
-
-    return response()->json(['languages' => $languages])
-        ->header('Cache-Control', 'no-cache, must-revalidate');
+    return response()->json($catalog)->header('Cache-Control', 'no-cache, must-revalidate');
 });
 
-Route::get('/i18n/{locale}', function (string $locale) {
-    $locale = strtolower($locale);
-    abort_unless(preg_match('/^[a-z0-9_-]+$/', $locale), 404);
-    abort_if(in_array($locale, GeneralSettings::settings()['disabledLanguages'] ?? [], true), 404);
+Route::get('/i18n/{locale}', function (string $locale, \App\Services\LocalizationService $localization) {
+    $pack = $localization->pack($locale);
+    abort_unless($pack !== null, 404);
 
-    $root = realpath((string) config('playhub.language_path', base_path('lang')));
-    abort_unless($root !== false, 404);
-    $files = glob($root.DIRECTORY_SEPARATOR.$locale.DIRECTORY_SEPARATOR.'*.php') ?: [];
-    abort_unless($files, 404);
-
-    $translations = require $files[0];
-    $meta = $translations['__meta'] ?? [];
-    $plurals = $translations['__plurals'] ?? [];
-    $patterns = $translations['__patterns'] ?? [];
-    unset($translations['__meta'], $translations['__plurals'], $translations['__patterns']);
-
-    return response()->json([
-        'code' => $meta['code'] ?? $locale,
-        'label' => $meta['label'] ?? strtoupper($locale),
-        'nativeLabel' => $meta['native_label'] ?? strtoupper($locale),
-        'plurals' => $plurals,
-        'patterns' => $patterns,
-        'translations' => $translations,
-    ])->header('Cache-Control', 'no-cache, must-revalidate');
+    return response()->json([...$pack, 'nativeLabel' => $pack['native_label']])
+        ->header('Cache-Control', 'no-cache, must-revalidate');
 });
 
 Route::prefix('auth')->group(function (): void {
@@ -557,7 +520,7 @@ Route::get('/search', function (Request $request) {
         }
 
         if ($features === 'captions') {
-            $query->whereNotNull('captions_path');
+            $query->where(fn ($captions) => $captions->whereNotNull('captions_path')->orWhereNotNull('caption_metadata->imported_tracks'));
         } elseif ($features === 'kids') {
             $query->where('made_for_kids', true);
         }

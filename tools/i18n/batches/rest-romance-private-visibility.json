@@ -1,0 +1,25 @@
+{
+  "context": "Upload private visibility: confirmed by VideoSales::canViewPrivate, only the owner and site administrators can view. No selectable invite/share feature is promised; access behavior unchanged.",
+  "messages": {
+    "Only you and people you choose": {
+      "fr": "Visible uniquement par toi et les admins du site",
+      "es": "Visible solo para ti y los administradores del sitio",
+      "pt": "Visível apenas para ti e para os administradores do site",
+      "pt_br": "Visível somente para você e para os administradores do site",
+      "it": "Visibile solo a te e agli amministratori del sito",
+      "ca": "Visible només per a tu i els administradors del lloc",
+      "gl": "Visible só para ti e os administradores do sitio",
+      "eo": "Videbla nur por vi kaj la administrantoj de la retejo"
+    },
+    "Only you and people you choose can watch": {
+      "fr": "Visible uniquement par toi et les admins du site",
+      "es": "Visible solo para ti y los administradores del sitio",
+      "pt": "Visível apenas para ti e para os administradores do site",
+      "pt_br": "Visível somente para você e para os administradores do site",
+      "it": "Visibile solo a te e agli amministratori del sito",
+      "ca": "Visible només per a tu i els administradors del lloc",
+      "gl": "Visible só para ti e os administradores do sitio",
+      "eo": "Videbla nur por vi kaj la administrantoj de la retejo"
+    }
+  }
+}

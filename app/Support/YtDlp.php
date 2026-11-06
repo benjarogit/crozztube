@@ -27,7 +27,7 @@ class YtDlp
      * Normalisierte Metadaten einer URL. Wirft, wenn yt-dlp die URL nicht
      * versteht. Das ist bewusst so: Aufrufer entscheiden, ob das ein Fehler ist.
      *
-     * @return array{title:?string, description:?string, tags:array<int,string>,
+     * @return array{provider_id:?string, title:?string, description:?string, tags:array<int,string>,
      *               thumbnail_url:?string, duration_seconds:?int,
      *               chapters:array<int,array{start_time:int,title:string}>,
      *               author_name:?string, width:?int, height:?int,
@@ -40,7 +40,7 @@ class YtDlp
             throw new RuntimeException('No URL supplied for yt-dlp metadata.');
         }
 
-        $cacheKey = 'ytdlp:meta:'.sha1($url);
+        $cacheKey = 'ytdlp:meta:v4:'.sha1($url);
 
         return Cache::remember($cacheKey, now()->addMinutes(self::METADATA_CACHE_MINUTES), function () use ($url): array {
             return self::extract($url);
@@ -93,7 +93,7 @@ class YtDlp
     }
 
     /**
-     * @return array{title:?string, description:?string, tags:array<int,string>,
+     * @return array{provider_id:?string, title:?string, description:?string, tags:array<int,string>,
      *               thumbnail_url:?string, duration_seconds:?int,
      *               chapters:array<int,array{start_time:int,title:string}>,
      *               author_name:?string, width:?int, height:?int,
@@ -105,6 +105,8 @@ class YtDlp
             [
                 self::binary(),
                 '-J',
+                '--skip-download',
+                '--ignore-no-formats-error',
                 '--no-playlist',
                 '--no-warnings',
                 '--socket-timeout', '30',
@@ -133,7 +135,7 @@ class YtDlp
 
     /**
      * @param  array<string, mixed>  $data
-     * @return array{title:?string, description:?string, tags:array<int,string>,
+     * @return array{provider_id:?string, title:?string, description:?string, tags:array<int,string>,
      *               thumbnail_url:?string, duration_seconds:?int,
      *               chapters:array<int,array{start_time:int,title:string}>,
      *               author_name:?string, width:?int, height:?int,
@@ -147,7 +149,7 @@ class YtDlp
         $tags = collect(is_array($data['tags'] ?? null) ? $data['tags'] : [])
             ->map(fn ($tag): string => trim((string) $tag))
             ->filter()
-            ->unique(fn (string $tag): bool => mb_strtolower($tag))
+            ->unique(fn (string $tag): string => mb_strtolower($tag))
             ->take(10)
             ->values()
             ->all();
@@ -173,12 +175,14 @@ class YtDlp
         }
 
         return [
+            'provider_id' => self::text($data['id'] ?? null, 120),
             'title' => $title,
             'description' => $description,
             'tags' => $tags,
             'thumbnail_url' => $thumbnail,
             'duration_seconds' => isset($data['duration']) && is_numeric($data['duration']) ? self::positiveInt(ceil((float) $data['duration'])) : null,
-            'chapters' => self::chapters($data['chapters'] ?? null),
+            ...VideoChapters::discover($data['chapters'] ?? null, $description, isset($data['duration']) ? (int) ceil((float) $data['duration']) : null),
+            'captions' => VideoCaptions::candidates($data),
             'author_name' => self::text(
                 $data['uploader'] ?? $data['channel'] ?? $data['creator'] ?? $data['artist'] ?? $data['uploader_id'] ?? null,
                 255
@@ -187,36 +191,37 @@ class YtDlp
             'height' => $height,
             'extractor' => self::text($data['extractor_key'] ?? $data['extractor'] ?? null, 120),
             'webpage_url' => self::text($data['webpage_url'] ?? null, 2000),
+            'language_code' => self::originalAudioLanguage($data) ?? self::singleAudioLanguage($data),
+            'original_language_code' => self::originalAudioLanguage($data),
         ];
     }
 
-    /**
-     * @return array<int, array{start_time:int, title:string}>
-     */
-    private static function chapters(mixed $chapters): array
+    public static function originalAudioLanguage(array $data): ?string
     {
-        if (! is_array($chapters)) {
-            return [];
+        $language = $data['original_language'] ?? null;
+        foreach ((array) ($data['formats'] ?? []) as $format) {
+            if (! is_array($format)) continue;
+            if (($format['language_preference'] ?? 0) >= 10 || ($format['audio_is_original'] ?? false) === true
+                || preg_match('/\boriginal\b/i', (string) ($format['format_note'] ?? ''))) {
+                $language = $format['language'] ?? $language;
+                if ($language) break;
+            }
         }
 
-        return collect($chapters)
-            ->filter(fn ($chapter): bool => is_array($chapter))
-            ->map(function (array $chapter): ?array {
-                $start = $chapter['start_time'] ?? $chapter['timestamp'] ?? null;
-                $title = trim((string) ($chapter['title'] ?? ''));
+        return is_string($language) && preg_match('/^[a-zA-Z]{2,3}(?:[-_][a-zA-Z0-9]{2,8})*$/D', $language) ? str_replace('_', '-', $language) : null;
+    }
 
-                if ($start === null || ! is_numeric($start) || $title === '') {
-                    return null;
-                }
+    private static function singleAudioLanguage(array $data): ?string
+    {
+        $languages = [];
+        foreach ((array) ($data['formats'] ?? []) as $format) {
+            if (! is_array($format) || ($format['acodec'] ?? '') === 'none' || empty($format['language'])) continue;
+            $languages[] = $format['language'];
+        }
+        $languages = array_values(array_unique($languages));
+        $language = count($languages) === 1 ? $languages[0] : ($languages === [] ? ($data['language'] ?? null) : null);
 
-                return [
-                    'start_time' => max(0, (int) round((float) $start)),
-                    'title' => mb_substr($title, 0, 160),
-                ];
-            })
-            ->filter()
-            ->values()
-            ->all();
+        return is_string($language) && preg_match('/^[a-zA-Z]{2,3}(?:[-_][a-zA-Z0-9]{2,8})*$/D', $language) ? str_replace('_', '-', $language) : null;
     }
 
     private static function text(mixed $value, int $max): ?string

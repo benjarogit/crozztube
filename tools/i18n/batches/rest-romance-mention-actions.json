@@ -1,0 +1,25 @@
+{
+  "context": "Complete mention/hashtag actions after source ownership refactor. Names and tags remain literal named placeholders; only the interface action is localized.",
+  "messages": {
+    "View posts tagged {tag}": {
+      "fr": "Voir les publications avec le tag {tag}",
+      "es": "Ver publicaciones con la etiqueta {tag}",
+      "pt": "Ver publicações com a etiqueta {tag}",
+      "pt_br": "Ver publicações com a tag {tag}",
+      "it": "Vedi i post con il tag {tag}",
+      "ca": "Mira les publicacions amb l’etiqueta {tag}",
+      "gl": "Ver publicacións coa etiqueta {tag}",
+      "eo": "Vidi afiŝojn kun la etikedo {tag}"
+    },
+    "View {name} channel": {
+      "fr": "Ouvrir la chaîne de {name}",
+      "es": "Abrir el canal de {name}",
+      "pt": "Abrir o canal de {name}",
+      "pt_br": "Abrir o canal de {name}",
+      "it": "Apri il canale di {name}",
+      "ca": "Obre el canal de {name}",
+      "gl": "Abrir a canle de {name}",
+      "eo": "Malfermi la kanalon de {name}"
+    }
+  }
+}

@@ -1,0 +1,830 @@
+{
+  "context": "English reference editorial pass: contact/refund requests, help/scheduling, Playlist management, video/Shorts actions, growth guidance and import states/errors. Source technical backend terms retained only for developer instructions; existing import success correctly makes no processing-start claim.",
+  "messages": {
+    "Send us a message": {
+      "en": "Send us a message"
+    },
+    "Sending...": {
+      "en": "Sending..."
+    },
+    "Server configured": {
+      "en": "Server configured"
+    },
+    "server records": {
+      "en": "server records"
+    },
+    "Settings and login": {
+      "en": "Settings and login"
+    },
+    "Short summary": {
+      "en": "Short summary"
+    },
+    "Sign in for account support": {
+      "en": "Sign in for account support"
+    },
+    "Signed in": {
+      "en": "Signed in"
+    },
+    "Start uploading": {
+      "en": "Start uploading"
+    },
+    "Still can’t find an answer?": {
+      "en": "Still can’t find an answer?"
+    },
+    "Stored for admins": {
+      "en": "Saved for the support team"
+    },
+    "Stores language, theme, and interface preferences.": {
+      "en": "Stores language, theme, and interface preferences."
+    },
+    "Studio, playlists, analytics, channels.": {
+      "en": "Studio, playlists, analytics, channels."
+    },
+    "Submit a billing or refund message to admin support.": {
+      "en": "Send the support team a question about billing or a refund."
+    },
+    "Submit refund request": {
+      "en": "Submit refund request"
+    },
+    "Submit request": {
+      "en": "Submit request"
+    },
+    "Subscription cancellation": {
+      "en": "Subscription cancellation"
+    },
+    "Support dashboard": {
+      "en": "Support dashboard"
+    },
+    "System status": {
+      "en": "System status"
+    },
+    "Table": {
+      "en": "Table"
+    },
+    "Taxonomies": {
+      "en": "Taxonomies"
+    },
+    "Technical issue": {
+      "en": "Technical issue"
+    },
+    "Tell us more about your question or request...": {
+      "en": "Tell us more about your question or request..."
+    },
+    "Terms of Use": {
+      "en": "Terms of Use"
+    },
+    "The configured": {
+      "en": "Configured"
+    },
+    "The developer page is connected to the Laravel backend: route inventory, platform counts, upload limits, and metadata are loaded from /api/developers.": {
+      "en": "The developer page is connected to the Laravel backend: route inventory, platform counts, upload limits, and metadata are loaded from /api/developers."
+    },
+    "The processing job encodes renditions, creates thumbnails when needed, stores captions, and marks videos ready when processing completes. Future scheduled videos remain private until the scheduler releases them.": {
+      "en": "The processing job encodes renditions, creates thumbnails when needed, stores captions, and marks videos ready when processing completes. Future scheduled videos remain private until the scheduler releases them."
+    },
+    "The upload system supports categories and languages from the API, processes uploaded videos, stores thumbnails and captions, and keeps scheduled content private until its release time.": {
+      "en": "The upload system supports categories and languages from the API, processes uploaded videos, stores thumbnails and captions, and keeps scheduled content private until its release time."
+    },
+    "This page explains how PlayHub uses cookies and browser storage for sessions, security, preferences, playback, and authenticated features.": {
+      "en": "This page explains how PlayHub uses cookies and browser storage for sessions, security, preferences, playback, and authenticated features."
+    },
+    "Ticket source": {
+      "en": "Ticket source"
+    },
+    "Top content categories": {
+      "en": "Top content categories"
+    },
+    "Topic": {
+      "en": "Topic"
+    },
+    "Transaction / invoice": {
+      "en": "Transaction / invoice"
+    },
+    "Transaction / invoice ID": {
+      "en": "Transaction / invoice ID"
+    },
+    "Unable to send message.": {
+      "en": "Unable to send message."
+    },
+    "Unable to submit refund request.": {
+      "en": "Unable to submit refund request."
+    },
+    "Understanding admin support tickets": {
+      "en": "Understanding admin support tickets"
+    },
+    "Upload chunks": {
+      "en": "Upload chunks"
+    },
+    "Upload issues": {
+      "en": "Upload issues"
+    },
+    "Upload languages": {
+      "en": "Upload languages"
+    },
+    "Upload limit": {
+      "en": "Upload limit"
+    },
+    "Upload options": {
+      "en": "Upload options"
+    },
+    "Upload or processing": {
+      "en": "Upload or processing"
+    },
+    "Upload page": {
+      "en": "Upload page"
+    },
+    "Upload pipeline": {
+      "en": "Upload pipeline"
+    },
+    "Upload, watch, subscribe, moderate, and build with live PlayHub data.": {
+      "en": "Upload, watch, subscribe and build your community on PlayHub."
+    },
+    "Uploaded videos": {
+      "en": "Uploaded videos"
+    },
+    "Uploads, scheduling, and processing are available.": {
+      "en": "Uploads, scheduling, and processing are available."
+    },
+    "Use /api/videos, channel endpoints, and authenticated routes for creator workflows.": {
+      "en": "Use /api/videos, channel endpoints, and authenticated routes for creator workflows."
+    },
+    "Use Contact Us": {
+      "en": "Use Contact Us"
+    },
+    "Use the contact form": {
+      "en": "Use the contact form"
+    },
+    "Use the report actions on videos, comments, and community posts so admins receive the exact content reference.": {
+      "en": "Use the report actions on videos, comments, and community posts so admins receive the exact content reference."
+    },
+    "Video categories": {
+      "en": "Video categories"
+    },
+    "Video for everyone. Built for creators and viewers.": {
+      "en": "Video for everyone. Built for creators and viewers."
+    },
+    "Video upload, scheduling, thumbnails, and processing issues.": {
+      "en": "Video upload, scheduling, thumbnails, and processing issues."
+    },
+    "Videos, thumbnails, captions, processing.": {
+      "en": "Videos, thumbnails, captions, processing."
+    },
+    "Waiting for backend endpoint inventory.": {
+      "en": "Waiting for the API endpoint list…"
+    },
+    "We’re here to help.": {
+      "en": "We’re here to help."
+    },
+    "What is PlayHub?": {
+      "en": "What is PlayHub?"
+    },
+    "Where do contact messages go?": {
+      "en": "Where do contact messages go?"
+    },
+    "Yes. Use the native schedule field on Upload. The backend stores scheduled_at and releases the video after processing when the schedule time is reached.": {
+      "en": "Yes. Choose a release date and time on the upload page. After processing, your video stays private until that time. The next scheduler run releases it."
+    },
+    "You are browsing as a guest. Sign in to access account-specific tools.": {
+      "en": "You are browsing as a guest. Sign in to access account-specific tools."
+    },
+    "You receive a response by email.": {
+      "en": "You receive a response by email."
+    },
+    "You’re in control": {
+      "en": "You’re in control"
+    },
+    "Your message is saved directly in the website backend and appears in the admin dashboard under Support.": {
+      "en": "Your message is saved for the support team to review."
+    },
+    "Your support": {
+      "en": "Your support"
+    },
+    "Watch video": {
+      "en": "Watch video"
+    },
+    "Copy link": {
+      "en": "Copy link"
+    },
+    "View creator": {
+      "en": "View creator"
+    },
+    "Remove from playlist": {
+      "en": "Remove from playlist"
+    },
+    "Removing videos from playlists is not available here yet.": {
+      "en": "Removing videos from playlists is not available here yet."
+    },
+    "Create New Playlist": {
+      "en": "Create New Playlist"
+    },
+    "Organize your videos into a playlist": {
+      "en": "Organize your videos into a playlist"
+    },
+    "Playlist Name": {
+      "en": "Playlist Name"
+    },
+    "(optional)": {
+      "en": "(optional)"
+    },
+    "What’s this playlist about?": {
+      "en": "What’s this playlist about?"
+    },
+    "Select Color": {
+      "en": "Select Color"
+    },
+    "This color will represent your playlist": {
+      "en": "This color will represent your playlist"
+    },
+    "Anyone can view this playlist": {
+      "en": "Anyone can view this playlist"
+    },
+    "Only you can view this playlist": {
+      "en": "Only you can view this playlist"
+    },
+    "Anyone with the link can view": {
+      "en": "Anyone with the link can view"
+    },
+    "Add to Playlist": {
+      "en": "Add to Playlist"
+    },
+    "Add videos to this playlist now": {
+      "en": "Add videos to this playlist now"
+    },
+    "Search videos to add...": {
+      "en": "Search videos to add..."
+    },
+    "selected": {
+      "en": "selected"
+    },
+    "Clear": {
+      "en": "Clear"
+    },
+    "Tip": {
+      "en": "Tip"
+    },
+    "Use playlists to organize your content and make it easier for your audience to discover more videos.": {
+      "en": "Use playlists to organize your content and make it easier for your audience to discover more videos."
+    },
+    "Unable to create playlist.": {
+      "en": "Unable to create playlist."
+    },
+    "Your playlists": {
+      "en": "Your playlists"
+    },
+    "Create your first playlist to organize videos from your channel and saved library.": {
+      "en": "Create your first playlist to organize videos from your channel and saved library."
+    },
+    "Loading playlists...": {
+      "en": "Loading playlists..."
+    },
+    "No description has been added for this playlist yet.": {
+      "en": "No description has been added for this playlist yet."
+    },
+    "Updated": {
+      "en": "Updated"
+    },
+    "Created": {
+      "en": "Created"
+    },
+    "recently": {
+      "en": "recently"
+    },
+    "just now": {
+      "en": "just now"
+    },
+    "Play all": {
+      "en": "Play all"
+    },
+    "Shuffle": {
+      "en": "Shuffle"
+    },
+    "Playlist link copied.": {
+      "en": "Playlist link copied."
+    },
+    "Unable to share playlist.": {
+      "en": "Unable to share playlist."
+    },
+    "Search in this playlist...": {
+      "en": "Search in this playlist..."
+    },
+    "Latest": {
+      "en": "Latest"
+    },
+    "Oldest": {
+      "en": "Oldest"
+    },
+    "Popular": {
+      "en": "Popular"
+    },
+    "Untitled video": {
+      "en": "Untitled video"
+    },
+    "No description yet.": {
+      "en": "No description yet."
+    },
+    "No videos match this playlist search.": {
+      "en": "No videos match this playlist search."
+    },
+    "About this playlist": {
+      "en": "About this playlist"
+    },
+    "This playlist belongs to your PlayHub account.": {
+      "en": "This Playlist belongs to your PlayHub account."
+    },
+    "Playlist stats": {
+      "en": "Playlist stats"
+    },
+    "Related playlists": {
+      "en": "Related playlists"
+    },
+    "View all": {
+      "en": "View all"
+    },
+    "No related playlists yet.": {
+      "en": "No related playlists yet."
+    },
+    "View channel": {
+      "en": "View channel"
+    },
+    "Unable to search playlist.": {
+      "en": "Unable to search playlist."
+    },
+    "Searching playlist...": {
+      "en": "Searching playlist..."
+    },
+    "Edit playlist": {
+      "en": "Edit playlist"
+    },
+    "Edit Playlist": {
+      "en": "Edit Playlist"
+    },
+    "Update playlist details and cover": {
+      "en": "Update playlist details and cover"
+    },
+    "Playlist updated.": {
+      "en": "Playlist updated."
+    },
+    "Save playlist": {
+      "en": "Save playlist"
+    },
+    "Playlist cover": {
+      "en": "Playlist cover"
+    },
+    "Cover selected": {
+      "en": "Cover selected"
+    },
+    "Select cover": {
+      "en": "Select cover"
+    },
+    "No playlist videos available for cover selection.": {
+      "en": "No playlist videos available for cover selection."
+    },
+    "No more videos": {
+      "en": "No more videos"
+    },
+    "Remove from Playlist": {
+      "en": "Remove from Playlist"
+    },
+    "Report Video": {
+      "en": "Report Video"
+    },
+    "Video reported for review.": {
+      "en": "Video reported for review."
+    },
+    "You cannot report your own video.": {
+      "en": "You cannot report your own video."
+    },
+    "Video already reported.": {
+      "en": "Video already reported."
+    },
+    "Unable to report video.": {
+      "en": "Unable to report video."
+    },
+    "Remove from Queue": {
+      "en": "Remove from Queue"
+    },
+    "Add to Queue": {
+      "en": "Add to Queue"
+    },
+    "Added to Playlist": {
+      "en": "Added to Playlist"
+    },
+    "Share Video": {
+      "en": "Share Video"
+    },
+    "Not Interested": {
+      "en": "Not Interested"
+    },
+    "Add to Watch later": {
+      "en": "Add to Watch later"
+    },
+    "Remove from Watch later": {
+      "en": "Remove from Watch later"
+    },
+    "Unable to load menu state.": {
+      "en": "Unable to load menu state."
+    },
+    "Unable to save autoplay preference.": {
+      "en": "Unable to save autoplay preference."
+    },
+    "Short shared": {
+      "en": "Short shared"
+    },
+    "Short link copied": {
+      "en": "Short link copied"
+    },
+    "Unable to start playback": {
+      "en": "Unable to start playback"
+    },
+    "You cannot subscribe to your own channel.": {
+      "en": "You cannot subscribe to your own channel."
+    },
+    "Following channel": {
+      "en": "Following channel"
+    },
+    "Unfollowed channel": {
+      "en": "Unfollowed channel"
+    },
+    "Unable to update follow.": {
+      "en": "Your follow preference could not be saved."
+    },
+    "Short already reported.": {
+      "en": "Short already reported."
+    },
+    "Short reported for review.": {
+      "en": "Short reported for review."
+    },
+    "Unable to report short.": {
+      "en": "Unable to report short."
+    },
+    "Comment posted": {
+      "en": "Comment posted"
+    },
+    "Unable to post comment": {
+      "en": "Unable to post comment"
+    },
+    "Unable to load comments.": {
+      "en": "Unable to load comments."
+    },
+    "Loading comments...": {
+      "en": "Loading comments..."
+    },
+    "Load more comments": {
+      "en": "Load more comments"
+    },
+    "Report short": {
+      "en": "Report short"
+    },
+    "Following": {
+      "en": "Following"
+    },
+    "Unmute": {
+      "en": "Unmute"
+    },
+    "Mute": {
+      "en": "Mute"
+    },
+    "Pause": {
+      "en": "Pause"
+    },
+    "Play": {
+      "en": "Play"
+    },
+    "Follow channel": {
+      "en": "Follow channel"
+    },
+    "PlayHub Short": {
+      "en": "PlayHub Short"
+    },
+    "Set as featured": {
+      "en": "Set as featured"
+    },
+    "Featured video updated.": {
+      "en": "Featured video updated."
+    },
+    "Unable to update featured video.": {
+      "en": "Unable to update featured video."
+    },
+    "Growth Hub": {
+      "en": "Growth Hub"
+    },
+    "Explore tools and tips to grow faster, improve your channel, and reach more viewers.": {
+      "en": "Explore tools and tips to grow faster, improve your channel, and reach more viewers."
+    },
+    "Loading growth data...": {
+      "en": "Loading growth data..."
+    },
+    "Channel reach": {
+      "en": "Channel reach"
+    },
+    "Engagement rate": {
+      "en": "Engagement rate"
+    },
+    "Discovery videos": {
+      "en": "Discovery videos"
+    },
+    "Growth actions": {
+      "en": "Growth actions"
+    },
+    "Based on your channel data": {
+      "en": "Based on your channel data"
+    },
+    "Publish consistently": {
+      "en": "Publish consistently"
+    },
+    "Upload your first video and give viewers a clear reason to subscribe.": {
+      "en": "Upload your first video and give viewers a clear reason to subscribe."
+    },
+    "Use Shorts for discovery": {
+      "en": "Use Shorts for discovery"
+    },
+    "Keep testing quick hooks and link viewers to longer videos.": {
+      "en": "Keep testing quick hooks and link viewers to longer videos."
+    },
+    "Create short vertical videos to reach viewers who have not found your channel yet.": {
+      "en": "Create short vertical videos to reach viewers who have not found your channel yet."
+    },
+    "Create short": {
+      "en": "Create short"
+    },
+    "Turn comments into loyalty": {
+      "en": "Turn comments into loyalty"
+    },
+    "Reply to recent comments and turn viewers into returning fans.": {
+      "en": "Reply to recent comments and turn viewers into returning fans."
+    },
+    "Ask a question in your next upload and reply quickly when comments arrive.": {
+      "en": "Ask a question in your next upload and reply quickly when comments arrive."
+    },
+    "View comments": {
+      "en": "View comments"
+    },
+    "Improve public reach": {
+      "en": "Improve public reach"
+    },
+    "Keep strong videos visible and refresh weak titles.": {
+      "en": "Keep strong videos visible and refresh weak titles."
+    },
+    "Explore tools": {
+      "en": "Explore tools"
+    },
+    "Open the right workflow fast": {
+      "en": "Find the tools you need"
+    },
+    "Upload planner": {
+      "en": "Upload planner"
+    },
+    "Start a new upload with titles, tags, visibility, and thumbnail steps.": {
+      "en": "Start a new upload with titles, tags, visibility, and thumbnail steps."
+    },
+    "Shorts studio": {
+      "en": "Shorts studio"
+    },
+    "Create short videos for faster discovery and mobile viewers.": {
+      "en": "Create short videos for faster discovery and mobile viewers."
+    },
+    "Content manager": {
+      "en": "Content manager"
+    },
+    "Review visibility, monetization, comments, and performance in one place.": {
+      "en": "Review visibility, monetization, comments, and performance in one place."
+    },
+    "Analytics review": {
+      "en": "Analytics review"
+    },
+    "Track views, likes, comments, publishing status, and trends.": {
+      "en": "Track views, likes, comments, publishing status, and trends."
+    },
+    "Channel profile": {
+      "en": "Channel profile"
+    },
+    "Update your bio, channel details, and public creator presence.": {
+      "en": "Update your bio and the public details of your channel."
+    },
+    "Audience building": {
+      "en": "Audience building"
+    },
+    "Study subscribers, comments, and what viewers respond to most.": {
+      "en": "Study subscribers, comments, and what viewers respond to most."
+    },
+    "Top content to learn from": {
+      "en": "Top content to learn from"
+    },
+    "Upload videos to unlock performance lessons.": {
+      "en": "Upload videos to unlock performance lessons."
+    },
+    "Tips to reach more viewers": {
+      "en": "Tips to reach more viewers"
+    },
+    "Creator checklist": {
+      "en": "Creator checklist"
+    },
+    "Hook viewers in the first 3 seconds": {
+      "en": "Hook viewers in the first 3 seconds"
+    },
+    "Open with the result, conflict, or visual payoff before adding context.": {
+      "en": "Open with the result, conflict, or visual payoff before adding context."
+    },
+    "Make titles searchable": {
+      "en": "Make titles searchable"
+    },
+    "Use the exact words viewers would type, then keep the promise in the video.": {
+      "en": "Use the exact words viewers would type, then keep the promise in the video."
+    },
+    "Convert shorts into sessions": {
+      "en": "Help Shorts viewers discover more"
+    },
+    "Pin a comment or description link from each short to a related full video.": {
+      "en": "Pin a comment or description link from each short to a related full video."
+    },
+    "Refresh underperforming uploads": {
+      "en": "Refresh underperforming uploads"
+    },
+    "Update thumbnails and titles after you have enough impressions to compare.": {
+      "en": "Update thumbnails and titles after you have enough impressions to compare."
+    },
+    "Upload source": {
+      "en": "Upload source"
+    },
+    "Choose a local video file or import a public video from an enabled provider.": {
+      "en": "Choose a local video file or import a public video from an enabled provider."
+    },
+    "Local upload": {
+      "en": "Local upload"
+    },
+    "Import from URL": {
+      "en": "Import from URL"
+    },
+    "Import video from URL": {
+      "en": "Import video from URL"
+    },
+    "Select an enabled service and paste a public video URL. PlayHub will import it into the normal processing queue.": {
+      "en": "Choose an available provider and paste a public video link to import it."
+    },
+    "Service": {
+      "en": "Service"
+    },
+    "Video URL": {
+      "en": "Video URL"
+    },
+    "Direct video URL": {
+      "en": "Direct video URL"
+    },
+    "YouTube": {
+      "en": "YouTube"
+    },
+    "Vimeo": {
+      "en": "Vimeo"
+    },
+    "Dailymotion": {
+      "en": "Dailymotion"
+    },
+    "Imports a public MP4, MOV, WEBM, MKV, AVI, or M4V file URL.": {
+      "en": "Imports a public MP4, MOV, WEBM, MKV, AVI, or M4V file URL."
+    },
+    "Requires a downloader command such as yt-dlp for media import.": {
+      "en": "Requires a downloader command such as yt-dlp for media import."
+    },
+    "Import queue": {
+      "en": "Import queue"
+    },
+    "Generated after import": {
+      "en": "Generated after import"
+    },
+    "A thumbnail is created during processing.": {
+      "en": "A thumbnail is created during processing."
+    },
+    "Complete the import details first.": {
+      "en": "Complete the import details first."
+    },
+    "Import source": {
+      "en": "Import source"
+    },
+    "Import summary": {
+      "en": "Import summary"
+    },
+    "Source URL": {
+      "en": "Source URL"
+    },
+    "Video imported": {
+      "en": "Video imported"
+    },
+    "Your video was imported and processing has started.": {
+      "en": "Your video was imported."
+    },
+    "Import Video": {
+      "en": "Import Video"
+    },
+    "Import a public video URL, customize its details, and publish it through the normal processing pipeline.": {
+      "en": "Import a public video, edit its details, and publish it."
+    },
+    "Video Import": {
+      "en": "Video Import"
+    },
+    "Enable importing videos from supported external providers.": {
+      "en": "Enable importing videos from supported external providers."
+    },
+    "Downloader Command": {
+      "en": "Downloader Command"
+    },
+    "YouTube Data API key": {
+      "en": "YouTube Data API key"
+    },
+    "Vimeo access token": {
+      "en": "Vimeo access token"
+    },
+    "Dailymotion API key": {
+      "en": "Dailymotion API key"
+    },
+    "API Key": {
+      "en": "API Key"
+    },
+    "Not required": {
+      "en": "Not required"
+    },
+    "Save Import Settings": {
+      "en": "Save Import Settings"
+    },
+    "Video import settings saved.": {
+      "en": "Video import settings saved."
+    },
+    "Video import started.": {
+      "en": "Video import started."
+    },
+    "This video import provider is disabled.": {
+      "en": "This video import provider is disabled."
+    },
+    "Video import provider is disabled.": {
+      "en": "Video import provider is disabled."
+    },
+    "Direct imports must use a supported video file URL.": {
+      "en": "Direct imports must use a supported video file URL."
+    },
+    "Cannot open remote video URL.": {
+      "en": "Cannot open remote video URL."
+    },
+    "Cannot prepare imported video file.": {
+      "en": "Cannot prepare imported video file."
+    },
+    "Cannot read remote video file.": {
+      "en": "Cannot read remote video file."
+    },
+    "Imported video exceeds the maximum upload size.": {
+      "en": "Imported video exceeds the maximum upload size."
+    },
+    "Remote video file is empty.": {
+      "en": "Remote video file is empty."
+    },
+    "Video import downloader command is not configured.": {
+      "en": "Video import downloader command is not configured."
+    },
+    "Downloader did not create an importable video file.": {
+      "en": "Downloader did not create an importable video file."
+    },
+    "Import URL is invalid.": {
+      "en": "Import URL is invalid."
+    },
+    "Import URL must use HTTP or HTTPS.": {
+      "en": "Import URL must use HTTP or HTTPS."
+    },
+    "Import URL host is invalid.": {
+      "en": "Import URL host is invalid."
+    },
+    "Import URL does not match the selected provider.": {
+      "en": "Import URL does not match the selected provider."
+    },
+    "Import URL host cannot be resolved.": {
+      "en": "Import URL host cannot be resolved."
+    },
+    "Import URL must resolve to a public host.": {
+      "en": "Import URL must resolve to a public host."
+    },
+    "Unknown video import provider.": {
+      "en": "Unknown video import provider."
+    },
+    "Saves a public video file URL and plays it from the original URL.": {
+      "en": "Saves a public video file URL and plays it from the original URL."
+    },
+    "Fetches YouTube details and plays with the YouTube embed player.": {
+      "en": "Fetches YouTube details and plays with the YouTube embed player."
+    },
+    "Fetches Vimeo details and plays with the Vimeo embed player.": {
+      "en": "Fetches Vimeo details and plays with the Vimeo embed player."
+    },
+    "Fetches Dailymotion details and plays with the Dailymotion embed player.": {
+      "en": "Fetches Dailymotion details and plays with the Dailymotion embed player."
+    },
+    "Select an enabled service and paste a public video URL. PlayHub will fetch the details and play it from the original provider.": {
+      "en": "Select an enabled service and paste a public video URL. PlayHub will fetch the details and play it from the original provider."
+    },
+    "Fetching...": {
+      "en": "Fetching..."
+    },
+    "Fetch details": {
+      "en": "Fetch details"
+    },
+    "Unable to fetch provider details.": {
+      "en": "Unable to fetch provider details."
+    }
+  }
+}

@@ -1,0 +1,1209 @@
+{
+    "version": 1,
+    "locale": "th",
+    "messages": {
+        "01edbac4bdaccf9dbf3d47506375e20dd48c6ee23f2881768a46f9b84f98c154": {
+            "source_hash": "01edbac4bdaccf9dbf3d47506375e20dd48c6ee23f2881768a46f9b84f98c154",
+            "translation_hash": "1e9dcbe4a9afd80ccee60720443fef0e45b96045bf6deebd9fc4cd70f8278a98",
+            "status": "editorial",
+            "contexts": [
+                "Editorial semantic split: playlist advice versus monetary creator support; full send-tip headings, success, titled-video creator and live-stream support messages. Literal name/title placeholders retained; no inserted user text translated. Super Chat remains product name. Complete neutral/personal phrases in16 locales, no customer address or payment/refund promise added."
+            ],
+            "reviewed_at": "2026-11-06T11:23:38+00:00"
+        },
+        "0606d0e8977e7005f2142a85ce689aec42a867a50eefaf25fc5f1691f960eae7": {
+            "source_hash": "0606d0e8977e7005f2142a85ce689aec42a867a50eefaf25fc5f1691f960eae7",
+            "translation_hash": "86e013f9ccbc7dcc2bb877195817e188115e8469befafd8234031df04a7b0307",
+            "status": "editorial",
+            "contexts": [
+                "Editorial complete transcript-panel loading/failure/accessible body label and Retry action in seven locales. Native personal/neutral register; provider transcript body remains literal and separate. All full messages read against component loading/retry behavior, no invented reason for failure."
+            ],
+            "reviewed_at": "2026-11-06T11:27:43+00:00"
+        },
+        "06a9c7831045c250f88d026206a49bc5c0771ad1a1804a45417f3fa483ca1d11": {
+            "source_hash": "06a9c7831045c250f88d026206a49bc5c0771ad1a1804a45417f3fa483ca1d11",
+            "translation_hash": "2f89dd76a88abb57032a36ed76034acdd8f72aa3453a907a9ed0e51ea1ed3b17",
+            "status": "editorial",
+            "contexts": [
+                "Editorial semantic split: playlist advice versus monetary creator support; full send-tip headings, success, titled-video creator and live-stream support messages. Literal name/title placeholders retained; no inserted user text translated. Super Chat remains product name. Complete neutral/personal phrases in16 locales, no customer address or payment/refund promise added."
+            ],
+            "reviewed_at": "2026-11-06T11:23:38+00:00"
+        },
+        "084158cdbcaeb326bbd2069ae7549527054a9baabc8d3d0874793052055d3c22": {
+            "source_hash": "6d2ecc6831d7433e031cb311047a382c46a1f8a678bce56e9ff62f9fff9e1e37",
+            "translation_hash": "90b7364111f40e76ae31a45aff40c82b03bd9d250284db5c1e485f7925db1738",
+            "status": "verified",
+            "contexts": [
+                "Editorial auth strength/countdown messages against actual ASCII-only registration validation: Latin A–Z/a–z and digit0–9 explicitly named, no broader script support promised. Complete level/time placeholders, personal commands, honest password feedback and two-factor on/off states (disabled means off, never disability).16 regional locales; Persian/Dari password vocabulary retained; no authentication algorithm or policy changed.",
+                "Actual390px registration password feedback with configured fixture strength10: non-Latin input produces explicit Latin A–Z/a–z and0–9 requirements; valid16-character input yields requirements-met state; typed password unchanged; no registration submission, app writes/runtime errors/overflow. Countdown/backend-level messages remain separately editorial."
+            ],
+            "reviewed_at": "2026-11-06T11:31:08+00:00",
+            "verified_at": "2026-11-06T11:33:39.868Z"
+        },
+        "08b6cab53ff990d2a7d49de1b596c91ee43e4c6065f85a7bea33632512b36f38": {
+            "source_hash": "08b6cab53ff990d2a7d49de1b596c91ee43e4c6065f85a7bea33632512b36f38",
+            "translation_hash": "d4b6018b170b4fbc2e12beed83ee0477483a7c8df050bcab50321ed7c8bd5dcb",
+            "status": "editorial",
+            "contexts": [
+                "Editorial remaining real chapter-editor/file UI in16 locales: titles, upload/add/remove actions, CUE/TXT limits, timeline help, minimum2 chapters, unreadable-file failure, custom/generated drafts. Terminology matches reviewed include-chapters checkbox and chapter validation. Exact CUE/TXT/512KB identifiers preserved; provider/file contents/names untouched. Source Start is deliberately excluded because its shared verb/column contexts need separate treatment."
+            ],
+            "reviewed_at": "2026-11-06T11:37:36+00:00"
+        },
+        "0beaa1ac4f83c8ca6897863497d68e7109374cd6f9327fd7909d00339c22d362": {
+            "source_hash": "0beaa1ac4f83c8ca6897863497d68e7109374cd6f9327fd7909d00339c22d362",
+            "translation_hash": "e8c12583643ea5a61696da2c259099e3589724ad577c957115c88d5822a48e1e",
+            "status": "editorial",
+            "contexts": [
+                "Editorial complete URL-import flow in Hebrew, Iranian Persian, Afghan Dari, Hindi, Bangladeshi Bengali, Thai and Vietnamese. Personal singular address where used; neutral platform/status labels; no formal imperatives. Reviewed subtitle/transcript availability, original-language default, detected counts, chapter review/manual fallback and loading/empty states against actual import behavior. Regional Persian information/publication vocabulary retained. User/provider contents excluded."
+            ],
+            "reviewed_at": "2026-11-06T11:04:32+00:00"
+        },
+        "0dcce2f150b6b33d71ad3ccbc3dbffc0c3b81d19f29b18d55935cea0f083d9e7": {
+            "source_hash": "31c05b7a82b2206256d6ce4e748f91ed1912de9a449e903fceb7b6935345d0d8",
+            "translation_hash": "6253ac36f40fbf7d72bde4577a85fa7e5ebbe248520fccf9ead53e846d075033",
+            "status": "verified",
+            "contexts": [
+                "Editorial complete count messages for views/subscribers/likes/replies/videos/users/comments/playlists in Hebrew, Iranian Persian, Afghan Dari, Hindi, Bangladeshi Bengali, Thai and Vietnamese. RTL/Persian labels avoid incorrect dual/plural inflections at 0/1/2; Hindi comment label is count-neutral; Bengali/Thai native classifiers retained. Named count is formatted separately by actual selected locale. Only these 8 full patterns reviewed; old unrelated pattern/plural metadata remains pending.",
+                "Complete quantity patterns through actual DOM translation bridge at 390px; 0/1/2/3/11/21/1000 for views/subscribers/likes/replies/videos/users/comments/Playlists, locale digits and original number retained, no overflow/runtime errors/application writes"
+            ],
+            "reviewed_at": "2026-11-06T11:05:35+00:00",
+            "verified_at": "2026-11-06T11:06:03.495Z"
+        },
+        "0ee695bdeb26a296117c515156ac6785099fa25450755144ccdb5fbb9b2c1841": {
+            "source_hash": "0ee695bdeb26a296117c515156ac6785099fa25450755144ccdb5fbb9b2c1841",
+            "translation_hash": "6814252cacb97fcde9dfc4475b868b03383134c2f685c9e9fe96b3ab2ae98aa9",
+            "status": "verified",
+            "contexts": [
+                "Editorial complete URL-import flow in Hebrew, Iranian Persian, Afghan Dari, Hindi, Bangladeshi Bengali, Thai and Vietnamese. Personal singular address where used; neutral platform/status labels; no formal imperatives. Reviewed subtitle/transcript availability, original-language default, detected counts, chapter review/manual fallback and loading/empty states against actual import behavior. Regional Persian information/publication vocabulary retained. User/provider contents excluded.",
+                "URL import at 390px: loading/spinner, automatic YouTube detection, two subtitles/chapters, empty results, original provider metadata retained; isolated read-only browser"
+            ],
+            "reviewed_at": "2026-11-06T11:04:32+00:00",
+            "verified_at": "2026-11-06T11:05:20.379Z"
+        },
+        "0faca17efa3ef74fcc3b4fec37b2fec8313887959afcb9bf5b7b82487da8a702": {
+            "source_hash": "0faca17efa3ef74fcc3b4fec37b2fec8313887959afcb9bf5b7b82487da8a702",
+            "translation_hash": "d5653b978910550576e546941dc78fd2b98425c8796dca01cb5b5cdd4bb655ee",
+            "status": "editorial",
+            "contexts": [
+                "Editorial remaining real chapter-editor/file UI in16 locales: titles, upload/add/remove actions, CUE/TXT limits, timeline help, minimum2 chapters, unreadable-file failure, custom/generated drafts. Terminology matches reviewed include-chapters checkbox and chapter validation. Exact CUE/TXT/512KB identifiers preserved; provider/file contents/names untouched. Source Start is deliberately excluded because its shared verb/column contexts need separate treatment."
+            ],
+            "reviewed_at": "2026-11-06T11:37:36+00:00"
+        },
+        "0fb51d778aa1abff81b66e02b32307251a2970ad648294dd8474311989c86981": {
+            "source_hash": "0fb51d778aa1abff81b66e02b32307251a2970ad648294dd8474311989c86981",
+            "translation_hash": "6e792cc0f0ade009bd9929524bde4b73af61ac76b86096a608d82fff8ba13d5e",
+            "status": "editorial",
+            "contexts": [
+                "Complete canonical and historical Shorts policy messages aligned with confirmed60s/portrait-only behavior. New dropzone prompt, named duration/dimensions status, auto-Short classification, imported-empty state and retired180s/square wording. Historical keys preserved with corrected whole meanings; no claim that exact9:16 alone is mandatory."
+            ],
+            "reviewed_at": "2026-11-06T10:44:18+00:00"
+        },
+        "114ec33fd67903ada6f5d40f91a61b47e0ef0e3748e822ecc382a1d58bf3815e": {
+            "source_hash": "3c5b5984a434aed0875b90f4d16795c2df13ed6caba1f0005ffec45dc8291c97",
+            "translation_hash": "fe4f867b2d79fe02479bf830faafef2c1a4e02275856d623b3e4ee5d83c59c75",
+            "status": "verified",
+            "contexts": [
+                "Editorial auth strength/countdown messages against actual ASCII-only registration validation: Latin A–Z/a–z and digit0–9 explicitly named, no broader script support promised. Complete level/time placeholders, personal commands, honest password feedback and two-factor on/off states (disabled means off, never disability).16 regional locales; Persian/Dari password vocabulary retained; no authentication algorithm or policy changed.",
+                "Actual390px registration password feedback with configured fixture strength10: non-Latin input produces explicit Latin A–Z/a–z and0–9 requirements; valid16-character input yields requirements-met state; typed password unchanged; no registration submission, app writes/runtime errors/overflow. Countdown/backend-level messages remain separately editorial."
+            ],
+            "reviewed_at": "2026-11-06T11:31:08+00:00",
+            "verified_at": "2026-11-06T11:33:39.868Z"
+        },
+        "11daac00337505cb78d21495a692f541a3bad70014920cea16a3b3efc343c78a": {
+            "source_hash": "11daac00337505cb78d21495a692f541a3bad70014920cea16a3b3efc343c78a",
+            "translation_hash": "ced6ec349e1e09289a91c461860f788eba92aa78d4f9bdf7287a5fbf8845d98e",
+            "status": "editorial",
+            "contexts": [
+                "Editorial complete chapter validation plus accessible chapter-name and include-chapters checkbox in Hebrew, Iranian Persian, Afghan Dari, Hindi, Bangladeshi Bengali, Thai and Vietnamese. Named count/number/seconds retained, exact first0:00 and160-character limit preserved. Checkbox label agrees with missing-name instruction; personal commands, regional scripts; shared neutral Persian/Dari timing wording read separately. Does not alter imported chapter content or timing."
+            ],
+            "reviewed_at": "2026-11-06T11:07:40+00:00"
+        },
+        "12935cabfe2bf71c4f7038873698b5cb1edb43224436d2882c987a36103c8819": {
+            "source_hash": "12935cabfe2bf71c4f7038873698b5cb1edb43224436d2882c987a36103c8819",
+            "translation_hash": "46afedb89e7a992e24e9fa947a67f650c491d184ac2ebdc5bab19f759887429d",
+            "status": "editorial",
+            "contexts": [
+                "Editorial complete chapter validation plus accessible chapter-name and include-chapters checkbox in Hebrew, Iranian Persian, Afghan Dari, Hindi, Bangladeshi Bengali, Thai and Vietnamese. Named count/number/seconds retained, exact first0:00 and160-character limit preserved. Checkbox label agrees with missing-name instruction; personal commands, regional scripts; shared neutral Persian/Dari timing wording read separately. Does not alter imported chapter content or timing."
+            ],
+            "reviewed_at": "2026-11-06T11:07:40+00:00"
+        },
+        "137b2602228d3b0e51370109579ee590abb20e6454c08691baf424a91e3a4d7c": {
+            "source_hash": "ae66b6875c64b54c01376e43974906d0c12ba199c278c2f65ad07ed0ce102765",
+            "translation_hash": "97c6daea13910bb925e6fa71a9ee1d0b8eaf94c32db40ddeea72e581fb314b4e",
+            "status": "editorial",
+            "contexts": [
+                "Editorial follow-up to current complete EN reference: local-upload empty state waits until processing completes (distinct from imported-video success); portrait is mandatory while exact9:16 remains a recommendation. All16 regional messages read separately; max60 retained, no180/square fallback."
+            ],
+            "reviewed_at": "2026-11-06T11:19:52+00:00"
+        },
+        "15157c4a577711cd0f5512ec00afa608f443952425eff8709bb219ed9aeddb69": {
+            "source_hash": "15157c4a577711cd0f5512ec00afa608f443952425eff8709bb219ed9aeddb69",
+            "translation_hash": "9c3f76afacfd6a3f9b0a956638f6ea080e114a7720d9b0377ebc6bde2015086a",
+            "status": "editorial",
+            "contexts": [
+                "Complete canonical and historical Shorts policy messages aligned with confirmed60s/portrait-only behavior. New dropzone prompt, named duration/dimensions status, auto-Short classification, imported-empty state and retired180s/square wording. Historical keys preserved with corrected whole meanings; no claim that exact9:16 alone is mandatory."
+            ],
+            "reviewed_at": "2026-11-06T10:44:18+00:00"
+        },
+        "17f3109b74b35f29274deb3a1a9189c6f7e56139882eb2cd51ea55da06b3571e": {
+            "source_hash": "9719bbf6d0a23fa44f964aa7e8c20ab27c8ccba00727a2cd9fd90ae2ffb9bfd0",
+            "translation_hash": "09008c0cfd23a6b8ef48d197dd01c609326b97467ac75f00028e07945f337ac8",
+            "status": "verified",
+            "contexts": [
+                "Editorial complete count messages for views/subscribers/likes/replies/videos/users/comments/playlists in Hebrew, Iranian Persian, Afghan Dari, Hindi, Bangladeshi Bengali, Thai and Vietnamese. RTL/Persian labels avoid incorrect dual/plural inflections at 0/1/2; Hindi comment label is count-neutral; Bengali/Thai native classifiers retained. Named count is formatted separately by actual selected locale. Only these 8 full patterns reviewed; old unrelated pattern/plural metadata remains pending.",
+                "Complete quantity patterns through actual DOM translation bridge at 390px; 0/1/2/3/11/21/1000 for views/subscribers/likes/replies/videos/users/comments/Playlists, locale digits and original number retained, no overflow/runtime errors/application writes"
+            ],
+            "reviewed_at": "2026-11-06T11:05:35+00:00",
+            "verified_at": "2026-11-06T11:06:03.495Z"
+        },
+        "198176f49d4ec699321821bd970d473d13ca97d996815de7b9d60dd2d009216c": {
+            "source_hash": "ab95d4f48374bfc675eea310670103c4037ffe95fd94e9b319a4c536a4e1baeb",
+            "translation_hash": "b1bbf5a837396c018967cc29d5581a2d1fb41a207ebc63a5fba9110fc5373e3e",
+            "status": "verified",
+            "contexts": [
+                "Editorial complete count messages for views/subscribers/likes/replies/videos/users/comments/playlists in Hebrew, Iranian Persian, Afghan Dari, Hindi, Bangladeshi Bengali, Thai and Vietnamese. RTL/Persian labels avoid incorrect dual/plural inflections at 0/1/2; Hindi comment label is count-neutral; Bengali/Thai native classifiers retained. Named count is formatted separately by actual selected locale. Only these 8 full patterns reviewed; old unrelated pattern/plural metadata remains pending.",
+                "Complete quantity patterns through actual DOM translation bridge at 390px; 0/1/2/3/11/21/1000 for views/subscribers/likes/replies/videos/users/comments/Playlists, locale digits and original number retained, no overflow/runtime errors/application writes"
+            ],
+            "reviewed_at": "2026-11-06T11:05:35+00:00",
+            "verified_at": "2026-11-06T11:06:03.495Z"
+        },
+        "1a19c29cec8fdaf816b850a292e48211b135cd395469343dfb9230c08ec71659": {
+            "source_hash": "1a19c29cec8fdaf816b850a292e48211b135cd395469343dfb9230c08ec71659",
+            "translation_hash": "888dcee7f1142b92b742fcc373c277fcfc23e261c05147e1af7ebe5072f7a913",
+            "status": "verified",
+            "contexts": [
+                "Editorial complete chapter validation plus accessible chapter-name and include-chapters checkbox in Hebrew, Iranian Persian, Afghan Dari, Hindi, Bangladeshi Bengali, Thai and Vietnamese. Named count/number/seconds retained, exact first0:00 and160-character limit preserved. Checkbox label agrees with missing-name instruction; personal commands, regional scripts; shared neutral Persian/Dari timing wording read separately. Does not alter imported chapter content or timing.",
+                "Actual chapter editor at390px with RTL where selected: automatic imported chapters checked, original titles retained, named placeholder/screenreader field, missing title/invalid time/minimum spacing/beyond video errors, repaired valid state; no publication or mutations"
+            ],
+            "reviewed_at": "2026-11-06T11:07:40+00:00",
+            "verified_at": "2026-11-06T11:12:43.224Z"
+        },
+        "1b6edb00ffd7010ed8102926c71b565c3f43da048cf6409fcf6a5463296ba843": {
+            "source_hash": "1b6edb00ffd7010ed8102926c71b565c3f43da048cf6409fcf6a5463296ba843",
+            "translation_hash": "433be8a1d28fcbfee2094412572210f2bdba97118b1142923fd8acd9a27817a2",
+            "status": "editorial",
+            "contexts": [
+                "Complete canonical and historical Shorts policy messages aligned with confirmed60s/portrait-only behavior. New dropzone prompt, named duration/dimensions status, auto-Short classification, imported-empty state and retired180s/square wording. Historical keys preserved with corrected whole meanings; no claim that exact9:16 alone is mandatory."
+            ],
+            "reviewed_at": "2026-11-06T10:44:18+00:00"
+        },
+        "1bb2e6e6ee648113c7f33859f600b00f73b4952ce6f68d00ee59b6cff4876a5e": {
+            "source_hash": "29c34e6125c7ee1479b24b1259ed403512440a832083de13d397c5170fcbbb62",
+            "translation_hash": "cf4ed7e02b1213d07900be4a5d03b43c0b6bf89a49227c08200df5ee4eea8208",
+            "status": "editorial",
+            "contexts": [
+                "Complete canonical and historical Shorts policy messages aligned with confirmed60s/portrait-only behavior. New dropzone prompt, named duration/dimensions status, auto-Short classification, imported-empty state and retired180s/square wording. Historical keys preserved with corrected whole meanings; no claim that exact9:16 alone is mandatory."
+            ],
+            "reviewed_at": "2026-11-06T10:44:18+00:00"
+        },
+        "1dd6be69c888b7939269be13ddf76258541734b61726565bc20d4742a8b16383": {
+            "source_hash": "1dd6be69c888b7939269be13ddf76258541734b61726565bc20d4742a8b16383",
+            "translation_hash": "c5b5cba139a82286ac9167d4dbc3b2a0b2b6b0f03d25a1a8412c03924c466785",
+            "status": "verified",
+            "contexts": [
+                "Editorial complete URL-import flow in Hebrew, Iranian Persian, Afghan Dari, Hindi, Bangladeshi Bengali, Thai and Vietnamese. Personal singular address where used; neutral platform/status labels; no formal imperatives. Reviewed subtitle/transcript availability, original-language default, detected counts, chapter review/manual fallback and loading/empty states against actual import behavior. Regional Persian information/publication vocabulary retained. User/provider contents excluded.",
+                "URL import at 390px: loading/spinner, automatic YouTube detection, two subtitles/chapters, empty results, original provider metadata retained; isolated read-only browser"
+            ],
+            "reviewed_at": "2026-11-06T11:04:32+00:00",
+            "verified_at": "2026-11-06T11:05:20.380Z"
+        },
+        "1e0f4a036ef6a459ddf90056cd2f2251be9f750a73608c00046e63d235ff3183": {
+            "source_hash": "1b6edb00ffd7010ed8102926c71b565c3f43da048cf6409fcf6a5463296ba843",
+            "translation_hash": "433be8a1d28fcbfee2094412572210f2bdba97118b1142923fd8acd9a27817a2",
+            "status": "editorial",
+            "contexts": [
+                "Complete canonical and historical Shorts policy messages aligned with confirmed60s/portrait-only behavior. New dropzone prompt, named duration/dimensions status, auto-Short classification, imported-empty state and retired180s/square wording. Historical keys preserved with corrected whole meanings; no claim that exact9:16 alone is mandatory."
+            ],
+            "reviewed_at": "2026-11-06T10:44:18+00:00"
+        },
+        "1eb8d90ec7808245ac8744fc6f0a55c1adb7d99b184f4c8fd558b51a0d303181": {
+            "source_hash": "1eb8d90ec7808245ac8744fc6f0a55c1adb7d99b184f4c8fd558b51a0d303181",
+            "translation_hash": "5924599ceb44d6bead0830efb76469105e6bf4a1e831c077793f2db138d74e12",
+            "status": "verified",
+            "contexts": [
+                "Editorial complete URL-import flow in Hebrew, Iranian Persian, Afghan Dari, Hindi, Bangladeshi Bengali, Thai and Vietnamese. Personal singular address where used; neutral platform/status labels; no formal imperatives. Reviewed subtitle/transcript availability, original-language default, detected counts, chapter review/manual fallback and loading/empty states against actual import behavior. Regional Persian information/publication vocabulary retained. User/provider contents excluded.",
+                "URL import at 390px: loading/spinner, automatic YouTube detection, two subtitles/chapters, empty results, original provider metadata retained; isolated read-only browser"
+            ],
+            "reviewed_at": "2026-11-06T11:04:32+00:00",
+            "verified_at": "2026-11-06T11:05:20.379Z"
+        },
+        "20064e29bbcd272f9981538e0e9f9144c0d094feee9ebd05d8a66fed4f4d7aad": {
+            "source_hash": "20064e29bbcd272f9981538e0e9f9144c0d094feee9ebd05d8a66fed4f4d7aad",
+            "translation_hash": "e697861d0e811880d63c330536f8658202eb58e88e9cc5621d01bd4a20c0f70b",
+            "status": "editorial",
+            "contexts": [
+                "Editorial semantic split: playlist advice versus monetary creator support; full send-tip headings, success, titled-video creator and live-stream support messages. Literal name/title placeholders retained; no inserted user text translated. Super Chat remains product name. Complete neutral/personal phrases in16 locales, no customer address or payment/refund promise added."
+            ],
+            "reviewed_at": "2026-11-06T11:23:38+00:00"
+        },
+        "2615baa3c3c422a919445361fa065bc14229dcbda76a695f0ec373ed33c86784": {
+            "source_hash": "2615baa3c3c422a919445361fa065bc14229dcbda76a695f0ec373ed33c86784",
+            "translation_hash": "bce48eb0894bca5718ade8d7dbe76ff8a89140c52013b3dda780357d0f40509d",
+            "status": "editorial",
+            "contexts": [
+                "Editorial semantic split: playlist advice versus monetary creator support; full send-tip headings, success, titled-video creator and live-stream support messages. Literal name/title placeholders retained; no inserted user text translated. Super Chat remains product name. Complete neutral/personal phrases in16 locales, no customer address or payment/refund promise added."
+            ],
+            "reviewed_at": "2026-11-06T11:23:38+00:00"
+        },
+        "275e361cd65a5b5ca0df1ae5d25122a055a1f2ea1793e3d43b018f4e0254313d": {
+            "source_hash": "275e361cd65a5b5ca0df1ae5d25122a055a1f2ea1793e3d43b018f4e0254313d",
+            "translation_hash": "1525df93c7b9b0ce06bdab16ab4afbd2986c85d8fdef0434a9684aecd273a3ad",
+            "status": "editorial",
+            "contexts": [
+                "Editorial notification header and full sent-by wrapper sentence in seven regional languages; literal linked site unchanged."
+            ],
+            "reviewed_at": "2026-11-06T11:14:33+00:00"
+        },
+        "296dc6b2bed0ef99ec5506f542a799ecb20b25dc5a67f19512890d9c5b37c8a7": {
+            "source_hash": "296dc6b2bed0ef99ec5506f542a799ecb20b25dc5a67f19512890d9c5b37c8a7",
+            "translation_hash": "50592d5fd712c68d5df8f2d16c51b9d92403db4de0b32f0649dfab15af17f7a9",
+            "status": "editorial",
+            "contexts": [
+                "Editorial semantic correction of home/live/review/device distribution/report and import/account actions in Hebrew, Persian/Dari, Hindi, Bengali, Thai and Vietnamese; device distribution also in the first nine reviewed locales. No literal house/life/device failure/clothing meanings. Regional Persian/Dari terminology preserved."
+            ],
+            "reviewed_at": "2026-11-06T10:22:23+00:00"
+        },
+        "29c34e6125c7ee1479b24b1259ed403512440a832083de13d397c5170fcbbb62": {
+            "source_hash": "29c34e6125c7ee1479b24b1259ed403512440a832083de13d397c5170fcbbb62",
+            "translation_hash": "cf4ed7e02b1213d07900be4a5d03b43c0b6bf89a49227c08200df5ee4eea8208",
+            "status": "editorial",
+            "contexts": [
+                "Complete canonical and historical Shorts policy messages aligned with confirmed60s/portrait-only behavior. New dropzone prompt, named duration/dimensions status, auto-Short classification, imported-empty state and retired180s/square wording. Historical keys preserved with corrected whole meanings; no claim that exact9:16 alone is mandatory."
+            ],
+            "reviewed_at": "2026-11-06T10:44:18+00:00"
+        },
+        "2a99ce205f6ea2ff49ed45baa2181d817944448a046e962ac1a0254b09146cc6": {
+            "source_hash": "2a99ce205f6ea2ff49ed45baa2181d817944448a046e962ac1a0254b09146cc6",
+            "translation_hash": "07794767f43f5385812df342b77d28bfa8737d23f5530d7cdfd7140d95523e5a",
+            "status": "editorial",
+            "contexts": [
+                "Editorial remaining real chapter-editor/file UI in16 locales: titles, upload/add/remove actions, CUE/TXT limits, timeline help, minimum2 chapters, unreadable-file failure, custom/generated drafts. Terminology matches reviewed include-chapters checkbox and chapter validation. Exact CUE/TXT/512KB identifiers preserved; provider/file contents/names untouched. Source Start is deliberately excluded because its shared verb/column contexts need separate treatment."
+            ],
+            "reviewed_at": "2026-11-06T11:37:36+00:00"
+        },
+        "2daa7d6119fb59b1bd299d8447fb191629bbb462e1ead1fe3d152d6ed2b55539": {
+            "source_hash": "fc2673773d21f7212f14bc4701c667a6887a68310c2c95533b3a4414e62a4746",
+            "translation_hash": "1d72520ec73892b5a56e24890a193174ca26427ae45e8fee7b1a300c5a0ca4cf",
+            "status": "verified",
+            "contexts": [
+                "Editorial complete count messages for views/subscribers/likes/replies/videos/users/comments/playlists in Hebrew, Iranian Persian, Afghan Dari, Hindi, Bangladeshi Bengali, Thai and Vietnamese. RTL/Persian labels avoid incorrect dual/plural inflections at 0/1/2; Hindi comment label is count-neutral; Bengali/Thai native classifiers retained. Named count is formatted separately by actual selected locale. Only these 8 full patterns reviewed; old unrelated pattern/plural metadata remains pending.",
+                "Complete quantity patterns through actual DOM translation bridge at 390px; 0/1/2/3/11/21/1000 for views/subscribers/likes/replies/videos/users/comments/Playlists, locale digits and original number retained, no overflow/runtime errors/application writes"
+            ],
+            "reviewed_at": "2026-11-06T11:05:35+00:00",
+            "verified_at": "2026-11-06T11:06:03.495Z"
+        },
+        "3008f5d6455bee37fa7c500f1e02ddff2faa59351bd40d42b4efe4542e9cd277": {
+            "source_hash": "3008f5d6455bee37fa7c500f1e02ddff2faa59351bd40d42b4efe4542e9cd277",
+            "translation_hash": "bfda03fa4eb224ff7d67b3039bf873282f7882b476b8f67c4d6f43d64edb6553",
+            "status": "verified",
+            "contexts": [
+                "Editorial six complete default email subjects/bodies for Hebrew, Iranian Persian, Afghan Dari, Hindi, Bangladeshi Bengali, Thai and Vietnamese. Friendly personal wording, no customer/formal imperatives; neutral status and restrictions remain exact. Persian password vocabulary versus Dari preserved. All literal usernames/roles/titles/credentials/URLs/tokens retained; no administrator overrides changed.",
+                "Actual EmailTemplates and BrandedEmail renderers: all 6 subjects/bodies; 1/2/15-minute expiry; literal usernames/roles/title/credentials/URLs retained; HTML escaping and RTL; fixture-only override precedence; no sending or production writes. Rendering check, not complete visual email-client acceptance."
+            ],
+            "reviewed_at": "2026-11-06T11:14:20+00:00",
+            "verified_at": "2026-11-06T12:19:09+00:00"
+        },
+        "31b6958044f3ea928aabc3092fb33177ca3609407ad7ed0427de160c1aecda87": {
+            "source_hash": "31b6958044f3ea928aabc3092fb33177ca3609407ad7ed0427de160c1aecda87",
+            "translation_hash": "ec7de02443d5d9017c81a30c40861dc63d57e1ed8eca02e9120b8d7dd7587908",
+            "status": "verified",
+            "contexts": [
+                "Editorial six complete default email subjects/bodies for Hebrew, Iranian Persian, Afghan Dari, Hindi, Bangladeshi Bengali, Thai and Vietnamese. Friendly personal wording, no customer/formal imperatives; neutral status and restrictions remain exact. Persian password vocabulary versus Dari preserved. All literal usernames/roles/titles/credentials/URLs/tokens retained; no administrator overrides changed.",
+                "Actual EmailTemplates and BrandedEmail renderers: all 6 subjects/bodies; 1/2/15-minute expiry; literal usernames/roles/title/credentials/URLs retained; HTML escaping and RTL; fixture-only override precedence; no sending or production writes. Rendering check, not complete visual email-client acceptance."
+            ],
+            "reviewed_at": "2026-11-06T11:14:20+00:00",
+            "verified_at": "2026-11-06T12:19:09+00:00"
+        },
+        "360cf0b681c483ef1d5d5287288506e7c0af9c69fca91b6279edff38521010a5": {
+            "source_hash": "360cf0b681c483ef1d5d5287288506e7c0af9c69fca91b6279edff38521010a5",
+            "translation_hash": "30bbd44129650de075e40879fe7722e7c21d294193ff6f6712b9de6c1da6a0ea",
+            "status": "editorial",
+            "contexts": [
+                "Editorial auth strength/countdown messages against actual ASCII-only registration validation: Latin A–Z/a–z and digit0–9 explicitly named, no broader script support promised. Complete level/time placeholders, personal commands, honest password feedback and two-factor on/off states (disabled means off, never disability).16 regional locales; Persian/Dari password vocabulary retained; no authentication algorithm or policy changed."
+            ],
+            "reviewed_at": "2026-11-06T11:31:08+00:00"
+        },
+        "3798eacc1ecb6f703526368c6143d03621c264a7989b1f1174b02b39b6520c5a": {
+            "source_hash": "3798eacc1ecb6f703526368c6143d03621c264a7989b1f1174b02b39b6520c5a",
+            "translation_hash": "7155de99254386136d8b1a45f21e1eb16dbfd7eda3e2ae531f0c4dc105e757ea",
+            "status": "verified",
+            "contexts": [
+                "Editorial complete URL-import flow in Hebrew, Iranian Persian, Afghan Dari, Hindi, Bangladeshi Bengali, Thai and Vietnamese. Personal singular address where used; neutral platform/status labels; no formal imperatives. Reviewed subtitle/transcript availability, original-language default, detected counts, chapter review/manual fallback and loading/empty states against actual import behavior. Regional Persian information/publication vocabulary retained. User/provider contents excluded.",
+                "URL import at 390px: loading/spinner, automatic YouTube detection, two subtitles/chapters, empty results, original provider metadata retained; isolated read-only browser"
+            ],
+            "reviewed_at": "2026-11-06T11:04:32+00:00",
+            "verified_at": "2026-11-06T11:05:20.379Z"
+        },
+        "3a78695388b38b5cceefaf6796b0137877514593543b91af2752d5a17e3d736c": {
+            "source_hash": "3a78695388b38b5cceefaf6796b0137877514593543b91af2752d5a17e3d736c",
+            "translation_hash": "4e7df8892e60677aed0df36eb12c9ed800cab712e9df4860ce6ac99d34c4f2f3",
+            "status": "editorial",
+            "contexts": [
+                "Editorial semantic correction of home/live/review/device distribution/report and import/account actions in Hebrew, Persian/Dari, Hindi, Bengali, Thai and Vietnamese; device distribution also in the first nine reviewed locales. No literal house/life/device failure/clothing meanings. Regional Persian/Dari terminology preserved."
+            ],
+            "reviewed_at": "2026-11-06T10:22:23+00:00"
+        },
+        "3c784a16cf27568e948bbdffd5d250bb35e98454112f9196c59f7636666699f7": {
+            "source_hash": "3c784a16cf27568e948bbdffd5d250bb35e98454112f9196c59f7636666699f7",
+            "translation_hash": "3c784a16cf27568e948bbdffd5d250bb35e98454112f9196c59f7636666699f7",
+            "status": "editorial",
+            "contexts": [
+                "Technical semantic correction after inspecting every assigned value: Shorts is the video format name, never trousers; the file-format list contains literal identifiers, not translated/transliterated words. Only these two protected labels are reviewed here; this is not linguistic acceptance of any locale."
+            ],
+            "reviewed_at": "2026-11-06T10:21:22+00:00"
+        },
+        "3f8fe694ff5c3131fbc0611a3d8bd17bd1b88d39afb2722bef1d2179f2691fc6": {
+            "source_hash": "3f8fe694ff5c3131fbc0611a3d8bd17bd1b88d39afb2722bef1d2179f2691fc6",
+            "translation_hash": "9b426d891dfbdb393e60dd4e34ab04bd718f77e2c47d52611adefb457a12714b",
+            "status": "editorial",
+            "contexts": [
+                "Editorial complete chapter validation plus accessible chapter-name and include-chapters checkbox in Hebrew, Iranian Persian, Afghan Dari, Hindi, Bangladeshi Bengali, Thai and Vietnamese. Named count/number/seconds retained, exact first0:00 and160-character limit preserved. Checkbox label agrees with missing-name instruction; personal commands, regional scripts; shared neutral Persian/Dari timing wording read separately. Does not alter imported chapter content or timing."
+            ],
+            "reviewed_at": "2026-11-06T11:07:40+00:00"
+        },
+        "408b9ccc4e36c5bf30437f2d9ad7e51d51c874f6fd4146fdd6b2df9c34d7f791": {
+            "source_hash": "408b9ccc4e36c5bf30437f2d9ad7e51d51c874f6fd4146fdd6b2df9c34d7f791",
+            "translation_hash": "408b9ccc4e36c5bf30437f2d9ad7e51d51c874f6fd4146fdd6b2df9c34d7f791",
+            "status": "editorial",
+            "contexts": [
+                "Technical semantic correction after inspecting every assigned value: Shorts is the video format name, never trousers; the file-format list contains literal identifiers, not translated/transliterated words. Only these two protected labels are reviewed here; this is not linguistic acceptance of any locale."
+            ],
+            "reviewed_at": "2026-11-06T10:21:22+00:00"
+        },
+        "40a44be8d4f241e3935760cf81de5cdad7fd01d49c078191472b8b6927144db3": {
+            "source_hash": "40a44be8d4f241e3935760cf81de5cdad7fd01d49c078191472b8b6927144db3",
+            "translation_hash": "ee28607d63c23e0e3bf61fc46f5d1b2facc25f37375b7a12b4885316bb009bb9",
+            "status": "editorial",
+            "contexts": [
+                "Editorial remaining real chapter-editor/file UI in16 locales: titles, upload/add/remove actions, CUE/TXT limits, timeline help, minimum2 chapters, unreadable-file failure, custom/generated drafts. Terminology matches reviewed include-chapters checkbox and chapter validation. Exact CUE/TXT/512KB identifiers preserved; provider/file contents/names untouched. Source Start is deliberately excluded because its shared verb/column contexts need separate treatment."
+            ],
+            "reviewed_at": "2026-11-06T11:37:36+00:00"
+        },
+        "472590ae974d4c1f44b3780df0b152d9119f076c61bfb3e8cb6affd7889ac0a8": {
+            "source_hash": "472590ae974d4c1f44b3780df0b152d9119f076c61bfb3e8cb6affd7889ac0a8",
+            "translation_hash": "32394c8b6594acc6f22f0cb2fc89d703ed17071b45abc61a6a097366d89f5c6b",
+            "status": "editorial",
+            "contexts": [
+                "Editorial complete URL-import flow in Hebrew, Iranian Persian, Afghan Dari, Hindi, Bangladeshi Bengali, Thai and Vietnamese. Personal singular address where used; neutral platform/status labels; no formal imperatives. Reviewed subtitle/transcript availability, original-language default, detected counts, chapter review/manual fallback and loading/empty states against actual import behavior. Regional Persian information/publication vocabulary retained. User/provider contents excluded."
+            ],
+            "reviewed_at": "2026-11-06T11:04:32+00:00"
+        },
+        "4a819eaea7f49acaa5837c64f69a70843d4c64118eb509490bbb7fad61f10104": {
+            "source_hash": "4a819eaea7f49acaa5837c64f69a70843d4c64118eb509490bbb7fad61f10104",
+            "translation_hash": "02e30f1aeef1987d1ef489e238f87986b7f2d79ab6ec3b3f95bc297267cb86e6",
+            "status": "editorial",
+            "contexts": [
+                "Complete canonical and historical Shorts policy messages aligned with confirmed60s/portrait-only behavior. New dropzone prompt, named duration/dimensions status, auto-Short classification, imported-empty state and retired180s/square wording. Historical keys preserved with corrected whole meanings; no claim that exact9:16 alone is mandatory."
+            ],
+            "reviewed_at": "2026-11-06T10:44:18+00:00"
+        },
+        "4fcff7391dc118f561c7fd42e37211115763d147df1d5da3045918a5cfc9ad45": {
+            "source_hash": "4fcff7391dc118f561c7fd42e37211115763d147df1d5da3045918a5cfc9ad45",
+            "translation_hash": "927d82bba0caea86dd394930cffcf153bf2f2704548caad78c70f9a903b730c6",
+            "status": "editorial",
+            "contexts": [
+                "Complete canonical and historical Shorts policy messages aligned with confirmed60s/portrait-only behavior. New dropzone prompt, named duration/dimensions status, auto-Short classification, imported-empty state and retired180s/square wording. Historical keys preserved with corrected whole meanings; no claim that exact9:16 alone is mandatory."
+            ],
+            "reviewed_at": "2026-11-06T10:44:18+00:00"
+        },
+        "514a392cd10e469c3038c58b83a9c4bdad3a815841924620b7cd22751e218c80": {
+            "source_hash": "9c744a3288b536aa9fbca9658ab7578cabc4152abe27e5f20b4cdd9dff0f1119",
+            "translation_hash": "927d82bba0caea86dd394930cffcf153bf2f2704548caad78c70f9a903b730c6",
+            "status": "editorial",
+            "contexts": [
+                "Complete canonical and historical Shorts policy messages aligned with confirmed60s/portrait-only behavior. New dropzone prompt, named duration/dimensions status, auto-Short classification, imported-empty state and retired180s/square wording. Historical keys preserved with corrected whole meanings; no claim that exact9:16 alone is mandatory."
+            ],
+            "reviewed_at": "2026-11-06T10:44:18+00:00"
+        },
+        "52c071b27c561ef0ddc011de611db41f427cf59cb7d8d663da39d2df7a6c78db": {
+            "source_hash": "52c071b27c561ef0ddc011de611db41f427cf59cb7d8d663da39d2df7a6c78db",
+            "translation_hash": "df9b397cc47a50c44806733f8a4a30536acd88cf22d75cf350a70aa643adb522",
+            "status": "editorial",
+            "contexts": [
+                "Editorial complete accessible start-time field label, named chapter number preserved; actual chapter editor label/source inspected."
+            ],
+            "reviewed_at": "2026-11-06T11:14:36+00:00"
+        },
+        "55bf27974b2ef72e16b9bec3df8ba3cb9711269e954b09d01a629b7f8150958e": {
+            "source_hash": "55bf27974b2ef72e16b9bec3df8ba3cb9711269e954b09d01a629b7f8150958e",
+            "translation_hash": "84beadee63952060f75ac23392a7a2df4642cb2baa270f1776404bb0e6912540",
+            "status": "verified",
+            "contexts": [
+                "Editorial complete URL-import flow in Hebrew, Iranian Persian, Afghan Dari, Hindi, Bangladeshi Bengali, Thai and Vietnamese. Personal singular address where used; neutral platform/status labels; no formal imperatives. Reviewed subtitle/transcript availability, original-language default, detected counts, chapter review/manual fallback and loading/empty states against actual import behavior. Regional Persian information/publication vocabulary retained. User/provider contents excluded.",
+                "URL import at 390px: loading/spinner, automatic YouTube detection, two subtitles/chapters, empty results, original provider metadata retained; isolated read-only browser"
+            ],
+            "reviewed_at": "2026-11-06T11:04:32+00:00",
+            "verified_at": "2026-11-06T11:05:20.379Z"
+        },
+        "5ecde5187a7cb2592346fd03f15e8f8c52430360df1aa94b797450a9d13cdf94": {
+            "source_hash": "5ecde5187a7cb2592346fd03f15e8f8c52430360df1aa94b797450a9d13cdf94",
+            "translation_hash": "d7cbc355754c3982f9d28ad1b32a64b2627b946c562e0751be9271ae418010be",
+            "status": "editorial",
+            "contexts": [
+                "Editorial remaining real chapter-editor/file UI in16 locales: titles, upload/add/remove actions, CUE/TXT limits, timeline help, minimum2 chapters, unreadable-file failure, custom/generated drafts. Terminology matches reviewed include-chapters checkbox and chapter validation. Exact CUE/TXT/512KB identifiers preserved; provider/file contents/names untouched. Source Start is deliberately excluded because its shared verb/column contexts need separate treatment."
+            ],
+            "reviewed_at": "2026-11-06T11:37:36+00:00"
+        },
+        "5f9df5c4b2bd0742294df992e09753d11e7852297de444c83c0c6d0d41c47d22": {
+            "source_hash": "5f9df5c4b2bd0742294df992e09753d11e7852297de444c83c0c6d0d41c47d22",
+            "translation_hash": "d6334f7db871fcd610639aa4d211f63457127a569c9394628e2b5f1a4f22fddb",
+            "status": "editorial",
+            "contexts": [
+                "Editorial remaining real chapter-editor/file UI in16 locales: titles, upload/add/remove actions, CUE/TXT limits, timeline help, minimum2 chapters, unreadable-file failure, custom/generated drafts. Terminology matches reviewed include-chapters checkbox and chapter validation. Exact CUE/TXT/512KB identifiers preserved; provider/file contents/names untouched. Source Start is deliberately excluded because its shared verb/column contexts need separate treatment."
+            ],
+            "reviewed_at": "2026-11-06T11:37:36+00:00"
+        },
+        "5fb80a91b0d8036c2d1e8b41f1c28b627fe12dfdc5d0437f9dfd9a03113c04f8": {
+            "source_hash": "95185b6fa17df19a65621782475bb3c01decff9e90d5bda58a89803a40a0cd8b",
+            "translation_hash": "67d034a79ab61b502fcfbcb392a172ab119ffe3bbedb9099e81e4fc32571bcd9",
+            "status": "editorial",
+            "contexts": [
+                "Complete canonical and historical Shorts policy messages aligned with confirmed60s/portrait-only behavior. New dropzone prompt, named duration/dimensions status, auto-Short classification, imported-empty state and retired180s/square wording. Historical keys preserved with corrected whole meanings; no claim that exact9:16 alone is mandatory."
+            ],
+            "reviewed_at": "2026-11-06T10:44:18+00:00"
+        },
+        "5fdcceef8a21f832c0e5dfd0f4946c794b49a31b650accd509850b7d52eca0b8": {
+            "source_hash": "5fdcceef8a21f832c0e5dfd0f4946c794b49a31b650accd509850b7d52eca0b8",
+            "translation_hash": "784f8250e9a47a5f2c8bf432a80e50567d8cd7e95f0507875d3fec2af5927710",
+            "status": "editorial",
+            "contexts": [
+                "Editorial complete URL-import flow in Hebrew, Iranian Persian, Afghan Dari, Hindi, Bangladeshi Bengali, Thai and Vietnamese. Personal singular address where used; neutral platform/status labels; no formal imperatives. Reviewed subtitle/transcript availability, original-language default, detected counts, chapter review/manual fallback and loading/empty states against actual import behavior. Regional Persian information/publication vocabulary retained. User/provider contents excluded."
+            ],
+            "reviewed_at": "2026-11-06T11:04:32+00:00"
+        },
+        "66d2c65a4ede53f7d543267398d29358ba7aedb42e7ded4e0af3b88ea12188b2": {
+            "source_hash": "66d2c65a4ede53f7d543267398d29358ba7aedb42e7ded4e0af3b88ea12188b2",
+            "translation_hash": "862ad9b3c1f67a225348acafe2e1ab7070f891fdc571cf7b5e4bf9272f3d70a9",
+            "status": "verified",
+            "contexts": [
+                "Editorial complete URL-import flow in Hebrew, Iranian Persian, Afghan Dari, Hindi, Bangladeshi Bengali, Thai and Vietnamese. Personal singular address where used; neutral platform/status labels; no formal imperatives. Reviewed subtitle/transcript availability, original-language default, detected counts, chapter review/manual fallback and loading/empty states against actual import behavior. Regional Persian information/publication vocabulary retained. User/provider contents excluded.",
+                "URL import at 390px: loading/spinner, automatic YouTube detection, two subtitles/chapters, empty results, original provider metadata retained; isolated read-only browser"
+            ],
+            "reviewed_at": "2026-11-06T11:04:32+00:00",
+            "verified_at": "2026-11-06T11:05:20.379Z"
+        },
+        "689ac540969381da352a1a1943ecaa1d14f8d7f6df5234d228942c9db57d37f8": {
+            "source_hash": "c6a4abaa3a61494fe6c1fc669767b26b9276845ff1ff8436b0aba3bb65ff506f",
+            "translation_hash": "c38de9cd27301b66333e31594da122479a0c09e3f4ce964900f23d1df300e0da",
+            "status": "verified",
+            "contexts": [
+                "Editorial complete count messages for views/subscribers/likes/replies/videos/users/comments/playlists in Hebrew, Iranian Persian, Afghan Dari, Hindi, Bangladeshi Bengali, Thai and Vietnamese. RTL/Persian labels avoid incorrect dual/plural inflections at 0/1/2; Hindi comment label is count-neutral; Bengali/Thai native classifiers retained. Named count is formatted separately by actual selected locale. Only these 8 full patterns reviewed; old unrelated pattern/plural metadata remains pending.",
+                "Complete quantity patterns through actual DOM translation bridge at 390px; 0/1/2/3/11/21/1000 for views/subscribers/likes/replies/videos/users/comments/Playlists, locale digits and original number retained, no overflow/runtime errors/application writes"
+            ],
+            "reviewed_at": "2026-11-06T11:05:35+00:00",
+            "verified_at": "2026-11-06T11:06:03.495Z"
+        },
+        "6a808458df7d7570cb52cafff9588a94ea76d10aabef8b5feb19f9f88e61a456": {
+            "source_hash": "6a808458df7d7570cb52cafff9588a94ea76d10aabef8b5feb19f9f88e61a456",
+            "translation_hash": "82aaadba2497a6881dc560761be8d375d9314e9996f3121fe6a4d5d62b502681",
+            "status": "editorial",
+            "contexts": [
+                "Editorial remaining real chapter-editor/file UI in16 locales: titles, upload/add/remove actions, CUE/TXT limits, timeline help, minimum2 chapters, unreadable-file failure, custom/generated drafts. Terminology matches reviewed include-chapters checkbox and chapter validation. Exact CUE/TXT/512KB identifiers preserved; provider/file contents/names untouched. Source Start is deliberately excluded because its shared verb/column contexts need separate treatment."
+            ],
+            "reviewed_at": "2026-11-06T11:37:36+00:00"
+        },
+        "6b8be7af1fdc06a1d2772428d9cf3cbfbf50ec9ab1496191a93d36e638f70fe2": {
+            "source_hash": "cedf1a91d91f00d31c4409dcbec2076e971b4701ad70605573d497a9b8dd1da7",
+            "translation_hash": "e630f9872e7ccaf27592f6e732291b81634c7e252259829014572e127fd1fb8a",
+            "status": "verified",
+            "contexts": [
+                "Editorial complete count messages for views/subscribers/likes/replies/videos/users/comments/playlists in Hebrew, Iranian Persian, Afghan Dari, Hindi, Bangladeshi Bengali, Thai and Vietnamese. RTL/Persian labels avoid incorrect dual/plural inflections at 0/1/2; Hindi comment label is count-neutral; Bengali/Thai native classifiers retained. Named count is formatted separately by actual selected locale. Only these 8 full patterns reviewed; old unrelated pattern/plural metadata remains pending.",
+                "Complete quantity patterns through actual DOM translation bridge at 390px; 0/1/2/3/11/21/1000 for views/subscribers/likes/replies/videos/users/comments/Playlists, locale digits and original number retained, no overflow/runtime errors/application writes"
+            ],
+            "reviewed_at": "2026-11-06T11:05:35+00:00",
+            "verified_at": "2026-11-06T11:06:03.495Z"
+        },
+        "721164f0dc7096a8c09be2069c5c689a56df933fc5798822e8134bd3e76771eb": {
+            "source_hash": "721164f0dc7096a8c09be2069c5c689a56df933fc5798822e8134bd3e76771eb",
+            "translation_hash": "6d17ceba1e9adfdb59b6a1ff58c4562fad1ba84b4501fbfc6bea51f0fcf5fa5f",
+            "status": "editorial",
+            "contexts": [
+                "Editorial complete URL-import flow in Hebrew, Iranian Persian, Afghan Dari, Hindi, Bangladeshi Bengali, Thai and Vietnamese. Personal singular address where used; neutral platform/status labels; no formal imperatives. Reviewed subtitle/transcript availability, original-language default, detected counts, chapter review/manual fallback and loading/empty states against actual import behavior. Regional Persian information/publication vocabulary retained. User/provider contents excluded."
+            ],
+            "reviewed_at": "2026-11-06T11:04:32+00:00"
+        },
+        "728a4e575a150e7c42619de5c1a09db48e278b2c60d9174da424c6775a40a47f": {
+            "source_hash": "728a4e575a150e7c42619de5c1a09db48e278b2c60d9174da424c6775a40a47f",
+            "translation_hash": "a16b04f95c1c553265ef5e2885478839b0dfa1089f79cc7eda36368425d53b69",
+            "status": "verified",
+            "contexts": [
+                "Editorial complete URL-import flow in Hebrew, Iranian Persian, Afghan Dari, Hindi, Bangladeshi Bengali, Thai and Vietnamese. Personal singular address where used; neutral platform/status labels; no formal imperatives. Reviewed subtitle/transcript availability, original-language default, detected counts, chapter review/manual fallback and loading/empty states against actual import behavior. Regional Persian information/publication vocabulary retained. User/provider contents excluded.",
+                "URL import at 390px: loading/spinner, automatic YouTube detection, two subtitles/chapters, empty results, original provider metadata retained; isolated read-only browser"
+            ],
+            "reviewed_at": "2026-11-06T11:04:32+00:00",
+            "verified_at": "2026-11-06T11:05:20.379Z"
+        },
+        "76eca23e8ed81572a9b7823644f2e5ce486e9e74238374062cdbd955ab4f3654": {
+            "source_hash": "76eca23e8ed81572a9b7823644f2e5ce486e9e74238374062cdbd955ab4f3654",
+            "translation_hash": "b243358c23e7943fbf5d013716f3a64a45461404cd89c17058126879ddb9ff13",
+            "status": "editorial",
+            "contexts": [
+                "Editorial remaining real chapter-editor/file UI in16 locales: titles, upload/add/remove actions, CUE/TXT limits, timeline help, minimum2 chapters, unreadable-file failure, custom/generated drafts. Terminology matches reviewed include-chapters checkbox and chapter validation. Exact CUE/TXT/512KB identifiers preserved; provider/file contents/names untouched. Source Start is deliberately excluded because its shared verb/column contexts need separate treatment."
+            ],
+            "reviewed_at": "2026-11-06T11:37:36+00:00"
+        },
+        "7721e29d6e90498909c2d621e6504a6d2b645776880383c857ae20cef8d2ea4c": {
+            "source_hash": "7721e29d6e90498909c2d621e6504a6d2b645776880383c857ae20cef8d2ea4c",
+            "translation_hash": "700b7c174654a2ca12f3a6a490c8018b98a5d07e864d2077596843f0b767d635",
+            "status": "editorial",
+            "contexts": [
+                "Editorial semantic correction of home/live/review/device distribution/report and import/account actions in Hebrew, Persian/Dari, Hindi, Bengali, Thai and Vietnamese; device distribution also in the first nine reviewed locales. No literal house/life/device failure/clothing meanings. Regional Persian/Dari terminology preserved."
+            ],
+            "reviewed_at": "2026-11-06T10:22:23+00:00"
+        },
+        "78cf71eecdf6222bb182a29b9af6166cd77da43d01be45581d82608065d4f1a6": {
+            "source_hash": "78cf71eecdf6222bb182a29b9af6166cd77da43d01be45581d82608065d4f1a6",
+            "translation_hash": "293c3b37a9f2e176c7c29e29d3dc4651c8895f0abbcfb6a51c8709ceef5a3b1e",
+            "status": "verified",
+            "contexts": [
+                "Editorial six complete default email subjects/bodies for Hebrew, Iranian Persian, Afghan Dari, Hindi, Bangladeshi Bengali, Thai and Vietnamese. Friendly personal wording, no customer/formal imperatives; neutral status and restrictions remain exact. Persian password vocabulary versus Dari preserved. All literal usernames/roles/titles/credentials/URLs/tokens retained; no administrator overrides changed.",
+                "Actual EmailTemplates and BrandedEmail renderers: all 6 subjects/bodies; 1/2/15-minute expiry; literal usernames/roles/title/credentials/URLs retained; HTML escaping and RTL; fixture-only override precedence; no sending or production writes. Rendering check, not complete visual email-client acceptance."
+            ],
+            "reviewed_at": "2026-11-06T11:14:20+00:00",
+            "verified_at": "2026-11-06T12:19:09+00:00"
+        },
+        "79031d2dc515e09b2a6a06bdde5f4dcdce8f19dddc3c4b7565bd14bf9f11a8a6": {
+            "source_hash": "79031d2dc515e09b2a6a06bdde5f4dcdce8f19dddc3c4b7565bd14bf9f11a8a6",
+            "translation_hash": "1abc4e780185e39bfdc8e5bca22322ab30e0f867621b79c8c86bf13f985a99d1",
+            "status": "verified",
+            "contexts": [
+                "Editorial complete chapter validation plus accessible chapter-name and include-chapters checkbox in Hebrew, Iranian Persian, Afghan Dari, Hindi, Bangladeshi Bengali, Thai and Vietnamese. Named count/number/seconds retained, exact first0:00 and160-character limit preserved. Checkbox label agrees with missing-name instruction; personal commands, regional scripts; shared neutral Persian/Dari timing wording read separately. Does not alter imported chapter content or timing.",
+                "Actual chapter editor at390px with RTL where selected: automatic imported chapters checked, original titles retained, named placeholder/screenreader field, missing title/invalid time/minimum spacing/beyond video errors, repaired valid state; no publication or mutations"
+            ],
+            "reviewed_at": "2026-11-06T11:07:40+00:00",
+            "verified_at": "2026-11-06T11:12:43.224Z"
+        },
+        "7b55cd8c8d056788c1171369011000a13e60818aeeb8b7f04517690712d95d50": {
+            "source_hash": "7b55cd8c8d056788c1171369011000a13e60818aeeb8b7f04517690712d95d50",
+            "translation_hash": "f2dbf382f444d04778c75b4247ea9edd2d1dac0ca75aad34496b630966412d76",
+            "status": "verified",
+            "contexts": [
+                "Login privacy link; livestream navigation; upload review step; stream diagnostics; branded email footer",
+                "Login: complete privacy link, 390px, correct locale, no overflow, no writes or runtime errors"
+            ],
+            "reviewed_at": "2026-11-06T08:42:30+00:00",
+            "verified_at": "2026-11-06T08:54:38.152Z"
+        },
+        "7b94a2ebb7ffe4f8868ca9fd5405d5c93126df9ec3fe3334a8ce4466756cf703": {
+            "source_hash": "34cf7fa24901e25bf8615ce4484ce6637a30631e474fedcc5e948fd78dad1fc2",
+            "translation_hash": "42c70e08c9a42a574444d37b497e9fbde0cb60677cd9f2da4db1fcc3551844da",
+            "status": "verified",
+            "contexts": [
+                "Editorial auth strength/countdown messages against actual ASCII-only registration validation: Latin A–Z/a–z and digit0–9 explicitly named, no broader script support promised. Complete level/time placeholders, personal commands, honest password feedback and two-factor on/off states (disabled means off, never disability).16 regional locales; Persian/Dari password vocabulary retained; no authentication algorithm or policy changed.",
+                "Actual390px registration password feedback with configured fixture strength10: non-Latin input produces explicit Latin A–Z/a–z and0–9 requirements; valid16-character input yields requirements-met state; typed password unchanged; no registration submission, app writes/runtime errors/overflow. Countdown/backend-level messages remain separately editorial."
+            ],
+            "reviewed_at": "2026-11-06T11:31:08+00:00",
+            "verified_at": "2026-11-06T11:33:39.868Z"
+        },
+        "7d31b83313991d4c969b95ff28385ff891514dbe7a93c93c5db8145ad031420f": {
+            "source_hash": "7d31b83313991d4c969b95ff28385ff891514dbe7a93c93c5db8145ad031420f",
+            "translation_hash": "8f947310541cbf5e6e43af52a2468a52a35a08221e55e83e1f375c3a59ef88da",
+            "status": "editorial",
+            "contexts": [
+                "Editorial notification header and full sent-by wrapper sentence in seven regional languages; literal linked site unchanged."
+            ],
+            "reviewed_at": "2026-11-06T11:14:33+00:00"
+        },
+        "7d51f3ce38b28697e532947dbff35191bbe0bc86fdbbf5d34321c30ea7c642e0": {
+            "source_hash": "7d51f3ce38b28697e532947dbff35191bbe0bc86fdbbf5d34321c30ea7c642e0",
+            "translation_hash": "6d17ceba1e9adfdb59b6a1ff58c4562fad1ba84b4501fbfc6bea51f0fcf5fa5f",
+            "status": "editorial",
+            "contexts": [
+                "Editorial complete transcript-panel loading/failure/accessible body label and Retry action in seven locales. Native personal/neutral register; provider transcript body remains literal and separate. All full messages read against component loading/retry behavior, no invented reason for failure."
+            ],
+            "reviewed_at": "2026-11-06T11:27:43+00:00"
+        },
+        "7e721387d474ee248fecc5e05910cbd01c25fa169fb8dcbebdfa10671729efbb": {
+            "source_hash": "7e721387d474ee248fecc5e05910cbd01c25fa169fb8dcbebdfa10671729efbb",
+            "translation_hash": "8eae7ebfbf0a55004e4f8e6c28d4f2633f25b5a138dc142658d4b7221ec84512",
+            "status": "editorial",
+            "contexts": [
+                "Editorial semantic split: playlist advice versus monetary creator support; full send-tip headings, success, titled-video creator and live-stream support messages. Literal name/title placeholders retained; no inserted user text translated. Super Chat remains product name. Complete neutral/personal phrases in16 locales, no customer address or payment/refund promise added."
+            ],
+            "reviewed_at": "2026-11-06T11:23:38+00:00"
+        },
+        "82515b59658a5d81cffbd8579bd4c10b7aedc69b54abd5eb9e9a8a8fedd5b50c": {
+            "source_hash": "82515b59658a5d81cffbd8579bd4c10b7aedc69b54abd5eb9e9a8a8fedd5b50c",
+            "translation_hash": "46a0e3514884a2e37b4d334ce37eb44c5d2af0d0f8c04c6d57323d481530d4bc",
+            "status": "editorial",
+            "contexts": [
+                "Editorial remaining real chapter-editor/file UI in16 locales: titles, upload/add/remove actions, CUE/TXT limits, timeline help, minimum2 chapters, unreadable-file failure, custom/generated drafts. Terminology matches reviewed include-chapters checkbox and chapter validation. Exact CUE/TXT/512KB identifiers preserved; provider/file contents/names untouched. Source Start is deliberately excluded because its shared verb/column contexts need separate treatment."
+            ],
+            "reviewed_at": "2026-11-06T11:37:36+00:00"
+        },
+        "83385ac8628fd3d8f44633a03b8d10b380945751ba10b9dd528185d5b6bb2252": {
+            "source_hash": "83385ac8628fd3d8f44633a03b8d10b380945751ba10b9dd528185d5b6bb2252",
+            "translation_hash": "d0b46b5d627aa2d69dfc372985bd07a3a503e2e80ecead52515101a6aa379afa",
+            "status": "editorial",
+            "contexts": [
+                "Editorial semantic split: playlist advice versus monetary creator support; full send-tip headings, success, titled-video creator and live-stream support messages. Literal name/title placeholders retained; no inserted user text translated. Super Chat remains product name. Complete neutral/personal phrases in16 locales, no customer address or payment/refund promise added."
+            ],
+            "reviewed_at": "2026-11-06T11:23:38+00:00"
+        },
+        "859390eb495b2ead7f05f0f799546c71435b2db31dbe082adecc3426fffc3391": {
+            "source_hash": "859390eb495b2ead7f05f0f799546c71435b2db31dbe082adecc3426fffc3391",
+            "translation_hash": "bb410fce9287cc3c1c187f9d4e00ea4c93ade47b34baaf5606478cccf76fdf7e",
+            "status": "editorial",
+            "contexts": [
+                "Editorial semantic correction of home/live/review/device distribution/report and import/account actions in Hebrew, Persian/Dari, Hindi, Bengali, Thai and Vietnamese; device distribution also in the first nine reviewed locales. No literal house/life/device failure/clothing meanings. Regional Persian/Dari terminology preserved."
+            ],
+            "reviewed_at": "2026-11-06T10:22:23+00:00"
+        },
+        "887fa96dfc9112b1146f0544dba33a306c4fe336fa188ee95612148882fb6868": {
+            "source_hash": "887fa96dfc9112b1146f0544dba33a306c4fe336fa188ee95612148882fb6868",
+            "translation_hash": "246a10f925f2dbf28d77f7fa36e3f30477d4eb8319c928f042cc8b856d8f981b",
+            "status": "verified",
+            "contexts": [
+                "Editorial six complete default email subjects/bodies for Hebrew, Iranian Persian, Afghan Dari, Hindi, Bangladeshi Bengali, Thai and Vietnamese. Friendly personal wording, no customer/formal imperatives; neutral status and restrictions remain exact. Persian password vocabulary versus Dari preserved. All literal usernames/roles/titles/credentials/URLs/tokens retained; no administrator overrides changed.",
+                "Actual EmailTemplates and BrandedEmail renderers: all 6 subjects/bodies; 1/2/15-minute expiry; literal usernames/roles/title/credentials/URLs retained; HTML escaping and RTL; fixture-only override precedence; no sending or production writes. Rendering check, not complete visual email-client acceptance."
+            ],
+            "reviewed_at": "2026-11-06T11:14:20+00:00",
+            "verified_at": "2026-11-06T12:19:09+00:00"
+        },
+        "8ad4c0f7841e947feb2412ce56f355eee522347b18cbd3d6fd9af050db5c55fd": {
+            "source_hash": "7b55cd8c8d056788c1171369011000a13e60818aeeb8b7f04517690712d95d50",
+            "translation_hash": "f2dbf382f444d04778c75b4247ea9edd2d1dac0ca75aad34496b630966412d76",
+            "status": "editorial",
+            "contexts": [
+                "Deprecated login message key: same owner-approved neutral privacy-policy sentence as the current login; keeps already-open older bundles from displaying the old absolute claim."
+            ],
+            "reviewed_at": "2026-11-06T09:31:18+00:00"
+        },
+        "8e3eab20f2dba72e98e8d6565523358b10ec726963fca66d6d49e1d6c17de167": {
+            "source_hash": "8e3eab20f2dba72e98e8d6565523358b10ec726963fca66d6d49e1d6c17de167",
+            "translation_hash": "ed7794705fafeccccbd46a119f8dcf82b892a6f4c2f7d7fab401d6931f8bd1ee",
+            "status": "editorial",
+            "contexts": [
+                "Editorial auth strength/countdown messages against actual ASCII-only registration validation: Latin A–Z/a–z and digit0–9 explicitly named, no broader script support promised. Complete level/time placeholders, personal commands, honest password feedback and two-factor on/off states (disabled means off, never disability).16 regional locales; Persian/Dari password vocabulary retained; no authentication algorithm or policy changed."
+            ],
+            "reviewed_at": "2026-11-06T11:31:08+00:00"
+        },
+        "8f2c8b1b4719996a12fc003ff15daacf3ec0ec7c9a1f19e9b75d2c6e1adb4734": {
+            "source_hash": "8f2c8b1b4719996a12fc003ff15daacf3ec0ec7c9a1f19e9b75d2c6e1adb4734",
+            "translation_hash": "0cb14964ac782cc80723e20717c0bdefdf5cb7b3bc78bab80d7194abb26c0f10",
+            "status": "verified",
+            "contexts": [
+                "Editorial six complete default email subjects/bodies for Hebrew, Iranian Persian, Afghan Dari, Hindi, Bangladeshi Bengali, Thai and Vietnamese. Friendly personal wording, no customer/formal imperatives; neutral status and restrictions remain exact. Persian password vocabulary versus Dari preserved. All literal usernames/roles/titles/credentials/URLs/tokens retained; no administrator overrides changed.",
+                "Actual EmailTemplates and BrandedEmail renderers: all 6 subjects/bodies; 1/2/15-minute expiry; literal usernames/roles/title/credentials/URLs retained; HTML escaping and RTL; fixture-only override precedence; no sending or production writes. Rendering check, not complete visual email-client acceptance."
+            ],
+            "reviewed_at": "2026-11-06T11:14:20+00:00",
+            "verified_at": "2026-11-06T12:19:09+00:00"
+        },
+        "923b59f348e1a7c0d47f83e0e163e2814423eb0039768875e0f3f1621d27a702": {
+            "source_hash": "628ba8264d0d4b0cb3dd025a6c61361dd0dfa9c35e3c2e68b140dc73a20dc5ea",
+            "translation_hash": "4480a7e2d6d1d5438e20e901253322913bf31977b7c43cad90cf293156ff061d",
+            "status": "verified",
+            "contexts": [
+                "Editorial chapter boundary correction against current EN reference and validation code start>=duration: chapter must start before video end, covering equal-to-end as well as beyond-end. Complete message, number preserved, 16 locale-specific readings.",
+                "Actual chapter editor at390px with RTL where selected: automatic imported chapters checked, original titles retained, named placeholder/screenreader field, missing title/invalid time/minimum spacing/beyond video errors, repaired valid state; no publication or mutations"
+            ],
+            "reviewed_at": "2026-11-06T11:11:00+00:00",
+            "verified_at": "2026-11-06T11:12:43.224Z"
+        },
+        "92d2a4fc7ed2f03485acc6af43a6b823a8690c6633dc4ebfb8112271f4b8cba7": {
+            "source_hash": "92d2a4fc7ed2f03485acc6af43a6b823a8690c6633dc4ebfb8112271f4b8cba7",
+            "translation_hash": "156d6eb7002bcaf284b84a8b06081c6bc5586c864bd01e3c470537d876edec20",
+            "status": "editorial",
+            "contexts": [
+                "Editorial semantic split: playlist advice versus monetary creator support; full send-tip headings, success, titled-video creator and live-stream support messages. Literal name/title placeholders retained; no inserted user text translated. Super Chat remains product name. Complete neutral/personal phrases in16 locales, no customer address or payment/refund promise added."
+            ],
+            "reviewed_at": "2026-11-06T11:23:38+00:00"
+        },
+        "93ec8868a9aa039580625e7fb8335062a0a310d4f4afc1e5f44d6790c28ec276": {
+            "source_hash": "93ec8868a9aa039580625e7fb8335062a0a310d4f4afc1e5f44d6790c28ec276",
+            "translation_hash": "dabcd3e2494d539236435bf913b0b675211dac5e7585fd791301fd4e7dc40efa",
+            "status": "verified",
+            "contexts": [
+                "Editorial auth strength/countdown messages against actual ASCII-only registration validation: Latin A–Z/a–z and digit0–9 explicitly named, no broader script support promised. Complete level/time placeholders, personal commands, honest password feedback and two-factor on/off states (disabled means off, never disability).16 regional locales; Persian/Dari password vocabulary retained; no authentication algorithm or policy changed.",
+                "Actual390px registration password feedback with configured fixture strength10: non-Latin input produces explicit Latin A–Z/a–z and0–9 requirements; valid16-character input yields requirements-met state; typed password unchanged; no registration submission, app writes/runtime errors/overflow. Countdown/backend-level messages remain separately editorial."
+            ],
+            "reviewed_at": "2026-11-06T11:31:08+00:00",
+            "verified_at": "2026-11-06T11:33:39.868Z"
+        },
+        "942087cc2d41e01304b7195558d093d10c72af8e838c7556d6a02d471ee71852": {
+            "source_hash": "942087cc2d41e01304b7195558d093d10c72af8e838c7556d6a02d471ee71852",
+            "translation_hash": "42032ae20f7634e1ef833bb32c91c5d10532510189f6f94896f7938220e63d03",
+            "status": "editorial",
+            "contexts": [
+                "Editorial complete transcript-panel loading/failure/accessible body label and Retry action in seven locales. Native personal/neutral register; provider transcript body remains literal and separate. All full messages read against component loading/retry behavior, no invented reason for failure."
+            ],
+            "reviewed_at": "2026-11-06T11:27:43+00:00"
+        },
+        "95185b6fa17df19a65621782475bb3c01decff9e90d5bda58a89803a40a0cd8b": {
+            "source_hash": "95185b6fa17df19a65621782475bb3c01decff9e90d5bda58a89803a40a0cd8b",
+            "translation_hash": "67d034a79ab61b502fcfbcb392a172ab119ffe3bbedb9099e81e4fc32571bcd9",
+            "status": "editorial",
+            "contexts": [
+                "Complete canonical and historical Shorts policy messages aligned with confirmed60s/portrait-only behavior. New dropzone prompt, named duration/dimensions status, auto-Short classification, imported-empty state and retired180s/square wording. Historical keys preserved with corrected whole meanings; no claim that exact9:16 alone is mandatory."
+            ],
+            "reviewed_at": "2026-11-06T10:44:18+00:00"
+        },
+        "9831375bc65196d8c923455ec07c27aefa5761edfe4162dde1c7b36eec25a3ad": {
+            "source_hash": "9831375bc65196d8c923455ec07c27aefa5761edfe4162dde1c7b36eec25a3ad",
+            "translation_hash": "ed730b84bcabdc0df8382a31e7aee50e33f467c396a5242adeb5b9fd39b277ad",
+            "status": "verified",
+            "contexts": [
+                "Editorial complete URL-import flow in Hebrew, Iranian Persian, Afghan Dari, Hindi, Bangladeshi Bengali, Thai and Vietnamese. Personal singular address where used; neutral platform/status labels; no formal imperatives. Reviewed subtitle/transcript availability, original-language default, detected counts, chapter review/manual fallback and loading/empty states against actual import behavior. Regional Persian information/publication vocabulary retained. User/provider contents excluded.",
+                "URL import at 390px: loading/spinner, automatic YouTube detection, two subtitles/chapters, empty results, original provider metadata retained; isolated read-only browser"
+            ],
+            "reviewed_at": "2026-11-06T11:04:32+00:00",
+            "verified_at": "2026-11-06T11:05:20.379Z"
+        },
+        "9858922d6439e4119a2ac49e0aafd7caa3c64de965f5a5291f6b15c4104b70cc": {
+            "source_hash": "de87937934a2dbf8d61903838eac8e763c1c698cdc3b57f1815ed74ae1441ae8",
+            "translation_hash": "758d9b5b09deaafdba08f8ece7c2aa627d1a8ead71729b84ec3396f687bdb447",
+            "status": "editorial",
+            "contexts": [
+                "Complete canonical and historical Shorts policy messages aligned with confirmed60s/portrait-only behavior. New dropzone prompt, named duration/dimensions status, auto-Short classification, imported-empty state and retired180s/square wording. Historical keys preserved with corrected whole meanings; no claim that exact9:16 alone is mandatory."
+            ],
+            "reviewed_at": "2026-11-06T10:44:18+00:00"
+        },
+        "9c43af07ce676794ca49f4c24052269d5c533416143ea18e6db054a439a29bae": {
+            "source_hash": "9c43af07ce676794ca49f4c24052269d5c533416143ea18e6db054a439a29bae",
+            "translation_hash": "c10be946174010b0b0ca83fd6662421ecfd1442e0d145d8eee9c2ec63609d33a",
+            "status": "editorial",
+            "contexts": [
+                "Editorial complete URL-import flow in Hebrew, Iranian Persian, Afghan Dari, Hindi, Bangladeshi Bengali, Thai and Vietnamese. Personal singular address where used; neutral platform/status labels; no formal imperatives. Reviewed subtitle/transcript availability, original-language default, detected counts, chapter review/manual fallback and loading/empty states against actual import behavior. Regional Persian information/publication vocabulary retained. User/provider contents excluded."
+            ],
+            "reviewed_at": "2026-11-06T11:04:32+00:00"
+        },
+        "9c744a3288b536aa9fbca9658ab7578cabc4152abe27e5f20b4cdd9dff0f1119": {
+            "source_hash": "9c744a3288b536aa9fbca9658ab7578cabc4152abe27e5f20b4cdd9dff0f1119",
+            "translation_hash": "927d82bba0caea86dd394930cffcf153bf2f2704548caad78c70f9a903b730c6",
+            "status": "editorial",
+            "contexts": [
+                "Complete canonical and historical Shorts policy messages aligned with confirmed60s/portrait-only behavior. New dropzone prompt, named duration/dimensions status, auto-Short classification, imported-empty state and retired180s/square wording. Historical keys preserved with corrected whole meanings; no claim that exact9:16 alone is mandatory."
+            ],
+            "reviewed_at": "2026-11-06T10:44:18+00:00"
+        },
+        "9f458b3e3657bbcdf13cb8255436218a8794578f968b17f2acfae4f33285fa1c": {
+            "source_hash": "9f458b3e3657bbcdf13cb8255436218a8794578f968b17f2acfae4f33285fa1c",
+            "translation_hash": "6e792cc0f0ade009bd9929524bde4b73af61ac76b86096a608d82fff8ba13d5e",
+            "status": "editorial",
+            "contexts": [
+                "Owner confirmed: Shorts max60 seconds and portrait only; no180-second/square allowance. Complete upload validation, explanatory and empty-state messages for16 supported editorial locales. Old key mentioning recommended9:16 now conveys required portrait without claiming exact9:16 is mandatory. No fake processing promise in external-import empty state."
+            ],
+            "reviewed_at": "2026-11-06T10:30:56+00:00"
+        },
+        "9f98ab3080c83f5b0bcdfc9d57f1ff1a4e0bfb38dd79a57feff2d1c1735e0b78": {
+            "source_hash": "9f98ab3080c83f5b0bcdfc9d57f1ff1a4e0bfb38dd79a57feff2d1c1735e0b78",
+            "translation_hash": "5157c6ce4824e87c7a69f111f6d9d263c290107db56bc80470977b2f6adae3ab",
+            "status": "editorial",
+            "contexts": [
+                "Editorial auth strength/countdown messages against actual ASCII-only registration validation: Latin A–Z/a–z and digit0–9 explicitly named, no broader script support promised. Complete level/time placeholders, personal commands, honest password feedback and two-factor on/off states (disabled means off, never disability).16 regional locales; Persian/Dari password vocabulary retained; no authentication algorithm or policy changed."
+            ],
+            "reviewed_at": "2026-11-06T11:31:08+00:00"
+        },
+        "a4d31cfad033703a4ec1a20522bdb6a2a421a18d430f069b2c18afeedd4b7f24": {
+            "source_hash": "a4d31cfad033703a4ec1a20522bdb6a2a421a18d430f069b2c18afeedd4b7f24",
+            "translation_hash": "71c5a0cc25e976a78ea024a9ec0ff44cf0695a3613920ef64dc986cde2bffeb7",
+            "status": "editorial",
+            "contexts": [
+                "Editorial remaining real chapter-editor/file UI in16 locales: titles, upload/add/remove actions, CUE/TXT limits, timeline help, minimum2 chapters, unreadable-file failure, custom/generated drafts. Terminology matches reviewed include-chapters checkbox and chapter validation. Exact CUE/TXT/512KB identifiers preserved; provider/file contents/names untouched. Source Start is deliberately excluded because its shared verb/column contexts need separate treatment."
+            ],
+            "reviewed_at": "2026-11-06T11:37:36+00:00"
+        },
+        "a6fc41e0727fc95d9239b2365dd19d1acf712c2b1f4f5990b59adea95ce5ef26": {
+            "source_hash": "4a819eaea7f49acaa5837c64f69a70843d4c64118eb509490bbb7fad61f10104",
+            "translation_hash": "02e30f1aeef1987d1ef489e238f87986b7f2d79ab6ec3b3f95bc297267cb86e6",
+            "status": "editorial",
+            "contexts": [
+                "Complete canonical and historical Shorts policy messages aligned with confirmed60s/portrait-only behavior. New dropzone prompt, named duration/dimensions status, auto-Short classification, imported-empty state and retired180s/square wording. Historical keys preserved with corrected whole meanings; no claim that exact9:16 alone is mandatory."
+            ],
+            "reviewed_at": "2026-11-06T10:44:18+00:00"
+        },
+        "a731d46d9dae4592b071a26ad8fff659b31a0f3cc50c1cc1314d1dbe1b3909ba": {
+            "source_hash": "a731d46d9dae4592b071a26ad8fff659b31a0f3cc50c1cc1314d1dbe1b3909ba",
+            "translation_hash": "fe5c45358a060b6969a8d0374b906f6e03b61ae4c51b2be1a1bffc6aeeaa3144",
+            "status": "verified",
+            "contexts": [
+                "Editorial six complete default email subjects/bodies for Hebrew, Iranian Persian, Afghan Dari, Hindi, Bangladeshi Bengali, Thai and Vietnamese. Friendly personal wording, no customer/formal imperatives; neutral status and restrictions remain exact. Persian password vocabulary versus Dari preserved. All literal usernames/roles/titles/credentials/URLs/tokens retained; no administrator overrides changed.",
+                "Actual EmailTemplates and BrandedEmail renderers: all 6 subjects/bodies; 1/2/15-minute expiry; literal usernames/roles/title/credentials/URLs retained; HTML escaping and RTL; fixture-only override precedence; no sending or production writes. Rendering check, not complete visual email-client acceptance."
+            ],
+            "reviewed_at": "2026-11-06T11:14:20+00:00",
+            "verified_at": "2026-11-06T12:19:09+00:00"
+        },
+        "ac77814e0930901013a449c467963131b06d10f86eaf897c62f185977003a711": {
+            "source_hash": "ac77814e0930901013a449c467963131b06d10f86eaf897c62f185977003a711",
+            "translation_hash": "87b188a4fd717f99c06967a9c27c3089c2cfaf81a3025e07be31a955c0c04e36",
+            "status": "verified",
+            "contexts": [
+                "Editorial complete URL-import flow in Hebrew, Iranian Persian, Afghan Dari, Hindi, Bangladeshi Bengali, Thai and Vietnamese. Personal singular address where used; neutral platform/status labels; no formal imperatives. Reviewed subtitle/transcript availability, original-language default, detected counts, chapter review/manual fallback and loading/empty states against actual import behavior. Regional Persian information/publication vocabulary retained. User/provider contents excluded.",
+                "URL import at 390px: loading/spinner, automatic YouTube detection, two subtitles/chapters, empty results, original provider metadata retained; isolated read-only browser"
+            ],
+            "reviewed_at": "2026-11-06T11:04:32+00:00",
+            "verified_at": "2026-11-06T11:05:20.379Z"
+        },
+        "ac9f0be07636cd951add29579eba7bfdd7c257bed49f8cdc5bbdf0746af373ba": {
+            "source_hash": "ac9f0be07636cd951add29579eba7bfdd7c257bed49f8cdc5bbdf0746af373ba",
+            "translation_hash": "9b7e8c4285491161f8b64395914e0c6174875b44b1c53b1544c4331dc9269e92",
+            "status": "verified",
+            "contexts": [
+                "Editorial six complete default email subjects/bodies for Hebrew, Iranian Persian, Afghan Dari, Hindi, Bangladeshi Bengali, Thai and Vietnamese. Friendly personal wording, no customer/formal imperatives; neutral status and restrictions remain exact. Persian password vocabulary versus Dari preserved. All literal usernames/roles/titles/credentials/URLs/tokens retained; no administrator overrides changed.",
+                "Actual EmailTemplates and BrandedEmail renderers: all 6 subjects/bodies; 1/2/15-minute expiry; literal usernames/roles/title/credentials/URLs retained; HTML escaping and RTL; fixture-only override precedence; no sending or production writes. Rendering check, not complete visual email-client acceptance."
+            ],
+            "reviewed_at": "2026-11-06T11:14:20+00:00",
+            "verified_at": "2026-11-06T12:19:09+00:00"
+        },
+        "ad0050fd2673461033a531f200eae99a1ff452d4ac76bb08ffb5739abdb3c0de": {
+            "source_hash": "ad0050fd2673461033a531f200eae99a1ff452d4ac76bb08ffb5739abdb3c0de",
+            "translation_hash": "65f21ff86840380f20558a299ba09dd481ab99fd30ba5647b8fc7b179c3616e7",
+            "status": "verified",
+            "contexts": [
+                "Editorial auth strength/countdown messages against actual ASCII-only registration validation: Latin A–Z/a–z and digit0–9 explicitly named, no broader script support promised. Complete level/time placeholders, personal commands, honest password feedback and two-factor on/off states (disabled means off, never disability).16 regional locales; Persian/Dari password vocabulary retained; no authentication algorithm or policy changed.",
+                "Actual390px registration password feedback with configured fixture strength10: non-Latin input produces explicit Latin A–Z/a–z and0–9 requirements; valid16-character input yields requirements-met state; typed password unchanged; no registration submission, app writes/runtime errors/overflow. Countdown/backend-level messages remain separately editorial."
+            ],
+            "reviewed_at": "2026-11-06T11:31:08+00:00",
+            "verified_at": "2026-11-06T11:33:39.868Z"
+        },
+        "aff0766a5290e117b8433c351bae7b7b23bed682b2369bd822d88a647cc58512": {
+            "source_hash": "aff0766a5290e117b8433c351bae7b7b23bed682b2369bd822d88a647cc58512",
+            "translation_hash": "c8578617c752e11530290233ce655679d5f44057726158a66655c4c123302328",
+            "status": "editorial",
+            "contexts": [
+                "Editorial complete URL-import flow in Hebrew, Iranian Persian, Afghan Dari, Hindi, Bangladeshi Bengali, Thai and Vietnamese. Personal singular address where used; neutral platform/status labels; no formal imperatives. Reviewed subtitle/transcript availability, original-language default, detected counts, chapter review/manual fallback and loading/empty states against actual import behavior. Regional Persian information/publication vocabulary retained. User/provider contents excluded."
+            ],
+            "reviewed_at": "2026-11-06T11:04:32+00:00"
+        },
+        "b64ac05f17e64d037db81a98f51e2688216e292ae9748f979f04dfbac49fd7fc": {
+            "source_hash": "b64ac05f17e64d037db81a98f51e2688216e292ae9748f979f04dfbac49fd7fc",
+            "translation_hash": "d96ba7c49591701d10d34e2333a176e45df1888e87f137993fde4ba54636d84e",
+            "status": "editorial",
+            "contexts": [
+                "Editorial semantic correction of home/live/review/device distribution/report and import/account actions in Hebrew, Persian/Dari, Hindi, Bengali, Thai and Vietnamese; device distribution also in the first nine reviewed locales. No literal house/life/device failure/clothing meanings. Regional Persian/Dari terminology preserved."
+            ],
+            "reviewed_at": "2026-11-06T10:22:23+00:00"
+        },
+        "b7ad31a0fee4a609f9a18178fdcc9823e0a123b715082cb2bbf0a7cb9d13d0fd": {
+            "source_hash": "b7ad31a0fee4a609f9a18178fdcc9823e0a123b715082cb2bbf0a7cb9d13d0fd",
+            "translation_hash": "9a2e326dda2b6a2dd64f64bef5366af3f1f5fc4703621ea7ea6df868e9fa11d1",
+            "status": "editorial",
+            "contexts": [
+                "Editorial complete URL-import flow in Hebrew, Iranian Persian, Afghan Dari, Hindi, Bangladeshi Bengali, Thai and Vietnamese. Personal singular address where used; neutral platform/status labels; no formal imperatives. Reviewed subtitle/transcript availability, original-language default, detected counts, chapter review/manual fallback and loading/empty states against actual import behavior. Regional Persian information/publication vocabulary retained. User/provider contents excluded."
+            ],
+            "reviewed_at": "2026-11-06T11:04:32+00:00"
+        },
+        "b7da44afd6275b62c4a903d5a47da5b52446856d2ab8f575fa8b7a21313c91e5": {
+            "source_hash": "b7da44afd6275b62c4a903d5a47da5b52446856d2ab8f575fa8b7a21313c91e5",
+            "translation_hash": "0f15ae410d95151fbaa9413fb08750d1564498a581d1ad22c90f5dcc3bd46a87",
+            "status": "verified",
+            "contexts": [
+                "Editorial complete chapter validation plus accessible chapter-name and include-chapters checkbox in Hebrew, Iranian Persian, Afghan Dari, Hindi, Bangladeshi Bengali, Thai and Vietnamese. Named count/number/seconds retained, exact first0:00 and160-character limit preserved. Checkbox label agrees with missing-name instruction; personal commands, regional scripts; shared neutral Persian/Dari timing wording read separately. Does not alter imported chapter content or timing.",
+                "Actual chapter editor at390px with RTL where selected: automatic imported chapters checked, original titles retained, named placeholder/screenreader field, missing title/invalid time/minimum spacing/beyond video errors, repaired valid state; no publication or mutations"
+            ],
+            "reviewed_at": "2026-11-06T11:07:40+00:00",
+            "verified_at": "2026-11-06T11:12:43.224Z"
+        },
+        "b7f84b495e7c0aeb6201bd8f7e5c6a8cdd44d9a7e4ba7887aa44a8f6d68e351a": {
+            "source_hash": "7264dcd533756db7b58b09adef31d8af2267e23592c50aab0ad5572f5afe56e6",
+            "translation_hash": "eddabbe6e9a8080e21488b617b5f73424cf376f0bda5b06871eb3c07381686b3",
+            "status": "verified",
+            "contexts": [
+                "Editorial rereview of current EN email expiry reference: two verification/reset bodies, unchanged target durations explicitly checked at1/2/15. Arabic and Hebrew label duration in minutes without cardinal inflection; Persian/Dari/Turkish/Indonesian/Malay/Japanese/Korean/Chinese/Hindi/Bengali/Thai/Vietnamese cardinal duration units are unchanged here. Valid-for and expires-after semantics agree. Renderer/token verification is separate from this grammar review.16 locale bodies only, existing subjects/invitations/restrictions untouched.",
+                "Actual EmailTemplates and BrandedEmail renderers: all 6 subjects/bodies; 1/2/15-minute expiry; literal usernames/roles/title/credentials/URLs retained; HTML escaping and RTL; fixture-only override precedence; no sending or production writes. Rendering check, not complete visual email-client acceptance."
+            ],
+            "reviewed_at": "2026-11-06T11:35:41+00:00",
+            "verified_at": "2026-11-06T12:19:09+00:00"
+        },
+        "b8ef914365fb9deaefbc8ca386dee4a8936ee9a221b80679d38879d78668cf93": {
+            "source_hash": "b8ef914365fb9deaefbc8ca386dee4a8936ee9a221b80679d38879d78668cf93",
+            "translation_hash": "8397a1f51f2a9517ae37db1a4cb98c6e5e6769a503dbc3fbeb3bad237496597f",
+            "status": "editorial",
+            "contexts": [
+                "Editorial semantic correction of home/live/review/device distribution/report and import/account actions in Hebrew, Persian/Dari, Hindi, Bengali, Thai and Vietnamese; device distribution also in the first nine reviewed locales. No literal house/life/device failure/clothing meanings. Regional Persian/Dari terminology preserved."
+            ],
+            "reviewed_at": "2026-11-06T10:22:23+00:00"
+        },
+        "bb954d61fd855c5c03d727bdf0b1b834fcff698322b95d94546acf10846e5e76": {
+            "source_hash": "26bfe5f058be83a797974252e939b585fa3a5b0c22602e7ec2c5730cef02f359",
+            "translation_hash": "d30868b0bad53caa9191765f31fbd1c4d341709ee398f386956f0da5c3b1f8f6",
+            "status": "verified",
+            "contexts": [
+                "Editorial auth strength/countdown messages against actual ASCII-only registration validation: Latin A–Z/a–z and digit0–9 explicitly named, no broader script support promised. Complete level/time placeholders, personal commands, honest password feedback and two-factor on/off states (disabled means off, never disability).16 regional locales; Persian/Dari password vocabulary retained; no authentication algorithm or policy changed.",
+                "Actual390px registration password feedback with configured fixture strength10: non-Latin input produces explicit Latin A–Z/a–z and0–9 requirements; valid16-character input yields requirements-met state; typed password unchanged; no registration submission, app writes/runtime errors/overflow. Countdown/backend-level messages remain separately editorial."
+            ],
+            "reviewed_at": "2026-11-06T11:31:08+00:00",
+            "verified_at": "2026-11-06T11:33:39.868Z"
+        },
+        "bc5669576fbced410b06585d7e824c60287b247577de0f5d62c9a2807f9116e7": {
+            "source_hash": "bc5669576fbced410b06585d7e824c60287b247577de0f5d62c9a2807f9116e7",
+            "translation_hash": "0d76d0c6a38c004bb00c461dde9a80c3c5395d813a18f310b7ef1a0700a6707c",
+            "status": "verified",
+            "contexts": [
+                "Editorial complete URL-import flow in Hebrew, Iranian Persian, Afghan Dari, Hindi, Bangladeshi Bengali, Thai and Vietnamese. Personal singular address where used; neutral platform/status labels; no formal imperatives. Reviewed subtitle/transcript availability, original-language default, detected counts, chapter review/manual fallback and loading/empty states against actual import behavior. Regional Persian information/publication vocabulary retained. User/provider contents excluded.",
+                "URL import at 390px: loading/spinner, automatic YouTube detection, two subtitles/chapters, empty results, original provider metadata retained; isolated read-only browser"
+            ],
+            "reviewed_at": "2026-11-06T11:04:32+00:00",
+            "verified_at": "2026-11-06T11:05:20.379Z"
+        },
+        "c2d5ea49b60395ccffee27c10b3998b97d3f1c9d3218e2f32dd774be50914da3": {
+            "source_hash": "c2d5ea49b60395ccffee27c10b3998b97d3f1c9d3218e2f32dd774be50914da3",
+            "translation_hash": "f548d4c9feed0d443377a18aed92ec7a34f62644bedad0325c67d536993b11b7",
+            "status": "verified",
+            "contexts": [
+                "Editorial complete chapter validation plus accessible chapter-name and include-chapters checkbox in Hebrew, Iranian Persian, Afghan Dari, Hindi, Bangladeshi Bengali, Thai and Vietnamese. Named count/number/seconds retained, exact first0:00 and160-character limit preserved. Checkbox label agrees with missing-name instruction; personal commands, regional scripts; shared neutral Persian/Dari timing wording read separately. Does not alter imported chapter content or timing.",
+                "Actual chapter editor at390px with RTL where selected: automatic imported chapters checked, original titles retained, named placeholder/screenreader field, missing title/invalid time/minimum spacing/beyond video errors, repaired valid state; no publication or mutations"
+            ],
+            "reviewed_at": "2026-11-06T11:07:40+00:00",
+            "verified_at": "2026-11-06T11:12:43.224Z"
+        },
+        "c41dcd1dac7ff7abcf6bd233df902ab7ecd2b70dda6ec764566f2c24b4e4abd5": {
+            "source_hash": "c41dcd1dac7ff7abcf6bd233df902ab7ecd2b70dda6ec764566f2c24b4e4abd5",
+            "translation_hash": "da7de7ab60f458dcb0a4cbfa036bcd4edf0c083975c6b9665171de022d3bc7b1",
+            "status": "verified",
+            "contexts": [
+                "Editorial six complete default email subjects/bodies for Hebrew, Iranian Persian, Afghan Dari, Hindi, Bangladeshi Bengali, Thai and Vietnamese. Friendly personal wording, no customer/formal imperatives; neutral status and restrictions remain exact. Persian password vocabulary versus Dari preserved. All literal usernames/roles/titles/credentials/URLs/tokens retained; no administrator overrides changed.",
+                "Actual EmailTemplates and BrandedEmail renderers: all 6 subjects/bodies; 1/2/15-minute expiry; literal usernames/roles/title/credentials/URLs retained; HTML escaping and RTL; fixture-only override precedence; no sending or production writes. Rendering check, not complete visual email-client acceptance."
+            ],
+            "reviewed_at": "2026-11-06T11:14:20+00:00",
+            "verified_at": "2026-11-06T12:19:09+00:00"
+        },
+        "c533ce68cc2e36f4a61b2aed36f8c8142b3796f33fa2f139f19a08a19f7198d7": {
+            "source_hash": "c533ce68cc2e36f4a61b2aed36f8c8142b3796f33fa2f139f19a08a19f7198d7",
+            "translation_hash": "02f0f44659355ac6256df72ac6010a1ce3e319f3371fd76421af39b4ca36f5cf",
+            "status": "verified",
+            "contexts": [
+                "Editorial six complete default email subjects/bodies for Hebrew, Iranian Persian, Afghan Dari, Hindi, Bangladeshi Bengali, Thai and Vietnamese. Friendly personal wording, no customer/formal imperatives; neutral status and restrictions remain exact. Persian password vocabulary versus Dari preserved. All literal usernames/roles/titles/credentials/URLs/tokens retained; no administrator overrides changed.",
+                "Actual EmailTemplates and BrandedEmail renderers: all 6 subjects/bodies; 1/2/15-minute expiry; literal usernames/roles/title/credentials/URLs retained; HTML escaping and RTL; fixture-only override precedence; no sending or production writes. Rendering check, not complete visual email-client acceptance."
+            ],
+            "reviewed_at": "2026-11-06T11:14:20+00:00",
+            "verified_at": "2026-11-06T12:19:09+00:00"
+        },
+        "c8de7216695dcde2ae2cf8d4fa27437f6df16e128338d78ce5fb3249c88bf04f": {
+            "source_hash": "c8de7216695dcde2ae2cf8d4fa27437f6df16e128338d78ce5fb3249c88bf04f",
+            "translation_hash": "4693413d9002957a8b88f8572334b4480efe07edf2346f8403154dca18ce8a3a",
+            "status": "editorial",
+            "contexts": [
+                "Editorial complete transcript-panel loading/failure/accessible body label and Retry action in seven locales. Native personal/neutral register; provider transcript body remains literal and separate. All full messages read against component loading/retry behavior, no invented reason for failure."
+            ],
+            "reviewed_at": "2026-11-06T11:27:43+00:00"
+        },
+        "cc578638f76039e1cfda54b6337011e4360929dc294bfd1d87bf364ed0bca50f": {
+            "source_hash": "07f6a4e0d43ae4601b00b4e9d8847ac8902eb88fe26e7f422d13702ce846a266",
+            "translation_hash": "36bef5048859c415ef6a9c1079546e8339bc60a0c60859d628e5478ed9ff4e37",
+            "status": "verified",
+            "contexts": [
+                "Editorial rereview of current EN email expiry reference: two verification/reset bodies, unchanged target durations explicitly checked at1/2/15. Arabic and Hebrew label duration in minutes without cardinal inflection; Persian/Dari/Turkish/Indonesian/Malay/Japanese/Korean/Chinese/Hindi/Bengali/Thai/Vietnamese cardinal duration units are unchanged here. Valid-for and expires-after semantics agree. Renderer/token verification is separate from this grammar review.16 locale bodies only, existing subjects/invitations/restrictions untouched.",
+                "Actual EmailTemplates and BrandedEmail renderers: all 6 subjects/bodies; 1/2/15-minute expiry; literal usernames/roles/title/credentials/URLs retained; HTML escaping and RTL; fixture-only override precedence; no sending or production writes. Rendering check, not complete visual email-client acceptance."
+            ],
+            "reviewed_at": "2026-11-06T11:35:41+00:00",
+            "verified_at": "2026-11-06T12:19:09+00:00"
+        },
+        "d21fb351cb4a4a9101f50778235609204c96d161502a1ffc2f49595197f60aba": {
+            "source_hash": "d21fb351cb4a4a9101f50778235609204c96d161502a1ffc2f49595197f60aba",
+            "translation_hash": "bd39de40b4877f79a10d43888c29defa47b57875ed3e2c66b54888f655a9c3c2",
+            "status": "editorial",
+            "contexts": [
+                "Editorial auth strength/countdown messages against actual ASCII-only registration validation: Latin A–Z/a–z and digit0–9 explicitly named, no broader script support promised. Complete level/time placeholders, personal commands, honest password feedback and two-factor on/off states (disabled means off, never disability).16 regional locales; Persian/Dari password vocabulary retained; no authentication algorithm or policy changed."
+            ],
+            "reviewed_at": "2026-11-06T11:31:08+00:00"
+        },
+        "d337201ad56fb39d7f72598b917c11dce3cc3e323da8fe926b8dd7c8a0e22c8f": {
+            "source_hash": "665560d063640cc0c09c13dedac17d8003082960e096bcf96ece534335984902",
+            "translation_hash": "0db84b3b60db6b47b8690b30fdcd4b5df2629ae4ddb8e440b8f301ba62e69450",
+            "status": "verified",
+            "contexts": [
+                "Editorial complete count messages for views/subscribers/likes/replies/videos/users/comments/playlists in Hebrew, Iranian Persian, Afghan Dari, Hindi, Bangladeshi Bengali, Thai and Vietnamese. RTL/Persian labels avoid incorrect dual/plural inflections at 0/1/2; Hindi comment label is count-neutral; Bengali/Thai native classifiers retained. Named count is formatted separately by actual selected locale. Only these 8 full patterns reviewed; old unrelated pattern/plural metadata remains pending.",
+                "Complete quantity patterns through actual DOM translation bridge at 390px; 0/1/2/3/11/21/1000 for views/subscribers/likes/replies/videos/users/comments/Playlists, locale digits and original number retained, no overflow/runtime errors/application writes"
+            ],
+            "reviewed_at": "2026-11-06T11:05:35+00:00",
+            "verified_at": "2026-11-06T11:06:03.495Z"
+        },
+        "d4ceaa57fa4ec3e8e65f7e8541fc7afcd6c5fd8b471420004cb0b719fa3dd0b8": {
+            "source_hash": "d4ceaa57fa4ec3e8e65f7e8541fc7afcd6c5fd8b471420004cb0b719fa3dd0b8",
+            "translation_hash": "30234b10098f24f65333acfa8aa1e1d2709a0b11b232618f9cf6f95fcfda920a",
+            "status": "verified",
+            "contexts": [
+                "Editorial complete URL-import flow in Hebrew, Iranian Persian, Afghan Dari, Hindi, Bangladeshi Bengali, Thai and Vietnamese. Personal singular address where used; neutral platform/status labels; no formal imperatives. Reviewed subtitle/transcript availability, original-language default, detected counts, chapter review/manual fallback and loading/empty states against actual import behavior. Regional Persian information/publication vocabulary retained. User/provider contents excluded.",
+                "URL import at 390px: loading/spinner, automatic YouTube detection, two subtitles/chapters, empty results, original provider metadata retained; isolated read-only browser"
+            ],
+            "reviewed_at": "2026-11-06T11:04:32+00:00",
+            "verified_at": "2026-11-06T11:05:20.379Z"
+        },
+        "d677190e0a9990e7d5fa9e4c1bbde44271fb8959c4acb6d43e02ed991128b4bf": {
+            "source_hash": "d677190e0a9990e7d5fa9e4c1bbde44271fb8959c4acb6d43e02ed991128b4bf",
+            "translation_hash": "32394c8b6594acc6f22f0cb2fc89d703ed17071b45abc61a6a097366d89f5c6b",
+            "status": "editorial",
+            "contexts": [
+                "Editorial complete URL-import flow in Hebrew, Iranian Persian, Afghan Dari, Hindi, Bangladeshi Bengali, Thai and Vietnamese. Personal singular address where used; neutral platform/status labels; no formal imperatives. Reviewed subtitle/transcript availability, original-language default, detected counts, chapter review/manual fallback and loading/empty states against actual import behavior. Regional Persian information/publication vocabulary retained. User/provider contents excluded."
+            ],
+            "reviewed_at": "2026-11-06T11:04:32+00:00"
+        },
+        "d6f05f42fd1b0beb0e33faacc3b686ff484d8ca5eb008fd25498698b2d6d6e92": {
+            "source_hash": "0fb51d778aa1abff81b66e02b32307251a2970ad648294dd8474311989c86981",
+            "translation_hash": "6e792cc0f0ade009bd9929524bde4b73af61ac76b86096a608d82fff8ba13d5e",
+            "status": "editorial",
+            "contexts": [
+                "Complete canonical and historical Shorts policy messages aligned with confirmed60s/portrait-only behavior. New dropzone prompt, named duration/dimensions status, auto-Short classification, imported-empty state and retired180s/square wording. Historical keys preserved with corrected whole meanings; no claim that exact9:16 alone is mandatory."
+            ],
+            "reviewed_at": "2026-11-06T10:44:18+00:00"
+        },
+        "da985e65c576c7dab82a4465d4dbb16591e3e34c55f93311e14a869e47f17fc1": {
+            "source_hash": "f185f5c31430c63f96c7ec20868e92829c3bb5378af35ff6e07a03d2740bf637",
+            "translation_hash": "4ed6a6f71aba20e0a6effdd915ff351797e1f9ea29cd0a8b15ca0eeadca7d77e",
+            "status": "editorial",
+            "contexts": [
+                "Editorial follow-up to current complete EN reference: local-upload empty state waits until processing completes (distinct from imported-video success); portrait is mandatory while exact9:16 remains a recommendation. All16 regional messages read separately; max60 retained, no180/square fallback."
+            ],
+            "reviewed_at": "2026-11-06T11:19:52+00:00"
+        },
+        "dacca3cba3f346a40893112b8670f453650a81138e3705c0034d2392024b9797": {
+            "source_hash": "dacca3cba3f346a40893112b8670f453650a81138e3705c0034d2392024b9797",
+            "translation_hash": "903ba45993554f89400c08f64c7677e2402ef75a399edbef8ac829a8c93e9db6",
+            "status": "editorial",
+            "contexts": [
+                "Editorial semantic correction of home/live/review/device distribution/report and import/account actions in Hebrew, Persian/Dari, Hindi, Bengali, Thai and Vietnamese; device distribution also in the first nine reviewed locales. No literal house/life/device failure/clothing meanings. Regional Persian/Dari terminology preserved."
+            ],
+            "reviewed_at": "2026-11-06T10:22:23+00:00"
+        },
+        "de87937934a2dbf8d61903838eac8e763c1c698cdc3b57f1815ed74ae1441ae8": {
+            "source_hash": "de87937934a2dbf8d61903838eac8e763c1c698cdc3b57f1815ed74ae1441ae8",
+            "translation_hash": "758d9b5b09deaafdba08f8ece7c2aa627d1a8ead71729b84ec3396f687bdb447",
+            "status": "editorial",
+            "contexts": [
+                "Complete canonical and historical Shorts policy messages aligned with confirmed60s/portrait-only behavior. New dropzone prompt, named duration/dimensions status, auto-Short classification, imported-empty state and retired180s/square wording. Historical keys preserved with corrected whole meanings; no claim that exact9:16 alone is mandatory."
+            ],
+            "reviewed_at": "2026-11-06T10:44:18+00:00"
+        },
+        "e2d0a54968ead24efc0dffa6ac78fc606dceec34a0f586177a74a54cc2272cf8": {
+            "source_hash": "e2d0a54968ead24efc0dffa6ac78fc606dceec34a0f586177a74a54cc2272cf8",
+            "translation_hash": "4c6e6f3bb187780f1f73c8898bbf3d29919067d237c35a39ef64e859299cd4af",
+            "status": "editorial",
+            "contexts": [
+                "Editorial semantic correction of home/live/review/device distribution/report and import/account actions in Hebrew, Persian/Dari, Hindi, Bengali, Thai and Vietnamese; device distribution also in the first nine reviewed locales. No literal house/life/device failure/clothing meanings. Regional Persian/Dari terminology preserved."
+            ],
+            "reviewed_at": "2026-11-06T10:22:23+00:00"
+        },
+        "e6043fe6ba97e9236c3536731b9c8e3cf43417abda483b4b8e5895ce4524a455": {
+            "source_hash": "e6043fe6ba97e9236c3536731b9c8e3cf43417abda483b4b8e5895ce4524a455",
+            "translation_hash": "f0364f165ca0205bc6d71630399b543d990700fb38711d1ae5032f449c756bb2",
+            "status": "editorial",
+            "contexts": [
+                "Editorial remaining real chapter-editor/file UI in16 locales: titles, upload/add/remove actions, CUE/TXT limits, timeline help, minimum2 chapters, unreadable-file failure, custom/generated drafts. Terminology matches reviewed include-chapters checkbox and chapter validation. Exact CUE/TXT/512KB identifiers preserved; provider/file contents/names untouched. Source Start is deliberately excluded because its shared verb/column contexts need separate treatment."
+            ],
+            "reviewed_at": "2026-11-06T11:37:36+00:00"
+        },
+        "e6306facd510448ca29381d81e9031094036856428a58c317c81c502fa0b23c7": {
+            "source_hash": "e6306facd510448ca29381d81e9031094036856428a58c317c81c502fa0b23c7",
+            "translation_hash": "3796fd033d9d0d2f2b8d24e7d07876121f4a3fd5ac1ce94764ad2c4e3fa9250a",
+            "status": "verified",
+            "contexts": [
+                "Editorial complete URL-import flow in Hebrew, Iranian Persian, Afghan Dari, Hindi, Bangladeshi Bengali, Thai and Vietnamese. Personal singular address where used; neutral platform/status labels; no formal imperatives. Reviewed subtitle/transcript availability, original-language default, detected counts, chapter review/manual fallback and loading/empty states against actual import behavior. Regional Persian information/publication vocabulary retained. User/provider contents excluded.",
+                "URL import at 390px: loading/spinner, automatic YouTube detection, two subtitles/chapters, empty results, original provider metadata retained; isolated read-only browser"
+            ],
+            "reviewed_at": "2026-11-06T11:04:32+00:00",
+            "verified_at": "2026-11-06T11:05:20.379Z"
+        },
+        "e704ec6d4dab0ed05520e9a81d048f46c120d4e369c19113b3e26d8318d197d9": {
+            "source_hash": "e704ec6d4dab0ed05520e9a81d048f46c120d4e369c19113b3e26d8318d197d9",
+            "translation_hash": "b2e1f1f76e3c932cc2f441f303c3e50f5fdd22f13de2148c9ce9426675984d7c",
+            "status": "verified",
+            "contexts": [
+                "Editorial complete URL-import flow in Hebrew, Iranian Persian, Afghan Dari, Hindi, Bangladeshi Bengali, Thai and Vietnamese. Personal singular address where used; neutral platform/status labels; no formal imperatives. Reviewed subtitle/transcript availability, original-language default, detected counts, chapter review/manual fallback and loading/empty states against actual import behavior. Regional Persian information/publication vocabulary retained. User/provider contents excluded.",
+                "URL import at 390px: loading/spinner, automatic YouTube detection, two subtitles/chapters, empty results, original provider metadata retained; isolated read-only browser"
+            ],
+            "reviewed_at": "2026-11-06T11:04:32+00:00",
+            "verified_at": "2026-11-06T11:05:20.380Z"
+        },
+        "e8ff5768c1324e3432b4825f54b3281ad4c0e9d817528e76ef08dbb1a8142663": {
+            "source_hash": "e8ff5768c1324e3432b4825f54b3281ad4c0e9d817528e76ef08dbb1a8142663",
+            "translation_hash": "a44c45ecb9561425449c4661fbc1c9d42ff1526942b6f82b37eca8daa952d3ee",
+            "status": "editorial",
+            "contexts": [
+                "Editorial remaining real chapter-editor/file UI in16 locales: titles, upload/add/remove actions, CUE/TXT limits, timeline help, minimum2 chapters, unreadable-file failure, custom/generated drafts. Terminology matches reviewed include-chapters checkbox and chapter validation. Exact CUE/TXT/512KB identifiers preserved; provider/file contents/names untouched. Source Start is deliberately excluded because its shared verb/column contexts need separate treatment."
+            ],
+            "reviewed_at": "2026-11-06T11:37:36+00:00"
+        },
+        "eb1a70e39274bb762b5d7c1adb5debeea2b05e12af28207f21a375b596853273": {
+            "source_hash": "eb1a70e39274bb762b5d7c1adb5debeea2b05e12af28207f21a375b596853273",
+            "translation_hash": "ebf5872fbc5d3e0c738fb816ab59ea6c1b73a14d567da1936ca1fc768333ae94",
+            "status": "editorial",
+            "contexts": [
+                "Editorial semantic correction of home/live/review/device distribution/report and import/account actions in Hebrew, Persian/Dari, Hindi, Bengali, Thai and Vietnamese; device distribution also in the first nine reviewed locales. No literal house/life/device failure/clothing meanings. Regional Persian/Dari terminology preserved."
+            ],
+            "reviewed_at": "2026-11-06T10:22:23+00:00"
+        },
+        "f094b14a517a2f4b404a7c74203071bbaa91172159e2398c66b6c3aab0eb0044": {
+            "source_hash": "f094b14a517a2f4b404a7c74203071bbaa91172159e2398c66b6c3aab0eb0044",
+            "translation_hash": "5152371f9e07674ef6af1d437e6983c66651fad558dc5fbce1a20b0bddd550a1",
+            "status": "editorial",
+            "contexts": [
+                "Editorial complete URL-import flow in Hebrew, Iranian Persian, Afghan Dari, Hindi, Bangladeshi Bengali, Thai and Vietnamese. Personal singular address where used; neutral platform/status labels; no formal imperatives. Reviewed subtitle/transcript availability, original-language default, detected counts, chapter review/manual fallback and loading/empty states against actual import behavior. Regional Persian information/publication vocabulary retained. User/provider contents excluded."
+            ],
+            "reviewed_at": "2026-11-06T11:04:32+00:00"
+        },
+        "f1f73c27dfe5ec33da5e0083c3d50bf05aaccefba57724cf13d3f6daf2b99684": {
+            "source_hash": "f1f73c27dfe5ec33da5e0083c3d50bf05aaccefba57724cf13d3f6daf2b99684",
+            "translation_hash": "17817b27793dacc4dab5c078edce7c81cd43727e3415ac4015436e00459c9772",
+            "status": "verified",
+            "contexts": [
+                "Editorial complete URL-import flow in Hebrew, Iranian Persian, Afghan Dari, Hindi, Bangladeshi Bengali, Thai and Vietnamese. Personal singular address where used; neutral platform/status labels; no formal imperatives. Reviewed subtitle/transcript availability, original-language default, detected counts, chapter review/manual fallback and loading/empty states against actual import behavior. Regional Persian information/publication vocabulary retained. User/provider contents excluded.",
+                "URL import at 390px: loading/spinner, automatic YouTube detection, two subtitles/chapters, empty results, original provider metadata retained; isolated read-only browser"
+            ],
+            "reviewed_at": "2026-11-06T11:04:32+00:00",
+            "verified_at": "2026-11-06T11:05:20.379Z"
+        },
+        "f3bb93249714c8b8f365af05aa98c136ada6a4b882365580e7dac2d4c48314e6": {
+            "source_hash": "32fc8a36b656f391302a3690066e62c06c0e698693fb627f05cac08a39f359e5",
+            "translation_hash": "7966dada8555f35fb7c20d80d93f15d365409f4e1cdab2731d39af8787456454",
+            "status": "verified",
+            "contexts": [
+                "Editorial complete count messages for views/subscribers/likes/replies/videos/users/comments/playlists in Hebrew, Iranian Persian, Afghan Dari, Hindi, Bangladeshi Bengali, Thai and Vietnamese. RTL/Persian labels avoid incorrect dual/plural inflections at 0/1/2; Hindi comment label is count-neutral; Bengali/Thai native classifiers retained. Named count is formatted separately by actual selected locale. Only these 8 full patterns reviewed; old unrelated pattern/plural metadata remains pending.",
+                "Complete quantity patterns through actual DOM translation bridge at 390px; 0/1/2/3/11/21/1000 for views/subscribers/likes/replies/videos/users/comments/Playlists, locale digits and original number retained, no overflow/runtime errors/application writes"
+            ],
+            "reviewed_at": "2026-11-06T11:05:35+00:00",
+            "verified_at": "2026-11-06T11:06:03.495Z"
+        },
+        "fb3962e85ebd9896f3d5e76fbcf7dd65d98c4d41f35bb2adec3bc03d1e90fc2f": {
+            "source_hash": "fb3962e85ebd9896f3d5e76fbcf7dd65d98c4d41f35bb2adec3bc03d1e90fc2f",
+            "translation_hash": "ace25282e0d3dd7bd5f0f729a29e023a3144139f2af97218d00c104d0f5025f4",
+            "status": "verified",
+            "contexts": [
+                "Editorial complete chapter validation plus accessible chapter-name and include-chapters checkbox in Hebrew, Iranian Persian, Afghan Dari, Hindi, Bangladeshi Bengali, Thai and Vietnamese. Named count/number/seconds retained, exact first0:00 and160-character limit preserved. Checkbox label agrees with missing-name instruction; personal commands, regional scripts; shared neutral Persian/Dari timing wording read separately. Does not alter imported chapter content or timing.",
+                "Actual chapter editor at390px with RTL where selected: automatic imported chapters checked, original titles retained, named placeholder/screenreader field, missing title/invalid time/minimum spacing/beyond video errors, repaired valid state; no publication or mutations"
+            ],
+            "reviewed_at": "2026-11-06T11:07:40+00:00",
+            "verified_at": "2026-11-06T11:12:43.224Z"
+        },
+        "fb9d4acc100f1720b427fdde5d75587e6b53c57bccfc9a5495e84a792034322a": {
+            "source_hash": "4fcff7391dc118f561c7fd42e37211115763d147df1d5da3045918a5cfc9ad45",
+            "translation_hash": "927d82bba0caea86dd394930cffcf153bf2f2704548caad78c70f9a903b730c6",
+            "status": "editorial",
+            "contexts": [
+                "Complete canonical and historical Shorts policy messages aligned with confirmed60s/portrait-only behavior. New dropzone prompt, named duration/dimensions status, auto-Short classification, imported-empty state and retired180s/square wording. Historical keys preserved with corrected whole meanings; no claim that exact9:16 alone is mandatory."
+            ],
+            "reviewed_at": "2026-11-06T10:44:18+00:00"
+        },
+        "fca35cb2bcec232248b20afed7b0551fc22d9fa41a58407b63e17a839efa26b6": {
+            "source_hash": "fca35cb2bcec232248b20afed7b0551fc22d9fa41a58407b63e17a839efa26b6",
+            "translation_hash": "223f55545122a352d1882908093988f798a7128e413be261be33e74c3e5c49d4",
+            "status": "editorial",
+            "contexts": [
+                "Complete canonical and historical Shorts policy messages aligned with confirmed60s/portrait-only behavior. New dropzone prompt, named duration/dimensions status, auto-Short classification, imported-empty state and retired180s/square wording. Historical keys preserved with corrected whole meanings; no claim that exact9:16 alone is mandatory."
+            ],
+            "reviewed_at": "2026-11-06T10:44:18+00:00"
+        },
+        "fe90c32815eec96cea4b7b72e0b7c22a63b8782647f5b650a18f0832bf521415": {
+            "source_hash": "fe90c32815eec96cea4b7b72e0b7c22a63b8782647f5b650a18f0832bf521415",
+            "translation_hash": "561d955db214cf1b096a0cd5a850825ed467a135c076abd7a96ce8db92a8e6a5",
+            "status": "verified",
+            "contexts": [
+                "Editorial six complete default email subjects/bodies for Hebrew, Iranian Persian, Afghan Dari, Hindi, Bangladeshi Bengali, Thai and Vietnamese. Friendly personal wording, no customer/formal imperatives; neutral status and restrictions remain exact. Persian password vocabulary versus Dari preserved. All literal usernames/roles/titles/credentials/URLs/tokens retained; no administrator overrides changed.",
+                "Actual EmailTemplates and BrandedEmail renderers: all 6 subjects/bodies; 1/2/15-minute expiry; literal usernames/roles/title/credentials/URLs retained; HTML escaping and RTL; fixture-only override precedence; no sending or production writes. Rendering check, not complete visual email-client acceptance."
+            ],
+            "reviewed_at": "2026-11-06T11:14:20+00:00",
+            "verified_at": "2026-11-06T12:19:09+00:00"
+        },
+        "ff447ee534ab844c374560a16cf8de45afa23ca349d754f552a913b38554b4cb": {
+            "source_hash": "ff447ee534ab844c374560a16cf8de45afa23ca349d754f552a913b38554b4cb",
+            "translation_hash": "f6f04af1b8ad3f00a6d716e72e565d037e979baa0f7b1d168871da396162852d",
+            "status": "verified",
+            "contexts": [
+                "Editorial complete URL-import flow in Hebrew, Iranian Persian, Afghan Dari, Hindi, Bangladeshi Bengali, Thai and Vietnamese. Personal singular address where used; neutral platform/status labels; no formal imperatives. Reviewed subtitle/transcript availability, original-language default, detected counts, chapter review/manual fallback and loading/empty states against actual import behavior. Regional Persian information/publication vocabulary retained. User/provider contents excluded.",
+                "URL import at 390px: loading/spinner, automatic YouTube detection, two subtitles/chapters, empty results, original provider metadata retained; isolated read-only browser"
+            ],
+            "reviewed_at": "2026-11-06T11:04:32+00:00",
+            "verified_at": "2026-11-06T11:05:20.379Z"
+        }
+    }
+}

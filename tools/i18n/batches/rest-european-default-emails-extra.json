@@ -1,0 +1,113 @@
+{
+  "context": "Six complete standard email templates in Estonian, Latvian, Lithuanian, Belarusian, Basque, Frisian and Welsh. Friendly singular; no formal address; whole code/reset/invitation/restriction/moderator/live-moderator messages. Minute abbreviations keep1/2/15 valid without importing English plural forms. All named credentials/roles/URLs/date/restriction/title tokens and administrator overrides remain intact.",
+  "messages": {
+    "Your {SITENAME} verification code": {
+      "et": "Sinu {SITENAME} kinnituskood",
+      "lv": "Tavs {SITENAME} verifikācijas kods",
+      "lt": "Tavo {SITENAME} patvirtinimo kodas",
+      "bel": "Твой код пацверджання {SITENAME}",
+      "eu": "Zure {SITENAME} egiaztapen-kodea",
+      "fy": "Dyn ferifikaasjekoade foar {SITENAME}",
+      "cy": "Dy god dilysu ar gyfer {SITENAME}"
+    },
+    "Your {SITENAME} verification code is: {VERIFICATION_CODE}\n\nThis code expires in {EXPIRY_MINUTES} minutes.": {
+      "et": "Sinu {SITENAME} kinnituskood: {VERIFICATION_CODE}\n\nKood kehtib {EXPIRY_MINUTES} min.",
+      "lv": "Tavs {SITENAME} verifikācijas kods: {VERIFICATION_CODE}\n\nKods ir derīgs {EXPIRY_MINUTES} min.",
+      "lt": "Tavo {SITENAME} patvirtinimo kodas: {VERIFICATION_CODE}\n\nKodas galioja {EXPIRY_MINUTES} min.",
+      "bel": "Твой код пацверджання {SITENAME}: {VERIFICATION_CODE}\n\nТэрмін дзеяння кода: {EXPIRY_MINUTES} хв.",
+      "eu": "Zure {SITENAME} egiaztapen-kodea: {VERIFICATION_CODE}\n\nKodeak {EXPIRY_MINUTES} min irauten du.",
+      "fy": "Dyn ferifikaasjekoade foar {SITENAME}: {VERIFICATION_CODE}\n\nDizze koade is {EXPIRY_MINUTES} min. jildich.",
+      "cy": "Dy god dilysu ar gyfer {SITENAME}: {VERIFICATION_CODE}\n\nMae’r cod hwn yn ddilys am {EXPIRY_MINUTES} mun."
+    },
+    "Reset your {SITENAME} password": {
+      "et": "Lähtesta oma {SITENAME} parool",
+      "lv": "Atiestati savu {SITENAME} paroli",
+      "lt": "Atkurk savo {SITENAME} slaptažodį",
+      "bel": "Скінь свой пароль {SITENAME}",
+      "eu": "Berrezarri zure {SITENAME} pasahitza",
+      "fy": "Stel dyn wachtwurd foar {SITENAME} opnij yn",
+      "cy": "Ailosoda dy gyfrinair ar gyfer {SITENAME}"
+    },
+    "Hello {USERNAME},\n\nYour {SITENAME} password reset code is: {RESET_CODE}\n\nThis code expires in {EXPIRY_MINUTES} minutes.": {
+      "et": "Tere, {USERNAME}!\n\nSinu kood {SITENAME} parooli lähtestamiseks: {RESET_CODE}\n\nKood kehtib {EXPIRY_MINUTES} min.",
+      "lv": "Čau, {USERNAME}!\n\nTavs kods {SITENAME} paroles atiestatīšanai: {RESET_CODE}\n\nKods ir derīgs {EXPIRY_MINUTES} min.",
+      "lt": "Labas, {USERNAME}!\n\nTavo {SITENAME} slaptažodžio atkūrimo kodas: {RESET_CODE}\n\nKodas galioja {EXPIRY_MINUTES} min.",
+      "bel": "Прывітанне, {USERNAME}!\n\nТвой код для скіду пароля {SITENAME}: {RESET_CODE}\n\nТэрмін дзеяння кода: {EXPIRY_MINUTES} хв.",
+      "eu": "Kaixo, {USERNAME}!\n\nZure {SITENAME} pasahitza berrezartzeko kodea: {RESET_CODE}\n\nKodeak {EXPIRY_MINUTES} min irauten du.",
+      "fy": "Hoi {USERNAME},\n\nDyn koade om it wachtwurd foar {SITENAME} opnij yn te stellen: {RESET_CODE}\n\nDizze koade is {EXPIRY_MINUTES} min. jildich.",
+      "cy": "Shwmae {USERNAME},\n\nDy god i ailosod dy gyfrinair ar gyfer {SITENAME}: {RESET_CODE}\n\nMae’r cod hwn yn ddilys am {EXPIRY_MINUTES} mun."
+    },
+    "You have been invited to {SITENAME}": {
+      "et": "Sulle on kutse saidile {SITENAME}",
+      "lv": "Tev ir ielūgums uz {SITENAME}",
+      "lt": "Tau skirtas kvietimas į {SITENAME}",
+      "bel": "Запрашэнне на {SITENAME} для цябе",
+      "eu": "Gonbidapena duzu {SITENAME} webgunera",
+      "fy": "In útnûging foar {SITENAME} foar dy",
+      "cy": "Gwahoddiad i {SITENAME} i ti"
+    },
+    "Hello {USERNAME},\n\nYou have been invited to {SITENAME} as {ROLE}.\n\nLogin email: {USER_EMAIL}\nTemporary password: {TEMPORARY_PASSWORD}\nLogin: {LOGIN_URL}\n\nPlease sign in and update your password.": {
+      "et": "Tere, {USERNAME}!\n\nSulle on kutse saidile {SITENAME}. Sinu roll: {ROLE}.\n\nSisselogimise e-post: {USER_EMAIL}\nAjutine parool: {TEMPORARY_PASSWORD}\nLogi sisse: {LOGIN_URL}\n\nLogi sisse ja muuda oma parool ära.",
+      "lv": "Čau, {USERNAME}!\n\nTev ir ielūgums uz {SITENAME}. Tava loma: {ROLE}.\n\nPieteikšanās e-pasts: {USER_EMAIL}\nPagaidu parole: {TEMPORARY_PASSWORD}\nPieteikšanās: {LOGIN_URL}\n\nPiesakies un nomaini savu paroli.",
+      "lt": "Labas, {USERNAME}!\n\nTau skirtas kvietimas į {SITENAME}. Tavo vaidmuo: {ROLE}.\n\nPrisijungimo el. paštas: {USER_EMAIL}\nLaikinas slaptažodis: {TEMPORARY_PASSWORD}\nPrisijungimas: {LOGIN_URL}\n\nPrisijunk ir pakeisk slaptažodį.",
+      "bel": "Прывітанне, {USERNAME}!\n\nДля цябе створана запрашэнне на {SITENAME}. Твая роля: {ROLE}.\n\nЭлектронная пошта для ўваходу: {USER_EMAIL}\nЧасовы пароль: {TEMPORARY_PASSWORD}\nУваход: {LOGIN_URL}\n\nУвайдзі і змяні пароль.",
+      "eu": "Kaixo, {USERNAME}!\n\nGonbidapena duzu {SITENAME} webgunera. Zure rola: {ROLE}.\n\nSaioa hasteko helbide elektronikoa: {USER_EMAIL}\nBehin-behineko pasahitza: {TEMPORARY_PASSWORD}\nHasi saioa: {LOGIN_URL}\n\nHasi saioa eta aldatu zure pasahitza.",
+      "fy": "Hoi {USERNAME},\n\nDo hast in útnûging foar {SITENAME} krigen. Dyn rol: {ROLE}.\n\nE-mailadres om oan te melden: {USER_EMAIL}\nTydlik wachtwurd: {TEMPORARY_PASSWORD}\nOanmelde: {LOGIN_URL}\n\nMeld dy oan en feroarje dyn wachtwurd.",
+      "cy": "Shwmae {USERNAME},\n\nRwyt ti wedi cael gwahoddiad i {SITENAME}. Dy rôl: {ROLE}.\n\nE-bost mewngofnodi: {USER_EMAIL}\nCyfrinair dros dro: {TEMPORARY_PASSWORD}\nMewngofnodi: {LOGIN_URL}\n\nMewngofnoda a newidia dy gyfrinair."
+    },
+    "Your {SITENAME} account has been restricted": {
+      "et": "Sinu {SITENAME} kontot on piiratud",
+      "lv": "Tavam {SITENAME} kontam ir ierobežojumi",
+      "lt": "Tavo {SITENAME} paskyra apribota",
+      "bel": "На твой акаўнт {SITENAME} накладзены абмежаванні",
+      "eu": "Zure {SITENAME} kontua mugatu da",
+      "fy": "Dyn akkount op {SITENAME} is beheind",
+      "cy": "Mae cyfyngiadau ar dy gyfrif {SITENAME}"
+    },
+    "Hello {USERNAME},\n\nYour {SITENAME} account has been restricted until {BAN_EXPIRES_AT}.\n\nRestrictions:\n{RESTRICTIONS}\n\nIf you believe this is a mistake, contact {SUPPORT_EMAIL}.": {
+      "et": "Tere, {USERNAME}!\n\nSinu {SITENAME} kontole kehtivad piirangud kuni {BAN_EXPIRES_AT}.\n\nPiirangud:\n{RESTRICTIONS}\n\nArvad, et see on eksitus? Kirjuta aadressil {SUPPORT_EMAIL}.",
+      "lv": "Čau, {USERNAME}!\n\nTavam {SITENAME} kontam ir noteikti ierobežojumi līdz {BAN_EXPIRES_AT}.\n\nIerobežojumi:\n{RESTRICTIONS}\n\nUzskati, ka tā ir kļūda? Raksti uz {SUPPORT_EMAIL}.",
+      "lt": "Labas, {USERNAME}!\n\nTavo {SITENAME} paskyra apribota iki {BAN_EXPIRES_AT}.\n\nApribojimai:\n{RESTRICTIONS}\n\nManai, kad tai klaida? Parašyk adresu {SUPPORT_EMAIL}.",
+      "bel": "Прывітанне, {USERNAME}!\n\nНа твой акаўнт {SITENAME} накладзены абмежаванні да {BAN_EXPIRES_AT}.\n\nАбмежаванні:\n{RESTRICTIONS}\n\nКалі лічыш, што гэта памылка, напішы на {SUPPORT_EMAIL}.",
+      "eu": "Kaixo, {USERNAME}!\n\nZure {SITENAME} kontuak murrizketak ditu {BAN_EXPIRES_AT} arte.\n\nMurrizketak:\n{RESTRICTIONS}\n\nAkatsa dela uste duzu? Idatzi helbide honetara: {SUPPORT_EMAIL}.",
+      "fy": "Hoi {USERNAME},\n\nDyn akkount op {SITENAME} is beheind oant {BAN_EXPIRES_AT}.\n\nBeheiningen:\n{RESTRICTIONS}\n\nTinkst dat dit in flater is? Nim kontakt op fia {SUPPORT_EMAIL}.",
+      "cy": "Shwmae {USERNAME},\n\nMae cyfyngiadau ar dy gyfrif {SITENAME} hyd at {BAN_EXPIRES_AT}.\n\nCyfyngiadau:\n{RESTRICTIONS}\n\nWyt ti’n meddwl mai camgymeriad yw hyn? Cysyllta â {SUPPORT_EMAIL}."
+    },
+    "You are now a {SITENAME} moderator": {
+      "et": "Nüüd saad saidil {SITENAME} modereerida",
+      "lv": "Tagad vari moderēt {SITENAME}",
+      "lt": "Dabar gali moderuoti {SITENAME}",
+      "bel": "Цяпер ты можаш мадэраваць {SITENAME}",
+      "eu": "Orain {SITENAME} moderatu dezakezu",
+      "fy": "Do kinst no moderearje op {SITENAME}",
+      "cy": "Rwyt ti bellach yn gymedrolwr ar {SITENAME}"
+    },
+    "Hello {USERNAME},\n\nYou have been assigned the Moderator role on {SITENAME}. You can now access the moderation tools available to your role.\n\nModeration dashboard: {MODERATION_URL}": {
+      "et": "Tere, {USERNAME}!\n\nSulle on antud saidil {SITENAME} moderaatori roll. Nüüd saad kasutada oma rollile kättesaadavaid modereerimistööriistu.\n\nModereerimise töölaud: {MODERATION_URL}",
+      "lv": "Čau, {USERNAME}!\n\nTev ir piešķirta moderatora loma vietnē {SITENAME}. Tagad vari izmantot savai lomai pieejamos moderēšanas rīkus.\n\nModerēšanas panelis: {MODERATION_URL}",
+      "lt": "Labas, {USERNAME}!\n\nTau suteiktas moderatoriaus vaidmuo svetainėje {SITENAME}. Dabar gali naudoti tavo vaidmeniui prieinamus moderavimo įrankius.\n\nModeravimo skydelis: {MODERATION_URL}",
+      "bel": "Прывітанне, {USERNAME}!\n\nТабе прызначана роля мадэратара на {SITENAME}. Цяпер ты можаш карыстацца інструментамі мадэрацыі, даступнымі тваёй ролі.\n\nПанэль мадэрацыі: {MODERATION_URL}",
+      "eu": "Kaixo, {USERNAME}!\n\nModeratzaile-rola esleitu zaizu {SITENAME} webgunean. Orain zure rolarentzat eskuragarri dauden moderazio-tresnak erabil ditzakezu.\n\nModerazio-panela: {MODERATION_URL}",
+      "fy": "Hoi {USERNAME},\n\nDo hast de moderatorrol op {SITENAME} krigen. No kinst de moderaasjemiddels brûke dy’t by dyn rol hearre.\n\nModeraasjepaniel: {MODERATION_URL}",
+      "cy": "Shwmae {USERNAME},\n\nRwyt ti wedi cael rôl cymedrolwr ar {SITENAME}. Gelli di nawr ddefnyddio’r offer cymedroli sydd ar gael i dy rôl.\n\nDangosfwrdd cymedroli: {MODERATION_URL}"
+    },
+    "You are moderating \"{STREAM_TITLE}\" on {SITENAME}": {
+      "et": "Modereerid ülekannet „{STREAM_TITLE}“ saidil {SITENAME}",
+      "lv": "Tu moderē “{STREAM_TITLE}” vietnē {SITENAME}",
+      "lt": "Moderuoji „{STREAM_TITLE}“ svetainėje {SITENAME}",
+      "bel": "Ты мадэруеш «{STREAM_TITLE}» на {SITENAME}",
+      "eu": "«{STREAM_TITLE}» moderatzen ari zara {SITENAME} webgunean",
+      "fy": "Do moderearrest “{STREAM_TITLE}” op {SITENAME}",
+      "cy": "Rwyt ti’n cymedroli “{STREAM_TITLE}” ar {SITENAME}"
+    },
+    "Hello {USERNAME},\n\nYou have been assigned as a moderator for the live stream \"{STREAM_TITLE}\". Open the stream to access your moderation controls.\n\nOpen stream: {STREAM_URL}": {
+      "et": "Tere, {USERNAME}!\n\nSulle on antud otseülekande „{STREAM_TITLE}“ moderaatori roll. Ava ülekanne, et kasutada modereerimistööriistu.\n\nAva ülekanne: {STREAM_URL}",
+      "lv": "Čau, {USERNAME}!\n\nTev ir uzticēta tiešraides “{STREAM_TITLE}” moderēšana. Atver tiešraidi, lai izmantotu moderēšanas rīkus.\n\nAtver tiešraidi: {STREAM_URL}",
+      "lt": "Labas, {USERNAME}!\n\nTau patikėta moderuoti tiesioginę transliaciją „{STREAM_TITLE}“. Atverk transliaciją, kad galėtum naudoti moderavimo įrankius.\n\nAtverti transliaciją: {STREAM_URL}",
+      "bel": "Прывітанне, {USERNAME}!\n\nТабе даручана мадэрацыя жывой трансляцыі «{STREAM_TITLE}». Адкрый трансляцыю, каб карыстацца інструментамі мадэрацыі.\n\nАдкрыць трансляцыю: {STREAM_URL}",
+      "eu": "Kaixo, {USERNAME}!\n\n«{STREAM_TITLE}» zuzeneko emanaldia moderatzeko ardura esleitu zaizu. Ireki emanaldia moderazio-tresnak erabiltzeko.\n\nIreki emanaldia: {STREAM_URL}",
+      "fy": "Hoi {USERNAME},\n\nDo bist oanwiisd as moderator foar de livestream “{STREAM_TITLE}”. Iepenje de stream om de moderaasjemiddels te brûken.\n\nIepenje de stream: {STREAM_URL}",
+      "cy": "Shwmae {USERNAME},\n\nRwyt ti’n gymedrolwr ar gyfer y ffrwd fyw “{STREAM_TITLE}”. Agora’r ffrwd i ddefnyddio’r offer cymedroli.\n\nAgor y ffrwd: {STREAM_URL}"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "context": "Actual email renderer replaces EXPIRY_MINUTES literally. English/German full default bodies now use idiomatic invariant min./Min. so1,2,15 all read correctly without corrupting administrator templates or changing existing placeholder contracts. Existing keys retained.",
+  "messages": {
+    "Your {SITENAME} verification code is: {VERIFICATION_CODE}\n\nThis code expires in {EXPIRY_MINUTES} minutes.": {
+      "en": "Your {SITENAME} verification code is: {VERIFICATION_CODE}\n\nThis code is valid for {EXPIRY_MINUTES} min.",
+      "de_de": "Dein Bestätigungscode für {SITENAME} lautet: {VERIFICATION_CODE}\n\nDer Code ist {EXPIRY_MINUTES} Min. gültig.",
+      "de_at": "Dein Bestätigungscode für {SITENAME} lautet: {VERIFICATION_CODE}\n\nDer Code ist {EXPIRY_MINUTES} Min. gültig.",
+      "de_ch": "Dein Bestätigungscode für {SITENAME} lautet: {VERIFICATION_CODE}\n\nDer Code ist {EXPIRY_MINUTES} Min. gültig."
+    },
+    "Hello {USERNAME},\n\nYour {SITENAME} password reset code is: {RESET_CODE}\n\nThis code expires in {EXPIRY_MINUTES} minutes.": {
+      "en": "Hello {USERNAME},\n\nYour {SITENAME} password reset code is: {RESET_CODE}\n\nThis code is valid for {EXPIRY_MINUTES} min.",
+      "de_de": "Hallo {USERNAME},\n\nmit diesem Code kannst du dein Passwort bei {SITENAME} zurücksetzen: {RESET_CODE}\n\nDer Code ist {EXPIRY_MINUTES} Min. gültig.",
+      "de_at": "Hallo {USERNAME},\n\nmit diesem Code kannst du dein Passwort bei {SITENAME} zurücksetzen: {RESET_CODE}\n\nDer Code ist {EXPIRY_MINUTES} Min. gültig.",
+      "de_ch": "Hallo {USERNAME},\n\nmit diesem Code kannst du dein Passwort bei {SITENAME} zurücksetzen: {RESET_CODE}\n\nDer Code ist {EXPIRY_MINUTES} Min. gültig."
+    }
+  }
+}

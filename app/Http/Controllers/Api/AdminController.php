@@ -20,6 +20,7 @@ use App\Support\BrandedEmail;
 use App\Support\ContentPages;
 use App\Support\EmailTemplates;
 use App\Support\GeneralSettings;
+use App\Support\LanguageLocales;
 use App\Support\IntegrationSettings;
 use App\Support\LiveKitDockerStatus;
 use App\Support\LiveKitSettings;
@@ -218,6 +219,7 @@ class AdminController extends Controller
     public function updateLanguageStatus(Request $request, string $locale): JsonResponse
     {
         $this->authorizeAdmin($request);
+        $this->rejectLanguageAlias($locale);
         $file = $this->languageFile($locale);
         $locale = basename(dirname($file));
         $data = $request->validate(['enabled' => ['required', 'boolean']]);
@@ -324,6 +326,7 @@ class AdminController extends Controller
     public function updateLanguage(Request $request, string $locale): JsonResponse
     {
         $this->authorizeAdmin($request);
+        $this->rejectLanguageAlias($locale);
         $file = $this->languageFile($locale);
         $checksum = (string) $request->input('checksum', '');
         if ($checksum === '' || ! hash_equals(hash_file('sha256', $file), $checksum)) {
@@ -2748,15 +2751,15 @@ class AdminController extends Controller
             }
         }
 
-        return Video::query()
-            ->where('source_type', 'import')
-            ->where('import_url', $url)
-            ->exists();
+        return \App\Support\VideoImportIdentity::duplicate(\App\Support\VideoImportIdentity::keys(
+            VideoImportSettings::detectProvider($url) ?? 'direct', $url)) !== null;
     }
 
     private function normalizeMassImportUrl(string $url): string
     {
-        return rtrim(strtolower(trim($url)), '/');
+        $keys = \App\Support\VideoImportIdentity::keys(VideoImportSettings::detectProvider($url) ?? 'direct', $url);
+
+        return $keys['import_source_key'];
     }
 
     private function adminPostJson(string $url, array $payload, array $headers = []): array
@@ -4875,7 +4878,7 @@ class AdminController extends Controller
 
         return collect(glob($root.DIRECTORY_SEPARATOR.'*'.DIRECTORY_SEPARATOR.'*.php') ?: [])
             ->map(fn (string $file): string|false => realpath($file))
-            ->filter(fn (string|false $file): bool => is_string($file) && str_starts_with($file, $root.DIRECTORY_SEPARATOR))
+            ->filter(fn (string|false $file): bool => is_string($file) && str_starts_with($file, $root.DIRECTORY_SEPARATOR) && ! LanguageLocales::isAlias(basename(dirname($file))))
             ->sort()
             ->values()
             ->all();
@@ -4883,7 +4886,7 @@ class AdminController extends Controller
 
     private function languageFile(string $locale): string
     {
-        $locale = strtolower(trim($locale));
+        $locale = LanguageLocales::canonical($locale);
         abort_unless((bool) preg_match('/^[a-z0-9_-]+$/', $locale), 404, 'Language not found.');
         $root = realpath((string) config('playhub.language_path', base_path('lang')));
         abort_unless($root !== false, 404, 'Language directory not found.');
@@ -4893,6 +4896,13 @@ class AdminController extends Controller
         abort_unless(is_string($file) && str_starts_with($file, $root.DIRECTORY_SEPARATOR), 404, 'Language not found.');
 
         return $file;
+    }
+
+    private function rejectLanguageAlias(string $locale): void
+    {
+        if (LanguageLocales::isAlias($locale)) {
+            throw ValidationException::withMessages(['locale' => ['This address-style variant was merged. Choose its regional language.']]);
+        }
     }
 
     private function loadLanguageFile(string $file): array
@@ -5522,6 +5532,8 @@ class AdminController extends Controller
                 'videos.title as video_title',
                 'videos.slug as video_slug',
                 'videos.duration_seconds as video_duration_seconds',
+                'videos.video_width as video_width',
+                'videos.video_height as video_height',
                 'videos.source_type as video_source_type',
                 'videos.is_short as video_is_short',
                 'videos.sale_enabled as video_sale_enabled',
@@ -5536,7 +5548,7 @@ class AdminController extends Controller
             ->get()
             ->map(function ($row): array {
                 $reportCount = (int) $row->report_count;
-                $isShort = Video::isShortContent($row->video_source_type, $row->video_duration_seconds, $row->video_is_short, (bool) $row->video_sale_enabled);
+                $isShort = Video::isShortContent($row->video_source_type, $row->video_duration_seconds, $row->video_is_short, (bool) $row->video_sale_enabled, $row->video_width, $row->video_height);
                 $targetUrl = $row->video_slug
                     ? ($isShort ? '/shorts/' : '/watch/').$row->video_slug
                     : ($row->community_channel_slug ? '/channel/'.$row->community_channel_slug.'/community' : '/admin/reports');
@@ -5596,6 +5608,8 @@ class AdminController extends Controller
                 'videos.title',
                 'videos.slug',
                 'videos.duration_seconds',
+                'videos.video_width',
+                'videos.video_height',
                 'videos.source_type',
                 'videos.is_short',
                 'videos.sale_enabled',
@@ -5611,7 +5625,7 @@ class AdminController extends Controller
             ->get()
             ->map(function ($row): array {
                 $reportCount = (int) $row->report_count;
-                $isShort = Video::isShortContent($row->source_type, $row->duration_seconds, $row->is_short, (bool) $row->sale_enabled);
+                $isShort = Video::isShortContent($row->source_type, $row->duration_seconds, $row->is_short, (bool) $row->sale_enabled, $row->video_width, $row->video_height);
 
                 return [
                     'id' => (int) $row->id,
@@ -6524,6 +6538,8 @@ class AdminController extends Controller
                 'videos.title as video_title',
                 'videos.slug as video_slug',
                 'videos.duration_seconds as video_duration_seconds',
+                'videos.video_width as video_width',
+                'videos.video_height as video_height',
                 'videos.source_type as video_source_type',
                 'videos.is_short as video_is_short',
                 'videos.sale_enabled as video_sale_enabled',
@@ -6536,7 +6552,7 @@ class AdminController extends Controller
             ->get()
             ->map(function ($row): array {
                 $reportCount = (int) $row->report_count;
-                $isShort = Video::isShortContent($row->video_source_type, $row->video_duration_seconds, $row->video_is_short, (bool) $row->video_sale_enabled);
+                $isShort = Video::isShortContent($row->video_source_type, $row->video_duration_seconds, $row->video_is_short, (bool) $row->video_sale_enabled, $row->video_width, $row->video_height);
 
                 return [
                     'id' => (int) $row->id,
@@ -6594,6 +6610,8 @@ class AdminController extends Controller
                 'authors.email as author_email',
                 'videos.slug',
                 'videos.duration_seconds',
+                'videos.video_width',
+                'videos.video_height',
                 'videos.source_type',
                 'videos.is_short',
                 'videos.sale_enabled',
@@ -6605,7 +6623,7 @@ class AdminController extends Controller
             ->get()
             ->map(function ($row): array {
                 $reportCount = (int) $row->report_count;
-                $isShort = Video::isShortContent($row->source_type, $row->duration_seconds, $row->is_short, (bool) $row->sale_enabled);
+                $isShort = Video::isShortContent($row->source_type, $row->duration_seconds, $row->is_short, (bool) $row->sale_enabled, $row->video_width, $row->video_height);
 
                 return [
                     'id' => (int) $row->id,

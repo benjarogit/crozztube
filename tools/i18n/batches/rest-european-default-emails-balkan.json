@@ -1,0 +1,101 @@
+{
+  "context": "All six complete default email subjects/bodies in Slovenian, Croatian, Bosnian, Serbian Cyrillic, Macedonian and Albanian. Each pack read independently for native grammar/script/greeting; no Serbian transliteration or Bosnian/Croatian spelling collapse. Personal singular, valid min abbreviation for expiry, original roles/credential/URL/ban/restriction/stream-title tokens retained. Existing administrator overrides untouched.",
+  "messages": {
+    "Your {SITENAME} verification code": {
+      "sl": "Tvoja potrditvena koda za {SITENAME}",
+      "hr": "Tvoj kod za potvrdu za {SITENAME}",
+      "bs": "Tvoj kod za potvrdu za {SITENAME}",
+      "sr": "Твој код за потврду за {SITENAME}",
+      "mk": "Твојот код за потврда за {SITENAME}",
+      "sq": "Kodi yt i verifikimit për {SITENAME}"
+    },
+    "Your {SITENAME} verification code is: {VERIFICATION_CODE}\n\nThis code expires in {EXPIRY_MINUTES} minutes.": {
+      "sl": "Tvoja potrditvena koda za {SITENAME}: {VERIFICATION_CODE}\n\nVeljavnost kode: {EXPIRY_MINUTES} min.",
+      "hr": "Tvoj kod za potvrdu za {SITENAME}: {VERIFICATION_CODE}\n\nKod vrijedi {EXPIRY_MINUTES} min.",
+      "bs": "Tvoj kod za potvrdu za {SITENAME}: {VERIFICATION_CODE}\n\nKod vrijedi {EXPIRY_MINUTES} min.",
+      "sr": "Твој код за потврду за {SITENAME}: {VERIFICATION_CODE}\n\nКод важи {EXPIRY_MINUTES} мин.",
+      "mk": "Твојот код за потврда за {SITENAME}: {VERIFICATION_CODE}\n\nВажност на кодот: {EXPIRY_MINUTES} мин.",
+      "sq": "Kodi yt i verifikimit për {SITENAME}: {VERIFICATION_CODE}\n\nKodi është i vlefshëm për {EXPIRY_MINUTES} min."
+    },
+    "Reset your {SITENAME} password": {
+      "sl": "Ponastavi geslo za {SITENAME}",
+      "hr": "Ponovno postavi lozinku za {SITENAME}",
+      "bs": "Ponovo postavi lozinku za {SITENAME}",
+      "sr": "Поново постави лозинку за {SITENAME}",
+      "mk": "Постави нова лозинка за {SITENAME}",
+      "sq": "Rivendos fjalëkalimin tënd për {SITENAME}"
+    },
+    "Hello {USERNAME},\n\nYour {SITENAME} password reset code is: {RESET_CODE}\n\nThis code expires in {EXPIRY_MINUTES} minutes.": {
+      "sl": "Živjo {USERNAME},\n\nTvoja koda za ponastavitev gesla za {SITENAME}: {RESET_CODE}\n\nVeljavnost kode: {EXPIRY_MINUTES} min.",
+      "hr": "Bok {USERNAME},\n\nTvoj kod za ponovno postavljanje lozinke za {SITENAME}: {RESET_CODE}\n\nKod vrijedi {EXPIRY_MINUTES} min.",
+      "bs": "Zdravo {USERNAME},\n\nTvoj kod za ponovno postavljanje lozinke za {SITENAME}: {RESET_CODE}\n\nKod vrijedi {EXPIRY_MINUTES} min.",
+      "sr": "Здраво {USERNAME},\n\nТвој код за поновно постављање лозинке за {SITENAME}: {RESET_CODE}\n\nКод важи {EXPIRY_MINUTES} мин.",
+      "mk": "Здраво {USERNAME},\n\nТвојот код за поставување нова лозинка за {SITENAME}: {RESET_CODE}\n\nВажност на кодот: {EXPIRY_MINUTES} мин.",
+      "sq": "Përshëndetje {USERNAME},\n\nKodi yt për rivendosjen e fjalëkalimit për {SITENAME}: {RESET_CODE}\n\nKodi është i vlefshëm për {EXPIRY_MINUTES} min."
+    },
+    "You have been invited to {SITENAME}": {
+      "sl": "Vabilo na {SITENAME} zate",
+      "hr": "Pozivnica za {SITENAME} za tebe",
+      "bs": "Pozivnica za {SITENAME} za tebe",
+      "sr": "Позивница за {SITENAME} за тебе",
+      "mk": "Покана за {SITENAME} за тебе",
+      "sq": "Një ftesë për {SITENAME} për ty"
+    },
+    "Hello {USERNAME},\n\nYou have been invited to {SITENAME} as {ROLE}.\n\nLogin email: {USER_EMAIL}\nTemporary password: {TEMPORARY_PASSWORD}\nLogin: {LOGIN_URL}\n\nPlease sign in and update your password.": {
+      "sl": "Živjo {USERNAME},\n\nZate je pripravljeno vabilo na {SITENAME}. Tvoja vloga: {ROLE}.\n\nE-pošta za prijavo: {USER_EMAIL}\nZačasno geslo: {TEMPORARY_PASSWORD}\nPrijava: {LOGIN_URL}\n\nPrijavi se in spremeni geslo.",
+      "hr": "Bok {USERNAME},\n\nZa tebe je pripremljena pozivnica za {SITENAME}. Tvoja uloga: {ROLE}.\n\nE-pošta za prijavu: {USER_EMAIL}\nPrivremena lozinka: {TEMPORARY_PASSWORD}\nPrijava: {LOGIN_URL}\n\nPrijavi se i promijeni lozinku.",
+      "bs": "Zdravo {USERNAME},\n\nZa tebe je pripremljena pozivnica za {SITENAME}. Tvoja uloga: {ROLE}.\n\nE-mail za prijavu: {USER_EMAIL}\nPrivremena lozinka: {TEMPORARY_PASSWORD}\nPrijava: {LOGIN_URL}\n\nPrijavi se i promijeni lozinku.",
+      "sr": "Здраво {USERNAME},\n\nЗа тебе је припремљена позивница за {SITENAME}. Твоја улога: {ROLE}.\n\nИмејл за пријаву: {USER_EMAIL}\nПривремена лозинка: {TEMPORARY_PASSWORD}\nПријава: {LOGIN_URL}\n\nПријави се и промени лозинку.",
+      "mk": "Здраво {USERNAME},\n\nЗа тебе е подготвена покана за {SITENAME}. Твојата улога: {ROLE}.\n\nЕ-пошта за најава: {USER_EMAIL}\nПривремена лозинка: {TEMPORARY_PASSWORD}\nНајава: {LOGIN_URL}\n\nНајави се и смени ја лозинката.",
+      "sq": "Përshëndetje {USERNAME},\n\nKe marrë një ftesë për {SITENAME}. Roli yt: {ROLE}.\n\nE-maili për hyrje: {USER_EMAIL}\nFjalëkalimi i përkohshëm: {TEMPORARY_PASSWORD}\nHyrja: {LOGIN_URL}\n\nHyr dhe ndrysho fjalëkalimin tënd."
+    },
+    "Your {SITENAME} account has been restricted": {
+      "sl": "Tvoj račun na {SITENAME} je omejen",
+      "hr": "Tvoj račun na {SITENAME} je ograničen",
+      "bs": "Tvoj račun na {SITENAME} je ograničen",
+      "sr": "Твој налог на {SITENAME} је ограничен",
+      "mk": "Твојата сметка на {SITENAME} е ограничена",
+      "sq": "Llogaria jote në {SITENAME} është kufizuar"
+    },
+    "Hello {USERNAME},\n\nYour {SITENAME} account has been restricted until {BAN_EXPIRES_AT}.\n\nRestrictions:\n{RESTRICTIONS}\n\nIf you believe this is a mistake, contact {SUPPORT_EMAIL}.": {
+      "sl": "Živjo {USERNAME},\n\nTvoj račun na {SITENAME} je omejen do {BAN_EXPIRES_AT}.\n\nOmejitve:\n{RESTRICTIONS}\n\nMisliš, da gre za napako? Piši na {SUPPORT_EMAIL}.",
+      "hr": "Bok {USERNAME},\n\nTvoj račun na {SITENAME} ograničen je do {BAN_EXPIRES_AT}.\n\nOgraničenja:\n{RESTRICTIONS}\n\nMisliš da je riječ o pogrešci? Javi se na {SUPPORT_EMAIL}.",
+      "bs": "Zdravo {USERNAME},\n\nTvoj račun na {SITENAME} ograničen je do {BAN_EXPIRES_AT}.\n\nOgraničenja:\n{RESTRICTIONS}\n\nMisliš da je ovo greška? Javi se na {SUPPORT_EMAIL}.",
+      "sr": "Здраво {USERNAME},\n\nТвој налог на {SITENAME} ограничен је до {BAN_EXPIRES_AT}.\n\nОграничења:\n{RESTRICTIONS}\n\nМислиш да је ово грешка? Јави се на {SUPPORT_EMAIL}.",
+      "mk": "Здраво {USERNAME},\n\nТвојата сметка на {SITENAME} е ограничена до {BAN_EXPIRES_AT}.\n\nОграничувања:\n{RESTRICTIONS}\n\nМислиш дека е грешка? Пиши на {SUPPORT_EMAIL}.",
+      "sq": "Përshëndetje {USERNAME},\n\nLlogaria jote në {SITENAME} është kufizuar deri më {BAN_EXPIRES_AT}.\n\nKufizimet:\n{RESTRICTIONS}\n\nMendon se është gabim? Shkruaj në {SUPPORT_EMAIL}."
+    },
+    "You are now a {SITENAME} moderator": {
+      "sl": "Zdaj lahko moderiraš {SITENAME}",
+      "hr": "Sada možeš moderirati {SITENAME}",
+      "bs": "Sada možeš moderirati {SITENAME}",
+      "sr": "Сада можеш да модерираш {SITENAME}",
+      "mk": "Сега можеш да го модерираш {SITENAME}",
+      "sq": "Tani mund të moderosh {SITENAME}"
+    },
+    "Hello {USERNAME},\n\nYou have been assigned the Moderator role on {SITENAME}. You can now access the moderation tools available to your role.\n\nModeration dashboard: {MODERATION_URL}": {
+      "sl": "Živjo {USERNAME},\n\nDodeljena ti je bila vloga moderatorja na {SITENAME}. Zdaj lahko uporabljaš orodja za moderiranje, ki so na voljo tvoji vlogi.\n\nNadzorna plošča za moderiranje: {MODERATION_URL}",
+      "hr": "Bok {USERNAME},\n\nDodijeljena ti je uloga moderatora na {SITENAME}. Sada možeš upotrebljavati alate za moderiranje koji su dostupni tvojoj ulozi.\n\nNadzorna ploča za moderiranje: {MODERATION_URL}",
+      "bs": "Zdravo {USERNAME},\n\nDodijeljena ti je uloga moderatora na {SITENAME}. Sada možeš koristiti alate za moderiranje koji su dostupni tvojoj ulozi.\n\nPanel za moderiranje: {MODERATION_URL}",
+      "sr": "Здраво {USERNAME},\n\nДодељена ти је улога модератора на {SITENAME}. Сада можеш да користиш алате за модерирање који су доступни твојој улози.\n\nПанел за модерирање: {MODERATION_URL}",
+      "mk": "Здраво {USERNAME},\n\nТи е доделена улогата на модератор на {SITENAME}. Сега можеш да ги користиш алатките за модерирање достапни за твојата улога.\n\nПанел за модерирање: {MODERATION_URL}",
+      "sq": "Përshëndetje {USERNAME},\n\nTë është caktuar roli i moderatorit në {SITENAME}. Tani mund të përdorësh mjetet e moderimit që i përkasin rolit tënd.\n\nPaneli i moderimit: {MODERATION_URL}"
+    },
+    "You are moderating \"{STREAM_TITLE}\" on {SITENAME}": {
+      "sl": "Moderiraš »{STREAM_TITLE}« na {SITENAME}",
+      "hr": "Moderiraš „{STREAM_TITLE}” na {SITENAME}",
+      "bs": "Moderiraš „{STREAM_TITLE}” na {SITENAME}",
+      "sr": "Модерираш „{STREAM_TITLE}” на {SITENAME}",
+      "mk": "Го модерираш „{STREAM_TITLE}“ на {SITENAME}",
+      "sq": "Ti moderon “{STREAM_TITLE}” në {SITENAME}"
+    },
+    "Hello {USERNAME},\n\nYou have been assigned as a moderator for the live stream \"{STREAM_TITLE}\". Open the stream to access your moderation controls.\n\nOpen stream: {STREAM_URL}": {
+      "sl": "Živjo {USERNAME},\n\nZaupano ti je bilo moderiranje prenosa v živo »{STREAM_TITLE}«. Odpri prenos za dostop do orodij za moderiranje.\n\nOdpri prenos: {STREAM_URL}",
+      "hr": "Bok {USERNAME},\n\nPovjereno ti je moderiranje prijenosa uživo „{STREAM_TITLE}”. Otvori prijenos za pristup alatima za moderiranje.\n\nOtvori prijenos: {STREAM_URL}",
+      "bs": "Zdravo {USERNAME},\n\nPovjereno ti je moderiranje prijenosa uživo „{STREAM_TITLE}”. Otvori prijenos za pristup alatima za moderiranje.\n\nOtvori prijenos: {STREAM_URL}",
+      "sr": "Здраво {USERNAME},\n\nПоверено ти је модерирање преноса уживо „{STREAM_TITLE}”. Отвори пренос за приступ алатима за модерирање.\n\nОтвори пренос: {STREAM_URL}",
+      "mk": "Здраво {USERNAME},\n\nТи е доверено модерирањето на преносот во живо „{STREAM_TITLE}“. Отвори го преносот за да ги користиш алатките за модерирање.\n\nОтвори го преносот: {STREAM_URL}",
+      "sq": "Përshëndetje {USERNAME},\n\nTë është besuar moderimi i transmetimit të drejtpërdrejtë “{STREAM_TITLE}”. Hape transmetimin për të përdorur mjetet e moderimit.\n\nHap transmetimin: {STREAM_URL}"
+    }
+  }
+}

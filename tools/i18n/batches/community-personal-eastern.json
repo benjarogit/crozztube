@@ -1,0 +1,214 @@
+{
+  "context": "Editorial direct-address pass: Russian, Czech, Korean, simplified Chinese, Taiwan/Hong Kong traditional Chinese; whole account/channel/import/community messages, without formal customer pronouns. Regional scripts, account/upload/email terminology preserved.",
+  "messages": {
+    "Your channel": {
+      "ru": "Твой канал",
+      "cs": "Tvůj kanál",
+      "ko_kr": "내 채널",
+      "zh_cn": "你的频道",
+      "zh_tw": "你的頻道",
+      "zh_hk": "你的頻道"
+    },
+    "Your subscriptions": {
+      "ru": "Твои подписки",
+      "cs": "Tvoje odběry",
+      "ko_kr": "내 구독",
+      "zh_cn": "你的订阅",
+      "zh_tw": "你的訂閱",
+      "zh_hk": "你的訂閱"
+    },
+    "Your channel is not ready yet.": {
+      "ru": "Твой канал пока не готов.",
+      "cs": "Tvůj kanál ještě není připravený.",
+      "ko_kr": "아직 채널이 준비되지 않았어요.",
+      "zh_cn": "你的频道还没准备好。",
+      "zh_tw": "你的頻道還沒準備好。",
+      "zh_hk": "你的頻道還沒準備好。"
+    },
+    "Your display name": {
+      "ru": "Твоё отображаемое имя",
+      "cs": "Tvoje zobrazované jméno",
+      "ko_kr": "표시 이름",
+      "zh_cn": "你的显示名称",
+      "zh_tw": "你的顯示名稱",
+      "zh_hk": "你的顯示名稱"
+    },
+    "Your choices": {
+      "ru": "Твой выбор",
+      "cs": "Tvoje možnosti",
+      "ko_kr": "내 선택",
+      "zh_cn": "由你选择",
+      "zh_tw": "由你選擇",
+      "zh_hk": "由你選擇"
+    },
+    "Your support": {
+      "ru": "Твоя поддержка",
+      "cs": "Tvoje podpora",
+      "ko_kr": "내 후원",
+      "zh_cn": "你的支持",
+      "zh_tw": "你的支持",
+      "zh_hk": "你的支持"
+    },
+    "Your playlists": {
+      "ru": "Твои плейлисты",
+      "cs": "Tvoje Playlisty",
+      "ko_kr": "내 재생목록",
+      "zh_cn": "你的播放列表",
+      "zh_tw": "你的播放清單",
+      "zh_hk": "你的播放清單"
+    },
+    "Your Reminders": {
+      "ru": "Твои напоминания",
+      "cs": "Tvoje připomenutí",
+      "ko_kr": "내 알림",
+      "zh_cn": "你的提醒",
+      "zh_tw": "你的提醒",
+      "zh_hk": "你的提醒"
+    },
+    "Your ad markup": {
+      "ru": "Код твоей рекламы",
+      "cs": "Kód tvé reklamy",
+      "ko_kr": "내 광고 코드",
+      "zh_cn": "你的广告代码",
+      "zh_tw": "你的廣告程式碼",
+      "zh_hk": "你的廣告程式碼"
+    },
+    "Your video was uploaded and processing has started.": {
+      "ru": "Твоё видео загружено. Обработка началась.",
+      "cs": "Tvoje video je nahrané a začalo se zpracovávat.",
+      "ko_kr": "동영상을 업로드했어요. 처리가 시작됐어요.",
+      "zh_cn": "你的视频已上传，正在处理。",
+      "zh_tw": "你的影片已上傳，正在處理。",
+      "zh_hk": "你的影片已上載，正在處理。"
+    },
+    "Your video was imported and processing has started.": {
+      "ru": "Твоё видео импортировано. Обработка началась.",
+      "cs": "Tvoje video je importované a začalo se zpracovávat.",
+      "ko_kr": "동영상을 가져왔어요. 처리가 시작됐어요.",
+      "zh_cn": "你的视频已导入，正在处理。",
+      "zh_tw": "你的影片已匯入，正在處理。",
+      "zh_hk": "你的影片已匯入，正在處理。"
+    },
+    "You can attach up to 4 images.": {
+      "ru": "Можно прикрепить до 4 изображений.",
+      "cs": "Můžeš přidat až 4 obrázky.",
+      "ko_kr": "이미지는 최대 4장까지 첨부할 수 있어요.",
+      "zh_cn": "最多可以添加 4 张图片。",
+      "zh_tw": "最多可以加入 4 張圖片。",
+      "zh_hk": "最多可以加入 4 張圖片。"
+    },
+    "Are you sure you want to continue?": {
+      "ru": "Хочешь продолжить?",
+      "cs": "Chceš pokračovat?",
+      "ko_kr": "계속할까요?",
+      "zh_cn": "要继续吗？",
+      "zh_tw": "要繼續嗎？",
+      "zh_hk": "要繼續嗎？"
+    },
+    "You receive a response by email.": {
+      "ru": "Ответ придёт на твою электронную почту.",
+      "cs": "Odpověď dostaneš e-mailem.",
+      "ko_kr": "이메일로 답변을 받을 수 있어요.",
+      "zh_cn": "我们会通过邮件回复你。",
+      "zh_tw": "我們會透過電子郵件回覆你。",
+      "zh_hk": "我們會透過電郵回覆你。"
+    },
+    "You’re in control": {
+      "ru": "Выбор за тобой",
+      "cs": "Rozhoduješ ty",
+      "ko_kr": "직접 선택해요",
+      "zh_cn": "由你决定",
+      "zh_tw": "由你決定",
+      "zh_hk": "由你決定"
+    },
+    "You are live": {
+      "ru": "Ты в прямом эфире",
+      "cs": "Vysíláš živě",
+      "ko_kr": "지금 라이브 중이에요",
+      "zh_cn": "你正在直播",
+      "zh_tw": "你正在直播",
+      "zh_hk": "你正在直播"
+    },
+    "Your camera and microphone are publishing through LiveKit.": {
+      "ru": "Твоя камера и микрофон передают эфир через LiveKit.",
+      "cs": "Tvoje kamera a mikrofon vysílají přes LiveKit.",
+      "ko_kr": "LiveKit을 통해 카메라와 마이크를 방송하고 있어요.",
+      "zh_cn": "你的摄像头和麦克风正通过 LiveKit 直播。",
+      "zh_tw": "你的攝影機和麥克風正透過 LiveKit 直播。",
+      "zh_hk": "你的攝影機和麥克風正透過 LiveKit 直播。"
+    },
+    "Your message is saved directly in the website backend and appears in the admin dashboard under Support.": {
+      "ru": "Твоё сообщение сохраняется на сайте и поступает команде в раздел поддержки.",
+      "cs": "Tvoje zpráva se uloží na webu a tým ji najde v části Podpora.",
+      "ko_kr": "메시지는 사이트에 저장되고 운영팀의 지원 요청 목록에 표시돼요.",
+      "zh_cn": "你的消息会保存在网站上，并发送到管理团队的支持页面。",
+      "zh_tw": "你的訊息會儲存在網站上，並顯示在管理團隊的支援頁面。",
+      "zh_hk": "你的訊息會儲存在網站上，並顯示在管理團隊的支援頁面。"
+    },
+    "You are browsing as a guest. Sign in to access account-specific tools.": {
+      "ru": "Сейчас ты просматриваешь сайт как гость. Войди, чтобы пользоваться функциями своего аккаунта.",
+      "cs": "Prohlížíš web jako host. Přihlas se a využij funkce svého účtu.",
+      "ko_kr": "지금은 게스트로 둘러보고 있어요. 로그인하면 계정 기능을 사용할 수 있어요.",
+      "zh_cn": "你正在以访客身份浏览。登录后就能使用账户功能。",
+      "zh_tw": "你正在以訪客身分瀏覽。登入後就能使用帳號功能。",
+      "zh_hk": "你正在以訪客身分瀏覽。登入後就能使用帳戶功能。"
+    },
+    "Tell viewers what your channel is about.": {
+      "ru": "Расскажи зрителям, о чём твой канал.",
+      "cs": "Řekni divákům, o čem je tvůj kanál.",
+      "ko_kr": "시청자에게 채널을 소개해 주세요.",
+      "zh_cn": "向观众介绍你的频道。",
+      "zh_tw": "向觀眾介紹你的頻道。",
+      "zh_hk": "向觀眾介紹你的頻道。"
+    },
+    "Tell us more about your question or request...": {
+      "ru": "Расскажи подробнее о своём вопросе или запросе…",
+      "cs": "Napiš nám víc o své otázce nebo žádosti…",
+      "ko_kr": "궁금한 점이나 요청을 자세히 알려 주세요…",
+      "zh_cn": "详细说说你的问题或需求吧…",
+      "zh_tw": "詳細說說你的問題或需求吧…",
+      "zh_hk": "詳細說說你的問題或需求吧…"
+    },
+    "Membership payments recorded for your account.": {
+      "ru": "Платежи за членство в твоём аккаунте.",
+      "cs": "Platby za členství u tvého účtu.",
+      "ko_kr": "내 계정의 멤버십 결제 내역이에요.",
+      "zh_cn": "你账户的会员付款记录。",
+      "zh_tw": "你帳號的會員付款紀錄。",
+      "zh_hk": "你帳戶的會員付款紀錄。"
+    },
+    "Your participant video will appear here.": {
+      "ru": "Здесь появится твоё видео участника.",
+      "cs": "Tady se objeví tvoje video z přenosu.",
+      "ko_kr": "참여 중인 내 영상이 여기에 표시돼요.",
+      "zh_cn": "你参与直播的画面会显示在这里。",
+      "zh_tw": "你參與直播的畫面會顯示在這裡。",
+      "zh_hk": "你參與直播的畫面會顯示在這裡。"
+    },
+    "Loading your videos...": {
+      "ru": "Загружаем твои видео…",
+      "cs": "Načítáme tvoje videa…",
+      "ko_kr": "동영상을 불러오는 중이에요…",
+      "zh_cn": "正在加载你的视频…",
+      "zh_tw": "正在載入你的影片…",
+      "zh_hk": "正在載入你的影片…"
+    },
+    "No videos match your search.": {
+      "ru": "По твоему запросу видео не найдено.",
+      "cs": "Pro tvoje hledání jsme nenašli žádná videa.",
+      "ko_kr": "검색한 동영상이 없어요.",
+      "zh_cn": "没有找到符合你搜索条件的视频。",
+      "zh_tw": "沒有找到符合搜尋條件的影片。",
+      "zh_hk": "沒有找到符合搜尋條件的影片。"
+    },
+    "We never share your data with third parties.": {
+      "ru": "О том, как мы обрабатываем твои данные, читай в нашей политике конфиденциальности.",
+      "cs": "V našich zásadách ochrany osobních údajů zjistíš, jak nakládáme s tvými údaji.",
+      "ko_kr": "개인정보 처리방침에서 정보를 어떻게 다루는지 확인해 봐.",
+      "zh_cn": "想了解我们如何处理你的数据，请查看我们的隐私政策。",
+      "zh_tw": "想知道我們如何處理你的資料，可以看看我們的隱私權政策。",
+      "zh_hk": "想知道我們如何處理你的資料，可以查看我們的私隱政策。",
+      "ja": "データの取り扱いは、プライバシーポリシーで確認してね。"
+    }
+  }
+}

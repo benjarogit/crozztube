@@ -1,0 +1,1601 @@
+{
+  "context": "English reference editorial pass: navigation, channel/profile actions, upload/import status, chat, community, moderation, live discovery, library, account controls and admin settings. Obsolete developer-facing upload wording and unsupported audience-size claims corrected; names, sample content, protocol identifiers and unresolved sentence fragments excluded.",
+  "messages": {
+    "· Shorts require 60s max and vertical portrait video": {
+      "en": "· Shorts require 60s max and vertical portrait video"
+    },
+    "% of uploaded videos": {
+      "en": "% of uploaded videos"
+    },
+    "% watched": {
+      "en": "% watched"
+    },
+    "● LIVE": {
+      "en": "● LIVE"
+    },
+    "1. Collection name": {
+      "en": "1. Collection name"
+    },
+    "1+ hours": {
+      "en": "1+ hours"
+    },
+    "2-digit": {
+      "en": "2-digit"
+    },
+    "2. Description": {
+      "en": "2. Description"
+    },
+    "2+ hours": {
+      "en": "2+ hours"
+    },
+    "28-Day Views": {
+      "en": "28-Day Views"
+    },
+    "3. Choose an icon": {
+      "en": "3. Choose an icon"
+    },
+    "4 - 20 minutes": {
+      "en": "4 - 20 minutes"
+    },
+    "4. Pick a color": {
+      "en": "4. Pick a color"
+    },
+    "5. Privacy": {
+      "en": "5. Privacy"
+    },
+    "6-digit code from your phone/email": {
+      "en": "6-digit code from your phone/email"
+    },
+    "6. Add videos": {
+      "en": "6. Add videos"
+    },
+    "About This Creator": {
+      "en": "About This Creator"
+    },
+    "About updated.": {
+      "en": "Channel bio updated."
+    },
+    "Account created successfully.": {
+      "en": "Account created successfully."
+    },
+    "Account menu": {
+      "en": "Account menu"
+    },
+    "Activity": {
+      "en": "Activity"
+    },
+    "Add a comment or attach at least one image.": {
+      "en": "Add a comment or attach at least one image."
+    },
+    "Add a short bio so viewers understand what your channel is about.": {
+      "en": "Add a short bio so viewers understand what your channel is about."
+    },
+    "Add a valid phone number to enable phone delivery": {
+      "en": "Add a valid phone number to get verification codes by text message."
+    },
+    "Add avatar": {
+      "en": "Add avatar"
+    },
+    "Add channel bio...": {
+      "en": "Add channel bio..."
+    },
+    "Add cover": {
+      "en": "Add cover"
+    },
+    "Add option": {
+      "en": "Add option"
+    },
+    "Add title, description, category and language": {
+      "en": "Add title, description, category and language"
+    },
+    "Add to calendar": {
+      "en": "Add to calendar"
+    },
+    "Add to favorites": {
+      "en": "Add to favorites"
+    },
+    "Add to Series": {
+      "en": "Add to Series"
+    },
+    "Admin help": {
+      "en": "Admin help"
+    },
+    "Admin navigation": {
+      "en": "Admin navigation"
+    },
+    "Admin quick controls": {
+      "en": "Admin quick controls"
+    },
+    "Admin search results": {
+      "en": "Admin search results"
+    },
+    "Agent: All": {
+      "en": "Agent: All"
+    },
+    "All languages A-Z": {
+      "en": "All languages A-Z"
+    },
+    "All Playlists": {
+      "en": "All Playlists"
+    },
+    "All posts": {
+      "en": "All posts"
+    },
+    "All Roles": {
+      "en": "All Roles"
+    },
+    "All Streams": {
+      "en": "All Streams"
+    },
+    "All times in your local time": {
+      "en": "All times are shown in your local time zone."
+    },
+    "All users": {
+      "en": "All users"
+    },
+    "Amber": {
+      "en": "Amber"
+    },
+    "Any": {
+      "en": "Any"
+    },
+    "Any time": {
+      "en": "Any time"
+    },
+    "Anyone can view": {
+      "en": "Anyone can view"
+    },
+    "Anyone with link": {
+      "en": "Anyone with link"
+    },
+    "API routes": {
+      "en": "API routes"
+    },
+    "API Server": {
+      "en": "API Server"
+    },
+    "API Uptime": {
+      "en": "API Uptime"
+    },
+    "At least 8 characters": {
+      "en": "At least 8 characters"
+    },
+    "Authentication settings saved.": {
+      "en": "Authentication settings saved."
+    },
+    "Auto": {
+      "en": "Auto"
+    },
+    "Autoplay": {
+      "en": "Autoplay"
+    },
+    "Avatar removed.": {
+      "en": "Avatar removed."
+    },
+    "Avatar updated.": {
+      "en": "Avatar updated."
+    },
+    "Banner position saved.": {
+      "en": "Banner position saved."
+    },
+    "Banner updated.": {
+      "en": "Banner updated."
+    },
+    "Billing information is not required for the current plan.": {
+      "en": "Billing information is not required for the current plan."
+    },
+    "Bio updated.": {
+      "en": "Bio updated."
+    },
+    "Bitrate / Health": {
+      "en": "Bitrate / Health"
+    },
+    "Block user": {
+      "en": "Block user"
+    },
+    "Blue": {
+      "en": "Blue"
+    },
+    "Breached": {
+      "en": "Breached"
+    },
+    "Browse all live streams happening right now across PlayHub.": {
+      "en": "Browse all live streams happening right now across PlayHub."
+    },
+    "Built for creators, viewers, and developers.": {
+      "en": "Built for creators, viewers, and developers."
+    },
+    "Cache": {
+      "en": "Cache"
+    },
+    "Call /api/developers to read the API base URL, route groups, and limits.": {
+      "en": "Call /api/developers to read the API base URL, route groups, and limits."
+    },
+    "Cancel upload": {
+      "en": "Cancel upload"
+    },
+    "Cannot assemble uploaded video completely.": {
+      "en": "Some uploaded video parts are missing. Try uploading the video again."
+    },
+    "Catch up on recently ended streams and highlights.": {
+      "en": "Catch up on recently ended streams and highlights."
+    },
+    "Category: All": {
+      "en": "Category: All"
+    },
+    "Change": {
+      "en": "Change"
+    },
+    "Change cover": {
+      "en": "Change cover"
+    },
+    "Channel": {
+      "en": "Channel"
+    },
+    "Channel not found.": {
+      "en": "Channel not found."
+    },
+    "Channel stats": {
+      "en": "Channel stats"
+    },
+    "Chat": {
+      "en": "Chat"
+    },
+    "Choose a recipient first.": {
+      "en": "Choose a recipient first."
+    },
+    "Choose another conversation.": {
+      "en": "Choose another conversation."
+    },
+    "Choose where this video should be saved.": {
+      "en": "Choose where this video should be saved."
+    },
+    "Choose your preferred language.": {
+      "en": "Choose your preferred language."
+    },
+    "Clear search": {
+      "en": "Clear search"
+    },
+    "Click to try again.": {
+      "en": "Click to try again."
+    },
+    "Clip": {
+      "en": "Clip"
+    },
+    "Close compose": {
+      "en": "Close message composer"
+    },
+    "Close security panel": {
+      "en": "Close security panel"
+    },
+    "Cloud": {
+      "en": "Cloud"
+    },
+    "Collapse sidebar": {
+      "en": "Collapse sidebar"
+    },
+    "Comment actions": {
+      "en": "Comment actions"
+    },
+    "Comment published.": {
+      "en": "Comment published."
+    },
+    "Comment updated.": {
+      "en": "Comment updated."
+    },
+    "Community post": {
+      "en": "Community post"
+    },
+    "Community post deleted.": {
+      "en": "Community post deleted."
+    },
+    "Community post published.": {
+      "en": "Community post published."
+    },
+    "Community post updated.": {
+      "en": "Community post updated."
+    },
+    "Community Reports": {
+      "en": "Community Reports"
+    },
+    "Complete": {
+      "en": "Complete"
+    },
+    "Complete the upload before opening this section.": {
+      "en": "Complete the upload before opening this section."
+    },
+    "Complete the video details first.": {
+      "en": "Complete the video details first."
+    },
+    "Configure storage, email, SMS, import, ads, login, and registration.": {
+      "en": "Configure storage, email, SMS, import, ads, login, and registration."
+    },
+    "Connect your accounts to cross-post and sign in easily.": {
+      "en": "Connect your accounts to cross-post and sign in easily."
+    },
+    "Connected & Billing": {
+      "en": "Connected accounts and billing"
+    },
+    "Content search failed": {
+      "en": "Content search failed"
+    },
+    "Conversation marked as read.": {
+      "en": "Conversation marked as read."
+    },
+    "Conversation unavailable": {
+      "en": "Conversation unavailable"
+    },
+    "Copied": {
+      "en": "Copied"
+    },
+    "Copy channel URL": {
+      "en": "Copy channel URL"
+    },
+    "Copy post link": {
+      "en": "Copy post link"
+    },
+    "Coral": {
+      "en": "Coral"
+    },
+    "Counts": {
+      "en": "Counts"
+    },
+    "Create a PlayHub Short. Upload a 60-second-or-less video and publish it through the normal processing pipeline.": {
+      "en": "Create a PlayHub Short. Upload a portrait video of up to 60 seconds, then add your details and publish it."
+    },
+    "Create an account invite with the selected role.": {
+      "en": "Create an account invite with the selected role."
+    },
+    "Create Collection": {
+      "en": "Create Collection"
+    },
+    "Create New Collection": {
+      "en": "Create New Collection"
+    },
+    "Create Post": {
+      "en": "Create Post"
+    },
+    "Create your first Short": {
+      "en": "Create your first Short"
+    },
+    "CREATOR": {
+      "en": "CREATOR"
+    },
+    "Creators Live": {
+      "en": "Creators Live"
+    },
+    "Current counts are available.": {
+      "en": "Current counts are available."
+    },
+    "Current page": {
+      "en": "Current page"
+    },
+    "Current settings": {
+      "en": "Current settings"
+    },
+    "Current video": {
+      "en": "Current video"
+    },
+    "Current videos": {
+      "en": "Current videos"
+    },
+    "Cyan": {
+      "en": "Cyan"
+    },
+    "Delete all matching": {
+      "en": "Delete all matching"
+    },
+    "Delete all matching videos": {
+      "en": "Delete all matching videos"
+    },
+    "Delete community post?": {
+      "en": "Delete community post?"
+    },
+    "Delete playlist?": {
+      "en": "Delete playlist?"
+    },
+    "Delete post": {
+      "en": "Delete post"
+    },
+    "Delete selected videos": {
+      "en": "Delete selected videos"
+    },
+    "Delete users": {
+      "en": "Delete users"
+    },
+    "Delete video": {
+      "en": "Delete video"
+    },
+    "Delete video?": {
+      "en": "Delete video?"
+    },
+    "Delete videos": {
+      "en": "Delete videos"
+    },
+    "Deleting...": {
+      "en": "Deleting..."
+    },
+    "Delivery method": {
+      "en": "Delivery method"
+    },
+    "Disabling...": {
+      "en": "Disabling..."
+    },
+    "Discover quick, inspiring vertical videos from creators around the world.": {
+      "en": "Discover quick, inspiring vertical videos from creators around the world."
+    },
+    "Download failed": {
+      "en": "Download failed"
+    },
+    "Downloaded": {
+      "en": "Downloaded"
+    },
+    "Draft": {
+      "en": "Draft"
+    },
+    "Drafts": {
+      "en": "Drafts"
+    },
+    "e.g. Tech Reviews": {
+      "en": "e.g. Tech Reviews"
+    },
+    "Edit avatar": {
+      "en": "Edit avatar"
+    },
+    "Edit Banner": {
+      "en": "Edit Banner"
+    },
+    "Edit channel bio": {
+      "en": "Edit channel bio"
+    },
+    "Edit post": {
+      "en": "Edit post"
+    },
+    "Edit video": {
+      "en": "Edit video"
+    },
+    "Edit Video": {
+      "en": "Edit Video"
+    },
+    "Edit your post...": {
+      "en": "Edit your post..."
+    },
+    "Editing": {
+      "en": "Editing"
+    },
+    "Email delivery is unavailable. Configure MAIL_* settings and try again.": {
+      "en": "Email delivery is unavailable. Check the email settings in the admin dashboard and try again."
+    },
+    "Email verified": {
+      "en": "Email verified"
+    },
+    "Email, username, or phone": {
+      "en": "Email, username, or phone"
+    },
+    "Enabling...": {
+      "en": "Enabling..."
+    },
+    "Endpoint groups": {
+      "en": "Endpoint groups"
+    },
+    "Ends": {
+      "en": "Ends"
+    },
+    "Enter your current password": {
+      "en": "Enter your current password"
+    },
+    "Event": {
+      "en": "Event"
+    },
+    "Event link (optional)": {
+      "en": "Event link (optional)"
+    },
+    "Event title *": {
+      "en": "Event title *"
+    },
+    "Events": {
+      "en": "Events"
+    },
+    "Excellent": {
+      "en": "Excellent"
+    },
+    "Expand sidebar": {
+      "en": "Expand sidebar"
+    },
+    "Explore live, upcoming, and recently ended streams in one place.": {
+      "en": "Explore live, upcoming, and recently ended streams in one place."
+    },
+    "Exported data": {
+      "en": "Exported data"
+    },
+    "Failed": {
+      "en": "Failed"
+    },
+    "Failed access attempts (7d)": {
+      "en": "Failed access attempts (7d)"
+    },
+    "Fair": {
+      "en": "Fair"
+    },
+    "Features": {
+      "en": "Features"
+    },
+    "Fetching preview...": {
+      "en": "Fetching preview..."
+    },
+    "Filter playlists": {
+      "en": "Filter playlists"
+    },
+    "Filter shorts by category": {
+      "en": "Filter shorts by category"
+    },
+    "Filters": {
+      "en": "Filters"
+    },
+    "Find answers to common questions": {
+      "en": "Find answers to common questions"
+    },
+    "Flagged Content": {
+      "en": "Flagged Content"
+    },
+    "Followers only": {
+      "en": "Followers only"
+    },
+    "Footer navigation": {
+      "en": "Footer navigation"
+    },
+    "Fuchsia": {
+      "en": "Fuchsia"
+    },
+    "Gear": {
+      "en": "Gear"
+    },
+    "General settings saved.": {
+      "en": "General settings saved."
+    },
+    "German": {
+      "en": "German"
+    },
+    "Get help from our team": {
+      "en": "Get help from our team"
+    },
+    "Global": {
+      "en": "Global"
+    },
+    "Go live during peak hours to reach more viewers.": {
+      "en": "Go live during peak hours to reach more viewers."
+    },
+    "Go to admin dashboard": {
+      "en": "Go to admin dashboard"
+    },
+    "Go to home": {
+      "en": "Go to home"
+    },
+    "Good": {
+      "en": "Good"
+    },
+    "Green": {
+      "en": "Green"
+    },
+    "Grid view": {
+      "en": "Grid view"
+    },
+    "Handle": {
+      "en": "Handle"
+    },
+    "Health": {
+      "en": "Health"
+    },
+    "Health: All": {
+      "en": "Health: All"
+    },
+    "Help": {
+      "en": "Help"
+    },
+    "Help & Support": {
+      "en": "Help & Support"
+    },
+    "Image": {
+      "en": "Image"
+    },
+    "Images": {
+      "en": "Images"
+    },
+    "Import failed.": {
+      "en": "Import failed."
+    },
+    "Importing remote video...": {
+      "en": "Importing remote video..."
+    },
+    "Indigo": {
+      "en": "Indigo"
+    },
+    "Joined": {
+      "en": "Joined"
+    },
+    "Last 28 days": {
+      "en": "Last 28 days"
+    },
+    "Last 7 days": {
+      "en": "Last 7 days"
+    },
+    "Last hour": {
+      "en": "Last hour"
+    },
+    "Let us know what’s not right": {
+      "en": "Let us know what’s not right"
+    },
+    "Library summary": {
+      "en": "Library summary"
+    },
+    "Like": {
+      "en": "Like"
+    },
+    "Like featured stream": {
+      "en": "Like featured stream"
+    },
+    "Liked": {
+      "en": "Liked"
+    },
+    "Lime": {
+      "en": "Lime"
+    },
+    "Link": {
+      "en": "Link"
+    },
+    "Link copied to clipboard": {
+      "en": "Link copied to clipboard"
+    },
+    "List view": {
+      "en": "List view"
+    },
+    "Live Channels": {
+      "en": "Live Channels"
+    },
+    "Live Chat": {
+      "en": "Live Chat"
+    },
+    "Live Engagement": {
+      "en": "Live Engagement"
+    },
+    "Live Reactions": {
+      "en": "Live Reactions"
+    },
+    "live replay": {
+      "en": "live replay"
+    },
+    "Live Replay": {
+      "en": "Live Replay"
+    },
+    "Live Schedule Today": {
+      "en": "Live Schedule Today"
+    },
+    "Live Stats": {
+      "en": "Live Stats"
+    },
+    "Live Stats Today": {
+      "en": "Live Stats Today"
+    },
+    "Live Streams": {
+      "en": "Live Streams"
+    },
+    "Live This Week": {
+      "en": "Live This Week"
+    },
+    "Live Views (24h)": {
+      "en": "Live Views (24h)"
+    },
+    "Load more shorts": {
+      "en": "Load more shorts"
+    },
+    "Load more videos": {
+      "en": "Load more videos"
+    },
+    "Loading": {
+      "en": "Loading"
+    },
+    "Loading API capabilities.": {
+      "en": "Loading API capabilities."
+    },
+    "Loading API metadata...": {
+      "en": "Loading API metadata..."
+    },
+    "Loading community posts...": {
+      "en": "Loading community posts..."
+    },
+    "Loading content...": {
+      "en": "Loading content..."
+    },
+    "Loading languages...": {
+      "en": "Loading languages..."
+    },
+    "Loading library...": {
+      "en": "Loading library..."
+    },
+    "Loading messages": {
+      "en": "Loading messages"
+    },
+    "Loading PlayHub platform details...": {
+      "en": "Loading PlayHub platform details..."
+    },
+    "Loading PlayHub...": {
+      "en": "Loading PlayHub..."
+    },
+    "Loading short...": {
+      "en": "Loading short..."
+    },
+    "Loading shorts...": {
+      "en": "Loading shorts..."
+    },
+    "Loading studio data...": {
+      "en": "Loading studio data..."
+    },
+    "Loading video editor...": {
+      "en": "Loading video editor..."
+    },
+    "Loading video...": {
+      "en": "Loading video..."
+    },
+    "Local": {
+      "en": "Local"
+    },
+    "Local uploads": {
+      "en": "Local uploads"
+    },
+    "Location or livestream room (optional)": {
+      "en": "Location or livestream room (optional)"
+    },
+    "Logged in successfully.": {
+      "en": "Logged in successfully."
+    },
+    "Logged out successfully.": {
+      "en": "Logged out successfully."
+    },
+    "Longest": {
+      "en": "Longest"
+    },
+    "Made for kids": {
+      "en": "Made for kids"
+    },
+    "Manage": {
+      "en": "Manage"
+    },
+    "Manage all your videos, shorts, live replays, and drafts.": {
+      "en": "Manage all your videos, shorts, live replays, and drafts."
+    },
+    "Manage connected accounts": {
+      "en": "Manage connected accounts"
+    },
+    "Manage Devices": {
+      "en": "Manage Devices"
+    },
+    "Manage your channel, grow your audience, and build your brand.": {
+      "en": "Manage your channel, grow your audience, and build your brand."
+    },
+    "Manage your linked accounts": {
+      "en": "Manage your linked accounts"
+    },
+    "Manual review": {
+      "en": "Manual review"
+    },
+    "Mark read": {
+      "en": "Mark read"
+    },
+    "Marked as not interested": {
+      "en": "Marked as not interested"
+    },
+    "Mass import notification sent.": {
+      "en": "Mass import notification sent."
+    },
+    "Max file size: 5MB (JPG, PNG)": {
+      "en": "Max file size: 5MB (JPG, PNG)"
+    },
+    "Media Storage": {
+      "en": "Media Storage"
+    },
+    "Member": {
+      "en": "Member"
+    },
+    "Members": {
+      "en": "Members"
+    },
+    "Message folders": {
+      "en": "Message folders"
+    },
+    "Message sent.": {
+      "en": "Message sent."
+    },
+    "Messages unavailable": {
+      "en": "Messages unavailable"
+    },
+    "Metrics": {
+      "en": "Metrics"
+    },
+    "Minimum views": {
+      "en": "Minimum views"
+    },
+    "Missing report target": {
+      "en": "Missing report target"
+    },
+    "Moderator": {
+      "en": "Moderator"
+    },
+    "Moderator: All": {
+      "en": "Moderator: All"
+    },
+    "More": {
+      "en": "More"
+    },
+    "More shorts": {
+      "en": "More shorts"
+    },
+    "Most relevant": {
+      "en": "Most relevant"
+    },
+    "Most videos": {
+      "en": "Most videos"
+    },
+    "Most viewed": {
+      "en": "Most viewed"
+    },
+    "Move banner down": {
+      "en": "Move banner down"
+    },
+    "Move banner up": {
+      "en": "Move banner up"
+    },
+    "Mute notifications": {
+      "en": "Mute notifications"
+    },
+    "Muted users are managed from comment and profile menus.": {
+      "en": "Muted users are managed from comment and profile menus."
+    },
+    "New Playlist": {
+      "en": "New Playlist"
+    },
+    "New Videos": {
+      "en": "New Videos"
+    },
+    "Newest": {
+      "en": "Newest"
+    },
+    "Newsletter": {
+      "en": "Newsletter"
+    },
+    "Next channels": {
+      "en": "Next channels"
+    },
+    "Next short": {
+      "en": "Next short"
+    },
+    "Next videos": {
+      "en": "Next videos"
+    },
+    "No": {
+      "en": "No"
+    },
+    "No admin results found.": {
+      "en": "No admin results found."
+    },
+    "No categories": {
+      "en": "No categories"
+    },
+    "No categories available": {
+      "en": "No categories available"
+    },
+    "No category": {
+      "en": "No category"
+    },
+    "No channel bio yet.": {
+      "en": "No channel bio yet."
+    },
+    "No community posts yet.": {
+      "en": "No community posts yet."
+    },
+    "No community posts yet. Share your first update.": {
+      "en": "No community posts yet. Share your first update."
+    },
+    "No description provided.": {
+      "en": "No description provided."
+    },
+    "No handle": {
+      "en": "No handle"
+    },
+    "No language": {
+      "en": "No language"
+    },
+    "No languages available": {
+      "en": "No languages available"
+    },
+    "No matching results found": {
+      "en": "No matching results found"
+    },
+    "No messages yet": {
+      "en": "No messages yet"
+    },
+    "No more shorts found.": {
+      "en": "No more shorts found."
+    },
+    "No more shorts yet.": {
+      "en": "No more shorts yet."
+    },
+    "No more videos available.": {
+      "en": "No more videos available."
+    },
+    "No payment history is available for the current plan.": {
+      "en": "No payment history is available for the current plan."
+    },
+    "No people found.": {
+      "en": "No people found."
+    },
+    "No performance data yet.": {
+      "en": "No performance data yet."
+    },
+    "No playlists match this filter.": {
+      "en": "No playlists match this filter."
+    },
+    "No playlists yet.": {
+      "en": "No playlists yet."
+    },
+    "No playlists yet. Create one to save this video.": {
+      "en": "No playlists yet. Create one to save this video."
+    },
+    "No playlists yet. Create your first playlist.": {
+      "en": "No playlists yet. Create your first playlist."
+    },
+    "No public playlists available.": {
+      "en": "No public playlists available."
+    },
+    "No public videos available for this channel yet.": {
+      "en": "No public videos available for this channel yet."
+    },
+    "No results for “": {
+      "en": "No results for “"
+    },
+    "No saved watch-later videos yet.": {
+      "en": "No saved watch-later videos yet."
+    },
+    "No shorts found yet.": {
+      "en": "No shorts found yet."
+    },
+    "No shorts match this filter.": {
+      "en": "No shorts match this filter."
+    },
+    "No shorts uploaded yet. Shorts appear here after a 60-second-or-less video finishes processing.": {
+      "en": "No Shorts yet. Upload a portrait video of up to 60 seconds. It will appear here once processing is finished."
+    },
+    "No subscriptions yet.": {
+      "en": "No subscriptions yet."
+    },
+    "No tags found.": {
+      "en": "No tags found."
+    },
+    "No videos found": {
+      "en": "No videos found"
+    },
+    "No videos selected": {
+      "en": "No videos selected"
+    },
+    "No watch-later videos yet.": {
+      "en": "No watch-later videos yet."
+    },
+    "None": {
+      "en": "None"
+    },
+    "Not interested": {
+      "en": "Not interested"
+    },
+    "Not interested feedback removed.": {
+      "en": "Not interested feedback removed."
+    },
+    "Not scheduled": {
+      "en": "Not scheduled"
+    },
+    "Notification marked as read.": {
+      "en": "Notification marked as read."
+    },
+    "Notifications marked as read.": {
+      "en": "Notifications marked as read."
+    },
+    "Notifications muted for this user.": {
+      "en": "Notifications muted for this user."
+    },
+    "Notifications on": {
+      "en": "Notifications on"
+    },
+    "Notify": {
+      "en": "Notify"
+    },
+    "Only from creators I follow": {
+      "en": "Only from creators I follow"
+    },
+    "Only people with the link can watch": {
+      "en": "Only people with the link can watch"
+    },
+    "Only the video owner can edit this video.": {
+      "en": "Only the video owner can edit this video."
+    },
+    "Only you can watch": {
+      "en": "Only you and site admins can watch"
+    },
+    "Open a thread or start a new private message.": {
+      "en": "Open a thread or start a new private message."
+    },
+    "Open content filters": {
+      "en": "Open content filters"
+    },
+    "Open end date calendar": {
+      "en": "Open end date calendar"
+    },
+    "Open link": {
+      "en": "Open link"
+    },
+    "Open moderation reports and abuse alerts.": {
+      "en": "Open moderation reports and abuse alerts."
+    },
+    "Open schedule calendar": {
+      "en": "Open schedule calendar"
+    },
+    "Open start date calendar": {
+      "en": "Open start date calendar"
+    },
+    "Open support tickets and system operational issues.": {
+      "en": "View support tickets and reported system issues."
+    },
+    "Open video": {
+      "en": "Open video"
+    },
+    "Opening conversation": {
+      "en": "Opening conversation"
+    },
+    "Optional, defaults from email": {
+      "en": "Optional. Your email address is used by default."
+    },
+    "Orange": {
+      "en": "Orange"
+    },
+    "Organize your favorite videos into a collection.": {
+      "en": "Organize your favorite videos into a collection."
+    },
+    "Over 20 minutes": {
+      "en": "Over 20 minutes"
+    },
+    "Owner": {
+      "en": "Owner"
+    },
+    "PACKAGES CONFIGURATION": {
+      "en": "PACKAGES CONFIGURATION"
+    },
+    "Past Live Replays": {
+      "en": "Past Live Replays"
+    },
+    "Paste a URL for preview...": {
+      "en": "Paste a URL for preview..."
+    },
+    "Paste URLs or leave them empty to import by provider, keyword, or category. Every video is saved with its own request.": {
+      "en": "Paste URLs or leave them empty to import by provider, keyword, or category. Every video is saved with its own request."
+    },
+    "Pending Review": {
+      "en": "Pending Review"
+    },
+    "Permission changes": {
+      "en": "Permission changes"
+    },
+    "Permissions changed (7d)": {
+      "en": "Permissions changed (7d)"
+    },
+    "Phone": {
+      "en": "Phone"
+    },
+    "Phone is available as a backup delivery method.": {
+      "en": "Phone is available as a backup delivery method."
+    },
+    "Pink": {
+      "en": "Pink"
+    },
+    "PlayHub media": {
+      "en": "PlayHub media"
+    },
+    "PlayHub User": {
+      "en": "PlayHub User"
+    },
+    "PlayHub video": {
+      "en": "PlayHub video"
+    },
+    "PlayHub. All rights reserved.": {
+      "en": "PlayHub. All rights reserved."
+    },
+    "Playlist created.": {
+      "en": "Playlist created."
+    },
+    "Playlist deleted.": {
+      "en": "Playlist deleted."
+    },
+    "Playlist view": {
+      "en": "Playlist view"
+    },
+    "Please wait...": {
+      "en": "Just a moment..."
+    },
+    "Podcasts": {
+      "en": "Podcasts"
+    },
+    "Poll": {
+      "en": "Poll"
+    },
+    "Polls": {
+      "en": "Polls"
+    },
+    "Poor": {
+      "en": "Poor"
+    },
+    "Popular Creators": {
+      "en": "Popular Creators"
+    },
+    "Popular Live Creators": {
+      "en": "Popular Live Creators"
+    },
+    "Popular Upcoming Creators": {
+      "en": "Popular Upcoming Creators"
+    },
+    "Post": {
+      "en": "Post"
+    },
+    "Post link copied.": {
+      "en": "Post link copied."
+    },
+    "Post options": {
+      "en": "Post options"
+    },
+    "Post updated.": {
+      "en": "Post updated."
+    },
+    "Posting...": {
+      "en": "Posting..."
+    },
+    "Preparing processing": {
+      "en": "Preparing processing"
+    },
+    "Preview title (optional)": {
+      "en": "Preview title (optional)"
+    },
+    "Previous short": {
+      "en": "Previous short"
+    },
+    "Previous videos": {
+      "en": "Previous videos"
+    },
+    "Priority": {
+      "en": "Priority"
+    },
+    "Priority: All": {
+      "en": "Priority: All"
+    },
+    "Processing batch...": {
+      "en": "Processing batch..."
+    },
+    "Processing video": {
+      "en": "Processing video"
+    },
+    "Profile actions": {
+      "en": "Profile actions"
+    },
+    "Profile Preview": {
+      "en": "Profile Preview"
+    },
+    "Profile reported": {
+      "en": "Profile reported"
+    },
+    "Q&A": {
+      "en": "Q&A"
+    },
+    "Queue": {
+      "en": "Queue"
+    },
+    "Queue item actions": {
+      "en": "Queue item actions"
+    },
+    "Recent": {
+      "en": "Recent"
+    },
+    "Recommended": {
+      "en": "Recommended"
+    },
+    "Refresh": {
+      "en": "Refresh"
+    },
+    "Refreshing": {
+      "en": "Refreshing"
+    },
+    "Registration": {
+      "en": "Registration"
+    },
+    "Relevance": {
+      "en": "Relevance"
+    },
+    "Remaining": {
+      "en": "Remaining"
+    },
+    "Remove": {
+      "en": "Remove"
+    },
+    "Remove avatar": {
+      "en": "Remove avatar"
+    },
+    "Remove channel avatar?": {
+      "en": "Remove channel avatar?"
+    },
+    "Remove event cover": {
+      "en": "Remove event cover"
+    },
+    "Remove from favorites": {
+      "en": "Remove from favorites"
+    },
+    "Remove option": {
+      "en": "Remove option"
+    },
+    "Removing...": {
+      "en": "Removing..."
+    },
+    "Repeat new password": {
+      "en": "Repeat new password"
+    },
+    "Replays": {
+      "en": "Replays"
+    },
+    "Replied just now": {
+      "en": "Replied just now"
+    },
+    "Report": {
+      "en": "Report"
+    },
+    "Report an Issue": {
+      "en": "Report an Issue"
+    },
+    "Report profile": {
+      "en": "Report profile"
+    },
+    "Report Type: All": {
+      "en": "Report Type: All"
+    },
+    "Reported comment deleted.": {
+      "en": "Reported comment deleted."
+    },
+    "Reporter": {
+      "en": "Reporter"
+    },
+    "Request failed.": {
+      "en": "Request failed."
+    },
+    "Resolution": {
+      "en": "Resolution"
+    },
+    "Restore": {
+      "en": "Restore"
+    },
+    "Restricted": {
+      "en": "Restricted"
+    },
+    "Revenue (28d)": {
+      "en": "Revenue (28d)"
+    },
+    "Review reports": {
+      "en": "Review reports"
+    },
+    "Role changes": {
+      "en": "Role changes"
+    },
+    "Role Name": {
+      "en": "Role Name"
+    },
+    "Roles updated (7d)": {
+      "en": "Roles updated (7d)"
+    },
+    "Rose": {
+      "en": "Rose"
+    },
+    "Save changes": {
+      "en": "Save changes"
+    },
+    "Save Login": {
+      "en": "Save login settings"
+    },
+    "Save Moderation": {
+      "en": "Save moderation settings"
+    },
+    "Save Notifications": {
+      "en": "Save notification settings"
+    },
+    "Save Registration": {
+      "en": "Save registration settings"
+    },
+    "Save SMS OTP": {
+      "en": "Save SMS OTP"
+    },
+    "Save SMTP Email": {
+      "en": "Save SMTP Email"
+    },
+    "Save Storage": {
+      "en": "Save Storage"
+    },
+    "Saved playlists": {
+      "en": "Saved playlists"
+    },
+    "Schedule Filters": {
+      "en": "Schedule Filters"
+    },
+    "Schedule must be now or a future date and time.": {
+      "en": "Schedule must be now or a future date and time."
+    },
+    "Scheduled": {
+      "en": "Scheduled"
+    },
+    "Scope": {
+      "en": "Scope"
+    },
+    "Scope: All": {
+      "en": "Scope: All"
+    },
+    "Search": {
+      "en": "Search"
+    },
+    "Search admin dashboard": {
+      "en": "Search admin dashboard"
+    },
+    "Search community posts...": {
+      "en": "Search community posts..."
+    },
+    "Search failed.": {
+      "en": "Search failed."
+    },
+    "Search in streams...": {
+      "en": "Search in streams..."
+    },
+    "Search in streams…": {
+      "en": "Search in streams…"
+    },
+    "Search languages": {
+      "en": "Search languages"
+    },
+    "Search languages...": {
+      "en": "Search languages..."
+    },
+    "Search people by name, username, or email": {
+      "en": "Search people by name, username, or email"
+    },
+    "Search playlists...": {
+      "en": "Search playlists..."
+    },
+    "Search results": {
+      "en": "Search results"
+    },
+    "Search shorts...": {
+      "en": "Search shorts..."
+    },
+    "Search videos to add to this collection...": {
+      "en": "Search videos to add to this collection..."
+    },
+    "Search your library...": {
+      "en": "Search your library..."
+    },
+    "Searching content...": {
+      "en": "Searching content..."
+    },
+    "Searching...": {
+      "en": "Searching..."
+    },
+    "Security policy changes": {
+      "en": "Security policy changes"
+    },
+    "See all playlists": {
+      "en": "See all playlists"
+    },
+    "See Peak Times →": {
+      "en": "See Peak Times →"
+    },
+    "See scheduled streams and set reminders so you never miss a live event.": {
+      "en": "See scheduled streams and set reminders so you never miss a live event."
+    },
+    "Select a conversation": {
+      "en": "Select a conversation"
+    },
+    "Select at least one video before running a bulk action.": {
+      "en": "Select at least one video before running a bulk action."
+    },
+    "Select images": {
+      "en": "Select images"
+    },
+    "Select one of your published videos": {
+      "en": "Select one of your published videos"
+    },
+    "Selected image": {
+      "en": "Selected image"
+    },
+    "Send": {
+      "en": "Send"
+    },
+    "Send a message...": {
+      "en": "Send a message..."
+    },
+    "Send the first message.": {
+      "en": "Send the first message."
+    },
+    "Session": {
+      "en": "Session"
+    },
+    "Settings sections": {
+      "en": "Settings sections"
+    },
+    "Settings updated.": {
+      "en": "Settings updated."
+    },
+    "Share a quick moment and connect with millions of viewers.": {
+      "en": "Share a quick moment with your community."
+    },
+    "Share post": {
+      "en": "Share post"
+    },
+    "Share short": {
+      "en": "Share short"
+    },
+    "Share something with your community...": {
+      "en": "Share something with your community..."
+    },
+    "Share stream": {
+      "en": "Share stream"
+    },
+    "Share your story with the world. Upload, customize, and publish your video.": {
+      "en": "Share your story with the world. Upload, customize, and publish your video."
+    },
+    "Short": {
+      "en": "Short"
+    },
+    "Short navigation": {
+      "en": "Short navigation"
+    },
+    "Short not found.": {
+      "en": "Short not found."
+    },
+    "Short video player": {
+      "en": "Short video player"
+    },
+    "Shortest": {
+      "en": "Shortest"
+    },
+    "Shorts discovered": {
+      "en": "Shorts discovered"
+    },
+    "Shorts must be 60 seconds or less.": {
+      "en": "Shorts must be 60 seconds or less."
+    },
+    "Shorts must be 60 seconds or less. Vertical 9:16 is recommended.": {
+      "en": "Shorts must be 60 seconds or less and vertical. A 9:16 aspect ratio is recommended."
+    },
+    "Shorts must use a vertical portrait aspect ratio.": {
+      "en": "Shorts must use a vertical portrait aspect ratio."
+    },
+    "Shorts stats": {
+      "en": "Shorts stats"
+    },
+    "Show less": {
+      "en": "Show less"
+    },
+    "Show more ⌄": {
+      "en": "Show more ⌄"
+    },
+    "Show only live streams": {
+      "en": "Show only live streams"
+    },
+    "Show unread messages": {
+      "en": "Show unread messages"
+    },
+    "Sign in to see playlists.": {
+      "en": "Sign in to see playlists."
+    },
+    "SLA Status": {
+      "en": "SLA Status"
+    },
+    "Slow mode": {
+      "en": "Slow mode"
+    },
+    "SMS delivery is not configured. Configure SMS OTP settings in the admin dashboard or switch to email verification.": {
+      "en": "SMS delivery is not configured. Configure SMS OTP settings in the admin dashboard or switch to email verification."
+    },
+    "Sort by": {
+      "en": "Sort by"
+    },
+    "Sort by:": {
+      "en": "Sort by:"
+    },
+    "Sort community posts": {
+      "en": "Sort community posts"
+    },
+    "Sort community search": {
+      "en": "Sort community search"
+    },
+    "Sort playlists": {
+      "en": "Sort playlists"
+    },
+    "Start a private message with another creator.": {
+      "en": "Start a private message with another creator."
+    },
+    "Starts *": {
+      "en": "Starts *"
+    },
+    "Status: Active": {
+      "en": "Status: Active"
+    },
+    "Status: All": {
+      "en": "Status: All"
+    },
+    "Storage connection successful.": {
+      "en": "Storage connection successful."
+    },
+    "Storage settings saved.": {
+      "en": "Storage settings saved."
+    },
+    "Store": {
+      "en": "Store"
+    },
+    "Stream": {
+      "en": "Stream"
+    },
+    "Stream Schedule": {
+      "en": "Stream Schedule"
+    },
+    "Streamer": {
+      "en": "Streamer"
+    },
+    "Studio": {
+      "en": "Studio"
+    },
+    "Subscribed": {
+      "en": "Subscribed"
+    },
+    "Suggested Live Streams": {
+      "en": "Suggested Live Streams"
+    },
+    "super admin": {
+      "en": "super admin"
+    },
+    "Super Admin": {
+      "en": "Super Admin"
+    },
+    "Support queue": {
+      "en": "Support queue"
+    },
+    "Suspend": {
+      "en": "Suspend"
+    },
+    "System settings": {
+      "en": "System settings"
+    },
+    "Teal": {
+      "en": "Teal"
+    },
+    "team member": {
+      "en": "team member"
+    },
+    "Tech": {
+      "en": "Tech"
+    },
+    "Terms": {
+      "en": "Terms"
+    },
+    "Test SMS OTP": {
+      "en": "Test SMS OTP"
+    },
+    "Test SMTP": {
+      "en": "Test SMTP"
+    },
+    "Testing...": {
+      "en": "Testing..."
+    },
+    "There are no videos matching the current filters.": {
+      "en": "There are no videos matching the current filters."
+    },
+    "This action cannot be undone.": {
+      "en": "This action cannot be undone."
+    }
+  }
+}

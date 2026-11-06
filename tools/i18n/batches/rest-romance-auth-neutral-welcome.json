@@ -1,0 +1,13 @@
+{
+  "context": "Second editorial reading of the login greeting and session checkbox: friendly French/Italian wording without assigning a gender to the visitor or platform speaker.",
+  "messages": {
+    "Welcome back": {
+      "fr": "Ça fait plaisir de te revoir",
+      "it": "Che bello rivederti"
+    },
+    "Remember me": {
+      "fr": "Garder ma session ouverte",
+      "it": "Mantieni la sessione attiva"
+    }
+  }
+}

@@ -5,7 +5,6 @@
   min-width: 0;
   width: 100%;
 }
-
 .watch-layout-shell .watch-page {
   width: 100%;
   max-width: none;
@@ -17,6 +16,7 @@
 }
 
 .watch-layout-shell .watch-primary,
+.watch-layout-shell .watch-comments-section,
 .watch-layout-shell .watch-sidebar {
   min-width: 0;
   grid-column: 1;
@@ -97,9 +97,14 @@
     grid-row: 1;
   }
 
+  .watch-layout-shell .watch-comments-section {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
   .watch-layout-shell .watch-sidebar {
     grid-column: 2;
-    grid-row: 1;
+    grid-row: 1 / span 2;
     position: sticky;
     top: calc(var(--topbar) + 12px);
   }
@@ -116,4 +121,44 @@
   .watch-layout-shell .action-bar {
     margin-inline-start: 0;
   }
+}
+.watch-transcript {
+  min-width: 0;
+  margin-top: 16px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+}
+.watch-transcript summary { cursor: pointer; font-weight: 750; min-height: 44px; padding-block: 10px; }
+.watch-transcript summary:focus-visible,
+.watch-transcript-text:focus-visible { outline: 2px solid var(--primary); outline-offset: 4px; }
+.watch-transcript-text {
+  max-height: 400px;
+  margin-top: 12px;
+  overflow: auto;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+  line-height: 1.6;
+}
+
+/* A body portal escapes the route/player stacking contexts. Its coordinates
+   are bounded below the header; long owner menus scroll inside that space. */
+body .video-detail-action-menu.watch-detail-menu {
+  position: fixed;
+  right: auto;
+  bottom: auto;
+  z-index: 110;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+body .video-detail-action-menu.watch-detail-menu::before { display: none; }
+@media (max-width: 860px) {
+  body .video-detail-action-menu.watch-detail-menu {
+    max-height: min(620px, var(--watch-menu-sheet-max-height, calc(100dvh - var(--topbar) - 8px))) !important;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  body .video-detail-action-menu.watch-detail-menu { animation: none !important; transition: none !important; }
 }

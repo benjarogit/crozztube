@@ -1,0 +1,252 @@
+{
+  "context": "Editorial review of the actual login/register/recovery field prompts and loading/error/success states, including complete full-name/email/unique-username/password placeholders. Personal language, SMS and code validity unchanged; European/Brazilian Portuguese, French Canadian and AR/UY voseo explicit.",
+  "messages": {
+    "Enter your email address": {
+      "fr": "Saisis ton adresse e-mail",
+      "es": "Escribe tu correo electrónico",
+      "pt": "Escreve o teu e-mail",
+      "pt_br": "Digite seu e-mail",
+      "it": "Inserisci la tua email",
+      "ca": "Escriu el teu correu electrònic",
+      "gl": "Escribe o teu correo electrónico",
+      "eo": "Enigu vian retpoŝtadreson",
+      "fr_ca": "Saisis ton adresse courriel",
+      "es_ar": "Escribí tu correo electrónico",
+      "es_uy": "Escribí tu correo electrónico"
+    },
+    "Enter your full name": {
+      "fr": "Saisis ton nom complet",
+      "es": "Escribe tu nombre completo",
+      "pt": "Escreve o teu nome completo",
+      "pt_br": "Digite seu nome completo",
+      "it": "Inserisci il tuo nome completo",
+      "ca": "Escriu el teu nom complet",
+      "gl": "Escribe o teu nome completo",
+      "eo": "Enigu vian plenan nomon",
+      "es_ar": "Escribí tu nombre completo",
+      "es_uy": "Escribí tu nombre completo"
+    },
+    "Choose a unique username": {
+      "fr": "Choisis un nom d’utilisateur unique",
+      "es": "Elige un nombre de usuario único",
+      "pt": "Escolhe um nome de utilizador único",
+      "pt_br": "Escolha um nome de usuário único",
+      "it": "Scegli un nome utente unico",
+      "ca": "Tria un nom d’usuari únic",
+      "gl": "Escolle un nome de usuario único",
+      "eo": "Elektu unikan uzantnomon",
+      "es_ar": "Elegí un nombre de usuario único",
+      "es_uy": "Elegí un nombre de usuario único"
+    },
+    "Create a strong password": {
+      "fr": "Crée un mot de passe solide",
+      "es": "Crea una contraseña segura",
+      "pt": "Cria uma palavra-passe segura",
+      "pt_br": "Crie uma senha segura",
+      "it": "Crea una password sicura",
+      "ca": "Crea una contrasenya segura",
+      "gl": "Crea un contrasinal seguro",
+      "eo": "Kreu fortan pasvorton",
+      "es_ar": "Creá una contraseña segura",
+      "es_uy": "Creá una contraseña segura"
+    },
+    "Don't have an account?": {
+      "fr": "Tu n’as pas encore de compte ?",
+      "es": "¿Todavía no tienes una cuenta?",
+      "pt": "Ainda não tens conta?",
+      "pt_br": "Ainda não tem uma conta?",
+      "it": "Non hai ancora un account?",
+      "ca": "Encara no tens un compte?",
+      "gl": "Aínda non tes unha conta?",
+      "eo": "Ĉu vi ankoraŭ ne havas konton?",
+      "es_ar": "¿Todavía no tenés una cuenta?",
+      "es_uy": "¿Todavía no tenés una cuenta?"
+    },
+    "Forgot password?": {
+      "fr": "Mot de passe oublié ?",
+      "es": "¿Olvidaste tu contraseña?",
+      "pt": "Esqueceste-te da palavra-passe?",
+      "pt_br": "Esqueceu a senha?",
+      "it": "Hai dimenticato la password?",
+      "ca": "Has oblidat la contrasenya?",
+      "gl": "Esqueciches o contrasinal?",
+      "eo": "Ĉu vi forgesis la pasvorton?"
+    },
+    "Forgot your password?": {
+      "fr": "Tu as oublié ton mot de passe ?",
+      "es": "¿Olvidaste tu contraseña?",
+      "pt": "Esqueceste-te da tua palavra-passe?",
+      "pt_br": "Esqueceu sua senha?",
+      "it": "Hai dimenticato la tua password?",
+      "ca": "Has oblidat la contrasenya?",
+      "gl": "Esqueciches o teu contrasinal?",
+      "eo": "Ĉu vi forgesis vian pasvorton?"
+    },
+    "Back to login": {
+      "fr": "Revenir à la connexion",
+      "es": "Volver a entrar",
+      "pt": "Voltar à entrada",
+      "pt_br": "Voltar para entrar",
+      "it": "Torna all’accesso",
+      "ca": "Torna a l’inici de sessió",
+      "gl": "Volver ao inicio de sesión",
+      "eo": "Reiri al ensaluto"
+    },
+    "Please fix the highlighted registration fields.": {
+      "fr": "Corrige les champs indiqués avant de continuer.",
+      "es": "Corrige los campos marcados antes de continuar.",
+      "pt": "Corrige os campos assinalados antes de continuares.",
+      "pt_br": "Corrija os campos destacados antes de continuar.",
+      "it": "Correggi i campi evidenziati prima di continuare.",
+      "ca": "Corregeix els camps marcats abans de continuar.",
+      "gl": "Corrixe os campos marcados antes de continuar.",
+      "eo": "Korektu la markitajn kampojn antaŭ ol daŭrigi."
+    },
+    "Registration is currently disabled.": {
+      "fr": "La création de compte est désactivée pour le moment.",
+      "es": "El registro de cuentas está desactivado por ahora.",
+      "pt": "A criação de contas está desactivada de momento.",
+      "pt_br": "A criação de contas está desativada no momento.",
+      "it": "La registrazione è al momento disattivata.",
+      "ca": "La creació de comptes està desactivada ara mateix.",
+      "gl": "A creación de contas está desactivada neste momento.",
+      "eo": "Kreado de kontoj estas nun malŝaltita.",
+      "pt_pt_ao90": "A criação de contas está desativada de momento."
+    },
+    "Remember me": {
+      "fr": "Garder ma session ouverte",
+      "es": "Mantener la sesión iniciada",
+      "pt": "Manter a sessão iniciada",
+      "pt_br": "Manter a sessão iniciada",
+      "it": "Mantieni la sessione attiva",
+      "ca": "Mantén la sessió iniciada",
+      "gl": "Manter a sesión iniciada",
+      "eo": "Resti ensalutinta"
+    },
+    "Phone number": {
+      "fr": "Numéro de téléphone",
+      "es": "Número de teléfono",
+      "pt": "Número de telefone",
+      "pt_br": "Número de telefone",
+      "it": "Numero di telefono",
+      "ca": "Número de telèfon",
+      "gl": "Número de teléfono",
+      "eo": "Telefonnumero"
+    },
+    "A valid phone number is required.": {
+      "fr": "Saisis un numéro de téléphone valide.",
+      "es": "Escribe un número de teléfono válido.",
+      "pt": "Introduz um número de telefone válido.",
+      "pt_br": "Digite um número de telefone válido.",
+      "it": "Inserisci un numero di telefono valido.",
+      "ca": "Introdueix un número de telèfon vàlid.",
+      "gl": "Introduce un número de teléfono válido.",
+      "eo": "Enigu validan telefonnumeron.",
+      "es_ar": "Escribí un número de teléfono válido.",
+      "es_uy": "Escribí un número de teléfono válido."
+    },
+    "A valid phone number is required for SMS confirmation.": {
+      "fr": "Saisis un numéro de téléphone valide pour la vérification par SMS.",
+      "es": "Escribe un número de teléfono válido para la verificación por SMS.",
+      "pt": "Introduz um número de telefone válido para a confirmação por SMS.",
+      "pt_br": "Digite um número de telefone válido para a confirmação por SMS.",
+      "it": "Inserisci un numero di telefono valido per la verifica via SMS.",
+      "ca": "Introdueix un número de telèfon vàlid per a la verificació per SMS.",
+      "gl": "Introduce un número de teléfono válido para a verificación por SMS.",
+      "eo": "Enigu validan telefonnumeron por konfirmo per SMS."
+    },
+    "Enter a valid email address.": {
+      "fr": "Saisis une adresse e-mail valide.",
+      "es": "Escribe una dirección de correo válida.",
+      "pt": "Introduz um endereço de e-mail válido.",
+      "pt_br": "Digite um endereço de e-mail válido.",
+      "it": "Inserisci un indirizzo email valido.",
+      "ca": "Introdueix una adreça electrònica vàlida.",
+      "gl": "Introduce un enderezo de correo válido.",
+      "eo": "Enigu validan retpoŝtadreson.",
+      "fr_ca": "Saisis une adresse courriel valide.",
+      "es_ar": "Escribí una dirección de correo válida.",
+      "es_uy": "Escribí una dirección de correo válida."
+    },
+    "Send verification code": {
+      "fr": "Envoyer le code de vérification",
+      "es": "Enviar código de verificación",
+      "pt": "Enviar código de verificação",
+      "pt_br": "Enviar código de verificação",
+      "it": "Invia il codice di verifica",
+      "ca": "Envia el codi de verificació",
+      "gl": "Enviar código de verificación",
+      "eo": "Sendi konfirmkodon"
+    },
+    "Request a new code": {
+      "fr": "Demander un nouveau code",
+      "es": "Pedir un código nuevo",
+      "pt": "Pedir um novo código",
+      "pt_br": "Pedir um novo código",
+      "it": "Richiedi un nuovo codice",
+      "ca": "Demana un codi nou",
+      "gl": "Pedir un código novo",
+      "eo": "Peti novan kodon"
+    },
+    "Code expired.": {
+      "fr": "Le code a expiré.",
+      "es": "El código ha caducado.",
+      "pt": "O código expirou.",
+      "pt_br": "O código expirou.",
+      "it": "Il codice è scaduto.",
+      "ca": "El codi ha caducat.",
+      "gl": "O código caducou.",
+      "eo": "La kodo eksvalidiĝis."
+    },
+    "Sending...": {
+      "fr": "Envoi…",
+      "es": "Enviando…",
+      "pt": "A enviar…",
+      "pt_br": "Enviando…",
+      "it": "Invio in corso…",
+      "ca": "S’està enviant…",
+      "gl": "Enviando…",
+      "eo": "Sendante…"
+    },
+    "Checking...": {
+      "fr": "Vérification…",
+      "es": "Comprobando…",
+      "pt": "A verificar…",
+      "pt_br": "Verificando…",
+      "it": "Verifica in corso…",
+      "ca": "S’està comprovant…",
+      "gl": "Comprobando…",
+      "eo": "Kontrolante…"
+    },
+    "Recover account": {
+      "fr": "Récupérer le compte",
+      "es": "Recuperar cuenta",
+      "pt": "Recuperar conta",
+      "pt_br": "Recuperar conta",
+      "it": "Recupera l’account",
+      "ca": "Recupera el compte",
+      "gl": "Recuperar conta",
+      "eo": "Reakiri konton"
+    },
+    "Reset password": {
+      "fr": "Réinitialiser le mot de passe",
+      "es": "Restablecer contraseña",
+      "pt": "Repor palavra-passe",
+      "pt_br": "Redefinir senha",
+      "it": "Reimposta la password",
+      "ca": "Restableix la contrasenya",
+      "gl": "Restablecer contrasinal",
+      "eo": "Restarigi pasvorton"
+    },
+    "Password reset successfully.": {
+      "fr": "Ton mot de passe a été réinitialisé.",
+      "es": "Tu contraseña se ha restablecido.",
+      "pt": "A tua palavra-passe foi reposta.",
+      "pt_br": "Sua senha foi redefinida.",
+      "it": "La tua password è stata reimpostata.",
+      "ca": "S’ha restablert la contrasenya.",
+      "gl": "Restableceuse o teu contrasinal.",
+      "eo": "Via pasvorto estis restarigita."
+    }
+  }
+}

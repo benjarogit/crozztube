@@ -1,0 +1,746 @@
+{
+  "context": "English editorial reference: community/channel states, error and recovery messages, notifications, upload progress, account registration/confirmation/captcha and password-strength feedback. Login preview defaults now describe the community instead of selling a UI kit. Author content, technical examples, unresolved fragments and unverifiable plan claims excluded.",
+  "messages": {
+    "This cannot be undone.": {
+      "en": "This cannot be undone."
+    },
+    "This channel has not added a bio yet.": {
+      "en": "This creator hasn’t added a channel bio yet."
+    },
+    "This feedback is saved for this session. You can continue watching or choose another video.": {
+      "en": "This feedback is saved for this session. You can continue watching or choose another video."
+    },
+    "This is how your collection will appear in Saved collections.": {
+      "en": "This is how your collection will appear in Saved collections."
+    },
+    "This library is private.": {
+      "en": "This library is private."
+    },
+    "This month": {
+      "en": "This month"
+    },
+    "This report is missing the content id required for action.": {
+      "en": "This report is missing a content ID, so no action can be taken."
+    },
+    "This video does not have a playable source yet.": {
+      "en": "This video does not have a playable source yet."
+    },
+    "This week": {
+      "en": "This week"
+    },
+    "This will remove the current avatar from your channel.": {
+      "en": "This will remove the current avatar from your channel."
+    },
+    "This year": {
+      "en": "This year"
+    },
+    "Ticket ID": {
+      "en": "Ticket ID"
+    },
+    "Tip for Creators": {
+      "en": "Tip for Creators"
+    },
+    "Title is required.": {
+      "en": "Title is required."
+    },
+    "To": {
+      "en": "To"
+    },
+    "Today": {
+      "en": "Today"
+    },
+    "Tomorrow": {
+      "en": "Tomorrow"
+    },
+    "Top 1": {
+      "en": "Top 1"
+    },
+    "Top creators": {
+      "en": "Top creators"
+    },
+    "Top Live Creators": {
+      "en": "Top Live Creators"
+    },
+    "Top supporters": {
+      "en": "Top supporters"
+    },
+    "Total comments": {
+      "en": "Total comments"
+    },
+    "Total likes": {
+      "en": "Total likes"
+    },
+    "Total video length": {
+      "en": "Total video length"
+    },
+    "Total Videos": {
+      "en": "Total Videos"
+    },
+    "Trending Live Topics": {
+      "en": "Trending Live Topics"
+    },
+    "Trending related searches": {
+      "en": "Trending related searches"
+    },
+    "Trending Replay Topics": {
+      "en": "Trending Replay Topics"
+    },
+    "Trending tags": {
+      "en": "Trending tags"
+    },
+    "Trending topics": {
+      "en": "Trending topics"
+    },
+    "Trending Topics": {
+      "en": "Trending Topics"
+    },
+    "Try another keyword or switch one of the content filters above.": {
+      "en": "Try another keyword or switch one of the content filters above."
+    },
+    "Tutorials": {
+      "en": "Tutorials"
+    },
+    "Two-factor authentication is disabled.": {
+      "en": "Two-factor authentication is disabled."
+    },
+    "Two-factor authentication is enabled.": {
+      "en": "Two-factor authentication is enabled."
+    },
+    "Type": {
+      "en": "Type"
+    },
+    "Type a message...": {
+      "en": "Type a message..."
+    },
+    "Unable to auto-save settings.": {
+      "en": "Unable to auto-save settings."
+    },
+    "Unable to copy link": {
+      "en": "Unable to copy link"
+    },
+    "Unable to copy post link.": {
+      "en": "Unable to copy post link."
+    },
+    "Unable to copy the link.": {
+      "en": "Unable to copy the link."
+    },
+    "Unable to delete playlist.": {
+      "en": "Unable to delete playlist."
+    },
+    "Unable to delete post.": {
+      "en": "Unable to delete post."
+    },
+    "Unable to delete video.": {
+      "en": "Unable to delete video."
+    },
+    "Unable to load admin data.": {
+      "en": "Unable to load admin data."
+    },
+    "Unable to load community posts.": {
+      "en": "Unable to load community posts."
+    },
+    "Unable to load library.": {
+      "en": "Unable to load library."
+    },
+    "Unable to load messages.": {
+      "en": "Unable to load messages."
+    },
+    "Unable to load profile.": {
+      "en": "Unable to load profile."
+    },
+    "Unable to load shorts.": {
+      "en": "Unable to load shorts."
+    },
+    "Unable to load this short.": {
+      "en": "Unable to load this short."
+    },
+    "Unable to load video.": {
+      "en": "Unable to load video."
+    },
+    "Unable to mute user.": {
+      "en": "Unable to mute user."
+    },
+    "Unable to open conversation.": {
+      "en": "Unable to open conversation."
+    },
+    "Unable to publish post.": {
+      "en": "Unable to publish post."
+    },
+    "Unable to remove avatar.": {
+      "en": "Unable to remove avatar."
+    },
+    "Unable to save about section.": {
+      "en": "Unable to save the channel bio."
+    },
+    "Unable to save banner position.": {
+      "en": "Unable to save banner position."
+    },
+    "Unable to save bio.": {
+      "en": "Unable to save bio."
+    },
+    "Unable to save vote.": {
+      "en": "Unable to save vote."
+    },
+    "Unable to search content.": {
+      "en": "Unable to search content."
+    },
+    "Unable to share post.": {
+      "en": "Unable to share post."
+    },
+    "Unable to update avatar.": {
+      "en": "Unable to update avatar."
+    },
+    "Unable to update like": {
+      "en": "Unable to update like"
+    },
+    "Unable to update like.": {
+      "en": "Unable to update like."
+    },
+    "Unable to update playlist.": {
+      "en": "Unable to update playlist."
+    },
+    "Unable to update post.": {
+      "en": "Unable to update post."
+    },
+    "Unable to update video.": {
+      "en": "Unable to update video."
+    },
+    "Unable to upload banner.": {
+      "en": "Unable to upload banner."
+    },
+    "Unassigned": {
+      "en": "Unassigned"
+    },
+    "Unblock user": {
+      "en": "Unblock user"
+    },
+    "Uncategorized": {
+      "en": "Uncategorized"
+    },
+    "Under 1 hour": {
+      "en": "Under 1 hour"
+    },
+    "Under 4 minutes": {
+      "en": "Under 4 minutes"
+    },
+    "Under 5K": {
+      "en": "Under 5K"
+    },
+    "Undo": {
+      "en": "Undo"
+    },
+    "Unlike featured stream": {
+      "en": "Unlike featured stream"
+    },
+    "Unmute notifications": {
+      "en": "Unmute notifications"
+    },
+    "UPCOMING": {
+      "en": "UPCOMING"
+    },
+    "Upcoming Streams": {
+      "en": "Upcoming Streams"
+    },
+    "Update avatar": {
+      "en": "Update avatar"
+    },
+    "Update billing information": {
+      "en": "Update billing information"
+    },
+    "Update Password": {
+      "en": "Update Password"
+    },
+    "Update the title, description, discovery details, and visibility for this video.": {
+      "en": "Update the title, description, discovery details, and visibility for this video."
+    },
+    "Updates": {
+      "en": "Updates"
+    },
+    "Updating password...": {
+      "en": "Updating password..."
+    },
+    "Upload a thumbnail before continuing.": {
+      "en": "Upload a thumbnail before continuing."
+    },
+    "Upload a thumbnail image": {
+      "en": "Upload a thumbnail image"
+    },
+    "Upload cancelled.": {
+      "en": "Upload cancelled."
+    },
+    "Upload complete": {
+      "en": "Upload complete"
+    },
+    "Upload date": {
+      "en": "Upload date"
+    },
+    "Upload Short": {
+      "en": "Upload Short"
+    },
+    "Uploaded after": {
+      "en": "Uploaded after"
+    },
+    "Uploaded before": {
+      "en": "Uploaded before"
+    },
+    "Use phone delivery": {
+      "en": "Get the code by text message"
+    },
+    "Use the Login section for account access controls.": {
+      "en": "Use the Login section for account access controls."
+    },
+    "User": {
+      "en": "User"
+    },
+    "User deactivations": {
+      "en": "User deactivations"
+    },
+    "User deleted safely. Related content was preserved.": {
+      "en": "User deleted safely. Related content was preserved."
+    },
+    "User role updated.": {
+      "en": "User role updated."
+    },
+    "User updated.": {
+      "en": "User updated."
+    },
+    "User verified.": {
+      "en": "User verified."
+    },
+    "Users added (7d)": {
+      "en": "Users added (7d)"
+    },
+    "Users removed (7d)": {
+      "en": "Users removed (7d)"
+    },
+    "Verification": {
+      "en": "Verification"
+    },
+    "Verification: All": {
+      "en": "Verification: All"
+    },
+    "Video actions": {
+      "en": "Video actions"
+    },
+    "Video could not be loaded.": {
+      "en": "Video could not be loaded."
+    },
+    "Video not found.": {
+      "en": "Video not found."
+    },
+    "Video processing failed": {
+      "en": "Video processing failed"
+    },
+    "Video processing failed.": {
+      "en": "Video processing failed."
+    },
+    "Video updated.": {
+      "en": "Video updated."
+    },
+    "Video uploaded. Processing has started.": {
+      "en": "Video uploaded. Processing has started."
+    },
+    "View": {
+      "en": "View"
+    },
+    "View all analytics": {
+      "en": "View all analytics"
+    },
+    "View all supporters": {
+      "en": "View all supporters"
+    },
+    "View channel details": {
+      "en": "View channel details"
+    },
+    "View full library →": {
+      "en": "View full library →"
+    },
+    "View on PlayHub ↗": {
+      "en": "View on PlayHub ↗"
+    },
+    "View payment history": {
+      "en": "View payment history"
+    },
+    "View public profile ↗": {
+      "en": "View public profile ↗"
+    },
+    "View Status Page": {
+      "en": "View Status Page"
+    },
+    "View video": {
+      "en": "View video"
+    },
+    "View your public profile ↗": {
+      "en": "View your public profile ↗"
+    },
+    "Viewers": {
+      "en": "Viewers"
+    },
+    "Violet": {
+      "en": "Violet"
+    },
+    "Visible": {
+      "en": "Visible"
+    },
+    "Vote saved.": {
+      "en": "Vote saved."
+    },
+    "vs last 28 days": {
+      "en": "vs last 28 days"
+    },
+    "Watch Live": {
+      "en": "Watch Live"
+    },
+    "Watch live streams happening now across PlayHub.": {
+      "en": "Watch live streams happening now across PlayHub."
+    },
+    "Watch Replay": {
+      "en": "Watch Replay"
+    },
+    "Watch the latest videos from PlayHub creators.": {
+      "en": "Watch the latest videos from PlayHub creators."
+    },
+    "Watch Time (hrs)": {
+      "en": "Watch Time (hrs)"
+    },
+    "Watch, create, stream, and manage your PlayHub experience from one modern video platform.": {
+      "en": "Watch, create, stream, and manage your PlayHub experience from one modern video platform."
+    },
+    "Web Server": {
+      "en": "Web Server"
+    },
+    "What’s this collection about?": {
+      "en": "What’s this collection about?"
+    },
+    "Working...": {
+      "en": "Working..."
+    },
+    "Write your message...": {
+      "en": "Write your message..."
+    },
+    "Yes": {
+      "en": "Yes"
+    },
+    "You": {
+      "en": "You"
+    },
+    "You can only edit your own videos.": {
+      "en": "You can only edit your own videos."
+    },
+    "Your message has been sent to PlayHub support.": {
+      "en": "Your message has been sent to PlayHub support."
+    },
+    "Your videos": {
+      "en": "Your videos"
+    },
+    "Your Videos": {
+      "en": "Your Videos"
+    },
+    "No moderators": {
+      "en": "No moderators"
+    },
+    "Content review, comment removal, video approval, and user restrictions": {
+      "en": "Content review, comment removal, video approval, and user restrictions"
+    },
+    "Upload Approval": {
+      "en": "Upload Approval"
+    },
+    "Approve automatically": {
+      "en": "Approve automatically"
+    },
+    "Require moderator review": {
+      "en": "Require moderator review"
+    },
+    "Pending Uploads": {
+      "en": "Pending Uploads"
+    },
+    "Uploads pending review": {
+      "en": "Uploads pending review"
+    },
+    "Approve selected": {
+      "en": "Approve selected"
+    },
+    "Approve upload": {
+      "en": "Approve upload"
+    },
+    "Video approved.": {
+      "en": "Video approved."
+    },
+    "Email notification was not sent.": {
+      "en": "Email notification was not sent."
+    },
+    "Admin or moderator access required.": {
+      "en": "Admin or moderator access required."
+    },
+    "Moderators cannot ban their own account.": {
+      "en": "Moderators cannot ban their own account."
+    },
+    "Moderators cannot ban staff accounts.": {
+      "en": "Moderators cannot ban staff accounts."
+    },
+    "Moderators cannot suspend their own account.": {
+      "en": "Moderators cannot suspend their own account."
+    },
+    "Moderators cannot suspend staff accounts.": {
+      "en": "Moderators cannot suspend staff accounts."
+    },
+    "Moderators cannot clear bans for their own account.": {
+      "en": "Moderators cannot clear bans for their own account."
+    },
+    "Moderators cannot clear bans for staff accounts.": {
+      "en": "Moderators cannot clear bans for staff accounts."
+    },
+    "Account confirmation": {
+      "en": "Account confirmation"
+    },
+    "No confirmation": {
+      "en": "No confirmation"
+    },
+    "Confirm via email": {
+      "en": "Confirm via email"
+    },
+    "Confirm via SMS": {
+      "en": "Confirm via SMS"
+    },
+    "Password strength": {
+      "en": "Password strength"
+    },
+    "Required strength (1-10)": {
+      "en": "Required strength (1-10)"
+    },
+    "Registration captcha": {
+      "en": "Registration captcha"
+    },
+    "Captcha type": {
+      "en": "Captcha type"
+    },
+    "Simple PHP captcha": {
+      "en": "Simple PHP captcha"
+    },
+    "reCAPTCHA site key": {
+      "en": "reCAPTCHA site key"
+    },
+    "reCAPTCHA secret key": {
+      "en": "reCAPTCHA secret key"
+    },
+    "Phone number": {
+      "en": "Phone number"
+    },
+    "Enter the code sent to your phone.": {
+      "en": "Enter the code sent to your phone."
+    },
+    "Enter the code sent to your email.": {
+      "en": "Enter the code sent to your email."
+    },
+    "Confirm account": {
+      "en": "Confirm account"
+    },
+    "Confirming...": {
+      "en": "Confirming..."
+    },
+    "Required level": {
+      "en": "Required level"
+    },
+    "Security check": {
+      "en": "Security check"
+    },
+    "Loading captcha...": {
+      "en": "Loading captcha..."
+    },
+    "Refresh captcha": {
+      "en": "Refresh captcha"
+    },
+    "Google captcha is not configured.": {
+      "en": "Google captcha is not configured."
+    },
+    "Registration is currently disabled.": {
+      "en": "Registration is currently disabled."
+    },
+    "A verification code has been sent to your phone. Enter it to activate your account.": {
+      "en": "A verification code has been sent to your phone. Enter it to activate your account."
+    },
+    "A verification code has been sent to your email. Enter it to activate your account.": {
+      "en": "A verification code has been sent to your email. Enter it to activate your account."
+    },
+    "Email delivery is unavailable. Configure SMTP Email settings in the admin dashboard and try again.": {
+      "en": "Email delivery is unavailable. Configure SMTP Email settings in the admin dashboard and try again."
+    },
+    "SMS delivery is unavailable. Configure SMS OTP settings in the admin dashboard and try again.": {
+      "en": "SMS delivery is unavailable. Configure SMS OTP settings in the admin dashboard and try again."
+    },
+    "A valid phone number is required for SMS confirmation.": {
+      "en": "A valid phone number is required for SMS confirmation."
+    },
+    "The confirmation code is invalid.": {
+      "en": "The confirmation code is invalid."
+    },
+    "This account does not have a pending confirmation.": {
+      "en": "This account does not have a pending confirmation."
+    },
+    "The confirmation code has expired. Register again to receive a new code.": {
+      "en": "The confirmation code has expired. Register again to receive a new code."
+    },
+    "Account confirmed successfully.": {
+      "en": "Account confirmed successfully."
+    },
+    "This account must be confirmed before login. Enter the registration verification code first.": {
+      "en": "This account must be confirmed before login. Enter the registration verification code first."
+    },
+    "Complete the captcha to continue.": {
+      "en": "Complete the captcha to continue."
+    },
+    "Google captcha could not be verified. Try again.": {
+      "en": "Google captcha could not be verified. Try again."
+    },
+    "The captcha has expired. Refresh and try again.": {
+      "en": "The captcha has expired. Refresh and try again."
+    },
+    "The captcha answer is incorrect.": {
+      "en": "The captcha answer is incorrect."
+    },
+    "Registration is not available from this IP address.": {
+      "en": "Registration is not available from this IP address."
+    },
+    "Password strength must be at least 1/10.": {
+      "en": "Password strength must be at least 1/10."
+    },
+    "Password strength must be at least 2/10.": {
+      "en": "Password strength must be at least 2/10."
+    },
+    "Password strength must be at least 3/10.": {
+      "en": "Password strength must be at least 3/10."
+    },
+    "Password strength must be at least 4/10.": {
+      "en": "Password strength must be at least 4/10."
+    },
+    "Password strength must be at least 5/10.": {
+      "en": "Password strength must be at least 5/10."
+    },
+    "Password strength must be at least 6/10.": {
+      "en": "Password strength must be at least 6/10."
+    },
+    "Password strength must be at least 7/10.": {
+      "en": "Password strength must be at least 7/10."
+    },
+    "Password strength must be at least 8/10.": {
+      "en": "Password strength must be at least 8/10."
+    },
+    "Password strength must be at least 9/10.": {
+      "en": "Password strength must be at least 9/10."
+    },
+    "Password strength must be at least 10/10.": {
+      "en": "Password strength must be at least 10/10."
+    },
+    "Password looks good.": {
+      "en": "Password looks good."
+    },
+    "Password needs work.": {
+      "en": "Password needs work."
+    },
+    "Add at least 8 characters.": {
+      "en": "Add at least 8 characters."
+    },
+    "Add a letter.": {
+      "en": "Add a letter."
+    },
+    "Add a number.": {
+      "en": "Add a number."
+    },
+    "Add an uppercase letter.": {
+      "en": "Add an uppercase letter."
+    },
+    "Add a lowercase letter.": {
+      "en": "Add a lowercase letter."
+    },
+    "Add a symbol.": {
+      "en": "Add a symbol."
+    },
+    "Use a longer password for this strength level.": {
+      "en": "Use a longer password for this strength level."
+    },
+    "Captcha image": {
+      "en": "Captcha image"
+    },
+    "Enter the text from the image.": {
+      "en": "Enter the text from the image."
+    },
+    "Captcha after bad logins": {
+      "en": "Captcha after bad logins"
+    },
+    "Required strength (0-10)": {
+      "en": "Required strength (0-10)"
+    },
+    "Add at least 6 characters.": {
+      "en": "Add at least 6 characters."
+    },
+    "Phone registration is not enabled.": {
+      "en": "Phone registration is not enabled."
+    },
+    "This phone number is already registered.": {
+      "en": "This phone number is already registered."
+    },
+    "Too many verification codes requested. Try again later.": {
+      "en": "Too many verification codes requested. Try again later."
+    },
+    "Enter the SMS verification code.": {
+      "en": "Enter the SMS verification code."
+    },
+    "The SMS verification code has expired. Request a new code.": {
+      "en": "The SMS verification code has expired. Request a new code."
+    },
+    "The SMS verification code is invalid.": {
+      "en": "The SMS verification code is invalid."
+    },
+    "A verification code has been sent to your phone. Enter it below to finish registration.": {
+      "en": "A verification code has been sent to your phone. Enter it below to finish registration."
+    },
+    "Enter your phone number to receive a verification code.": {
+      "en": "Enter your phone number to receive a verification code."
+    },
+    "Enter your email to start registration.": {
+      "en": "Enter your email to start registration."
+    },
+    "Mobile country code": {
+      "en": "Mobile country code"
+    },
+    "Phone verification code": {
+      "en": "Phone verification code"
+    },
+    "Registration is temporarily blocked for this IP address. Try again later.": {
+      "en": "Registration is temporarily blocked for this IP address. Try again later."
+    },
+    "Too many invalid SMS verification codes. Registration is temporarily blocked for this IP address.": {
+      "en": "Too many invalid SMS verification codes. Registration is temporarily blocked for this IP address."
+    },
+    "Code expired.": {
+      "en": "Code expired."
+    },
+    "Request a new code": {
+      "en": "Request a new code"
+    },
+    "SMS code digits": {
+      "en": "SMS code digits"
+    },
+    "SMS code expires (minutes)": {
+      "en": "SMS code expires (minutes)"
+    },
+    "SMS resend attempts": {
+      "en": "SMS resend attempts"
+    },
+    "Video CMS & Streaming Platform UI Kit": {
+      "en": "Your videos. Your community."
+    },
+    "Clean light and true black dark layouts for creators, communities and streaming products.": {
+      "en": "Share your videos, discover creators and find your community."
+    },
+    "Scalable design system": {
+      "en": "Share what you love"
+    },
+    "Accessible components": {
+      "en": "Find people who share your interests"
+    },
+    "Built for creator workflows": {
+      "en": "Create at your own pace"
+    }
+  }
+}

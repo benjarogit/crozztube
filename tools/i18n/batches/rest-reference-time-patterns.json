@@ -1,0 +1,52 @@
+{
+  "context": "Complete English duration and relative-age reference templates, with native one/other categories. Enables authored case-correct whole phrases where browser Intl lacks that language, without borrowing a neighbouring language.",
+  "messages": {},
+  "metadata": {
+    "en": {
+      "__patterns": {
+        "ago_year": "{count} years ago",
+        "ago_year_one": "{count} year ago",
+        "ago_year_other": "{count} years ago",
+        "duration_year": "{count} years",
+        "duration_year_one": "{count} year",
+        "duration_year_other": "{count} years",
+        "ago_month": "{count} months ago",
+        "ago_month_one": "{count} month ago",
+        "ago_month_other": "{count} months ago",
+        "duration_month": "{count} months",
+        "duration_month_one": "{count} month",
+        "duration_month_other": "{count} months",
+        "ago_week": "{count} weeks ago",
+        "ago_week_one": "{count} week ago",
+        "ago_week_other": "{count} weeks ago",
+        "duration_week": "{count} weeks",
+        "duration_week_one": "{count} week",
+        "duration_week_other": "{count} weeks",
+        "ago_day": "{count} days ago",
+        "ago_day_one": "{count} day ago",
+        "ago_day_other": "{count} days ago",
+        "duration_day": "{count} days",
+        "duration_day_one": "{count} day",
+        "duration_day_other": "{count} days",
+        "ago_hour": "{count} hours ago",
+        "ago_hour_one": "{count} hour ago",
+        "ago_hour_other": "{count} hours ago",
+        "duration_hour": "{count} hours",
+        "duration_hour_one": "{count} hour",
+        "duration_hour_other": "{count} hours",
+        "ago_minute": "{count} minutes ago",
+        "ago_minute_one": "{count} minute ago",
+        "ago_minute_other": "{count} minutes ago",
+        "duration_minute": "{count} minutes",
+        "duration_minute_one": "{count} minute",
+        "duration_minute_other": "{count} minutes",
+        "ago_second": "{count} seconds ago",
+        "ago_second_one": "{count} second ago",
+        "ago_second_other": "{count} seconds ago",
+        "duration_second": "{count} seconds",
+        "duration_second_one": "{count} second",
+        "duration_second_other": "{count} seconds"
+      }
+    }
+  }
+}

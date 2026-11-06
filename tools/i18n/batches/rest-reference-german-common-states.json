@@ -1,0 +1,660 @@
+{
+  "context": "German whole-message rewrite of confirmed real UI mixed-language remnants in source inventory: search, library, account forms, communities, playlist selection, empty/loading/error states, Live discovery/admin ads. Current no longer mistaken for a live database, Live no longer a German imperative, clear-search correctly describes the action. Author sample text and unresolved dynamic fragments excluded; de-AT/de-CH regional spelling retained.",
+  "messages": {
+    "Loading comments...": {
+      "de_de": "Kommentare werden geladen …",
+      "de_at": "Kommentare werden geladen …",
+      "de_ch": "Kommentare werden geladen …"
+    },
+    "Skip After Seconds": {
+      "de_de": "Überspringen nach (Sekunden)",
+      "de_at": "Überspringen nach (Sekunden)",
+      "de_ch": "Überspringen nach (Sekunden)"
+    },
+    "Loading ad...": {
+      "de_de": "Werbung wird geladen …",
+      "de_at": "Werbung wird geladen …",
+      "de_ch": "Werbung wird geladen …"
+    },
+    "SendGrid From Email": {
+      "de_de": "Absenderadresse für SendGrid",
+      "de_at": "Absenderadresse für SendGrid",
+      "de_ch": "Absenderadresse für SendGrid"
+    },
+    "SendGrid From Name": {
+      "de_de": "Absendername für SendGrid",
+      "de_at": "Absendername für SendGrid",
+      "de_ch": "Absendername für SendGrid"
+    },
+    "Subscribe with Stripe": {
+      "de_de": "Mit Stripe abonnieren",
+      "de_at": "Mit Stripe abonnieren",
+      "de_ch": "Mit Stripe abonnieren"
+    },
+    "Subscribe with PayPal": {
+      "de_de": "Mit PayPal abonnieren",
+      "de_at": "Mit PayPal abonnieren",
+      "de_ch": "Mit PayPal abonnieren"
+    },
+    "Search index": {
+      "de_de": "Suchindex",
+      "de_at": "Suchindex",
+      "de_ch": "Suchindex"
+    },
+    "Add a short bio so viewers understand what your channel is about.": {
+      "de_de": "Erzähle kurz, worum es auf deinem Kanal geht.",
+      "de_at": "Erzähle kurz, worum es auf deinem Kanal geht.",
+      "de_ch": "Erzähle kurz, worum es auf deinem Kanal geht."
+    },
+    "Choose where this video should be saved.": {
+      "de_de": "Wähle, wo du dieses Video speichern möchtest.",
+      "de_at": "Wähle, wo du dieses Video speichern möchtest.",
+      "de_ch": "Wähle, wo du dieses Video speichern möchtest."
+    },
+    "Choose your preferred language.": {
+      "de_de": "Wähle deine Sprache.",
+      "de_at": "Wähle deine Sprache.",
+      "de_ch": "Wähle deine Sprache."
+    },
+    "Clear search": {
+      "de_de": "Suche leeren",
+      "de_at": "Suche leeren",
+      "de_ch": "Suche leeren"
+    },
+    "Connect your accounts to cross-post and sign in easily.": {
+      "de_de": "Verbinde deine Konten, um Beiträge auf mehreren Plattformen zu teilen und dich leichter anzumelden.",
+      "de_at": "Verbinde deine Konten, um Beiträge auf mehreren Plattformen zu teilen und dich leichter anzumelden.",
+      "de_ch": "Verbinde deine Konten, um Beiträge auf mehreren Plattformen zu teilen und dich leichter anzumelden."
+    },
+    "Content search failed": {
+      "de_de": "Die Inhaltssuche ist fehlgeschlagen",
+      "de_at": "Die Inhaltssuche ist fehlgeschlagen",
+      "de_ch": "Die Inhaltssuche ist fehlgeschlagen"
+    },
+    "Edit your post...": {
+      "de_de": "Bearbeite deinen Beitrag …",
+      "de_at": "Bearbeite deinen Beitrag …",
+      "de_ch": "Bearbeite deinen Beitrag …"
+    },
+    "Enter your current password": {
+      "de_de": "Gib dein aktuelles Passwort ein",
+      "de_at": "Gib dein aktuelles Passwort ein",
+      "de_ch": "Gib dein aktuelles Passwort ein"
+    },
+    "Loading community posts...": {
+      "de_de": "Communitybeiträge werden geladen …",
+      "de_at": "Communitybeiträge werden geladen …",
+      "de_ch": "Communitybeiträge werden geladen …"
+    },
+    "Loading content...": {
+      "de_de": "Inhalte werden geladen …",
+      "de_at": "Inhalte werden geladen …",
+      "de_ch": "Inhalte werden geladen …"
+    },
+    "Loading languages...": {
+      "de_de": "Sprachen werden geladen …",
+      "de_at": "Sprachen werden geladen …",
+      "de_ch": "Sprachen werden geladen …"
+    },
+    "Loading library...": {
+      "de_de": "Deine Bibliothek wird geladen …",
+      "de_at": "Deine Bibliothek wird geladen …",
+      "de_ch": "Deine Bibliothek wird geladen …"
+    },
+    "Loading messages": {
+      "de_de": "Nachrichten werden geladen",
+      "de_at": "Nachrichten werden geladen",
+      "de_ch": "Nachrichten werden geladen"
+    },
+    "Loading video...": {
+      "de_de": "Video wird geladen …",
+      "de_at": "Video wird geladen …",
+      "de_ch": "Video wird geladen …"
+    },
+    "Manage all your videos, shorts, live replays, and drafts.": {
+      "de_de": "Verwalte deine Videos, Shorts, Livestream-Aufzeichnungen und Entwürfe.",
+      "de_at": "Verwalte deine Videos, Shorts, Livestream-Aufzeichnungen und Entwürfe.",
+      "de_ch": "Verwalte deine Videos, Shorts, Livestream-Aufzeichnungen und Entwürfe."
+    },
+    "No categories available": {
+      "de_de": "Keine Kategorien verfügbar",
+      "de_at": "Keine Kategorien verfügbar",
+      "de_ch": "Keine Kategorien verfügbar"
+    },
+    "No category": {
+      "de_de": "Keine Kategorie",
+      "de_at": "Keine Kategorie",
+      "de_ch": "Keine Kategorie"
+    },
+    "No channel bio yet.": {
+      "de_de": "Noch keine Kanalbeschreibung.",
+      "de_at": "Noch keine Kanalbeschreibung.",
+      "de_ch": "Noch keine Kanalbeschreibung."
+    },
+    "No community posts yet.": {
+      "de_de": "Noch keine Communitybeiträge.",
+      "de_at": "Noch keine Communitybeiträge.",
+      "de_ch": "Noch keine Communitybeiträge."
+    },
+    "No community posts yet. Share your first update.": {
+      "de_de": "Noch keine Communitybeiträge. Teile dein erstes Update.",
+      "de_at": "Noch keine Communitybeiträge. Teile dein erstes Update.",
+      "de_ch": "Noch keine Communitybeiträge. Teile dein erstes Update."
+    },
+    "No description provided.": {
+      "de_de": "Keine Beschreibung vorhanden.",
+      "de_at": "Keine Beschreibung vorhanden.",
+      "de_ch": "Keine Beschreibung vorhanden."
+    },
+    "No language": {
+      "de_de": "Keine Sprache",
+      "de_at": "Keine Sprache",
+      "de_ch": "Keine Sprache"
+    },
+    "No languages available": {
+      "de_de": "Keine Sprachen verfügbar",
+      "de_at": "Keine Sprachen verfügbar",
+      "de_ch": "Keine Sprachen verfügbar"
+    },
+    "No messages yet": {
+      "de_de": "Noch keine Nachrichten",
+      "de_at": "Noch keine Nachrichten",
+      "de_ch": "Noch keine Nachrichten"
+    },
+    "No people found.": {
+      "de_de": "Niemanden gefunden.",
+      "de_at": "Niemanden gefunden.",
+      "de_ch": "Niemanden gefunden."
+    },
+    "No performance data yet.": {
+      "de_de": "Noch keine Auswertungsdaten.",
+      "de_at": "Noch keine Auswertungsdaten.",
+      "de_ch": "Noch keine Auswertungsdaten."
+    },
+    "No public videos available for this channel yet.": {
+      "de_de": "Auf diesem Kanal gibt es noch keine öffentlichen Videos.",
+      "de_at": "Auf diesem Kanal gibt es noch keine öffentlichen Videos.",
+      "de_ch": "Auf diesem Kanal gibt es noch keine öffentlichen Videos."
+    },
+    "No saved watch-later videos yet.": {
+      "de_de": "Noch keine Videos für „Später ansehen“ gespeichert.",
+      "de_at": "Noch keine Videos für „Später ansehen“ gespeichert.",
+      "de_ch": "Noch keine Videos für „Später ansehen“ gespeichert."
+    },
+    "No shorts match this filter.": {
+      "de_de": "Keine Shorts passen zu diesem Filter.",
+      "de_at": "Keine Shorts passen zu diesem Filter.",
+      "de_ch": "Keine Shorts passen zu diesem Filter."
+    },
+    "No subscriptions yet.": {
+      "de_de": "Noch keine Abonnements.",
+      "de_at": "Noch keine Abonnements.",
+      "de_ch": "Noch keine Abonnements."
+    },
+    "No tags found.": {
+      "de_de": "Keine Tags gefunden.",
+      "de_at": "Keine Tags gefunden.",
+      "de_ch": "Keine Tags gefunden."
+    },
+    "No videos found": {
+      "de_de": "Keine Videos gefunden",
+      "de_at": "Keine Videos gefunden",
+      "de_ch": "Keine Videos gefunden"
+    },
+    "No videos selected": {
+      "de_de": "Keine Videos ausgewählt",
+      "de_at": "Keine Videos ausgewählt",
+      "de_ch": "Keine Videos ausgewählt"
+    },
+    "Notifications muted for this user.": {
+      "de_de": "Benachrichtigungen zu dieser Person sind stummgeschaltet.",
+      "de_at": "Benachrichtigungen zu dieser Person sind stummgeschaltet.",
+      "de_ch": "Benachrichtigungen zu dieser Person sind stummgeschaltet."
+    },
+    "Optional, defaults from email": {
+      "de_de": "Optional. Standardmäßig wird deine E-Mail-Adresse verwendet.",
+      "de_at": "Optional. Standardmäßig wird deine E-Mail-Adresse verwendet.",
+      "de_ch": "Optional. Standardmässig wird deine E-Mail-Adresse verwendet."
+    },
+    "Paste URLs or leave them empty to import by provider, keyword, or category. Every video is saved with its own request.": {
+      "de_de": "Füge Videolinks ein oder lass das Feld leer, um nach Anbieter, Suchbegriff oder Kategorie zu importieren. Jedes Video wird einzeln gespeichert.",
+      "de_at": "Füge Videolinks ein oder lass das Feld leer, um nach Anbieter, Suchbegriff oder Kategorie zu importieren. Jedes Video wird einzeln gespeichert.",
+      "de_ch": "Füge Videolinks ein oder lass das Feld leer, um nach Anbieter, Suchbegriff oder Kategorie zu importieren. Jedes Video wird einzeln gespeichert."
+    },
+    "Search": {
+      "de_de": "Suchen",
+      "de_at": "Suchen",
+      "de_ch": "Suchen"
+    },
+    "Search admin dashboard": {
+      "de_de": "Adminübersicht durchsuchen",
+      "de_at": "Adminübersicht durchsuchen",
+      "de_ch": "Adminübersicht durchsuchen"
+    },
+    "Search community posts...": {
+      "de_de": "Communitybeiträge suchen …",
+      "de_at": "Communitybeiträge suchen …",
+      "de_ch": "Communitybeiträge suchen …"
+    },
+    "Search failed.": {
+      "de_de": "Die Suche ist fehlgeschlagen.",
+      "de_at": "Die Suche ist fehlgeschlagen.",
+      "de_ch": "Die Suche ist fehlgeschlagen."
+    },
+    "Search languages": {
+      "de_de": "Sprachen suchen",
+      "de_at": "Sprachen suchen",
+      "de_ch": "Sprachen suchen"
+    },
+    "Search languages...": {
+      "de_de": "Sprachen suchen …",
+      "de_at": "Sprachen suchen …",
+      "de_ch": "Sprachen suchen …"
+    },
+    "Search results": {
+      "de_de": "Suchergebnisse",
+      "de_at": "Suchergebnisse",
+      "de_ch": "Suchergebnisse"
+    },
+    "Search shorts...": {
+      "de_de": "Shorts suchen …",
+      "de_at": "Shorts suchen …",
+      "de_ch": "Shorts suchen …"
+    },
+    "Search your library...": {
+      "de_de": "Deine Bibliothek durchsuchen …",
+      "de_at": "Deine Bibliothek durchsuchen …",
+      "de_ch": "Deine Bibliothek durchsuchen …"
+    },
+    "Select one of your published videos": {
+      "de_de": "Wähle eines deiner veröffentlichten Videos",
+      "de_at": "Wähle eines deiner veröffentlichten Videos",
+      "de_ch": "Wähle eines deiner veröffentlichten Videos"
+    },
+    "Send the first message.": {
+      "de_de": "Schreib die erste Nachricht.",
+      "de_at": "Schreib die erste Nachricht.",
+      "de_ch": "Schreib die erste Nachricht."
+    },
+    "Show less": {
+      "de_de": "Weniger anzeigen",
+      "de_at": "Weniger anzeigen",
+      "de_ch": "Weniger anzeigen"
+    },
+    "Show unread messages": {
+      "de_de": "Ungelesene Nachrichten anzeigen",
+      "de_at": "Ungelesene Nachrichten anzeigen",
+      "de_ch": "Ungelesene Nachrichten anzeigen"
+    },
+    "SMS delivery is not configured. Configure SMS OTP settings in the admin dashboard or switch to email verification.": {
+      "de_de": "Der SMS-Versand ist noch nicht eingerichtet. Richte SMS-Einmalcodes in der Adminübersicht ein oder wechsle zur Bestätigung per E-Mail.",
+      "de_at": "Der SMS-Versand ist noch nicht eingerichtet. Richte SMS-Einmalcodes in der Adminübersicht ein oder wechsle zur Bestätigung per E-Mail.",
+      "de_ch": "Der SMS-Versand ist noch nicht eingerichtet. Richte SMS-Einmalcodes in der Adminübersicht ein oder wechsle zur Bestätigung per E-Mail."
+    },
+    "Sort community search": {
+      "de_de": "Community-Suchergebnisse sortieren",
+      "de_at": "Community-Suchergebnisse sortieren",
+      "de_ch": "Community-Suchergebnisse sortieren"
+    },
+    "There are no videos matching the current filters.": {
+      "de_de": "Keine Videos passen zu den aktuellen Filtern.",
+      "de_at": "Keine Videos passen zu den aktuellen Filtern.",
+      "de_ch": "Keine Videos passen zu den aktuellen Filtern."
+    },
+    "This library is private.": {
+      "de_de": "Diese Bibliothek ist privat.",
+      "de_at": "Diese Bibliothek ist privat.",
+      "de_ch": "Diese Bibliothek ist privat."
+    },
+    "Try another keyword or switch one of the content filters above.": {
+      "de_de": "Versuch einen anderen Suchbegriff oder ändere einen der Filter oben.",
+      "de_at": "Versuch einen anderen Suchbegriff oder ändere einen der Filter oben.",
+      "de_ch": "Versuch einen anderen Suchbegriff oder ändere einen der Filter oben."
+    },
+    "Unable to delete video.": {
+      "de_de": "Das Video konnte nicht gelöscht werden.",
+      "de_at": "Das Video konnte nicht gelöscht werden.",
+      "de_ch": "Das Video konnte nicht gelöscht werden."
+    },
+    "Unable to load community posts.": {
+      "de_de": "Die Communitybeiträge konnten nicht geladen werden.",
+      "de_at": "Die Communitybeiträge konnten nicht geladen werden.",
+      "de_ch": "Die Communitybeiträge konnten nicht geladen werden."
+    },
+    "Unable to load messages.": {
+      "de_de": "Die Nachrichten konnten nicht geladen werden.",
+      "de_at": "Die Nachrichten konnten nicht geladen werden.",
+      "de_ch": "Die Nachrichten konnten nicht geladen werden."
+    },
+    "Unable to open conversation.": {
+      "de_de": "Die Unterhaltung konnte nicht geöffnet werden.",
+      "de_at": "Die Unterhaltung konnte nicht geöffnet werden.",
+      "de_ch": "Die Unterhaltung konnte nicht geöffnet werden."
+    },
+    "Unable to publish post.": {
+      "de_de": "Dein Beitrag konnte nicht veröffentlicht werden.",
+      "de_at": "Dein Beitrag konnte nicht veröffentlicht werden.",
+      "de_ch": "Dein Beitrag konnte nicht veröffentlicht werden."
+    },
+    "Update avatar": {
+      "de_de": "Profilbild aktualisieren",
+      "de_at": "Profilbild aktualisieren",
+      "de_ch": "Profilbild aktualisieren"
+    },
+    "Update billing information": {
+      "de_de": "Rechnungsdaten aktualisieren",
+      "de_at": "Rechnungsdaten aktualisieren",
+      "de_ch": "Rechnungsdaten aktualisieren"
+    },
+    "Upload a thumbnail before continuing.": {
+      "de_de": "Lade ein Vorschaubild hoch, bevor du weitermachst.",
+      "de_at": "Lade ein Vorschaubild hoch, bevor du weitermachst.",
+      "de_ch": "Lade ein Vorschaubild hoch, bevor du weitermachst."
+    },
+    "Uploaded after": {
+      "de_de": "Hochgeladen nach",
+      "de_at": "Hochgeladen nach",
+      "de_ch": "Hochgeladen nach"
+    },
+    "Uploaded before": {
+      "de_de": "Hochgeladen vor",
+      "de_at": "Hochgeladen vor",
+      "de_ch": "Hochgeladen vor"
+    },
+    "View your public profile ↗": {
+      "de_de": "Dein öffentliches Profil ansehen ↗",
+      "de_at": "Dein öffentliches Profil ansehen ↗",
+      "de_ch": "Dein öffentliches Profil ansehen ↗"
+    },
+    "What’s this collection about?": {
+      "de_de": "Worum geht es in dieser Sammlung?",
+      "de_at": "Worum geht es in dieser Sammlung?",
+      "de_ch": "Worum geht es in dieser Sammlung?"
+    },
+    "Write your message...": {
+      "de_de": "Schreib deine Nachricht …",
+      "de_at": "Schreib deine Nachricht …",
+      "de_ch": "Schreib deine Nachricht …"
+    },
+    "You can only edit your own videos.": {
+      "de_de": "Du kannst nur deine eigenen Videos bearbeiten.",
+      "de_at": "Du kannst nur deine eigenen Videos bearbeiten.",
+      "de_ch": "Du kannst nur deine eigenen Videos bearbeiten."
+    },
+    "Your videos": {
+      "de_de": "Deine Videos",
+      "de_at": "Deine Videos",
+      "de_ch": "Deine Videos"
+    },
+    "Loading captcha...": {
+      "de_de": "Sicherheitsabfrage wird geladen …",
+      "de_at": "Sicherheitsabfrage wird geladen …",
+      "de_ch": "Sicherheitsabfrage wird geladen …"
+    },
+    "Enter your password": {
+      "de_de": "Gib dein Passwort ein",
+      "de_at": "Gib dein Passwort ein",
+      "de_ch": "Gib dein Passwort ein"
+    },
+    "No muted users.": {
+      "de_de": "Du hast niemanden stummgeschaltet.",
+      "de_at": "Du hast niemanden stummgeschaltet.",
+      "de_ch": "Du hast niemanden stummgeschaltet."
+    },
+    "No comment text.": {
+      "de_de": "Dieser Kommentar enthält keinen Text.",
+      "de_at": "Dieser Kommentar enthält keinen Text.",
+      "de_ch": "Dieser Kommentar enthält keinen Text."
+    },
+    "Unpin from profile": {
+      "de_de": "Anheftung im Profil lösen",
+      "de_at": "Anheftung im Profil lösen",
+      "de_ch": "Anheftung im Profil lösen"
+    },
+    "Search suggestions": {
+      "de_de": "Suchvorschläge",
+      "de_at": "Suchvorschläge",
+      "de_ch": "Suchvorschläge"
+    },
+    "Loading devices...": {
+      "de_de": "Geräte werden geladen …",
+      "de_at": "Geräte werden geladen …",
+      "de_ch": "Geräte werden geladen …"
+    },
+    "This device": {
+      "de_de": "Dieses Gerät",
+      "de_at": "Dieses Gerät",
+      "de_ch": "Dieses Gerät"
+    },
+    "About the creator": {
+      "de_de": "Über den Creator",
+      "de_at": "Über den Creator",
+      "de_ch": "Über den Creator"
+    },
+    "Loading live chat": {
+      "de_de": "Livechat wird geladen",
+      "de_at": "Livechat wird geladen",
+      "de_ch": "Livechat wird geladen"
+    },
+    "Create a live poll": {
+      "de_de": "Liveumfrage erstellen",
+      "de_at": "Liveumfrage erstellen",
+      "de_ch": "Liveumfrage erstellen"
+    },
+    "Unable to save gift": {
+      "de_de": "Geschenk konnte nicht gespeichert werden",
+      "de_at": "Geschenk konnte nicht gespeichert werden",
+      "de_ch": "Geschenk konnte nicht gespeichert werden"
+    },
+    "Loading gifts...": {
+      "de_de": "Geschenke werden geladen …",
+      "de_at": "Geschenke werden geladen …",
+      "de_ch": "Geschenke werden geladen …"
+    },
+    "No votes yet": {
+      "de_de": "Noch keine Stimmen",
+      "de_at": "Noch keine Stimmen",
+      "de_ch": "Noch keine Stimmen"
+    },
+    "Ban from chat": {
+      "de_de": "Aus dem Chat sperren",
+      "de_at": "Aus dem Chat sperren",
+      "de_ch": "Aus dem Chat sperren"
+    },
+    "Ban from stream": {
+      "de_de": "Aus dem Livestream sperren",
+      "de_at": "Aus dem Livestream sperren",
+      "de_ch": "Aus dem Livestream sperren"
+    },
+    "No users found.": {
+      "de_de": "Keine Konten gefunden.",
+      "de_at": "Keine Konten gefunden.",
+      "de_ch": "Keine Konten gefunden."
+    },
+    "Unable to load Ads": {
+      "de_de": "Werbung konnte nicht geladen werden",
+      "de_at": "Werbung konnte nicht geladen werden",
+      "de_ch": "Werbung konnte nicht geladen werden"
+    },
+    "Unable to save Ad": {
+      "de_de": "Anzeige konnte nicht gespeichert werden",
+      "de_at": "Anzeige konnte nicht gespeichert werden",
+      "de_ch": "Anzeige konnte nicht gespeichert werden"
+    },
+    "Unable to delete Ad": {
+      "de_de": "Anzeige konnte nicht gelöscht werden",
+      "de_at": "Anzeige konnte nicht gelöscht werden",
+      "de_ch": "Anzeige konnte nicht gelöscht werden"
+    },
+    "Create Ad": {
+      "de_de": "Anzeige erstellen",
+      "de_at": "Anzeige erstellen",
+      "de_ch": "Anzeige erstellen"
+    },
+    "Loading Ads...": {
+      "de_de": "Anzeigen werden geladen …",
+      "de_at": "Anzeigen werden geladen …",
+      "de_ch": "Anzeigen werden geladen …"
+    },
+    "Current": {
+      "de_de": "Aktuell",
+      "de_at": "Aktuell",
+      "de_ch": "Aktuell"
+    },
+    "● LIVE": {
+      "de_de": "● LIVE",
+      "de_at": "● LIVE",
+      "de_ch": "● LIVE"
+    },
+    "Billing information is not required for the current plan.": {
+      "de_de": "Für deinen aktuellen Tarif sind keine Rechnungsdaten erforderlich.",
+      "de_at": "Für deinen aktuellen Tarif sind keine Rechnungsdaten erforderlich.",
+      "de_ch": "Für deinen aktuellen Tarif sind keine Rechnungsdaten erforderlich."
+    },
+    "Browse all live streams happening right now across PlayHub.": {
+      "de_de": "Entdecke alle Livestreams, die gerade auf PlayHub laufen.",
+      "de_at": "Entdecke alle Livestreams, die gerade auf PlayHub laufen.",
+      "de_ch": "Entdecke alle Livestreams, die gerade auf PlayHub laufen."
+    },
+    "Current counts are available.": {
+      "de_de": "Die aktuellen Zahlen sind verfügbar.",
+      "de_at": "Die aktuellen Zahlen sind verfügbar.",
+      "de_ch": "Die aktuellen Zahlen sind verfügbar."
+    },
+    "Current page": {
+      "de_de": "Aktuelle Seite",
+      "de_at": "Aktuelle Seite",
+      "de_ch": "Aktuelle Seite"
+    },
+    "Current settings": {
+      "de_de": "Aktuelle Einstellungen",
+      "de_at": "Aktuelle Einstellungen",
+      "de_ch": "Aktuelle Einstellungen"
+    },
+    "Current video": {
+      "de_de": "Aktuelles Video",
+      "de_at": "Aktuelles Video",
+      "de_ch": "Aktuelles Video"
+    },
+    "Current videos": {
+      "de_de": "Aktuelle Videos",
+      "de_at": "Aktuelle Videos",
+      "de_ch": "Aktuelle Videos"
+    },
+    "Explore live, upcoming, and recently ended streams in one place.": {
+      "de_de": "Entdecke laufende, geplante und kürzlich beendete Livestreams an einem Ort.",
+      "de_at": "Entdecke laufende, geplante und kürzlich beendete Livestreams an einem Ort.",
+      "de_ch": "Entdecke laufende, geplante und kürzlich beendete Livestreams an einem Ort."
+    },
+    "Go live during peak hours to reach more viewers.": {
+      "de_de": "Streame zu Zeiten, in denen besonders viele Zuschauer online sind.",
+      "de_at": "Streame zu Zeiten, in denen besonders viele Zuschauer online sind.",
+      "de_ch": "Streame zu Zeiten, in denen besonders viele Zuschauer online sind."
+    },
+    "Go to admin dashboard": {
+      "de_de": "Zur Adminübersicht",
+      "de_at": "Zur Adminübersicht",
+      "de_ch": "Zur Adminübersicht"
+    },
+    "Live Channels": {
+      "de_de": "Livekanäle",
+      "de_at": "Livekanäle",
+      "de_ch": "Livekanäle"
+    },
+    "Live Chat": {
+      "de_de": "Livechat",
+      "de_at": "Livechat",
+      "de_ch": "Livechat"
+    },
+    "Live Engagement": {
+      "de_de": "Reaktionen im Livestream",
+      "de_at": "Reaktionen im Livestream",
+      "de_ch": "Reaktionen im Livestream"
+    },
+    "Live Reactions": {
+      "de_de": "Livereaktionen",
+      "de_at": "Livereaktionen",
+      "de_ch": "Livereaktionen"
+    },
+    "live replay": {
+      "de_de": "Livestream-Aufzeichnung",
+      "de_at": "Livestream-Aufzeichnung",
+      "de_ch": "Livestream-Aufzeichnung"
+    },
+    "Live Replay": {
+      "de_de": "Livestream-Aufzeichnung",
+      "de_at": "Livestream-Aufzeichnung",
+      "de_ch": "Livestream-Aufzeichnung"
+    },
+    "Live Schedule Today": {
+      "de_de": "Heutige Livestreams",
+      "de_at": "Heutige Livestreams",
+      "de_ch": "Heutige Livestreams"
+    },
+    "Live Stats": {
+      "de_de": "Livestream-Statistiken",
+      "de_at": "Livestream-Statistiken",
+      "de_ch": "Livestream-Statistiken"
+    },
+    "Live Stats Today": {
+      "de_de": "Heutige Livestream-Statistiken",
+      "de_at": "Heutige Livestream-Statistiken",
+      "de_ch": "Heutige Livestream-Statistiken"
+    },
+    "Live Streams": {
+      "de_de": "Livestreams",
+      "de_at": "Livestreams",
+      "de_ch": "Livestreams"
+    },
+    "Live This Week": {
+      "de_de": "Livestreams diese Woche",
+      "de_at": "Livestreams diese Woche",
+      "de_ch": "Livestreams diese Woche"
+    },
+    "Live Views (24h)": {
+      "de_de": "Livestream-Aufrufe (24 Std.)",
+      "de_at": "Livestream-Aufrufe (24 Std.)",
+      "de_ch": "Livestream-Aufrufe (24 Std.)"
+    },
+    "No payment history is available for the current plan.": {
+      "de_de": "Für deinen aktuellen Tarif gibt es keine Zahlungshistorie.",
+      "de_at": "Für deinen aktuellen Tarif gibt es keine Zahlungshistorie.",
+      "de_ch": "Für deinen aktuellen Tarif gibt es keine Zahlungshistorie."
+    },
+    "Past Live Replays": {
+      "de_de": "Vergangene Livestreams",
+      "de_at": "Vergangene Livestreams",
+      "de_ch": "Vergangene Livestreams"
+    },
+    "See scheduled streams and set reminders so you never miss a live event.": {
+      "de_de": "Sieh dir geplante Livestreams an und lass dich an deine Favoriten erinnern.",
+      "de_at": "Sieh dir geplante Livestreams an und lass dich an deine Favoriten erinnern.",
+      "de_ch": "Sieh dir geplante Livestreams an und lass dich an deine Favoriten erinnern."
+    },
+    "Show only live streams": {
+      "de_de": "Nur laufende Livestreams anzeigen",
+      "de_at": "Nur laufende Livestreams anzeigen",
+      "de_ch": "Nur laufende Livestreams anzeigen"
+    },
+    "Suggested Live Streams": {
+      "de_de": "Empfohlene Livestreams",
+      "de_at": "Empfohlene Livestreams",
+      "de_ch": "Empfohlene Livestreams"
+    },
+    "Trending Live Topics": {
+      "de_de": "Aktuelle Livestream-Themen",
+      "de_at": "Aktuelle Livestream-Themen",
+      "de_ch": "Aktuelle Livestream-Themen"
+    },
+    "Watch Live": {
+      "de_de": "Live ansehen",
+      "de_at": "Live ansehen",
+      "de_ch": "Live ansehen"
+    },
+    "Watch live streams happening now across PlayHub.": {
+      "de_de": "Schau dir an, was gerade auf PlayHub live läuft.",
+      "de_at": "Schau dir an, was gerade auf PlayHub live läuft.",
+      "de_ch": "Schau dir an, was gerade auf PlayHub live läuft."
+    }
+  }
+}

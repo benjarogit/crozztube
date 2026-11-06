@@ -1,0 +1,112 @@
+{
+  "context": "Complete named chapter-validation messages after source refactor, with stable chapter/count/time placeholders. Maximum counts and SI-second quantities avoid agreement errors at one; first timestamp0:00 and160-character limit retained. Additional legacy import hint uses the corrected English external-import meaning, without promising processing.",
+  "messages": {
+    "A video can have up to {count} chapters.": {
+      "fr": "Nombre maximum de chapitres par vidéo : {count}.",
+      "es": "Máximo de capítulos por video: {count}.",
+      "pt": "Número máximo de capítulos por vídeo: {count}.",
+      "pt_br": "Número máximo de capítulos por vídeo: {count}.",
+      "it": "Numero massimo di capitoli per video: {count}.",
+      "ca": "Nombre màxim de capítols per vídeo: {count}.",
+      "gl": "Número máximo de capítulos por vídeo: {count}.",
+      "eo": "Maksimuma nombro de ĉapitroj en filmeto: {count}.",
+      "es_es": "Máximo de capítulos por vídeo: {count}."
+    },
+    "Chapter {number} has an invalid timestamp.": {
+      "fr": "Le repère du chapitre {number} n’est pas valide.",
+      "es": "La marca de tiempo del capítulo {number} no es válida.",
+      "pt": "O tempo do capítulo {number} não é válido.",
+      "pt_br": "O tempo do capítulo {number} não é válido.",
+      "it": "Il tempo del capitolo {number} non è valido.",
+      "ca": "La marca de temps del capítol {number} no és vàlida.",
+      "gl": "A marca de tempo do capítulo {number} non é válida.",
+      "eo": "La tempomarko de ĉapitro {number} ne estas valida."
+    },
+    "The first chapter must start at 0:00.": {
+      "fr": "Le premier chapitre doit commencer à 0:00.",
+      "es": "El primer capítulo debe empezar en 0:00.",
+      "pt": "O primeiro capítulo deve começar em 0:00.",
+      "pt_br": "O primeiro capítulo deve começar em 0:00.",
+      "it": "Il primo capitolo deve iniziare a 0:00.",
+      "ca": "El primer capítol ha de començar a 0:00.",
+      "gl": "O primeiro capítulo debe comezar en 0:00.",
+      "eo": "La unua ĉapitro devas komenciĝi je 0:00."
+    },
+    "Chapter timestamps must be in order and at least {seconds} seconds apart.": {
+      "fr": "Les repères des chapitres doivent être croissants et séparés d’au moins {seconds} s.",
+      "es": "Las marcas de tiempo deben ir en orden creciente y estar separadas por al menos {seconds} s.",
+      "pt": "Os tempos dos capítulos devem estar por ordem crescente e separados por pelo menos {seconds} s.",
+      "pt_br": "Os tempos dos capítulos devem estar em ordem crescente e separados por pelo menos {seconds} s.",
+      "it": "I tempi dei capitoli devono essere in ordine crescente e distare almeno {seconds} s.",
+      "ca": "Les marques de temps han d’anar en ordre creixent i tenir una separació mínima de {seconds} s.",
+      "gl": "As marcas de tempo deben ir en orde crecente e estar separadas polo menos {seconds} s.",
+      "eo": "La tempomarkoj devas esti en kreskanta ordo kaj havi interspacon de almenaŭ {seconds} s."
+    },
+    "Chapter {number} starts after the video ends.": {
+      "fr": "Le chapitre {number} commence après la fin de la vidéo.",
+      "es": "El capítulo {number} empieza después del final del video.",
+      "pt": "O capítulo {number} começa depois do fim do vídeo.",
+      "pt_br": "O capítulo {number} começa depois do fim do vídeo.",
+      "it": "Il capitolo {number} inizia dopo la fine del video.",
+      "ca": "El capítol {number} comença després del final del vídeo.",
+      "gl": "O capítulo {number} comeza despois do final do vídeo.",
+      "eo": "Ĉapitro {number} komenciĝas post la fino de la filmeto.",
+      "es_es": "El capítulo {number} empieza después del final del vídeo."
+    },
+    "Add a name for chapter {number} or turn off Upload with chapters.": {
+      "fr": "Donne un nom au chapitre {number} ou désactive « Ajouter des chapitres ».",
+      "es": "Pon un nombre al capítulo {number} o desactiva «Añadir capítulos».",
+      "pt": "Dá um nome ao capítulo {number} ou desactiva «Adicionar capítulos».",
+      "pt_br": "Dê um nome ao capítulo {number} ou desative «Adicionar capítulos».",
+      "it": "Dai un nome al capitolo {number} oppure disattiva «Aggiungi capitoli».",
+      "ca": "Posa un nom al capítol {number} o desactiva «Afegeix capítols».",
+      "gl": "Ponlle un nome ao capítulo {number} ou desactiva «Engadir capítulos».",
+      "eo": "Nomu ĉapitron {number} aŭ malŝaltu «Aldoni ĉapitrojn».",
+      "pt_pt_ao90": "Dá um nome ao capítulo {number} ou desativa «Adicionar capítulos».",
+      "es_ar": "Poné un nombre al capítulo {number} o desactivá «Añadir capítulos».",
+      "es_uy": "Poné un nombre al capítulo {number} o desactivá «Añadir capítulos»."
+    },
+    "The name for chapter {number} must be 160 characters or fewer.": {
+      "fr": "Le nom du chapitre {number} ne doit pas dépasser 160 caractères.",
+      "es": "El nombre del capítulo {number} no puede superar los 160 caracteres.",
+      "pt": "O nome do capítulo {number} pode ter até 160 caracteres.",
+      "pt_br": "O nome do capítulo {number} pode ter até 160 caracteres.",
+      "it": "Il nome del capitolo {number} non può superare 160 caratteri.",
+      "ca": "El nom del capítol {number} no pot superar els 160 caràcters.",
+      "gl": "O nome do capítulo {number} non pode superar os 160 caracteres.",
+      "eo": "La nomo de ĉapitro {number} povas havi maksimume 160 signojn."
+    },
+    "Chapter {number} name": {
+      "fr": "Nom du chapitre {number}",
+      "es": "Nombre del capítulo {number}",
+      "pt": "Nome do capítulo {number}",
+      "pt_br": "Nome do capítulo {number}",
+      "it": "Nome del capitolo {number}",
+      "ca": "Nom del capítol {number}",
+      "gl": "Nome do capítulo {number}",
+      "eo": "Nomo de ĉapitro {number}"
+    },
+    "Add at least two chapters or turn off Upload with chapters.": {
+      "fr": "Ajoute au moins deux chapitres ou désactive « Ajouter des chapitres ».",
+      "es": "Añade al menos dos capítulos o desactiva «Añadir capítulos».",
+      "pt": "Adiciona pelo menos dois capítulos ou desactiva «Adicionar capítulos».",
+      "pt_br": "Adicione pelo menos dois capítulos ou desative «Adicionar capítulos».",
+      "it": "Aggiungi almeno due capitoli oppure disattiva «Aggiungi capitoli».",
+      "ca": "Afegeix com a mínim dos capítols o desactiva «Afegeix capítols».",
+      "gl": "Engade polo menos dous capítulos ou desactiva «Engadir capítulos».",
+      "eo": "Aldonu almenaŭ du ĉapitrojn aŭ malŝaltu «Aldoni ĉapitrojn».",
+      "pt_pt_ao90": "Adiciona pelo menos dois capítulos ou desativa «Adicionar capítulos»."
+    },
+    "Import a public video URL, customize its details, and publish it through the normal processing pipeline.": {
+      "fr": "Importe une vidéo publique, modifie ses détails et publie-la.",
+      "es": "Importa un video público, edita sus datos y publícalo.",
+      "pt": "Importa um vídeo público, edita os dados e publica-o.",
+      "pt_br": "Importe um vídeo público, edite os dados e publique.",
+      "it": "Importa un video pubblico, modifica i dettagli e pubblicalo.",
+      "ca": "Importa un vídeo públic, edita’n les dades i publica’l.",
+      "gl": "Importa un vídeo público, edita os datos e publícao.",
+      "eo": "Importu publikan filmeton, redaktu ĝiajn detalojn kaj publikigu ĝin.",
+      "es_es": "Importa un vídeo público, edita sus datos y publícalo."
+    }
+  }
+}

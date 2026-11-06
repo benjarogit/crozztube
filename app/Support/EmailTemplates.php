@@ -2,6 +2,7 @@
 
 namespace App\Support;
 
+use App\Services\LocalizationService;
 use InvalidArgumentException;
 
 class EmailTemplates
@@ -16,6 +17,7 @@ class EmailTemplates
             'languages' => self::languages(),
             'templates' => collect(self::definitions())->map(function (array $definition, string $key) use ($locale): array {
                 $resolved = self::resolve($key, $locale);
+                $defaults = self::localizedDefaults($definition, $locale);
 
                 return [
                     'key' => $key,
@@ -23,8 +25,8 @@ class EmailTemplates
                     'description' => $definition['description'],
                     'subject' => $resolved['subject'],
                     'body' => $resolved['body'],
-                    'default_subject' => $definition['subject'],
-                    'default_body' => $definition['body'],
+                    'default_subject' => $defaults['subject'],
+                    'default_body' => $defaults['body'],
                     'customized' => $resolved['source_locale'] === $locale,
                     'source_locale' => $resolved['source_locale'],
                     'placeholders' => collect($definition['placeholders'])->map(function (string $placeholder): array {
@@ -114,7 +116,27 @@ class EmailTemplates
             }
         }
 
-        return ['subject' => $definition['subject'], 'body' => $definition['body'], 'source_locale' => null];
+        return [...self::localizedDefaults($definition, $locale), 'source_locale' => null];
+    }
+
+    private static function localizedDefaults(array $definition, string $locale): array
+    {
+        $translations = (array) (app(LocalizationService::class)->pack($locale)['translations'] ?? []);
+        $defaults = [];
+        foreach (['subject', 'body'] as $field) {
+            $source = $definition[$field];
+            $translated = $translations[$source] ?? $source;
+            // A damaged catalog must never drop a verification code or URL.
+            $tokens = static function (string $value): array {
+                preg_match_all('/\{[A-Z_]+\}/', $value, $matches);
+                sort($matches[0]);
+
+                return $matches[0];
+            };
+            $defaults[$field] = is_string($translated) && trim($translated) !== '' && $tokens($source) === $tokens($translated) ? $translated : $source;
+        }
+
+        return $defaults;
     }
 
     private static function definition(string $key): array
@@ -213,7 +235,8 @@ class EmailTemplates
     private static function normalizeLocale(?string $locale, bool $strict = false): string
     {
         $installed = GeneralSettings::languageIdentifiers();
-        $locale = strtolower(str_replace('-', '_', trim((string) $locale)));
+        if ($strict && LanguageLocales::isAlias($locale)) throw new InvalidArgumentException('This address-style variant was merged. Choose its regional language.');
+        $locale = LanguageLocales::canonical($locale);
         if ($locale !== '' && in_array($locale, $installed, true)) return $locale;
         if ($strict) throw new InvalidArgumentException('Language not found.');
 

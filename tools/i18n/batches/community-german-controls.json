@@ -1,0 +1,605 @@
+{
+  "context": "Editorial pass: account security, channel statistics, moderation navigation and administrator user actions; checked source context for captions, reports, totals and test-user creation.",
+  "messages": {
+    "Public profile": {
+      "de": "Öffentliches Profil"
+    },
+    "Show subscriptions": {
+      "de": "Abonnements anzeigen"
+    },
+    "Default quality": {
+      "de": "Standardqualität"
+    },
+    "Captions": {
+      "de": "Untertitel"
+    },
+    "Update password": {
+      "de": "Passwort aktualisieren"
+    },
+    "Current password": {
+      "de": "Aktuelles Passwort"
+    },
+    "New password": {
+      "de": "Neues Passwort"
+    },
+    "Confirm new password": {
+      "de": "Neues Passwort bestätigen"
+    },
+    "Two-factor authentication": {
+      "de": "Zwei-Faktor-Authentifizierung"
+    },
+    "Email delivery": {
+      "de": "E-Mail-Zustellung"
+    },
+    "Phone delivery": {
+      "de": "Telefonzustellung"
+    },
+    "Enable two-factor": {
+      "de": "Zwei-Faktor-Authentifizierung aktivieren"
+    },
+    "Disable two-factor": {
+      "de": "Zwei-Faktor-Authentifizierung deaktivieren"
+    },
+    "Verification code": {
+      "de": "Bestätigungscode"
+    },
+    "Please fill all password fields.": {
+      "de": "Fülle alle Passwortfelder aus."
+    },
+    "New password and confirmation do not match.": {
+      "de": "Neues Passwort und Bestätigung stimmen nicht überein."
+    },
+    "Password must be at least 8 characters.": {
+      "de": "Das Passwort muss mindestens 8 Zeichen lang sein."
+    },
+    "Password updated successfully.": {
+      "de": "Passwort erfolgreich aktualisiert."
+    },
+    "Unable to update password.": {
+      "de": "Dein Passwort konnte nicht geändert werden."
+    },
+    "Enter a valid phone number to receive verification codes.": {
+      "de": "Gib eine gültige Telefonnummer ein, um Bestätigungscodes zu erhalten."
+    },
+    "Unable to start two-factor setup.": {
+      "de": "Die Einrichtung der Zwei-Faktor-Authentifizierung konnte nicht gestartet werden."
+    },
+    "Please enter a 6-digit verification code.": {
+      "de": "Gib den 6-stelligen Bestätigungscode ein."
+    },
+    "Two-factor authentication enabled.": {
+      "de": "Zwei-Faktor-Authentifizierung aktiviert."
+    },
+    "Unable to enable two-factor authentication.": {
+      "de": "Die Zwei-Faktor-Authentifizierung konnte nicht aktiviert werden."
+    },
+    "Two-factor authentication disabled.": {
+      "de": "Zwei-Faktor-Authentifizierung deaktiviert."
+    },
+    "Unable to disable two-factor authentication.": {
+      "de": "Die Zwei-Faktor-Authentifizierung konnte nicht deaktiviert werden."
+    },
+    "Changes discarded.": {
+      "de": "Änderungen verworfen."
+    },
+    "Channel URL copied to clipboard.": {
+      "de": "Kanal-URL in die Zwischenablage kopiert."
+    },
+    "Unable to copy the URL in this browser.": {
+      "de": "Die URL konnte in diesem Browser nicht kopiert werden."
+    },
+    "Unable to copy text to clipboard.": {
+      "de": "Der Text konnte nicht in die Zwischenablage kopiert werden."
+    },
+    "Settings saved successfully.": {
+      "de": "Einstellungen erfolgreich gespeichert."
+    },
+    "Unable to save settings.": {
+      "de": "Deine Einstellungen konnten nicht gespeichert werden."
+    },
+    "Free Plan": {
+      "de": "Kostenloser Tarif"
+    },
+    "Free": {
+      "de": "Kostenlos"
+    },
+    "No active renewal": {
+      "de": "Keine aktive Verlängerung"
+    },
+    "Not specified": {
+      "de": "Nicht angegeben"
+    },
+    "On": {
+      "de": "Ein"
+    },
+    "Off": {
+      "de": "Aus"
+    },
+    "Enabled": {
+      "de": "Aktiviert"
+    },
+    "Disabled": {
+      "de": "Deaktiviert"
+    },
+    "Optional": {
+      "de": "Optional"
+    },
+    "optional": {
+      "de": "optional"
+    },
+    "Go Live": {
+      "de": "Live gehen"
+    },
+    "Create Playlist": {
+      "de": "Playlist erstellen"
+    },
+    "Add Channel Trailer": {
+      "de": "Kanaltrailer hinzufügen"
+    },
+    "View Channel Page": {
+      "de": "Kanalseite anzeigen"
+    },
+    "Recent Content": {
+      "de": "Neueste Inhalte"
+    },
+    "View all videos": {
+      "de": "Alle Videos ansehen"
+    },
+    "Video": {
+      "de": "Video"
+    },
+    "Performance": {
+      "de": "Leistung"
+    },
+    "Status": {
+      "de": "Status"
+    },
+    "Date": {
+      "de": "Datum"
+    },
+    "Actions": {
+      "de": "Aktionen"
+    },
+    "No uploaded videos yet.": {
+      "de": "Noch keine hochgeladenen Videos."
+    },
+    "View all content": {
+      "de": "Alle Inhalte anzeigen"
+    },
+    "Top Performing Content": {
+      "de": "Erfolgreichste Inhalte"
+    },
+    "Monetization Snapshot": {
+      "de": "Monetarisierung im Überblick"
+    },
+    "Monetized videos": {
+      "de": "Monetarisierte Videos"
+    },
+    "Monetized": {
+      "de": "Monetarisiert"
+    },
+    "Public videos": {
+      "de": "Öffentliche Videos"
+    },
+    "Processing": {
+      "de": "Wird verarbeitet"
+    },
+    "View monetization": {
+      "de": "Monetarisierung anzeigen"
+    },
+    "Publishing Status": {
+      "de": "Veröffentlichungsstatus"
+    },
+    "Published": {
+      "de": "Veröffentlicht"
+    },
+    "Private or unlisted": {
+      "de": "Privat oder nicht gelistet"
+    },
+    "Quick Actions": {
+      "de": "Schnellzugriff"
+    },
+    "Channel Overview": {
+      "de": "Kanalübersicht"
+    },
+    "Views": {
+      "de": "Aufrufe"
+    },
+    "Likes": {
+      "de": "Gefällt mir"
+    },
+    "Subscribers": {
+      "de": "Abonnenten"
+    },
+    "Content Summary": {
+      "de": "Inhaltszusammenfassung"
+    },
+    "Bulk actions": {
+      "de": "Sammelaktionen"
+    },
+    "Delete": {
+      "de": "Löschen"
+    },
+    "Filter": {
+      "de": "Filtern"
+    },
+    "Sort: Newest": {
+      "de": "Sortieren: Neueste"
+    },
+    "Stay organized": {
+      "de": "Behalte den Überblick"
+    },
+    "Use playlists and series to keep your content easy to find and watch.": {
+      "de": "Ordne deine Inhalte in Playlists und Serien, damit sie leichter zu finden sind."
+    },
+    "Copy profile link": {
+      "de": "Profillink kopieren"
+    },
+    "Share profile": {
+      "de": "Profil teilen"
+    },
+    "Edit channel": {
+      "de": "Kanal bearbeiten"
+    },
+    "Manage content": {
+      "de": "Inhalte verwalten"
+    },
+    "Message": {
+      "de": "Nachricht"
+    },
+    "Share": {
+      "de": "Teilen"
+    },
+    "Profile link copied.": {
+      "de": "Profillink kopiert."
+    },
+    "Unable to copy profile link.": {
+      "de": "Der Profillink konnte nicht kopiert werden."
+    },
+    "Profile shared.": {
+      "de": "Profil geteilt."
+    },
+    "Share cancelled.": {
+      "de": "Teilen abgebrochen."
+    },
+    "Notifications muted for this profile.": {
+      "de": "Benachrichtigungen für dieses Profil stummgeschaltet."
+    },
+    "Notifications enabled for this profile.": {
+      "de": "Benachrichtigungen für dieses Profil aktiviert."
+    },
+    "Profile added to favorites.": {
+      "de": "Profil zu Favoriten hinzugefügt."
+    },
+    "Profile removed from favorites.": {
+      "de": "Profil aus Favoriten entfernt."
+    },
+    "Profile reported for review.": {
+      "de": "Profil zur Überprüfung gemeldet."
+    },
+    "User blocked. Their content and notifications are hidden.": {
+      "de": "Der Nutzer ist blockiert. Seine Inhalte und Benachrichtigungen werden ausgeblendet."
+    },
+    "User unblocked.": {
+      "de": "Blockierung aufgehoben."
+    },
+    "Unblock this user before sending a message.": {
+      "de": "Hebe die Blockierung dieses Nutzers auf, um eine Nachricht zu senden."
+    },
+    "Message composer opened.": {
+      "de": "Du kannst jetzt deine Nachricht schreiben."
+    },
+    "About": {
+      "de": "Über"
+    },
+    "Channel details": {
+      "de": "Kanaldetails"
+    },
+    "Stats": {
+      "de": "Statistiken"
+    },
+    "Totals": {
+      "de": "Gesamt"
+    },
+    "Tell viewers about your channel...": {
+      "de": "Erzähle den Zuschauern von deinem Kanal ..."
+    },
+    "Add an about section so viewers know what your channel is about.": {
+      "de": "Ergänze deine Kanalbeschreibung, damit Zuschauer wissen, was sie bei dir erwartet."
+    },
+    "This channel has not added an about section yet.": {
+      "de": "Für diesen Kanal gibt es noch keine Beschreibung."
+    },
+    "Admin": {
+      "de": "Admin"
+    },
+    "Dashboard": {
+      "de": "Übersicht"
+    },
+    "Users": {
+      "de": "Nutzer"
+    },
+    "Reports": {
+      "de": "Meldungen"
+    },
+    "Support": {
+      "de": "Support"
+    },
+    "Roles & Permissions": {
+      "de": "Rollen und Berechtigungen"
+    },
+    "System Settings": {
+      "de": "Systemeinstellungen"
+    },
+    "Monitor platform activity, moderation, revenue, and system health.": {
+      "de": "Behalte Plattformaktivität, Moderation, Einnahmen und Systemstatus im Blick."
+    },
+    "Manage and monitor platform users, permissions, and activity.": {
+      "de": "Verwalte Nutzer, Berechtigungen und Aktivitäten auf deiner Plattform."
+    },
+    "Manage creators, channel performance, verification, and creator growth.": {
+      "de": "Verwalte Creators, ihre Kanalstatistiken und Verifizierungen."
+    },
+    "Manage videos, shorts, posts, and content moderation across the platform.": {
+      "de": "Verwalte und moderiere Videos, Shorts und Beiträge auf deiner Plattform."
+    },
+    "Monitor live sessions, scheduling, stream health, and live moderation.": {
+      "de": "Behalte Livestreams, Termine, Streamstatus und Live-Moderation im Blick."
+    },
+    "Review flagged content, user complaints, and platform safety incidents.": {
+      "de": "Prüfe gemeldete Inhalte, Beschwerden und Sicherheitsvorfälle."
+    },
+    "Track revenue, payouts, subscriptions, ads, tips, and creator earnings.": {
+      "de": "Behalte Einnahmen, Auszahlungen, Abonnements, Werbung, Trinkgelder und Creator-Verdienste im Blick."
+    },
+    "Analyze platform growth, viewer behavior, engagement, and content performance.": {
+      "de": "Analysiere Plattformwachstum, Zuschauerverhalten, Interaktionen und die Leistung deiner Inhalte."
+    },
+    "Manage support tickets, help requests, escalations, and response quality.": {
+      "de": "Verwalte Supporttickets, Hilfsanfragen und Eskalationen und prüfe die Qualität der Antworten."
+    },
+    "Manage admin roles, access levels, team members, and security permissions.": {
+      "de": "Verwalte Adminrollen, Zugriffsrechte, Teammitglieder und Sicherheitsberechtigungen."
+    },
+    "Configure platform preferences, integrations, security, storage, and system behavior.": {
+      "de": "Konfiguriere Plattform, Integrationen, Sicherheit, Speicher und Systemverhalten."
+    },
+    "Loading admin data...": {
+      "de": "Verwaltungsdaten werden geladen …"
+    },
+    "Sign in with an admin account to view this page.": {
+      "de": "Melde dich mit einem Administratorkonto an, um diese Seite zu öffnen."
+    },
+    "Search users, videos, creators, reports...": {
+      "de": "Suche nach Nutzern, Videos, Creators und Meldungen …"
+    },
+    "Help center": {
+      "de": "Hilfecenter"
+    },
+    "View profile": {
+      "de": "Profil ansehen"
+    },
+    "Library": {
+      "de": "Mediathek"
+    },
+    "Watch later": {
+      "de": "Später ansehen"
+    },
+    "Manage devices": {
+      "de": "Geräte verwalten"
+    },
+    "Help Center": {
+      "de": "Hilfecenter"
+    },
+    "Send feedback": {
+      "de": "Feedback senden"
+    },
+    "Switch account": {
+      "de": "Konto wechseln"
+    },
+    "Sign out": {
+      "de": "Abmelden"
+    },
+    "Export Users": {
+      "de": "Nutzer exportieren"
+    },
+    "Generate Fake Users": {
+      "de": "Testnutzer erstellen"
+    },
+    "Invite User": {
+      "de": "Nutzer einladen"
+    },
+    "Export Report": {
+      "de": "Bericht exportieren"
+    },
+    "Export Roles": {
+      "de": "Rollen exportieren"
+    },
+    "Invite Admin": {
+      "de": "Admin einladen"
+    },
+    "Export Streams": {
+      "de": "Streams exportieren"
+    },
+    "Export Reports": {
+      "de": "Meldungen exportieren"
+    },
+    "Bulk Actions": {
+      "de": "Sammelaktionen"
+    },
+    "Payout Settings": {
+      "de": "Auszahlungseinstellungen"
+    },
+    "Export Creators": {
+      "de": "Creator exportieren"
+    },
+    "Invite Creator": {
+      "de": "Creator einladen"
+    },
+    "Export Content": {
+      "de": "Inhalte exportieren"
+    },
+    "Upload Content": {
+      "de": "Inhalte hochladen"
+    },
+    "Confirm action": {
+      "de": "Aktion bestätigen"
+    },
+    "Are you sure you want to continue?": {
+      "de": "Möchtest du fortfahren?"
+    },
+    "Confirm": {
+      "de": "Bestätigen"
+    },
+    "Notice": {
+      "de": "Hinweis"
+    },
+    "OK": {
+      "de": "Okay"
+    },
+    "Generate fake users": {
+      "de": "Testnutzer erstellen"
+    },
+    "Create test user profiles for moderation checks.": {
+      "de": "Erstelle Testprofile, um die Moderation zu prüfen."
+    },
+    "Generate users": {
+      "de": "Testnutzer erstellen"
+    },
+    "Generating...": {
+      "de": "Wird erstellt …"
+    },
+    "Preparing batch...": {
+      "de": "Erstellung wird vorbereitet …"
+    },
+    "Creating user records...": {
+      "de": "Nutzerkonten werden erstellt …"
+    },
+    "Generating profiles and avatars...": {
+      "de": "Profile und Profilbilder werden erstellt …"
+    },
+    "Finalizing batch...": {
+      "de": "Erstellung wird abgeschlossen …"
+    },
+    "How many users?": {
+      "de": "Wie viele Nutzer?"
+    },
+    "Default role": {
+      "de": "Standardrolle"
+    },
+    "Mark generated users as verified": {
+      "de": "Testnutzer als verifiziert markieren"
+    },
+    "Create channel profiles for generated users": {
+      "de": "Kanäle für Testnutzer erstellen"
+    },
+    "Generate random avatars": {
+      "de": "Zufällige Profilbilder erstellen"
+    },
+    "Invite user": {
+      "de": "Nutzer einladen"
+    },
+    "Create an account invite with a role assignment.": {
+      "de": "Erstelle eine Kontoeinladung mit einer zugewiesenen Rolle."
+    },
+    "Email addresses": {
+      "de": "E-Mail-Adressen"
+    },
+    "Edit user": {
+      "de": "Nutzer bearbeiten"
+    },
+    "Update account profile details for this user.": {
+      "de": "Bearbeite die Kontodaten dieses Nutzers."
+    },
+    "Change role": {
+      "de": "Rolle wechseln"
+    },
+    "Select a new access role for this user.": {
+      "de": "Wähle eine neue Zugriffsrolle für diesen Nutzer."
+    },
+    "Send email": {
+      "de": "E-Mail senden"
+    },
+    "Send an admin message to this user.": {
+      "de": "Sende diesem Nutzer eine Nachricht als Administrator."
+    },
+    "Subject": {
+      "de": "Betreff"
+    },
+    "Message from PlayHub": {
+      "de": "Nachricht von PlayHub"
+    },
+    "Download failed.": {
+      "de": "Der Download ist fehlgeschlagen."
+    },
+    "Unable to generate fake users.": {
+      "de": "Die Testnutzer konnten nicht erstellt werden."
+    },
+    "Fake users generated.": {
+      "de": "Testnutzer erstellt."
+    },
+    "Ban user": {
+      "de": "Nutzer sperren"
+    },
+    "Ban User": {
+      "de": "Nutzer sperren"
+    },
+    "Bulk suspend users": {
+      "de": "Mehrere Nutzer sperren"
+    },
+    "Bulk Suspend Users": {
+      "de": "Mehrere Nutzer sperren"
+    },
+    "Enter one or more user emails, separated by comma, space, or new line.": {
+      "de": "Gib eine oder mehrere E-Mail-Adressen ein, getrennt durch Kommas, Leerzeichen oder Zeilenumbrüche."
+    },
+    "Suspend users": {
+      "de": "Nutzer sperren"
+    },
+    "Verify users": {
+      "de": "Nutzer verifizieren"
+    },
+    "Verify Users": {
+      "de": "Nutzer verifizieren"
+    },
+    "Enter one or more user emails to mark as verified.": {
+      "de": "Gib die E-Mail-Adressen der Nutzer ein, die du als verifiziert markieren möchtest."
+    },
+    "Missing user id": {
+      "de": "Nutzer-ID fehlt"
+    },
+    "User id is missing from this row.": {
+      "de": "In dieser Zeile fehlt die Nutzer-ID."
+    },
+    "User activity": {
+      "de": "Nutzeraktivität"
+    },
+    "Suspend user": {
+      "de": "Nutzer sperren"
+    },
+    "Restore user": {
+      "de": "Nutzerkonto wiederherstellen"
+    },
+    "Delete user": {
+      "de": "Nutzer löschen"
+    },
+    "Delete selected users": {
+      "de": "Ausgewählte Nutzer löschen"
+    },
+    "Suspend selected users": {
+      "de": "Ausgewählte Nutzer sperren"
+    },
+    "No users selected": {
+      "de": "Keine Nutzer ausgewählt"
+    },
+    "Select at least one user before running a bulk action.": {
+      "de": "Wähle mindestens einen Nutzer aus, bevor du eine Sammelaktion ausführst."
+    },
+    "Verify selected": {
+      "de": "Ausgewählte verifizieren"
+    },
+    "Suspend selected": {
+      "de": "Ausgewählte sperren"
+    }
+  }
+}

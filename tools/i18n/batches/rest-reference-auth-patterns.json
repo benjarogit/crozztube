@@ -1,0 +1,17 @@
+{
+  "context": "Whole registration countdown and server-side password-strength validation with named placeholders. Current configured strength and literal timer survive localization without joining sentence fragments; old concrete English keys remain compatible.",
+  "messages": {
+    "Password strength must be at least {level}/10.": {
+      "en": "Password strength must be at least {level}/10.",
+      "de_de": "Dein Passwort muss mindestens die Stärke {level}/10 erreichen.",
+      "de_at": "Dein Passwort muss mindestens die Stärke {level}/10 erreichen.",
+      "de_ch": "Dein Passwort muss mindestens die Stärke {level}/10 erreichen."
+    },
+    "Code expires in {time}": {
+      "en": "Code expires in {time}",
+      "de_de": "Dein Code läuft in {time} ab",
+      "de_at": "Dein Code läuft in {time} ab",
+      "de_ch": "Dein Code läuft in {time} ab"
+    }
+  }
+}

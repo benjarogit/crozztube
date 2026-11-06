@@ -1,0 +1,269 @@
+{
+  "context": "Editorial full URL-import interaction: automatic platform detection, loading, subtitle/transcript availability, chapter review and empty states; original language and transcript labels. Arabic, Turkish, Indonesian, Malay, Japanese, Korean and three Chinese scripts/regions.",
+  "messages": {
+    "Import Video": {
+      "ar": "استيراد فيديو",
+      "tr_tr": "Video içe aktar",
+      "id_id": "Impor video",
+      "ms_my": "Import video",
+      "ja": "動画を取り込む",
+      "ko_kr": "동영상 가져오기",
+      "zh_cn": "导入视频",
+      "zh_tw": "匯入影片",
+      "zh_hk": "匯入影片"
+    },
+    "Import video from URL": {
+      "ar": "استيراد فيديو من رابط",
+      "tr_tr": "Bağlantıdan video içe aktar",
+      "id_id": "Impor video dari tautan",
+      "ms_my": "Import video daripada pautan",
+      "ja": "リンクから動画を取り込む",
+      "ko_kr": "링크로 동영상 가져오기",
+      "zh_cn": "通过链接导入视频",
+      "zh_tw": "透過連結匯入影片",
+      "zh_hk": "透過連結匯入影片"
+    },
+    "Paste a public video URL to detect its provider and fetch the details automatically.": {
+      "ar": "ألصق رابط فيديو عامًا لنتعرّف على المنصة ونجلب التفاصيل تلقائيًا.",
+      "tr_tr": "Herkese açık bir video bağlantısı yapıştır. Platformu tanıyıp bilgileri otomatik alalım.",
+      "id_id": "Tempel tautan video publik. Platformnya akan dikenali dan detailnya diambil secara otomatis.",
+      "ms_my": "Tampal pautan video awam. Platform akan dikenal pasti dan butirannya diambil secara automatik.",
+      "ja": "公開されている動画のリンクを貼ってね。配信元を見つけて、動画の情報を自動で読み込むよ。",
+      "ko_kr": "공개 동영상 링크를 붙여 넣어 주세요. 플랫폼을 확인하고 정보를 자동으로 가져올게요.",
+      "zh_cn": "粘贴公开视频链接，我们会自动识别平台并获取视频信息。",
+      "zh_tw": "貼上公開影片的連結，我們會自動辨識平台並取得影片資訊。",
+      "zh_hk": "貼上公開影片的連結，我們會自動識別平台並取得影片資料。"
+    },
+    "Service": {
+      "ar": "المنصة",
+      "tr_tr": "Platform",
+      "id_id": "Platform",
+      "ms_my": "Platform",
+      "ja": "プラットフォーム",
+      "ko_kr": "플랫폼",
+      "zh_cn": "平台",
+      "zh_tw": "平台",
+      "zh_hk": "平台"
+    },
+    "Provider": {
+      "ar": "المنصة",
+      "tr_tr": "Platform",
+      "id_id": "Penyedia",
+      "ms_my": "Penyedia",
+      "ja": "配信元",
+      "ko_kr": "플랫폼",
+      "zh_cn": "平台",
+      "zh_tw": "平台",
+      "zh_hk": "平台"
+    },
+    "Automatic detection": {
+      "ar": "التعرّف التلقائي",
+      "tr_tr": "Otomatik algılama",
+      "id_id": "Deteksi otomatis",
+      "ms_my": "Pengesanan automatik",
+      "ja": "自動で判別",
+      "ko_kr": "자동 감지",
+      "zh_cn": "自动识别",
+      "zh_tw": "自動辨識",
+      "zh_hk": "自動識別"
+    },
+    "Video URL": {
+      "ar": "رابط الفيديو",
+      "tr_tr": "Video bağlantısı",
+      "id_id": "Tautan video",
+      "ms_my": "Pautan video",
+      "ja": "動画のリンク",
+      "ko_kr": "동영상 링크",
+      "zh_cn": "视频链接",
+      "zh_tw": "影片連結",
+      "zh_hk": "影片連結"
+    },
+    "Fetch details": {
+      "ar": "جلب التفاصيل",
+      "tr_tr": "Bilgileri al",
+      "id_id": "Ambil detail",
+      "ms_my": "Ambil butiran",
+      "ja": "情報を読み込む",
+      "ko_kr": "정보 가져오기",
+      "zh_cn": "获取信息",
+      "zh_tw": "取得資訊",
+      "zh_hk": "取得資料"
+    },
+    "Fetching...": {
+      "ar": "جارٍ جلب التفاصيل…",
+      "tr_tr": "Bilgiler alınıyor…",
+      "id_id": "Mengambil detail…",
+      "ms_my": "Mengambil butiran…",
+      "ja": "情報を読み込み中…",
+      "ko_kr": "정보를 가져오는 중…",
+      "zh_cn": "正在获取信息…",
+      "zh_tw": "正在取得資訊…",
+      "zh_hk": "正在取得資料…"
+    },
+    "Provider detected automatically": {
+      "ar": "تم التعرّف على المنصة تلقائيًا",
+      "tr_tr": "Platform otomatik algılandı",
+      "id_id": "Platform dikenali otomatis",
+      "ms_my": "Platform dikenal pasti secara automatik",
+      "ja": "配信元を自動で判別しました",
+      "ko_kr": "플랫폼을 자동으로 감지했어요",
+      "zh_cn": "已自动识别平台",
+      "zh_tw": "已自動辨識平台",
+      "zh_hk": "已自動識別平台"
+    },
+    "Selected provider": {
+      "ar": "المنصة المختارة",
+      "tr_tr": "Seçilen platform",
+      "id_id": "Platform yang dipilih",
+      "ms_my": "Platform dipilih",
+      "ja": "選択した配信元",
+      "ko_kr": "선택한 플랫폼",
+      "zh_cn": "已选择的平台",
+      "zh_tw": "選擇的平台",
+      "zh_hk": "選擇的平台"
+    },
+    "Subtitles": {
+      "ar": "الترجمات النصية",
+      "tr_tr": "Altyazılar",
+      "id_id": "Subtitel",
+      "ms_my": "Sari kata",
+      "ja": "字幕",
+      "ko_kr": "자막",
+      "zh_cn": "字幕",
+      "zh_tw": "字幕",
+      "zh_hk": "字幕"
+    },
+    "Chapters": {
+      "ar": "الفصول",
+      "tr_tr": "Bölümler",
+      "id_id": "Bab",
+      "ms_my": "Bab",
+      "ja": "チャプター",
+      "ko_kr": "챕터",
+      "zh_cn": "章节",
+      "zh_tw": "章節",
+      "zh_hk": "章節"
+    },
+    "Subtitle languages found: {count}": {
+      "ar": "لغات الترجمة التي عثرنا عليها: {count}",
+      "tr_tr": "Bulunan altyazı dili: {count}",
+      "id_id": "Bahasa subtitel ditemukan: {count}",
+      "ms_my": "Bahasa sari kata ditemui: {count}",
+      "ja": "見つかった字幕の言語数：{count}",
+      "ko_kr": "찾은 자막 언어: {count}개",
+      "zh_cn": "找到的字幕语言：{count}",
+      "zh_tw": "找到的字幕語言：{count}",
+      "zh_hk": "找到的字幕語言：{count}"
+    },
+    "Chapters found: {count}": {
+      "ar": "الفصول التي عثرنا عليها: {count}",
+      "tr_tr": "Bulunan bölüm: {count}",
+      "id_id": "Bab ditemukan: {count}",
+      "ms_my": "Bab ditemui: {count}",
+      "ja": "見つかったチャプター：{count}",
+      "ko_kr": "찾은 챕터: {count}개",
+      "zh_cn": "找到的章节：{count}",
+      "zh_tw": "找到的章節：{count}",
+      "zh_hk": "找到的章節：{count}"
+    },
+    "None found": {
+      "ar": "لم نعثر على شيء",
+      "tr_tr": "Bulunamadı",
+      "id_id": "Tidak ditemukan",
+      "ms_my": "Tiada yang ditemui",
+      "ja": "見つかりませんでした",
+      "ko_kr": "찾지 못했어요",
+      "zh_cn": "未找到",
+      "zh_tw": "未找到",
+      "zh_hk": "未找到"
+    },
+    "Available subtitles and a transcript will be imported.": {
+      "ar": "سنستورد الترجمات المتاحة ونص الفيديو.",
+      "tr_tr": "Mevcut altyazılar ve video metni içe aktarılacak.",
+      "id_id": "Subtitel yang tersedia dan transkrip akan diimpor.",
+      "ms_my": "Sari kata yang tersedia dan transkrip akan diimport.",
+      "ja": "利用できる字幕と文字起こしを取り込むよ。",
+      "ko_kr": "사용 가능한 자막과 대본을 가져올게요.",
+      "zh_cn": "会导入可用的字幕和文字稿。",
+      "zh_tw": "會匯入可用的字幕和逐字稿。",
+      "zh_hk": "會匯入可用的字幕和文字稿。"
+    },
+    "No available subtitle tracks found.": {
+      "ar": "لم نعثر على مسارات ترجمة متاحة.",
+      "tr_tr": "Kullanılabilir altyazı bulunamadı.",
+      "id_id": "Tidak ada trek subtitel yang tersedia.",
+      "ms_my": "Tiada trek sari kata tersedia yang ditemui.",
+      "ja": "利用できる字幕は見つかりませんでした。",
+      "ko_kr": "사용 가능한 자막 트랙을 찾지 못했어요.",
+      "zh_cn": "没有找到可用的字幕轨道。",
+      "zh_tw": "沒有找到可用的字幕軌。",
+      "zh_hk": "沒有找到可用的字幕軌。"
+    },
+    "Review or disable them before publishing.": {
+      "ar": "راجع الفصول قبل النشر. يمكنك إيقاف استخدامها أيضًا.",
+      "tr_tr": "Yayınlamadan önce bölümleri kontrol et. İstersen kullanımlarını kapatabilirsin.",
+      "id_id": "Periksa bab sebelum dipublikasikan. Kamu juga bisa menonaktifkannya.",
+      "ms_my": "Semak bab sebelum diterbitkan. Kamu juga boleh mematikannya.",
+      "ja": "公開する前にチャプターを確認してね。使わない設定にもできるよ。",
+      "ko_kr": "게시하기 전에 챕터를 확인해 주세요. 사용하지 않도록 끌 수도 있어요.",
+      "zh_cn": "发布前先检查章节，也可以选择不使用它们。",
+      "zh_tw": "發布前先檢查章節，也可以選擇不使用。",
+      "zh_hk": "發布前先檢查章節，也可以選擇不使用。"
+    },
+    "You can add chapters manually in Review.": {
+      "ar": "يمكنك إضافة الفصول يدويًا في خطوة المراجعة.",
+      "tr_tr": "Kontrol adımında bölümleri elle ekleyebilirsin.",
+      "id_id": "Kamu bisa menambahkan bab sendiri pada langkah Periksa.",
+      "ms_my": "Kamu boleh menambah bab sendiri pada langkah Semak.",
+      "ja": "「確認」のステップでチャプターを手動で追加できるよ。",
+      "ko_kr": "확인 단계에서 챕터를 직접 추가할 수 있어요.",
+      "zh_cn": "你可以在检查步骤手动添加章节。",
+      "zh_tw": "你可以在檢查步驟手動加入章節。",
+      "zh_hk": "你可以在檢查步驟手動加入章節。"
+    },
+    "Imports video details, available subtitles and chapters from YouTube.": {
+      "ar": "يستورد تفاصيل الفيديو والترجمات والفصول المتاحة من YouTube.",
+      "tr_tr": "YouTube’dan video bilgilerini, mevcut altyazıları ve bölümleri içe aktarır.",
+      "id_id": "Mengimpor detail video, subtitel yang tersedia, dan bab dari YouTube.",
+      "ms_my": "Mengimport butiran video, sari kata yang tersedia dan bab daripada YouTube.",
+      "ja": "YouTubeから動画の情報、利用できる字幕、チャプターを取り込むよ。",
+      "ko_kr": "YouTube에서 동영상 정보, 사용 가능한 자막과 챕터를 가져와요.",
+      "zh_cn": "从 YouTube 导入视频信息、可用字幕和章节。",
+      "zh_tw": "從 YouTube 匯入影片資訊、可用字幕和章節。",
+      "zh_hk": "從 YouTube 匯入影片資料、可用字幕和章節。"
+    },
+    "Automatic (original language)": {
+      "ar": "تلقائي (اللغة الأصلية)",
+      "tr_tr": "Otomatik (özgün dil)",
+      "id_id": "Otomatis (bahasa asli)",
+      "ms_my": "Automatik (bahasa asal)",
+      "ja": "自動（元の言語）",
+      "ko_kr": "자동 (원래 언어)",
+      "zh_cn": "自动（原始语言）",
+      "zh_tw": "自動（原始語言）",
+      "zh_hk": "自動（原始語言）"
+    },
+    "Transcript": {
+      "ar": "نص الفيديو",
+      "tr_tr": "Video metni",
+      "id_id": "Transkrip",
+      "ms_my": "Transkrip",
+      "ja": "文字起こし",
+      "ko_kr": "대본",
+      "zh_cn": "文字稿",
+      "zh_tw": "逐字稿",
+      "zh_hk": "文字稿"
+    },
+    "Review": {
+      "ar": "مراجعة",
+      "tr_tr": "Kontrol et",
+      "id_id": "Periksa",
+      "ms_my": "Semak",
+      "ja": "確認",
+      "ko_kr": "확인",
+      "zh_cn": "检查",
+      "zh_tw": "檢查",
+      "zh_hk": "檢查"
+    }
+  }
+}

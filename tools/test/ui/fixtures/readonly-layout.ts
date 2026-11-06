@@ -60,6 +60,7 @@ export type LayoutOptions = {
   dark?: boolean;
   language?: string;
   touch?: boolean;
+  userAgent?: string;
   transform?: PayloadTransform;
 };
 
@@ -79,6 +80,7 @@ export async function layoutSession(browser: Browser, options: LayoutOptions = {
   const origin = new URL(base).origin;
   const context = await browser.newContext({
     baseURL: base, ignoreHTTPSErrors: true,
+    ...(options.userAgent ? { userAgent: options.userAgent } : {}),
     viewport: { width: options.width || 1440, height: options.height || 900 },
     reducedMotion: 'reduce', colorScheme: options.dark ? 'dark' : 'light',
     locale: language === 'de' ? 'de-DE' : 'en-US',
@@ -123,7 +125,7 @@ export async function layoutSession(browser: Browser, options: LayoutOptions = {
     await route.continue();
   });
   const page = await context.newPage();
-  page.on('pageerror', error => errors.push(error.message));
+  page.on('pageerror', error => errors.push(error.stack || error.message));
   const goto = async (path: string) => {
     await page.goto(path, { waitUntil: 'domcontentloaded' });
     await page.waitForLoadState('networkidle');

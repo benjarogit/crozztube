@@ -1,0 +1,22 @@
+{
+  "context": "Membership checkout buttons: complete translated monthly-price message, named literal price placeholder, language-appropriate word order; payment behavior unchanged.",
+  "messages": {
+    "Subscribe for {price} per month": {
+      "en": "Subscribe for {price} per month",
+      "de": "Für {price} im Monat abonnieren",
+      "fr": "S’abonner pour {price} par mois",
+      "nl": "Abonneren voor {price} per maand",
+      "es": "Suscríbete por {price} al mes",
+      "pt": "Subscreve por {price} por mês",
+      "pt_br": "Assine por {price} por mês",
+      "it": "Abbonati per {price} al mese",
+      "ru": "Подписаться за {price} в месяц",
+      "cs": "Předplatit za {price} měsíčně",
+      "zh_cn": "每月 {price} 订阅",
+      "zh_tw": "每月 {price} 訂閱",
+      "zh_hk": "每月 {price} 訂閱",
+      "ja": "月額{price}で登録",
+      "ko": "월 {price}에 구독하기"
+    }
+  }
+}

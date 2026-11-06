@@ -1,0 +1,424 @@
+{
+  "context": "Complete literal vocabulary passed to installed Vidstack default video layouts, with German/Austrian/Swiss full labels, captions accessibility announcements and font/shadow options. Previously uncatalogued controls and untranslated Play/Mute/Unmute/None are corrected. AirPlay/Google Cast remain brands; provider text and track/chapter names are protected separately.",
+  "messages": {
+    "Announcements": {
+      "en": "Announcements",
+      "de_de": "Ansagen",
+      "de_at": "Ansagen",
+      "de_ch": "Ansagen"
+    },
+    "Accessibility": {
+      "en": "Accessibility",
+      "de_de": "Barrierefreiheit",
+      "de_at": "Barrierefreiheit",
+      "de_ch": "Barrierefreiheit"
+    },
+    "AirPlay": {
+      "en": "AirPlay",
+      "de_de": "AirPlay",
+      "de_at": "AirPlay",
+      "de_ch": "AirPlay"
+    },
+    "Audio": {
+      "en": "Audio",
+      "de_de": "Audio",
+      "de_at": "Audio",
+      "de_ch": "Audio"
+    },
+    "Auto": {
+      "en": "Auto",
+      "de_de": "Automatisch",
+      "de_at": "Automatisch",
+      "de_ch": "Automatisch"
+    },
+    "Boost": {
+      "en": "Boost",
+      "de_de": "Verstärkung",
+      "de_at": "Verstärkung",
+      "de_ch": "Verstärkung"
+    },
+    "Captions": {
+      "en": "Captions",
+      "de_de": "Untertitel",
+      "de_at": "Untertitel",
+      "de_ch": "Untertitel"
+    },
+    "Caption Styles": {
+      "en": "Caption Styles",
+      "de_de": "Untertitelgestaltung",
+      "de_at": "Untertitelgestaltung",
+      "de_ch": "Untertitelgestaltung"
+    },
+    "Captions look like this": {
+      "en": "Captions look like this",
+      "de_de": "So sehen deine Untertitel aus",
+      "de_at": "So sehen deine Untertitel aus",
+      "de_ch": "So sehen deine Untertitel aus"
+    },
+    "Chapters": {
+      "en": "Chapters",
+      "de_de": "Kapitel",
+      "de_at": "Kapitel",
+      "de_ch": "Kapitel"
+    },
+    "Closed-Captions Off": {
+      "en": "Closed-Captions Off",
+      "de_de": "Untertitel aus",
+      "de_at": "Untertitel aus",
+      "de_ch": "Untertitel aus"
+    },
+    "Closed-Captions On": {
+      "en": "Closed-Captions On",
+      "de_de": "Untertitel an",
+      "de_at": "Untertitel an",
+      "de_ch": "Untertitel an"
+    },
+    "Connected": {
+      "en": "Connected",
+      "de_de": "Verbunden",
+      "de_at": "Verbunden",
+      "de_ch": "Verbunden"
+    },
+    "Continue": {
+      "en": "Continue",
+      "de_de": "Weiter",
+      "de_at": "Weiter",
+      "de_ch": "Weiter"
+    },
+    "Connecting": {
+      "en": "Connecting",
+      "de_de": "Verbindung wird hergestellt",
+      "de_at": "Verbindung wird hergestellt",
+      "de_ch": "Verbindung wird hergestellt"
+    },
+    "Default": {
+      "en": "Default",
+      "de_de": "Standard",
+      "de_at": "Standard",
+      "de_ch": "Standard"
+    },
+    "Disabled": {
+      "en": "Disabled",
+      "de_de": "Deaktiviert",
+      "de_at": "Deaktiviert",
+      "de_ch": "Deaktiviert"
+    },
+    "Disconnected": {
+      "en": "Disconnected",
+      "de_de": "Nicht verbunden",
+      "de_at": "Nicht verbunden",
+      "de_ch": "Nicht verbunden"
+    },
+    "Display Background": {
+      "en": "Display Background",
+      "de_de": "Hintergrundfläche",
+      "de_at": "Hintergrundfläche",
+      "de_ch": "Hintergrundfläche"
+    },
+    "Download": {
+      "en": "Download",
+      "de_de": "Herunterladen",
+      "de_at": "Herunterladen",
+      "de_ch": "Herunterladen"
+    },
+    "Enter Fullscreen": {
+      "en": "Enter Fullscreen",
+      "de_de": "Vollbild einschalten",
+      "de_at": "Vollbild einschalten",
+      "de_ch": "Vollbild einschalten"
+    },
+    "Enter PiP": {
+      "en": "Enter PiP",
+      "de_de": "Bild im Bild starten",
+      "de_at": "Bild im Bild starten",
+      "de_ch": "Bild im Bild starten"
+    },
+    "Exit Fullscreen": {
+      "en": "Exit Fullscreen",
+      "de_de": "Vollbild verlassen",
+      "de_at": "Vollbild verlassen",
+      "de_ch": "Vollbild verlassen"
+    },
+    "Exit PiP": {
+      "en": "Exit PiP",
+      "de_de": "Bild im Bild beenden",
+      "de_at": "Bild im Bild beenden",
+      "de_ch": "Bild im Bild beenden"
+    },
+    "Font": {
+      "en": "Font",
+      "de_de": "Schrift",
+      "de_at": "Schrift",
+      "de_ch": "Schrift"
+    },
+    "Family": {
+      "en": "Family",
+      "de_de": "Schriftfamilie",
+      "de_at": "Schriftfamilie",
+      "de_ch": "Schriftfamilie"
+    },
+    "Fullscreen": {
+      "en": "Fullscreen",
+      "de_de": "Vollbild",
+      "de_at": "Vollbild",
+      "de_ch": "Vollbild"
+    },
+    "Google Cast": {
+      "en": "Google Cast",
+      "de_de": "Google Cast",
+      "de_at": "Google Cast",
+      "de_ch": "Google Cast"
+    },
+    "Keyboard Animations": {
+      "en": "Keyboard Animations",
+      "de_de": "Tastaturanimationen",
+      "de_at": "Tastaturanimationen",
+      "de_ch": "Tastaturanimationen"
+    },
+    "LIVE": {
+      "en": "LIVE",
+      "de_de": "LIVE",
+      "de_at": "LIVE",
+      "de_ch": "LIVE"
+    },
+    "Loop": {
+      "en": "Loop",
+      "de_de": "Wiederholen",
+      "de_at": "Wiederholen",
+      "de_ch": "Wiederholen"
+    },
+    "Mute": {
+      "en": "Mute",
+      "de_de": "Stummschalten",
+      "de_at": "Stummschalten",
+      "de_ch": "Stummschalten"
+    },
+    "Normal": {
+      "en": "Normal",
+      "de_de": "Normal",
+      "de_at": "Normal",
+      "de_ch": "Normal"
+    },
+    "Off": {
+      "en": "Off",
+      "de_de": "Aus",
+      "de_at": "Aus",
+      "de_ch": "Aus"
+    },
+    "Pause": {
+      "en": "Pause",
+      "de_de": "Pause",
+      "de_at": "Pause",
+      "de_ch": "Pause"
+    },
+    "Play": {
+      "en": "Play",
+      "de_de": "Abspielen",
+      "de_at": "Abspielen",
+      "de_ch": "Abspielen"
+    },
+    "Playback": {
+      "en": "Playback",
+      "de_de": "Wiedergabe",
+      "de_at": "Wiedergabe",
+      "de_ch": "Wiedergabe"
+    },
+    "PiP": {
+      "en": "PiP",
+      "de_de": "Bild im Bild",
+      "de_at": "Bild im Bild",
+      "de_ch": "Bild im Bild"
+    },
+    "Quality": {
+      "en": "Quality",
+      "de_de": "Qualität",
+      "de_at": "Qualität",
+      "de_ch": "Qualität"
+    },
+    "Replay": {
+      "en": "Replay",
+      "de_de": "Wiederholung",
+      "de_at": "Wiederholung",
+      "de_ch": "Wiederholung"
+    },
+    "Reset": {
+      "en": "Reset",
+      "de_de": "Zurücksetzen",
+      "de_at": "Zurücksetzen",
+      "de_ch": "Zurücksetzen"
+    },
+    "Seek Backward": {
+      "en": "Seek Backward",
+      "de_de": "Zurückspulen",
+      "de_at": "Zurückspulen",
+      "de_ch": "Zurückspulen"
+    },
+    "Seek Forward": {
+      "en": "Seek Forward",
+      "de_de": "Vorspulen",
+      "de_at": "Vorspulen",
+      "de_ch": "Vorspulen"
+    },
+    "Seek": {
+      "en": "Seek",
+      "de_de": "Wiedergabeposition",
+      "de_at": "Wiedergabeposition",
+      "de_ch": "Wiedergabeposition"
+    },
+    "Settings": {
+      "en": "Settings",
+      "de_de": "Einstellungen",
+      "de_at": "Einstellungen",
+      "de_ch": "Einstellungen"
+    },
+    "Skip To Live": {
+      "en": "Skip To Live",
+      "de_de": "Zum Livestream springen",
+      "de_at": "Zum Livestream springen",
+      "de_ch": "Zum Livestream springen"
+    },
+    "Speed": {
+      "en": "Speed",
+      "de_de": "Geschwindigkeit",
+      "de_at": "Geschwindigkeit",
+      "de_ch": "Geschwindigkeit"
+    },
+    "Size": {
+      "en": "Size",
+      "de_de": "Größe",
+      "de_at": "Größe",
+      "de_ch": "Grösse"
+    },
+    "Color": {
+      "en": "Color",
+      "de_de": "Farbe",
+      "de_at": "Farbe",
+      "de_ch": "Farbe",
+      "en_au": "Colour",
+      "en_gb": "Colour",
+      "en_nz": "Colour",
+      "en_za": "Colour",
+      "en_ca": "Colour"
+    },
+    "Opacity": {
+      "en": "Opacity",
+      "de_de": "Deckkraft",
+      "de_at": "Deckkraft",
+      "de_ch": "Deckkraft"
+    },
+    "Shadow": {
+      "en": "Shadow",
+      "de_de": "Schatten",
+      "de_at": "Schatten",
+      "de_ch": "Schatten"
+    },
+    "Text": {
+      "en": "Text",
+      "de_de": "Text",
+      "de_at": "Text",
+      "de_ch": "Text"
+    },
+    "Text Background": {
+      "en": "Text Background",
+      "de_de": "Texthintergrund",
+      "de_at": "Texthintergrund",
+      "de_ch": "Texthintergrund"
+    },
+    "Track": {
+      "en": "Track",
+      "de_de": "Spur",
+      "de_at": "Spur",
+      "de_ch": "Spur"
+    },
+    "Unmute": {
+      "en": "Unmute",
+      "de_de": "Ton einschalten",
+      "de_at": "Ton einschalten",
+      "de_ch": "Ton einschalten"
+    },
+    "Volume": {
+      "en": "Volume",
+      "de_de": "Lautstärke",
+      "de_at": "Lautstärke",
+      "de_ch": "Lautstärke"
+    },
+    "Monospaced Serif": {
+      "en": "Monospaced Serif",
+      "de_de": "Serifenschrift mit fester Breite",
+      "de_at": "Serifenschrift mit fester Breite",
+      "de_ch": "Serifenschrift mit fester Breite"
+    },
+    "Proportional Serif": {
+      "en": "Proportional Serif",
+      "de_de": "Proportionale Serifenschrift",
+      "de_at": "Proportionale Serifenschrift",
+      "de_ch": "Proportionale Serifenschrift"
+    },
+    "Monospaced Sans-Serif": {
+      "en": "Monospaced Sans-Serif",
+      "de_de": "Serifenlose Schrift mit fester Breite",
+      "de_at": "Serifenlose Schrift mit fester Breite",
+      "de_ch": "Serifenlose Schrift mit fester Breite"
+    },
+    "Proportional Sans-Serif": {
+      "en": "Proportional Sans-Serif",
+      "de_de": "Proportionale serifenlose Schrift",
+      "de_at": "Proportionale serifenlose Schrift",
+      "de_ch": "Proportionale serifenlose Schrift"
+    },
+    "Casual": {
+      "en": "Casual",
+      "de_de": "Handschrift",
+      "de_at": "Handschrift",
+      "de_ch": "Handschrift"
+    },
+    "Cursive": {
+      "en": "Cursive",
+      "de_de": "Schreibschrift",
+      "de_at": "Schreibschrift",
+      "de_ch": "Schreibschrift"
+    },
+    "Small Capitals": {
+      "en": "Small Capitals",
+      "de_de": "Kapitälchen",
+      "de_at": "Kapitälchen",
+      "de_ch": "Kapitälchen"
+    },
+    "None": {
+      "en": "None",
+      "de_de": "Keine",
+      "de_at": "Keine",
+      "de_ch": "Keine"
+    },
+    "Drop Shadow": {
+      "en": "Drop Shadow",
+      "de_de": "Schlagschatten",
+      "de_at": "Schlagschatten",
+      "de_ch": "Schlagschatten"
+    },
+    "Raised": {
+      "en": "Raised",
+      "de_de": "Erhaben",
+      "de_at": "Erhaben",
+      "de_ch": "Erhaben"
+    },
+    "Depressed": {
+      "en": "Depressed",
+      "de_de": "Vertieft",
+      "de_at": "Vertieft",
+      "de_ch": "Vertieft"
+    },
+    "Outline": {
+      "en": "Outline",
+      "de_de": "Kontur",
+      "de_at": "Kontur",
+      "de_ch": "Kontur"
+    },
+    "Audio Boost": {
+      "en": "Audio Boost",
+      "de_de": "Lautstärke verstärken",
+      "de_at": "Lautstärke verstärken",
+      "de_ch": "Lautstärke verstärken"
+    }
+  }
+}

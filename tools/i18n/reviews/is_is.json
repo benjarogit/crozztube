@@ -1,0 +1,1532 @@
+{
+  "version": 1,
+  "locale": "is_is",
+  "messages": {
+    "0116e51968c832c491eae96e91771961fb2caa591bb4baffc3617aa0e79a2750": {
+      "source_hash": "bb4c4d4c15fc959504789370e02c67d45e8f2e7ea72ad7312ef0b52755b46932",
+      "translation_hash": "f96e5101173adde1aead499a4b7f9299b6554a10c689b35451164a2d30615504",
+      "status": "verified",
+      "contexts": [
+        "Whole named action labels in actual comment/post mentions and manual chapter editor. Mention display text and user names remain unchanged. Named placeholders preserve unknown names and tags; labels are personal imperatives or natural infinitives, with regional scripts retained. No native confidence asserted for Gaelic/Silesian phrases withheld from this batch.",
+        "Creator Studio comments: pinned/unpinned menu, reply/copy/mute/report/delete labels at390px; original author/body/mention/tag retained, complete localized mention-action titles; menus only, no action mutations or runtime errors"
+      ],
+      "reviewed_at": "2026-11-06T11:09:00+00:00",
+      "verified_at": "2026-11-06T11:18:05.455Z"
+    },
+    "01edbac4bdaccf9dbf3d47506375e20dd48c6ee23f2881768a46f9b84f98c154": {
+      "source_hash": "01edbac4bdaccf9dbf3d47506375e20dd48c6ee23f2881768a46f9b84f98c154",
+      "translation_hash": "38c953c4e85eed9ea26dba377459076b87c1166ad28e49616d7793d3bb61ba72",
+      "status": "editorial",
+      "contexts": [
+        "Seven complete context-specific creator support messages, explicitly separating playlist advice from monetary contributions. Amount-based tip/live support dialogs retain arbitrary names/titles as named tokens and Super Chat as the feature name. Support-success confirms the actual sent contribution, not advice or a future payment promise. No native full-message confidence claimed for Gaelic/Silesian."
+      ],
+      "reviewed_at": "2026-11-06T11:26:18+00:00"
+    },
+    "03aadc02f04e549bd8ec783b3c723c75065ff056cc8df50338a694ac8ae6f30f": {
+      "source_hash": "1117d91d177ee722bfbf16944628faae0f3793d249e10f5366eec471afdf7ee7",
+      "translation_hash": "00fd24d462377e26ebd85f379f6c81ddff564ef87a0da6f3af9307e439c6a80c",
+      "status": "verified",
+      "contexts": [
+        "Complete relative-age and standalone duration phrases for eight locales unavailable to browser RelativeTimeFormat. Cases are separate: Icelandic fyrir+dative versus standalone duration; native Nynorsk/Frysian/Basque/Macedonian/Albanian morphology. Welsh and Gaelic category mutations were checked against Unicode CLDR native field and long/short duration data; no inheritance markers copied and named count retained. Decimal/category behavior requires actual browser checking; unsupported number formatting stays literal, never borrows another language. Welsh two-minute mutation is retained in both duration and relative age, independently supported by native Welsh council copy; no silent reliance on inherited CLDR other form.",
+        "Actual browser localization of eight complete duration and relative-age messages,0/1/2/3/6/11/12/21/1.5, including Icelandic dative versus standalone case and Welsh/Gaelic mutation anchor cases; 390px, no runtime errors or application writes"
+      ],
+      "reviewed_at": "2026-11-06T11:15:56+00:00",
+      "verified_at": "2026-11-06T11:17:19.494Z"
+    },
+    "0606d0e8977e7005f2142a85ce689aec42a867a50eefaf25fc5f1691f960eae7": {
+      "source_hash": "0606d0e8977e7005f2142a85ce689aec42a867a50eefaf25fc5f1691f960eae7",
+      "translation_hash": "d5237b19b597c3413940af9b54b416d59c676d8950ef559244babf838e4622f7",
+      "status": "verified",
+      "contexts": [
+        "Complete optional video transcript panel labels, loading, actual failed HTTP request and accessibility text. The transcript body is provider/author content and stays untouched, including words that match interface keys. Existing retry button supplies retry action; no request failure causes invented.",
+        "Actual optional watch transcript panel at390px: summary, held loading request,503 failure, explicit retry and unchanged provider transcript body/accessible label; no overflow/runtime errors/application writes"
+      ],
+      "reviewed_at": "2026-11-06T11:20:31+00:00",
+      "verified_at": "2026-11-06T11:36:44.017Z"
+    },
+    "0669fc7da6e219887ad6453d264d02e36b60c259bf39d47fe157a0507a681c0f": {
+      "source_hash": "1ab7ad9e2cea6bda9119572637bdf712f9e223fa599fd27cc5fc1409e5b6960a",
+      "translation_hash": "6073fa15fc6ec9cf943042ee6822e11741291d57ca589fccaf7f8581cd69b107",
+      "status": "verified",
+      "contexts": [
+        "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented.",
+        "Actual browser localization of eight complete quantity messages, 0/1/2/3/5/11/21/101/1.5, including CLDR dual/few/many/zero and native anchor cases where applicable; 390px, no runtime errors or application writes"
+      ],
+      "reviewed_at": "2026-11-06T10:35:35+00:00",
+      "verified_at": "2026-11-06T10:48:44.853Z"
+    },
+    "06a9c7831045c250f88d026206a49bc5c0771ad1a1804a45417f3fa483ca1d11": {
+      "source_hash": "06a9c7831045c250f88d026206a49bc5c0771ad1a1804a45417f3fa483ca1d11",
+      "translation_hash": "dc252d983fcc7150075d917b6b6e0056ac29a4fb1f22f664dac92fc8e8fd0147",
+      "status": "editorial",
+      "contexts": [
+        "Seven complete context-specific creator support messages, explicitly separating playlist advice from monetary contributions. Amount-based tip/live support dialogs retain arbitrary names/titles as named tokens and Super Chat as the feature name. Support-success confirms the actual sent contribution, not advice or a future payment promise. No native full-message confidence claimed for Gaelic/Silesian."
+      ],
+      "reviewed_at": "2026-11-06T11:26:18+00:00"
+    },
+    "084158cdbcaeb326bbd2069ae7549527054a9baabc8d3d0874793052055d3c22": {
+      "source_hash": "6d2ecc6831d7433e031cb311047a382c46a1f8a678bce56e9ff62f9fff9e1e37",
+      "translation_hash": "e4fdb86bde15ba8b902b2e9664fd231983d6b020952c4f83436a8f5ff66fdc42",
+      "status": "editorial",
+      "contexts": [
+        "Complete password-strength validation, verification-code countdown and four actual ASCII character-class hints. Named level/time preserved. A–Z/a–z/0–9 remain explicit in every script; accented/non-Latin letters are never falsely promised to satisfy these classes. Personal singular, including Frisian/Welsh/Balkan prompts. No policy or strength algorithm changes."
+      ],
+      "reviewed_at": "2026-11-06T11:33:11+00:00"
+    },
+    "0dcce2f150b6b33d71ad3ccbc3dbffc0c3b81d19f29b18d55935cea0f083d9e7": {
+      "source_hash": "31c05b7a82b2206256d6ce4e748f91ed1912de9a449e903fceb7b6935345d0d8",
+      "translation_hash": "54ec364634807ded63d3c179f4296b9211991f2e83f8cd0b8444e456fae95487",
+      "status": "verified",
+      "contexts": [
+        "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented.",
+        "Actual browser localization of eight complete quantity messages, 0/1/2/3/5/11/21/101/1.5, including CLDR dual/few/many/zero and native anchor cases where applicable; 390px, no runtime errors or application writes"
+      ],
+      "reviewed_at": "2026-11-06T10:35:35+00:00",
+      "verified_at": "2026-11-06T10:48:44.853Z"
+    },
+    "0fb51d778aa1abff81b66e02b32307251a2970ad648294dd8474311989c86981": {
+      "source_hash": "0fb51d778aa1abff81b66e02b32307251a2970ad648294dd8474311989c86981",
+      "translation_hash": "3d3986fcbec44fec24ad68a64e39e79ccb2daa2293988cf0127e1c5c0b51e3b3",
+      "status": "editorial",
+      "contexts": [
+        "Owner-approved 60-second strictly portrait Shorts policy. Complete current messages and historical180/square-compatible keys all express60seconds/portrait; automatic classification and empty state mention import without inventing encoding. Gaelic only confidently reviewed short constraints; no invented full auto/empty statement, Silesian withheld for native review."
+      ],
+      "reviewed_at": "2026-11-06T10:50:57+00:00"
+    },
+    "114ec33fd67903ada6f5d40f91a61b47e0ef0e3748e822ecc382a1d58bf3815e": {
+      "source_hash": "3c5b5984a434aed0875b90f4d16795c2df13ed6caba1f0005ffec45dc8291c97",
+      "translation_hash": "2a0d7de69861e11e8a4322b5bd72741388b6153738915c7d750b0293e7d628d6",
+      "status": "editorial",
+      "contexts": [
+        "Complete password-strength validation, verification-code countdown and four actual ASCII character-class hints. Named level/time preserved. A–Z/a–z/0–9 remain explicit in every script; accented/non-Latin letters are never falsely promised to satisfy these classes. Personal singular, including Frisian/Welsh/Balkan prompts. No policy or strength algorithm changes."
+      ],
+      "reviewed_at": "2026-11-06T11:33:11+00:00"
+    },
+    "11aff7118d1f9c995a62c9f4b35e3525bef5a8c7d69ad5b57c769d1069efd7d3": {
+      "source_hash": "ac8d359f54c06bdbec9c59ad3222ee8e8e081142d8e325365081fc73894b8255",
+      "translation_hash": "0b4c77d330d954642c6065e86b75b122a57346f2381f98c3ce07998fa4d9b705",
+      "status": "verified",
+      "contexts": [
+        "Complete relative-age and standalone duration phrases for eight locales unavailable to browser RelativeTimeFormat. Cases are separate: Icelandic fyrir+dative versus standalone duration; native Nynorsk/Frysian/Basque/Macedonian/Albanian morphology. Welsh and Gaelic category mutations were checked against Unicode CLDR native field and long/short duration data; no inheritance markers copied and named count retained. Decimal/category behavior requires actual browser checking; unsupported number formatting stays literal, never borrows another language. Welsh two-minute mutation is retained in both duration and relative age, independently supported by native Welsh council copy; no silent reliance on inherited CLDR other form.",
+        "Actual browser localization of eight complete duration and relative-age messages,0/1/2/3/6/11/12/21/1.5, including Icelandic dative versus standalone case and Welsh/Gaelic mutation anchor cases; 390px, no runtime errors or application writes"
+      ],
+      "reviewed_at": "2026-11-06T11:15:56+00:00",
+      "verified_at": "2026-11-06T11:17:19.494Z"
+    },
+    "11daac00337505cb78d21495a692f541a3bad70014920cea16a3b3efc343c78a": {
+      "source_hash": "11daac00337505cb78d21495a692f541a3bad70014920cea16a3b3efc343c78a",
+      "translation_hash": "3b27a583abaf6cdc53b522b7e01ec1349945344f42d4347b21bec5c85f2bbe31",
+      "status": "editorial",
+      "contexts": [
+        "Complete chapter editor/validation messages with named placeholders: maximum count, first0:00 for manual chapters, invalid/ordered/gapped timestamps, must start before video end, names and160-character limit. Checkbox name aligned with quoted recovery action; personal singular imperative, provider/user chapter names never translated. SI seconds avoid false cardinal inflection at1s versus10s. Silesian/Gaelic/Basque long validation not guessed."
+      ],
+      "reviewed_at": "2026-11-06T11:19:21+00:00"
+    },
+    "12935cabfe2bf71c4f7038873698b5cb1edb43224436d2882c987a36103c8819": {
+      "source_hash": "12935cabfe2bf71c4f7038873698b5cb1edb43224436d2882c987a36103c8819",
+      "translation_hash": "9edd64b731ba46f890a0be003ac03cd696a98ca4f5976947179ea4a03cfc5aa3",
+      "status": "editorial",
+      "contexts": [
+        "Complete chapter editor/validation messages with named placeholders: maximum count, first0:00 for manual chapters, invalid/ordered/gapped timestamps, must start before video end, names and160-character limit. Checkbox name aligned with quoted recovery action; personal singular imperative, provider/user chapter names never translated. SI seconds avoid false cardinal inflection at1s versus10s. Silesian/Gaelic/Basque long validation not guessed."
+      ],
+      "reviewed_at": "2026-11-06T11:19:21+00:00"
+    },
+    "13704e3fdca663303ac379226ae385149ca610e9b3758df9513906a21cd17efc": {
+      "source_hash": "409829cedde089551cbdb27b59e9859092f059bf598a4fe4230b9159933e811e",
+      "translation_hash": "63a20fbacaac556ce7ab7c86739a6b0549d81131d467a24a62673f0d4628ab09",
+      "status": "editorial",
+      "contexts": [
+        "Complete relative-age and standalone duration phrases for eight locales unavailable to browser RelativeTimeFormat. Cases are separate: Icelandic fyrir+dative versus standalone duration; native Nynorsk/Frysian/Basque/Macedonian/Albanian morphology. Welsh and Gaelic category mutations were checked against Unicode CLDR native field and long/short duration data; no inheritance markers copied and named count retained. Decimal/category behavior requires actual browser checking; unsupported number formatting stays literal, never borrows another language. Welsh two-minute mutation is retained in both duration and relative age, independently supported by native Welsh council copy; no silent reliance on inherited CLDR other form."
+      ],
+      "reviewed_at": "2026-11-06T11:15:56+00:00"
+    },
+    "14f9ba573b664556864eec66a75f606fca4cfc6bc703f11d1db5f56a18180abd": {
+      "source_hash": "42c316f6f693f840629d7fc9dea8b9fcd37bf864df3600d3a02d0046c8f7cf7c",
+      "translation_hash": "2689b89d8709066b808fbd5e728f54555c9be9d5f100cd9d99d73cc83cb9733b",
+      "status": "verified",
+      "contexts": [
+        "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented.",
+        "Actual browser localization of eight complete quantity messages, 0/1/2/3/5/11/21/101/1.5, including CLDR dual/few/many/zero and native anchor cases where applicable; 390px, no runtime errors or application writes"
+      ],
+      "reviewed_at": "2026-11-06T10:35:35+00:00",
+      "verified_at": "2026-11-06T10:48:44.853Z"
+    },
+    "15157c4a577711cd0f5512ec00afa608f443952425eff8709bb219ed9aeddb69": {
+      "source_hash": "15157c4a577711cd0f5512ec00afa608f443952425eff8709bb219ed9aeddb69",
+      "translation_hash": "c527be78b8a54bfa1c310fefb1ab14b99a3a3dc372eac9538c0771e3f1715c20",
+      "status": "editorial",
+      "contexts": [
+        "Owner-approved 60-second strictly portrait Shorts policy. Complete current messages and historical180/square-compatible keys all express60seconds/portrait; automatic classification and empty state mention import without inventing encoding. Gaelic only confidently reviewed short constraints; no invented full auto/empty statement, Silesian withheld for native review."
+      ],
+      "reviewed_at": "2026-11-06T10:50:57+00:00"
+    },
+    "1595e6c2c25e9f5943c408d939a082ad75274658fc09e95e69ef94d4d1b6316e": {
+      "source_hash": "37841075cf3a8e25119f751b2db44f7c494d8a381e40804760281753824f6a76",
+      "translation_hash": "9c5d238c456dc579897518de8745f21f31e813e2fc20c40f36d46863f0fc1da9",
+      "status": "editorial",
+      "contexts": [
+        "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented."
+      ],
+      "reviewed_at": "2026-11-06T10:35:35+00:00"
+    },
+    "1774a6c8d96868445c495770c294aa3c432ba4f917de2179d51ef00b381ffcbe": {
+      "source_hash": "1774a6c8d96868445c495770c294aa3c432ba4f917de2179d51ef00b381ffcbe",
+      "translation_hash": "671eb9894e85f104cf702e641be5a2a700b3c1a49e91e7e3c026ad40a2275524",
+      "status": "verified",
+      "contexts": [
+        "Whole named action labels in actual comment/post mentions and manual chapter editor. Mention display text and user names remain unchanged. Named placeholders preserve unknown names and tags; labels are personal imperatives or natural infinitives, with regional scripts retained. No native confidence asserted for Gaelic/Silesian phrases withheld from this batch.",
+        "Actual manual chapter editor at390px: complete checkbox/name labels, missing names1/2,10s minimum gap, invalid time and chapter at exact video end; correct import-success confirmation after a stubbed submit; original title and chapter names retained; no overflow/runtime errors/application writes"
+      ],
+      "reviewed_at": "2026-11-06T11:09:00+00:00",
+      "verified_at": "2026-11-06T11:22:49.730Z"
+    },
+    "17f3109b74b35f29274deb3a1a9189c6f7e56139882eb2cd51ea55da06b3571e": {
+      "source_hash": "9719bbf6d0a23fa44f964aa7e8c20ab27c8ccba00727a2cd9fd90ae2ffb9bfd0",
+      "translation_hash": "55bf1f94aab583733a5d74c0446fbd5b23ae444cea5747d78d6c138cbee8f1e1",
+      "status": "editorial",
+      "contexts": [
+        "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented."
+      ],
+      "reviewed_at": "2026-11-06T10:35:35+00:00"
+    },
+    "185bccf6a0bad8cc7e716511b9f2c9f5c301a12b70d296c4bd302803486218af": {
+      "source_hash": "e1f0d3ceb1b69ac4967e3f8d52814f18f83823e7ad6394b2849e81604a14e794",
+      "translation_hash": "5d8ea7e5a668774f68cdc78ea4fc56e35f56c71648e7b3cc4bdefb567ddbec75",
+      "status": "editorial",
+      "contexts": [
+        "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented."
+      ],
+      "reviewed_at": "2026-11-06T10:35:35+00:00"
+    },
+    "198176f49d4ec699321821bd970d473d13ca97d996815de7b9d60dd2d009216c": {
+      "source_hash": "ab95d4f48374bfc675eea310670103c4037ffe95fd94e9b319a4c536a4e1baeb",
+      "translation_hash": "8409609566d69ff5def615c7b3508891411eab6dd1cee668eb90fa84c49e7a9f",
+      "status": "editorial",
+      "contexts": [
+        "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented."
+      ],
+      "reviewed_at": "2026-11-06T10:35:35+00:00"
+    },
+    "1a19c29cec8fdaf816b850a292e48211b135cd395469343dfb9230c08ec71659": {
+      "source_hash": "1a19c29cec8fdaf816b850a292e48211b135cd395469343dfb9230c08ec71659",
+      "translation_hash": "4a0a5a02a754910234a1673e8d61a90d23f2b105e00095f07bf732dc4f33e34c",
+      "status": "verified",
+      "contexts": [
+        "Complete chapter editor/validation messages with named placeholders: maximum count, first0:00 for manual chapters, invalid/ordered/gapped timestamps, must start before video end, names and160-character limit. Checkbox name aligned with quoted recovery action; personal singular imperative, provider/user chapter names never translated. SI seconds avoid false cardinal inflection at1s versus10s. Silesian/Gaelic/Basque long validation not guessed.",
+        "Actual manual chapter editor at390px: complete checkbox/name labels, missing names1/2,10s minimum gap, invalid time and chapter at exact video end; correct import-success confirmation after a stubbed submit; original title and chapter names retained; no overflow/runtime errors/application writes"
+      ],
+      "reviewed_at": "2026-11-06T11:19:21+00:00",
+      "verified_at": "2026-11-06T11:22:49.730Z"
+    },
+    "1a3f529835c965b4e77b47f4da956dc8719ab5fe301c217266c1b6e30cf292b6": {
+      "source_hash": "22e836eee49e94a57ac8fa4adcf7d6bff1c17f9d892f0d71cf914477e46e2e26",
+      "translation_hash": "4bd58ea6a5e9cdb21ba374cf0cf9bcddbabe8af5c481447d160b8b8c07403be2",
+      "status": "verified",
+      "contexts": [
+        "Complete relative-age and standalone duration phrases for eight locales unavailable to browser RelativeTimeFormat. Cases are separate: Icelandic fyrir+dative versus standalone duration; native Nynorsk/Frysian/Basque/Macedonian/Albanian morphology. Welsh and Gaelic category mutations were checked against Unicode CLDR native field and long/short duration data; no inheritance markers copied and named count retained. Decimal/category behavior requires actual browser checking; unsupported number formatting stays literal, never borrows another language. Welsh two-minute mutation is retained in both duration and relative age, independently supported by native Welsh council copy; no silent reliance on inherited CLDR other form.",
+        "Actual browser localization of eight complete duration and relative-age messages,0/1/2/3/6/11/12/21/1.5, including Icelandic dative versus standalone case and Welsh/Gaelic mutation anchor cases; 390px, no runtime errors or application writes"
+      ],
+      "reviewed_at": "2026-11-06T11:15:56+00:00",
+      "verified_at": "2026-11-06T11:17:19.494Z"
+    },
+    "1b6edb00ffd7010ed8102926c71b565c3f43da048cf6409fcf6a5463296ba843": {
+      "source_hash": "1b6edb00ffd7010ed8102926c71b565c3f43da048cf6409fcf6a5463296ba843",
+      "translation_hash": "40d32e66aee1e15a63338fcd139841ccc33f8d5115b44c0c07c12c1e5955da9e",
+      "status": "editorial",
+      "contexts": [
+        "Owner-approved 60-second strictly portrait Shorts policy. Complete current messages and historical180/square-compatible keys all express60seconds/portrait; automatic classification and empty state mention import without inventing encoding. Gaelic only confidently reviewed short constraints; no invented full auto/empty statement, Silesian withheld for native review."
+      ],
+      "reviewed_at": "2026-11-06T10:50:57+00:00"
+    },
+    "1bb2e6e6ee648113c7f33859f600b00f73b4952ce6f68d00ee59b6cff4876a5e": {
+      "source_hash": "29c34e6125c7ee1479b24b1259ed403512440a832083de13d397c5170fcbbb62",
+      "translation_hash": "4e6894988c4495f6af699132083f56b3ebb78920f7718391792cda897657036a",
+      "status": "editorial",
+      "contexts": [
+        "Import completion state aligned with corrected English reference and actual external playback: confirms import only, never claims a new encoding/processing job was started. Personal singular wording and regional scripts retained."
+      ],
+      "reviewed_at": "2026-11-06T10:56:26+00:00"
+    },
+    "1cb138c71afa157a1efac7c171233c376b96459bbd123848e749be26d8029b8b": {
+      "source_hash": "9818a2333bd54a7eaec0d8a9685b6c39a91f7ce253242973650329293ccb235d",
+      "translation_hash": "36a15bb0309381adf7aaf7868643b36cc2ebd388f6da23db91f9c4295dc7a293",
+      "status": "editorial",
+      "contexts": [
+        "Complete relative-age and standalone duration phrases for eight locales unavailable to browser RelativeTimeFormat. Cases are separate: Icelandic fyrir+dative versus standalone duration; native Nynorsk/Frysian/Basque/Macedonian/Albanian morphology. Welsh and Gaelic category mutations were checked against Unicode CLDR native field and long/short duration data; no inheritance markers copied and named count retained. Decimal/category behavior requires actual browser checking; unsupported number formatting stays literal, never borrows another language. Welsh two-minute mutation is retained in both duration and relative age, independently supported by native Welsh council copy; no silent reliance on inherited CLDR other form."
+      ],
+      "reviewed_at": "2026-11-06T11:15:56+00:00"
+    },
+    "1ce7059bf86f0fa75b06a9dd1745026097a0ec7bacc9bbcd4ed814b074a57641": {
+      "source_hash": "1146328e1047850e44f7173d660d2c931a4e7d887215656ddc17eff692036498",
+      "translation_hash": "4ffbcbacf968c2d421556fafa9b84fa609c42f8dbfde3ea3d633669d04026f7d",
+      "status": "verified",
+      "contexts": [
+        "Complete relative-age and standalone duration phrases for eight locales unavailable to browser RelativeTimeFormat. Cases are separate: Icelandic fyrir+dative versus standalone duration; native Nynorsk/Frysian/Basque/Macedonian/Albanian morphology. Welsh and Gaelic category mutations were checked against Unicode CLDR native field and long/short duration data; no inheritance markers copied and named count retained. Decimal/category behavior requires actual browser checking; unsupported number formatting stays literal, never borrows another language. Welsh two-minute mutation is retained in both duration and relative age, independently supported by native Welsh council copy; no silent reliance on inherited CLDR other form.",
+        "Actual browser localization of eight complete duration and relative-age messages,0/1/2/3/6/11/12/21/1.5, including Icelandic dative versus standalone case and Welsh/Gaelic mutation anchor cases; 390px, no runtime errors or application writes"
+      ],
+      "reviewed_at": "2026-11-06T11:15:56+00:00",
+      "verified_at": "2026-11-06T11:17:19.494Z"
+    },
+    "1e0f4a036ef6a459ddf90056cd2f2251be9f750a73608c00046e63d235ff3183": {
+      "source_hash": "1b6edb00ffd7010ed8102926c71b565c3f43da048cf6409fcf6a5463296ba843",
+      "translation_hash": "40d32e66aee1e15a63338fcd139841ccc33f8d5115b44c0c07c12c1e5955da9e",
+      "status": "editorial",
+      "contexts": [
+        "Owner-approved 60-second strictly portrait Shorts policy. Complete current messages and historical180/square-compatible keys all express60seconds/portrait; automatic classification and empty state mention import without inventing encoding. Gaelic only confidently reviewed short constraints; no invented full auto/empty statement, Silesian withheld for native review."
+      ],
+      "reviewed_at": "2026-11-06T10:50:57+00:00"
+    },
+    "20064e29bbcd272f9981538e0e9f9144c0d094feee9ebd05d8a66fed4f4d7aad": {
+      "source_hash": "20064e29bbcd272f9981538e0e9f9144c0d094feee9ebd05d8a66fed4f4d7aad",
+      "translation_hash": "ad46af44e5452b82f93a60e6a0d337fbf062b4435652aa023761978fb4210e86",
+      "status": "editorial",
+      "contexts": [
+        "Seven complete context-specific creator support messages, explicitly separating playlist advice from monetary contributions. Amount-based tip/live support dialogs retain arbitrary names/titles as named tokens and Super Chat as the feature name. Support-success confirms the actual sent contribution, not advice or a future payment promise. No native full-message confidence claimed for Gaelic/Silesian."
+      ],
+      "reviewed_at": "2026-11-06T11:26:18+00:00"
+    },
+    "22575da956ffddd23bedc011f36653eb231465d49de7c47bc2180a884e433db3": {
+      "source_hash": "700ab9f118212624631da29b74e8f5a964af913a36bbd1c9cf1d1d35fc63474c",
+      "translation_hash": "adfaa94f70fda4aff8c53a1a2fbea6799435b43395c4e30995b62cf77831f94e",
+      "status": "verified",
+      "contexts": [
+        "Complete relative-age and standalone duration phrases for eight locales unavailable to browser RelativeTimeFormat. Cases are separate: Icelandic fyrir+dative versus standalone duration; native Nynorsk/Frysian/Basque/Macedonian/Albanian morphology. Welsh and Gaelic category mutations were checked against Unicode CLDR native field and long/short duration data; no inheritance markers copied and named count retained. Decimal/category behavior requires actual browser checking; unsupported number formatting stays literal, never borrows another language. Welsh two-minute mutation is retained in both duration and relative age, independently supported by native Welsh council copy; no silent reliance on inherited CLDR other form.",
+        "Actual browser localization of eight complete duration and relative-age messages,0/1/2/3/6/11/12/21/1.5, including Icelandic dative versus standalone case and Welsh/Gaelic mutation anchor cases; 390px, no runtime errors or application writes"
+      ],
+      "reviewed_at": "2026-11-06T11:15:56+00:00",
+      "verified_at": "2026-11-06T11:17:19.494Z"
+    },
+    "24765e71415925b2759e80dbb9fada03adf075603ab095d4be1b3c419137a6f6": {
+      "source_hash": "2f8ea1648738615037e9338c20dfc59d0eff6ba7865122da01ddd7b6cc0badde",
+      "translation_hash": "d229bd380f3fcc4d344ca0d35e31e66ff41c40c2b2b2958b8503bb4c65074a8a",
+      "status": "editorial",
+      "contexts": [
+        "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented."
+      ],
+      "reviewed_at": "2026-11-06T10:35:35+00:00"
+    },
+    "2615baa3c3c422a919445361fa065bc14229dcbda76a695f0ec373ed33c86784": {
+      "source_hash": "2615baa3c3c422a919445361fa065bc14229dcbda76a695f0ec373ed33c86784",
+      "translation_hash": "fc8378cd698b7e72a2ad3441a1170b25b465bddbb1efa75415b9ef524c60028e",
+      "status": "editorial",
+      "contexts": [
+        "Seven complete context-specific creator support messages, explicitly separating playlist advice from monetary contributions. Amount-based tip/live support dialogs retain arbitrary names/titles as named tokens and Super Chat as the feature name. Support-success confirms the actual sent contribution, not advice or a future payment promise. No native full-message confidence claimed for Gaelic/Silesian."
+      ],
+      "reviewed_at": "2026-11-06T11:26:18+00:00"
+    },
+    "289c881eaedda461c474ac960eb0018cd99a88428777863ca98bfeb4ea3b05ce": {
+      "source_hash": "8a28d7496c7e0ab8913a909c9ccbed7fb96e1cdea18c5ae67aaf0d6d8e03ccd8",
+      "translation_hash": "27e0f3a94f8ed3c2f6834043cb016b6b02d0de1f6f5bb86b45b08fefa5c4d6ca",
+      "status": "verified",
+      "contexts": [
+        "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented.",
+        "Actual browser localization of eight complete quantity messages, 0/1/2/3/5/11/21/101/1.5, including CLDR dual/few/many/zero and native anchor cases where applicable; 390px, no runtime errors or application writes"
+      ],
+      "reviewed_at": "2026-11-06T10:35:35+00:00",
+      "verified_at": "2026-11-06T10:48:44.853Z"
+    },
+    "29c34e6125c7ee1479b24b1259ed403512440a832083de13d397c5170fcbbb62": {
+      "source_hash": "29c34e6125c7ee1479b24b1259ed403512440a832083de13d397c5170fcbbb62",
+      "translation_hash": "4e6894988c4495f6af699132083f56b3ebb78920f7718391792cda897657036a",
+      "status": "verified",
+      "contexts": [
+        "Import completion state aligned with corrected English reference and actual external playback: confirms import only, never claims a new encoding/processing job was started. Personal singular wording and regional scripts retained.",
+        "Actual manual chapter editor at390px: complete checkbox/name labels, missing names1/2,10s minimum gap, invalid time and chapter at exact video end; correct import-success confirmation after a stubbed submit; original title and chapter names retained; no overflow/runtime errors/application writes"
+      ],
+      "reviewed_at": "2026-11-06T10:56:26+00:00",
+      "verified_at": "2026-11-06T11:22:49.730Z"
+    },
+    "2a99ce205f6ea2ff49ed45baa2181d817944448a046e962ac1a0254b09146cc6": {
+      "source_hash": "2a99ce205f6ea2ff49ed45baa2181d817944448a046e962ac1a0254b09146cc6",
+      "translation_hash": "072f4fead39d2ffc2f924ef467212f2b6a54828ea0d962e30d19ae2bee389d69",
+      "status": "editorial",
+      "contexts": [
+        "Complete chapter editor/validation messages with named placeholders: maximum count, first0:00 for manual chapters, invalid/ordered/gapped timestamps, must start before video end, names and160-character limit. Checkbox name aligned with quoted recovery action; personal singular imperative, provider/user chapter names never translated. SI seconds avoid false cardinal inflection at1s versus10s. Silesian/Gaelic/Basque long validation not guessed."
+      ],
+      "reviewed_at": "2026-11-06T11:19:21+00:00"
+    },
+    "2b691d6c02fd588b5295734285be313cc24c9f93d42791f84ad7c4584851e04a": {
+      "source_hash": "c276c74a6d772ca6af83df01f159a6e0685164587512bcebf33c31ea78a5044e",
+      "translation_hash": "b5c8fb8e2b0a31931756e145edf0abdc70bcb4fe2d491bf54751b05a073db983",
+      "status": "verified",
+      "contexts": [
+        "Complete relative-age and standalone duration phrases for eight locales unavailable to browser RelativeTimeFormat. Cases are separate: Icelandic fyrir+dative versus standalone duration; native Nynorsk/Frysian/Basque/Macedonian/Albanian morphology. Welsh and Gaelic category mutations were checked against Unicode CLDR native field and long/short duration data; no inheritance markers copied and named count retained. Decimal/category behavior requires actual browser checking; unsupported number formatting stays literal, never borrows another language. Welsh two-minute mutation is retained in both duration and relative age, independently supported by native Welsh council copy; no silent reliance on inherited CLDR other form.",
+        "Actual browser localization of eight complete duration and relative-age messages,0/1/2/3/6/11/12/21/1.5, including Icelandic dative versus standalone case and Welsh/Gaelic mutation anchor cases; 390px, no runtime errors or application writes"
+      ],
+      "reviewed_at": "2026-11-06T11:15:56+00:00",
+      "verified_at": "2026-11-06T11:17:19.494Z"
+    },
+    "2d8642cd7ce04f3ad3f899191f9b9b549df04d8400b3bd4134e70bdedbe84ae7": {
+      "source_hash": "4d36380cbb170e20ba7972c1e845a65ec85dcb990804175b6bee2422a203d0ef",
+      "translation_hash": "94801482bae685d08b5bacdfa3eab1bee841faf7a68d0d8c9a61d57eb2126773",
+      "status": "verified",
+      "contexts": [
+        "Complete relative-age and standalone duration phrases for eight locales unavailable to browser RelativeTimeFormat. Cases are separate: Icelandic fyrir+dative versus standalone duration; native Nynorsk/Frysian/Basque/Macedonian/Albanian morphology. Welsh and Gaelic category mutations were checked against Unicode CLDR native field and long/short duration data; no inheritance markers copied and named count retained. Decimal/category behavior requires actual browser checking; unsupported number formatting stays literal, never borrows another language. Welsh two-minute mutation is retained in both duration and relative age, independently supported by native Welsh council copy; no silent reliance on inherited CLDR other form.",
+        "Actual browser localization of eight complete duration and relative-age messages,0/1/2/3/6/11/12/21/1.5, including Icelandic dative versus standalone case and Welsh/Gaelic mutation anchor cases; 390px, no runtime errors or application writes"
+      ],
+      "reviewed_at": "2026-11-06T11:15:56+00:00",
+      "verified_at": "2026-11-06T11:17:19.494Z"
+    },
+    "2daa7d6119fb59b1bd299d8447fb191629bbb462e1ead1fe3d152d6ed2b55539": {
+      "source_hash": "fc2673773d21f7212f14bc4701c667a6887a68310c2c95533b3a4414e62a4746",
+      "translation_hash": "215a96fb5e6b0a4642def4352177fb895d7e33b6edb44be3c9dfe35968d88e9f",
+      "status": "editorial",
+      "contexts": [
+        "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented."
+      ],
+      "reviewed_at": "2026-11-06T10:35:35+00:00"
+    },
+    "301a3de44d74fd442b8edca849c35e58ed96be4ad011f45f4c851ba5fa0de8e8": {
+      "source_hash": "a7f7320c2bbfe712d74aec4942b67b0266ad4728e8a0ba952989d06027dae265",
+      "translation_hash": "deec999b5a8cc0cfbee022edc1f4ea2ae81d6ad806693a0952f9936e3d95594b",
+      "status": "verified",
+      "contexts": [
+        "Complete relative-age and standalone duration phrases for eight locales unavailable to browser RelativeTimeFormat. Cases are separate: Icelandic fyrir+dative versus standalone duration; native Nynorsk/Frysian/Basque/Macedonian/Albanian morphology. Welsh and Gaelic category mutations were checked against Unicode CLDR native field and long/short duration data; no inheritance markers copied and named count retained. Decimal/category behavior requires actual browser checking; unsupported number formatting stays literal, never borrows another language. Welsh two-minute mutation is retained in both duration and relative age, independently supported by native Welsh council copy; no silent reliance on inherited CLDR other form.",
+        "Actual browser localization of eight complete duration and relative-age messages,0/1/2/3/6/11/12/21/1.5, including Icelandic dative versus standalone case and Welsh/Gaelic mutation anchor cases; 390px, no runtime errors or application writes"
+      ],
+      "reviewed_at": "2026-11-06T11:15:56+00:00",
+      "verified_at": "2026-11-06T11:17:19.494Z"
+    },
+    "356348150a283db28b454ce7e77b61f6adcd79d907bddd41701ec5a62dfecac0": {
+      "source_hash": "ccced92b669b8bbab910faf9db5a4e8fe75953275c4411bc664894c02f29e0f9",
+      "translation_hash": "c6c6f61cfd2de7255574c26633eabfab588a5491bf6ead722967115a05e8b03a",
+      "status": "editorial",
+      "contexts": [
+        "Complete relative-age and standalone duration phrases for eight locales unavailable to browser RelativeTimeFormat. Cases are separate: Icelandic fyrir+dative versus standalone duration; native Nynorsk/Frysian/Basque/Macedonian/Albanian morphology. Welsh and Gaelic category mutations were checked against Unicode CLDR native field and long/short duration data; no inheritance markers copied and named count retained. Decimal/category behavior requires actual browser checking; unsupported number formatting stays literal, never borrows another language. Welsh two-minute mutation is retained in both duration and relative age, independently supported by native Welsh council copy; no silent reliance on inherited CLDR other form."
+      ],
+      "reviewed_at": "2026-11-06T11:15:56+00:00"
+    },
+    "356d54d6a9453a6b43f35d1bf8771d67ea101e57f3b47283572cc9309468bae2": {
+      "source_hash": "2c2111437fc5948d0538d71ece3b0196282a838e802546b1fe8ab35766d0ca8d",
+      "translation_hash": "eee25cac90d435b7c30d5e164ed500a4fbfb86b247a60182ef0539e1141ae7c7",
+      "status": "verified",
+      "contexts": [
+        "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented.",
+        "Actual browser localization of eight complete quantity messages, 0/1/2/3/5/11/21/101/1.5, including CLDR dual/few/many/zero and native anchor cases where applicable; 390px, no runtime errors or application writes"
+      ],
+      "reviewed_at": "2026-11-06T10:35:35+00:00",
+      "verified_at": "2026-11-06T10:48:44.853Z"
+    },
+    "382a829914a3ff1e7880c061cb41fe121cb1b10bacbc96c914a3d20e71098000": {
+      "source_hash": "c0c70f39ec46584611f7b7ef33dce2fa7828b05a4bea85581c6550517d772c87",
+      "translation_hash": "77b72904d4338ba9f92b29e9f835296d3e919a10d8d4dd304c416c61c2da6f4d",
+      "status": "verified",
+      "contexts": [
+        "Complete relative-age and standalone duration phrases for eight locales unavailable to browser RelativeTimeFormat. Cases are separate: Icelandic fyrir+dative versus standalone duration; native Nynorsk/Frysian/Basque/Macedonian/Albanian morphology. Welsh and Gaelic category mutations were checked against Unicode CLDR native field and long/short duration data; no inheritance markers copied and named count retained. Decimal/category behavior requires actual browser checking; unsupported number formatting stays literal, never borrows another language. Welsh two-minute mutation is retained in both duration and relative age, independently supported by native Welsh council copy; no silent reliance on inherited CLDR other form.",
+        "Actual browser localization of eight complete duration and relative-age messages,0/1/2/3/6/11/12/21/1.5, including Icelandic dative versus standalone case and Welsh/Gaelic mutation anchor cases; 390px, no runtime errors or application writes"
+      ],
+      "reviewed_at": "2026-11-06T11:15:56+00:00",
+      "verified_at": "2026-11-06T11:17:19.494Z"
+    },
+    "38fe8284e3ea2fd12dc24c8a5c9c7598a048687b34ba0345a0659ab7e409935e": {
+      "source_hash": "409829cedde089551cbdb27b59e9859092f059bf598a4fe4230b9159933e811e",
+      "translation_hash": "63a20fbacaac556ce7ab7c86739a6b0549d81131d467a24a62673f0d4628ab09",
+      "status": "verified",
+      "contexts": [
+        "Complete relative-age and standalone duration phrases for eight locales unavailable to browser RelativeTimeFormat. Cases are separate: Icelandic fyrir+dative versus standalone duration; native Nynorsk/Frysian/Basque/Macedonian/Albanian morphology. Welsh and Gaelic category mutations were checked against Unicode CLDR native field and long/short duration data; no inheritance markers copied and named count retained. Decimal/category behavior requires actual browser checking; unsupported number formatting stays literal, never borrows another language. Welsh two-minute mutation is retained in both duration and relative age, independently supported by native Welsh council copy; no silent reliance on inherited CLDR other form.",
+        "Actual browser localization of eight complete duration and relative-age messages,0/1/2/3/6/11/12/21/1.5, including Icelandic dative versus standalone case and Welsh/Gaelic mutation anchor cases; 390px, no runtime errors or application writes"
+      ],
+      "reviewed_at": "2026-11-06T11:15:56+00:00",
+      "verified_at": "2026-11-06T11:17:19.494Z"
+    },
+    "3a78695388b38b5cceefaf6796b0137877514593543b91af2752d5a17e3d736c": {
+      "source_hash": "3a78695388b38b5cceefaf6796b0137877514593543b91af2752d5a17e3d736c",
+      "translation_hash": "bc24fbb73a0fe2c8cf54ad32fe50cb23b4d5eb3784f2008a2652a177a4548eec",
+      "status": "verified",
+      "contexts": [
+        "Editorial source-context pass: navigation, video Shorts product name (not clothing), upload Review/check action, stream status, storage quota, video captions, administrator device-distribution chart, dashboard and selection actions. Regional scripts retained; simple player terminology cross-checked in Mozilla localization sources. Sparse entries only where confidently reviewed; no claim of whole-pack acceptance.",
+        "Upload at 390px: actual navigation, review step, private-access wording and applicable personal form prompts; user input stays literal; no overflow/runtime errors/application writes"
+      ],
+      "reviewed_at": "2026-11-06T10:16:42+00:00",
+      "verified_at": "2026-11-06T11:11:20.316Z"
+    },
+    "3c784a16cf27568e948bbdffd5d250bb35e98454112f9196c59f7636666699f7": {
+      "source_hash": "3c784a16cf27568e948bbdffd5d250bb35e98454112f9196c59f7636666699f7",
+      "translation_hash": "3c784a16cf27568e948bbdffd5d250bb35e98454112f9196c59f7636666699f7",
+      "status": "verified",
+      "contexts": [
+        "Editorial source-context pass: navigation, video Shorts product name (not clothing), upload Review/check action, stream status, storage quota, video captions, administrator device-distribution chart, dashboard and selection actions. Regional scripts retained; simple player terminology cross-checked in Mozilla localization sources. Sparse entries only where confidently reviewed; no claim of whole-pack acceptance.",
+        "Upload at 390px: actual navigation, review step, private-access wording and applicable personal form prompts; user input stays literal; no overflow/runtime errors/application writes"
+      ],
+      "reviewed_at": "2026-11-06T10:16:42+00:00",
+      "verified_at": "2026-11-06T11:11:20.316Z"
+    },
+    "3ce71dcbfa23c147f5c40b83cd71542ae2d520e7aed94423b11cc005f87d0e66": {
+      "source_hash": "c0c70f39ec46584611f7b7ef33dce2fa7828b05a4bea85581c6550517d772c87",
+      "translation_hash": "77b72904d4338ba9f92b29e9f835296d3e919a10d8d4dd304c416c61c2da6f4d",
+      "status": "editorial",
+      "contexts": [
+        "Complete relative-age and standalone duration phrases for eight locales unavailable to browser RelativeTimeFormat. Cases are separate: Icelandic fyrir+dative versus standalone duration; native Nynorsk/Frysian/Basque/Macedonian/Albanian morphology. Welsh and Gaelic category mutations were checked against Unicode CLDR native field and long/short duration data; no inheritance markers copied and named count retained. Decimal/category behavior requires actual browser checking; unsupported number formatting stays literal, never borrows another language. Welsh two-minute mutation is retained in both duration and relative age, independently supported by native Welsh council copy; no silent reliance on inherited CLDR other form."
+      ],
+      "reviewed_at": "2026-11-06T11:15:56+00:00"
+    },
+    "3f8fe694ff5c3131fbc0611a3d8bd17bd1b88d39afb2722bef1d2179f2691fc6": {
+      "source_hash": "3f8fe694ff5c3131fbc0611a3d8bd17bd1b88d39afb2722bef1d2179f2691fc6",
+      "translation_hash": "60a26d7386f209e90f5b244b0195f4e9d96a3c9eb8ae99b79e3221d40f75084f",
+      "status": "editorial",
+      "contexts": [
+        "Complete chapter editor/validation messages with named placeholders: maximum count, first0:00 for manual chapters, invalid/ordered/gapped timestamps, must start before video end, names and160-character limit. Checkbox name aligned with quoted recovery action; personal singular imperative, provider/user chapter names never translated. SI seconds avoid false cardinal inflection at1s versus10s. Silesian/Gaelic/Basque long validation not guessed."
+      ],
+      "reviewed_at": "2026-11-06T11:19:21+00:00"
+    },
+    "43bf6af8e2d9b895620783088525d4a4f20e3ea34508cea6e8171fb6c0abff21": {
+      "source_hash": "43bf6af8e2d9b895620783088525d4a4f20e3ea34508cea6e8171fb6c0abff21",
+      "translation_hash": "bcf4192607ec4e6299df61406e6f077ca31ca8fdfa5e3c57d62fe51965e17d22",
+      "status": "editorial",
+      "contexts": [
+        "Editorial source-context pass: navigation, video Shorts product name (not clothing), upload Review/check action, stream status, storage quota, video captions, administrator device-distribution chart, dashboard and selection actions. Regional scripts retained; simple player terminology cross-checked in Mozilla localization sources. Sparse entries only where confidently reviewed; no claim of whole-pack acceptance."
+      ],
+      "reviewed_at": "2026-11-06T10:16:42+00:00"
+    },
+    "45ebf7019bc81b08f76cdc4be85fb11d59f00dd93fea6680c56381013a7ba7f8": {
+      "source_hash": "3cce81c94f79cd460993acaed44928f6bba85ff7f4cc4f8467bffb7835b9b0c0",
+      "translation_hash": "45b5ba306798df946be4bde33a8335b5914ab186f4680df9e4c6aa7ae7233d82",
+      "status": "verified",
+      "contexts": [
+        "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented.",
+        "Actual browser localization of eight complete quantity messages, 0/1/2/3/5/11/21/101/1.5, including CLDR dual/few/many/zero and native anchor cases where applicable; 390px, no runtime errors or application writes"
+      ],
+      "reviewed_at": "2026-11-06T10:35:35+00:00",
+      "verified_at": "2026-11-06T10:48:44.853Z"
+    },
+    "4a819eaea7f49acaa5837c64f69a70843d4c64118eb509490bbb7fad61f10104": {
+      "source_hash": "4a819eaea7f49acaa5837c64f69a70843d4c64118eb509490bbb7fad61f10104",
+      "translation_hash": "ce2f40c62eab857672114e955557e02dbf672813b1361056ee67662bc76587b8",
+      "status": "editorial",
+      "contexts": [
+        "Owner-approved 60-second strictly portrait Shorts policy. Complete current messages and historical180/square-compatible keys all express60seconds/portrait; automatic classification and empty state mention import without inventing encoding. Gaelic only confidently reviewed short constraints; no invented full auto/empty statement, Silesian withheld for native review."
+      ],
+      "reviewed_at": "2026-11-06T10:50:57+00:00"
+    },
+    "4acdbc69b0df64c213de0342367c07fbd82ecc0e6e941717aa6fe030a8a52a66": {
+      "source_hash": "271b80f48cb86e1142bcc18b2c66ad06ea24c0822be85ca94fa085180a842fbd",
+      "translation_hash": "927d8f1dba9368a9a8f0f7b4905931b31ee61f36a57b7ce76a91b3032c2bb5e3",
+      "status": "verified",
+      "contexts": [
+        "Complete relative-age and standalone duration phrases for eight locales unavailable to browser RelativeTimeFormat. Cases are separate: Icelandic fyrir+dative versus standalone duration; native Nynorsk/Frysian/Basque/Macedonian/Albanian morphology. Welsh and Gaelic category mutations were checked against Unicode CLDR native field and long/short duration data; no inheritance markers copied and named count retained. Decimal/category behavior requires actual browser checking; unsupported number formatting stays literal, never borrows another language. Welsh two-minute mutation is retained in both duration and relative age, independently supported by native Welsh council copy; no silent reliance on inherited CLDR other form.",
+        "Actual browser localization of eight complete duration and relative-age messages,0/1/2/3/6/11/12/21/1.5, including Icelandic dative versus standalone case and Welsh/Gaelic mutation anchor cases; 390px, no runtime errors or application writes"
+      ],
+      "reviewed_at": "2026-11-06T11:15:56+00:00",
+      "verified_at": "2026-11-06T11:17:19.494Z"
+    },
+    "4c9a25756cd5dddef615417562e0c7953fbf75070998d840623b89086e86babc": {
+      "source_hash": "a02c014ed5ecac45863ecb6732d0fcaa0137b714e023f4735a84d8731798c430",
+      "translation_hash": "fcaa021ae83640ab676c66e0823a1fbdb6f40e20bbe03e35a97ffc372a46bb1f",
+      "status": "verified",
+      "contexts": [
+        "Complete relative-age and standalone duration phrases for eight locales unavailable to browser RelativeTimeFormat. Cases are separate: Icelandic fyrir+dative versus standalone duration; native Nynorsk/Frysian/Basque/Macedonian/Albanian morphology. Welsh and Gaelic category mutations were checked against Unicode CLDR native field and long/short duration data; no inheritance markers copied and named count retained. Decimal/category behavior requires actual browser checking; unsupported number formatting stays literal, never borrows another language. Welsh two-minute mutation is retained in both duration and relative age, independently supported by native Welsh council copy; no silent reliance on inherited CLDR other form.",
+        "Actual browser localization of eight complete duration and relative-age messages,0/1/2/3/6/11/12/21/1.5, including Icelandic dative versus standalone case and Welsh/Gaelic mutation anchor cases; 390px, no runtime errors or application writes"
+      ],
+      "reviewed_at": "2026-11-06T11:15:56+00:00",
+      "verified_at": "2026-11-06T11:17:19.494Z"
+    },
+    "4fcff7391dc118f561c7fd42e37211115763d147df1d5da3045918a5cfc9ad45": {
+      "source_hash": "4fcff7391dc118f561c7fd42e37211115763d147df1d5da3045918a5cfc9ad45",
+      "translation_hash": "3d3986fcbec44fec24ad68a64e39e79ccb2daa2293988cf0127e1c5c0b51e3b3",
+      "status": "editorial",
+      "contexts": [
+        "Owner-approved 60-second strictly portrait Shorts policy. Complete current messages and historical180/square-compatible keys all express60seconds/portrait; automatic classification and empty state mention import without inventing encoding. Gaelic only confidently reviewed short constraints; no invented full auto/empty statement, Silesian withheld for native review."
+      ],
+      "reviewed_at": "2026-11-06T10:50:57+00:00"
+    },
+    "4fdf3f52c4b12a65c322d74d7e3ee363d1b653e74563f4dcd6b5edeb273ddb93": {
+      "source_hash": "4fdf3f52c4b12a65c322d74d7e3ee363d1b653e74563f4dcd6b5edeb273ddb93",
+      "translation_hash": "095726d33e9aa0fcfe6ac1c5644ae8ab1037857739e707d63def436be85ba6dc",
+      "status": "verified",
+      "contexts": [
+        "Complete Creator Studio comment action menu labels. Pin/unpin are paired actions, report is moderation, copy only copies a link. Mute action hides that user’s content and notifications rather than deleting or blocking their account. Proper user names/comment bodies are excluded. Infinitives and personal singular imperatives are idiomatic per locale; no formal address.",
+        "Creator Studio comments: pinned/unpinned menu, reply/copy/mute/report/delete labels at390px; original author/body/mention/tag retained, complete localized mention-action titles; menus only, no action mutations or runtime errors"
+      ],
+      "reviewed_at": "2026-11-06T11:15:06+00:00",
+      "verified_at": "2026-11-06T11:18:05.455Z"
+    },
+    "50cb06b6b17a2875684d6a08cc83bdc9ad8ae39349e18fde33e717c15cbf6d68": {
+      "source_hash": "50cb06b6b17a2875684d6a08cc83bdc9ad8ae39349e18fde33e717c15cbf6d68",
+      "translation_hash": "3805c7a10b3ad06267e30b73c2908376a6c1cb00f54ca65acf5f5c87d2e241f2",
+      "status": "verified",
+      "contexts": [
+        "Complete Creator Studio comment action menu labels. Pin/unpin are paired actions, report is moderation, copy only copies a link. Mute action hides that user’s content and notifications rather than deleting or blocking their account. Proper user names/comment bodies are excluded. Infinitives and personal singular imperatives are idiomatic per locale; no formal address.",
+        "Creator Studio comments: pinned/unpinned menu, reply/copy/mute/report/delete labels at390px; original author/body/mention/tag retained, complete localized mention-action titles; menus only, no action mutations or runtime errors"
+      ],
+      "reviewed_at": "2026-11-06T11:15:06+00:00",
+      "verified_at": "2026-11-06T11:18:05.455Z"
+    },
+    "51151e731a77d537a5defe1e46f7e1605ca0d59c64811b7948f2242f1c4f1ad9": {
+      "source_hash": "c9e553ebf06d1364d0c3974e4016987d5d0d9e1cb26a5f7d7283f35b8247aa1d",
+      "translation_hash": "ba8b22031a9bc84b2bcbd184790f77971eaa1c58a8ff06628dfe2326f1a07735",
+      "status": "verified",
+      "contexts": [
+        "Complete relative-age and standalone duration phrases for eight locales unavailable to browser RelativeTimeFormat. Cases are separate: Icelandic fyrir+dative versus standalone duration; native Nynorsk/Frysian/Basque/Macedonian/Albanian morphology. Welsh and Gaelic category mutations were checked against Unicode CLDR native field and long/short duration data; no inheritance markers copied and named count retained. Decimal/category behavior requires actual browser checking; unsupported number formatting stays literal, never borrows another language. Welsh two-minute mutation is retained in both duration and relative age, independently supported by native Welsh council copy; no silent reliance on inherited CLDR other form.",
+        "Actual browser localization of eight complete duration and relative-age messages,0/1/2/3/6/11/12/21/1.5, including Icelandic dative versus standalone case and Welsh/Gaelic mutation anchor cases; 390px, no runtime errors or application writes"
+      ],
+      "reviewed_at": "2026-11-06T11:15:56+00:00",
+      "verified_at": "2026-11-06T11:17:19.494Z"
+    },
+    "514a392cd10e469c3038c58b83a9c4bdad3a815841924620b7cd22751e218c80": {
+      "source_hash": "9c744a3288b536aa9fbca9658ab7578cabc4152abe27e5f20b4cdd9dff0f1119",
+      "translation_hash": "3d3986fcbec44fec24ad68a64e39e79ccb2daa2293988cf0127e1c5c0b51e3b3",
+      "status": "editorial",
+      "contexts": [
+        "Owner-approved 60-second strictly portrait Shorts policy. Complete current messages and historical180/square-compatible keys all express60seconds/portrait; automatic classification and empty state mention import without inventing encoding. Gaelic only confidently reviewed short constraints; no invented full auto/empty statement, Silesian withheld for native review."
+      ],
+      "reviewed_at": "2026-11-06T10:50:57+00:00"
+    },
+    "52c071b27c561ef0ddc011de611db41f427cf59cb7d8d663da39d2df7a6c78db": {
+      "source_hash": "52c071b27c561ef0ddc011de611db41f427cf59cb7d8d663da39d2df7a6c78db",
+      "translation_hash": "a2d9942fca8f98e3e0f96945332aaa02efc3b662b523cf7ca70550598c2b778c",
+      "status": "verified",
+      "contexts": [
+        "Whole named action labels in actual comment/post mentions and manual chapter editor. Mention display text and user names remain unchanged. Named placeholders preserve unknown names and tags; labels are personal imperatives or natural infinitives, with regional scripts retained. No native confidence asserted for Gaelic/Silesian phrases withheld from this batch.",
+        "Actual manual chapter editor at390px: complete checkbox/name labels, missing names1/2,10s minimum gap, invalid time and chapter at exact video end; correct import-success confirmation after a stubbed submit; original title and chapter names retained; no overflow/runtime errors/application writes"
+      ],
+      "reviewed_at": "2026-11-06T11:09:00+00:00",
+      "verified_at": "2026-11-06T11:22:49.730Z"
+    },
+    "534716e70e416c6e5bdb2517a5ec912abc41f1ed2050702ab26c52e172a88b22": {
+      "source_hash": "534716e70e416c6e5bdb2517a5ec912abc41f1ed2050702ab26c52e172a88b22",
+      "translation_hash": "c3f0458d9660101e53a08f9eeed725a1bf8fa8ca54e7776b60d6d538675df6c6",
+      "status": "verified",
+      "contexts": [
+        "Complete Creator Studio comment action menu labels. Pin/unpin are paired actions, report is moderation, copy only copies a link. Mute action hides that user’s content and notifications rather than deleting or blocking their account. Proper user names/comment bodies are excluded. Infinitives and personal singular imperatives are idiomatic per locale; no formal address.",
+        "Creator Studio comments: pinned/unpinned menu, reply/copy/mute/report/delete labels at390px; original author/body/mention/tag retained, complete localized mention-action titles; menus only, no action mutations or runtime errors"
+      ],
+      "reviewed_at": "2026-11-06T11:15:06+00:00",
+      "verified_at": "2026-11-06T11:18:05.455Z"
+    },
+    "54a38aa9cc56602b5f4b317fb6c55cf175da62d13beb39f48fb230c24f248eaa": {
+      "source_hash": "4fbd8a76803cc9b7705994655abf3840c2df4dbb2b02cb5476b32c90bea4a83e",
+      "translation_hash": "637c842d238e46392f00486e86bea963d239f387e2013045e79fe640036cc649",
+      "status": "verified",
+      "contexts": [
+        "Complete relative-age and standalone duration phrases for eight locales unavailable to browser RelativeTimeFormat. Cases are separate: Icelandic fyrir+dative versus standalone duration; native Nynorsk/Frysian/Basque/Macedonian/Albanian morphology. Welsh and Gaelic category mutations were checked against Unicode CLDR native field and long/short duration data; no inheritance markers copied and named count retained. Decimal/category behavior requires actual browser checking; unsupported number formatting stays literal, never borrows another language. Welsh two-minute mutation is retained in both duration and relative age, independently supported by native Welsh council copy; no silent reliance on inherited CLDR other form.",
+        "Actual browser localization of eight complete duration and relative-age messages,0/1/2/3/6/11/12/21/1.5, including Icelandic dative versus standalone case and Welsh/Gaelic mutation anchor cases; 390px, no runtime errors or application writes"
+      ],
+      "reviewed_at": "2026-11-06T11:15:56+00:00",
+      "verified_at": "2026-11-06T11:17:19.494Z"
+    },
+    "555bc506807442df9677c78fd0b336b77c6e09e02abe07c628e176d80beea64e": {
+      "source_hash": "2f8ea1648738615037e9338c20dfc59d0eff6ba7865122da01ddd7b6cc0badde",
+      "translation_hash": "d229bd380f3fcc4d344ca0d35e31e66ff41c40c2b2b2958b8503bb4c65074a8a",
+      "status": "editorial",
+      "contexts": [
+        "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented."
+      ],
+      "reviewed_at": "2026-11-06T10:35:35+00:00"
+    },
+    "55e9f198b689319327935871a912ffc384706adc2e8eb86cf2ebb678731f730a": {
+      "source_hash": "f1042a7e540400a0b1b3810af7b096fceb8a5af3e744bc8b889975ab9e6d2878",
+      "translation_hash": "de6d9a48b79f7cefb455ebc9ab017cf10c3b338e1c9305390d1ed83f43b08d83",
+      "status": "editorial",
+      "contexts": [
+        "Complete relative-age and standalone duration phrases for eight locales unavailable to browser RelativeTimeFormat. Cases are separate: Icelandic fyrir+dative versus standalone duration; native Nynorsk/Frysian/Basque/Macedonian/Albanian morphology. Welsh and Gaelic category mutations were checked against Unicode CLDR native field and long/short duration data; no inheritance markers copied and named count retained. Decimal/category behavior requires actual browser checking; unsupported number formatting stays literal, never borrows another language. Welsh two-minute mutation is retained in both duration and relative age, independently supported by native Welsh council copy; no silent reliance on inherited CLDR other form."
+      ],
+      "reviewed_at": "2026-11-06T11:15:56+00:00"
+    },
+    "5c2e90eabaf8259cf867ab84603089b67eaf834ada39e3f8f274cd898e514b33": {
+      "source_hash": "e843b2e5fe87c279cd5cbbf559bdf5b0cd0abd442b1a2d0229b94649858d5b55",
+      "translation_hash": "0fab37ff0fe927003a0b56e555e9551b97586743dc9a7110fda6e63786f5cc08",
+      "status": "editorial",
+      "contexts": [
+        "Complete relative-age and standalone duration phrases for eight locales unavailable to browser RelativeTimeFormat. Cases are separate: Icelandic fyrir+dative versus standalone duration; native Nynorsk/Frysian/Basque/Macedonian/Albanian morphology. Welsh and Gaelic category mutations were checked against Unicode CLDR native field and long/short duration data; no inheritance markers copied and named count retained. Decimal/category behavior requires actual browser checking; unsupported number formatting stays literal, never borrows another language. Welsh two-minute mutation is retained in both duration and relative age, independently supported by native Welsh council copy; no silent reliance on inherited CLDR other form."
+      ],
+      "reviewed_at": "2026-11-06T11:15:56+00:00"
+    },
+    "5ca2ad0e9b47e04d86eff8e406063bf96131c1c25c0f955a5cf069eeec4ed46e": {
+      "source_hash": "ccced92b669b8bbab910faf9db5a4e8fe75953275c4411bc664894c02f29e0f9",
+      "translation_hash": "c6c6f61cfd2de7255574c26633eabfab588a5491bf6ead722967115a05e8b03a",
+      "status": "verified",
+      "contexts": [
+        "Complete relative-age and standalone duration phrases for eight locales unavailable to browser RelativeTimeFormat. Cases are separate: Icelandic fyrir+dative versus standalone duration; native Nynorsk/Frysian/Basque/Macedonian/Albanian morphology. Welsh and Gaelic category mutations were checked against Unicode CLDR native field and long/short duration data; no inheritance markers copied and named count retained. Decimal/category behavior requires actual browser checking; unsupported number formatting stays literal, never borrows another language. Welsh two-minute mutation is retained in both duration and relative age, independently supported by native Welsh council copy; no silent reliance on inherited CLDR other form.",
+        "Actual browser localization of eight complete duration and relative-age messages,0/1/2/3/6/11/12/21/1.5, including Icelandic dative versus standalone case and Welsh/Gaelic mutation anchor cases; 390px, no runtime errors or application writes"
+      ],
+      "reviewed_at": "2026-11-06T11:15:56+00:00",
+      "verified_at": "2026-11-06T11:17:19.494Z"
+    },
+    "5fb80a91b0d8036c2d1e8b41f1c28b627fe12dfdc5d0437f9dfd9a03113c04f8": {
+      "source_hash": "95185b6fa17df19a65621782475bb3c01decff9e90d5bda58a89803a40a0cd8b",
+      "translation_hash": "672eb0989ac203b6e2ec5facdda28a67385a3de0be06064aab6826b2244d11fd",
+      "status": "editorial",
+      "contexts": [
+        "Owner-approved 60-second strictly portrait Shorts policy. Complete current messages and historical180/square-compatible keys all express60seconds/portrait; automatic classification and empty state mention import without inventing encoding. Gaelic only confidently reviewed short constraints; no invented full auto/empty statement, Silesian withheld for native review."
+      ],
+      "reviewed_at": "2026-11-06T10:50:57+00:00"
+    },
+    "60401584ed34037be37e287b67a9ae33250843d56acc6f7fd7a043c768e92cc7": {
+      "source_hash": "e874a02a2fdc9bef403c7ca9d8c9e227bab3a4663a43caab02a4e5506700fbf1",
+      "translation_hash": "b9e5b4a8016697c6099c938e5bfdd4eb6c4f69b9c2e4742a767417708a23abd7",
+      "status": "verified",
+      "contexts": [
+        "Complete relative-age and standalone duration phrases for eight locales unavailable to browser RelativeTimeFormat. Cases are separate: Icelandic fyrir+dative versus standalone duration; native Nynorsk/Frysian/Basque/Macedonian/Albanian morphology. Welsh and Gaelic category mutations were checked against Unicode CLDR native field and long/short duration data; no inheritance markers copied and named count retained. Decimal/category behavior requires actual browser checking; unsupported number formatting stays literal, never borrows another language. Welsh two-minute mutation is retained in both duration and relative age, independently supported by native Welsh council copy; no silent reliance on inherited CLDR other form.",
+        "Actual browser localization of eight complete duration and relative-age messages,0/1/2/3/6/11/12/21/1.5, including Icelandic dative versus standalone case and Welsh/Gaelic mutation anchor cases; 390px, no runtime errors or application writes"
+      ],
+      "reviewed_at": "2026-11-06T11:15:56+00:00",
+      "verified_at": "2026-11-06T11:17:19.494Z"
+    },
+    "638f01139801d6fa3bba5ec161ff1185f47ebaded4b75a6296f6eed28f2662de": {
+      "source_hash": "b0b1c780ec908b7d3a878550393521478cd6290201009898a9e6afd7570c345a",
+      "translation_hash": "ad06cb315d9ddf8fb02896c76058e8b999ec8eb253db839c20e300557cf292a8",
+      "status": "editorial",
+      "contexts": [
+        "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented."
+      ],
+      "reviewed_at": "2026-11-06T10:35:35+00:00"
+    },
+    "64c231277ba9730cb6584e68f64ae16c3201f3c8b9ed6d95984c8faa02435386": {
+      "source_hash": "f1042a7e540400a0b1b3810af7b096fceb8a5af3e744bc8b889975ab9e6d2878",
+      "translation_hash": "de6d9a48b79f7cefb455ebc9ab017cf10c3b338e1c9305390d1ed83f43b08d83",
+      "status": "verified",
+      "contexts": [
+        "Complete relative-age and standalone duration phrases for eight locales unavailable to browser RelativeTimeFormat. Cases are separate: Icelandic fyrir+dative versus standalone duration; native Nynorsk/Frysian/Basque/Macedonian/Albanian morphology. Welsh and Gaelic category mutations were checked against Unicode CLDR native field and long/short duration data; no inheritance markers copied and named count retained. Decimal/category behavior requires actual browser checking; unsupported number formatting stays literal, never borrows another language. Welsh two-minute mutation is retained in both duration and relative age, independently supported by native Welsh council copy; no silent reliance on inherited CLDR other form.",
+        "Actual browser localization of eight complete duration and relative-age messages,0/1/2/3/6/11/12/21/1.5, including Icelandic dative versus standalone case and Welsh/Gaelic mutation anchor cases; 390px, no runtime errors or application writes"
+      ],
+      "reviewed_at": "2026-11-06T11:15:56+00:00",
+      "verified_at": "2026-11-06T11:17:19.494Z"
+    },
+    "67b696468610b879ed7f224dbf6b0861f27e39d20454cb9d7af1ec52d3e5eeaa": {
+      "source_hash": "67b696468610b879ed7f224dbf6b0861f27e39d20454cb9d7af1ec52d3e5eeaa",
+      "translation_hash": "d1e36a9a2d035d0b24ab103bc74e1f02a512e87f5bbc441a45ae54808d46e99c",
+      "status": "editorial",
+      "contexts": [
+        "Editorial source-context pass: navigation, video Shorts product name (not clothing), upload Review/check action, stream status, storage quota, video captions, administrator device-distribution chart, dashboard and selection actions. Regional scripts retained; simple player terminology cross-checked in Mozilla localization sources. Sparse entries only where confidently reviewed; no claim of whole-pack acceptance."
+      ],
+      "reviewed_at": "2026-11-06T10:16:42+00:00"
+    },
+    "689ac540969381da352a1a1943ecaa1d14f8d7f6df5234d228942c9db57d37f8": {
+      "source_hash": "c6a4abaa3a61494fe6c1fc669767b26b9276845ff1ff8436b0aba3bb65ff506f",
+      "translation_hash": "790fd7fca28b9118ec8ebc954a2ad147ffc3d9681235b4dc7aeadc9be2240f50",
+      "status": "editorial",
+      "contexts": [
+        "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented."
+      ],
+      "reviewed_at": "2026-11-06T10:35:35+00:00"
+    },
+    "6a40d5a2f3b88df6c7f3ba706f54a586d60ce5a378745baa2749baf5fac6131e": {
+      "source_hash": "700ab9f118212624631da29b74e8f5a964af913a36bbd1c9cf1d1d35fc63474c",
+      "translation_hash": "adfaa94f70fda4aff8c53a1a2fbea6799435b43395c4e30995b62cf77831f94e",
+      "status": "editorial",
+      "contexts": [
+        "Complete relative-age and standalone duration phrases for eight locales unavailable to browser RelativeTimeFormat. Cases are separate: Icelandic fyrir+dative versus standalone duration; native Nynorsk/Frysian/Basque/Macedonian/Albanian morphology. Welsh and Gaelic category mutations were checked against Unicode CLDR native field and long/short duration data; no inheritance markers copied and named count retained. Decimal/category behavior requires actual browser checking; unsupported number formatting stays literal, never borrows another language. Welsh two-minute mutation is retained in both duration and relative age, independently supported by native Welsh council copy; no silent reliance on inherited CLDR other form."
+      ],
+      "reviewed_at": "2026-11-06T11:15:56+00:00"
+    },
+    "6b8be7af1fdc06a1d2772428d9cf3cbfbf50ec9ab1496191a93d36e638f70fe2": {
+      "source_hash": "cedf1a91d91f00d31c4409dcbec2076e971b4701ad70605573d497a9b8dd1da7",
+      "translation_hash": "5352b4fe4f07acc06a7513ac292d9b70e7435b9f8e8ba81de8f79450a3fe4be4",
+      "status": "editorial",
+      "contexts": [
+        "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented."
+      ],
+      "reviewed_at": "2026-11-06T10:35:35+00:00"
+    },
+    "6f7eaaefed1dae236227043b9e54dd3d1003dd27ee95d766e650d209d4c0abdb": {
+      "source_hash": "7a00867a4abc02d61a976489e64c98038cb22f0f29a7baa5326507eabc6994fb",
+      "translation_hash": "9cc2dfe72efc2d49609982ba0b1ba88e87dee23924f5750354b2ff0dac021b60",
+      "status": "verified",
+      "contexts": [
+        "Complete relative-age and standalone duration phrases for eight locales unavailable to browser RelativeTimeFormat. Cases are separate: Icelandic fyrir+dative versus standalone duration; native Nynorsk/Frysian/Basque/Macedonian/Albanian morphology. Welsh and Gaelic category mutations were checked against Unicode CLDR native field and long/short duration data; no inheritance markers copied and named count retained. Decimal/category behavior requires actual browser checking; unsupported number formatting stays literal, never borrows another language. Welsh two-minute mutation is retained in both duration and relative age, independently supported by native Welsh council copy; no silent reliance on inherited CLDR other form.",
+        "Actual browser localization of eight complete duration and relative-age messages,0/1/2/3/6/11/12/21/1.5, including Icelandic dative versus standalone case and Welsh/Gaelic mutation anchor cases; 390px, no runtime errors or application writes"
+      ],
+      "reviewed_at": "2026-11-06T11:15:56+00:00",
+      "verified_at": "2026-11-06T11:17:19.494Z"
+    },
+    "721164f0dc7096a8c09be2069c5c689a56df933fc5798822e8134bd3e76771eb": {
+      "source_hash": "721164f0dc7096a8c09be2069c5c689a56df933fc5798822e8134bd3e76771eb",
+      "translation_hash": "639d7613452b8fdd83dfca2ecc9066d1d42651a1087858964a34760cefbc8ea0",
+      "status": "verified",
+      "contexts": [
+        "Complete optional video transcript panel labels, loading, actual failed HTTP request and accessibility text. The transcript body is provider/author content and stays untouched, including words that match interface keys. Existing retry button supplies retry action; no request failure causes invented.",
+        "Actual optional watch transcript panel at390px: summary, held loading request,503 failure, explicit retry and unchanged provider transcript body/accessible label; no overflow/runtime errors/application writes"
+      ],
+      "reviewed_at": "2026-11-06T11:20:31+00:00",
+      "verified_at": "2026-11-06T11:36:44.017Z"
+    },
+    "724e78a3254c899d16ef6324a7abc9a8f5240ffce8bff74976df397c68ce9d78": {
+      "source_hash": "724e78a3254c899d16ef6324a7abc9a8f5240ffce8bff74976df397c68ce9d78",
+      "translation_hash": "61f21a7067800ef963507796dd0f40f582920ad6a768067c85e87b4ac1608b3d",
+      "status": "verified",
+      "contexts": [
+        "Complete Creator Studio comment action menu labels. Pin/unpin are paired actions, report is moderation, copy only copies a link. Mute action hides that user’s content and notifications rather than deleting or blocking their account. Proper user names/comment bodies are excluded. Infinitives and personal singular imperatives are idiomatic per locale; no formal address.",
+        "Creator Studio comments: pinned/unpinned menu, reply/copy/mute/report/delete labels at390px; original author/body/mention/tag retained, complete localized mention-action titles; menus only, no action mutations or runtime errors"
+      ],
+      "reviewed_at": "2026-11-06T11:15:06+00:00",
+      "verified_at": "2026-11-06T11:18:05.455Z"
+    },
+    "7361a76fabe16ae55c1ab66b48937ace7758fd53ec8391a6dc60e0b4f4263a09": {
+      "source_hash": "5d4afb9a8a031707a81ccb5e66e41b849c24fc11619571f295fb1699223e34bd",
+      "translation_hash": "d7ddbb2ee95741c69d855eba72d97b15a4d9ac5e4639c8b935a55ac73f387cdc",
+      "status": "editorial",
+      "contexts": [
+        "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented."
+      ],
+      "reviewed_at": "2026-11-06T10:35:35+00:00"
+    },
+    "74882ce0213e2a1525ec5ce5a077f37ac1c06f91340864bb37f2b8b83efc1052": {
+      "source_hash": "02f40fbc1fedb701030d9aafdd7dc77d2d1d9434046e974c3a2cf32a2c1bb977",
+      "translation_hash": "5621f1ae0a8ce9e129ac0355282efea469fd5aa22189d714c94db600670ab592",
+      "status": "verified",
+      "contexts": [
+        "Complete relative-age and standalone duration phrases for eight locales unavailable to browser RelativeTimeFormat. Cases are separate: Icelandic fyrir+dative versus standalone duration; native Nynorsk/Frysian/Basque/Macedonian/Albanian morphology. Welsh and Gaelic category mutations were checked against Unicode CLDR native field and long/short duration data; no inheritance markers copied and named count retained. Decimal/category behavior requires actual browser checking; unsupported number formatting stays literal, never borrows another language. Welsh two-minute mutation is retained in both duration and relative age, independently supported by native Welsh council copy; no silent reliance on inherited CLDR other form.",
+        "Actual browser localization of eight complete duration and relative-age messages,0/1/2/3/6/11/12/21/1.5, including Icelandic dative versus standalone case and Welsh/Gaelic mutation anchor cases; 390px, no runtime errors or application writes"
+      ],
+      "reviewed_at": "2026-11-06T11:15:56+00:00",
+      "verified_at": "2026-11-06T11:17:19.494Z"
+    },
+    "748b69851f6b0354dc5544ea0d2d4bbe0adb76d549cdb95f88099456e5a42673": {
+      "source_hash": "b5e323788c7bae3783f65123e9de2b0ce52de766ff440de31a9344933019d971",
+      "translation_hash": "6c522e34a22bd1c476c9de5746f083f3b08ab3ac72283514338caa0072177c34",
+      "status": "editorial",
+      "contexts": [
+        "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented."
+      ],
+      "reviewed_at": "2026-11-06T10:35:35+00:00"
+    },
+    "7721e29d6e90498909c2d621e6504a6d2b645776880383c857ae20cef8d2ea4c": {
+      "source_hash": "7721e29d6e90498909c2d621e6504a6d2b645776880383c857ae20cef8d2ea4c",
+      "translation_hash": "17e98c617ba75025c118b7ef2c7f966f92b81e816df40aacd858bf958e3bf3eb",
+      "status": "editorial",
+      "contexts": [
+        "Editorial source-context pass: navigation, video Shorts product name (not clothing), upload Review/check action, stream status, storage quota, video captions, administrator device-distribution chart, dashboard and selection actions. Regional scripts retained; simple player terminology cross-checked in Mozilla localization sources. Sparse entries only where confidently reviewed; no claim of whole-pack acceptance."
+      ],
+      "reviewed_at": "2026-11-06T10:16:42+00:00"
+    },
+    "79031d2dc515e09b2a6a06bdde5f4dcdce8f19dddc3c4b7565bd14bf9f11a8a6": {
+      "source_hash": "79031d2dc515e09b2a6a06bdde5f4dcdce8f19dddc3c4b7565bd14bf9f11a8a6",
+      "translation_hash": "8b3ec1b9122a9195c3a52be7311813ae42f9e0c89c5042010f43c2b29d3100f9",
+      "status": "verified",
+      "contexts": [
+        "Complete chapter editor/validation messages with named placeholders: maximum count, first0:00 for manual chapters, invalid/ordered/gapped timestamps, must start before video end, names and160-character limit. Checkbox name aligned with quoted recovery action; personal singular imperative, provider/user chapter names never translated. SI seconds avoid false cardinal inflection at1s versus10s. Silesian/Gaelic/Basque long validation not guessed.",
+        "Actual manual chapter editor at390px: complete checkbox/name labels, missing names1/2,10s minimum gap, invalid time and chapter at exact video end; correct import-success confirmation after a stubbed submit; original title and chapter names retained; no overflow/runtime errors/application writes"
+      ],
+      "reviewed_at": "2026-11-06T11:19:21+00:00",
+      "verified_at": "2026-11-06T11:22:49.730Z"
+    },
+    "798ca2ce18bf2038bc13aaa33ebfe6db7020df5b4bba40f68e21462a9207db3d": {
+      "source_hash": "798ca2ce18bf2038bc13aaa33ebfe6db7020df5b4bba40f68e21462a9207db3d",
+      "translation_hash": "9e9955ab4946f3db9bcdd61320f693d3da8eb013ed118620674a6be2fbf89668",
+      "status": "editorial",
+      "contexts": [
+        "Editorial source-context pass: navigation, video Shorts product name (not clothing), upload Review/check action, stream status, storage quota, video captions, administrator device-distribution chart, dashboard and selection actions. Regional scripts retained; simple player terminology cross-checked in Mozilla localization sources. Sparse entries only where confidently reviewed; no claim of whole-pack acceptance."
+      ],
+      "reviewed_at": "2026-11-06T10:16:42+00:00"
+    },
+    "7af36c508516cf272af6f3f98b4977910b0efd7b2a5ac5976ff2a0fbf9771113": {
+      "source_hash": "7af36c508516cf272af6f3f98b4977910b0efd7b2a5ac5976ff2a0fbf9771113",
+      "translation_hash": "a0696ff9636484431d9f653788a3578fb3fff4f07a658dd89705617c4cda1d45",
+      "status": "editorial",
+      "contexts": [
+        "Editorial source-context pass: navigation, video Shorts product name (not clothing), upload Review/check action, stream status, storage quota, video captions, administrator device-distribution chart, dashboard and selection actions. Regional scripts retained; simple player terminology cross-checked in Mozilla localization sources. Sparse entries only where confidently reviewed; no claim of whole-pack acceptance."
+      ],
+      "reviewed_at": "2026-11-06T10:16:42+00:00"
+    },
+    "7b424670a1985c5092832937d9231feb4ced989472aeb5855e60418b7c074592": {
+      "source_hash": "7b424670a1985c5092832937d9231feb4ced989472aeb5855e60418b7c074592",
+      "translation_hash": "67977ea6391846c38324380c8b12c5e18671611861102e94da949623c1b02299",
+      "status": "verified",
+      "contexts": [
+        "Complete Creator Studio comment action menu labels. Pin/unpin are paired actions, report is moderation, copy only copies a link. Mute action hides that user’s content and notifications rather than deleting or blocking their account. Proper user names/comment bodies are excluded. Infinitives and personal singular imperatives are idiomatic per locale; no formal address.",
+        "Creator Studio comments: pinned/unpinned menu, reply/copy/mute/report/delete labels at390px; original author/body/mention/tag retained, complete localized mention-action titles; menus only, no action mutations or runtime errors"
+      ],
+      "reviewed_at": "2026-11-06T11:15:06+00:00",
+      "verified_at": "2026-11-06T11:18:05.455Z"
+    },
+    "7b55cd8c8d056788c1171369011000a13e60818aeeb8b7f04517690712d95d50": {
+      "source_hash": "7b55cd8c8d056788c1171369011000a13e60818aeeb8b7f04517690712d95d50",
+      "translation_hash": "e1fea2a308646351d55c7e2b0396ae5fa9b8ec3f0eb971765308da6ace624e66",
+      "status": "verified",
+      "contexts": [
+        "Login privacy link; livestream navigation; upload review step; stream diagnostics; branded email footer",
+        "Login: complete privacy link, 390px, correct locale, no overflow, no writes or runtime errors"
+      ],
+      "reviewed_at": "2026-11-06T08:42:25+00:00",
+      "verified_at": "2026-11-06T08:53:45.109Z"
+    },
+    "7b94a2ebb7ffe4f8868ca9fd5405d5c93126df9ec3fe3334a8ce4466756cf703": {
+      "source_hash": "34cf7fa24901e25bf8615ce4484ce6637a30631e474fedcc5e948fd78dad1fc2",
+      "translation_hash": "d6b9c23e331df036fb29ce2edc8516aa2fb2dfc85c2f278af5208eb1f249f6dd",
+      "status": "editorial",
+      "contexts": [
+        "Complete password-strength validation, verification-code countdown and four actual ASCII character-class hints. Named level/time preserved. A–Z/a–z/0–9 remain explicit in every script; accented/non-Latin letters are never falsely promised to satisfy these classes. Personal singular, including Frisian/Welsh/Balkan prompts. No policy or strength algorithm changes."
+      ],
+      "reviewed_at": "2026-11-06T11:33:11+00:00"
+    },
+    "7d51f3ce38b28697e532947dbff35191bbe0bc86fdbbf5d34321c30ea7c642e0": {
+      "source_hash": "7d51f3ce38b28697e532947dbff35191bbe0bc86fdbbf5d34321c30ea7c642e0",
+      "translation_hash": "c21589c2ae89594ab014a5970ed4c9a2cbf2e3304563341a33e2032ea3b1ac5c",
+      "status": "verified",
+      "contexts": [
+        "Complete optional video transcript panel labels, loading, actual failed HTTP request and accessibility text. The transcript body is provider/author content and stays untouched, including words that match interface keys. Existing retry button supplies retry action; no request failure causes invented.",
+        "Actual optional watch transcript panel at390px: summary, held loading request,503 failure, explicit retry and unchanged provider transcript body/accessible label; no overflow/runtime errors/application writes"
+      ],
+      "reviewed_at": "2026-11-06T11:20:31+00:00",
+      "verified_at": "2026-11-06T11:36:44.017Z"
+    },
+    "7da8355e0ba2d34f6be3d1a9a650ee3ec3a064ceacb085dcc26bf0485d98f6f3": {
+      "source_hash": "7da8355e0ba2d34f6be3d1a9a650ee3ec3a064ceacb085dcc26bf0485d98f6f3",
+      "translation_hash": "619a7c0a63069254690a3e9b5c2e1b72173560d4889ce906f40094c4414d9681",
+      "status": "editorial",
+      "contexts": [
+        "Editorial source-context pass: navigation, video Shorts product name (not clothing), upload Review/check action, stream status, storage quota, video captions, administrator device-distribution chart, dashboard and selection actions. Regional scripts retained; simple player terminology cross-checked in Mozilla localization sources. Sparse entries only where confidently reviewed; no claim of whole-pack acceptance."
+      ],
+      "reviewed_at": "2026-11-06T10:16:42+00:00"
+    },
+    "7e721387d474ee248fecc5e05910cbd01c25fa169fb8dcbebdfa10671729efbb": {
+      "source_hash": "7e721387d474ee248fecc5e05910cbd01c25fa169fb8dcbebdfa10671729efbb",
+      "translation_hash": "56ee018463554d7706c02d619d32bab4e5d7bc6c7385ade6a19374b5fe4acf59",
+      "status": "editorial",
+      "contexts": [
+        "Seven complete context-specific creator support messages, explicitly separating playlist advice from monetary contributions. Amount-based tip/live support dialogs retain arbitrary names/titles as named tokens and Super Chat as the feature name. Support-success confirms the actual sent contribution, not advice or a future payment promise. No native full-message confidence claimed for Gaelic/Silesian."
+      ],
+      "reviewed_at": "2026-11-06T11:26:18+00:00"
+    },
+    "7fe2cfc15f522131fa26b98e7ee0ab18f1f16adb99172a14ea14f8a691c1db60": {
+      "source_hash": "e56ca87c6c57bff4ad6b2dc17e9b9831073d2e5ffb8f77c39ed8fb1dd3346015",
+      "translation_hash": "0fab37ff0fe927003a0b56e555e9551b97586743dc9a7110fda6e63786f5cc08",
+      "status": "verified",
+      "contexts": [
+        "Complete relative-age and standalone duration phrases for eight locales unavailable to browser RelativeTimeFormat. Cases are separate: Icelandic fyrir+dative versus standalone duration; native Nynorsk/Frysian/Basque/Macedonian/Albanian morphology. Welsh and Gaelic category mutations were checked against Unicode CLDR native field and long/short duration data; no inheritance markers copied and named count retained. Decimal/category behavior requires actual browser checking; unsupported number formatting stays literal, never borrows another language. Welsh two-minute mutation is retained in both duration and relative age, independently supported by native Welsh council copy; no silent reliance on inherited CLDR other form.",
+        "Actual browser localization of eight complete duration and relative-age messages,0/1/2/3/6/11/12/21/1.5, including Icelandic dative versus standalone case and Welsh/Gaelic mutation anchor cases; 390px, no runtime errors or application writes"
+      ],
+      "reviewed_at": "2026-11-06T11:15:56+00:00",
+      "verified_at": "2026-11-06T11:17:19.494Z"
+    },
+    "80aef09f019d3d41f2d2e3b0d8447b9d4f148c3baae1a5792ee2d2f50272dc7d": {
+      "source_hash": "c6a4abaa3a61494fe6c1fc669767b26b9276845ff1ff8436b0aba3bb65ff506f",
+      "translation_hash": "6073fa15fc6ec9cf943042ee6822e11741291d57ca589fccaf7f8581cd69b107",
+      "status": "verified",
+      "contexts": [
+        "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented.",
+        "Actual browser localization of eight complete quantity messages, 0/1/2/3/5/11/21/101/1.5, including CLDR dual/few/many/zero and native anchor cases where applicable; 390px, no runtime errors or application writes"
+      ],
+      "reviewed_at": "2026-11-06T10:35:35+00:00",
+      "verified_at": "2026-11-06T10:48:44.853Z"
+    },
+    "81592a5a8f958df12a491747223c38339e4e3bc75e9cdb5c9eaf2ba3117255c1": {
+      "source_hash": "7a17802d1a461d8d601d47a39cd4dda66aa2a3e4020f47d87f4f4c6cb7227afd",
+      "translation_hash": "e8ca0f2a7e4414b250075ea6a8560c05099ab53102d6cc9a63cdc7fda7e4ea8e",
+      "status": "editorial",
+      "contexts": [
+        "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented."
+      ],
+      "reviewed_at": "2026-11-06T10:35:35+00:00"
+    },
+    "81c9a480458877cac3827d5c17a9bf090dca6965eca805a6e29f83644509e848": {
+      "source_hash": "4fbd8a76803cc9b7705994655abf3840c2df4dbb2b02cb5476b32c90bea4a83e",
+      "translation_hash": "637c842d238e46392f00486e86bea963d239f387e2013045e79fe640036cc649",
+      "status": "editorial",
+      "contexts": [
+        "Complete relative-age and standalone duration phrases for eight locales unavailable to browser RelativeTimeFormat. Cases are separate: Icelandic fyrir+dative versus standalone duration; native Nynorsk/Frysian/Basque/Macedonian/Albanian morphology. Welsh and Gaelic category mutations were checked against Unicode CLDR native field and long/short duration data; no inheritance markers copied and named count retained. Decimal/category behavior requires actual browser checking; unsupported number formatting stays literal, never borrows another language. Welsh two-minute mutation is retained in both duration and relative age, independently supported by native Welsh council copy; no silent reliance on inherited CLDR other form."
+      ],
+      "reviewed_at": "2026-11-06T11:15:56+00:00"
+    },
+    "82b44aacf297c592a1669eec5f68d795e2dc471e34f4a09f0e622c65bbef283b": {
+      "source_hash": "afb38bb24ee496fa2ca998721134c9891cc61a5c266d634b0289ad63d2184420",
+      "translation_hash": "79df8a254646d44a4876403722b9288bf5db643383af43beba0be791ef2da0f9",
+      "status": "verified",
+      "contexts": [
+        "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented.",
+        "Actual browser localization of eight complete quantity messages, 0/1/2/3/5/11/21/101/1.5, including CLDR dual/few/many/zero and native anchor cases where applicable; 390px, no runtime errors or application writes"
+      ],
+      "reviewed_at": "2026-11-06T10:35:35+00:00",
+      "verified_at": "2026-11-06T10:48:44.853Z"
+    },
+    "82d89e7e5f6e58d78e9255933a99d35d9c42ba77140c269713cba8e49fd303a6": {
+      "source_hash": "e1f0d3ceb1b69ac4967e3f8d52814f18f83823e7ad6394b2849e81604a14e794",
+      "translation_hash": "5d8ea7e5a668774f68cdc78ea4fc56e35f56c71648e7b3cc4bdefb567ddbec75",
+      "status": "editorial",
+      "contexts": [
+        "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented."
+      ],
+      "reviewed_at": "2026-11-06T10:35:35+00:00"
+    },
+    "83385ac8628fd3d8f44633a03b8d10b380945751ba10b9dd528185d5b6bb2252": {
+      "source_hash": "83385ac8628fd3d8f44633a03b8d10b380945751ba10b9dd528185d5b6bb2252",
+      "translation_hash": "198b1cbc589c31190c6998f8df92cfad2b5dfae03098269918e38226f773d4bb",
+      "status": "editorial",
+      "contexts": [
+        "Seven complete context-specific creator support messages, explicitly separating playlist advice from monetary contributions. Amount-based tip/live support dialogs retain arbitrary names/titles as named tokens and Super Chat as the feature name. Support-success confirms the actual sent contribution, not advice or a future payment promise. No native full-message confidence claimed for Gaelic/Silesian."
+      ],
+      "reviewed_at": "2026-11-06T11:26:18+00:00"
+    },
+    "89947c6649d9dc79e2db52a289b82f67a8bc2e78a883d98f94230faf9e26b76c": {
+      "source_hash": "89947c6649d9dc79e2db52a289b82f67a8bc2e78a883d98f94230faf9e26b76c",
+      "translation_hash": "78b321f17f86aabdd7534af1b4bfdd1b8bb7cdcd53d5b9945196ab0586f7d77f",
+      "status": "verified",
+      "contexts": [
+        "Whole named action labels in actual comment/post mentions and manual chapter editor. Mention display text and user names remain unchanged. Named placeholders preserve unknown names and tags; labels are personal imperatives or natural infinitives, with regional scripts retained. No native confidence asserted for Gaelic/Silesian phrases withheld from this batch.",
+        "Creator Studio comments: pinned/unpinned menu, reply/copy/mute/report/delete labels at390px; original author/body/mention/tag retained, complete localized mention-action titles; menus only, no action mutations or runtime errors"
+      ],
+      "reviewed_at": "2026-11-06T11:09:00+00:00",
+      "verified_at": "2026-11-06T11:18:05.455Z"
+    },
+    "8a8a33fdd53c5a6a096c14d7407bc0492e34f3d6245e18b5ebdb93bc1eaec3c1": {
+      "source_hash": "5d4afb9a8a031707a81ccb5e66e41b849c24fc11619571f295fb1699223e34bd",
+      "translation_hash": "d7ddbb2ee95741c69d855eba72d97b15a4d9ac5e4639c8b935a55ac73f387cdc",
+      "status": "editorial",
+      "contexts": [
+        "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented."
+      ],
+      "reviewed_at": "2026-11-06T10:35:35+00:00"
+    },
+    "8ad4c0f7841e947feb2412ce56f355eee522347b18cbd3d6fd9af050db5c55fd": {
+      "source_hash": "7b55cd8c8d056788c1171369011000a13e60818aeeb8b7f04517690712d95d50",
+      "translation_hash": "e1fea2a308646351d55c7e2b0396ae5fa9b8ec3f0eb971765308da6ace624e66",
+      "status": "editorial",
+      "contexts": [
+        "Deprecated login message key: same owner-approved neutral privacy-policy sentence as the current login; keeps already-open older bundles from displaying the old absolute claim."
+      ],
+      "reviewed_at": "2026-11-06T09:31:13+00:00"
+    },
+    "8e3eab20f2dba72e98e8d6565523358b10ec726963fca66d6d49e1d6c17de167": {
+      "source_hash": "8e3eab20f2dba72e98e8d6565523358b10ec726963fca66d6d49e1d6c17de167",
+      "translation_hash": "9bc9d98c869c9fcbae8ca3136344cef00e81cd551e355756ec3ff3f3b8401e66",
+      "status": "editorial",
+      "contexts": [
+        "Complete password-strength validation, verification-code countdown and four actual ASCII character-class hints. Named level/time preserved. A–Z/a–z/0–9 remain explicit in every script; accented/non-Latin letters are never falsely promised to satisfy these classes. Personal singular, including Frisian/Welsh/Balkan prompts. No policy or strength algorithm changes."
+      ],
+      "reviewed_at": "2026-11-06T11:33:11+00:00"
+    },
+    "90102f3339772bda28a9a3363295723c1464c6eb8556a04d2b154bee3a27c50d": {
+      "source_hash": "31013093ee41df1d12c0715e7facde7ec368638d5e7e9b840541fa8f3bbb0e1c",
+      "translation_hash": "d0b4eea97a69b775c2dcaf0ec6f1bf641d64f3fc8dd8c8b9b8a86b95a44239be",
+      "status": "verified",
+      "contexts": [
+        "Complete relative-age and standalone duration phrases for eight locales unavailable to browser RelativeTimeFormat. Cases are separate: Icelandic fyrir+dative versus standalone duration; native Nynorsk/Frysian/Basque/Macedonian/Albanian morphology. Welsh and Gaelic category mutations were checked against Unicode CLDR native field and long/short duration data; no inheritance markers copied and named count retained. Decimal/category behavior requires actual browser checking; unsupported number formatting stays literal, never borrows another language. Welsh two-minute mutation is retained in both duration and relative age, independently supported by native Welsh council copy; no silent reliance on inherited CLDR other form.",
+        "Actual browser localization of eight complete duration and relative-age messages,0/1/2/3/6/11/12/21/1.5, including Icelandic dative versus standalone case and Welsh/Gaelic mutation anchor cases; 390px, no runtime errors or application writes"
+      ],
+      "reviewed_at": "2026-11-06T11:15:56+00:00",
+      "verified_at": "2026-11-06T11:17:19.494Z"
+    },
+    "91bc70a81d662c5fe1e1d8dedd35ae61516517557d6620f2889e84042a1bf1d4": {
+      "source_hash": "37841075cf3a8e25119f751b2db44f7c494d8a381e40804760281753824f6a76",
+      "translation_hash": "9c5d238c456dc579897518de8745f21f31e813e2fc20c40f36d46863f0fc1da9",
+      "status": "editorial",
+      "contexts": [
+        "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented."
+      ],
+      "reviewed_at": "2026-11-06T10:35:35+00:00"
+    },
+    "923b59f348e1a7c0d47f83e0e163e2814423eb0039768875e0f3f1621d27a702": {
+      "source_hash": "628ba8264d0d4b0cb3dd025a6c61361dd0dfa9c35e3c2e68b140dc73a20dc5ea",
+      "translation_hash": "bf60b14c5389acd5dc01856fd983268bde9cd87b3c26507ba6e0c230cd607191",
+      "status": "verified",
+      "contexts": [
+        "Complete chapter editor/validation messages with named placeholders: maximum count, first0:00 for manual chapters, invalid/ordered/gapped timestamps, must start before video end, names and160-character limit. Checkbox name aligned with quoted recovery action; personal singular imperative, provider/user chapter names never translated. SI seconds avoid false cardinal inflection at1s versus10s. Silesian/Gaelic/Basque long validation not guessed.",
+        "Actual manual chapter editor at390px: complete checkbox/name labels, missing names1/2,10s minimum gap, invalid time and chapter at exact video end; correct import-success confirmation after a stubbed submit; original title and chapter names retained; no overflow/runtime errors/application writes"
+      ],
+      "reviewed_at": "2026-11-06T11:19:21+00:00",
+      "verified_at": "2026-11-06T11:22:49.730Z"
+    },
+    "92d2a4fc7ed2f03485acc6af43a6b823a8690c6633dc4ebfb8112271f4b8cba7": {
+      "source_hash": "92d2a4fc7ed2f03485acc6af43a6b823a8690c6633dc4ebfb8112271f4b8cba7",
+      "translation_hash": "93d0f6d883504956418eedbc9727ef69f65934dde9efa30356c585a36a1141ee",
+      "status": "editorial",
+      "contexts": [
+        "Seven complete context-specific creator support messages, explicitly separating playlist advice from monetary contributions. Amount-based tip/live support dialogs retain arbitrary names/titles as named tokens and Super Chat as the feature name. Support-success confirms the actual sent contribution, not advice or a future payment promise. No native full-message confidence claimed for Gaelic/Silesian."
+      ],
+      "reviewed_at": "2026-11-06T11:26:18+00:00"
+    },
+    "937fdab03f7ddb57210e63f6a22b884881d4ad0d6cbd3ddfe0a20ec997beba25": {
+      "source_hash": "5da34638394ee73cf0931de56c8c756d5b897486ddb7b5df9f8a1b3766a53539",
+      "translation_hash": "86f4a7bf0fddf8abef9ce389d8d62418c3b14090a09e0fe48c877ed9f363de11",
+      "status": "verified",
+      "contexts": [
+        "Complete relative-age and standalone duration phrases for eight locales unavailable to browser RelativeTimeFormat. Cases are separate: Icelandic fyrir+dative versus standalone duration; native Nynorsk/Frysian/Basque/Macedonian/Albanian morphology. Welsh and Gaelic category mutations were checked against Unicode CLDR native field and long/short duration data; no inheritance markers copied and named count retained. Decimal/category behavior requires actual browser checking; unsupported number formatting stays literal, never borrows another language. Welsh two-minute mutation is retained in both duration and relative age, independently supported by native Welsh council copy; no silent reliance on inherited CLDR other form.",
+        "Actual browser localization of eight complete duration and relative-age messages,0/1/2/3/6/11/12/21/1.5, including Icelandic dative versus standalone case and Welsh/Gaelic mutation anchor cases; 390px, no runtime errors or application writes"
+      ],
+      "reviewed_at": "2026-11-06T11:15:56+00:00",
+      "verified_at": "2026-11-06T11:17:19.494Z"
+    },
+    "95185b6fa17df19a65621782475bb3c01decff9e90d5bda58a89803a40a0cd8b": {
+      "source_hash": "95185b6fa17df19a65621782475bb3c01decff9e90d5bda58a89803a40a0cd8b",
+      "translation_hash": "672eb0989ac203b6e2ec5facdda28a67385a3de0be06064aab6826b2244d11fd",
+      "status": "editorial",
+      "contexts": [
+        "Owner-approved 60-second strictly portrait Shorts policy. Complete current messages and historical180/square-compatible keys all express60seconds/portrait; automatic classification and empty state mention import without inventing encoding. Gaelic only confidently reviewed short constraints; no invented full auto/empty statement, Silesian withheld for native review."
+      ],
+      "reviewed_at": "2026-11-06T10:50:57+00:00"
+    },
+    "97f829ff49773ebd0eef96e559dbf9232f369076ef516e9149a4c2337a466443": {
+      "source_hash": "e874a02a2fdc9bef403c7ca9d8c9e227bab3a4663a43caab02a4e5506700fbf1",
+      "translation_hash": "b9e5b4a8016697c6099c938e5bfdd4eb6c4f69b9c2e4742a767417708a23abd7",
+      "status": "editorial",
+      "contexts": [
+        "Complete relative-age and standalone duration phrases for eight locales unavailable to browser RelativeTimeFormat. Cases are separate: Icelandic fyrir+dative versus standalone duration; native Nynorsk/Frysian/Basque/Macedonian/Albanian morphology. Welsh and Gaelic category mutations were checked against Unicode CLDR native field and long/short duration data; no inheritance markers copied and named count retained. Decimal/category behavior requires actual browser checking; unsupported number formatting stays literal, never borrows another language. Welsh two-minute mutation is retained in both duration and relative age, independently supported by native Welsh council copy; no silent reliance on inherited CLDR other form."
+      ],
+      "reviewed_at": "2026-11-06T11:15:56+00:00"
+    },
+    "9858922d6439e4119a2ac49e0aafd7caa3c64de965f5a5291f6b15c4104b70cc": {
+      "source_hash": "de87937934a2dbf8d61903838eac8e763c1c698cdc3b57f1815ed74ae1441ae8",
+      "translation_hash": "ed4156f1c3900f7367e9579453ae0bf93c3527d758f361f802e630ce2f191915",
+      "status": "editorial",
+      "contexts": [
+        "Owner-approved 60-second strictly portrait Shorts policy. Complete current messages and historical180/square-compatible keys all express60seconds/portrait; automatic classification and empty state mention import without inventing encoding. Gaelic only confidently reviewed short constraints; no invented full auto/empty statement, Silesian withheld for native review."
+      ],
+      "reviewed_at": "2026-11-06T10:50:57+00:00"
+    },
+    "9ba14fb4fa9c050ab25b5ef0933462658e7142f7ecaa677de70b286dfcf3f84b": {
+      "source_hash": "245d946a767e6192227aada6baad41d989e19c4abb20369d3baf1abe13bc7ed1",
+      "translation_hash": "211045b8f74db5487a12dc02f7d36c18da098fddb799bf73e29525b3c2f32232",
+      "status": "verified",
+      "contexts": [
+        "Complete relative-age and standalone duration phrases for eight locales unavailable to browser RelativeTimeFormat. Cases are separate: Icelandic fyrir+dative versus standalone duration; native Nynorsk/Frysian/Basque/Macedonian/Albanian morphology. Welsh and Gaelic category mutations were checked against Unicode CLDR native field and long/short duration data; no inheritance markers copied and named count retained. Decimal/category behavior requires actual browser checking; unsupported number formatting stays literal, never borrows another language. Welsh two-minute mutation is retained in both duration and relative age, independently supported by native Welsh council copy; no silent reliance on inherited CLDR other form.",
+        "Actual browser localization of eight complete duration and relative-age messages,0/1/2/3/6/11/12/21/1.5, including Icelandic dative versus standalone case and Welsh/Gaelic mutation anchor cases; 390px, no runtime errors or application writes"
+      ],
+      "reviewed_at": "2026-11-06T11:15:56+00:00",
+      "verified_at": "2026-11-06T11:17:19.494Z"
+    },
+    "9c744a3288b536aa9fbca9658ab7578cabc4152abe27e5f20b4cdd9dff0f1119": {
+      "source_hash": "9c744a3288b536aa9fbca9658ab7578cabc4152abe27e5f20b4cdd9dff0f1119",
+      "translation_hash": "3d3986fcbec44fec24ad68a64e39e79ccb2daa2293988cf0127e1c5c0b51e3b3",
+      "status": "editorial",
+      "contexts": [
+        "Owner-approved 60-second strictly portrait Shorts policy. Complete current messages and historical180/square-compatible keys all express60seconds/portrait; automatic classification and empty state mention import without inventing encoding. Gaelic only confidently reviewed short constraints; no invented full auto/empty statement, Silesian withheld for native review."
+      ],
+      "reviewed_at": "2026-11-06T10:50:57+00:00"
+    },
+    "9de97ee16a4cebc3d656dbc591135772179c7dfaecdb203111ef50bc9733f7e6": {
+      "source_hash": "b0b1c780ec908b7d3a878550393521478cd6290201009898a9e6afd7570c345a",
+      "translation_hash": "ad06cb315d9ddf8fb02896c76058e8b999ec8eb253db839c20e300557cf292a8",
+      "status": "editorial",
+      "contexts": [
+        "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented."
+      ],
+      "reviewed_at": "2026-11-06T10:35:35+00:00"
+    },
+    "9f458b3e3657bbcdf13cb8255436218a8794578f968b17f2acfae4f33285fa1c": {
+      "source_hash": "9f458b3e3657bbcdf13cb8255436218a8794578f968b17f2acfae4f33285fa1c",
+      "translation_hash": "3d3986fcbec44fec24ad68a64e39e79ccb2daa2293988cf0127e1c5c0b51e3b3",
+      "status": "editorial",
+      "contexts": [
+        "Owner-approved 60-second strictly portrait Shorts policy. Complete current messages and historical180/square-compatible keys all express60seconds/portrait; automatic classification and empty state mention import without inventing encoding. Gaelic only confidently reviewed short constraints; no invented full auto/empty statement, Silesian withheld for native review."
+      ],
+      "reviewed_at": "2026-11-06T10:50:57+00:00"
+    },
+    "a1ce4c0f27d5f90fb83d544b99b5fc1352d43692d47df94077772bc4413dbe51": {
+      "source_hash": "271b80f48cb86e1142bcc18b2c66ad06ea24c0822be85ca94fa085180a842fbd",
+      "translation_hash": "927d8f1dba9368a9a8f0f7b4905931b31ee61f36a57b7ce76a91b3032c2bb5e3",
+      "status": "editorial",
+      "contexts": [
+        "Complete relative-age and standalone duration phrases for eight locales unavailable to browser RelativeTimeFormat. Cases are separate: Icelandic fyrir+dative versus standalone duration; native Nynorsk/Frysian/Basque/Macedonian/Albanian morphology. Welsh and Gaelic category mutations were checked against Unicode CLDR native field and long/short duration data; no inheritance markers copied and named count retained. Decimal/category behavior requires actual browser checking; unsupported number formatting stays literal, never borrows another language. Welsh two-minute mutation is retained in both duration and relative age, independently supported by native Welsh council copy; no silent reliance on inherited CLDR other form."
+      ],
+      "reviewed_at": "2026-11-06T11:15:56+00:00"
+    },
+    "a69c4dece144a46e40d430726395533d8f335a7d601d8ca292220b3a4a7faca4": {
+      "source_hash": "a69c4dece144a46e40d430726395533d8f335a7d601d8ca292220b3a4a7faca4",
+      "translation_hash": "0250603075c8e98c5936ab62d0b1d359317bfc899eef482bb6b3099a1e25f841",
+      "status": "editorial",
+      "contexts": [
+        "Editorial source-context pass: navigation, video Shorts product name (not clothing), upload Review/check action, stream status, storage quota, video captions, administrator device-distribution chart, dashboard and selection actions. Regional scripts retained; simple player terminology cross-checked in Mozilla localization sources. Sparse entries only where confidently reviewed; no claim of whole-pack acceptance."
+      ],
+      "reviewed_at": "2026-11-06T10:16:42+00:00"
+    },
+    "a6fc41e0727fc95d9239b2365dd19d1acf712c2b1f4f5990b59adea95ce5ef26": {
+      "source_hash": "4a819eaea7f49acaa5837c64f69a70843d4c64118eb509490bbb7fad61f10104",
+      "translation_hash": "ce2f40c62eab857672114e955557e02dbf672813b1361056ee67662bc76587b8",
+      "status": "editorial",
+      "contexts": [
+        "Owner-approved 60-second strictly portrait Shorts policy. Complete current messages and historical180/square-compatible keys all express60seconds/portrait; automatic classification and empty state mention import without inventing encoding. Gaelic only confidently reviewed short constraints; no invented full auto/empty statement, Silesian withheld for native review."
+      ],
+      "reviewed_at": "2026-11-06T10:50:57+00:00"
+    },
+    "a8012f33f390c2cfe03096a8c1aa3588b952707b4b2210a5f949acd52ae521bf": {
+      "source_hash": "665560d063640cc0c09c13dedac17d8003082960e096bcf96ece534335984902",
+      "translation_hash": "274308e1733d29fe492adf46cf999bf5701e899c6d6b82449499ad71a143d2d8",
+      "status": "verified",
+      "contexts": [
+        "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented.",
+        "Actual browser localization of eight complete quantity messages, 0/1/2/3/5/11/21/101/1.5, including CLDR dual/few/many/zero and native anchor cases where applicable; 390px, no runtime errors or application writes"
+      ],
+      "reviewed_at": "2026-11-06T10:35:35+00:00",
+      "verified_at": "2026-11-06T10:48:44.853Z"
+    },
+    "a9d108ef9245fe0b06f717b89b64d4f32fb2249e5e134c4dd2461f3dd4010c5e": {
+      "source_hash": "4d36380cbb170e20ba7972c1e845a65ec85dcb990804175b6bee2422a203d0ef",
+      "translation_hash": "94801482bae685d08b5bacdfa3eab1bee841faf7a68d0d8c9a61d57eb2126773",
+      "status": "editorial",
+      "contexts": [
+        "Complete relative-age and standalone duration phrases for eight locales unavailable to browser RelativeTimeFormat. Cases are separate: Icelandic fyrir+dative versus standalone duration; native Nynorsk/Frysian/Basque/Macedonian/Albanian morphology. Welsh and Gaelic category mutations were checked against Unicode CLDR native field and long/short duration data; no inheritance markers copied and named count retained. Decimal/category behavior requires actual browser checking; unsupported number formatting stays literal, never borrows another language. Welsh two-minute mutation is retained in both duration and relative age, independently supported by native Welsh council copy; no silent reliance on inherited CLDR other form."
+      ],
+      "reviewed_at": "2026-11-06T11:15:56+00:00"
+    },
+    "ad0754b3d9d20a19b7c4711d8319f3fa8bc1d2e243b466d5d24e5f21f84637bf": {
+      "source_hash": "e843b2e5fe87c279cd5cbbf559bdf5b0cd0abd442b1a2d0229b94649858d5b55",
+      "translation_hash": "0fab37ff0fe927003a0b56e555e9551b97586743dc9a7110fda6e63786f5cc08",
+      "status": "verified",
+      "contexts": [
+        "Complete relative-age and standalone duration phrases for eight locales unavailable to browser RelativeTimeFormat. Cases are separate: Icelandic fyrir+dative versus standalone duration; native Nynorsk/Frysian/Basque/Macedonian/Albanian morphology. Welsh and Gaelic category mutations were checked against Unicode CLDR native field and long/short duration data; no inheritance markers copied and named count retained. Decimal/category behavior requires actual browser checking; unsupported number formatting stays literal, never borrows another language. Welsh two-minute mutation is retained in both duration and relative age, independently supported by native Welsh council copy; no silent reliance on inherited CLDR other form.",
+        "Actual browser localization of eight complete duration and relative-age messages,0/1/2/3/6/11/12/21/1.5, including Icelandic dative versus standalone case and Welsh/Gaelic mutation anchor cases; 390px, no runtime errors or application writes"
+      ],
+      "reviewed_at": "2026-11-06T11:15:56+00:00",
+      "verified_at": "2026-11-06T11:17:19.494Z"
+    },
+    "ad8dfcbbdcf2c0b6d8b430ed2ce72776d0554f0f352e7e6fa6f51e7833999983": {
+      "source_hash": "8cdd13bec7e3a47703d2699c20d0d4b0a0f0b43282cbdfd6708c96e71f98af93",
+      "translation_hash": "2a3553d4c66a6d1ea22cf2168cb24bc6aa3d1326886f253dd3573c0817d7fe9d",
+      "status": "verified",
+      "contexts": [
+        "Complete relative-age and standalone duration phrases for eight locales unavailable to browser RelativeTimeFormat. Cases are separate: Icelandic fyrir+dative versus standalone duration; native Nynorsk/Frysian/Basque/Macedonian/Albanian morphology. Welsh and Gaelic category mutations were checked against Unicode CLDR native field and long/short duration data; no inheritance markers copied and named count retained. Decimal/category behavior requires actual browser checking; unsupported number formatting stays literal, never borrows another language. Welsh two-minute mutation is retained in both duration and relative age, independently supported by native Welsh council copy; no silent reliance on inherited CLDR other form.",
+        "Actual browser localization of eight complete duration and relative-age messages,0/1/2/3/6/11/12/21/1.5, including Icelandic dative versus standalone case and Welsh/Gaelic mutation anchor cases; 390px, no runtime errors or application writes"
+      ],
+      "reviewed_at": "2026-11-06T11:15:56+00:00",
+      "verified_at": "2026-11-06T11:17:19.494Z"
+    },
+    "adcc7f0fe2f91341b63d68ea999ff4e0159af8a013b1338a157d1486f6f185df": {
+      "source_hash": "66251083bb65b3085af4b0715e407d7f512113433940c974ee3dbf2e43abdf1f",
+      "translation_hash": "4297459cba4b2798064db51ca394fa2461e3d68965ccc7a6cfdfa60b19cbeb84",
+      "status": "editorial",
+      "contexts": [
+        "Private video visibility help checked against VideoSales::canViewPrivate: only owner and site administrators. No claim of a per-person sharing feature. Singular personal address. Gaelic/Silesian full sentence withheld pending concrete linguistic verification."
+      ],
+      "reviewed_at": "2026-11-06T10:20:01+00:00"
+    },
+    "afd848bd6cfc89b421938f8deda6c672aebcfb18b1c3d7c0ebe56ccdbbf04ed7": {
+      "source_hash": "9719bbf6d0a23fa44f964aa7e8c20ab27c8ccba00727a2cd9fd90ae2ffb9bfd0",
+      "translation_hash": "6831b93b38faaa6d3aa04d60de81c8942cdf64e98563c75659476d93ffbbf34a",
+      "status": "verified",
+      "contexts": [
+        "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented.",
+        "Actual browser localization of eight complete quantity messages, 0/1/2/3/5/11/21/101/1.5, including CLDR dual/few/many/zero and native anchor cases where applicable; 390px, no runtime errors or application writes"
+      ],
+      "reviewed_at": "2026-11-06T10:35:35+00:00",
+      "verified_at": "2026-11-06T10:48:44.853Z"
+    },
+    "aff0766a5290e117b8433c351bae7b7b23bed682b2369bd822d88a647cc58512": {
+      "source_hash": "aff0766a5290e117b8433c351bae7b7b23bed682b2369bd822d88a647cc58512",
+      "translation_hash": "cdd32d58c3a239a234b6b5d6c9fd51c9563d816aa71e286ac065514d4c6d638d",
+      "status": "verified",
+      "contexts": [
+        "Editorial source-context pass: navigation, video Shorts product name (not clothing), upload Review/check action, stream status, storage quota, video captions, administrator device-distribution chart, dashboard and selection actions. Regional scripts retained; simple player terminology cross-checked in Mozilla localization sources. Sparse entries only where confidently reviewed; no claim of whole-pack acceptance.",
+        "Upload at 390px: actual navigation, review step, private-access wording and applicable personal form prompts; user input stays literal; no overflow/runtime errors/application writes"
+      ],
+      "reviewed_at": "2026-11-06T10:16:42+00:00",
+      "verified_at": "2026-11-06T11:11:20.316Z"
+    },
+    "b41aa0355f93e42f3617c00c4f1d576c07b2fbd4b15ccf99c7c6753c27fbf1de": {
+      "source_hash": "0e48eda31e9bcd8fe7eb24dbf52c87e51b9082ab4cc5881911c8d2622ba1735d",
+      "translation_hash": "46b3340bf7ae7e83f275d51f64166f8e002ab4dc5fe333398556373f2740d210",
+      "status": "verified",
+      "contexts": [
+        "Complete relative-age and standalone duration phrases for eight locales unavailable to browser RelativeTimeFormat. Cases are separate: Icelandic fyrir+dative versus standalone duration; native Nynorsk/Frysian/Basque/Macedonian/Albanian morphology. Welsh and Gaelic category mutations were checked against Unicode CLDR native field and long/short duration data; no inheritance markers copied and named count retained. Decimal/category behavior requires actual browser checking; unsupported number formatting stays literal, never borrows another language. Welsh two-minute mutation is retained in both duration and relative age, independently supported by native Welsh council copy; no silent reliance on inherited CLDR other form.",
+        "Actual browser localization of eight complete duration and relative-age messages,0/1/2/3/6/11/12/21/1.5, including Icelandic dative versus standalone case and Welsh/Gaelic mutation anchor cases; 390px, no runtime errors or application writes"
+      ],
+      "reviewed_at": "2026-11-06T11:15:56+00:00",
+      "verified_at": "2026-11-06T11:17:19.494Z"
+    },
+    "b50d0998ff89ca749627f3472b09a9d5657b3899ea09b127660014f420ff0c58": {
+      "source_hash": "b50d0998ff89ca749627f3472b09a9d5657b3899ea09b127660014f420ff0c58",
+      "translation_hash": "7fca83599725d0aebeeb413bf2f4652d6ceae43071cbd8845102a725b6afb013",
+      "status": "verified",
+      "contexts": [
+        "Complete Creator Studio comment action menu labels. Pin/unpin are paired actions, report is moderation, copy only copies a link. Mute action hides that user’s content and notifications rather than deleting or blocking their account. Proper user names/comment bodies are excluded. Infinitives and personal singular imperatives are idiomatic per locale; no formal address.",
+        "Creator Studio comments: pinned/unpinned menu, reply/copy/mute/report/delete labels at390px; original author/body/mention/tag retained, complete localized mention-action titles; menus only, no action mutations or runtime errors"
+      ],
+      "reviewed_at": "2026-11-06T11:15:06+00:00",
+      "verified_at": "2026-11-06T11:18:05.455Z"
+    },
+    "b64ac05f17e64d037db81a98f51e2688216e292ae9748f979f04dfbac49fd7fc": {
+      "source_hash": "b64ac05f17e64d037db81a98f51e2688216e292ae9748f979f04dfbac49fd7fc",
+      "translation_hash": "b680df5b2ea70ae300f909eae90ea5be90997436eea1c5b5b80ee902cf5445b6",
+      "status": "editorial",
+      "contexts": [
+        "Editorial source-context pass: navigation, video Shorts product name (not clothing), upload Review/check action, stream status, storage quota, video captions, administrator device-distribution chart, dashboard and selection actions. Regional scripts retained; simple player terminology cross-checked in Mozilla localization sources. Sparse entries only where confidently reviewed; no claim of whole-pack acceptance."
+      ],
+      "reviewed_at": "2026-11-06T10:16:42+00:00"
+    },
+    "b6b5ec7996d07581a2ee732c87a9106d17edb939ed024bfcd1c1550cf26f0fee": {
+      "source_hash": "7a17802d1a461d8d601d47a39cd4dda66aa2a3e4020f47d87f4f4c6cb7227afd",
+      "translation_hash": "e8ca0f2a7e4414b250075ea6a8560c05099ab53102d6cc9a63cdc7fda7e4ea8e",
+      "status": "editorial",
+      "contexts": [
+        "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented."
+      ],
+      "reviewed_at": "2026-11-06T10:35:35+00:00"
+    },
+    "b7da44afd6275b62c4a903d5a47da5b52446856d2ab8f575fa8b7a21313c91e5": {
+      "source_hash": "b7da44afd6275b62c4a903d5a47da5b52446856d2ab8f575fa8b7a21313c91e5",
+      "translation_hash": "9e65f646e5ed1af5669fb4a192edd08f33477b9cebea23d37f51729196d6c47b",
+      "status": "verified",
+      "contexts": [
+        "Complete chapter editor/validation messages with named placeholders: maximum count, first0:00 for manual chapters, invalid/ordered/gapped timestamps, must start before video end, names and160-character limit. Checkbox name aligned with quoted recovery action; personal singular imperative, provider/user chapter names never translated. SI seconds avoid false cardinal inflection at1s versus10s. Silesian/Gaelic/Basque long validation not guessed.",
+        "Actual manual chapter editor at390px: complete checkbox/name labels, missing names1/2,10s minimum gap, invalid time and chapter at exact video end; correct import-success confirmation after a stubbed submit; original title and chapter names retained; no overflow/runtime errors/application writes"
+      ],
+      "reviewed_at": "2026-11-06T11:19:21+00:00",
+      "verified_at": "2026-11-06T11:22:49.730Z"
+    },
+    "b8ef914365fb9deaefbc8ca386dee4a8936ee9a221b80679d38879d78668cf93": {
+      "source_hash": "b8ef914365fb9deaefbc8ca386dee4a8936ee9a221b80679d38879d78668cf93",
+      "translation_hash": "132328dd56a18edf81045ccaa61cc55e7d3da513371184386fc8af27bcfa866f",
+      "status": "editorial",
+      "contexts": [
+        "Editorial source-context pass: navigation, video Shorts product name (not clothing), upload Review/check action, stream status, storage quota, video captions, administrator device-distribution chart, dashboard and selection actions. Regional scripts retained; simple player terminology cross-checked in Mozilla localization sources. Sparse entries only where confidently reviewed; no claim of whole-pack acceptance."
+      ],
+      "reviewed_at": "2026-11-06T10:16:42+00:00"
+    },
+    "ba6984c4c1302b4a1b9f0069c4f0f08ce4d632b3dc15525262ca22bcdea90bad": {
+      "source_hash": "fc2673773d21f7212f14bc4701c667a6887a68310c2c95533b3a4414e62a4746",
+      "translation_hash": "97c9aeb8ebe45e2bd611f10a43fe4ecba8c29e24929b9eb71472787cf5308a8a",
+      "status": "verified",
+      "contexts": [
+        "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented.",
+        "Actual browser localization of eight complete quantity messages, 0/1/2/3/5/11/21/101/1.5, including CLDR dual/few/many/zero and native anchor cases where applicable; 390px, no runtime errors or application writes"
+      ],
+      "reviewed_at": "2026-11-06T10:35:35+00:00",
+      "verified_at": "2026-11-06T10:48:44.853Z"
+    },
+    "bb954d61fd855c5c03d727bdf0b1b834fcff698322b95d94546acf10846e5e76": {
+      "source_hash": "26bfe5f058be83a797974252e939b585fa3a5b0c22602e7ec2c5730cef02f359",
+      "translation_hash": "a66f3120a461f44bff93b096823ab611829cbc0bd8f367eacb978c0b669fa17d",
+      "status": "editorial",
+      "contexts": [
+        "Complete password-strength validation, verification-code countdown and four actual ASCII character-class hints. Named level/time preserved. A–Z/a–z/0–9 remain explicit in every script; accented/non-Latin letters are never falsely promised to satisfy these classes. Personal singular, including Frisian/Welsh/Balkan prompts. No policy or strength algorithm changes."
+      ],
+      "reviewed_at": "2026-11-06T11:33:11+00:00"
+    },
+    "bd212a1b21028cb30a522792fd6b72163b3a48b7f3c23bb86e911aaaf91e33b6": {
+      "source_hash": "ab95d4f48374bfc675eea310670103c4037ffe95fd94e9b319a4c536a4e1baeb",
+      "translation_hash": "4915fafc037aa64e2cc76dc5975b8f089a3cf5be484c1a5837be69d17b131a52",
+      "status": "verified",
+      "contexts": [
+        "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented.",
+        "Actual browser localization of eight complete quantity messages, 0/1/2/3/5/11/21/101/1.5, including CLDR dual/few/many/zero and native anchor cases where applicable; 390px, no runtime errors or application writes"
+      ],
+      "reviewed_at": "2026-11-06T10:35:35+00:00",
+      "verified_at": "2026-11-06T10:48:44.853Z"
+    },
+    "bfd1746b71746b2356293ad05852f27707cc87a756f0b316ff2b07089d0e1eb2": {
+      "source_hash": "1146328e1047850e44f7173d660d2c931a4e7d887215656ddc17eff692036498",
+      "translation_hash": "4ffbcbacf968c2d421556fafa9b84fa609c42f8dbfde3ea3d633669d04026f7d",
+      "status": "editorial",
+      "contexts": [
+        "Complete relative-age and standalone duration phrases for eight locales unavailable to browser RelativeTimeFormat. Cases are separate: Icelandic fyrir+dative versus standalone duration; native Nynorsk/Frysian/Basque/Macedonian/Albanian morphology. Welsh and Gaelic category mutations were checked against Unicode CLDR native field and long/short duration data; no inheritance markers copied and named count retained. Decimal/category behavior requires actual browser checking; unsupported number formatting stays literal, never borrows another language. Welsh two-minute mutation is retained in both duration and relative age, independently supported by native Welsh council copy; no silent reliance on inherited CLDR other form."
+      ],
+      "reviewed_at": "2026-11-06T11:15:56+00:00"
+    },
+    "c1781a8668f2fbe9bc83da8dc08fefee631b250c047e1f39c9063db2a356d271": {
+      "source_hash": "b5e323788c7bae3783f65123e9de2b0ce52de766ff440de31a9344933019d971",
+      "translation_hash": "6c522e34a22bd1c476c9de5746f083f3b08ab3ac72283514338caa0072177c34",
+      "status": "editorial",
+      "contexts": [
+        "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented."
+      ],
+      "reviewed_at": "2026-11-06T10:35:35+00:00"
+    },
+    "c253f451bdd56431ff15f638498d0003c36aabd5b07e5d21aaa7f1391410747c": {
+      "source_hash": "c253f451bdd56431ff15f638498d0003c36aabd5b07e5d21aaa7f1391410747c",
+      "translation_hash": "0ca9268a24fae705cf1eec0854130dfcf4bfbce91a7f8fe71be46b97f58c325f",
+      "status": "verified",
+      "contexts": [
+        "Complete Creator Studio comment action menu labels. Pin/unpin are paired actions, report is moderation, copy only copies a link. Mute action hides that user’s content and notifications rather than deleting or blocking their account. Proper user names/comment bodies are excluded. Infinitives and personal singular imperatives are idiomatic per locale; no formal address.",
+        "Creator Studio comments: pinned/unpinned menu, reply/copy/mute/report/delete labels at390px; original author/body/mention/tag retained, complete localized mention-action titles; menus only, no action mutations or runtime errors"
+      ],
+      "reviewed_at": "2026-11-06T11:15:06+00:00",
+      "verified_at": "2026-11-06T11:18:05.455Z"
+    },
+    "c2d5ea49b60395ccffee27c10b3998b97d3f1c9d3218e2f32dd774be50914da3": {
+      "source_hash": "c2d5ea49b60395ccffee27c10b3998b97d3f1c9d3218e2f32dd774be50914da3",
+      "translation_hash": "e9aac70737e60a83ee38f18f8c019495fb5eefc7e131d6b320b5d035cb9e2bd4",
+      "status": "verified",
+      "contexts": [
+        "Complete chapter editor/validation messages with named placeholders: maximum count, first0:00 for manual chapters, invalid/ordered/gapped timestamps, must start before video end, names and160-character limit. Checkbox name aligned with quoted recovery action; personal singular imperative, provider/user chapter names never translated. SI seconds avoid false cardinal inflection at1s versus10s. Silesian/Gaelic/Basque long validation not guessed.",
+        "Actual manual chapter editor at390px: complete checkbox/name labels, missing names1/2,10s minimum gap, invalid time and chapter at exact video end; correct import-success confirmation after a stubbed submit; original title and chapter names retained; no overflow/runtime errors/application writes"
+      ],
+      "reviewed_at": "2026-11-06T11:19:21+00:00",
+      "verified_at": "2026-11-06T11:22:49.730Z"
+    },
+    "c34dd5f8246e25388de1b5b74b7a79aa9c8012f8fde53a5256ee86c2cc1aec66": {
+      "source_hash": "66251083bb65b3085af4b0715e407d7f512113433940c974ee3dbf2e43abdf1f",
+      "translation_hash": "4297459cba4b2798064db51ca394fa2461e3d68965ccc7a6cfdfa60b19cbeb84",
+      "status": "verified",
+      "contexts": [
+        "Private video visibility help checked against VideoSales::canViewPrivate: only owner and site administrators. No claim of a per-person sharing feature. Singular personal address. Gaelic/Silesian full sentence withheld pending concrete linguistic verification.",
+        "Upload at 390px: actual navigation, review step, private-access wording and applicable personal form prompts; user input stays literal; no overflow/runtime errors/application writes"
+      ],
+      "reviewed_at": "2026-11-06T10:20:01+00:00",
+      "verified_at": "2026-11-06T11:11:20.316Z"
+    },
+    "c527756fcc93c94f9059063c56cf6dcbda7f334cec2b76c325d92ef63a46c50b": {
+      "source_hash": "b30e22bf4e275665c48036fda1e0ef4fea009d2d0d9752dbf4c18dff04c48f78",
+      "translation_hash": "631669f5e430d09c70492539df94c4c5a200d5e8cbdd16204891ac7f6126b1fd",
+      "status": "verified",
+      "contexts": [
+        "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented.",
+        "Actual browser localization of eight complete quantity messages, 0/1/2/3/5/11/21/101/1.5, including CLDR dual/few/many/zero and native anchor cases where applicable; 390px, no runtime errors or application writes"
+      ],
+      "reviewed_at": "2026-11-06T10:35:35+00:00",
+      "verified_at": "2026-11-06T10:48:44.853Z"
+    },
+    "c8de7216695dcde2ae2cf8d4fa27437f6df16e128338d78ce5fb3249c88bf04f": {
+      "source_hash": "c8de7216695dcde2ae2cf8d4fa27437f6df16e128338d78ce5fb3249c88bf04f",
+      "translation_hash": "fbb9f33415617276a8622a003be14acb628430750fdd8b25ec1d7fa08e9a1ab1",
+      "status": "verified",
+      "contexts": [
+        "Complete optional video transcript panel labels, loading, actual failed HTTP request and accessibility text. The transcript body is provider/author content and stays untouched, including words that match interface keys. Existing retry button supplies retry action; no request failure causes invented.",
+        "Actual optional watch transcript panel at390px: summary, held loading request,503 failure, explicit retry and unchanged provider transcript body/accessible label; no overflow/runtime errors/application writes"
+      ],
+      "reviewed_at": "2026-11-06T11:20:31+00:00",
+      "verified_at": "2026-11-06T11:36:44.017Z"
+    },
+    "cc0e38da9c41790bffef1b88af32d39ac285edce93da766810edc237cb2f1625": {
+      "source_hash": "cc0e38da9c41790bffef1b88af32d39ac285edce93da766810edc237cb2f1625",
+      "translation_hash": "4e80090bb6be326c214ed7d8ae89d7746d91919680dc0e80030517c95816a8ba",
+      "status": "editorial",
+      "contexts": [
+        "Editorial source-context pass: navigation, video Shorts product name (not clothing), upload Review/check action, stream status, storage quota, video captions, administrator device-distribution chart, dashboard and selection actions. Regional scripts retained; simple player terminology cross-checked in Mozilla localization sources. Sparse entries only where confidently reviewed; no claim of whole-pack acceptance."
+      ],
+      "reviewed_at": "2026-11-06T10:16:42+00:00"
+    },
+    "cea4d2e010b8fd52bc28a66eca24ff0d616b2c7d982545757780c196c5cc04c7": {
+      "source_hash": "cea4d2e010b8fd52bc28a66eca24ff0d616b2c7d982545757780c196c5cc04c7",
+      "translation_hash": "d9f76fa27ce32dbed7ce3bec26552b097c8d7ae532a8b8218c2c2f07b0ed88ec",
+      "status": "editorial",
+      "contexts": [
+        "Editorial source-context pass: navigation, video Shorts product name (not clothing), upload Review/check action, stream status, storage quota, video captions, administrator device-distribution chart, dashboard and selection actions. Regional scripts retained; simple player terminology cross-checked in Mozilla localization sources. Sparse entries only where confidently reviewed; no claim of whole-pack acceptance."
+      ],
+      "reviewed_at": "2026-11-06T10:16:42+00:00"
+    },
+    "d0f71a31a79ce93594f793f5e3f5d24e0d86bddfc25f2d15cc9d0d830e10b060": {
+      "source_hash": "ef089a9c2d52a736b8a9d9a91b321124cfa876426bd085d5d579e162bf74e537",
+      "translation_hash": "eb58effb7966295d3325946e990737748836df24c6994509361f641638a18f1b",
+      "status": "verified",
+      "contexts": [
+        "Complete relative-age and standalone duration phrases for eight locales unavailable to browser RelativeTimeFormat. Cases are separate: Icelandic fyrir+dative versus standalone duration; native Nynorsk/Frysian/Basque/Macedonian/Albanian morphology. Welsh and Gaelic category mutations were checked against Unicode CLDR native field and long/short duration data; no inheritance markers copied and named count retained. Decimal/category behavior requires actual browser checking; unsupported number formatting stays literal, never borrows another language. Welsh two-minute mutation is retained in both duration and relative age, independently supported by native Welsh council copy; no silent reliance on inherited CLDR other form.",
+        "Actual browser localization of eight complete duration and relative-age messages,0/1/2/3/6/11/12/21/1.5, including Icelandic dative versus standalone case and Welsh/Gaelic mutation anchor cases; 390px, no runtime errors or application writes"
+      ],
+      "reviewed_at": "2026-11-06T11:15:56+00:00",
+      "verified_at": "2026-11-06T11:17:19.494Z"
+    },
+    "d21fb351cb4a4a9101f50778235609204c96d161502a1ffc2f49595197f60aba": {
+      "source_hash": "d21fb351cb4a4a9101f50778235609204c96d161502a1ffc2f49595197f60aba",
+      "translation_hash": "ad33f5574e04b43cf8792d4488c3802b8ad99605c26e57811de10ed9a4079922",
+      "status": "editorial",
+      "contexts": [
+        "Complete password-strength validation, verification-code countdown and four actual ASCII character-class hints. Named level/time preserved. A–Z/a–z/0–9 remain explicit in every script; accented/non-Latin letters are never falsely promised to satisfy these classes. Personal singular, including Frisian/Welsh/Balkan prompts. No policy or strength algorithm changes."
+      ],
+      "reviewed_at": "2026-11-06T11:33:11+00:00"
+    },
+    "d337201ad56fb39d7f72598b917c11dce3cc3e323da8fe926b8dd7c8a0e22c8f": {
+      "source_hash": "665560d063640cc0c09c13dedac17d8003082960e096bcf96ece534335984902",
+      "translation_hash": "decec7e065d03f923b54355ad80c0dd86f580c9e728142374f09e8b6dfad3079",
+      "status": "editorial",
+      "contexts": [
+        "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented."
+      ],
+      "reviewed_at": "2026-11-06T10:35:35+00:00"
+    },
+    "d6f05f42fd1b0beb0e33faacc3b686ff484d8ca5eb008fd25498698b2d6d6e92": {
+      "source_hash": "0fb51d778aa1abff81b66e02b32307251a2970ad648294dd8474311989c86981",
+      "translation_hash": "3d3986fcbec44fec24ad68a64e39e79ccb2daa2293988cf0127e1c5c0b51e3b3",
+      "status": "editorial",
+      "contexts": [
+        "Owner-approved 60-second strictly portrait Shorts policy. Complete current messages and historical180/square-compatible keys all express60seconds/portrait; automatic classification and empty state mention import without inventing encoding. Gaelic only confidently reviewed short constraints; no invented full auto/empty statement, Silesian withheld for native review."
+      ],
+      "reviewed_at": "2026-11-06T10:50:57+00:00"
+    },
+    "d83043e47bfbd11c0310149ed254efb156cf6ad2df72205832dce54f4d581d1d": {
+      "source_hash": "a7f7320c2bbfe712d74aec4942b67b0266ad4728e8a0ba952989d06027dae265",
+      "translation_hash": "deec999b5a8cc0cfbee022edc1f4ea2ae81d6ad806693a0952f9936e3d95594b",
+      "status": "editorial",
+      "contexts": [
+        "Complete relative-age and standalone duration phrases for eight locales unavailable to browser RelativeTimeFormat. Cases are separate: Icelandic fyrir+dative versus standalone duration; native Nynorsk/Frysian/Basque/Macedonian/Albanian morphology. Welsh and Gaelic category mutations were checked against Unicode CLDR native field and long/short duration data; no inheritance markers copied and named count retained. Decimal/category behavior requires actual browser checking; unsupported number formatting stays literal, never borrows another language. Welsh two-minute mutation is retained in both duration and relative age, independently supported by native Welsh council copy; no silent reliance on inherited CLDR other form."
+      ],
+      "reviewed_at": "2026-11-06T11:15:56+00:00"
+    },
+    "de87937934a2dbf8d61903838eac8e763c1c698cdc3b57f1815ed74ae1441ae8": {
+      "source_hash": "de87937934a2dbf8d61903838eac8e763c1c698cdc3b57f1815ed74ae1441ae8",
+      "translation_hash": "ed4156f1c3900f7367e9579453ae0bf93c3527d758f361f802e630ce2f191915",
+      "status": "editorial",
+      "contexts": [
+        "Owner-approved 60-second strictly portrait Shorts policy. Complete current messages and historical180/square-compatible keys all express60seconds/portrait; automatic classification and empty state mention import without inventing encoding. Gaelic only confidently reviewed short constraints; no invented full auto/empty statement, Silesian withheld for native review."
+      ],
+      "reviewed_at": "2026-11-06T10:50:57+00:00"
+    },
+    "e593a689af32669c45f85cabefa63b3cdbd1666f1b1e1f349fb679920e54d6fc": {
+      "source_hash": "5da34638394ee73cf0931de56c8c756d5b897486ddb7b5df9f8a1b3766a53539",
+      "translation_hash": "86f4a7bf0fddf8abef9ce389d8d62418c3b14090a09e0fe48c877ed9f363de11",
+      "status": "editorial",
+      "contexts": [
+        "Complete relative-age and standalone duration phrases for eight locales unavailable to browser RelativeTimeFormat. Cases are separate: Icelandic fyrir+dative versus standalone duration; native Nynorsk/Frysian/Basque/Macedonian/Albanian morphology. Welsh and Gaelic category mutations were checked against Unicode CLDR native field and long/short duration data; no inheritance markers copied and named count retained. Decimal/category behavior requires actual browser checking; unsupported number formatting stays literal, never borrows another language. Welsh two-minute mutation is retained in both duration and relative age, independently supported by native Welsh council copy; no silent reliance on inherited CLDR other form."
+      ],
+      "reviewed_at": "2026-11-06T11:15:56+00:00"
+    },
+    "e5dfbe800dd985405e6b80180e646cc4c9ffe79e5f5247187f291605b7e1a822": {
+      "source_hash": "9818a2333bd54a7eaec0d8a9685b6c39a91f7ce253242973650329293ccb235d",
+      "translation_hash": "36a15bb0309381adf7aaf7868643b36cc2ebd388f6da23db91f9c4295dc7a293",
+      "status": "verified",
+      "contexts": [
+        "Complete relative-age and standalone duration phrases for eight locales unavailable to browser RelativeTimeFormat. Cases are separate: Icelandic fyrir+dative versus standalone duration; native Nynorsk/Frysian/Basque/Macedonian/Albanian morphology. Welsh and Gaelic category mutations were checked against Unicode CLDR native field and long/short duration data; no inheritance markers copied and named count retained. Decimal/category behavior requires actual browser checking; unsupported number formatting stays literal, never borrows another language. Welsh two-minute mutation is retained in both duration and relative age, independently supported by native Welsh council copy; no silent reliance on inherited CLDR other form.",
+        "Actual browser localization of eight complete duration and relative-age messages,0/1/2/3/6/11/12/21/1.5, including Icelandic dative versus standalone case and Welsh/Gaelic mutation anchor cases; 390px, no runtime errors or application writes"
+      ],
+      "reviewed_at": "2026-11-06T11:15:56+00:00",
+      "verified_at": "2026-11-06T11:17:19.494Z"
+    },
+    "eec8002cba39a624ba045f68e3f5f535972d66162aba6e3b9f1d13838aabc364": {
+      "source_hash": "cedf1a91d91f00d31c4409dcbec2076e971b4701ad70605573d497a9b8dd1da7",
+      "translation_hash": "a72c50df312da69bfc4b1b88b2c5f201457716e1387b9a2f0bf72838ad978bd7",
+      "status": "verified",
+      "contexts": [
+        "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented.",
+        "Actual browser localization of eight complete quantity messages, 0/1/2/3/5/11/21/101/1.5, including CLDR dual/few/many/zero and native anchor cases where applicable; 390px, no runtime errors or application writes"
+      ],
+      "reviewed_at": "2026-11-06T10:35:35+00:00",
+      "verified_at": "2026-11-06T10:48:44.853Z"
+    },
+    "f3bb93249714c8b8f365af05aa98c136ada6a4b882365580e7dac2d4c48314e6": {
+      "source_hash": "32fc8a36b656f391302a3690066e62c06c0e698693fb627f05cac08a39f359e5",
+      "translation_hash": "f9521e5eec0291e060d56d00bc62503f88662438c05984006712cc2120393b97",
+      "status": "editorial",
+      "contexts": [
+        "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented."
+      ],
+      "reviewed_at": "2026-11-06T10:35:35+00:00"
+    },
+    "fa273b9b0012d00997205a065e77eecddad55dc2d1fb04d834ca3ba34b97edb6": {
+      "source_hash": "32fc8a36b656f391302a3690066e62c06c0e698693fb627f05cac08a39f359e5",
+      "translation_hash": "623b26bebb69ff2f5df750c5a26e53fa6d7e2b8c949ffbe2993857dcc8465daf",
+      "status": "verified",
+      "contexts": [
+        "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented.",
+        "Actual browser localization of eight complete quantity messages, 0/1/2/3/5/11/21/101/1.5, including CLDR dual/few/many/zero and native anchor cases where applicable; 390px, no runtime errors or application writes"
+      ],
+      "reviewed_at": "2026-11-06T10:35:35+00:00",
+      "verified_at": "2026-11-06T10:48:44.853Z"
+    },
+    "fb3962e85ebd9896f3d5e76fbcf7dd65d98c4d41f35bb2adec3bc03d1e90fc2f": {
+      "source_hash": "fb3962e85ebd9896f3d5e76fbcf7dd65d98c4d41f35bb2adec3bc03d1e90fc2f",
+      "translation_hash": "ca3deb0d964b1988f9beab4aba96f559e7da5cbe931b794eb6ef3c3c25bce995",
+      "status": "verified",
+      "contexts": [
+        "Complete chapter editor/validation messages with named placeholders: maximum count, first0:00 for manual chapters, invalid/ordered/gapped timestamps, must start before video end, names and160-character limit. Checkbox name aligned with quoted recovery action; personal singular imperative, provider/user chapter names never translated. SI seconds avoid false cardinal inflection at1s versus10s. Silesian/Gaelic/Basque long validation not guessed.",
+        "Actual manual chapter editor at390px: complete checkbox/name labels, missing names1/2,10s minimum gap, invalid time and chapter at exact video end; correct import-success confirmation after a stubbed submit; original title and chapter names retained; no overflow/runtime errors/application writes"
+      ],
+      "reviewed_at": "2026-11-06T11:19:21+00:00",
+      "verified_at": "2026-11-06T11:22:49.730Z"
+    },
+    "fb9d4acc100f1720b427fdde5d75587e6b53c57bccfc9a5495e84a792034322a": {
+      "source_hash": "4fcff7391dc118f561c7fd42e37211115763d147df1d5da3045918a5cfc9ad45",
+      "translation_hash": "3d3986fcbec44fec24ad68a64e39e79ccb2daa2293988cf0127e1c5c0b51e3b3",
+      "status": "editorial",
+      "contexts": [
+        "Owner-approved 60-second strictly portrait Shorts policy. Complete current messages and historical180/square-compatible keys all express60seconds/portrait; automatic classification and empty state mention import without inventing encoding. Gaelic only confidently reviewed short constraints; no invented full auto/empty statement, Silesian withheld for native review."
+      ],
+      "reviewed_at": "2026-11-06T10:50:57+00:00"
+    },
+    "fc5b51606e9734860e427b84933a670d3778d460c652baaa91a83e3c7cbfde11": {
+      "source_hash": "fc5b51606e9734860e427b84933a670d3778d460c652baaa91a83e3c7cbfde11",
+      "translation_hash": "9d68661bbbcf2300b6657a3165e34a200188cb0c7ad396fb08ac673c635c78ef",
+      "status": "editorial",
+      "contexts": [
+        "Editorial source-context pass: navigation, video Shorts product name (not clothing), upload Review/check action, stream status, storage quota, video captions, administrator device-distribution chart, dashboard and selection actions. Regional scripts retained; simple player terminology cross-checked in Mozilla localization sources. Sparse entries only where confidently reviewed; no claim of whole-pack acceptance."
+      ],
+      "reviewed_at": "2026-11-06T10:16:42+00:00"
+    },
+    "fca35cb2bcec232248b20afed7b0551fc22d9fa41a58407b63e17a839efa26b6": {
+      "source_hash": "fca35cb2bcec232248b20afed7b0551fc22d9fa41a58407b63e17a839efa26b6",
+      "translation_hash": "abd7b303f0f71f9e7cb6368a9c0269947eff3d5ac0197256183917345148671c",
+      "status": "editorial",
+      "contexts": [
+        "Owner-approved 60-second strictly portrait Shorts policy. Complete current messages and historical180/square-compatible keys all express60seconds/portrait; automatic classification and empty state mention import without inventing encoding. Gaelic only confidently reviewed short constraints; no invented full auto/empty statement, Silesian withheld for native review."
+      ],
+      "reviewed_at": "2026-11-06T10:50:57+00:00"
+    }
+  }
+}

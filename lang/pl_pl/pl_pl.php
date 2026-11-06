@@ -82,83 +82,115 @@ return array (
     ),
     'user' => 
     array (
-      0 => 'user',
-      1 => 'users',
+      'one' => 'użytkownik',
+      'few' => 'użytkownicy',
+      'many' => 'użytkowników',
+      'other' => 'użytkownika',
     ),
     'users' => 
     array (
-      0 => 'user',
-      1 => 'users',
+      'one' => 'użytkownik',
+      'few' => 'użytkownicy',
+      'many' => 'użytkowników',
+      'other' => 'użytkownika',
     ),
     'video' => 
     array (
-      0 => 'video',
-      1 => 'videos',
+      'one' => 'film',
+      'few' => 'filmy',
+      'many' => 'filmów',
+      'other' => 'filmu',
     ),
     'videos' => 
     array (
-      0 => 'video',
-      1 => 'videos',
+      'one' => 'film',
+      'few' => 'filmy',
+      'many' => 'filmów',
+      'other' => 'filmu',
     ),
     'comment' => 
     array (
-      0 => 'comment',
-      1 => 'comments',
+      'one' => 'komentarz',
+      'few' => 'komentarze',
+      'many' => 'komentarzy',
+      'other' => 'komentarza',
     ),
     'comments' => 
     array (
-      0 => 'comment',
-      1 => 'comments',
+      'one' => 'komentarz',
+      'few' => 'komentarze',
+      'many' => 'komentarzy',
+      'other' => 'komentarza',
     ),
     'subscriber' => 
     array (
-      0 => 'subscriber',
-      1 => 'subscribers',
+      'one' => 'subskrybent',
+      'few' => 'subskrybenci',
+      'many' => 'subskrybentów',
+      'other' => 'subskrybenta',
     ),
     'subscribers' => 
     array (
-      0 => 'subscriber',
-      1 => 'subscribers',
+      'one' => 'subskrybent',
+      'few' => 'subskrybenci',
+      'many' => 'subskrybentów',
+      'other' => 'subskrybenta',
     ),
     'view' => 
     array (
-      0 => 'view',
-      1 => 'views',
+      'one' => 'wyświetlenie',
+      'few' => 'wyświetlenia',
+      'many' => 'wyświetleń',
+      'other' => 'wyświetlenia',
     ),
     'views' => 
     array (
-      0 => 'view',
-      1 => 'views',
+      'one' => 'wyświetlenie',
+      'few' => 'wyświetlenia',
+      'many' => 'wyświetleń',
+      'other' => 'wyświetlenia',
     ),
     'like' => 
     array (
-      0 => 'like',
-      1 => 'likes',
+      'one' => 'polubienie',
+      'few' => 'polubienia',
+      'many' => 'polubień',
+      'other' => 'polubienia',
     ),
     'likes' => 
     array (
-      0 => 'like',
-      1 => 'likes',
+      'one' => 'polubienie',
+      'few' => 'polubienia',
+      'many' => 'polubień',
+      'other' => 'polubienia',
     ),
     'reply' => 
     array (
-      0 => 'reply',
-      1 => 'replies',
+      'one' => 'odpowiedź',
+      'few' => 'odpowiedzi',
+      'many' => 'odpowiedzi',
+      'other' => 'odpowiedzi',
     ),
     'replies' => 
     array (
-      0 => 'reply',
-      1 => 'replies',
+      'one' => 'odpowiedź',
+      'few' => 'odpowiedzi',
+      'many' => 'odpowiedzi',
+      'other' => 'odpowiedzi',
     ),
     'playlist' => 
     array (
-      0 => 'playlist',
-      1 => 'playlists',
+      'one' => 'playlista',
+      'few' => 'playlisty',
+      'many' => 'playlist',
+      'other' => 'playlisty',
     ),
     'playlists' => 
     array (
-      0 => 'playlist',
-      1 => 'playlists',
+      'one' => 'playlista',
+      'few' => 'playlisty',
+      'many' => 'playlist',
+      'other' => 'playlisty',
     ),
   ),
   '__patterns' => 
@@ -169,13 +201,53 @@ return array (
     'unread' => '{count} unread',
     'saved_videos' => '{count} saved videos',
     'published' => '{count} published',
+    'count_user' => 'Użytkownicy: {count}',
+    'count_user_one' => '{count} użytkownik',
+    'count_user_few' => '{count} użytkownicy',
+    'count_user_many' => '{count} użytkowników',
+    'count_user_other' => '{count} użytkownika',
+    'count_video' => 'Filmy: {count}',
+    'count_video_one' => '{count} film',
+    'count_video_few' => '{count} filmy',
+    'count_video_many' => '{count} filmów',
+    'count_video_other' => '{count} filmu',
+    'count_comment' => 'Komentarze: {count}',
+    'count_comment_one' => '{count} komentarz',
+    'count_comment_few' => '{count} komentarze',
+    'count_comment_many' => '{count} komentarzy',
+    'count_comment_other' => '{count} komentarza',
+    'count_subscriber' => 'Subskrybenci: {count}',
+    'count_subscriber_one' => '{count} subskrybent',
+    'count_subscriber_few' => '{count} subskrybenci',
+    'count_subscriber_many' => '{count} subskrybentów',
+    'count_subscriber_other' => '{count} subskrybenta',
+    'count_view' => 'Wyświetlenia: {count}',
+    'count_view_one' => '{count} wyświetlenie',
+    'count_view_few' => '{count} wyświetlenia',
+    'count_view_many' => '{count} wyświetleń',
+    'count_view_other' => '{count} wyświetlenia',
+    'count_like' => 'Polubienia: {count}',
+    'count_like_one' => '{count} polubienie',
+    'count_like_few' => '{count} polubienia',
+    'count_like_many' => '{count} polubień',
+    'count_like_other' => '{count} polubienia',
+    'count_reply' => 'Odpowiedzi: {count}',
+    'count_reply_one' => '{count} odpowiedź',
+    'count_reply_few' => '{count} odpowiedzi',
+    'count_reply_many' => '{count} odpowiedzi',
+    'count_reply_other' => '{count} odpowiedzi',
+    'count_playlist' => 'Playlisty: {count}',
+    'count_playlist_one' => '{count} playlista',
+    'count_playlist_few' => '{count} playlisty',
+    'count_playlist_many' => '{count} playlist',
+    'count_playlist_other' => '{count} playlisty',
   ),
   'Overview' => 'Przegląd',
-  'Home' => 'Dom',
+  'Home' => 'Strona główna',
   'Explore' => 'Eksploruj',
   'Trending' => 'Trendy',
   'Subscriptions' => 'Subskrypcje',
-  'Watch Later' => 'Obejrzyj później',
+  'Watch Later' => 'Do obejrzenia',
   'Live & Create' => 'Żyj i twórz',
   'Live' => 'Na żywo',
   'Upload' => 'Prześlij',
@@ -186,7 +258,7 @@ return array (
   'Settings' => 'Ustawienia',
   'Playlists' => 'Listy odtwarzania',
   'Show more' => 'Pokaż więcej',
-  'Storage' => 'Przechowywanie',
+  'Storage' => 'Miejsce na pliki',
   'Pro Plan' => 'Plan profesjonalny',
   'Manage plan' => 'Zarządzaj planem',
   'Search videos, creators, playlists...' => 'Szukaj filmów, twórców, playlist...',
@@ -228,7 +300,7 @@ return array (
   'Thumbnail' => 'Miniatura',
   'Create a compelling thumbnail' => 'Utwórz atrakcyjną miniaturę',
   'Choose who can watch your video' => 'Wybierz, kto może oglądać Twój film',
-  'Review' => 'Recenzja',
+  'Review' => 'Sprawdź',
   'Review your video settings' => 'Przejrzyj ustawienia wideo',
   'Publish' => 'Publikuj',
   'Publish and share your video' => 'Opublikuj i udostępnij swój film',
@@ -237,7 +309,7 @@ return array (
   'Description' => 'Opis',
   'Tags' => 'Tagi',
   'Category' => 'Kategoria',
-  'Playlist' => 'Lista odtwarzania',
+  'Playlist' => 'Playlista',
   'Language' => 'Język',
   'Schedule' => 'Harmonogram',
   'Monetization' => 'Monetyzacja',
@@ -257,8 +329,8 @@ return array (
   'Anyone can search for and watch this video' => 'Każdy może wyszukać i obejrzeć ten film',
   'Anyone with the link can watch' => 'Każdy, kto ma link, może oglądać',
   'Anyone with the link can watch this video' => 'Każdy, kto ma link, może obejrzeć ten film',
-  'Only you and people you choose' => 'Tylko Ty i wybrane przez Ciebie osoby',
-  'Only you and people you choose can watch' => 'Tylko Ty i wybrane przez Ciebie osoby możesz oglądać',
+  'Only you and people you choose' => 'Film jest dostępny tylko dla ciebie i administratorów strony.',
+  'Only you and people you choose can watch' => 'Film jest dostępny tylko dla ciebie i administratorów strony.',
   'Thumbnail preview' => 'Podgląd miniatury',
   'No thumbnail selected.' => 'Nie wybrano miniatury.',
   'More options' => 'Więcej opcji',
@@ -343,7 +415,7 @@ return array (
   'Search result types' => 'Typy wyników wyszukiwania',
   'Videos' => 'Filmy',
   'Channels' => 'Kanały',
-  'Shorts' => 'Szorty',
+  'Shorts' => 'Shorts',
   'Community' => 'Społeczność',
   'See all' => 'Zobacz wszystko',
   'Search filters' => 'Filtry wyszukiwania',
@@ -409,7 +481,7 @@ return array (
   'Newest first' => 'Najpierw najnowsze',
   'Like comment' => 'Polub komentarz',
   'Comment options' => 'Opcje komentarzy',
-  'Copy Link' => 'Skopiuj link',
+  'Copy Link' => 'Kopiuj link',
   'Pin Comment' => 'Przypnij komentarz',
   'Unpin Comment' => 'Odepnij komentarz',
   'Mute User' => 'Wycisz użytkownika',
@@ -664,7 +736,7 @@ return array (
   'Add an about section so viewers know what your channel is about.' => 'Dodaj sekcję „O mnie”, aby widzowie wiedzieli, o czym jest Twój kanał.',
   'This channel has not added an about section yet.' => 'Na tym kanale nie dodano jeszcze sekcji „O mnie”.',
   'Admin' => 'Administrator',
-  'Dashboard' => 'Pulpit nawigacyjny',
+  'Dashboard' => 'Panel',
   'Users' => 'Użytkownicy',
   'Reports' => 'Raporty',
   'Support' => 'Wsparcie',
@@ -761,7 +833,7 @@ return array (
   'Verify selected' => 'Sprawdź wybrane',
   'Suspend selected' => 'Zawieś wybrane',
   'Delete selected' => 'Usuń wybrane',
-  'Clear selection' => 'Wyczyść wybór',
+  'Clear selection' => 'Wyczyść zaznaczenie',
   'Select all visible users' => 'Wybierz wszystkich widocznych użytkowników',
   'Select row' => 'Wybierz wiersz',
   'Open actions' => 'Otwórz działania',
@@ -807,7 +879,7 @@ return array (
   'Watch Time (hours)' => 'Czas oglądania (godziny)',
   'Sessions' => 'Sesje',
   'Traffic Sources' => 'Źródła ruchu',
-  'Device Breakdown' => 'Awaria urządzenia',
+  'Device Breakdown' => 'Podział według urządzeń',
   'Top Performing Categories' => 'Kategorie o największej skuteczności',
   'Top Traffic Sources' => 'Najważniejsze źródła ruchu',
   'Audience Devices' => 'Urządzenia dla publiczności',
@@ -1491,7 +1563,7 @@ return array (
   'Import summary' => 'Podsumowanie importu',
   'Source URL' => 'Źródłowy adres URL',
   'Video imported' => 'Zaimportowano wideo',
-  'Your video was imported and processing has started.' => 'Twój film został zaimportowany i rozpoczęło się przetwarzanie.',
+  'Your video was imported and processing has started.' => 'Twój film został zaimportowany.',
   'Import Video' => 'Importuj wideo',
   'Import a public video URL, customize its details, and publish it through the normal processing pipeline.' => 'Zaimportuj publiczny adres URL filmu, dostosuj jego szczegóły i opublikuj go w ramach normalnego potoku przetwarzania.',
   'Video Import' => 'Import wideo',
@@ -1790,7 +1862,7 @@ return array (
   'View users' => 'View users',
   'Login security' => 'Login security',
   'Find creator' => 'Find creator',
-  '· Shorts require 60s max and vertical portrait video' => '· Szorty require 60s max and vertical portrait Wideo',
+  '· Shorts require 60s max and vertical portrait video' => 'Shorts muszą mieć pionowy format i trwać najwyżej 60 sekund.',
   '% of uploaded videos' => '% of uploaded Filmy',
   '% watched' => '% oglądałem',
   '+12% vs yesterday' => '+12% vs yesterday',
@@ -2455,9 +2527,9 @@ return array (
   'short was uploaded' => 'short was uploaded',
   'Shortest' => 'Shortest',
   'Shorts discovered' => 'Szorty discovered',
-  'Shorts must be 60 seconds or less.' => 'Szorty must be 60 seconds or less.',
+  'Shorts must be 60 seconds or less.' => 'Shorts mogą trwać najwyżej 60 sekund.',
   'Shorts must be 60 seconds or less. Vertical 9:16 is recommended.' => 'Szorty must be 60 seconds or less. Vertical 9: 16 is recommended.',
-  'Shorts must use a vertical portrait aspect ratio.' => 'Szorty must use a vertical portrait aspect ratio.',
+  'Shorts must use a vertical portrait aspect ratio.' => 'Shorts muszą mieć pionowy format.',
   'Shorts stats' => 'Szorty Statystyki',
   'Show less' => 'Show less',
   'Show more ⌄' => 'Show more ⌄',
@@ -2770,10 +2842,10 @@ return array (
   'Password looks good.' => 'Password looks good.',
   'Password needs work.' => 'Password needs work.',
   'Add at least 8 characters.' => 'Add at least 8 characters.',
-  'Add a letter.' => 'Add a letter.',
-  'Add a number.' => 'Add a number.',
-  'Add an uppercase letter.' => 'Add an uppercase letter.',
-  'Add a lowercase letter.' => 'Add a lowercase letter.',
+  'Add a letter.' => 'Dodaj literę łacińską (A–Z lub a–z).',
+  'Add a number.' => 'Dodaj cyfrę od 0 do 9.',
+  'Add an uppercase letter.' => 'Dodaj wielką literę łacińską (A–Z).',
+  'Add a lowercase letter.' => 'Dodaj małą literę łacińską (a–z).',
   'Add a symbol.' => 'Add a symbol.',
   'Use a longer password for this strength level.' => 'Use a longer password for this strength level.',
   'Captcha image' => 'Captcha image',
@@ -3105,7 +3177,7 @@ return array (
   'Log in with Apple' => 'Zaloguj się za pomocą Apple',
   'Sign up with Apple' => 'Zarejestruj się w Apple',
   'or' => 'lub',
-  'We never share your data with third parties.' => 'Nigdy nie udostępniamy Twoich danych stronom trzecim.',
+  'We never share your data with third parties.' => 'Sprawdź w naszej polityce prywatności, jak przetwarzamy twoje dane.',
   'Account settings' => 'Ustawienia konta',
   'Processing...' => 'Przetwarzanie...',
   'Submitting request...' => 'Przesyłam prośbę...',
@@ -3257,7 +3329,7 @@ return array (
   'DVR' => 'DVR',
   'Capture Card' => 'Karta przechwytywania',
   'High' => 'Wysoka',
-  'Stream Health' => 'Streamuj zdrowie',
+  'Stream Health' => 'Stan transmisji',
   'Low (1.2s)' => 'Niska (1,2 s)',
   'Deep into the dragon’s lair! Epic boss battles, lore hunting, and community challenges. Join the adventure!' => 'Głęboko w legowisku smoka! Epickie bitwy z bossami, polowanie na wiedzę i wyzwania społeczności. Dołącz do przygody!',
   'Ask your audience' => 'Zapytaj swoją publiczność',
@@ -4187,7 +4259,7 @@ return array (
   'Ad impression already completed.' => 'Wyświetlanie reklamy zostało już zakończone.',
   'Ad impression completed.' => 'Zakończono wyświetlanie reklamy.',
   'Ad updated.' => 'Ogłoszenie zaktualizowane.',
-  'Advanced generated LiveKit options' => 'Zaawansowane generowane opcje ZXTERM1ZX',
+  'Advanced generated LiveKit options' => 'Zaawansowane generowane opcje LiveKit',
   'Apply configuration' => 'Zastosuj konfigurację',
   'Automatic' => 'Automatyczny',
   'A valid phone number is required when using phone delivery.' => 'Do korzystania z dostawy telefonicznej wymagany jest ważny numer telefonu.',
@@ -4215,8 +4287,8 @@ return array (
   'Detected issues' => 'Wykryte problemy',
   'Device session not found.' => 'Nie znaleziono sesji urządzenia.',
   'Device signed out successfully.' => 'Urządzenie wylogowało się pomyślnie.',
-  'Docker Configuration' => 'Konfiguracja ZXTERM3ZX',
-  'Docker container file paths' => 'Ścieżki plików kontenera ZXTERM3ZX',
+  'Docker Configuration' => 'Konfiguracja Docker',
+  'Docker container file paths' => 'Ścieżki plików kontenera Docker',
   'Do not collapse settings blocks' => 'Nie zwijaj bloków ustawień',
   'during this stream' => 'podczas tego streamu',
   'Enabled contributions will appear here.' => 'Tutaj pojawią się włączone wkłady.',
@@ -4239,11 +4311,11 @@ return array (
   'Live chat message deleted.' => 'Wiadomość czatu na żywo została usunięta.',
   'Live control panels' => 'Panele sterowania na żywo',
   'Live Control Room' => 'Pokój reżyserski na żywo',
-  'LiveKit and Docker logs' => 'Dzienniki ZXTERM1ZX i ZXTERM3ZX',
-  'LiveKit did not return a connection result.' => 'ZXTERM1ZX nie zwrócił wyniku połączenia.',
-  'LiveKit Docker' => 'ZXTERM1ZX ZXTERM3ZX',
-  'LiveKit signaling and authenticated API connection succeeded.' => 'Sygnalizacja ZXTERM1ZX i uwierzytelnione połączenie API powiodło się.',
-  'LiveKit SSL certificates' => 'Certyfikaty SSL ZXTERM1ZX',
+  'LiveKit and Docker logs' => 'Dzienniki LiveKit i Docker',
+  'LiveKit did not return a connection result.' => 'LiveKit nie zwrócił wyniku połączenia.',
+  'LiveKit Docker' => 'LiveKit Docker',
+  'LiveKit signaling and authenticated API connection succeeded.' => 'Sygnalizacja LiveKit i uwierzytelnione połączenie API powiodło się.',
+  'LiveKit SSL certificates' => 'Certyfikaty SSL LiveKit',
   'Live polls' => 'Ankiety na żywo',
   'Live stream' => 'Transmisja na żywo',
   'Live stream ended.' => 'Transmisja na żywo została zakończona.',
@@ -4276,19 +4348,19 @@ return array (
   'Participant controls' => 'Kontrola uczestników',
   'Participant role' => 'Rola uczestnika',
   'Participants' => 'Uczestnicy',
-  'Payment card numbers are handled by the configured payment provider and are never stored in your PlayHub profile.' => 'Numery kart płatniczych są obsługiwane przez skonfigurowanego dostawcę płatności i nigdy nie są przechowywane w Twoim profilu ZXTERM0ZX.',
+  'Payment card numbers are handled by the configured payment provider and are never stored in your PlayHub profile.' => 'Numery kart płatniczych są obsługiwane przez skonfigurowanego dostawcę płatności i nigdy nie są przechowywane w Twoim profilu PlayHub.',
   'Payment history' => 'Historia płatności',
   'Peak Viewers' => 'Szczyt oglądalności',
-  'PlayHub is installed' => 'ZXTERM0ZX jest zainstalowany',
-  'PlayHub recording' => 'Nagranie ZXTERM0ZX',
-  'Please enable JavaScript to use PlayHub.' => 'Włącz ZXTERM4ZX, aby móc korzystać z ZXTERM0ZX.',
+  'PlayHub is installed' => 'PlayHub jest zainstalowany',
+  'PlayHub recording' => 'Nagranie PlayHub',
+  'Please enable JavaScript to use PlayHub.' => 'Włącz JavaScript, aby móc korzystać z PlayHub.',
   'Poll created.' => 'Sonda została utworzona.',
   'Poll deleted.' => 'Ankieta usunięta.',
   'Poll updated.' => 'Ankieta zaktualizowana.',
-  'Preparing RTMP URL' => 'Przygotowanie adresu URL ZXTERM2ZX',
+  'Preparing RTMP URL' => 'Przygotowanie adresu URL RTMP',
   'Preparing stream key' => 'Przygotowuję klucz strumienia',
   'Price' => 'Cena',
-  'Project-local LiveKit file paths' => 'Ścieżki plików ZXTERM1ZX lokalnego projektu',
+  'Project-local LiveKit file paths' => 'Ścieżki plików LiveKit lokalnego projektu',
   'Pull image' => 'Pociągnij obraz',
   'Quality' => 'Jakość',
   'Question' => 'Pytanie',
@@ -4305,8 +4377,8 @@ return array (
   'Response' => 'Odpowiedź',
   'Restart' => 'Uruchom ponownie',
   'Revenue & Tips' => 'Przychody i wskazówki',
-  'RTMP credentials are ready.' => 'Dane uwierzytelniające ZXTERM2ZX są gotowe.',
-  'RTMP ingress' => 'Wejście ZXTERM2ZX',
+  'RTMP credentials are ready.' => 'Dane uwierzytelniające RTMP są gotowe.',
+  'RTMP ingress' => 'Wejście RTMP',
   'Schedule must be in the future.' => 'Harmonogram musi być w przyszłości.',
   'Search or enter your country' => 'Wyszukaj lub wpisz swój kraj',
   'Select an option' => 'Wybierz opcję',
@@ -4331,7 +4403,7 @@ return array (
   'The default quality must be enabled as an upload rendition.' => 'W przypadku wersji przesyłanej należy włączyć domyślną jakość.',
   'The end date must be later than the start date.' => 'Data zakończenia musi być późniejsza niż data rozpoczęcia.',
   'The invited user must sign in with that account before opening the link.' => 'Zaproszony użytkownik musi zalogować się na to konto przed otwarciem łącza.',
-  'The logo must be a safe SVG file.' => 'Logo musi mieć postać bezpiecznego pliku ZXTERM5ZX.',
+  'The logo must be a safe SVG file.' => 'Logo musi mieć postać bezpiecznego pliku SVG.',
   'The new password must be different from the current one.' => 'Nowe hasło musi różnić się od aktualnego.',
   'The provided credentials are incorrect.' => 'Podane dane uwierzytelniające są nieprawidłowe.',
   'The two-factor authentication code is invalid.' => 'Kod uwierzytelnienia dwuskładnikowego jest nieprawidłowy.',
@@ -4360,7 +4432,7 @@ return array (
   'View more' => 'Zobacz więcej',
   'Visible live chat messages will appear here after the replay is ready.' => 'Widoczne wiadomości czatu na żywo pojawią się tutaj, gdy powtórka będzie gotowa.',
   'Vote recorded.' => 'Głos zarejestrowany.',
-  'Waiting for RTMP video' => 'Czekam na wideo ZXTERM2ZX',
+  'Waiting for RTMP video' => 'Czekam na wideo RTMP',
   'Your ad markup' => 'Twój znacznik reklamy',
   'Your participant video will appear here.' => 'Tutaj pojawi się Twój film uczestnika.',
   'Also permanently delete all videos uploaded by these users' => 'Usuń także trwale wszystkie filmy przesłane przez tych użytkowników',
@@ -4450,4 +4522,119 @@ return array (
   'Language not found.' => 'Language not found.',
   'Language directory not found.' => 'Language directory not found.',
   'The selected language directory is read-only. Update its server permissions before editing.' => 'The selected language directory is read-only. Update its server permissions before editing.',
+  'Find out how we handle your data in our privacy policy.' => 'Sprawdź w naszej polityce prywatności, jak przetwarzamy twoje dane.',
+  'Shorts must be 180 seconds or less.' => 'Shorts mogą trwać najwyżej 60 sekund.',
+  'Shorts must be square or vertical.' => 'Shorts muszą mieć pionowy format.',
+  'Shorts must be 60 seconds or less and vertical.' => 'Shorts muszą mieć pionowy format i trwać najwyżej 60 sekund.',
+  'Shorts must be vertical videos of at most 60 seconds.' => 'Shorts muszą mieć pionowy format i trwać najwyżej 60 sekund.',
+  'Shorts must be 180 seconds or less and square or vertical.' => 'Shorts muszą mieć pionowy format i trwać najwyżej 60 sekund.',
+  'Shorts must be square or vertical videos of at most 180 seconds.' => 'Shorts muszą mieć pionowy format i trwać najwyżej 60 sekund.',
+  '· Shorts require 60s max and vertical video' => 'Shorts muszą mieć pionowy format i trwać najwyżej 60 sekund.',
+  '· Shorts require 180s max and square or vertical video' => 'Shorts muszą mieć pionowy format i trwać najwyżej 60 sekund.',
+  'This video will be published as a Short because it is at most 60 seconds and vertical.' => 'Ten film zostanie opublikowany jako Short, ponieważ ma pionowy format i trwa najwyżej 60 sekund.',
+  'This video will be published as a Short because it is at most 180 seconds and square or vertical.' => 'Ten film zostanie opublikowany jako Short, ponieważ ma pionowy format i trwa najwyżej 60 sekund.',
+  'No shorts uploaded yet. Shorts appear here after a vertical video of at most 60 seconds is imported.' => 'Nie ma jeszcze Shorts. Pojawią się tu zaimportowane pionowe filmy trwające najwyżej 60 sekund.',
+  'No shorts uploaded yet. Shorts appear here after a square or vertical video of at most 180 seconds is imported.' => 'Nie ma jeszcze Shorts. Pojawią się tu zaimportowane pionowe filmy trwające najwyżej 60 sekund.',
+  'Drag and drop your short file here' => 'Przeciągnij tutaj swój plik Short',
+  'Video: {seconds}s · {width}×{height}. Shorts must be 60 seconds or less and vertical.' => 'Film: {seconds}s · {width}×{height}. Shorts muszą mieć pionowy format i trwać najwyżej 60 sekund.',
+  'Chapter {number} name' => 'Nazwa rozdziału {number}',
+  'A video can have up to {count} chapters.' => 'Film może mieć maksymalnie {count} rozdziałów.',
+  'Chapter {number} has an invalid timestamp.' => 'Rozdział {number} ma nieprawidłowy znacznik czasu.',
+  'The first chapter must start at 0:00.' => 'Pierwszy rozdział musi zaczynać się od 0:00.',
+  'Chapter timestamps must be in order and at least {seconds} seconds apart.' => 'Znaczniki czasu muszą być w kolejności rosnącej. Minimalny odstęp to {seconds} s.',
+  'Chapter {number} starts after the video ends.' => 'Rozdział {number} musi zaczynać się przed końcem filmu.',
+  'Add a name for chapter {number} or turn off Upload with chapters.' => 'Nazwij rozdział {number} lub wyłącz „Prześlij z rozdziałami”.',
+  'The name for chapter {number} must be 160 characters or fewer.' => 'Nazwa rozdziału {number} może mieć maksymalnie 160 znaków.',
+  'Add at least two chapters or turn off Upload with chapters.' => 'Dodaj co najmniej dwa rozdziały lub wyłącz „Prześlij z rozdziałami”.',
+  'Upload with chapters' => 'Prześlij z rozdziałami',
+  'Your video was imported.' => 'Twój film został zaimportowany.',
+  'View posts tagged {tag}' => 'Zobacz posty z tagiem {tag}',
+  'View {name} channel' => 'Otwórz kanał osoby {name}',
+  'Chapter {number} start time' => 'Czas rozpoczęcia rozdziału {number}',
+  'Remove chapter {number}' => 'Usuń rozdział {number}',
+  'Transcript' => 'Transkrypcja',
+  'Loading transcript…' => 'Wczytywanie transkrypcji…',
+  'The transcript could not be loaded.' => 'Nie udało się wczytać transkrypcji.',
+  'Transcript text' => 'Tekst transkrypcji',
+  'Playlist tip' => 'Wskazówka do twojej playlisty',
+  'Send a tip to {name}' => 'Wesprzyj {name}',
+  'Support the creator of “{title}”.' => 'Wesprzyj autora filmu „{title}”.',
+  'Tip sent to {name}.' => 'Twoje wsparcie zostało wysłane do {name}.',
+  'Support {name} during this live stream.' => 'Wesprzyj {name} podczas tej transmisji na żywo.',
+  'Send Super Chat' => 'Wyślij Super Chat',
+  'Send tip' => 'Wyślij wsparcie',
+  'Your {SITENAME} verification code' => 'Twój kod weryfikacyjny {SITENAME}',
+  'Your {SITENAME} verification code is: {VERIFICATION_CODE}
+
+This code expires in {EXPIRY_MINUTES} minutes.' => 'Twój kod weryfikacyjny {SITENAME}: {VERIFICATION_CODE}
+
+Ważność kodu: {EXPIRY_MINUTES} min.',
+  'Reset your {SITENAME} password' => 'Zresetuj hasło do {SITENAME}',
+  'Hello {USERNAME},
+
+Your {SITENAME} password reset code is: {RESET_CODE}
+
+This code expires in {EXPIRY_MINUTES} minutes.' => 'Cześć {USERNAME}!
+
+Twój kod do zresetowania hasła do {SITENAME}: {RESET_CODE}
+
+Ważność kodu: {EXPIRY_MINUTES} min.',
+  'You have been invited to {SITENAME}' => 'Zaproszenie do {SITENAME} dla ciebie',
+  'Hello {USERNAME},
+
+You have been invited to {SITENAME} as {ROLE}.
+
+Login email: {USER_EMAIL}
+Temporary password: {TEMPORARY_PASSWORD}
+Login: {LOGIN_URL}
+
+Please sign in and update your password.' => 'Cześć {USERNAME}!
+
+Czeka na ciebie zaproszenie do {SITENAME}. Twoja rola: {ROLE}.
+
+E-mail do logowania: {USER_EMAIL}
+Hasło tymczasowe: {TEMPORARY_PASSWORD}
+Logowanie: {LOGIN_URL}
+
+Zaloguj się i zmień hasło.',
+  'Your {SITENAME} account has been restricted' => 'Twoje konto w {SITENAME} zostało ograniczone',
+  'Hello {USERNAME},
+
+Your {SITENAME} account has been restricted until {BAN_EXPIRES_AT}.
+
+Restrictions:
+{RESTRICTIONS}
+
+If you believe this is a mistake, contact {SUPPORT_EMAIL}.' => 'Cześć {USERNAME}!
+
+Na twoje konto w {SITENAME} nałożono ograniczenia do {BAN_EXPIRES_AT}.
+
+Ograniczenia:
+{RESTRICTIONS}
+
+Uważasz, że to pomyłka? Napisz na {SUPPORT_EMAIL}.',
+  'You are now a {SITENAME} moderator' => 'Możesz teraz moderować {SITENAME}',
+  'Hello {USERNAME},
+
+You have been assigned the Moderator role on {SITENAME}. You can now access the moderation tools available to your role.
+
+Moderation dashboard: {MODERATION_URL}' => 'Cześć {USERNAME}!
+
+Przyznano ci rolę moderatora w {SITENAME}. Możesz teraz korzystać z narzędzi moderacji dostępnych dla twojej roli.
+
+Panel moderacji: {MODERATION_URL}',
+  'You are moderating "{STREAM_TITLE}" on {SITENAME}' => 'Moderujesz „{STREAM_TITLE}” w {SITENAME}',
+  'Hello {USERNAME},
+
+You have been assigned as a moderator for the live stream "{STREAM_TITLE}". Open the stream to access your moderation controls.
+
+Open stream: {STREAM_URL}' => 'Cześć {USERNAME}!
+
+Powierzono ci moderację transmisji na żywo „{STREAM_TITLE}”. Otwórz transmisję, aby skorzystać z narzędzi moderacji.
+
+Otwórz transmisję: {STREAM_URL}',
+  'Notification' => 'Powiadomienie',
+  'This email was sent by {site}.' => 'Ten e-mail został wysłany przez {site}.',
+  'Password strength must be at least {level}/10.' => 'Siła twojego hasła musi wynosić co najmniej {level}/10.',
+  'Code expires in {time}' => 'Twój kod wygaśnie za {time}',
 );

@@ -13,7 +13,6 @@ class CreatorVideoResource extends JsonResource
     public function toArray(Request $request): array
     {
         $native = $this->source_type !== 'import';
-        $caption = $this->caption_metadata ?? [];
 
         return [
             'id' => (int) $this->id,
@@ -53,12 +52,7 @@ class CreatorVideoResource extends JsonResource
             ],
             'chapters_enabled' => (bool) $this->chapters_enabled,
             'chapters' => VideoChapters::forResource($this->chapters, $this->duration_seconds),
-            'captions' => $this->captions_path ? [[
-                'id' => 'default', 'label' => $caption['label'] ?? 'Captions',
-                'language' => $caption['language'] ?? $this->language?->code ?? 'und',
-                'default' => (bool) ($caption['default'] ?? false),
-                'url' => VideoSales::captionsUrl($this->resource),
-            ]] : [],
+            'captions' => \App\Support\VideoCaptions::forResource($this->resource),
             'capabilities' => [
                 'captions' => $native, 'chapters' => $native && ! $this->isShort() && PlatformFeatureSettings::videoChaptersEnabled(),
                 'monetization' => $native && ! $this->isShort() && ! VideoSales::isPaid($this->resource),

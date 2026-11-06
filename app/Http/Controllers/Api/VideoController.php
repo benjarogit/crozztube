@@ -731,10 +731,9 @@ class VideoController extends Controller
                 $width = (int) $request->validated('video_width');
                 $height = (int) $request->validated('video_height');
                 $duration = (int) $request->validated('duration_seconds');
-                $ratio = $height > 0 ? $width / $height : 0;
 
-                abort_if($duration <= 0 || $duration > 60, 422, 'Shorts must be 60 seconds or less.');
-                abort_if($width <= 0 || $height <= 0 || $height <= $width || $ratio < 0.45 || $ratio > 0.8, 422, 'Shorts must use a vertical portrait aspect ratio.');
+                abort_if($duration <= 0 || $duration > \App\Support\ShortVideos::MAX_SECONDS, 422, 'Shorts must be 60 seconds or less.');
+                abort_if($width <= 0 || $height <= $width, 422, 'Shorts must use a vertical portrait aspect ratio.');
             }
 
             $approvalStatus = PlatformFeatureSettings::requiresUploadApproval() ? 'pending' : 'approved';
@@ -802,7 +801,7 @@ class VideoController extends Controller
         PublishingAccess::authorizeUpload($request->user());
         $providers = array_keys(VideoImportSettings::providers());
         $data = $request->validate([
-            'provider' => ['required', 'string', Rule::in($providers)],
+            'provider' => ['nullable', 'string', Rule::in([...$providers, 'auto'])],
             'url' => ['required', 'url', 'max:2000'],
             'title' => ['nullable', 'string', 'max:160'],
             'description' => ['nullable', 'string', 'max:10000'],
@@ -823,13 +822,22 @@ class VideoController extends Controller
 
         abort_if($request->boolean('sale_enabled'), 422, 'Imported videos cannot be sold.');
 
+        $data['provider'] = VideoImportSettings::resolveProvider($data['provider'] ?? null, $data['url']);
         abort_unless(VideoImportSettings::providerEnabled($data['provider']), 403, 'This video import provider is disabled.');
+
+        \App\Support\VideoImportIdentity::ensureAvailable(\App\Support\VideoImportIdentity::keys($data['provider'], $data['url']), $request->user());
 
         try {
             $metadata = $this->providerImportMetadata($data['provider'], $data['url']);
         } catch (RuntimeException $exception) {
             abort(422, $exception->getMessage());
         }
+
+        // A provider with native source discovery can also service a manual direct import.
+        // Retain its actual origin so the official embed remains available as fallback.
+        $data['provider'] = $metadata['provider'];
+        $identity = \App\Support\VideoImportIdentity::keys($data['provider'], $data['url'], $metadata['video_path']);
+        \App\Support\VideoImportIdentity::ensureAvailable($identity, $request->user());
 
         $user = $request->user()->loadMissing('channel');
         $playlist = ! empty($data['playlist_id'])
@@ -865,56 +873,68 @@ class VideoController extends Controller
         }
         $chapterData = VideoChapters::attributes($chapterInput, isset($metadata['duration_seconds']) ? (int) $metadata['duration_seconds'] : null);
 
-        $video = DB::transaction(function () use ($data, $user, $playlist, $requestedVisibility, $approvalStatus, $scheduledAt, $scheduledForFuture, $title, $description, $tags, $metadata, $thumbnailPath, $request, $chapterData): Video {
-            $video = Video::query()->create([
-                'user_id' => $user->id,
-                'channel_id' => $user->channel->id,
-                'title' => $title,
-                'slug' => Slugs::unique($title, Video::class),
-                'description' => $description,
-                'tags' => $tags,
-                'category_id' => $data['category_id'] ?? null,
-                'language_id' => $data['language_id'] ?? null,
-                'playlist_title' => $playlist?->title ?? ($data['playlist_title'] ?? null),
-                'scheduled_at' => $scheduledAt,
-                'made_for_kids' => $request->boolean('made_for_kids'),
-                'monetization_enabled' => $request->boolean('monetization_enabled'),
-                'visibility' => ($scheduledForFuture || $approvalStatus === 'pending') ? 'private' : $requestedVisibility,
-                'requested_visibility' => $requestedVisibility,
-                'status' => 'ready',
-                'approval_status' => $approvalStatus,
-                'processing_progress' => 100,
-                'processing_stage' => 'External provider video',
-                'video_path' => $metadata['video_path'],
-                'thumbnail_path' => $thumbnailPath,
-                'duration_seconds' => $metadata['duration_seconds'],
-                'source_type' => 'import',
-                'import_provider' => $data['provider'],
-                'import_url' => $data['url'],
-                'original_thumbnail_url' => $metadata['thumbnail_url'],
-                'thumbnail_source_url' => $metadata['thumbnail_url'],
-                'thumbnail_source_version' => $metadata['thumbnail_url'] ? hash('sha256', $metadata['thumbnail_url']) : null,
-                'video_width' => $metadata['width'] ?? null,
-                'video_height' => $metadata['height'] ?? null,
-                'metadata_overrides' => array_values(array_filter(['title', 'description', 'tags', 'chapters'], fn ($key) => filled($data[$key] ?? null))),
-                'is_short' => $metadata['is_short'] ?? false,
-                ...$chapterData,
-                'published_at' => ($scheduledForFuture || $approvalStatus === 'pending') ? null : now(),
-            ]);
-
-            if ($playlist) {
-                $playlist->videos()->attach($video->id, [
-                    'sort_order' => ((int) DB::table('playlist_video')->where('playlist_id', $playlist->id)->max('sort_order')) + 1,
-                    'created_at' => now(),
-                    'updated_at' => now(),
+        $captionMetadata = \App\Support\VideoCaptions::importMetadata($metadata['captions'] ?? []);
+        $metadataOverrides = array_values(array_filter(['title', 'description', 'tags', 'chapters', 'language_id'], fn ($key) => filled($data[$key] ?? null)));
+        if (isset($data['chapters_enabled']) && ! $request->boolean('chapters_enabled')) $metadataOverrides[] = 'chapters_enabled';
+        $data['language_id'] ??= \App\Support\VideoLanguages::idForCode($metadata['language_code'] ?? null);
+        try {
+            $video = DB::transaction(function () use ($data, $user, $playlist, $requestedVisibility, $approvalStatus, $scheduledAt, $scheduledForFuture, $title, $description, $tags, $metadata, $thumbnailPath, $request, $chapterData, $captionMetadata, $metadataOverrides): Video {
+                $video = Video::query()->create([
+                    'user_id' => $user->id,
+                    'channel_id' => $user->channel->id,
+                    'title' => $title,
+                    'slug' => Slugs::unique($title, Video::class),
+                    'description' => $description,
+                    'tags' => $tags,
+                    'category_id' => $data['category_id'] ?? null,
+                    'language_id' => $data['language_id'] ?? null,
+                    'playlist_title' => $playlist?->title ?? ($data['playlist_title'] ?? null),
+                    'scheduled_at' => $scheduledAt,
+                    'made_for_kids' => $request->boolean('made_for_kids'),
+                    'monetization_enabled' => $request->boolean('monetization_enabled'),
+                    'visibility' => ($scheduledForFuture || $approvalStatus === 'pending') ? 'private' : $requestedVisibility,
+                    'requested_visibility' => $requestedVisibility,
+                    'status' => 'ready',
+                    'approval_status' => $approvalStatus,
+                    'processing_progress' => 100,
+                    'processing_stage' => 'External provider video',
+                    'video_path' => $metadata['video_path'],
+                    'caption_metadata' => $captionMetadata,
+                    'thumbnail_path' => $thumbnailPath,
+                    'duration_seconds' => $metadata['duration_seconds'],
+                    'source_type' => 'import',
+                    'import_provider' => $data['provider'],
+                    'import_url' => $data['url'],
+                    'original_thumbnail_url' => $metadata['thumbnail_url'],
+                    'thumbnail_source_url' => $metadata['thumbnail_url'],
+                    'thumbnail_source_version' => $metadata['thumbnail_url'] ? hash('sha256', $metadata['thumbnail_url']) : null,
+                    'video_width' => $metadata['width'] ?? null,
+                    'video_height' => $metadata['height'] ?? null,
+                    'metadata_overrides' => $metadataOverrides,
+                    'is_short' => $metadata['is_short'] ?? false,
+                    ...$chapterData,
+                    'published_at' => ($scheduledForFuture || $approvalStatus === 'pending') ? null : now(),
                 ]);
-                $playlist->touch();
-            }
 
-            $user->channel()->increment('videos_count');
+                if ($playlist) {
+                    $playlist->videos()->attach($video->id, [
+                        'sort_order' => ((int) DB::table('playlist_video')->where('playlist_id', $playlist->id)->max('sort_order')) + 1,
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ]);
+                    $playlist->touch();
+                }
 
-            return $video;
-        });
+                $user->channel()->increment('videos_count');
+
+                return $video;
+            });
+        } catch (\Illuminate\Database\UniqueConstraintViolationException $exception) {
+            // The unique indexes also protect simultaneous requests which both
+            // passed the preview/preflight check before either inserted a row.
+            \App\Support\VideoImportIdentity::ensureAvailable($identity, $request->user());
+            throw $exception;
+        }
 
         try { app(\App\Support\Thumbnails\ThumbnailService::class)->initial($video); }
         catch (\Throwable) { logger()->warning('Thumbnail setup deferred', ['video_id' => $video->id]); }
@@ -938,10 +958,11 @@ class VideoController extends Controller
         PublishingAccess::authorizeUpload($request->user());
         $providers = array_keys(VideoImportSettings::providers());
         $data = $request->validate([
-            'provider' => ['required', 'string', Rule::in($providers)],
+            'provider' => ['nullable', 'string', Rule::in([...$providers, 'auto'])],
             'url' => ['required', 'url', 'max:2000'],
         ]);
 
+        $data['provider'] = VideoImportSettings::resolveProvider($data['provider'] ?? null, $data['url']);
         abort_unless(VideoImportSettings::providerEnabled($data['provider']), 403, 'This video import provider is disabled.');
 
         try {
@@ -949,6 +970,9 @@ class VideoController extends Controller
         } catch (RuntimeException $exception) {
             abort(422, $exception->getMessage());
         }
+
+        $metadata['duplicate'] = \App\Support\VideoImportIdentity::duplicatePayload(
+            \App\Support\VideoImportIdentity::keys($data['provider'], $data['url'], $metadata['video_path']), $request->user());
 
         return response()->json(['metadata' => $metadata]);
     }
@@ -958,15 +982,29 @@ class VideoController extends Controller
         $providers = VideoImportSettings::providers();
         $this->validateImportUrl($url, $providers[$provider]['domains'] ?? []);
 
-        $id = $this->providerVideoId($provider, $url);
-        $api = $this->fetchProviderApiMetadata($provider, $id, $url);
-        $oembed = $provider === 'direct' ? [] : $this->fetchOembed($provider, $url);
+        // Some providers publish source candidates but cannot be extracted from
+        // their watch page by yt-dlp. Use their metadata for manual direct imports too.
+        $detected = MediaSourceMetadata::providerForUrl($url);
+        if ($provider === 'direct' && $detected && is_callable($providers[$detected]['source_candidates'] ?? null)) {
+            $provider = $detected;
+        }
+
+        $metadataCallback = $providers[$provider]['metadata'] ?? null;
+        $pluginMetadata = is_callable($metadataCallback) ? $metadataCallback($url) : null;
+        if ($pluginMetadata !== null && ! is_array($pluginMetadata)) {
+            throw new RuntimeException('The import provider returned invalid metadata.');
+        }
+        $id = filled($pluginMetadata['provider_id'] ?? null)
+            ? (string) $pluginMetadata['provider_id']
+            : $this->providerVideoId($provider, $url);
+        $api = $pluginMetadata ?? $this->fetchProviderApiMetadata($provider, $id, $url);
+        $oembed = $pluginMetadata !== null || $provider === 'direct' ? [] : $this->fetchOembed($provider, $url);
 
         // yt-dlp is the metadata engine for direct URLs (direct files and any
         // site it supports) and fills gaps that provider APIs, oEmbed or HTML
         // scraping do not expose. Provider-specific data always wins.
         $ytdlp = [];
-        if ($provider === 'direct' || blank($api['title'] ?? null) || empty($api['duration_seconds']) || empty($api['width']) || empty($api['height'])) {
+        if ($pluginMetadata === null) {
             $ytdlp = $this->fetchYtdlpMetadata($url);
         }
         if ($ytdlp !== []) {
@@ -974,6 +1012,18 @@ class VideoController extends Controller
                 $api,
                 fn ($value): bool => ! blank($value)
             ));
+        }
+
+        if ($provider === 'direct' && ! $id && filled($api['provider_id'] ?? null)) {
+            $id = (string) $api['provider_id'];
+        }
+        // A manual direct override must retain the same external identity as
+        // the provider import (including Rumble/Odysee abbreviated page URLs).
+        $detected = \App\Support\MediaSourceMetadata::providerForUrl($url);
+        $identityCallback = $provider === 'direct' && $detected ? ($providers[$detected]['metadata'] ?? null) : null;
+        if (is_callable($identityCallback)) {
+            try { $id = $identityCallback($url)['provider_id'] ?? $id; }
+            catch (\Throwable) { /* Keep direct extraction usable if enrichment is unavailable. */ }
         }
 
         $title = trim((string) ($api['title'] ?? $oembed['title'] ?? '')) ?: $this->providerFallbackTitle($provider, $id, $url);
@@ -990,11 +1040,12 @@ class VideoController extends Controller
             trim((string) ($api['description'] ?? $oembed['description'] ?? '')) ?: null,
             (array) ($api['tags'] ?? []),
         );
+        $chapterMetadata = VideoChapters::discover($chapters, $description, $duration ? (int) $duration : null, $api['chapters_source'] ?? null);
 
         return [
             'provider' => $provider,
             'source_url' => $url,
-            'embed_url' => $this->providerEmbedUrl($provider, $id),
+            'embed_url' => $this->providerEmbedUrl($provider, $id, $url),
             'thumbnail_url' => $thumbnail ?: null,
             'title' => $title,
             'description' => $description,
@@ -1004,8 +1055,10 @@ class VideoController extends Controller
             'is_short' => $isShort,
             'width' => $api['width'] ?? $oembed['width'] ?? null,
             'height' => $api['height'] ?? $oembed['height'] ?? null,
-            'chapters_source' => $chapters ? 'timestamps' : null,
-            'chapters' => $chapters,
+            ...$chapterMetadata,
+            'captions' => $api['captions'] ?? [],
+            'language_code' => $api['language_code'] ?? null,
+            'original_language_code' => $api['original_language_code'] ?? null,
             'video_path' => 'external:'.$provider.($id ? ':'.$id : ''),
         ];
     }
@@ -1594,11 +1647,11 @@ class VideoController extends Controller
         throw new RuntimeException('Could not read the provider video ID from this URL.');
     }
 
-    private function providerEmbedUrl(string $provider, ?string $id): ?string
+    private function providerEmbedUrl(string $provider, ?string $id, ?string $sourceUrl = null): ?string
     {
         $parent = parse_url((string) config('app.url'), PHP_URL_HOST) ?: request()->getHost();
 
-        return MediaSourceMetadata::embedUrl($provider, $id, (string) $parent);
+        return MediaSourceMetadata::embedUrl($provider, $id, (string) $parent, $sourceUrl);
     }
 
     private function titleFromUrl(string $url): string
@@ -1717,7 +1770,7 @@ class VideoController extends Controller
         $oldThumbnailPath = null;
         abort_if($request->hasFile('thumbnail'), 422, 'Use the raw image thumbnail endpoint.');
         $overrides = $video->metadata_overrides ?: [];
-        foreach (['title', 'description', 'tags', 'chapters', 'chapters_enabled'] as $key) {
+        foreach (['title', 'description', 'tags', 'chapters', 'chapters_enabled', 'language_id'] as $key) {
             if ($request->exists($key)) $overrides[] = $key;
         }
         $data['metadata_overrides'] = array_values(array_unique($overrides));
