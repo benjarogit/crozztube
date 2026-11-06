@@ -2,17 +2,63 @@
   "schemaVersion": 1,
   "activeStep": 1,
   "steps": [
-    { "id": 1, "status": "active", "blocker": "All five project hooks are discovered without parser errors but await Codex trust review and the real PreToolUse deny probe. Unit tests and source-bound verification passed; this step is not complete." },
-    { "id": 2, "status": "pending" },
-    { "id": 3, "status": "pending" },
-    { "id": 4, "status": "pending" },
-    { "id": 5, "status": "pending" },
-    { "id": 6, "status": "pending" },
-    { "id": 7, "status": "pending" },
-    { "id": 8, "status": "pending" },
-    { "id": 9, "status": "pending" },
-    { "id": 10, "status": "pending" },
-    { "id": 11, "status": "pending" },
-    { "id": 12, "status": "pending" }
+    {
+      "id": 1,
+      "status": "accepted",
+      "acceptance": {
+        "note": "Baseline d147e6a and harness 3cecf4e were tested and confirmed pushed. Thirteen harness tests and staged-safety checks passed for the unchanged source snapshot. After user trust review, actual Codex PreToolUse events blocked both deny-probe and premature begin 2; runtime-check confirmed the current hook hash and session receipt.",
+        "checkedAt": "2026-11-06T22:06:25.845Z",
+        "sourceDigest": "b105f8edb82ad9f3fed09821a8abaa15b81458bbb2e20d82e2d5b0e382f0e24f",
+        "checks": [
+          "harness-tests",
+          "staged-safety",
+          "baseline-preserved"
+        ]
+      }
+    },
+    {
+      "id": 2,
+      "status": "pending"
+    },
+    {
+      "id": 3,
+      "status": "pending"
+    },
+    {
+      "id": 4,
+      "status": "pending"
+    },
+    {
+      "id": 5,
+      "status": "pending"
+    },
+    {
+      "id": 6,
+      "status": "pending"
+    },
+    {
+      "id": 7,
+      "status": "pending"
+    },
+    {
+      "id": 8,
+      "status": "pending"
+    },
+    {
+      "id": 9,
+      "status": "pending"
+    },
+    {
+      "id": 10,
+      "status": "pending"
+    },
+    {
+      "id": 11,
+      "status": "pending"
+    },
+    {
+      "id": 12,
+      "status": "pending"
+    }
   ]
 }
