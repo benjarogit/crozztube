@@ -35,6 +35,25 @@ Odysee sie, endet die Einrichtung ohne gespeicherte Zugangsdaten. Die Anmeldung
 einem echten Kontotest bestätigt; die automatisierten Tests verwenden simulierte
 Antworten.
 
+Der erste Einrichtungsstand erzeugte eine Anwendungs-ID mit Bindestrichen, die
+Odysee mit HTTP 400 als ungültig zurückwies. Der Fehler trat bereits vor der
+Passwortprüfung auf. Der korrigierte Stand nutzt eine eigene alphanumerische
+Installationskennung mit 66 Zeichen, entsprechend der Begrenzung im Webclient.
+Der echte anonyme Sitzungsaufruf wurde am 7. November 2026 erfolgreich geprüft.
+Das bestätigt noch keinen Kontozugriff oder Clip-Import.
+
+Du kannst nur diesen ersten Aufruf ohne Passwort und ohne lokale Änderungen
+prüfen. Dabei wird ausschließlich eine anonyme Clientsitzung beim Anbieter
+erzeugt; ihr Token wird weder ausgegeben noch gespeichert:
+
+```sh
+php artisan crozztube:clips:publisher-setup --check-session
+```
+
+Fehler unterscheiden jetzt Clientsitzung, eigentliche Anmeldung und
+Kontobestätigung. Es werden nur fest vorgegebene Hinweise und gegebenenfalls der
+HTTP-Status ausgegeben, keine Antworttexte, Zugangsdaten oder Provider-Header.
+
 ### Felder und manuelle Alternative
 
 In die geschützte, von Git ignorierte `.env` des ursprünglichen Projekts

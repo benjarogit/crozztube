@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Support\Clips\ClipPublisherSettingsWriter;
 use App\Support\Clips\OdyseeAccountLogin;
+use App\Support\Clips\OdyseeLoginFailure;
 use App\Support\Clips\OdyseePublishingConnection;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Formatter\OutputFormatter;
@@ -11,12 +12,29 @@ use Throwable;
 
 class SetupClipPublisher extends Command
 {
-    protected $signature = 'crozztube:clips:publisher-setup';
+    protected $signature = 'crozztube:clips:publisher-setup
+        {--check-session : Check the provider client session without account credentials or local changes}';
 
     protected $description = 'Sign in interactively to Odysee and store only the verified publishing token and channel locally.';
 
     public function handle(): int
     {
+        if ($this->option('check-session')) {
+            try {
+                (new OdyseeAccountLogin())->checkSession();
+            } catch (OdyseeLoginFailure $error) {
+                $this->error($error->getMessage());
+
+                return self::FAILURE;
+            } catch (Throwable) {
+                $this->error('Odysee client session check failed. No credentials were requested or saved.');
+
+                return self::FAILURE;
+            }
+            $this->info('Odysee accepted the client session. No account sign-in, channel access, publishing or local saving was attempted.');
+
+            return self::SUCCESS;
+        }
         if (! $this->input->isInteractive() || ! defined('STDIN') || ! stream_isatty(STDIN)) {
             $this->error('Run this setup yourself in an interactive terminal. Never pass passwords as command arguments.');
 
@@ -38,6 +56,10 @@ class SetupClipPublisher extends Command
         }
         try {
             $token = (new OdyseeAccountLogin())->authenticate($email, $password);
+        } catch (OdyseeLoginFailure $error) {
+            $this->error($error->getMessage());
+
+            return self::FAILURE;
         } catch (Throwable) {
             $this->error('Odysee sign-in failed or needs additional confirmation. Nothing was saved.');
 
