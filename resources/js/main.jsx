@@ -2073,7 +2073,7 @@ function Layout({ children, path, routeKey, navigate, user, setUser, theme, feat
       bodyOverscroll: body.style.overscrollBehavior,
     };
     const stopBackgroundScroll = (event) => {
-      if (event.target?.closest?.('.sidebar,.language-dialog,.playlist-modal')) return;
+      if (event.target?.closest?.('.sidebar,.topbar-account-menu.rich,.language-dialog,.playlist-modal')) return;
       event.preventDefault();
     };
     html.classList.add('mobile-sidebar-scroll-locked');
@@ -2533,6 +2533,8 @@ function Topbar({ user, setUser, navigate, logout, theme, onMenu, sidebarOpen = 
   const [accountSwitchNotice, setAccountSwitchNotice] = useState('');
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
   const [mobileAccountSheet, setMobileAccountSheet] = useState(() => window.matchMedia?.('(max-width: 860px)')?.matches ?? window.innerWidth <= 860);
+  const navigationAccountOverlay = overlayNavigation && sidebarOpen;
+  const accountDialog = mobileAccountSheet || navigationAccountOverlay;
   const [languageOpen, setLanguageOpen] = useState(false);
   const [messageUnread, setMessageUnread] = useState(0);
   const [notificationUnread, setNotificationUnread] = useState(0);
@@ -2847,15 +2849,15 @@ function Topbar({ user, setUser, navigate, logout, theme, onMenu, sidebarOpen = 
       setSwitchingAccountId('');
     }
   };
-  const accountMenu = accountOpen && user ? <div className="topbar-account-menu rich" role={mobileAccountSheet ? "dialog" : "menu"} aria-label="Account" aria-modal={mobileAccountSheet ? true : undefined} data-responsive-overlay={mobileAccountSheet ? "account" : undefined}>
-    {mobileAccountSheet && <button type="button" className="account-sheet-close icon-button" data-overlay-close aria-label="Close account menu" onClick={() => setAccountOpen(false)}><Icon name="close" /></button>}
-    <div className="topbar-account-menu-head" role={mobileAccountSheet ? "button" : "menuitem"} tabIndex={0} aria-label="View profile" onClick={() => goAccount('/profile')} onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); goAccount('/profile'); } }}>
+  const accountMenu = accountOpen && user ? <div className={`topbar-account-menu rich ${navigationAccountOverlay && !mobileAccountSheet ? 'is-navigation-overlay' : ''}`} role={accountDialog ? "dialog" : "menu"} aria-label="Account" aria-modal={accountDialog ? true : undefined} data-responsive-overlay={accountDialog ? "account" : undefined}>
+    {accountDialog && <button type="button" className="account-sheet-close icon-button" data-overlay-close aria-label="Close account menu" onClick={() => setAccountOpen(false)}><Icon name="close" /></button>}
+    <div className="topbar-account-menu-head" role={accountDialog ? "button" : "menuitem"} tabIndex={0} aria-label="View profile" onClick={() => goAccount('/profile')} onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); goAccount('/profile'); } }}>
       <Avatar label={user.name} image={accountAvatarUrl} />
       <span><strong>{user.name}</strong><small>{accountHandle}</small>{canAdmin && <em><Icon name="checkCircle" size={12} />{accountRoleLabel}</em>}</span>
       <Icon name="chevronRight" size={16} />
     </div>
     {accountMenuGroups.map((group, groupIndex) => <div className="topbar-account-menu-section" key={groupIndex}>
-      {group.map(([icon, label, to, value]) => <button type="button" role={mobileAccountSheet ? undefined : "menuitem"} key={label} onClick={() => goAccount(to)}>
+      {group.map(([icon, label, to, value]) => <button type="button" role={accountDialog ? undefined : "menuitem"} key={label} onClick={() => goAccount(to)}>
         <Icon name={icon} size={18} />
         <span className="topbar-account-menu-label"><span>{label}</span>{value && <b data-i18n-skip>{value}</b>}</span>
         <Icon name="chevronRight" size={15} />
@@ -2869,11 +2871,11 @@ function Topbar({ user, setUser, navigate, logout, theme, onMenu, sidebarOpen = 
       </button>)}</div>
     </div>
     <div className="topbar-account-menu-section">
-      <button type="button" role={mobileAccountSheet ? undefined : "menuitem"} onClick={() => goAccount('/contact')}><Icon name="comment" size={18} /><span>Send feedback</span><Icon name="chevronRight" size={15} /></button>
+      <button type="button" role={accountDialog ? undefined : "menuitem"} onClick={() => goAccount('/contact')}><Icon name="comment" size={18} /><span>Send feedback</span><Icon name="chevronRight" size={15} /></button>
     </div>
     <div className="topbar-account-menu-section">
-      {canAdmin && <button type="button" role={mobileAccountSheet ? undefined : "menuitem"} onClick={() => goAccount('/admin/dashboard')}><Icon name="shield" size={18} /><span>Admin Dashboard</span><Icon name="chevronRight" size={15} /></button>}
-      <button type="button" role={mobileAccountSheet ? undefined : "menuitem"} onClick={toggleAccountSwitcher}><Icon name="users" size={18} /><span>Switch account</span><Icon name="chevronRight" size={15} /></button>
+      {canAdmin && <button type="button" role={accountDialog ? undefined : "menuitem"} onClick={() => goAccount('/admin/dashboard')}><Icon name="shield" size={18} /><span>Admin Dashboard</span><Icon name="chevronRight" size={15} /></button>}
+      <button type="button" role={accountDialog ? undefined : "menuitem"} onClick={toggleAccountSwitcher}><Icon name="users" size={18} /><span>Switch account</span><Icon name="chevronRight" size={15} /></button>
       {accountSwitcherOpen && <div className="topbar-account-switcher">
         <p>Accounts</p>
         {accountRows.map((account) => {
@@ -2888,7 +2890,7 @@ function Topbar({ user, setUser, navigate, logout, theme, onMenu, sidebarOpen = 
         <button type="button" className="topbar-account-switch-add" onClick={addSwitchAccount}><Icon name="plus" size={17}/><span>Login</span></button>
         {accountSwitchNotice && <small className="topbar-account-switch-notice">{accountSwitchNotice}</small>}
       </div>}
-      <button type="button" role={mobileAccountSheet ? undefined : "menuitem"} className="danger" onClick={() => { setAccountOpen(false); logout(); }}><Icon name="block" size={18}/><span>Logout</span></button>
+      <button type="button" role={accountDialog ? undefined : "menuitem"} className="danger" onClick={() => { setAccountOpen(false); logout(); }}><Icon name="block" size={18}/><span>Logout</span></button>
     </div>
   </div> : null;
 
@@ -2957,14 +2959,14 @@ function Topbar({ user, setUser, navigate, logout, theme, onMenu, sidebarOpen = 
           {notificationsOpen && !mobileAccountSheet && <NotificationDropdown navigate={navigate} onClose={() => setNotificationsOpen(false)} onUnreadChange={setNotificationUnread} />}
         </div>}
         {user ? <div className="topbar-account-wrap" ref={accountRef}>
-          <button className={`avatar-button ${accountOpen ? 'active' : ''}`} onClick={toggleAccount} aria-label="Open account menu" aria-haspopup={mobileAccountSheet ? "dialog" : "menu"} aria-expanded={accountOpen}><Avatar label={user.name} image={accountAvatarUrl} /></button>
-          {accountOpen && !mobileAccountSheet && accountMenu}
+          <button className={`avatar-button ${accountOpen ? 'active' : ''}`} onClick={toggleAccount} aria-label="Open account menu" aria-haspopup={accountDialog ? "dialog" : "menu"} aria-expanded={accountOpen}><Avatar label={user.name} image={accountAvatarUrl} /></button>
+          {accountOpen && !accountDialog && accountMenu}
         </div> : <button className="btn primary" onClick={() => navigate('/login')}>Login</button>}
       </nav>
     </header>
     {mobileAccountSheet && messagesOpen && createPortal(<MessagesDropdown navigate={navigate} onClose={() => setMessagesOpen(false)} onUnreadChange={setMessageUnread} deferUntilLoaded />, document.body)}
     {mobileAccountSheet && notificationsOpen && createPortal(<NotificationDropdown navigate={navigate} onClose={() => setNotificationsOpen(false)} onUnreadChange={setNotificationUnread} deferUntilLoaded />, document.body)}
-    {mobileAccountSheet && accountMenu && createPortal(accountMenu, document.body)}
+    {accountDialog && accountMenu && createPortal(accountMenu, document.body)}
     <LanguageDialog open={languageOpen} onClose={() => setLanguageOpen(false)} />
     </>
   );

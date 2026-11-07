@@ -42,6 +42,8 @@
         "media-provider-image-regressions",
         "media-provider-copy",
         "media-provider-browser",
+        "account-menu-scroll",
+        "navigation-regressions",
         "staged-safety"
       ]
     },
@@ -254,6 +256,28 @@
       "argv": [
         "node",
         "tools/test/ui/media-providers.mjs"
+      ],
+      "timeoutMs": 240000
+    },
+    "account-menu-scroll": {
+      "argv": [
+        "node",
+        "tools/test/ui/account-menu-scroll.mjs"
+      ],
+      "timeoutMs": 240000
+    },
+    "navigation-regressions": {
+      "argv": [
+        "node",
+        "tools/test/ui/node_modules/playwright/cli.js",
+        "test",
+        "--config",
+        "tools/test/ui/playwright.config.ts",
+        "responsive-interactions.spec.ts",
+        "--project=chromium",
+        "--workers=1",
+        "--grep",
+        "navigation has one consistent breakpoint|opening scrolled navigation|navigation stays aligned"
       ],
       "timeoutMs": 240000
     }
