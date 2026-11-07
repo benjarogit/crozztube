@@ -66,7 +66,12 @@ final class OracleStagingConnection implements JsonSerializable
 
         return new S3Client([
             'version' => 'latest',
-            'region' => $this->settings['region'],
+            // OCI's documented us-east-1 compatibility scope targets the home
+            // region. The endpoint still selects the actual OCI region below.
+            // Signing this tenancy's home endpoint with its OCI region instead
+            // returns SignatureDoesNotMatch even with valid customer secrets.
+            'region' => 'us-east-1',
+            'signature_version' => 'v4',
             'endpoint' => $this->endpoint(),
             'use_path_style_endpoint' => true,
             'credentials' => [

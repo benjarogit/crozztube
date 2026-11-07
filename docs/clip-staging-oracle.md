@@ -28,6 +28,15 @@ Heimatregion. Der Bucketname muss exakt dem Eintrag in der Konsole entsprechen.
 Es wird kein frei konfigurierbarer Endpoint akzeptiert: Der S3-Endpunkt wird aus
 Namespace und Region unter Oracles fester HTTPS-Domain abgeleitet.
 
+Die Verbindung ist zunächst für den Bucket in deiner OCI-Heimatregion ausgelegt.
+Der S3-Client signiert mit dem von Oracle dokumentierten Kompatibilitätswert
+`us-east-1`. Das ist der Signaturbereich, kein Speicherort: Der HTTPS-Endpunkt
+bleibt etwa in `eu-frankfurt-1`. Im tatsächlichen Frankfurt-Test wurde die
+Signatur mit `eu-frankfurt-1` abgelehnt, während `us-east-1` mit demselben
+Schlüsselpaar erfolgreich war. Eine Nutzung außerhalb der Heimatregion benötigt
+eine eigene Prüfung; der Verbindungscheck bestätigt nicht automatisch weitere
+Regionen.
+
 Nach dem Eintragen kann die Konfiguration ohne Netzwerkanfrage geprüft werden:
 
 ```sh

@@ -58,6 +58,8 @@ $request = $client->createPresignedRequest($client->getCommand('PutObject', ['Bu
 $uri = $request->getUri();
 $check($request->getMethod() === 'PUT', 'The limited request is for uploading, not arbitrary S3 administration.');
 $check($uri->getHost() === 'testnamespace.compat.objectstorage.eu-frankfurt-1.oci.customer-oci.com', 'Signing cannot redirect uploads to another service.');
+parse_str($uri->getQuery(), $signedParameters);
+$check(str_contains((string) ($signedParameters['X-Amz-Credential'] ?? ''), '/us-east-1/s3/aws4_request'), 'OCI home-region compatibility signing uses the interoperable us-east-1 scope while the endpoint remains in Frankfurt.');
 $check($uri->getPath() === '/crozztube-staging-fixture/incoming/test.mp4', 'Signing is scoped to the exact bucket and object.');
 $check(! str_contains((string) $uri, $settings['secret_access_key']), 'Signing never transmits the secret key.');
 $check(str_contains($uri->getQuery(), 'X-Amz-Signature='), 'The installed AWS SDK signs the Oracle-compatible request.');
