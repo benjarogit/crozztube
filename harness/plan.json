@@ -33,6 +33,7 @@
       "checkpointChecks": [
         "harness-tests",
         "oracle-staging-config",
+        "odysee-publishing-config",
         "staged-safety"
       ]
     },
@@ -182,6 +183,13 @@
         "node",
         "tools/harness/cli.mjs",
         "baseline-check"
+      ],
+      "timeoutMs": 30000
+    },
+    "odysee-publishing-config": {
+      "argv": [
+        "php",
+        "tools/test/php/clip-publishing-config-checks.php"
       ],
       "timeoutMs": 30000
     },
