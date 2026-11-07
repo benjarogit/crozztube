@@ -33,6 +33,7 @@
       "checkpointChecks": [
         "harness-tests",
         "oracle-staging-config",
+        "oracle-staging-store",
         "odysee-publishing-config",
         "staged-safety"
       ]
@@ -190,6 +191,13 @@
       "argv": [
         "php",
         "tools/test/php/clip-publishing-config-checks.php"
+      ],
+      "timeoutMs": 30000
+    },
+    "oracle-staging-store": {
+      "argv": [
+        "php",
+        "tools/test/php/clip-staging-store-checks.php"
       ],
       "timeoutMs": 30000
     },
