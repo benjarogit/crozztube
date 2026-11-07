@@ -24,10 +24,11 @@ Der Befehl erstellt wie Odysees Webclient eine neue Clientsitzung, meldet diese
 beim bestehenden Konto an, prüft bestätigte E-Mail und erreichbare eigene Kanäle
 und lässt dich den Zielkanal auswählen. Er legt kein neues E-Mail-Konto an,
 erstellt keinen Kanal und veröffentlicht nichts. Nach deiner Bestätigung werden
-nur Kontotoken und Kanal-ID atomar in die vorhandene `.env` geschrieben, mit
-Dateimodus 0600. Passwort und E-Mail werden nicht gespeichert. Andere
-Umgebungswerte bleiben erhalten; mehrdeutige, mehrzeilige oder beschädigte
-Publishing-Felder werden nicht automatisch überschrieben.
+nur Kontotoken und Kanal-ID in die verschlüsselte serverseitige
+Einstellungsverwaltung geschrieben, mit Dateimodus 0600. Passwort und E-Mail
+werden nicht gespeichert. Bestehende `.env`-Werte bleiben als Ausgangskonfiguration
+erhalten; Admin-Änderungen werden darübergelegt. Siehe
+[Externe Mediendienste](admin-media-providers.md).
 
 Zusätzliche Bestätigungsschritte oder CAPTCHAs werden nicht umgangen. Verlangt
 Odysee sie, endet die Einrichtung ohne gespeicherte Zugangsdaten. Die Anmeldung

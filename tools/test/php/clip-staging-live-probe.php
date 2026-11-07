@@ -22,7 +22,7 @@ use Aws\Exception\AwsException;
 use GuzzleHttp\Client;
 use Illuminate\Support\Str;
 
-$connection = new OracleStagingConnection((array) config('clip_staging.oci', []));
+$connection = new OracleStagingConnection(\App\Support\MediaProviderSettings::current()->effective('oracle'));
 $client = $connection->client();
 $store = new OracleStagingStore($connection, $client);
 $bytes = str_pad('CrozzTube synthetic protocol fixture. THIS IS NOT VIDEO.', 256, '.');

@@ -2,6 +2,7 @@
 
 namespace App\Support\Thumbnails;
 
+use App\Support\MediaProviderSettings;
 use RuntimeException;
 
 class Hosters
@@ -10,9 +11,10 @@ class Hosters
 
     public function upload(string $provider, array $image, string $identity, float $deadline, bool $original = false): array
     {
-        $key = (string) config('thumbnails.providers.'.$provider.'.key');
-        if (! config('thumbnails.providers.'.$provider.'.supported')
-            || (config('thumbnails.providers.'.$provider.'.requires_key', true) && $key === '')) {
+        $settings = MediaProviderSettings::imageProviders()[$provider] ?? [];
+        $key = (string) ($settings['key'] ?? '');
+        if (! ($settings['supported'] ?? false)
+            || (($settings['requires_key'] ?? true) && $key === '')) {
             throw new RuntimeException('provider-unconfigured');
         }
         $this->reserveQuota($provider);
@@ -39,7 +41,7 @@ class Hosters
         } elseif ($provider === 'postimages') {
             // Own account key; public compatibility fields match the ShareX example, not a shared browser token.
             $body = http_build_query(['key' => $key, 'name' => $name, 'type' => $extension, 'image' => base64_encode($image['bytes']),
-                'o' => config('thumbnails.providers.postimages.client_o'), 'm' => config('thumbnails.providers.postimages.client_m'), 'version' => '1.0.1', 'portable' => '1']);
+                'o' => $settings['client_o'], 'm' => $settings['client_m'], 'version' => '1.0.1', 'portable' => '1']);
             $response = $this->http->request('https://api.postimage.org/1/upload', 'POST', $deadline, 131072,
                 ['Content-Type: application/x-www-form-urlencoded'], $body);
         } else {
@@ -59,12 +61,13 @@ class Hosters
 
     private function reserveQuota(string $provider): void
     {
+        $settings = MediaProviderSettings::imageProviders()[$provider] ?? [];
         foreach (['minute' => [now()->format('YmdHi'), 60, now()->addMinutes(2)], 'day' => [now()->format('Ymd'), 5000, now()->addDays(2)], 'month' => [now()->format('Ym'), 1000, now()->addMonths(2)]] as $period => [$bucket, $limit, $expiry]) {
-            if ($period === 'month' && config('thumbnails.providers.'.$provider.'.month_limit') === null) continue;
+            if ($period === 'month' && ($settings['month_limit'] ?? null) === null) continue;
             $key = 'thumbnails:quota:'.$provider.':'.$period.':'.$bucket;
             \Illuminate\Support\Facades\Cache::add($key, 0, $expiry);
             $count = \Illuminate\Support\Facades\Cache::increment($key);
-            if ($count > (int) config('thumbnails.providers.'.$provider.'.'.$period.'_limit', $limit)) {
+            if ($count > (int) ($settings[$period.'_limit'] ?? $limit)) {
                 throw new RuntimeException('quota-limit');
             }
         }

@@ -2,10 +2,10 @@
 
 namespace App\Console\Commands;
 
-use App\Support\Clips\ClipPublisherSettingsWriter;
 use App\Support\Clips\OdyseeAccountLogin;
 use App\Support\Clips\OdyseeLoginFailure;
 use App\Support\Clips\OdyseePublishingConnection;
+use App\Support\MediaProviderSettings;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Formatter\OutputFormatter;
 use Throwable;
@@ -41,8 +41,8 @@ class SetupClipPublisher extends Command
             return self::FAILURE;
         }
         $this->info('Odysee clip publisher setup. Your password goes directly to api.odysee.com over HTTPS and is not saved.');
-        $this->line('The resulting account token and selected channel are saved only in the local, Git-ignored .env. No upload or publication is performed.');
-        $existing = (array) config('clip_publishing.odysee', []);
+        $this->line('The resulting account token and selected channel are saved only in encrypted, server-side provider settings. No upload or publication is performed.');
+        $existing = MediaProviderSettings::current()->effective('odysee');
         if (! empty($existing['auth_token']) && ! $this->confirm('Replace the currently configured publishing login?', false)) {
             return self::SUCCESS;
         }
@@ -83,13 +83,12 @@ class SetupClipPublisher extends Command
             if (! in_array($selected, $ids, true)) {
                 return self::FAILURE;
             }
-            if (! $this->confirm('Save this account token and channel to the local .env?', false)) {
+            if (! $this->confirm('Save this account token and channel in encrypted provider settings?', false)) {
                 $this->info('Setup cancelled. Nothing was saved.');
 
                 return self::SUCCESS;
             }
-            (new ClipPublisherSettingsWriter($this->laravel->environmentFilePath()))->save($token, $selected);
-            $this->callSilent('config:clear');
+            MediaProviderSettings::current()->save('odysee', ['auth_token' => $token, 'channel_id' => $selected]);
         } catch (Throwable) {
             $this->error('Channel verification or local saving failed. Check the account and environment file locally; no provider details are printed.');
 
@@ -97,7 +96,7 @@ class SetupClipPublisher extends Command
         } finally {
             unset($token);
         }
-        $this->info('Verified account token and channel saved with file mode 0600. Password not saved. Clip import still requires its live integration test.');
+        $this->info('Verified account token and channel saved in encrypted provider settings with file mode 0600. Password not saved. Clip import still requires its live integration test.');
 
         return self::SUCCESS;
     }

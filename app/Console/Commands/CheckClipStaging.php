@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Support\Clips\OracleStagingConnection;
+use App\Support\MediaProviderSettings;
 use Illuminate\Console\Command;
 use Throwable;
 
@@ -14,7 +15,7 @@ class CheckClipStaging extends Command
 
     public function handle(): int
     {
-        $connection = new OracleStagingConnection((array) config('clip_staging.oci', []));
+        $connection = new OracleStagingConnection(MediaProviderSettings::current()->effective('oracle'));
         $this->line(json_encode($connection, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
         if ($connection->problems()) {
             return self::FAILURE;

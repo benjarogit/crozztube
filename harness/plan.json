@@ -28,7 +28,8 @@
         "Privater Oracle-Always-Free-Zwischenspeicher mit Reservierungen, Nutzungsgrenzen und FIFO-Warteschlange; begrenzte Uploadrechte ohne Kontoschlüssel im Browser",
         "Browser-Upload ohne Videotransport durch CrozzTube; Limits und Verhalten nach der Oracle-Testphase geprüft",
         "Live-Test: Odysee importiert signierte URL, wird abspielbar, wechselt Sichtbarkeit; Zwischenkopien werden gelöscht",
-        "Ausfälle, Konkurrenz und Bereinigung geprüft"
+        "Ausfälle, Konkurrenz und Bereinigung geprüft",
+        "Imagehoster, Oracle und Odysee unter Speicher & CDN administrierbar; verschlüsselte Zugangsdaten, schreibgeschützte Geheimnisse, Einrichtungshilfen und begrenzte Verbindungstests geprüft"
       ],
       "checkpointChecks": [
         "harness-tests",
@@ -36,6 +37,9 @@
         "oracle-staging-store",
         "odysee-publishing-config",
         "odysee-publishing-setup",
+        "media-provider-settings",
+        "media-provider-api",
+        "media-provider-image-regressions",
         "staged-safety"
       ]
     },
@@ -186,6 +190,18 @@
         "tools/harness/cli.mjs",
         "baseline-check"
       ],
+      "timeoutMs": 30000
+    },
+    "media-provider-image-regressions": {
+      "argv": ["node", "tools/test/media-provider-image-regressions.mjs"],
+      "timeoutMs": 390000
+    },
+    "media-provider-api": {
+      "argv": ["php", "tools/test/php/media-provider-api-checks.php"],
+      "timeoutMs": 30000
+    },
+    "media-provider-settings": {
+      "argv": ["php", "tools/test/php/media-provider-settings-checks.php"],
       "timeoutMs": 30000
     },
     "odysee-publishing-setup": {

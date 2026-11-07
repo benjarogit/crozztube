@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Support\Clips\OdyseePublishingConnection;
+use App\Support\MediaProviderSettings;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Formatter\OutputFormatter;
 use Throwable;
@@ -17,7 +18,7 @@ class CheckClipPublisher extends Command
 
     public function handle(): int
     {
-        $connection = new OdyseePublishingConnection((array) config('clip_publishing.odysee', []));
+        $connection = new OdyseePublishingConnection(MediaProviderSettings::current()->effective('odysee'));
         $this->line(json_encode($connection, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
         if (! $this->option('connect')) {
             $this->info('No network request was made. This does not enable or verify clip publishing.');
