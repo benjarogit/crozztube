@@ -130,8 +130,11 @@ class AdminMediaProvidersController extends Controller
                 return $this->response(['message' => 'Save and enable the image provider first.'], 422);
             }
             // Explicit admin test: a synthetic public 1px image, never user content.
-            $image = RemoteImages::inspect(base64_decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jRZkAAAAASUVORK5CYII='));
+            $image = RemoteImages::inspect(base64_decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAADElEQVQImWPY0aULAANtAXDVos4aAAAAAElFTkSuQmCC'));
             $result = $hosters->upload($provider, $image, hash('sha256', (string) Str::uuid()), microtime(true) + 10, true);
+            if ($provider === 'fastpic' && ($result['capability_failure'] ?? false)) {
+                return $this->response(['message' => 'Fastpic accepted the test image but only permits thumbnail links for it. Original-size images cannot be used this way.', 'warning' => true]);
+            }
             if (! is_string($result['url'] ?? null)) {
                 return $this->response(['message' => 'The image provider did not accept the test image. Check its key and upload limits.'], 422);
             }

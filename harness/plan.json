@@ -40,6 +40,8 @@
         "media-provider-settings",
         "media-provider-api",
         "media-provider-image-regressions",
+        "media-provider-copy",
+        "media-provider-browser",
         "staged-safety"
       ]
     },
@@ -193,15 +195,24 @@
       "timeoutMs": 30000
     },
     "media-provider-image-regressions": {
-      "argv": ["node", "tools/test/media-provider-image-regressions.mjs"],
+      "argv": [
+        "node",
+        "tools/test/media-provider-image-regressions.mjs"
+      ],
       "timeoutMs": 390000
     },
     "media-provider-api": {
-      "argv": ["php", "tools/test/php/media-provider-api-checks.php"],
+      "argv": [
+        "php",
+        "tools/test/php/media-provider-api-checks.php"
+      ],
       "timeoutMs": 30000
     },
     "media-provider-settings": {
-      "argv": ["php", "tools/test/php/media-provider-settings-checks.php"],
+      "argv": [
+        "php",
+        "tools/test/php/media-provider-settings-checks.php"
+      ],
       "timeoutMs": 30000
     },
     "odysee-publishing-setup": {
@@ -231,6 +242,20 @@
         "tools/test/php/clip-staging-config-checks.php"
       ],
       "timeoutMs": 30000
+    },
+    "media-provider-copy": {
+      "argv": [
+        "php",
+        "tools/test/php/media-provider-copy-checks.php"
+      ],
+      "timeoutMs": 30000
+    },
+    "media-provider-browser": {
+      "argv": [
+        "node",
+        "tools/test/ui/media-providers.mjs"
+      ],
+      "timeoutMs": 240000
     }
   },
   "defaults": {

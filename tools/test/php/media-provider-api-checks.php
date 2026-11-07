@@ -48,6 +48,7 @@ final class FixtureMediaController extends AdminMediaProvidersController
 final class FixtureAdminHosters extends Hosters
 {
     public int $calls = 0;
+    public bool $thumbnailOnly = false;
 
     public function upload(string $provider, array $image, string $identity, float $deadline, bool $original = false): array
     {
@@ -55,8 +56,11 @@ final class FixtureAdminHosters extends Hosters
         if (! $original || $image['type'] !== 'image/png' || strlen($image['bytes']) > 1024 || $deadline > microtime(true) + 11) {
             throw new RuntimeException('Unbounded synthetic test.');
         }
+        if (! @imagecreatefromstring($image['bytes'])) {
+            throw new RuntimeException('The provider test must contain a decodable PNG, including valid image data and checksums.');
+        }
 
-        return ['url' => 'https://i.postimg.cc/fixture/test.png'];
+        return $this->thumbnailOnly ? ['url' => null, 'capability_failure' => true] : ['url' => 'https://i.postimg.cc/fixture/test.png'];
     }
 }
 $checks = 0;
@@ -139,6 +143,10 @@ try {
     $check($status(static fn () => $controller->test($request($admin), 'fastpic', $hosters)) === 422 && $hosters->calls === 0, 'Unconfigured image providers must not send test uploads.');
     MediaProviderSettings::current()->save('postimages', ['enabled' => true, 'key' => 'fixture-image-key']);
     $check($status(static fn () => $controller->test($request($admin), 'postimages', $hosters)) === 200 && $hosters->calls === 1, 'An explicit image test uses a bounded synthetic image, never user content.');
+    MediaProviderSettings::current()->save('fastpic', ['enabled' => true, 'key' => 'fixture-image-key']);
+    $hosters->thumbnailOnly = true;
+    $restricted = $controller->test($request($admin), 'fastpic', $hosters);
+    $check($restricted->getStatusCode() === 200 && $restricted->getData(true)['warning'] === true && ! isset($restricted->getData(true)['test_image_url']), 'A permitted thumbnail upload reports its original-image restriction without claiming a broken connection or usable original image.');
     file_put_contents($directory.'/settings.enc', 'corrupt fixture');
     $check($controller->index($request($admin))->getStatusCode() === 503, 'Corrupt encrypted settings must return a safe failure, not old environment secrets.');
     foreach ([['GET', '/api/admin/media-providers'], ['PUT', '/api/admin/media-providers/oracle'], ['POST', '/api/admin/media-providers/odysee/connect'], ['POST', '/api/admin/media-providers/oracle/test']] as [$method, $path]) {

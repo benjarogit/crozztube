@@ -107,7 +107,8 @@ function imageProvidersReset(): void
     ThumbnailProvider::query()->update(['failed_video_ids' => '[]', 'circuit_open' => false, 'paused_until' => null, 'last_result' => null]);
 }
 
-config(['cache.default' => 'array', 'thumbnails.pause_file' => '/proc/crozztube-image-test-no-pause']);
+config(['cache.default' => 'array', 'thumbnails.pause_file' => '/proc/crozztube-image-test-no-pause',
+    'media_providers.settings_path' => sys_get_temp_dir().'/crz-image-fixture-'.bin2hex(random_bytes(8)).'/settings.enc']);
 foreach (['directupload', 'fastpic', 'postimages'] as $id) {
     config(['thumbnails.providers.'.$id.'.supported' => true, 'thumbnails.providers.'.$id.'.key' => 'test-only',
         'thumbnails.providers.'.$id.'.minute_limit' => 10000, 'thumbnails.providers.'.$id.'.day_limit' => 10000,

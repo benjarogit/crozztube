@@ -31,6 +31,40 @@ gespeicherten Änderungen ohne Containerneustart.
 
 ## Odysee-Einrichtung
 
+Öffne im Adminbereich **Einstellungen → Speicher & CDN** und wähle unter
+**Externe Mediendienste** den Anbieter. Die Auswahl und Eingabefelder verwenden
+dieselben Komponenten wie die übrigen Speicheranbieter. Unter
+**Einrichtungsanleitung** findest du die passenden Kontoseiten:
+
+- **Directupload:** [Uploadformular](https://www.directupload.eu/yourload.php).
+  Dafür ist kein API-Schlüssel erforderlich.
+- **Fastpic:** [API & ShareX](https://fastpic.org/keys) und
+  [Konto](https://fastpic.org/account). Melde dich an, bestätige deine E-Mail
+  und erstelle einen eigenen Schlüssel. Kopiere ihn bei der Erstellung;
+  danach wird er nicht erneut angezeigt. Der angebundene Dienst ist fastpic.org.
+- **Postimages:** [API-Zugang](https://postimages.org/login/api) und
+  [Registrierung](https://postimages.org/signup). Übernimm deinen eigenen
+  API-Schlüssel. Die Felder O und M enthalten öffentliche Kompatibilitätswerte.
+- **Oracle:** [Kunden-Secret-Keys](https://cloud.oracle.com/identity/domains/my-profile/auth-tokens)
+  unter „Token und Schlüssel → Kunden-Secret Keys“ sowie
+  [Buckets](https://cloud.oracle.com/object-storage/buckets).
+  Wähle deine Heimatregion und dein Compartment, öffne den privaten
+  Standard-Bucket und übernimm Region, Namespace und Bucketnamen.
+  Der Zugriffsschlüssel und der einmalig angezeigte Secret Key müssen aus
+  demselben Kunden-Schlüsselpaar stammen. PEM-Signaturschlüssel und
+  Authentifizierungstoken gehören nicht in diese Felder. Die Oberfläche ergänzt
+  bei gültiger Region den Regionsparameter der Konsolenlinks.
+- **Odysee:** [Kanäle](https://odysee.com/$/channels) und
+  [Registrierung](https://odysee.com/$/signup). Melde dich anschließend direkt im
+  Adminbereich an, wähle deinen Kanal und speichere die Verbindung. Dafür musst
+  du keinen API-Schlüssel aus Browserwerkzeugen kopieren.
+
+Die Links öffnen ein neues Fenster beziehungsweise einen neuen Tab. Deine
+ungespeicherten Eingaben bleiben beim Anbieterwechsel und Größenwechsel erhalten.
+Die Einrichtungswege sind in den drei deutschen sowie den sechs englischen
+Referenzpaketen gepflegt. Die vollständige Abnahme aller
+Sprachpakete ist eine getrennte Arbeit.
+
 Die Admin-Anmeldung über HTTPS sendet E-Mail und Passwort ausschließlich zum
 offiziellen Odysee-Login. Das Passwort wird nicht gespeichert. Der neue
 Kontotoken bleibt serverseitig verschlüsselt; der Browser erhält eine auf fünf
@@ -53,10 +87,22 @@ der `.env` eingerichtete Zugänge bleiben als Ausgangskonfiguration gültig.
   Ein-Pixel-Testbilds. Es werden keine Nutzerbilder verwendet. Diese Aktion
   verbraucht einen regulären Uploadversuch im lokalen Anbieterbudget.
 
+Fastpic wird über den fest vorgegebenen, offiziell veröffentlichten
+ShareX-Endpunkt `https://new.fastpic.org/upload` angesprochen, einschließlich
+der Multipart-Felder `uploading`, `check_thumb`, `thumb_size` und `file1`.
+Beim Praxistest am 7. November 2026 wurden Testbilder angenommen, aber
+`hotlinked: false` zurückgegeben. Die Adminoberfläche erklärt deshalb ausdrücklich,
+dass für dieses Bild nur ein Vorschaulink verfügbar ist. Das bestätigt den Upload,
+nicht die Freigabe von Originalbildern. Bestehende Vorschaubild-Fallbacks bleiben
+erhalten; API-Fehler werden nicht als erfolgreiche eingeschränkte Uploads gewertet.
+Das synthetische Test-PNG wird zusätzlich auf tatsächlich dekodierbare Bilddaten
+geprüft.
+
 ## Implementierungsstand
 
-Die verschlüsselte Speicherung, gemeinsamen Laufzeit-Einstellungen und
-authentifizierten Admin-Endpunkte sind implementiert und werden separat
-geprüft. Die Oberfläche mit den eingebetteten Anbieter-Anleitungen ist noch in
-Arbeit. Schritt 2 bleibt offen, bis auch Warteschlange, Browser-Upload,
+Die verschlüsselte Speicherung, gemeinsamen Laufzeit-Einstellungen,
+authentifizierten Admin-Endpunkte und die Oberfläche mit eingebetteten
+Anbieter-Anleitungen sind implementiert. Die Browserprüfung verwendet isolierte
+API-Antworten und ändert keine echten Kontodaten. Sie bestätigt keine tatsächliche
+Veröffentlichung oder Bildhoster-Verbindung. Schritt 2 bleibt offen, bis auch Warteschlange, Browser-Upload,
 automatische Odysee-Übernahme und Bereinigung tatsächlich abgenommen sind.

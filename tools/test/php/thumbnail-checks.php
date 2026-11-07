@@ -27,11 +27,13 @@ class MemoryImages extends RemoteImages
     public bool $sourceFails = false;
     public ?float $lastDeadline = null;
     public mixed $onRequest = null;
+    public array $fastpicRequest = [];
 
     public function request(string $url, string $method, float $deadline, int $limit, array $headers = [], ?string $body = null, bool $partial = false): array
     {
         $this->calls[] = [$url, $method];
         $this->lastDeadline = $deadline;
+        if ($method === 'POST' && $url === 'https://new.fastpic.org/upload') $this->fastpicRequest = ['headers' => $headers, 'body' => $body];
         if ($this->onRequest) ($this->onRequest)();
         return ($this->responses[$method.' '.$url] ?? ['code' => 200, 'body' => '', 'type' => 'image/png', 'location' => $url, 'error' => ''])
             + ['code' => 200, 'body' => '', 'type' => 'image/png', 'location' => $url, 'error' => ''];
@@ -58,6 +60,7 @@ function rejects(callable $fn, string $name): void
 }
 
 config(['cache.default' => 'array', 'thumbnails.pause_file' => '/proc/crozztube-test-no-pause',
+    'media_providers.settings_path' => sys_get_temp_dir().'/crz-thumbnail-fixture-'.bin2hex(random_bytes(8)).'/settings.enc',
     'thumbnails.providers.directupload.supported' => false,
     'thumbnails.providers.fastpic.key' => 'test-only', 'thumbnails.providers.postimages.key' => 'test-only']);
 DB::beginTransaction();
@@ -116,11 +119,18 @@ try {
     $directFailure = $make('directupload-fallback');
     $service->initial($directFailure);
     check($directFailure->fresh()->thumbnail_candidates[0] === $fast, 'Directupload outage falls back to FastPic during import');
+    check(in_array('Authorization: Bearer test-only', $http->fastpicRequest['headers'], true), 'Fastpic uses the account Bearer key only at its fixed API endpoint');
+    foreach (['uploading' => '1', 'check_thumb' => 'no', 'thumb_size' => '350'] as $field => $value) {
+        check(str_contains($http->fastpicRequest['body'], 'name="'.$field.'"'."\r\n\r\n".$value."\r\n"), 'Fastpic includes its published ShareX field '.$field);
+    }
+    check(str_contains($http->fastpicRequest['body'], 'name="file1"; filename="crz-'), 'Fastpic sends binary image data in its published multipart file field');
     $directFailure->delete();
     config(['thumbnails.providers.directupload.supported' => false]);
     $http->calls = [];
     check($hosters->parse('fastpic', json_encode(['hotlinked' => true, 'big_link' => $fast])) === $fast, 'FastPic hotlink parser');
     check($hosters->parse('fastpic', json_encode(['hotlinked' => false, 'big_link' => $fast, 'thumb_link' => 'https://i.fastpic.org/thumb/test.png'])) === 'https://i.fastpic.org/thumb/test.png', 'FastPic respects hotlink restriction');
+    rejects(fn () => $hosters->parse('fastpic', '{"error":"invalid_key"}', true), 'Fastpic API errors are not mistaken for successful restricted uploads');
+    rejects(fn () => $hosters->parse('fastpic', '{"hotlinked":false,"thumb_link":"https://attacker.invalid/test.png"}', true), 'Fastpic restricted responses still require a safe provider thumbnail');
     check($hosters->parse('postimages', '<data success="1"><links><hotlink>'.$post.'</hotlink></links></data>') === $post, 'Postimages own-key XML hotlink parser');
     rejects(fn () => $hosters->parse('postimages', '<!DOCTYPE data [<!ENTITY x SYSTEM "file:///etc/passwd">]><data success="1"><links><hotlink>&x;</hotlink></links></data>'), 'reject XML entities');
     rejects(fn () => $hosters->parse('postimages', '<data success="0"><links><hotlink>'.$post.'</hotlink></links></data>'), 'reject API failure despite HTTP 200');

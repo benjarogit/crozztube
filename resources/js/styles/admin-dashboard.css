@@ -4809,3 +4809,40 @@
 @media (prefers-reduced-motion:reduce) {
   .admin-dashboard-shell[data-navigation-mode="overlay"] .admin-sidebar { transition:none; }
 }
+/* External services reuse the storage provider tabs and editable fields. */
+.admin-media-providers { grid-column:1/-1; min-width:0; container:admin-media / inline-size; color:var(--ad-text) }
+.admin-media-providers p, .admin-media-providers li { max-width:75ch; line-height:1.6; overflow-wrap:anywhere }
+.admin-media-providers :is(input,button,summary,a):focus-visible { outline:2px solid var(--ad-primary); outline-offset:3px }
+.admin-media-provider-choice { margin-block-end:16px }
+.admin-media-providers .admin-integration { min-width:0; height:auto; min-height:44px; padding-block:6px }
+.admin-media-providers .admin-integration strong { color:var(--ad-heading) }
+.admin-media-providers .admin-integration small { color:var(--ad-settings-copy) }
+.admin-media-fields { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; align-items:end; margin-block:14px 0 }
+.admin-media-fields :is(.admin-field,.admin-toggle-field), .admin-media-fields .admin-field>div { min-width:0 }
+.admin-media-fields input { min-width:0 }
+.admin-media-fields .admin-field>div>button { padding-inline:4px; color:var(--ad-text); white-space:normal; font-size:11.5px; line-height:1.3 }
+.admin-media-guide, .admin-media-login, .admin-media-token { border-block-start:1px solid var(--ad-border); padding-block:10px; font-size:12px }
+.admin-media-providers summary { width:fit-content; max-width:100%; min-height:44px; padding-block:12px; font-weight:750; cursor:pointer }
+.admin-media-providers summary:hover, .admin-media-providers a:hover { text-decoration:underline; text-underline-offset:3px }
+.admin-media-guide ol { padding-inline-start:20px; margin-block:4px 12px }
+.admin-media-guide li+li { margin-block-start:8px }
+.admin-media-guide-links { display:flex; flex-wrap:wrap; gap:8px 16px }
+.admin-media-providers a { color:var(--ad-text); text-decoration:underline; text-underline-offset:3px; overflow-wrap:anywhere }
+.admin-media-token, .admin-media-field-help, .admin-media-actions, .admin-media-test-link { grid-column:1/-1 }
+.admin-media-token .admin-field { margin-block-start:12px }
+.admin-media-field-help { font-size:12px; color:var(--ad-settings-copy); margin:0 }
+.admin-media-actions { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px }
+.admin-media-providers .admin-outline-action { min-width:0; white-space:normal; overflow-wrap:anywhere }
+.admin-media-providers :is(button,input):disabled { opacity:.65; cursor:default }
+.admin-media-feedback { padding:12px; border:1px solid var(--ad-border-strong); border-radius:8px; background:var(--ad-panel-2); font-size:12px }
+.admin-media-feedback.is-error { border-color:var(--ad-red) }
+.admin-media-feedback.is-warning { border-color:var(--ad-primary) }
+.admin-media-loading { min-height:96px; display:flex; align-items:center }
+@container admin-media (max-width:560px) {
+  .admin-media-fields { grid-template-columns:minmax(0,1fr) }
+  .admin-media-provider-choice { grid-template-columns:minmax(0,1fr) }
+  .admin-media-actions { grid-template-columns:minmax(0,1fr) }
+  .admin-media-fields .admin-field>div, .admin-media-fields .admin-toggle-field>button { height:auto; min-height:44px }
+  .admin-media-providers .admin-outline-action { min-height:44px }
+}
+@media(max-width:600px) { .admin-media-fields input { font-size:16px } }

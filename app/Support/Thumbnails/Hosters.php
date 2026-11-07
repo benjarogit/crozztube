@@ -35,7 +35,12 @@ class Hosters
             ], $body);
         } elseif ($provider === 'fastpic') {
             $boundary = 'crz'.bin2hex(random_bytes(16));
-            $body = '--'.$boundary."\r\nContent-Disposition: form-data; name=\"file1\"; filename=\"".$name.'.'.$extension."\"\r\nContent-Type: ".$image['type']."\r\n\r\n".$image['bytes']."\r\n--".$boundary."--\r\n";
+            // Match Fastpic's published ShareX request, including the upload flag.
+            $body = '';
+            foreach (['uploading' => '1', 'check_thumb' => 'no', 'thumb_size' => '350'] as $field => $value) {
+                $body .= '--'.$boundary."\r\nContent-Disposition: form-data; name=\"".$field."\"\r\n\r\n".$value."\r\n";
+            }
+            $body .= '--'.$boundary."\r\nContent-Disposition: form-data; name=\"file1\"; filename=\"".$name.'.'.$extension."\"\r\nContent-Type: ".$image['type']."\r\n\r\n".$image['bytes']."\r\n--".$boundary."--\r\n";
             $response = $this->http->request('https://new.fastpic.org/upload', 'POST', $deadline, 131072,
                 ['Authorization: Bearer '.$key, 'Content-Type: multipart/form-data; boundary='.$boundary], $body);
         } elseif ($provider === 'postimages') {
@@ -97,8 +102,16 @@ class Hosters
         } elseif ($provider === 'fastpic') {
             $data = json_decode($body, true, 32, JSON_THROW_ON_ERROR);
             // The host explicitly reports whether full-size hotlinking is permitted.
-            $hotlinked = filter_var($data['hotlinked'] ?? false, FILTER_VALIDATE_BOOLEAN);
-            if ($original && ! $hotlinked) throw new RuntimeException('full-size-unavailable');
+            $hotlinked = array_key_exists('hotlinked', (array) $data) ? filter_var($data['hotlinked'], FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE) : null;
+            if ($hotlinked === null) throw new RuntimeException('invalid-provider-response');
+            if ($original && ! $hotlinked) {
+                $thumb = $data['thumb_link'] ?? null;
+                if (! RemoteImages::urlAllowed($thumb) || ! str_starts_with((string) $thumb, 'https://')
+                    || ! preg_match('/(^|\.)fastpic\.(org|ru)$/', (string) parse_url((string) $thumb, PHP_URL_HOST))) {
+                    throw new RuntimeException('invalid-provider-response');
+                }
+                throw new RuntimeException('full-size-unavailable');
+            }
             $url = $hotlinked ? ($data['big_link'] ?? null) : ($data['thumb_link'] ?? null);
 
         } else {
