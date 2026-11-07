@@ -37,6 +37,7 @@
         "oracle-staging-store",
         "odysee-publishing-config",
         "odysee-publishing-setup",
+        "odysee-url-import",
         "media-provider-settings",
         "media-provider-api",
         "media-provider-image-regressions",
@@ -296,6 +297,13 @@
         "tools/test/ui/source-refresh-banner.mjs"
       ],
       "timeoutMs": 120000
+    },
+    "odysee-url-import": {
+      "argv": [
+        "php",
+        "tools/test/php/clip-publishing-import-checks.php"
+      ],
+      "timeoutMs": 30000
     }
   },
   "defaults": {

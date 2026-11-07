@@ -124,6 +124,44 @@ tatsächlichen Integrationstests bestätigt. Die Clipfunktion wird durch diese
 Felder nicht freigeschaltet. Ein Browser-Sitzungstoken ist kein Nachweis einer
 dauerhaft verfügbaren oder offiziell zugesagten Drittanbieter-Schnittstelle.
 
+### Begrenzte URL-Registrierung und Browser-Test
+
+`OdyseeUrlImporter` registriert ausschließlich eine von `OracleStagingStore`
+geprüfte Übergabekopie. Die 30 Minuten gültige Lese-URL wird serverseitig erzeugt;
+beliebige Nutzer-URLs werden nicht angenommen. Der Kontotoken wird nur an den
+festen API-Host geschickt. Beim Uploaddienst wird stattdessen der von Odysee
+ausgestellte Uploadtoken verwendet. Beide bekannten offiziellen Uploadadressen
+sind ausdrücklich freigegeben; unbekannte Ziele und Weiterleitungen werden
+abgewiesen. Antwortgröße und Laufzeit sind begrenzt. Diagnoseausgaben enthalten
+keine Tokens, signierten URLs oder internen Uploadreferenzen.
+
+Die Registrierung ist eine schreibende Anfrage. Bei verlorenen oder defekten
+Antworten ist das Ergebnis möglicherweise unklar. Solche Aufträge dürfen nicht
+blind erneut registriert werden. Die nachfolgende Warteschlange muss den Zustand
+und die interne Uploadreferenz speichern, bevor sie eine Veröffentlichung startet.
+
+Am 7. November 2026 wurde zusätzlich ein echter Browser-Test ausgeführt:
+Chromium erzeugte im Browser eine fünfsekündige synthetische H.264-MP4 mit
+12.051 Bytes. Der direkte Formular-Upload zu Oracle lieferte HTTP 204 bei
+regulärer Zertifikats- und CORS-Prüfung. Nach Metadatenprüfung und interner
+Übergabekopie nahm Odysees URL-Dienst die signierte Adresse an. Beide Oracle-
+Testobjekte wurden anschließend gelöscht und ihre Abwesenheit bestätigt.
+Die PHP-Prozesse erhielten ausschließlich Metadaten, keine Videodaten.
+
+Das bestätigt die **URL-Annahme**, noch nicht den vollständigen Abruf durch
+Odysee, Veröffentlichung, Wiedergabe, Sichtbarkeit oder Produktionsbereinigung.
+Es wurde bei diesem Test keine Veröffentlichung ausgelöst. Schritt 2 bleibt offen.
+
+Der Test läuft nur ausdrücklich und mit einem Browserworker:
+
+```sh
+node tools/test/ui/clip-import-live-probe.mjs --run
+```
+
+Er nutzt die gespeicherten Zugänge des laufenden Webcontainers. Ohne `--run`
+werden keine externen Anfragen gestellt. Der Test berührt weder Nutzermedien
+noch bestehende Browserentwürfe. Er ist kein Warteschlangen- oder Dauertest.
+
 Geprüfte Primärquellen:
 
 - [Anmeldung des offiziellen Webclients](https://github.com/OdyseeTeam/odysee-frontend/blob/master/ui/redux/actions/user.ts)
