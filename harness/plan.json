@@ -35,6 +35,7 @@
         "oracle-staging-config",
         "oracle-staging-store",
         "odysee-publishing-config",
+        "odysee-publishing-setup",
         "staged-safety"
       ]
     },
@@ -184,6 +185,13 @@
         "node",
         "tools/harness/cli.mjs",
         "baseline-check"
+      ],
+      "timeoutMs": 30000
+    },
+    "odysee-publishing-setup": {
+      "argv": [
+        "php",
+        "tools/test/php/clip-publishing-setup-checks.php"
       ],
       "timeoutMs": 30000
     },

@@ -4,6 +4,7 @@ namespace App\Support\Clips;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Psr7\Utils;
 use InvalidArgumentException;
 use JsonSerializable;
 use RuntimeException;
@@ -18,7 +19,7 @@ final class OdyseePublishingConnection implements JsonSerializable
 
     private string $channelId;
 
-    public function __construct(array $settings, private ?ClientInterface $http = null)
+    public function __construct(#[\SensitiveParameter] array $settings, private ?ClientInterface $http = null)
     {
         $this->token = is_string($settings['auth_token'] ?? null) ? trim($settings['auth_token']) : '';
         $this->channelId = is_string($settings['channel_id'] ?? null) ? trim($settings['channel_id']) : '';
@@ -68,7 +69,7 @@ final class OdyseePublishingConnection implements JsonSerializable
                 if ($response->getStatusCode() !== 200) {
                     throw new RuntimeException();
                 }
-                $body = $response->getBody()->read(1048577);
+                $body = Utils::copyToString($response->getBody(), 1048577);
                 if (strlen($body) > 1048576) {
                     throw new RuntimeException();
                 }

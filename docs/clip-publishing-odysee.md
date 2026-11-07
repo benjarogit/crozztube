@@ -7,6 +7,36 @@ dem Server; Clip-Nutzer erhalten ihn zu keinem Zeitpunkt.
 
 ## Was du lokal einträgst
 
+Am einfachsten richtest du den Zugang im lokalen Terminal ein. Du brauchst keinen
+Token selbst zu suchen und keinen neuen API-Key auf Odysee anzulegen:
+
+```sh
+php artisan crozztube:clips:publisher-setup
+```
+
+Starte den Befehl im ursprünglichen Projekt. Gib deine bestehende Odysee-E-Mail
+und dein Passwort **nur in diesem Terminal** ein. Die Passworteingabe bleibt
+verdeckt; wenn das Terminal keine verdeckte Eingabe unterstützt, wird sie nicht
+ersatzweise sichtbar angezeigt. Keine Zugangsdaten als Befehlsargumente oder in
+den Chat kopieren.
+
+Der Befehl erstellt wie Odysees Webclient eine neue Clientsitzung, meldet diese
+beim bestehenden Konto an, prüft bestätigte E-Mail und erreichbare eigene Kanäle
+und lässt dich den Zielkanal auswählen. Er legt kein neues E-Mail-Konto an,
+erstellt keinen Kanal und veröffentlicht nichts. Nach deiner Bestätigung werden
+nur Kontotoken und Kanal-ID atomar in die vorhandene `.env` geschrieben, mit
+Dateimodus 0600. Passwort und E-Mail werden nicht gespeichert. Andere
+Umgebungswerte bleiben erhalten; mehrdeutige, mehrzeilige oder beschädigte
+Publishing-Felder werden nicht automatisch überschrieben.
+
+Zusätzliche Bestätigungsschritte oder CAPTCHAs werden nicht umgangen. Verlangt
+Odysee sie, endet die Einrichtung ohne gespeicherte Zugangsdaten. Die Anmeldung
+über den internen, vom offiziellen Webclient genutzten API-Weg ist erst nach
+einem echten Kontotest bestätigt; die automatisierten Tests verwenden simulierte
+Antworten.
+
+### Felder und manuelle Alternative
+
 In die geschützte, von Git ignorierte `.env` des ursprünglichen Projekts
 `/mnt/intern-1tb/Projekte - Vibe Coding/crozztube/.env` gehören:
 
@@ -76,6 +106,8 @@ dauerhaft verfügbaren oder offiziell zugesagten Drittanbieter-Schnittstelle.
 
 Geprüfte Primärquellen:
 
+- [Anmeldung des offiziellen Webclients](https://github.com/OdyseeTeam/odysee-frontend/blob/master/ui/redux/actions/user.ts)
+- [Clientsitzung und API-Antworten des Webclients](https://github.com/OdyseeTeam/odysee-frontend/blob/master/extras/lbryinc/lbryio.ts)
 - [Offizieller Authentifizierungs-Fallback](https://github.com/OdyseeTeam/odysee-api/blob/master/app/auth/middleware.go)
 - [Verwendeter Token-Header](https://github.com/OdyseeTeam/odysee-api/blob/master/app/wallet/wallet.go)
 - [Automatischer URL-Import](https://github.com/OdyseeTeam/odysee-api/blob/master/docs/design/publish/publish_v4_urls_client.mmd)
