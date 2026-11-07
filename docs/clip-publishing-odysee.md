@@ -162,6 +162,61 @@ Er nutzt die gespeicherten Zugänge des laufenden Webcontainers. Ohne `--run`
 werden keine externen Anfragen gestellt. Der Test berührt weder Nutzermedien
 noch bestehende Browserentwürfe. Er ist kein Warteschlangen- oder Dauertest.
 
+### Veröffentlichung: geprüfter Zwischenstand, noch keine Abnahme
+
+`OdyseePublisher` stößt nach der URL-Registrierung eine echte `stream_create`-
+Veröffentlichung in Odysees eigenem Speicher an. Oracle ist ausschließlich der
+temporäre Übergabespeicher. Die spätere Wiedergabe muss aus Odysees Infrastruktur
+erfolgen; Oracle-Adressen werden nicht als Clip-Wiedergabequelle verwendet.
+
+Neue Veröffentlichungen beginnen nicht gelistet. Jeder Name ist an eine
+serverseitige Auftrags-UUID gebunden. Vor Änderungen oder Löschen werden
+Kanal, Name, Claim-ID und Eigentümerschaft über die authentifizierte Kontoliste
+geprüft. Sichtbarkeitsänderungen erhalten alle übrigen Tags und Medienmetadaten.
+Ein verlorenes Schreibresultat wird als unklar behandelt und nicht automatisch
+blind wiederholt. Der Worker muss die Auftragsphase und Referenzen speichern.
+
+Der echte Test am 7. November 2026 bestätigte URL-Import, Verarbeitung,
+Veröffentlichung mit korrekter Dateigröße und Videometadaten, Wechsel zu öffentlich
+und zurück zu nicht gelistet sowie anschließendes Entfernen der synthetischen
+Test-Claims. Für nicht gelistete Wiedergabe wird entsprechend dem offiziellen
+Webclient zuerst die Claim-ID mit `channel_sign` signiert. Kontotokens und
+Kanalschlüssel bleiben serverseitig.
+
+**Noch fehlgeschlagen:** Der von Odysee gelieferte Wiedergabe-Endpunkt antwortete
+auch im zehnminütigen Bereitstellungsfenster mit HTTP 403 und HTML statt Video.
+Chromium verweigerte diese Fehlerantwort mit `ERR_BLOCKED_BY_ORB`.
+Auch ein separat geprüfter, frisch signierter Wiedergabeaufruf blieb bei HTTP 403.
+Das belegt noch keine endgültige Provider-Ursache. Es bestätigt insbesondere
+keine abspielbare dauerhafte Kopie oder erfolgreiche Produktionsintegration.
+Die Test-Claims wurden entfernt, beide Oracle-Kopien jeweils gelöscht und ihre
+Abwesenheit bestätigt. Ein anschließender Audit fand keine verbliebenen Test-Claims.
+
+Zwei beim echten Test gefundene Protokolldetails sind durch Regressionstests
+abgesichert: JSON-RPC-IDs müssen numerisch sein; eine erfolgreiche Transaktion
+enthält neben dem Claim auch Wechselgeld-Ausgänge und dort noch kein
+`is_my_output`. Eigentümerschaft wird deshalb zusätzlich über `stream_list`
+geprüft. Weder ein HTTP 200 noch ein Claim-Eintrag gelten als Wiedergabenachweis.
+
+Der ausdrücklich gestartete Veröffentlichungstest lautet:
+
+```sh
+node tools/test/ui/clip-import-live-probe.mjs --run --publish
+```
+
+Er erzeugt einen eigenen synthetischen Clip und entfernt nur dessen eigenen
+Claim. Er benötigt vorhandenes Odysee-Kontoguthaben: Der Webclient-Mindestbetrag
+liegt bei 0,001 LBC je neuer Veröffentlichung; Netzwerkgebühren kommen hinzu.
+Ein automatischer Kauf oder eine Aufladung wird nicht ausgelöst. Ein
+Produktionsbudget und die unveröffentlichte Sammlung sind noch zu integrieren.
+Schritt 2 bleibt offen, ebenso dessen verbindlicher vollständiger Live-Test.
+
+Primärquellen für diese zusätzlichen Protokolldetails:
+
+- [Mindestbetrag und Gebührenreserve des Webclients](https://github.com/OdyseeTeam/odysee-frontend/blob/master/ui/constants/claim.ts)
+- [Signierter Zugriff auf eigene nicht gelistete Dateien](https://github.com/OdyseeTeam/odysee-frontend/blob/master/ui/redux/actions/file.ts)
+- [Serverseitige Zuordnung wiederholter Veröffentlichungsanfragen](https://github.com/OdyseeTeam/odysee-api/blob/master/app/asynquery/asynquery.go)
+
 Geprüfte Primärquellen:
 
 - [Anmeldung des offiziellen Webclients](https://github.com/OdyseeTeam/odysee-frontend/blob/master/ui/redux/actions/user.ts)

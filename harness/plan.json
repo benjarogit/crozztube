@@ -38,6 +38,8 @@
         "odysee-publishing-config",
         "odysee-publishing-setup",
         "odysee-url-import",
+        "odysee-publisher",
+        "clip-transfer-queue",
         "media-provider-settings",
         "media-provider-api",
         "media-provider-image-regressions",
@@ -304,6 +306,20 @@
         "tools/test/php/clip-publishing-import-checks.php"
       ],
       "timeoutMs": 30000
+    },
+    "odysee-publisher": {
+      "argv": [
+        "php",
+        "tools/test/php/clip-publisher-checks.php"
+      ],
+      "timeoutMs": 30000
+    },
+    "clip-transfer-queue": {
+      "argv": [
+        "node",
+        "tools/test/clip-transfer-queue.mjs"
+      ],
+      "timeoutMs": 150000
     }
   },
   "defaults": {
