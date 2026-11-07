@@ -12,7 +12,7 @@ try {
     console.log(JSON.stringify({ activeStep: context.step.id, title: context.step.title, status: published(root, context) ? 'complete' : context.record.status === 'accepted' ? 'awaiting-confirmed-publication' : context.record.status, mode: localState(root), runtimeHookVerified: runtimeEvidence(root), branch: git(root, ['branch', '--show-current']) }, null, 2));
   } else if (command === 'resume') setMode(root, 'implementing');
   else if (command === 'mode') setMode(root, args[0], option('--reason'));
-  else if (command === 'verify') verify(root);
+  else if (command === 'verify') verify(root, { checkpoint: args.includes('--checkpoint') });
   else if (command === 'begin') begin(root, Number(args[0]));
   else if (command === 'checkpoint' || command === 'complete') publish(root, option('--message'), { complete: command === 'complete', note: option('--note') });
   else if (command === 'baseline-check') {

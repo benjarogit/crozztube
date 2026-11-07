@@ -84,6 +84,21 @@ test('failed checks invalidate previous success and keep the step blocked', t =>
   assert.throws(() => begin(root, 2));
 });
 
+test('tested increments may be published while full acceptance stays blocked', t => {
+  const { root } = fixture(t);
+  const plan = load(root).plan;
+  plan.steps[0].checkpointChecks = ['unit'];
+  plan.steps[0].checks = ['external-live-check'];
+  writeJson(path.join(root, 'harness/plan.json'), plan);
+  stage(root); probe(root);
+  verify(root, { checkpoint: true });
+  publish(root, 'test: component checkpoint');
+  assert.equal(load(root).record.status, 'active');
+  assert.throws(() => publish(root, 'not complete', { complete: true, note: 'Only incremental checks passed.' }), /Checkpoint checks cannot complete/);
+  assert.throws(() => begin(root, 2));
+  assert.throws(() => verify(root), /not been implemented/);
+});
+
 test('missing future checks are failures, never successful placeholders', t => {
   const { root } = fixture(t);
   const plan = load(root).plan;
