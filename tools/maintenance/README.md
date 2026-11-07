@@ -35,6 +35,11 @@ Nur in einem isolierten Worktree auf `codex/impeccable-maintenance` arbeiten.
 Basis ist der frisch abgefragte veröffentlichte Branch aus `harness/plan.json`.
 Vorhandene offene Wartungs-PRs und deren Remote-Branch wiederverwenden; niemals
 force-pushen. Bei abweichendem Remote-Stand erst konfliktfrei integrieren.
+Ein `git merge --no-commit --no-ff` des veröffentlichten Plan-Branches darf vor
+dem Merge-Commit geprüft werden. Die Wartungsprüfung vergleicht dann mit genau
+diesem eingehenden Stand und lehnt andere Merge-Quellen sowie zusätzliche
+Feature-Änderungen ab. Erst `maintenance-checkpoint` erstellt den geprüften
+Merge-Commit und bestätigt seinen Push.
 
 ```sh
 node tools/harness/cli.mjs status

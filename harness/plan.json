@@ -4,30 +4,228 @@
   "remote": "origin",
   "baselineCommit": "d147e6a",
   "steps": [
-    { "id": 1, "title": "Ausgangsstand und Harness", "checks": ["harness-tests", "staged-safety", "baseline-preserved"], "acceptance": ["Vorhandener Stand geprüft, gesichert und gepusht", "Schrittwechsel und Abschluss an Prüfungen und Push gebunden", "Echte Codex-Hooks geladen, vertraut und im Runtime-Negativtest wirksam"] },
-    { "id": 2, "title": "Drei R2-Konten, Warteschlange und Odysee-Übernahme", "checks": ["step-02-integration"], "acceptance": ["Drei private R2-Anbindungen mit Reservierungen, Grenzen und FIFO-Warteschlange", "Browser-Upload ohne Videotransport durch CrozzTube", "Live-Test: Odysee importiert signierte URL, wird abspielbar, wechselt Sichtbarkeit; Zwischenkopien werden gelöscht", "Ausfälle, Konkurrenz und Bereinigung geprüft"] },
-    { "id": 3, "title": "Vollständige Clipfunktion", "checks": ["step-03-clips"], "acceptance": ["Browser erzeugt MP4 H.264/AAC, 5–60 Sekunden, maximal 720p", "Private und öffentliche Clips, Originalzuordnung und Sammlungen", "Ungeeignete Quellen bieten Zeitmarke statt manuellen Upload", "Warten, Abbruch, Retry, Sichtbarkeit, Wiedergabe und Löschen vollständig geprüft"] },
-    { "id": 4, "title": "Zeitmarken, Teilen, Stimmen und Bereinigung", "checks": ["step-04-time-marks"], "acceptance": ["Private Notizen und bewusst veröffentlichte Zeitmarken", "Teilen und Zeitsprung ohne private Notizen offenzulegen", "Eine veränderbare Stimme je Nutzer; Eigenbewertungen ausgeschlossen", "Einblendungen, Ranking sowie 7/180/30-Tage-Regeln mit kontrollierter Uhr geprüft"] },
-    { "id": 5, "title": "Durchsuchbares Transkript", "checks": ["step-05-transcript"], "acceptance": ["Suche, Sprachwechsel und Zeitsprünge aus echten zeitlichen Cues", "Reiner Text bleibt ohne erfundene Zeitpunkte lesbar", "Fehlerzustände und unverändert laufender Player geprüft"] },
-    { "id": 6, "title": "Weiterschauen verwalten", "checks": ["step-06-progress"], "acceptance": ["Entfernen bewahrt Verlauf; angesehen und neu beginnen funktionieren", "Alte Hintergrundmeldungen machen Entfernen nicht rückgängig", "Web und API folgen denselben nebenläufig geprüften Regeln"] },
-    { "id": 7, "title": "Gemeinsame Playlists", "checks": ["step-07-playlists"], "acceptance": ["Einladen und Rechte entziehen", "Mitwirkende verwalten eigene Einträge, Besitzer alle Einträge und Reihenfolge", "Optionale Abstimmung verändert manuelle Reihenfolge nicht", "Konkurrenz und Berechtigungen geprüft"] },
-    { "id": 8, "title": "Serien und Staffeln", "checks": ["step-08-series"], "acceptance": ["Serienstruktur erweitert bestehende Playlists", "Folgeninformationen bleiben im Serienkontext", "Nächste Folge wahrt Zugang, Autoplay und Vorrang der persönlichen Queue"] },
-    { "id": 9, "title": "Einschlaftimer", "checks": ["step-09-sleep-timer"], "acceptance": ["15/30/60 Minuten und Videoende", "Timer gilt in Watch und Miniplayer; Ablauf unterdrückt Autoplay", "Unsteuerbare Embeds erhalten keine funktionslose Option"] },
-    { "id": 10, "title": "Persönliches Untertitel-Design", "checks": ["step-10-caption-style"], "acceptance": ["Größe, Hintergrund und Kontrast speichern", "Gast, Konto, Vollbild und Miniplayer geprüft", "Provider-Embeds behalten tatsächlich verfügbare Möglichkeiten"] },
-    { "id": 11, "title": "Empfehlungen erklären und steuern", "checks": ["step-11-recommendations"], "acceptance": ["Gründe beruhen auf echten Signalen", "Video- und Kanalausschlüsse wirken", "Personalisierung abschalten bewahrt Verlauf und Abos"] },
-    { "id": 12, "title": "Bewusste Live-Weiterleitungen", "checks": ["step-12-live-redirect"], "acceptance": ["Nur berechtigte Creator empfehlen erreichbare Live-Ziele", "Zuschauer wechseln bewusst; Empfang ist abschaltbar", "Zugriff, Moderation, Blockierung und beendete Ziele geprüft"] }
+    {
+      "id": 1,
+      "title": "Ausgangsstand und Harness",
+      "checks": [
+        "harness-tests",
+        "staged-safety",
+        "baseline-preserved"
+      ],
+      "acceptance": [
+        "Vorhandener Stand geprüft, gesichert und gepusht",
+        "Schrittwechsel und Abschluss an Prüfungen und Push gebunden",
+        "Echte Codex-Hooks geladen, vertraut und im Runtime-Negativtest wirksam"
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Oracle-Zwischenspeicher, Warteschlange und Odysee-Übernahme",
+      "checks": [
+        "step-02-integration"
+      ],
+      "acceptance": [
+        "Privater Oracle-Always-Free-Zwischenspeicher mit Reservierungen, Nutzungsgrenzen und FIFO-Warteschlange; begrenzte Uploadrechte ohne Kontoschlüssel im Browser",
+        "Browser-Upload ohne Videotransport durch CrozzTube; Limits und Verhalten nach der Oracle-Testphase geprüft",
+        "Live-Test: Odysee importiert signierte URL, wird abspielbar, wechselt Sichtbarkeit; Zwischenkopien werden gelöscht",
+        "Ausfälle, Konkurrenz und Bereinigung geprüft"
+      ],
+      "checkpointChecks": [
+        "harness-tests",
+        "oracle-staging-config",
+        "staged-safety"
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Vollständige Clipfunktion",
+      "checks": [
+        "step-03-clips"
+      ],
+      "acceptance": [
+        "Browser erzeugt MP4 H.264/AAC, 5–60 Sekunden, maximal 720p",
+        "Private und öffentliche Clips, Originalzuordnung und Sammlungen",
+        "Ungeeignete Quellen bieten Zeitmarke statt manuellen Upload",
+        "Warten, Abbruch, Retry, Sichtbarkeit, Wiedergabe und Löschen vollständig geprüft"
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Zeitmarken, Teilen, Stimmen und Bereinigung",
+      "checks": [
+        "step-04-time-marks"
+      ],
+      "acceptance": [
+        "Private Notizen und bewusst veröffentlichte Zeitmarken",
+        "Teilen und Zeitsprung ohne private Notizen offenzulegen",
+        "Eine veränderbare Stimme je Nutzer; Eigenbewertungen ausgeschlossen",
+        "Einblendungen, Ranking sowie 7/180/30-Tage-Regeln mit kontrollierter Uhr geprüft"
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Durchsuchbares Transkript",
+      "checks": [
+        "step-05-transcript"
+      ],
+      "acceptance": [
+        "Suche, Sprachwechsel und Zeitsprünge aus echten zeitlichen Cues",
+        "Reiner Text bleibt ohne erfundene Zeitpunkte lesbar",
+        "Fehlerzustände und unverändert laufender Player geprüft"
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Weiterschauen verwalten",
+      "checks": [
+        "step-06-progress"
+      ],
+      "acceptance": [
+        "Entfernen bewahrt Verlauf; angesehen und neu beginnen funktionieren",
+        "Alte Hintergrundmeldungen machen Entfernen nicht rückgängig",
+        "Web und API folgen denselben nebenläufig geprüften Regeln"
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Gemeinsame Playlists",
+      "checks": [
+        "step-07-playlists"
+      ],
+      "acceptance": [
+        "Einladen und Rechte entziehen",
+        "Mitwirkende verwalten eigene Einträge, Besitzer alle Einträge und Reihenfolge",
+        "Optionale Abstimmung verändert manuelle Reihenfolge nicht",
+        "Konkurrenz und Berechtigungen geprüft"
+      ]
+    },
+    {
+      "id": 8,
+      "title": "Serien und Staffeln",
+      "checks": [
+        "step-08-series"
+      ],
+      "acceptance": [
+        "Serienstruktur erweitert bestehende Playlists",
+        "Folgeninformationen bleiben im Serienkontext",
+        "Nächste Folge wahrt Zugang, Autoplay und Vorrang der persönlichen Queue"
+      ]
+    },
+    {
+      "id": 9,
+      "title": "Einschlaftimer",
+      "checks": [
+        "step-09-sleep-timer"
+      ],
+      "acceptance": [
+        "15/30/60 Minuten und Videoende",
+        "Timer gilt in Watch und Miniplayer; Ablauf unterdrückt Autoplay",
+        "Unsteuerbare Embeds erhalten keine funktionslose Option"
+      ]
+    },
+    {
+      "id": 10,
+      "title": "Persönliches Untertitel-Design",
+      "checks": [
+        "step-10-caption-style"
+      ],
+      "acceptance": [
+        "Größe, Hintergrund und Kontrast speichern",
+        "Gast, Konto, Vollbild und Miniplayer geprüft",
+        "Provider-Embeds behalten tatsächlich verfügbare Möglichkeiten"
+      ]
+    },
+    {
+      "id": 11,
+      "title": "Empfehlungen erklären und steuern",
+      "checks": [
+        "step-11-recommendations"
+      ],
+      "acceptance": [
+        "Gründe beruhen auf echten Signalen",
+        "Video- und Kanalausschlüsse wirken",
+        "Personalisierung abschalten bewahrt Verlauf und Abos"
+      ]
+    },
+    {
+      "id": 12,
+      "title": "Bewusste Live-Weiterleitungen",
+      "checks": [
+        "step-12-live-redirect"
+      ],
+      "acceptance": [
+        "Nur berechtigte Creator empfehlen erreichbare Live-Ziele",
+        "Zuschauer wechseln bewusst; Empfang ist abschaltbar",
+        "Zugriff, Moderation, Blockierung und beendete Ziele geprüft"
+      ]
+    }
   ],
   "checks": {
-    "harness-tests": { "argv": ["node", "--test", "--test-reporter=spec", "tools/test/harness.test.mjs"], "timeoutMs": 180000 },
-    "staged-safety": { "argv": ["node", "tools/harness/static-check.mjs"], "timeoutMs": 180000 },
-    "baseline-preserved": { "argv": ["node", "tools/harness/cli.mjs", "baseline-check"], "timeoutMs": 30000 }
+    "harness-tests": {
+      "argv": [
+        "node",
+        "--test",
+        "--test-reporter=spec",
+        "tools/test/harness.test.mjs"
+      ],
+      "timeoutMs": 180000
+    },
+    "staged-safety": {
+      "argv": [
+        "node",
+        "tools/harness/static-check.mjs"
+      ],
+      "timeoutMs": 180000
+    },
+    "baseline-preserved": {
+      "argv": [
+        "node",
+        "tools/harness/cli.mjs",
+        "baseline-check"
+      ],
+      "timeoutMs": 30000
+    },
+    "oracle-staging-config": {
+      "argv": [
+        "php",
+        "tools/test/php/clip-staging-config-checks.php"
+      ],
+      "timeoutMs": 30000
+    }
   },
   "defaults": {
-    "r2Accounts": 3, "activeClipsGlobal": 3, "activeClipsPerAccount": 1,
-    "activePerUser": 1, "waitingPerUser": 1, "newUploadsPerDay": 5,
-    "maxClipBytes": 67108864, "reservedAndStoredBytesPerAccount": 1000000000,
-    "stagingCleanupHours": 24, "clipSeconds": [5, 60], "maxClipResolution": "720p",
-    "timeMarkCleanup": { "negativeMinAgeDays": 7, "negativeMinVoters": 25, "negativeDislikeRatio": 0.8, "neglectedMinAgeDays": 180, "neglectedLikesBelow": 3, "neglectedMinImpressions": 100, "impressionSeconds": 2, "hiddenGraceDays": 30 }
+    "activeClipsGlobal": 3,
+    "activeClipsPerAccount": 1,
+    "activePerUser": 1,
+    "waitingPerUser": 1,
+    "newUploadsPerDay": 5,
+    "maxClipBytes": 67108864,
+    "reservedAndStoredBytesPerAccount": 1000000000,
+    "stagingCleanupHours": 24,
+    "clipSeconds": [
+      5,
+      60
+    ],
+    "maxClipResolution": "720p",
+    "timeMarkCleanup": {
+      "negativeMinAgeDays": 7,
+      "negativeMinVoters": 25,
+      "negativeDislikeRatio": 0.8,
+      "neglectedMinAgeDays": 180,
+      "neglectedLikesBelow": 3,
+      "neglectedMinImpressions": 100,
+      "impressionSeconds": 2,
+      "hiddenGraceDays": 30
+    },
+    "stagingProvider": "oci",
+    "stagingAccounts": 1
   },
-  "deferred": ["Videoabende", "Premieren", "Kanalpunkte", "vollständige Sprachabnahme", "RTL-Entfernung", "weitere Creator-Studio-Arbeiten"]
+  "deferred": [
+    "Videoabende",
+    "Premieren",
+    "Kanalpunkte",
+    "vollständige Sprachabnahme",
+    "RTL-Entfernung",
+    "weitere Creator-Studio-Arbeiten"
+  ]
 }

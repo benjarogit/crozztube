@@ -167,3 +167,38 @@ test('failed remote publication is reported as blocked without feature advanceme
   assert.equal(localState(root).mode, 'blocked');
   assert.equal(load(root).step.id, 2);
 });
+
+test('a pending merge of the published base can be checked before committing without treating incoming features as tooling edits', t => {
+  const { root } = fixture(t);
+  git(root, ['switch', '-q', feature]);
+  fs.writeFileSync(path.join(root, 'app.txt'), 'Published feature update\n');
+  git(root, ['add', 'app.txt']); git(root, ['commit', '-qm', 'Published feature']);
+  git(root, ['push', '-q', 'origin', feature]);
+  const incoming = git(root, ['rev-parse', 'HEAD']);
+  git(root, ['switch', '-q', maintenance]);
+  fs.appendFileSync(path.join(root, 'DESIGN.md'), 'Existing maintenance change\n');
+  git(root, ['add', 'DESIGN.md']); git(root, ['commit', '-qm', 'Existing tooling']);
+  git(root, ['merge', '--no-commit', '--no-ff', `origin/${feature}`]);
+  assert.equal(maintenanceScope(root).base, incoming);
+  fs.writeFileSync(path.join(root, 'app.txt'), 'Unapproved feature edit during merge\n');
+  assert.throws(() => maintenanceScope(root), /Outside Impeccable maintenance scope/);
+  fs.writeFileSync(path.join(root, 'app.txt'), 'Published feature update\n');
+  git(root, ['add', 'app.txt']);
+  verifyMaintenance(root, passing);
+  publishMaintenance(root, 'test: verified base integration');
+  assert.equal(maintenanceScope(root).base, incoming);
+  assert.equal(git(root, ['show', 'HEAD:app.txt']), 'Published feature update');
+  assert.equal(load(root).record.status, 'active');
+});
+
+test('a pending merge from an unapproved source cannot use the maintenance publication gate', t => {
+  const { root } = fixture(t);
+  git(root, ['switch', '-qc', 'unapproved']);
+  fs.writeFileSync(path.join(root, 'app.txt'), 'Other branch\n');
+  git(root, ['add', 'app.txt']); git(root, ['commit', '-qm', 'Unapproved source']);
+  git(root, ['switch', '-q', maintenance]);
+  fs.appendFileSync(path.join(root, 'DESIGN.md'), 'Existing maintenance change\n');
+  git(root, ['add', 'DESIGN.md']); git(root, ['commit', '-qm', 'Existing tooling']);
+  git(root, ['merge', '--no-commit', '--no-ff', 'unapproved']);
+  assert.throws(() => maintenanceScope(root), /only integrate the published/);
+});

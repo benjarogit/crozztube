@@ -82,12 +82,13 @@ export function published(root, { plan, record }, fresh = false) {
   if (fresh) return remoteHead(root, plan) === head;
   return receipt?.commit === head && receipt.branch === plan.branch && receipt.step === record.id;
 }
-export function assertVerification(root, context = load(root)) {
+export function assertVerification(root, context = load(root), { complete = false } = {}) {
   const file = localPath(root, 'verification.json');
   if (!fs.existsSync(file)) throw Error('Run verify before committing or accepting a step.');
   const proof = readJson(file);
   if (proof.step !== context.step.id || proof.digest !== digest(root) || proof.indexDigest !== indexDigest(root)) throw Error('Verification is stale for the current files or index. Run verify again.');
-  const required = context.step.checks;
+  if (complete && proof.purpose !== 'completion') throw Error('Checkpoint checks cannot complete a step. Run the full verification.');
+  const required = proof.purpose === 'checkpoint' && !complete ? context.step.checkpointChecks ?? context.step.checks : context.step.checks;
   if (!required?.length || required.some(id => !proof.checks?.some(check => check.id === id && check.passed))) throw Error('Required checks have not all passed.');
   return proof;
 }
@@ -95,15 +96,16 @@ export function indexDigest(root) {
   const entries = git(root, ['ls-files', '--stage', '-z']).split('\0').filter(Boolean).filter(entry => !entry.endsWith('\tharness/progress.json'));
   return createHash('sha256').update(entries.join('\0')).digest('hex');
 }
-export function verify(root) {
+export function verify(root, { checkpoint = false } = {}) {
   const context = load(root);
   assertBranch(root, context.plan);
   if (context.record.status !== 'active') throw Error('Only an active step can be verified.');
-  if (!context.step.checks?.length) throw Error('Define meaningful required checks before verification.');
+  const required = checkpoint ? context.step.checkpointChecks ?? context.step.checks : context.step.checks;
+  if (!required?.length) throw Error('Define meaningful required checks before verification.');
   fs.rmSync(localPath(root, 'verification.json'), { force: true });
   const sourceBefore = digest(root), indexBefore = indexDigest(root);
   const checks = [];
-  for (const id of context.step.checks) {
+  for (const id of required) {
     const check = context.plan.checks[id];
     if (!check?.argv?.length || !check.argv.every(value => typeof value === 'string')) throw Error(`Required check ${id} has not been implemented.`);
     console.log(`Checking ${id}…`);
@@ -118,7 +120,7 @@ export function verify(root) {
     setMode(root, 'blocked', 'A check changed source files or the staged snapshot.');
     throw Error('Checks changed the source or index; review the changes and verify again.');
   }
-  const proof = { step: context.step.id, digest: sourceBefore, indexDigest: indexBefore, checkedAt: new Date().toISOString(), checks };
+  const proof = { step: context.step.id, purpose: checkpoint ? 'checkpoint' : 'completion', digest: sourceBefore, indexDigest: indexBefore, checkedAt: new Date().toISOString(), checks };
   writeJson(localPath(root, 'verification.json'), proof);
   console.log(`Verified step ${proof.step} at source digest ${proof.digest.slice(0, 12)}.`);
   return proof;
@@ -149,7 +151,7 @@ export function publish(root, message, { complete = false, note = '' } = {}) {
   const context = load(root);
   assertBranch(root, context.plan);
   if (localState(root).mode !== 'implementing') throw Error('Resume the implementation explicitly before publishing.');
-  const proof = assertVerification(root, context);
+  const proof = assertVerification(root, context, { complete });
   assertStaged(root);
   if (!message?.trim()) throw Error('A descriptive commit message is required.');
   if (complete) {

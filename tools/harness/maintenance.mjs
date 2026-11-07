@@ -7,7 +7,19 @@ export function maintenanceScope(root) {
   const { plan } = load(root);
   const branch = git(root, ['branch', '--show-current']);
   if (branch !== 'codex/impeccable-maintenance') throw Error('Use the dedicated codex/impeccable-maintenance branch.');
-  const base = git(root, ['merge-base', 'HEAD', `${plan.remote}/${plan.branch}`]);
+  const remoteBase = git(root, ['rev-parse', `${plan.remote}/${plan.branch}`]);
+  const mergeFile = path.resolve(root, git(root, ['rev-parse', '--git-path', 'MERGE_HEAD']));
+  let base;
+  if (fs.existsSync(mergeFile)) {
+    const incoming = fs.readFileSync(mergeFile, 'utf8').trim();
+    if (incoming !== remoteBase) throw Error('Maintenance may only integrate the published plan branch.');
+    // Compare the pending merge with its approved incoming feature snapshot.
+    // Otherwise unchanged incoming feature files would look like new tooling
+    // edits. The proof retains this same base after the merge is committed.
+    base = incoming;
+  } else {
+    base = git(root, ['merge-base', 'HEAD', remoteBase]);
+  }
   const allowed = file => /^(?:\.agents\/skills\/impeccable\/|tools\/maintenance\/|tools\/test\/impeccable-maintenance\.test\.mjs$)/.test(file)
     || ['AGENTS.md', 'DESIGN.md', 'harness/README.md', 'harness/impeccable.lock.json', 'tools/harness/maintenance.mjs', 'tools/harness/cli.mjs', 'tools/harness/workflow.mjs', 'tools/test/harness.test.mjs'].includes(file);
   const changes = git(root, ['diff', '--name-only', base, '--']).split('\n').filter(Boolean);

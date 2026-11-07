@@ -16,9 +16,10 @@ node tools/harness/cli.mjs status
 node tools/harness/cli.mjs resume
 # Nur den aktuellen Schritt umsetzen; relevante Prüfungen in plan.json ergänzen.
 git add -- <bewusst-geprüfte-Dateien>
-node tools/harness/cli.mjs verify
+node tools/harness/cli.mjs verify --checkpoint
 node tools/harness/cli.mjs checkpoint --message "test: describe a tested increment"
 # Nach vollständiger fachlicher Abnahme:
+node tools/harness/cli.mjs verify
 node tools/harness/cli.mjs complete --message "feat: describe completed step" --note "concrete acceptance evidence"
 node tools/harness/cli.mjs begin 2
 ```
@@ -30,6 +31,12 @@ Allein die nachträgliche Fortschrittsdeklaration ist vom Digest ausgenommen.
 Neue Quelländerungen machen die Prüfung ungültig. `checkpoint` und `complete`
 stagen keine fremden Dateien; nur `complete` übernimmt seine eigene
 Fortschrittsdeklaration ausdrücklich in den Index.
+
+`verify --checkpoint` verwendet die ausdrücklich festgelegten
+`checkpointChecks` des aktuellen Schritts, falls vorhanden. So können geprüfte
+Teilkomponenten gesichert werden, während eine externe Gesamtabnahme noch
+aussteht. Dieser Nachweis kann einen Schritt **nicht** abschließen; dafür sind
+`verify` und sämtliche vollständigen Schrittprüfungen erforderlich.
 
 `accepted` im versionierten Protokoll bedeutet fachlich abgenommen und zur
 Publikation vorgesehen. Erst der bestätigte Remote-Stand und ein sauberer

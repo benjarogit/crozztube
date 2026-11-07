@@ -15,7 +15,7 @@ try {
   else if (command === 'mode') setMode(root, args[0], option('--reason'));
   else if (command === 'maintenance-verify') verifyMaintenance(root);
   else if (command === 'maintenance-checkpoint') publishMaintenance(root, option('--message'));
-  else if (command === 'verify') verify(root);
+  else if (command === 'verify') verify(root, { checkpoint: args.includes('--checkpoint') });
   else if (command === 'begin') begin(root, Number(args[0]));
   else if (command === 'checkpoint' || command === 'complete') publish(root, option('--message'), { complete: command === 'complete', note: option('--note') });
   else if (command === 'baseline-check') {
