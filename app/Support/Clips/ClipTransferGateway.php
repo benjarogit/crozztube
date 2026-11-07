@@ -17,6 +17,8 @@ interface ClipTransferGateway
 
     public function publication(ClipTransfer $transfer): ?string;
 
+    public function confirmed(ClipTransfer $transfer): bool;
+
     public function available(ClipTransfer $transfer): bool;
 
     public function makePublic(ClipTransfer $transfer): void;

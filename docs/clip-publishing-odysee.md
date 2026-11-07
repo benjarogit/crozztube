@@ -242,8 +242,10 @@ eine Lifecycle-Regel darf diese aktiven Übergaben nicht vorzeitig entfernen.
 Bereitschaft erfordert passenden eigenen Kanal/Claim, Dateigröße, MP4-Videometadaten,
 mindestens eine Providerbestätigung und erreichbare Video-Header beziehungsweise
 begrenzte HLS-Metadaten. Videobytes werden dabei weder geladen noch weitergereicht.
-Bei öffentlichen Clips muss zusätzlich die öffentliche Sichtbarkeit synchronisiert
-sein. Erst danach werden `available_at` und genau eine `clip_ready`-Benachrichtigung
+Bei öffentlichen Clips wird nach Providerbestätigung zuerst die gewünschte
+öffentliche Sichtbarkeit synchronisiert und danach die öffentliche Wiedergabe
+geprüft. Eine gesperrte nicht gelistete Auslieferung darf diesen Wechsel nicht
+verhindern. Erst danach werden `available_at` und genau eine `clip_ready`-Benachrichtigung
 atomar gespeichert. Die bestehende Upload-Benachrichtigungspräferenz bleibt wirksam.
 Die Zwischenkopien werden nach bestätigter Übernahme entfernt; Reservierungen
 bleiben bis nach dem Upload-Replay-/In-flight-Fenster und abschließender Löschung.
@@ -268,3 +270,28 @@ Prüfungen: `node tools/test/clip-confirmation.mjs`,
 `php tools/test/php/clip-workflow-copy-checks.php`,
 `node tools/test/ui/clip-confirmation.mjs`. Kontrollierte Testantworten und Testzeit
 belegen Verhalten und Rechte, niemals echte externe Wiedergabebereitschaft.
+
+### Dauerhafter Live-Auftrag vom 7. November 2026
+
+Der Testauftrag `5e06399e-041d-4f31-a198-a6dcd4e7af8f` gehört dem lokalen
+Besitzerkonto und heißt „CrozzTube Bestätigungstest“. Seine synthetische
+5,2-Sekunden-Datei (12.051 Bytes) wurde im Browser erzeugt und direkt nach Oracle
+übertragen. Odysee nahm den Upload an; sein eigener Claim lieferte die passende
+Größe, Videometadaten und zunächst zwei Bestätigungen. Der echte Minuten-Scheduler
+führte den Auftrag nach Ende des Testbrowsers weiter. Die Besitzerseite zeigte
+den tatsächlichen Wartestatus bei regulär geprüftem HTTPS. Es wurde noch keine
+vorzeitige Verfügbarkeitsbenachrichtigung erzeugt.
+
+Die Kopfzeilenprüfung fand einen weiteren Providerunterschied: Ohne Playerkontext
+antwortete die Auslieferung mit 401/403; mit Origin/Referer von Odysee lieferte sie
+200, `video/mp4` und die korrekte Größe. Die Prüfung sendet diesen festen
+Embed-Kontext ohne Kontotoken. Der öffentliche Wechsel erfolgt bereits nach
+Claim-Bestätigung, sodass nicht gelisteter Zugriff die gewünschte Veröffentlichung
+nicht blockiert. Nach dem Wechsel wird die neue Providerbestätigung abgewartet.
+
+Der getrennte Browser-Abspieltest wurde noch nicht bestanden: Odysees Video-GET
+antwortete mit 429 statt Video. Dieser Nachweis bleibt daher offen. Weder die
+passenden HEAD-Antworten noch die kontrollierten Browsertests ersetzen ihn.
+Dieser Auftrag und sein Provider-Eintrag werden nicht beim Testende gelöscht.
+Verfügbarkeitsprüfung und gegebenenfalls Bereinigung laufen durch den Scheduler;
+Schritt 2 ist weiterhin keine abgeschlossene externe Integration.

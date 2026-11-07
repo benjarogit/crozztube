@@ -25,6 +25,8 @@ $probe = static function (array $responses) use (&$history): ClipPlaybackReadine
 $url = 'https://secure.odycdn.com/fixture/clip.mp4?hash77=fixture-not-real';
 $check($probe([new Response(200, ['Content-Type' => 'video/mp4', 'Content-Length' => 12051])])->check($url), 'A nonempty provider video can become available.');
 $check(count($history) === 1 && $history[0]['request']->getMethod() === 'HEAD', 'Video readiness must never GET video into PHP.');
+$check($history[0]['request']->getHeaderLine('Origin') === 'https://odysee.com' && $history[0]['request']->getHeaderLine('Referer') === 'https://odysee.com/', 'Match provider embed delivery context; the live CDN rejects context-free HEAD requests.');
+$check(! $history[0]['request']->hasHeader('X-Lbry-Auth-Token') && ! $history[0]['request']->hasHeader('Authorization'), 'Never send account credentials to the delivery host.');
 $check($history[0]['options']['verify'] && ! $history[0]['options']['allow_redirects'] && $history[0]['options']['stream'], 'Verify TLS and handle redirects explicitly without buffering media.');
 foreach ([new Response(403, ['Content-Type' => 'text/html']), new Response(401), new Response(404), new Response(503),
     new Response(200, ['Content-Type' => 'text/html', 'Content-Length' => 100]),

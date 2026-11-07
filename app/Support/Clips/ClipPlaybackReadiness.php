@@ -63,6 +63,9 @@ final class ClipPlaybackReadiness
                 return null;
             }
             $response = ($this->http ??= new Client())->request($method, $url, [
+                // Check the same delivery context as the Odysee embed, without account credentials.
+                'headers' => ['Origin' => 'https://odysee.com', 'Referer' => 'https://odysee.com/',
+                    'User-Agent' => 'Mozilla/5.0 (compatible; CrozzTube clip readiness)'],
                 'verify' => true, 'allow_redirects' => false, 'http_errors' => false,
                 'stream' => true, 'connect_timeout' => 3, 'timeout' => 5,
             ]);

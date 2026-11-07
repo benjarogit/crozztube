@@ -144,12 +144,16 @@ final class ClipTransferProcessor
                 }
                 break;
             case 'awaiting_confirmation':
-                if (! $this->gateway->available($transfer)) {
-                    $this->save($transfer, ['last_error' => 'waiting_for_odysee'], $this->pollDelay($transfer));
-                } elseif (($transfer->metadata['visibility'] ?? 'private') === 'public') {
-                    $this->save($transfer, ['phase' => 'releasing', 'last_error' => null]);
-                } else {
+                if (($transfer->metadata['visibility'] ?? 'private') === 'public') {
+                    // Provider confirmation permits the requested public release.
+                    // Do not require unlisted access before checking public playback.
+                    $confirmed = $this->gateway->confirmed($transfer);
+                    $this->save($transfer, $confirmed ? ['phase' => 'releasing', 'last_error' => null]
+                        : ['last_error' => 'waiting_for_odysee'], $confirmed ? 0 : $this->pollDelay($transfer));
+                } elseif ($this->gateway->available($transfer)) {
                     $this->ready($transfer);
+                } else {
+                    $this->save($transfer, ['last_error' => 'waiting_for_odysee'], $this->pollDelay($transfer));
                 }
                 break;
             case 'releasing':

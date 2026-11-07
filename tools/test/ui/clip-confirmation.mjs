@@ -60,6 +60,13 @@ try {
         await expectContained(page, `clip ready ${language} ${width}`); checks += 2;
       }
       await page.screenshot({ path: `${artifacts}/${language}-ready-1440.png`, fullPage: true });
+      await session.goto('/upload');
+      const draft = page.locator('.upload-import-url-row input');
+      await expect(draft).toBeVisible(); await draft.fill('Mein unveröffentlichter Entwurf');
+      for (const width of [390, 1440]) {
+        await page.setViewportSize({ width, height: 900 }); await page.clock.fastForward(16000);
+        await expect(draft).toHaveValue('Mein unveröffentlichter Entwurf'); checks++;
+      }
       expect(polls).toBeGreaterThan(4);
       expect(session.writes).toEqual([]); expect(session.errors).toEqual([]); expect(session.failedGets).toEqual([]); checks += 4;
     } finally { await session.context.close(); }

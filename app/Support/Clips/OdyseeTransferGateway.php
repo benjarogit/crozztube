@@ -8,6 +8,8 @@ use App\Support\MediaProviderSettings;
 
 final class OdyseeTransferGateway implements ClipTransferGateway
 {
+    public function __construct(private ?OdyseePublisher $publisherTransport = null) {}
+
     public function publisherChannelId(): string
     {
         return MediaProviderSettings::current()->effective('odysee')['channel_id'];
@@ -35,7 +37,9 @@ final class OdyseeTransferGateway implements ClipTransferGateway
         if (! empty($transfer->provider_state['query'])) {
             $result = $publisher->status($transfer->provider_state['query'], $transfer->stagingObject());
 
-            return $result['state'] === 'published' ? $result['claim_id'] : null;
+            if ($result['state'] === 'published') return $result['claim_id'];
+            if ($result['state'] !== 'missing') return null;
+            // Completed async-query receipts can expire; reconcile the same owned claim.
         }
         // Reconcile a lost create response by its server-assigned name, not a new upload.
         $claim = $publisher->ownedClip($transfer->uuid);
@@ -48,6 +52,11 @@ final class OdyseeTransferGateway implements ClipTransferGateway
         }
 
         return $claim['claim_id'];
+    }
+
+    public function confirmed(ClipTransfer $transfer): bool
+    {
+        return $this->publisher($transfer)->confirmed($transfer->stagingObject(), $transfer->provider_state['claim']);
     }
 
     public function available(ClipTransfer $transfer): bool
@@ -78,10 +87,10 @@ final class OdyseeTransferGateway implements ClipTransferGateway
         if ($claim === null && isset($state['query'])) {
             try {
                 $result = $publisher->status($state['query'], $transfer->stagingObject());
-                if ($result['state'] !== 'published') {
+                if (! in_array($result['state'], ['published', 'missing'], true)) {
                     throw new OdyseePublishingFailure('cancel', 'pending');
                 }
-                $claim = $result['claim_id'];
+                $claim = $result['claim_id'] ?? null;
             } catch (OdyseePublishingFailure $error) {
                 if ($error->operation !== 'status' || $error->reason !== 'provider' || $error->status !== 200) throw $error;
                 $rejected = true;
@@ -113,7 +122,7 @@ final class OdyseeTransferGateway implements ClipTransferGateway
 
     private function publisher(ClipTransfer $transfer): OdyseePublisher
     {
-        return new OdyseePublisher($this->settings($transfer));
+        return $this->publisherTransport ?? new OdyseePublisher($this->settings($transfer));
     }
 
     private function store(ClipTransfer $transfer): OracleStagingStore

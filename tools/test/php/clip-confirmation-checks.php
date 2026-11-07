@@ -34,7 +34,7 @@ final class ConfirmationPushFixture extends PushDeliveryService
 }
 final class ConfirmationGatewayFixture implements ClipTransferGateway
 {
-    public bool $playable = false;
+    public bool $playable = false, $providerConfirmed = true;
     public bool $published = true;
     public int $seals = 0, $registrations = 0, $creates = 0, $publicChanges = 0, $deletions = 0, $cleanups = 0;
     public mixed $onAvailable = null, $onRegister = null, $onPublication = null, $onAbandon = null;
@@ -50,6 +50,7 @@ final class ConfirmationGatewayFixture implements ClipTransferGateway
         if ($this->onPublication) ($this->onPublication)($transfer);
         return $this->published ? str_repeat('d', 40) : null;
     }
+    public function confirmed(ClipTransfer $transfer): bool { return $this->providerConfirmed; }
     public function available(ClipTransfer $transfer): bool {
         if ($this->onAvailable) ($this->onAvailable)($transfer);
         return $this->playable;
@@ -142,7 +143,10 @@ try {
     $reset(); Carbon::setTestNow('2026-11-07 15:00:00');
     $job = $queue->enqueue(1, 1, (string) Str::uuid(), [...$input, 'visibility' => 'public']);
     $job->update(['phase' => 'awaiting_confirmation', 'provider_state' => ['claim' => str_repeat('d', 40)]]);
-    $due($job); $check($job->phase === 'releasing' && UserNotification::count() === 0, 'A public clip still waits for synchronized provider visibility.');
+    $gateway->providerConfirmed = false; $due($job);
+    $check($job->phase === 'awaiting_confirmation' && $gateway->publicChanges === 0, 'Public release must wait for actual provider confirmation.');
+    $gateway->providerConfirmed = true; $gateway->playable = false; $due($job);
+    $check($job->phase === 'releasing' && UserNotification::count() === 0, 'Provider-confirmed public intent can proceed even when unlisted delivery is unavailable.');
     $gateway->playable = false; $due($job);
     $check($job->phase === 'releasing' && ClipTransfer::available()->count() === 0, 'A visibility change does not imply availability.');
     $gateway->playable = true; $due($job);

@@ -54,6 +54,7 @@
         "clip-playback-readiness",
         "clip-workflow-copy",
         "clip-confirmation-browser",
+        "clip-gateway",
         "staged-safety"
       ]
     },
@@ -353,6 +354,13 @@
         "tools/test/ui/clip-confirmation.mjs"
       ],
       "timeoutMs": 240000
+    },
+    "clip-gateway": {
+      "argv": [
+        "php",
+        "tools/test/php/clip-gateway-checks.php"
+      ],
+      "timeoutMs": 30000
     }
   },
   "defaults": {
