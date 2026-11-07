@@ -29,7 +29,8 @@
         "Browser-Upload ohne Videotransport durch CrozzTube; Limits und Verhalten nach der Oracle-Testphase geprüft",
         "Live-Test: Odysee importiert signierte URL, wird abspielbar, wechselt Sichtbarkeit; Zwischenkopien werden gelöscht",
         "Ausfälle, Konkurrenz und Bereinigung geprüft",
-        "Imagehoster, Oracle und Odysee unter Speicher & CDN administrierbar; verschlüsselte Zugangsdaten, schreibgeschützte Geheimnisse, Einrichtungshilfen und begrenzte Verbindungstests geprüft"
+        "Imagehoster, Oracle und Odysee unter Speicher & CDN administrierbar; verschlüsselte Zugangsdaten, schreibgeschützte Geheimnisse, Einrichtungshilfen und begrenzte Verbindungstests geprüft",
+        "Odysee-Bestätigung und erreichbare Wiedergabe abwarten; Besitzer sieht Wartestatus, erhält einmalige Verfügbarkeitsbenachrichtigung und kann abbrechen; keine zeitgesteuerte Löschung angenommener Uploads"
       ],
       "checkpointChecks": [
         "harness-tests",
@@ -49,6 +50,10 @@
         "navigation-regressions",
         "provider-source-regressions",
         "source-refresh-banner",
+        "clip-confirmation",
+        "clip-playback-readiness",
+        "clip-workflow-copy",
+        "clip-confirmation-browser",
         "staged-safety"
       ]
     },
@@ -320,6 +325,34 @@
         "tools/test/clip-transfer-queue.mjs"
       ],
       "timeoutMs": 150000
+    },
+    "clip-confirmation": {
+      "argv": [
+        "node",
+        "tools/test/clip-confirmation.mjs"
+      ],
+      "timeoutMs": 150000
+    },
+    "clip-playback-readiness": {
+      "argv": [
+        "php",
+        "tools/test/php/clip-readiness-checks.php"
+      ],
+      "timeoutMs": 30000
+    },
+    "clip-workflow-copy": {
+      "argv": [
+        "php",
+        "tools/test/php/clip-workflow-copy-checks.php"
+      ],
+      "timeoutMs": 30000
+    },
+    "clip-confirmation-browser": {
+      "argv": [
+        "node",
+        "tools/test/ui/clip-confirmation.mjs"
+      ],
+      "timeoutMs": 240000
     }
   },
   "defaults": {

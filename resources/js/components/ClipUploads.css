@@ -1,0 +1,24 @@
+.clip-uploads-page { width:100%; max-inline-size:1040px; margin-inline:auto; }
+.clip-uploads-panel { min-width:0; margin-block-end:24px; padding:20px; border:1px solid var(--line); border-radius:var(--radius); background:var(--panel); }
+.clip-uploads-heading { display:flex; flex-wrap:wrap; align-items:flex-start; justify-content:space-between; gap:16px; }
+.clip-uploads-heading>div { flex:1 1 280px; min-width:0; max-inline-size:65ch; }
+.clip-uploads-heading h1 { margin:0 0 8px; font-size:clamp(1.5rem,2vw,1.875rem); line-height:1.25; }
+.clip-uploads-heading h2 { margin:0 0 8px; font-size:1.25rem; line-height:1.35; }
+.clip-uploads-heading p,.clip-transfer-copy p { margin:8px 0 0; color:var(--muted); overflow-wrap:anywhere; }
+.clip-transfer-list { list-style:none; margin:24px 0 0; padding:0; }
+.clip-transfer-row { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:16px; align-items:start; padding:20px 12px; border-block-end:1px solid var(--line); }
+.clip-transfer-row[data-selected=true] { background:color-mix(in srgb,var(--accent) 7%,var(--panel)); border-radius:var(--radius); }
+.clip-transfer-copy { min-width:0; }
+.clip-transfer-copy h2,.clip-transfer-copy h3 { margin:0 0 12px; font-size:1.125rem; line-height:1.4; overflow-wrap:anywhere; }
+.clip-transfer-copy .clip-transfer-status { display:flex; align-items:center; gap:8px; color:var(--text); font-size:1rem; font-weight:600; }
+.clip-transfer-status svg { flex:0 0 auto; }
+.clip-transfer-actions { display:flex; flex-wrap:wrap; gap:8px; min-width:0; max-inline-size:100%; }
+.clip-transfer-actions .btn,.clip-uploads-heading .btn,.clip-uploads-error .btn { min-height:44px; white-space:normal; overflow-wrap:anywhere; }
+.clip-uploads-error { margin-block:16px; }
+.clip-transfer-player { grid-column:1/-1; min-width:0; }
+.clip-transfer-player iframe { display:block; width:100%; aspect-ratio:16/9; border:0; border-radius:var(--radius); background:#101010; }
+@media(max-width:640px) {
+  .clip-uploads-panel { padding:16px; }
+  .clip-transfer-row { grid-template-columns:minmax(0,1fr); padding-inline:8px; }
+  .clip-transfer-actions { justify-self:start; }
+}

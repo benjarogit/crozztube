@@ -1,4 +1,5 @@
 import ResponsiveOverlays from './components/ResponsiveOverlays.jsx';
+import ClipUploads from './components/ClipUploads.jsx';
 import AttachmentImage, { ImageUploadPreview, attachmentCandidates } from './components/AttachmentImage.jsx';
 import { useHostedImages, hostedImagesReady, appendHostedImageIds } from './imageUploadQueue.js';
 import { useResponsiveLayout, navigationIsOverlay, sidebarWidth, drawerWidth } from './responsiveLayout.js';
@@ -1943,6 +1944,7 @@ function App() {
   if (boostVideoMatch) page = user ? <BoostVideoPage slug={decodeURIComponent(boostVideoMatch[1])} navigate={route.navigate} /> : <Login navigate={route.navigate} auth={auth} />;
   if (route.path === '/upload' || route.path === '/upload/shorts') page = user ? (uploadAllowed ? <Upload navigate={route.navigate} globalUploadItems={globalUploadItems} globalUploadItemsRef={globalUploadItemsRef} setGlobalUploadItems={setGlobalUploadItems} uploadType={route.path === '/upload/shorts' ? 'short' : 'video'} features={platformFeatures} /> : <PublishingAccessPage capability="upload" navigate={route.navigate} auth={auth} />) : <Login navigate={route.navigate} auth={auth} />;
   if (route.path === '/settings') page = user ? <SettingsPage navigate={route.navigate} auth={auth} theme={theme} website={platformWebsite || {}} routeSearch={route.search} /> : <Login navigate={route.navigate} auth={auth} />;
+  if (route.path === '/clip-uploads') page = user ? <ClipUploads api={api} navigate={route.navigate} Icon={Icon} routeSearch={route.search} /> : <Login navigate={route.navigate} auth={auth} />;
   if (route.path === '/studio' || route.path === '/studio/content' || route.path === '/studio/analytics' || route.path === '/studio/growth' || route.path === '/studio/earnings') page = user ? <Studio navigate={route.navigate} auth={auth} path={route.path} features={platformFeatures} /> : <Login navigate={route.navigate} auth={auth} />;
   if (infoPageRoutes[route.path]) page = <InfoPage pageKey={infoPageRoutes[route.path]} navigate={route.navigate} routeSearch={route.search} auth={auth} />;
   const pluginPage = pluginPages.find((item) => item.exact ? route.path === item.path : (route.path === item.path || route.path.startsWith(item.path + '/')));
@@ -3521,7 +3523,7 @@ function NotificationItem({ item, onOpen, onVisible = null, visibilityRoot = nul
       </span>
       <span className="notification-copy">
         <strong>{item.actor} <em>{item.action}</em></strong>
-        {item.detail ? <small>{item.detail}</small> : null}
+        {item.detail ? <small data-i18n-skip={item.type === 'clip_ready' ? true : undefined}>{item.detail}</small> : null}
         <time>{dateLabel(item.created_at)}</time>
       </span>
       {hasMedia ? <NotificationMedia media={item.media} /> : <span />}
@@ -18570,6 +18572,7 @@ function Upload({ navigate, globalUploadItems = [], globalUploadItemsRef, setGlo
   </section>;
 
   return <main className="content-area upload-studio-page upload-wizard-page">
+    <ClipUploads api={api} navigate={navigate} Icon={Icon} compact />
     <form id="playhub-upload-form" onSubmit={(event) => { event.preventDefault(); publishVideo(); }}>
       {chaptersFeatureEnabled && <input ref={chaptersInputRef} type="file" accept=".cue,.txt,text/plain,application/x-cue" hidden onChange={(event) => { const input = event.currentTarget; handleChapterFile(input.files?.[0] || null).finally(() => { input.value = ''; }); }} />}
       <div className="upload-studio-head">

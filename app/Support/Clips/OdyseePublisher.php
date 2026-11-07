@@ -130,6 +130,9 @@ final class OdyseePublisher implements JsonSerializable
             || array_filter($tags, static fn ($tag): bool => ! is_string($tag) || strlen($tag) > 512)) {
             throw new OdyseePublishingFailure('visibility', 'response');
         }
+        if (in_array('c:unlisted', $tags, true) !== $public && ! in_array('c:private', $tags, true)) {
+            return;
+        }
         $tags = array_values(array_diff($tags, ['c:unlisted', 'c:private', 'c:scheduled:show', 'c:scheduled:hide']));
         if (! $public) {
             $tags[] = 'c:unlisted';
@@ -143,6 +146,22 @@ final class OdyseePublisher implements JsonSerializable
         }
     }
 
+    /** Wait for a durable provider confirmation, separately from processing. */
+    public function confirmed(ClipStagingObject $object, string $claimId): bool
+    {
+        $claim = $this->ownedClip($object->jobId, $claimId);
+        if ($claim === null) {
+            return false;
+        }
+        if ((int) ($claim['value']['source']['size'] ?? 0) !== $object->bytes
+            || ($claim['value']['source']['media_type'] ?? null) !== 'video/mp4'
+            || ! isset($claim['value']['video'])) {
+            throw new OdyseePublishingFailure('confirmation', 'media');
+        }
+
+        return is_int($claim['confirmations'] ?? null) && $claim['confirmations'] >= 1;
+    }
+
     /** Obtain provider playback metadata, never download media into PHP. */
     public function playback(string $jobId, string $claimId): string
     {
@@ -150,18 +169,7 @@ final class OdyseePublisher implements JsonSerializable
         if ($claim === null) {
             throw new OdyseePublishingFailure('playback', 'identity');
         }
-        $access = [];
-        if (in_array('c:unlisted', $claim['value']['tags'] ?? [], true)) {
-            // Match the official webclient's owned unlisted-claim access flow.
-            $signed = $this->rpc('channel_sign', ['channel_id' => $this->channelId, 'hexdata' => bin2hex($claimId)], 'playback');
-            $signature = $signed['signature'] ?? null;
-            $timestamp = $signed['signing_ts'] ?? null;
-            if (! is_string($signature) || ! preg_match('/^[a-f0-9]{128}$/D', $signature)
-                || ! is_string($timestamp) || ! preg_match('/^[0-9]{10,16}$/D', $timestamp)) {
-                throw new OdyseePublishingFailure('playback', 'response');
-            }
-            $access = ['signature' => $signature, 'signature_ts' => $timestamp];
-        }
+        $access = $this->access($claim, $claimId);
         $data = $this->rpc('get', ['uri' => 'lbry://'.self::name($jobId).'#'.$claimId, 'save_file' => false, ...$access], 'playback');
         $url = $data['streaming_url'] ?? null;
         $parts = is_string($url) ? parse_url($url) : false;
@@ -173,6 +181,35 @@ final class OdyseePublisher implements JsonSerializable
         }
 
         return $url;
+    }
+
+    public function embed(string $jobId, string $claimId): string
+    {
+        $claim = $this->ownedClip($jobId, $claimId);
+        if ($claim === null) {
+            throw new OdyseePublishingFailure('playback', 'identity');
+        }
+        $access = $this->access($claim, $claimId);
+
+        return 'https://odysee.com/$/embed/'.rawurlencode(self::name($jobId).':'.$claimId)
+            .($access ? '?'.http_build_query($access, '', '&', PHP_QUERY_RFC3986) : '');
+    }
+
+    private function access(array $claim, string $claimId): array
+    {
+        if (! in_array('c:unlisted', $claim['value']['tags'] ?? [], true)) {
+            return [];
+        }
+        // Match the official webclient's owned unlisted-claim access flow.
+        $signed = $this->rpc('channel_sign', ['channel_id' => $this->channelId, 'hexdata' => bin2hex($claimId)], 'playback');
+        $signature = $signed['signature'] ?? null;
+        $timestamp = $signed['signing_ts'] ?? null;
+        if (! is_string($signature) || ! preg_match('/^[a-f0-9]{128}$/D', $signature)
+            || ! is_string($timestamp) || ! preg_match('/^[0-9]{10,16}$/D', $timestamp)) {
+            throw new OdyseePublishingFailure('playback', 'response');
+        }
+
+        return ['signature' => $signature, 'signature_ts' => $timestamp];
     }
 
     /** Deletes only this job's own claim; never arbitrary account content. */

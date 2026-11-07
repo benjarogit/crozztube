@@ -11,7 +11,7 @@ use InvalidArgumentException;
 /** Atomic queue admission/reservations only. No media transport or public routes. */
 final class ClipTransferQueue
 {
-    private const ACTIVE = ['uploading', 'sealing', 'registering', 'publishing', 'processing'];
+    private const ACTIVE = ['uploading', 'sealing', 'registering', 'publishing', 'processing', 'awaiting_confirmation', 'releasing'];
 
     public function __construct(private int $globalActive = 3, private int $dailyLimit = 5)
     {
@@ -130,6 +130,7 @@ final class ClipTransferQueue
             if ($transfer->phase === 'queued') {
                 $transfer->phase = 'cancelled';
             }
+            if (array_key_exists('next_check_at', $transfer->getAttributes())) $transfer->next_check_at = now();
             // Never release a still-writable object's reservation on cancellation.
             $transfer->save();
 
@@ -148,7 +149,9 @@ final class ClipTransferQueue
                 if ($transfer->grant_until->isPast()) {
                     throw new ClipQueueRejected('upload_expired');
                 }
-                $transfer->update(['phase' => 'sealing']);
+                $transfer->update(['phase' => 'sealing',
+                    ...(array_key_exists('next_check_at', $transfer->getAttributes()) ? ['next_check_at' => now()] : []),
+                ]);
             }
 
             return $transfer;

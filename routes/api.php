@@ -715,6 +715,10 @@ Route::get('/search', function (Request $request) {
 });
 
 Route::middleware(['auth:sanctum', \App\Http\Middleware\EnsureUgcSafety::class])->group(function (): void {
+    Route::get('/clip-transfers', [\App\Http\Controllers\Api\ClipTransferController::class, 'index']);
+    Route::get('/clip-transfers/{uuid}', [\App\Http\Controllers\Api\ClipTransferController::class, 'show'])->whereUuid('uuid');
+    Route::post('/clip-transfers/{uuid}/cancel', [\App\Http\Controllers\Api\ClipTransferController::class, 'cancel'])->whereUuid('uuid')->middleware('throttle:api-write');
+    Route::get('/clip-transfers/{uuid}/playback', [\App\Http\Controllers\Api\ClipTransferController::class, 'playback'])->whereUuid('uuid')->middleware('throttle:20,1');
     Route::get('/account/safety', [\App\Http\Controllers\Api\V1\SafetyController::class, 'show']);
     Route::post('/account/safety/consent', [\App\Http\Controllers\Api\V1\SafetyController::class, 'consent'])->middleware('throttle:api-write');
     Route::get('/account/blocks', [\App\Http\Controllers\Api\V1\SafetyController::class, 'blocks']);

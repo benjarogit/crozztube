@@ -198,14 +198,14 @@ enthält neben dem Claim auch Wechselgeld-Ausgänge und dort noch kein
 `is_my_output`. Eigentümerschaft wird deshalb zusätzlich über `stream_list`
 geprüft. Weder ein HTTP 200 noch ein Claim-Eintrag gelten als Wiedergabenachweis.
 
-Der ausdrücklich gestartete Veröffentlichungstest lautet:
+Der frühere, nach Testende löschende Veröffentlichungstest wurde ausgemustert. Der dauerhafte Test lautet:
 
 ```sh
-node tools/test/ui/clip-import-live-probe.mjs --run --publish
+node tools/test/ui/clip-workflow-live-probe.mjs --run
 ```
 
-Er erzeugt einen eigenen synthetischen Clip und entfernt nur dessen eigenen
-Claim. Er benötigt vorhandenes Odysee-Kontoguthaben: Der Webclient-Mindestbetrag
+Er erzeugt einen eigenen synthetischen Clip für den Besitzer und behält dessen
+Auftrag und Odysee-Eintrag bis zur Bestätigung oder zum bewussten Abbruch. Er benötigt vorhandenes Odysee-Kontoguthaben: Der Webclient-Mindestbetrag
 liegt bei 0,001 LBC je neuer Veröffentlichung; Netzwerkgebühren kommen hinzu.
 Ein automatischer Kauf oder eine Aufladung wird nicht ausgelöst. Ein
 Produktionsbudget und die unveröffentlichte Sammlung sind noch zu integrieren.
@@ -224,3 +224,47 @@ Geprüfte Primärquellen:
 - [Offizieller Authentifizierungs-Fallback](https://github.com/OdyseeTeam/odysee-api/blob/master/app/auth/middleware.go)
 - [Verwendeter Token-Header](https://github.com/OdyseeTeam/odysee-api/blob/master/app/wallet/wallet.go)
 - [Automatischer URL-Import](https://github.com/OdyseeTeam/odysee-api/blob/master/docs/design/publish/publish_v4_urls_client.mmd)
+
+## Dauerhafte Bestätigung und Besitzerstatus
+
+Der Minuten-Scheduler führt `crozztube:clips:work --limit=3` aus. Persistierte
+Phasen und zeitlich begrenzte Datenbank-Leases verhindern doppelte Verarbeitung.
+Transportregistrierung und Veröffentlichung werden vor dem externen Schreibzugriff
+als begonnen gespeichert. Bei verlorenem Ergebnis wird nicht blind neu publiziert.
+
+Ein akzeptierter Auftrag bleibt in `processing` beziehungsweise
+`awaiting_confirmation`, auch nach 24 Stunden. Zeitablauf allein ist keine
+Providerablehnung. Nur explizite Ablehnung oder Besitzerabbruch beendet ihn.
+Die 24-Stunden-Grenze gilt weiterhin für abgebrochene Browser-/Stagingarbeit.
+Während der Provider wartet, bleiben Oracle-Übergabekopie und Reservierung erhalten;
+eine Lifecycle-Regel darf diese aktiven Übergaben nicht vorzeitig entfernen.
+
+Bereitschaft erfordert passenden eigenen Kanal/Claim, Dateigröße, MP4-Videometadaten,
+mindestens eine Providerbestätigung und erreichbare Video-Header beziehungsweise
+begrenzte HLS-Metadaten. Videobytes werden dabei weder geladen noch weitergereicht.
+Bei öffentlichen Clips muss zusätzlich die öffentliche Sichtbarkeit synchronisiert
+sein. Erst danach werden `available_at` und genau eine `clip_ready`-Benachrichtigung
+atomar gespeichert. Die bestehende Upload-Benachrichtigungspräferenz bleibt wirksam.
+Die Zwischenkopien werden nach bestätigter Übernahme entfernt; Reservierungen
+bleiben bis nach dem Upload-Replay-/In-flight-Fenster und abschließender Löschung.
+
+Besitzer verfolgen den Status unter `/clip-uploads`; vor Bereitschaft gibt es
+keinen Player und keine Wiedergabeadresse. Der Uploadbereich zeigt dieselben Aufträge.
+Öffnen des fertigen Clips lädt bewusst Odysees Embed, niemals die Oracle-Datei.
+Originaltitel bleiben unverändert. Größenwechsel und Statusabfragen erhalten den Player.
+
+Authentifizierte Web-API: `GET /api/clip-transfers`, `GET /api/clip-transfers/{uuid}`,
+`POST /api/clip-transfers/{uuid}/cancel`, `GET /api/clip-transfers/{uuid}/playback`.
+Dieselben Dienste sind unter `/api/v1` verfügbar (account:read/account:write).
+Aufträge sind ausschließlich für den Besitzer sichtbar; Antworten sind private/no-store.
+Wiedergabe prüft zusätzlich weiterhin die Zugriffs- und Kaufrechte des Originalvideos.
+Die versionierte Benachrichtigung verwendet den zusätzlichen Aktionstyp
+`clip_transfer` mit der Auftrags-UUID. Es gibt noch keinen öffentlichen
+Erstellungs-/Dateiupload-Endpunkt: Browser-Encoder und vollständige Clip-Sammlungen
+gehören zu Schritt 3.
+
+Prüfungen: `node tools/test/clip-confirmation.mjs`,
+`php tools/test/php/clip-readiness-checks.php`,
+`php tools/test/php/clip-workflow-copy-checks.php`,
+`node tools/test/ui/clip-confirmation.mjs`. Kontrollierte Testantworten und Testzeit
+belegen Verhalten und Rechte, niemals echte externe Wiedergabebereitschaft.

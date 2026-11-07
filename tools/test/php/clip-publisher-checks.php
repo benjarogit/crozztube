@@ -88,6 +88,19 @@ $check($getBody['params']['signature'] === $signed['signature'] && $getBody['par
     && $getBody['params']['save_file'] === false, 'Match the official unlisted access flow without downloading into the app.');
 $publisher = $make([$rpc(['items' => [$publicClaim]]), $rpc(['streaming_url' => $streamUrl])]);
 $check($publisher->playback($object->jobId, $claimId) === $streamUrl && count($history) === 2, 'Public playback does not need a channel-signing request.');
+foreach ([0, null, '1', -1] as $confirmations) {
+    $publisher = $make([$rpc(['items' => [[...$claim, 'confirmations' => $confirmations]]])]);
+    $check(! $publisher->confirmed($object, $claimId), 'Unconfirmed/invalid confirmation counts must remain waiting.');
+}
+$publisher = $make([$rpc(['items' => [[...$claim, 'confirmations' => 1]]])]);
+$check($publisher->confirmed($object, $claimId), 'A durable provider confirmation is distinct from accepting a publication request.');
+$publisher = $make([$rpc(['items' => [$claim]]), $rpc($signed)]);
+$embed = $publisher->embed($object->jobId, $claimId);
+$check(str_starts_with($embed, 'https://odysee.com/$/embed/') && str_contains($embed, 'signature_ts=')
+    && ! str_contains($embed, $settings['auth_token']), 'The owner gets an official claim-scoped embed link without account credentials.');
+$publisher = $make([$rpc(['items' => [$publicClaim]])]);
+$publisher->visibility($object->jobId, $claimId, true);
+$check(count($history) === 1, 'Visibility retries do not create redundant transactions once synchronized.');
 $reject = static function (callable $call, string $reason) use ($check): void {
     try {
         $call();
