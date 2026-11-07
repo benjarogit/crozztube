@@ -20,7 +20,7 @@ const definitions = {
   ], guide: ['Create an Odysee account and a channel for {platform} clips.', 'Sign in below, choose your channel and save the connection. You do not need to find an API key.', 'Unlisted videos remain accessible to anyone with their link. {platform} access restrictions do not protect that external link.'] },
 };
 
-export default function AdminMediaProviders({ api, platformName = 'CrozzTube', renderProvider, renderIcon, controls }) {
+export default function AdminMediaProviders({ api, alertAction, platformName = 'CrozzTube', renderProvider, renderIcon, controls }) {
   const { t: translate } = useI18n();
   const t = (message) => translate(message, { platform: platformName });
   const { Field, Secret, Toggle, Select } = controls;
@@ -80,10 +80,12 @@ export default function AdminMediaProviders({ api, platformName = 'CrozzTube', r
     setBusy('test'); setFeedback(null); setTestUrl('');
     try {
       const data = await api.request(`/admin/media-providers/${selected}/test`, { method: 'POST', body: '{}' });
-      setFeedback({ text: data.message, warning: Boolean(data.warning) });
       // Provider parsers validate image hostnames server-side; only open HTTPS links.
       if (/^https:\/\//.test(data.test_image_url || '')) setTestUrl(data.test_image_url);
-    } catch (error) { setFeedback({ error: true, text: error.message || 'The connection test failed. Check the saved settings and provider availability.' }); }
+      await alertAction({ title: t(data.warning ? 'Notice' : 'Action completed'), message: t(data.message || 'Action completed.') });
+    } catch (error) {
+      await alertAction({ title: t('Action failed'), message: t(error.message || 'The connection test failed. Check the saved settings and provider availability.'), tone: 'danger' });
+    }
     finally { setBusy(''); }
   };
   const login = async (event) => {
@@ -108,7 +110,7 @@ export default function AdminMediaProviders({ api, platformName = 'CrozzTube', r
       pattern={key === 'channel_id' ? '[a-f0-9]{40}' : undefined} onChange={(value) => setField(key, value)} />;
   };
   return <section className="admin-media-providers" aria-label={t('External media services')} data-i18n-skip>
-    {feedback && <p className={`admin-media-feedback ${feedback.error ? 'is-error' : feedback.warning ? 'is-warning' : ''}`} role={feedback.error ? 'alert' : 'status'}>{t(feedback.text)}</p>}
+    {feedback && <p className={`admin-media-feedback ${feedback.error ? 'is-error' : ''}`} role={feedback.error ? 'alert' : 'status'}>{t(feedback.text)}</p>}
     {!providers ? <div className="admin-media-loading">{feedback?.error ? <button type="button" className="admin-outline-action" onClick={() => setLoadKey((key) => key + 1)}>{t('Retry')}</button> : <p role="status">{t('Loading settings...')}</p>}</div> : <>
       <div className="admin-integration-tabs admin-media-provider-choice" role="group" aria-label={t('Provider')}>
         {['oracle', 'odysee', 'directupload', 'fastpic', 'postimages'].map((key) => {

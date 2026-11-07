@@ -890,6 +890,7 @@ function applyWebsiteConfiguration(website = {}, theme = 'light', user = null) {
     : (config.defaultPrimarySoftColor || defaultPalette?.softLight || colors['primary-soft'] || '#fff2cf');
   root.style.setProperty('--viewer-accent-ink', accentInk(userPalette?.primary || defaultPrimary));
   root.style.setProperty('--website-admin-primary', userPalette?.primary || defaultPrimary);
+  root.style.setProperty('--website-admin-primary-ink', accentInk(userPalette?.primary || defaultPrimary));
   root.style.setProperty('--website-admin-primary-2', userPalette?.primary2 || defaultSecondary);
   root.style.setProperty('--website-admin-primary-soft', userPalette ? (theme === 'dark' ? userPalette.softDark : userPalette.softLight) : defaultSoft);
 

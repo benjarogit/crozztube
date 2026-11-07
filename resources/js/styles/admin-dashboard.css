@@ -16,6 +16,7 @@
   --ad-border:var(--website-admin-border,#e3e8f2);
   --ad-border-strong:var(--website-admin-border-strong,#d7dfed);
   --ad-primary:var(--website-admin-primary,var(--primary,#b68a2d));
+  --ad-primary-ink:var(--website-admin-primary-ink,#000);
   --ad-primary-2:var(--website-admin-primary-2,var(--primary-2,#6f5119));
   --ad-primary-soft:var(--website-admin-primary-soft,var(--primary-soft,#fff2cf));
   --ad-page-subtitle:var(--website-admin-page-subtitle,#657395);
@@ -2309,29 +2310,18 @@
   margin-top:6px
 }
 .admin-confirm-button {
-  height:38px;
-  padding:0 16px;
-  border-radius:10px;
-  border:1px solid var(--ad-border);
-  font-weight:700;
+  min-width:80px;
+  min-height:36px;
   cursor:pointer
 }
 .admin-confirm-button.cancel {
-  color:#263657;
+  color:var(--ad-text);
   background:var(--ad-panel)
-}
-.admin-confirm-button.primary {
-  color:#fff;
-  border-color:var(--ad-primary);
-  background:linear-gradient(135deg,var(--ad-primary),var(--ad-primary-2))
 }
 .admin-confirm-button.danger {
   color:#fff;
   border-color:var(--ad-red);
   background:var(--ad-red)
-}
-.admin-confirm-button:hover {
-  transform:translateY(0px)
 }
 .admin-dashboard-shell[data-admin-theme="dark"] .admin-confirm-button.cancel {
   color:var(--ad-text);
@@ -3465,7 +3455,8 @@
   font-weight:850
 }
 .admin-full-outline,
-.admin-outline-action {
+.admin-outline-action,
+.admin-confirm-button {
   height:36px;
   display:inline-flex;
   align-items:center;
@@ -3482,11 +3473,12 @@
 .admin-outline-action.danger-text {
   color:#dc2626
 }
-.admin-outline-action.primary-text {
+.admin-outline-action.primary-text,
+.admin-confirm-button.primary {
   border-color:color-mix(in srgb,var(--ad-primary) 34%,var(--ad-border));
   background:color-mix(in srgb,var(--ad-primary) 5%,var(--ad-panel));
   background-image:none;
-  color:var(--ad-primary);
+  color:var(--ad-text);
   cursor:pointer;
   text-decoration:none;
   -webkit-tap-highlight-color:transparent
@@ -3494,36 +3486,27 @@
 .admin-outline-action.primary-text svg {
   color:inherit
 }
-.admin-outline-action.primary-text:not(:disabled):hover {
-  color:#fff;
+.admin-outline-action.primary-text:not(:disabled):hover,
+.admin-confirm-button.primary:not(:disabled):hover {
+  color:var(--ad-primary-ink);
   background-color:var(--ad-primary);
   background-image:none;
   border-color:color-mix(in srgb,var(--ad-primary) 72%,#000);
   text-decoration:none;
   box-shadow:none!important
 }
-.admin-outline-action.primary-text.focus:not(:disabled),
-.admin-outline-action.primary-text:not(:disabled):focus,
 .admin-outline-action.primary-text.active:not(:disabled),
-.admin-outline-action.primary-text:not(:disabled):active {
-  color:#fff;
-  background-color:color-mix(in srgb,var(--ad-primary) 82%,#000);
+.admin-outline-action.primary-text:not(:disabled):active,
+.admin-confirm-button.primary:not(:disabled):active {
+  color:var(--ad-primary-ink);
+  background-color:var(--ad-primary);
   background-image:none;
   border-color:color-mix(in srgb,var(--ad-primary) 62%,#000);
   text-decoration:none;
   box-shadow:none!important
 }
-.admin-outline-action.primary-text.active:not(:disabled),
-.admin-outline-action.primary-text:not(:disabled):active {
-  box-shadow:inset 0 3px 5px rgba(0,0,0,.125)!important
-}
-.admin-outline-action.primary-text:not(:disabled):focus,
-.admin-outline-action.primary-text:not(:disabled):active {
-  outline:2px solid color-mix(in srgb,var(--ad-primary) 55%,transparent);
-  outline:5px auto -webkit-focus-ring-color;
-  outline-offset:-2px
-}
-.admin-outline-action.primary-text:disabled {
+.admin-outline-action.primary-text:disabled,
+.admin-confirm-button.primary:disabled {
   border-color:var(--ad-border);
   background:var(--ad-panel-2);
   background-image:none;
@@ -3894,6 +3877,21 @@
   font-size:12px;
   font-weight:750;
   flex:1;
+}
+.admin-dashboard-shell .admin-field>div:hover:not(:focus-within):not(:has(input:disabled,textarea:disabled,[aria-disabled="true"])) {
+  border-color:var(--ad-border-strong)
+}
+.admin-dashboard-shell .admin-field>div:focus-within {
+  border-color:var(--ad-primary);
+  outline:2px solid var(--ad-primary);
+  outline-offset:0;
+  box-shadow:none
+}
+.admin-dashboard-shell .admin-field :is(input,textarea):focus-visible {
+  outline:none
+}
+@media (pointer:coarse) {
+  .admin-confirm-button { min-height:44px; height:auto; padding-block:10px }
 }
 
 .admin-color-swatch {
@@ -4836,7 +4834,6 @@
 .admin-media-providers :is(button,input):disabled { opacity:.65; cursor:default }
 .admin-media-feedback { padding:12px; border:1px solid var(--ad-border-strong); border-radius:8px; background:var(--ad-panel-2); font-size:12px }
 .admin-media-feedback.is-error { border-color:var(--ad-red) }
-.admin-media-feedback.is-warning { border-color:var(--ad-primary) }
 .admin-media-loading { min-height:96px; display:flex; align-items:center }
 @container admin-media (max-width:560px) {
   .admin-media-fields { grid-template-columns:minmax(0,1fr) }

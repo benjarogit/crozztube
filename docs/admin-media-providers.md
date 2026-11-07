@@ -79,6 +79,12 @@ der `.env` eingerichtete Zugänge bleiben als Ausgangskonfiguration gültig.
 
 ## Begrenzte Tests
 
+Verbindungstests zeigen Erfolg, Fehler und Einschränkungen im gemeinsamen
+Admin-Ergebnisdialog, wie die übrigen Speicheranbieter. Fastpics begrenzte
+Originalbildfreigabe erscheint als Hinweis. Die Dialoge lassen sich mit „Okay“
+oder Escape schließen und geben den Fokus an den Testbutton zurück. Ein
+erfolgreicher Bildtest stellt den Link zum Testbild nach dem Schließen bereit.
+
 - Oracle: genau ein authentifizierter Bucket-HEAD-Aufruf. Das bestätigt Zugang,
   nicht Browser-CORS oder den vollständigen Clip-Ablauf.
 - Odysee: authentifizierte Kanalliste und Zugehörigkeit des gewählten Kanals;

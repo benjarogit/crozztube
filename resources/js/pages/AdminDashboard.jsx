@@ -3799,7 +3799,7 @@ function SettingsPage({ navigate, data = {}, api = null, onRefresh = null, alert
             <button type="button" className="admin-outline-action primary-text" onClick={saveStorageSettings} disabled={storageSaving || storageTesting}><AdminIcon name="cloud" size={16} />{storageSaving ? 'Saving...' : 'Save Storage'}</button>
           </SettingsRow>
           <SettingsRow id="setting-external-media" visible={selectedSettingsBlock.id === 'setting-storage'} title="External media services" description="Manage image hosters, private Oracle staging and Odysee publishing in one place.">
-            <AdminMediaProviders api={api} platformName={data.general?.platformName || 'CrozzTube'}
+            <AdminMediaProviders api={api} alertAction={alertAction} platformName={data.general?.platformName || 'CrozzTube'}
               renderProvider={(props) => <IntegrationBadge {...props} />}
               renderIcon={() => <AdminIcon name="cloud" size={16} />}
               controls={{ Field: EditableField, Secret: StorageSecretField, Toggle: EditableToggleField, Select: EditableSelect }} />
