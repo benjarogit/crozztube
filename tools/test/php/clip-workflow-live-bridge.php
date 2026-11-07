@@ -56,6 +56,22 @@ switch ($input['operation'] ?? '') {
         $queue->uploaded($user->id, $transfer->uuid);
         echo '{"recorded":true}';
         break;
+    case 'observe':
+        if ($transfer->phase !== 'ready' || $transfer->bytes > 1048576
+            || ($transfer->metadata['title'] ?? null) !== 'CrozzTube Bestätigungstest') throw new RuntimeException();
+        $request = Illuminate\Http\Request::create('/api/clip-transfers/'.$transfer->uuid.'/playback', 'GET');
+        $request->setUserResolver(fn () => $user);
+        $playback = (new App\Http\Controllers\Api\ClipTransferController())->playback($request, $transfer->uuid)->getData(true);
+        $settings = MediaProviderSettings::current()->effective('odysee');
+        $settings['channel_id'] = $transfer->publisher_channel_id;
+        $claim = (new App\Support\Clips\OdyseePublisher($settings))->ownedClip($transfer->uuid, $transfer->provider_state['claim']);
+        echo json_encode(['id' => $transfer->uuid, 'state' => $transfer->phase, 'bytes' => $transfer->bytes,
+            'embed' => $playback['embed_url'], 'hash' => $claim['value']['source']['sd_hash'] ?? null,
+            'claim' => $claim['claim_id'], 'confirmations' => $claim['confirmations'] ?? 0,
+            'notifications' => App\Models\UserNotification::where('clip_transfer_id', $transfer->id)->count(),
+            'cleanup_checked' => $transfer->cleanup_checked_at !== null,
+        ], JSON_THROW_ON_ERROR);
+        break;
     case 'advance':
         (new ClipTransferProcessor(new OdyseeTransferGateway()))->run($transfer->uuid);
         $transfer->refresh();

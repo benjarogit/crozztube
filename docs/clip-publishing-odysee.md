@@ -289,9 +289,27 @@ Embed-Kontext ohne Kontotoken. Der öffentliche Wechsel erfolgt bereits nach
 Claim-Bestätigung, sodass nicht gelisteter Zugriff die gewünschte Veröffentlichung
 nicht blockiert. Nach dem Wechsel wird die neue Providerbestätigung abgewartet.
 
-Der getrennte Browser-Abspieltest wurde noch nicht bestanden: Odysees Video-GET
-antwortete mit 429 statt Video. Dieser Nachweis bleibt daher offen. Weder die
-passenden HEAD-Antworten noch die kontrollierten Browsertests ersetzen ihn.
-Dieser Auftrag und sein Provider-Eintrag werden nicht beim Testende gelöscht.
-Verfügbarkeitsprüfung und gegebenenfalls Bereinigung laufen durch den Scheduler;
-Schritt 2 ist weiterhin keine abgeschlossene externe Integration.
+Der erste getrennte direkte Browserabruf antwortete mit 429 statt Video. Die
+anschließende Prüfung im tatsächlichen öffentlichen Odysee-Embed bestand dagegen:
+nach bewusstem Klick auf Play lieferte Odysee 200/206 und das Video spielte mit
+320×180 Pixeln, 5,13 Sekunden Dauer und mehr als einer Sekunde fortschreitender
+Spielzeit. Der wiederholbare Nachtest bestätigt zusätzlich die Besitzerberechtigung,
+mindestens eine Providerbestätigung, genau eine Benachrichtigung und bestätigte
+Löschung beider Oracle-Kopien. Es wurden keine Videobytes durch PHP übertragen.
+
+Der echte Scheduler setzte den Auftrag am 7. November um 21:42:07 Uhr Europe/Berlin
+auf bereit. Die Reservierung bleibt trotz gelöschter Dateien noch bis nach dem
+Replay-/In-flight-Fenster belegt und wird anschließend abschließend bereinigt.
+Der Auftrag und sein Odysee-Eintrag bleiben bestehen. Der Nachtest erzeugt keinen
+weiteren Upload und löscht keine Odysee-Veröffentlichung:
+
+```sh
+node tools/test/ui/clip-workflow-live-observe.mjs --run --id=5e06399e-041d-4f31-a198-a6dcd4e7af8f
+```
+
+Ohne `--run` werden keine Anfragen gestellt. Der Test ist absichtlich auf einen
+kleinen synthetischen Besitzer-Testclip begrenzt und verwendet nur einen
+Browserworker mit regulärer TLS-Prüfung. Die Herkunftsseite und vorhandene
+Browserentwürfe bleiben unverändert. Diese Teilprüfung ist bestanden;
+Schritt 2 bleibt bis zur vollständigen Abnahme einschließlich der noch offenen
+unveröffentlichten Sammlung, Betriebsgrenzen und übrigen Fehlerfälle offen.
