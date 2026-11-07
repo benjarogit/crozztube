@@ -2,6 +2,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { repository, git, load, localState, setMode, published, verify, begin, publish, runtimeEvidence } from './workflow.mjs';
+import { verifyMaintenance, publishMaintenance } from './maintenance.mjs';
 
 const [command = 'status', ...args] = process.argv.slice(2);
 const option = key => args[args.indexOf(key) + 1] && args.includes(key) ? args[args.indexOf(key) + 1] : '';
@@ -12,6 +13,8 @@ try {
     console.log(JSON.stringify({ activeStep: context.step.id, title: context.step.title, status: published(root, context) ? 'complete' : context.record.status === 'accepted' ? 'awaiting-confirmed-publication' : context.record.status, mode: localState(root), runtimeHookVerified: runtimeEvidence(root), branch: git(root, ['branch', '--show-current']) }, null, 2));
   } else if (command === 'resume') setMode(root, 'implementing');
   else if (command === 'mode') setMode(root, args[0], option('--reason'));
+  else if (command === 'maintenance-verify') verifyMaintenance(root);
+  else if (command === 'maintenance-checkpoint') publishMaintenance(root, option('--message'));
   else if (command === 'verify') verify(root);
   else if (command === 'begin') begin(root, Number(args[0]));
   else if (command === 'checkpoint' || command === 'complete') publish(root, option('--message'), { complete: command === 'complete', note: option('--note') });
@@ -27,7 +30,7 @@ try {
     console.log('PASS: a real Codex PreToolUse hook blocked the current runtime probe.');
   } else if (command === 'deny-probe') {
     throw Error('The deny probe executed: the Codex hook did not intercept it. Step 1 remains open.');
-  } else throw Error('Unknown command. Use status, resume, mode, verify, checkpoint, complete, begin, baseline-check or runtime-check.');
+  } else throw Error('Unknown command. Use status, resume, mode, verify, checkpoint, complete, begin, baseline-check, runtime-check, maintenance-verify or maintenance-checkpoint.');
 } catch (error) {
   console.error(`Harness: ${error.message}`);
   process.exitCode = 1;

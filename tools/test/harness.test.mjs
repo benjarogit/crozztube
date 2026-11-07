@@ -10,6 +10,13 @@ import { git, load, localPath, localState, setMode, digest, verify, assertVerifi
 
 const source = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const branch = 'codex/viewer-community-features';
+test('corrupt runtime receipts are not accepted and do not break status inspection', t => {
+  const { root } = fixture(t);
+  const file = localPath(root, 'hook-receipts.jsonl');
+  fs.mkdirSync(path.dirname(file), { recursive: true });
+  fs.writeFileSync(file, '{"event":"PreToolUse"}\npartial receipt');
+  assert.equal(runtimeEvidence(root), false);
+});
 function fixture(t) {
   const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'crozztube-workflow-'));
   const root = path.join(directory, 'work');

@@ -12,7 +12,7 @@ Use the configured product name, logo, font, accent palette and light/dark token
 - The sidebar uses the explicit compact SiteFooter variant: retain logo, description, configured links, language and both copyright texts in wrapping single-column content. Never put the full-page footer's 260px grid track inside the sidebar. Visible sidebar contents belong in overflow checks.
 - Image selection shows a readable local preview and Waiting/Uploading/Ready/Error state with Retry/Remove actions. Disable publishing until every selected file is ready; never silently discard failed images. All attachment surfaces share ordered browser fallback and a neutral placeholder.
 
-Impeccable 4.8.0 is vendored under `.agents/skills/impeccable`, from `pbakaus/impeccable` commit `c8891a9ae865d6ee311836ae5199bfce0fe115b1`. Use audit/adapt/harden/polish playbooks against rendered evidence. Local engine caches and screenshot artifacts are not project source.
+Impeccable skill 4.8.0, engine 0.1.18 is vendored under `.agents/skills/impeccable`, from `pbakaus/impeccable` commit `c8891a9ae865d6ee311836ae5199bfce0fe115b1`. Sources, local customizations and engine checksums are recorded in `harness/impeccable.lock.json`. Use audit/adapt/harden/polish playbooks against rendered evidence. Local engine caches and screenshot artifacts are not project source.
 
 ## Viewer refinement, 2026-11-06
 

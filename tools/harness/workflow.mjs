@@ -137,7 +137,13 @@ export function runtimeEvidence(root) {
   const file = localPath(root, 'hook-receipts.jsonl');
   if (!fs.existsSync(file)) return false;
   const hookDigest = createHash('sha256').update(fs.readFileSync(path.join(root, '.codex/hooks.json'))).update(fs.readFileSync(path.join(root, 'tools/harness/codex-hook.mjs'))).update(fs.readFileSync(path.join(root, 'tools/harness/workflow.mjs'))).digest('hex');
-  return fs.readFileSync(file, 'utf8').trim().split('\n').filter(Boolean).map(line => JSON.parse(line)).some(item => item.event === 'PreToolUse' && item.decision === 'probe-blocked' && item.session && item.hookDigest === hookDigest);
+  try {
+    return fs.readFileSync(file, 'utf8').trim().split('\n').filter(Boolean).map(line => JSON.parse(line)).some(item => item.event === 'PreToolUse' && item.decision === 'probe-blocked' && item.session && item.hookDigest === hookDigest);
+  } catch {
+    // A partial/corrupt receipt is never evidence. Status must remain readable
+    // so the operator can diagnose it and obtain a fresh real runtime probe.
+    return false;
+  }
 }
 export function publish(root, message, { complete = false, note = '' } = {}) {
   const context = load(root);

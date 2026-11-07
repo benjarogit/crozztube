@@ -1,5 +1,10 @@
 # Geordnete Umsetzung
 
+Die ausdrücklich genehmigte Impeccable-Werkzeugpflege verwendet den isolierten
+Wartungspfad unter `tools/maintenance/README.md`, `maintenance-verify` und
+`maintenance-checkpoint`. Sie verändert keine Feature-Fortschrittsdaten und
+ersetzt keine fachliche Abnahme.
+
 Der genehmigte Umfang und seine Anfangswerte stehen in `plan.json`, der
 versionierte Fortschritt in `progress.json`. Es ist genau ein Schritt aktuell.
 Der gesicherte Vorzustand und seine Prüfungen sind in `baseline.md` beschrieben.
