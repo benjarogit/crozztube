@@ -1,5 +1,28 @@
 # Source Resolver
 
+Version 0.9.2 distinguishes an internal recheck deadline from a confirmed CDN
+expiry in the viewer message. Unsigned HLS sources such as AUF1 currently use
+the configured fallback recheck interval (180 minutes by default); that interval
+does not prove the provider URL expired. Explicit Unix-second `expire` values
+are honored with a five-minute safety margin. Already expired links are rejected
+as retryable extraction failures. Refresh jobs require the queue worker, and
+scheduled expiry/probe checks require the scheduler. A stopped worker cannot
+renew sources even while the website itself responds normally.
+
+For local Docker operation, start the runtime containers after the project
+drive is mounted and `docker/php.ini` is a regular file. A failed configuration
+file bind mount can leave web and workers in different states. From the project
+directory, inspect the relevant containers and restore them once the bind
+source is valid:
+
+```sh
+docker inspect --format '{{.State.Status}}' crozztube-worker crozztube-cron crozztube-thumbnail-worker
+test -f docker/php.ini && docker start crozztube-worker crozztube-cron crozztube-thumbnail-worker
+```
+
+Preserve their queues and the database; do not replace a missing configuration
+file with a directory or clear waiting jobs to hide the failure.
+
 Resolves remote video streams without storing video files. Version 0.9.0 retains HLS audio languages, chooses a confirmed original before regional/default dubs and exposes alternate tracks through the player's built-in **Settings → Audio → Track** menu. Imported text tracks remain independently selectable under **Settings → Captions**.
 
 Version 0.9.1 keeps a provider's validated HLS master when every video rendition already contains audio and there are no independent language/role choices. An audio-only bitrate in such a master does not require synthetic A/V composition. This preserves original CDN relative init/segment URLs and byte-range responses (including PeerTube fragmented-MP4 delivery); it does not pass those streams through the Googlevideo-specific split-stream proxy. Truly split A/V and multiple audio languages retain the existing composite path. Explicit original-language selection is unchanged.

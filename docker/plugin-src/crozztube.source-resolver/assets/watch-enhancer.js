@@ -406,14 +406,14 @@
     }
 
     if (status.state === 'stale' && status.has_direct) {
-      showBanner({ tone: 'refreshing', text: 'The direct source expired. Renewing it…' });
+      showBanner({ tone: 'refreshing', text: 'Renewing the direct source…' });
       return;
     }
 
-    // state can still be "fresh" while expires_at already passed: the URL is
-    // no longer usable even though the resolver has not touched the row yet.
+    // The stored deadline may be an internal recheck interval rather than a
+    // confirmed CDN expiry. Request renewal without claiming the URL expired.
     if (status.has_direct && status.state !== 'error') {
-      showBanner({ tone: 'refreshing', text: 'The direct source expired. Renewing it…' });
+      showBanner({ tone: 'refreshing', text: 'Renewing the direct source…' });
       return;
     }
 

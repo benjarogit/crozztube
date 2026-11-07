@@ -358,6 +358,9 @@ class Resolver
                 $ttl = $candidateTtl;
             }
         }
+        if ($ttl !== null && $ttl <= 0) {
+            throw new \App\Support\ResolverFailure('transient', 'The provider returned an expired playback source.');
+        }
         $ttl ??= $isDirectFile
             ? 86400
             : $this->intSetting('stale_fallback_minutes', 180) * 60;
@@ -424,8 +427,8 @@ class Resolver
         parse_str((string) parse_url($url, PHP_URL_QUERY) ?? '', $query);
         $expire = isset($query['expire']) ? (int) $query['expire'] : 0;
 
-        if ($expire > 3 * time()) {
-            return max(120, $expire - time() - 300);
+        if ($expire > 0) {
+            return max(0, $expire - time() - 300);
         }
 
         return null;

@@ -96,11 +96,14 @@ erfolgreicher Bildtest stellt den Link zum Testbild nach dem Schließen bereit.
 Fastpic wird über den fest vorgegebenen, offiziell veröffentlichten
 ShareX-Endpunkt `https://new.fastpic.org/upload` angesprochen, einschließlich
 der Multipart-Felder `uploading`, `check_thumb`, `thumb_size` und `file1`.
-Beim Praxistest am 7. November 2026 wurden Testbilder angenommen, aber
-`hotlinked: false` zurückgegeben. Die Adminoberfläche erklärt deshalb ausdrücklich,
-dass für dieses Bild nur ein Vorschaulink verfügbar ist. Das bestätigt den Upload,
-nicht die Freigabe von Originalbildern. Bestehende Vorschaubild-Fallbacks bleiben
-erhalten; API-Fehler werden nicht als erfolgreiche eingeschränkte Uploads gewertet.
+Fastpics Kennzeichen `hotlinked` bezeichnet den eingeschränkten Vorschaumodus:
+`false` gibt `big_link` als Originalbild frei, `true` erlaubt nur `thumb_link`.
+Die frühere gegenteilige Auswertung war ein Parserfehler. Beim korrigierten
+Praxistest am 7. November 2026 ließ sich die zurückgegebene Original-PNG-URL
+ohne Anmeldung als echtes Bild abrufen und dekodieren. Nur tatsächlich
+eingeschränkte Antworten erzeugen noch den Vorschauhinweis. Bestehende
+Vorschaubild-Fallbacks bleiben erhalten; API-Fehler werden nicht als erfolgreiche
+eingeschränkte Uploads gewertet.
 Das synthetische Test-PNG wird zusätzlich auf tatsächlich dekodierbare Bilddaten
 geprüft.
 

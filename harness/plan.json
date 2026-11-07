@@ -44,6 +44,8 @@
         "media-provider-browser",
         "account-menu-scroll",
         "navigation-regressions",
+        "provider-source-regressions",
+        "source-refresh-banner",
         "staged-safety"
       ]
     },
@@ -280,6 +282,20 @@
         "navigation has one consistent breakpoint|opening scrolled navigation|navigation stays aligned"
       ],
       "timeoutMs": 240000
+    },
+    "provider-source-regressions": {
+      "argv": [
+        "node",
+        "tools/test/provider-source-regressions.mjs"
+      ],
+      "timeoutMs": 390000
+    },
+    "source-refresh-banner": {
+      "argv": [
+        "node",
+        "tools/test/ui/source-refresh-banner.mjs"
+      ],
+      "timeoutMs": 120000
     }
   },
   "defaults": {

@@ -101,10 +101,13 @@ class Hosters
             }
         } elseif ($provider === 'fastpic') {
             $data = json_decode($body, true, 32, JSON_THROW_ON_ERROR);
-            // The host explicitly reports whether full-size hotlinking is permitted.
-            $hotlinked = array_key_exists('hotlinked', (array) $data) ? filter_var($data['hotlinked'], FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE) : null;
-            if ($hotlinked === null) throw new RuntimeException('invalid-provider-response');
-            if ($original && ! $hotlinked) {
+            // Fastpic's own link generator uses hotlinked=true for the
+            // restricted thumbnail-only mode, false for an original image.
+            $flag = is_array($data) ? ($data['hotlinked'] ?? null) : null;
+            $previewOnly = in_array($flag, [true, false, 0, 1, '0', '1', 'true', 'false'], true)
+                ? filter_var($flag, FILTER_VALIDATE_BOOLEAN) : null;
+            if ($previewOnly === null) throw new RuntimeException('invalid-provider-response');
+            if ($original && $previewOnly) {
                 $thumb = $data['thumb_link'] ?? null;
                 if (! RemoteImages::urlAllowed($thumb) || ! str_starts_with((string) $thumb, 'https://')
                     || ! preg_match('/(^|\.)fastpic\.(org|ru)$/', (string) parse_url((string) $thumb, PHP_URL_HOST))) {
@@ -112,7 +115,7 @@ class Hosters
                 }
                 throw new RuntimeException('full-size-unavailable');
             }
-            $url = $hotlinked ? ($data['big_link'] ?? null) : ($data['thumb_link'] ?? null);
+            $url = $previewOnly ? ($data['thumb_link'] ?? null) : ($data['big_link'] ?? null);
 
         } else {
             if (stripos($body, '<!DOCTYPE') !== false || stripos($body, '<!ENTITY') !== false) {

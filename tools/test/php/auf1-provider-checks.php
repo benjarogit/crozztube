@@ -177,6 +177,15 @@ $extractor = ['id' => 'hosting-master', 'title' => 'hosting filename', 'duration
 $resolver = new FixtureAuf1Resolver($context);
 $resolver->responses = [$primary => new ResolverFailure('transient', 'CDN unavailable'), $backup => $extractor];
 $result = $resolver->resolve($url);
+check($result['ttl_seconds'] === max(1, (int) $context->setting('stale_fallback_minutes', 180)) * 60, 'unsigned AUF1 HLS uses the configured internal recheck interval, not a proven provider expiry');
+$signed = $extractor;
+$signed['manifest_url'] = $primary.'?expire='.(time() + 3600);
+$signed['formats'][0]['url'] = $signed['manifest_url'];
+$signedTtl = $resolver->fromMetadata($signed)['ttl_seconds'];
+check($signedTtl >= 3295 && $signedTtl <= 3300, 'real Unix-second CDN expiry keeps the five-minute safety margin instead of the three-hour fallback');
+$signed['manifest_url'] = $primary.'?expire='.(time() - 600);
+$signed['formats'][0]['url'] = $signed['manifest_url'];
+rejects(fn () => $resolver->fromMetadata($signed), 'already expired provider URLs are not published as fresh playback sources');
 check($resolver->seen === [$primary, $backup], 'resolver attempts provider primary then backup HLS');
 check($result['metadata']['provider_id'] === '6428' && $result['metadata']['title'] === 'Fixture video'
     && count($result['metadata']['chapters']) === 3, 'source resolution preserves official identity, title and chapters');
@@ -230,6 +239,21 @@ try {
         'media_url' => $primary, 'audio_tracks' => [], 'expires_at' => now()->addHour(), 'resolved_at' => now()]);
     $resource = (new VideoResource($video))->toArray($request);
     check(($resource['video_sources'][0]['src'] ?? null) === $primary, 'fresh native HLS is available ahead of embed fallback');
+    $source = CrozztubeImportSource::where('video_id', $video->id)->firstOrFail();
+    $source->update(['expires_at' => now()->subMinute()]);
+    $resource = (new VideoResource($video))->toArray($request);
+    check($resource['video_sources'] === [], 'elapsed internal recheck interval requests renewal before source reuse');
+    $freshResolver = new FixtureAuf1Resolver($context);
+    $freshResolver->responses = [$primary => $extractor];
+    app()->instance(Resolver::class, $freshResolver);
+    $job = new CrzSourceResolver\Jobs\RefreshSource($video->id, true, now()->getTimestamp());
+    $job->handle();
+    $resource = (new VideoResource($video->fresh()))->toArray($request);
+    check($source->fresh()->isFresh() && ($resource['video_sources'][0]['src'] ?? null) === $primary,
+        'an actual refresh job restores expired AUF1 native playback with mocked upstream only');
+    $calls = count($freshResolver->seen);
+    $job->handle();
+    check(count($freshResolver->seen) === $calls, 'queued duplicate renewal skips extraction after a successful refresh');
     CrozztubeImportSource::query()->where('video_id', $video->id)->update(['state' => 'error']);
     $resource = (new VideoResource($video))->toArray($request);
     check($resource['video_sources'] === [] && str_contains((string) Mirror::forVideo($video, 'crozztube.local')['embed_url'], $uuid), 'failed native source leaves official embed playable through Mirror');
