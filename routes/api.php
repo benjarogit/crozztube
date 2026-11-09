@@ -715,6 +715,10 @@ Route::get('/search', function (Request $request) {
 });
 
 Route::middleware(['auth:sanctum', \App\Http\Middleware\EnsureUgcSafety::class])->group(function (): void {
+    Route::get('/clip-transfers', [\App\Http\Controllers\Api\ClipTransferController::class, 'index']);
+    Route::get('/clip-transfers/{uuid}', [\App\Http\Controllers\Api\ClipTransferController::class, 'show'])->whereUuid('uuid');
+    Route::post('/clip-transfers/{uuid}/cancel', [\App\Http\Controllers\Api\ClipTransferController::class, 'cancel'])->whereUuid('uuid')->middleware('throttle:api-write');
+    Route::get('/clip-transfers/{uuid}/playback', [\App\Http\Controllers\Api\ClipTransferController::class, 'playback'])->whereUuid('uuid')->middleware('throttle:20,1');
     Route::get('/account/safety', [\App\Http\Controllers\Api\V1\SafetyController::class, 'show']);
     Route::post('/account/safety/consent', [\App\Http\Controllers\Api\V1\SafetyController::class, 'consent'])->middleware('throttle:api-write');
     Route::get('/account/blocks', [\App\Http\Controllers\Api\V1\SafetyController::class, 'blocks']);
@@ -893,6 +897,10 @@ Route::middleware(['auth:sanctum', \App\Http\Middleware\EnsureUgcSafety::class])
     };
 
     Route::prefix('admin')->group(function (): void {
+        Route::get('/media-providers', [\App\Http\Controllers\Api\AdminMediaProvidersController::class, 'index']);
+        Route::put('/media-providers/{provider}', [\App\Http\Controllers\Api\AdminMediaProvidersController::class, 'update'])->middleware('throttle:30,1');
+        Route::post('/media-providers/odysee/connect', [\App\Http\Controllers\Api\AdminMediaProvidersController::class, 'connectOdysee'])->middleware('throttle:5,1');
+        Route::post('/media-providers/{provider}/test', [\App\Http\Controllers\Api\AdminMediaProvidersController::class, 'test'])->middleware('throttle:6,1');
         Route::get('/page-data', [AdminController::class, 'pageData']);
         Route::get('/plugins', [PluginController::class, 'index']);
         Route::post('/plugins', [PluginController::class, 'install'])->middleware('throttle:10,1');

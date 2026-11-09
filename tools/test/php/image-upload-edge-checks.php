@@ -48,7 +48,7 @@ final class EdgeImageTransport extends RemoteImages
         $direct = str_contains($url, 'directupload');
         return ['code' => ($method === 'GET' && $this->failGet) || ($method === 'POST' && $direct && $this->failDirectPost) ? 503 : 200,
             'body' => $method === 'POST' ? ($direct ? '<input value="https://s1.directupload.eu/images/261105/edge.png">'
-                : json_encode(['hotlinked' => true, 'big_link' => 'https://i.fastpic.org/full/edge.png'])) : $this->bytes,
+                : json_encode(['hotlinked' => false, 'big_link' => 'https://i.fastpic.org/full/edge.png'])) : $this->bytes,
             'type' => $method === 'POST' ? 'text/html' : $this->mime, 'location' => $url, 'error' => ''];
     }
 
@@ -76,6 +76,7 @@ function edgeProviders(): void
 }
 
 config(['cache.default' => 'array', 'thumbnails.pause_file' => '/proc/no-image-edge-pause',
+    'media_providers.settings_path' => sys_get_temp_dir().'/crz-image-edge-'.bin2hex(random_bytes(8)).'/settings.enc',
     'thumbnails.providers.fastpic.supported' => false, 'thumbnails.providers.postimages.supported' => false,
     'thumbnails.providers.directupload.supported' => true, 'thumbnails.providers.directupload.minute_limit' => 1000,
     'thumbnails.providers.directupload.day_limit' => 1000]);

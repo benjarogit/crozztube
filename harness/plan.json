@@ -28,11 +28,33 @@
         "Privater Oracle-Always-Free-Zwischenspeicher mit Reservierungen, Nutzungsgrenzen und FIFO-Warteschlange; begrenzte Uploadrechte ohne Kontoschlüssel im Browser",
         "Browser-Upload ohne Videotransport durch CrozzTube; Limits und Verhalten nach der Oracle-Testphase geprüft",
         "Live-Test: Odysee importiert signierte URL, wird abspielbar, wechselt Sichtbarkeit; Zwischenkopien werden gelöscht",
-        "Ausfälle, Konkurrenz und Bereinigung geprüft"
+        "Ausfälle, Konkurrenz und Bereinigung geprüft",
+        "Imagehoster, Oracle und Odysee unter Speicher & CDN administrierbar; verschlüsselte Zugangsdaten, schreibgeschützte Geheimnisse, Einrichtungshilfen und begrenzte Verbindungstests geprüft",
+        "Odysee-Bestätigung und erreichbare Wiedergabe abwarten; Besitzer sieht Wartestatus, erhält einmalige Verfügbarkeitsbenachrichtigung und kann abbrechen; keine zeitgesteuerte Löschung angenommener Uploads"
       ],
       "checkpointChecks": [
         "harness-tests",
         "oracle-staging-config",
+        "oracle-staging-store",
+        "odysee-publishing-config",
+        "odysee-publishing-setup",
+        "odysee-url-import",
+        "odysee-publisher",
+        "clip-transfer-queue",
+        "media-provider-settings",
+        "media-provider-api",
+        "media-provider-image-regressions",
+        "media-provider-copy",
+        "media-provider-browser",
+        "account-menu-scroll",
+        "navigation-regressions",
+        "provider-source-regressions",
+        "source-refresh-banner",
+        "clip-confirmation",
+        "clip-playback-readiness",
+        "clip-workflow-copy",
+        "clip-confirmation-browser",
+        "clip-gateway",
         "staged-safety"
       ]
     },
@@ -185,10 +207,158 @@
       ],
       "timeoutMs": 30000
     },
+    "media-provider-image-regressions": {
+      "argv": [
+        "node",
+        "tools/test/media-provider-image-regressions.mjs"
+      ],
+      "timeoutMs": 390000
+    },
+    "media-provider-api": {
+      "argv": [
+        "php",
+        "tools/test/php/media-provider-api-checks.php"
+      ],
+      "timeoutMs": 30000
+    },
+    "media-provider-settings": {
+      "argv": [
+        "php",
+        "tools/test/php/media-provider-settings-checks.php"
+      ],
+      "timeoutMs": 30000
+    },
+    "odysee-publishing-setup": {
+      "argv": [
+        "php",
+        "tools/test/php/clip-publishing-setup-checks.php"
+      ],
+      "timeoutMs": 30000
+    },
+    "odysee-publishing-config": {
+      "argv": [
+        "php",
+        "tools/test/php/clip-publishing-config-checks.php"
+      ],
+      "timeoutMs": 30000
+    },
+    "oracle-staging-store": {
+      "argv": [
+        "php",
+        "tools/test/php/clip-staging-store-checks.php"
+      ],
+      "timeoutMs": 30000
+    },
     "oracle-staging-config": {
       "argv": [
         "php",
         "tools/test/php/clip-staging-config-checks.php"
+      ],
+      "timeoutMs": 30000
+    },
+    "media-provider-copy": {
+      "argv": [
+        "php",
+        "tools/test/php/media-provider-copy-checks.php"
+      ],
+      "timeoutMs": 30000
+    },
+    "media-provider-browser": {
+      "argv": [
+        "node",
+        "tools/test/ui/media-providers.mjs"
+      ],
+      "timeoutMs": 240000
+    },
+    "account-menu-scroll": {
+      "argv": [
+        "node",
+        "tools/test/ui/account-menu-scroll.mjs"
+      ],
+      "timeoutMs": 240000
+    },
+    "navigation-regressions": {
+      "argv": [
+        "node",
+        "tools/test/ui/node_modules/playwright/cli.js",
+        "test",
+        "--config",
+        "tools/test/ui/playwright.config.ts",
+        "responsive-interactions.spec.ts",
+        "--project=chromium",
+        "--workers=1",
+        "--grep",
+        "navigation has one consistent breakpoint|opening scrolled navigation|navigation stays aligned"
+      ],
+      "timeoutMs": 240000
+    },
+    "provider-source-regressions": {
+      "argv": [
+        "node",
+        "tools/test/provider-source-regressions.mjs"
+      ],
+      "timeoutMs": 390000
+    },
+    "source-refresh-banner": {
+      "argv": [
+        "node",
+        "tools/test/ui/source-refresh-banner.mjs"
+      ],
+      "timeoutMs": 120000
+    },
+    "odysee-url-import": {
+      "argv": [
+        "php",
+        "tools/test/php/clip-publishing-import-checks.php"
+      ],
+      "timeoutMs": 30000
+    },
+    "odysee-publisher": {
+      "argv": [
+        "php",
+        "tools/test/php/clip-publisher-checks.php"
+      ],
+      "timeoutMs": 30000
+    },
+    "clip-transfer-queue": {
+      "argv": [
+        "node",
+        "tools/test/clip-transfer-queue.mjs"
+      ],
+      "timeoutMs": 150000
+    },
+    "clip-confirmation": {
+      "argv": [
+        "node",
+        "tools/test/clip-confirmation.mjs"
+      ],
+      "timeoutMs": 150000
+    },
+    "clip-playback-readiness": {
+      "argv": [
+        "php",
+        "tools/test/php/clip-readiness-checks.php"
+      ],
+      "timeoutMs": 30000
+    },
+    "clip-workflow-copy": {
+      "argv": [
+        "php",
+        "tools/test/php/clip-workflow-copy-checks.php"
+      ],
+      "timeoutMs": 30000
+    },
+    "clip-confirmation-browser": {
+      "argv": [
+        "node",
+        "tools/test/ui/clip-confirmation.mjs"
+      ],
+      "timeoutMs": 240000
+    },
+    "clip-gateway": {
+      "argv": [
+        "php",
+        "tools/test/php/clip-gateway-checks.php"
       ],
       "timeoutMs": 30000
     }

@@ -5,9 +5,11 @@
 # Environment & secrets
 /.env
 /.env.*.local
+/.clip-env-*
 /docker/certs/
 /storage/app/license.json
 /storage/app/private/
+/storage/app/backups/
 
 # Runtime state
 /storage/app/plugins/

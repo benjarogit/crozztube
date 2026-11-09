@@ -272,6 +272,15 @@
             ],
             "reviewed_at": "2026-11-06T11:31:06+00:00"
         },
+        "01a4c47f3c5ac1a34656cc9e1e83317becd92431afc3e4818f8737e52d994267": {
+            "source_hash": "01a4c47f3c5ac1a34656cc9e1e83317becd92431afc3e4818f8737e52d994267",
+            "translation_hash": "01a4c47f3c5ac1a34656cc9e1e83317becd92431afc3e4818f8737e52d994267",
+            "status": "editorial",
+            "contexts": [
+                "Clip transfer owner status and complete ready notification. Pending means provider confirmation/playback is not verified: no watch link, no success notice. Author titles remain literal. English/German reference copy for queue, provider wait, cancel, failures and readiness, with regional cancel/cancelled spelling. Full 125-language acceptance remains separate."
+            ],
+            "reviewed_at": "2026-11-07T20:14:15+00:00"
+        },
         "01b1d11c14c1a4184c4c9d9be969b3f78dc0f07c9650734cd9feea3d35145c33": {
             "source_hash": "01b1d11c14c1a4184c4c9d9be969b3f78dc0f07c9650734cd9feea3d35145c33",
             "translation_hash": "01b1d11c14c1a4184c4c9d9be969b3f78dc0f07c9650734cd9feea3d35145c33",
@@ -2386,6 +2395,15 @@
                 "English reference editorial pass: contact/refund requests, help/scheduling, Playlist management, video/Shorts actions, growth guidance and import states/errors. Source technical backend terms retained only for developer instructions; existing import success correctly makes no processing-start claim."
             ],
             "reviewed_at": "2026-11-06T10:57:44+00:00"
+        },
+        "125a1cb13b3cb7764458af812521f5d20bce78869039e3eef9a0a2e54a2c0d78": {
+            "source_hash": "125a1cb13b3cb7764458af812521f5d20bce78869039e3eef9a0a2e54a2c0d78",
+            "translation_hash": "125a1cb13b3cb7764458af812521f5d20bce78869039e3eef9a0a2e54a2c0d78",
+            "status": "editorial",
+            "contexts": [
+                "Clip transfer owner status and complete ready notification. Pending means provider confirmation/playback is not verified: no watch link, no success notice. Author titles remain literal. English/German reference copy for queue, provider wait, cancel, failures and readiness, with regional cancel/cancelled spelling. Full 125-language acceptance remains separate."
+            ],
+            "reviewed_at": "2026-11-07T20:14:15+00:00"
         },
         "1280ed5955ce22e09dcc741e6f76a62310ed13abd995e1934984b5d896bf4480": {
             "source_hash": "1280ed5955ce22e09dcc741e6f76a62310ed13abd995e1934984b5d896bf4480",
@@ -4556,6 +4574,15 @@
             ],
             "reviewed_at": "2026-11-06T11:28:44+00:00"
         },
+        "21dfdb700c2e66615218fba7ac787082d3aa58e1592b5fdb42d913748432b373": {
+            "source_hash": "21dfdb700c2e66615218fba7ac787082d3aa58e1592b5fdb42d913748432b373",
+            "translation_hash": "21dfdb700c2e66615218fba7ac787082d3aa58e1592b5fdb42d913748432b373",
+            "status": "editorial",
+            "contexts": [
+                "Clip transfer owner status and complete ready notification. Pending means provider confirmation/playback is not verified: no watch link, no success notice. Author titles remain literal. English/German reference copy for queue, provider wait, cancel, failures and readiness, with regional cancel/cancelled spelling. Full 125-language acceptance remains separate."
+            ],
+            "reviewed_at": "2026-11-07T20:14:15+00:00"
+        },
         "21f7f6f3f079bac65b8c778da18ab5210febb43c18120a068ab51f3ded3e1599": {
             "source_hash": "21f7f6f3f079bac65b8c778da18ab5210febb43c18120a068ab51f3ded3e1599",
             "translation_hash": "21f7f6f3f079bac65b8c778da18ab5210febb43c18120a068ab51f3ded3e1599",
@@ -4960,6 +4987,15 @@
                 "English editorial reference for account recovery/verification, social sign-in, category/role/permission management, wallet/monetization, theme, mass import, user privacy/moderation, device sessions and livestream setup. Technical connection labels remain useful in admin/studio; procedural copy clarified. Proper names, UI style tokens and quantity fragments excluded."
             ],
             "reviewed_at": "2026-11-06T11:28:44+00:00"
+        },
+        "250b497c326753b7dccb4135416a44f27a49c5c1ba0c4b8141b3c8409a2002f4": {
+            "source_hash": "250b497c326753b7dccb4135416a44f27a49c5c1ba0c4b8141b3c8409a2002f4",
+            "translation_hash": "250b497c326753b7dccb4135416a44f27a49c5c1ba0c4b8141b3c8409a2002f4",
+            "status": "editorial",
+            "contexts": [
+                "Clip transfer owner status and complete ready notification. Pending means provider confirmation/playback is not verified: no watch link, no success notice. Author titles remain literal. English/German reference copy for queue, provider wait, cancel, failures and readiness, with regional cancel/cancelled spelling. Full 125-language acceptance remains separate."
+            ],
+            "reviewed_at": "2026-11-07T20:14:15+00:00"
         },
         "251d6e782822e3a04e0ac046d6372fba91f40fe19c16f9d99a18a124b7f4cba2": {
             "source_hash": "251d6e782822e3a04e0ac046d6372fba91f40fe19c16f9d99a18a124b7f4cba2",
@@ -7529,6 +7565,15 @@
                 "Complete literal vocabulary passed to installed Vidstack default video layouts, with German/Austrian/Swiss full labels, captions accessibility announcements and font/shadow options. Previously uncatalogued controls and untranslated Play/Mute/Unmute/None are corrected. AirPlay/Google Cast remain brands; provider text and track/chapter names are protected separately."
             ],
             "reviewed_at": "2026-11-06T12:29:17+00:00"
+        },
+        "36c512fd639d4b46dba6364d3f01bac33fd2edd48f7e06dc53123e9f52665403": {
+            "source_hash": "36c512fd639d4b46dba6364d3f01bac33fd2edd48f7e06dc53123e9f52665403",
+            "translation_hash": "36c512fd639d4b46dba6364d3f01bac33fd2edd48f7e06dc53123e9f52665403",
+            "status": "editorial",
+            "contexts": [
+                "Clip transfer owner status and complete ready notification. Pending means provider confirmation/playback is not verified: no watch link, no success notice. Author titles remain literal. English/German reference copy for queue, provider wait, cancel, failures and readiness, with regional cancel/cancelled spelling. Full 125-language acceptance remains separate."
+            ],
+            "reviewed_at": "2026-11-07T20:14:15+00:00"
         },
         "36d81c2379c2322571bc5003681665ae185eac59be8415f511b24f61ed6bda64": {
             "source_hash": "36d81c2379c2322571bc5003681665ae185eac59be8415f511b24f61ed6bda64",
@@ -10419,6 +10464,15 @@
             ],
             "reviewed_at": "2026-11-06T09:27:59+00:00"
         },
+        "4c89e957122c3e68107a277c6588f5da7a63f8e649c54cb9efcebc07157ccdc7": {
+            "source_hash": "4c89e957122c3e68107a277c6588f5da7a63f8e649c54cb9efcebc07157ccdc7",
+            "translation_hash": "4c89e957122c3e68107a277c6588f5da7a63f8e649c54cb9efcebc07157ccdc7",
+            "status": "editorial",
+            "contexts": [
+                "Clip transfer owner status and complete ready notification. Pending means provider confirmation/playback is not verified: no watch link, no success notice. Author titles remain literal. English/German reference copy for queue, provider wait, cancel, failures and readiness, with regional cancel/cancelled spelling. Full 125-language acceptance remains separate."
+            ],
+            "reviewed_at": "2026-11-07T20:14:15+00:00"
+        },
         "4c9a25756cd5dddef615417562e0c7953fbf75070998d840623b89086e86babc": {
             "source_hash": "a02c014ed5ecac45863ecb6732d0fcaa0137b714e023f4735a84d8731798c430",
             "translation_hash": "a02c014ed5ecac45863ecb6732d0fcaa0137b714e023f4735a84d8731798c430",
@@ -11760,6 +11814,15 @@
             ],
             "reviewed_at": "2026-11-06T11:17:02+00:00"
         },
+        "559001d452148d77331488c796c629254f56def98f9fede13a7763f0ce3f0541": {
+            "source_hash": "559001d452148d77331488c796c629254f56def98f9fede13a7763f0ce3f0541",
+            "translation_hash": "559001d452148d77331488c796c629254f56def98f9fede13a7763f0ce3f0541",
+            "status": "editorial",
+            "contexts": [
+                "Clip transfer owner status and complete ready notification. Pending means provider confirmation/playback is not verified: no watch link, no success notice. Author titles remain literal. English/German reference copy for queue, provider wait, cancel, failures and readiness, with regional cancel/cancelled spelling. Full 125-language acceptance remains separate."
+            ],
+            "reviewed_at": "2026-11-07T20:14:15+00:00"
+        },
         "55b72c2943c6e094cd4640ee4f0b630f51c28442065c3ec50731b595200ec177": {
             "source_hash": "55b72c2943c6e094cd4640ee4f0b630f51c28442065c3ec50731b595200ec177",
             "translation_hash": "55b72c2943c6e094cd4640ee4f0b630f51c28442065c3ec50731b595200ec177",
@@ -13055,6 +13118,15 @@
                 "English reference editorial pass for community/bookmarks, livestream setup/readiness, theme/design settings, support tickets, LiveKit/RTMP/WebRTC/TURN configuration, certificates, Docker status and scheduler administration. Technical parameters retained where administrators need them. Obsolete promises about future broadcasting replaced with present configuration requirements; names/examples/time quantities/fragments excluded."
             ],
             "reviewed_at": "2026-11-06T11:31:06+00:00"
+        },
+        "5fac3f0ee938eaa1635cc4000d8de67280e2ec332bbd783d2ebe8de3ffe98e0a": {
+            "source_hash": "5fac3f0ee938eaa1635cc4000d8de67280e2ec332bbd783d2ebe8de3ffe98e0a",
+            "translation_hash": "5fac3f0ee938eaa1635cc4000d8de67280e2ec332bbd783d2ebe8de3ffe98e0a",
+            "status": "editorial",
+            "contexts": [
+                "Clip transfer owner status and complete ready notification. Pending means provider confirmation/playback is not verified: no watch link, no success notice. Author titles remain literal. English/German reference copy for queue, provider wait, cancel, failures and readiness, with regional cancel/cancelled spelling. Full 125-language acceptance remains separate."
+            ],
+            "reviewed_at": "2026-11-07T20:14:15+00:00"
         },
         "5fad985e0d3a161943ca09f5eaf9aa3f0c2fdbb700c3a13cd6031cba5167757e": {
             "source_hash": "5fad985e0d3a161943ca09f5eaf9aa3f0c2fdbb700c3a13cd6031cba5167757e",
@@ -15890,6 +15962,15 @@
                 "English editorial reference for account recovery/verification, social sign-in, category/role/permission management, wallet/monetization, theme, mass import, user privacy/moderation, device sessions and livestream setup. Technical connection labels remain useful in admin/studio; procedural copy clarified. Proper names, UI style tokens and quantity fragments excluded."
             ],
             "reviewed_at": "2026-11-06T11:28:44+00:00"
+        },
+        "7122561fc027d19c5e13ace78af45f4b216b39ad96b75be9d778568f6d8d1e7f": {
+            "source_hash": "7122561fc027d19c5e13ace78af45f4b216b39ad96b75be9d778568f6d8d1e7f",
+            "translation_hash": "7122561fc027d19c5e13ace78af45f4b216b39ad96b75be9d778568f6d8d1e7f",
+            "status": "editorial",
+            "contexts": [
+                "Clip transfer owner status and complete ready notification. Pending means provider confirmation/playback is not verified: no watch link, no success notice. Author titles remain literal. English/German reference copy for queue, provider wait, cancel, failures and readiness, with regional cancel/cancelled spelling. Full 125-language acceptance remains separate."
+            ],
+            "reviewed_at": "2026-11-07T20:14:15+00:00"
         },
         "712947f52fede9b1a41f3bb1231c0715bcaddd365f493517383834eef74004aa": {
             "source_hash": "712947f52fede9b1a41f3bb1231c0715bcaddd365f493517383834eef74004aa",
@@ -19324,6 +19405,15 @@
             ],
             "reviewed_at": "2026-11-06T11:28:44+00:00"
         },
+        "887e961b8c98ff1b6314cbd8a7887128632ae20b81cba3c72212bd498d2e4c55": {
+            "source_hash": "887e961b8c98ff1b6314cbd8a7887128632ae20b81cba3c72212bd498d2e4c55",
+            "translation_hash": "887e961b8c98ff1b6314cbd8a7887128632ae20b81cba3c72212bd498d2e4c55",
+            "status": "editorial",
+            "contexts": [
+                "Clip transfer owner status and complete ready notification. Pending means provider confirmation/playback is not verified: no watch link, no success notice. Author titles remain literal. English/German reference copy for queue, provider wait, cancel, failures and readiness, with regional cancel/cancelled spelling. Full 125-language acceptance remains separate."
+            ],
+            "reviewed_at": "2026-11-07T20:14:15+00:00"
+        },
         "887fa96dfc9112b1146f0544dba33a306c4fe336fa188ee95612148882fb6868": {
             "source_hash": "887fa96dfc9112b1146f0544dba33a306c4fe336fa188ee95612148882fb6868",
             "translation_hash": "887fa96dfc9112b1146f0544dba33a306c4fe336fa188ee95612148882fb6868",
@@ -19433,6 +19523,15 @@
                 "English reference editorial pass: contact/refund requests, help/scheduling, Playlist management, video/Shorts actions, growth guidance and import states/errors. Source technical backend terms retained only for developer instructions; existing import success correctly makes no processing-start claim."
             ],
             "reviewed_at": "2026-11-06T10:57:44+00:00"
+        },
+        "891ca0068feb6e630dabcb7017d2731bc0d5dd027e1f12a72aa9b8ae7a982c5d": {
+            "source_hash": "891ca0068feb6e630dabcb7017d2731bc0d5dd027e1f12a72aa9b8ae7a982c5d",
+            "translation_hash": "891ca0068feb6e630dabcb7017d2731bc0d5dd027e1f12a72aa9b8ae7a982c5d",
+            "status": "editorial",
+            "contexts": [
+                "Clip transfer owner status and complete ready notification. Pending means provider confirmation/playback is not verified: no watch link, no success notice. Author titles remain literal. English/German reference copy for queue, provider wait, cancel, failures and readiness, with regional cancel/cancelled spelling. Full 125-language acceptance remains separate."
+            ],
+            "reviewed_at": "2026-11-07T20:14:15+00:00"
         },
         "892aead9575089f1cd9fee03376eeaf467011867b32c1356c96aed8eaf80430b": {
             "source_hash": "892aead9575089f1cd9fee03376eeaf467011867b32c1356c96aed8eaf80430b",
@@ -20921,6 +21020,15 @@
             ],
             "reviewed_at": "2026-11-06T11:24:07+00:00"
         },
+        "93607c29ca076b45579ce704793ff45ee625eff6f1cc0ef0af56b241a805191d": {
+            "source_hash": "93607c29ca076b45579ce704793ff45ee625eff6f1cc0ef0af56b241a805191d",
+            "translation_hash": "93607c29ca076b45579ce704793ff45ee625eff6f1cc0ef0af56b241a805191d",
+            "status": "editorial",
+            "contexts": [
+                "Clip transfer owner status and complete ready notification. Pending means provider confirmation/playback is not verified: no watch link, no success notice. Author titles remain literal. English/German reference copy for queue, provider wait, cancel, failures and readiness, with regional cancel/cancelled spelling. Full 125-language acceptance remains separate."
+            ],
+            "reviewed_at": "2026-11-07T20:14:15+00:00"
+        },
         "937fdab03f7ddb57210e63f6a22b884881d4ad0d6cbd3ddfe0a20ec997beba25": {
             "source_hash": "5da34638394ee73cf0931de56c8c756d5b897486ddb7b5df9f8a1b3766a53539",
             "translation_hash": "5da34638394ee73cf0931de56c8c756d5b897486ddb7b5df9f8a1b3766a53539",
@@ -20975,6 +21083,15 @@
             ],
             "reviewed_at": "2026-11-06T11:32:46+00:00"
         },
+        "93de0232cf605a4eed9cce37f7b252169f3146b1c499f58421b210a9a7d606cb": {
+            "source_hash": "93de0232cf605a4eed9cce37f7b252169f3146b1c499f58421b210a9a7d606cb",
+            "translation_hash": "93de0232cf605a4eed9cce37f7b252169f3146b1c499f58421b210a9a7d606cb",
+            "status": "editorial",
+            "contexts": [
+                "Clip transfer owner status and complete ready notification. Pending means provider confirmation/playback is not verified: no watch link, no success notice. Author titles remain literal. English/German reference copy for queue, provider wait, cancel, failures and readiness, with regional cancel/cancelled spelling. Full 125-language acceptance remains separate."
+            ],
+            "reviewed_at": "2026-11-07T20:14:15+00:00"
+        },
         "93ec8868a9aa039580625e7fb8335062a0a310d4f4afc1e5f44d6790c28ec276": {
             "source_hash": "93ec8868a9aa039580625e7fb8335062a0a310d4f4afc1e5f44d6790c28ec276",
             "translation_hash": "93ec8868a9aa039580625e7fb8335062a0a310d4f4afc1e5f44d6790c28ec276",
@@ -20992,6 +21109,15 @@
                 "English reference editorial pass: navigation, channel/profile actions, upload/import status, chat, community, moderation, live discovery, library, account controls and admin settings. Obsolete developer-facing upload wording and unsupported audience-size claims corrected; names, sample content, protocol identifiers and unresolved sentence fragments excluded."
             ],
             "reviewed_at": "2026-11-06T11:17:02+00:00"
+        },
+        "945eb1d72ce64687ed23a020132d35527835d9b0526e28cbda1b26e4dcc606bb": {
+            "source_hash": "945eb1d72ce64687ed23a020132d35527835d9b0526e28cbda1b26e4dcc606bb",
+            "translation_hash": "945eb1d72ce64687ed23a020132d35527835d9b0526e28cbda1b26e4dcc606bb",
+            "status": "editorial",
+            "contexts": [
+                "Clip transfer owner status and complete ready notification. Pending means provider confirmation/playback is not verified: no watch link, no success notice. Author titles remain literal. English/German reference copy for queue, provider wait, cancel, failures and readiness, with regional cancel/cancelled spelling. Full 125-language acceptance remains separate."
+            ],
+            "reviewed_at": "2026-11-07T20:14:15+00:00"
         },
         "9472b5b3c94ab4b7fa672abe7145cfcbff6cf2bf70fffaba092369df5d9ea5c9": {
             "source_hash": "9472b5b3c94ab4b7fa672abe7145cfcbff6cf2bf70fffaba092369df5d9ea5c9",
@@ -23198,6 +23324,15 @@
             ],
             "reviewed_at": "2026-11-06T11:28:44+00:00"
         },
+        "a4b6555ec83a675929598da5eaf6963e9043e240862603d7d69642bfd4033b36": {
+            "source_hash": "a4b6555ec83a675929598da5eaf6963e9043e240862603d7d69642bfd4033b36",
+            "translation_hash": "a4b6555ec83a675929598da5eaf6963e9043e240862603d7d69642bfd4033b36",
+            "status": "editorial",
+            "contexts": [
+                "Clip transfer owner status and complete ready notification. Pending means provider confirmation/playback is not verified: no watch link, no success notice. Author titles remain literal. English/German reference copy for queue, provider wait, cancel, failures and readiness, with regional cancel/cancelled spelling. Full 125-language acceptance remains separate."
+            ],
+            "reviewed_at": "2026-11-07T20:14:15+00:00"
+        },
         "a4baef16e446bdc4beba2f4eaebdc939b085d36cebe68cea8e162ba2bb63a102": {
             "source_hash": "a4baef16e446bdc4beba2f4eaebdc939b085d36cebe68cea8e162ba2bb63a102",
             "translation_hash": "a4baef16e446bdc4beba2f4eaebdc939b085d36cebe68cea8e162ba2bb63a102",
@@ -24145,6 +24280,15 @@
             ],
             "reviewed_at": "2026-11-06T11:17:02+00:00"
         },
+        "aaf27a1c4b478d9ccdfdd6652cddd9e6451d2e983dfdf1104e1e7f1f55badc46": {
+            "source_hash": "aaf27a1c4b478d9ccdfdd6652cddd9e6451d2e983dfdf1104e1e7f1f55badc46",
+            "translation_hash": "aaf27a1c4b478d9ccdfdd6652cddd9e6451d2e983dfdf1104e1e7f1f55badc46",
+            "status": "editorial",
+            "contexts": [
+                "Clip transfer owner status and complete ready notification. Pending means provider confirmation/playback is not verified: no watch link, no success notice. Author titles remain literal. English/German reference copy for queue, provider wait, cancel, failures and readiness, with regional cancel/cancelled spelling. Full 125-language acceptance remains separate."
+            ],
+            "reviewed_at": "2026-11-07T20:14:15+00:00"
+        },
         "ab5a11c335018288f1225e7c5e4407dc6538da53fc744aed420fdb86bd152496": {
             "source_hash": "ab5a11c335018288f1225e7c5e4407dc6538da53fc744aed420fdb86bd152496",
             "translation_hash": "ab5a11c335018288f1225e7c5e4407dc6538da53fc744aed420fdb86bd152496",
@@ -25064,6 +25208,15 @@
                 "English reference editorial pass: moderation/monetization, static category labels, public help/FAQ/contact/refund guidance, API/developer metadata. User-facing help avoids database/popup jargon; legal/refund conditions preserved. CSS, identifiers, sample statistics and sample creator title excluded from copy review."
             ],
             "reviewed_at": "2026-11-06T10:21:25+00:00"
+        },
+        "b27c41631ebfceb6344f25f1ea7d062178695425de71f87ac97bac19202c1393": {
+            "source_hash": "b27c41631ebfceb6344f25f1ea7d062178695425de71f87ac97bac19202c1393",
+            "translation_hash": "b27c41631ebfceb6344f25f1ea7d062178695425de71f87ac97bac19202c1393",
+            "status": "editorial",
+            "contexts": [
+                "Clip transfer owner status and complete ready notification. Pending means provider confirmation/playback is not verified: no watch link, no success notice. Author titles remain literal. English/German reference copy for queue, provider wait, cancel, failures and readiness, with regional cancel/cancelled spelling. Full 125-language acceptance remains separate."
+            ],
+            "reviewed_at": "2026-11-07T20:14:15+00:00"
         },
         "b281936237f742bcf7a1897e6c614ade86ee5713c1da11e0e11502a416d45e57": {
             "source_hash": "b281936237f742bcf7a1897e6c614ade86ee5713c1da11e0e11502a416d45e57",
@@ -28095,6 +28248,15 @@
             ],
             "reviewed_at": "2026-11-06T11:28:44+00:00"
         },
+        "c7fd381631054d9737de447537da0ceb752dff9c0409306c2a81760879055ac4": {
+            "source_hash": "c7fd381631054d9737de447537da0ceb752dff9c0409306c2a81760879055ac4",
+            "translation_hash": "c7fd381631054d9737de447537da0ceb752dff9c0409306c2a81760879055ac4",
+            "status": "editorial",
+            "contexts": [
+                "Clip transfer owner status and complete ready notification. Pending means provider confirmation/playback is not verified: no watch link, no success notice. Author titles remain literal. English/German reference copy for queue, provider wait, cancel, failures and readiness, with regional cancel/cancelled spelling. Full 125-language acceptance remains separate."
+            ],
+            "reviewed_at": "2026-11-07T20:14:15+00:00"
+        },
         "c80abe0c62aadf7ed86b804c4784ab0725049aecb2ac00dfbb454ed620b1f5b0": {
             "source_hash": "c80abe0c62aadf7ed86b804c4784ab0725049aecb2ac00dfbb454ed620b1f5b0",
             "translation_hash": "c80abe0c62aadf7ed86b804c4784ab0725049aecb2ac00dfbb454ed620b1f5b0",
@@ -28880,6 +29042,15 @@
             ],
             "reviewed_at": "2026-11-06T10:57:46+00:00"
         },
+        "cdaa6cdab234cd98ed26ee5102b4da36f8f4153f3bed2badc3324859e54da805": {
+            "source_hash": "cdaa6cdab234cd98ed26ee5102b4da36f8f4153f3bed2badc3324859e54da805",
+            "translation_hash": "cdaa6cdab234cd98ed26ee5102b4da36f8f4153f3bed2badc3324859e54da805",
+            "status": "editorial",
+            "contexts": [
+                "Clip transfer owner status and complete ready notification. Pending means provider confirmation/playback is not verified: no watch link, no success notice. Author titles remain literal. English/German reference copy for queue, provider wait, cancel, failures and readiness, with regional cancel/cancelled spelling. Full 125-language acceptance remains separate."
+            ],
+            "reviewed_at": "2026-11-07T20:14:15+00:00"
+        },
         "cdcc4b0d2934283b6e41a9cd2f9b0833357bd87e53779ecae1905ba9e18bc6c2": {
             "source_hash": "cdcc4b0d2934283b6e41a9cd2f9b0833357bd87e53779ecae1905ba9e18bc6c2",
             "translation_hash": "cdcc4b0d2934283b6e41a9cd2f9b0833357bd87e53779ecae1905ba9e18bc6c2",
@@ -29509,6 +29680,15 @@
                 "Editorial review of all built-in help/page definitions: personal English and German guidance; API identifiers retained for developer instructions; legal and refund meaning preserved; administrator overrides excluded."
             ],
             "reviewed_at": "2026-11-06T09:18:00+00:00"
+        },
+        "d2e9c206a40675115f9c549d33c7e0a22315fe6897c80a76a21586f035b338bd": {
+            "source_hash": "d2e9c206a40675115f9c549d33c7e0a22315fe6897c80a76a21586f035b338bd",
+            "translation_hash": "d2e9c206a40675115f9c549d33c7e0a22315fe6897c80a76a21586f035b338bd",
+            "status": "editorial",
+            "contexts": [
+                "Clip transfer owner status and complete ready notification. Pending means provider confirmation/playback is not verified: no watch link, no success notice. Author titles remain literal. English/German reference copy for queue, provider wait, cancel, failures and readiness, with regional cancel/cancelled spelling. Full 125-language acceptance remains separate."
+            ],
+            "reviewed_at": "2026-11-07T20:14:15+00:00"
         },
         "d2eaa5250b8e333eb61ac68d0fffe4675d2a0a6431faba374270d0e8bf391a55": {
             "source_hash": "d2eaa5250b8e333eb61ac68d0fffe4675d2a0a6431faba374270d0e8bf391a55",
@@ -33371,6 +33551,15 @@
             ],
             "reviewed_at": "2026-11-06T11:32:46+00:00"
         },
+        "e96ec81b235504fa5ce1495884b4fc0c9d8b24ea915f663f1ad80f77c0bad1d5": {
+            "source_hash": "e96ec81b235504fa5ce1495884b4fc0c9d8b24ea915f663f1ad80f77c0bad1d5",
+            "translation_hash": "e96ec81b235504fa5ce1495884b4fc0c9d8b24ea915f663f1ad80f77c0bad1d5",
+            "status": "editorial",
+            "contexts": [
+                "Clip transfer owner status and complete ready notification. Pending means provider confirmation/playback is not verified: no watch link, no success notice. Author titles remain literal. English/German reference copy for queue, provider wait, cancel, failures and readiness, with regional cancel/cancelled spelling. Full 125-language acceptance remains separate."
+            ],
+            "reviewed_at": "2026-11-07T20:14:15+00:00"
+        },
         "e973d9276a7a2aad3b268039d1aba09f5db411df08fc6d801c74f963ae5fe001": {
             "source_hash": "e973d9276a7a2aad3b268039d1aba09f5db411df08fc6d801c74f963ae5fe001",
             "translation_hash": "e973d9276a7a2aad3b268039d1aba09f5db411df08fc6d801c74f963ae5fe001",
@@ -33685,6 +33874,15 @@
                 "English reference editorial pass: navigation, channel/profile actions, upload/import status, chat, community, moderation, live discovery, library, account controls and admin settings. Obsolete developer-facing upload wording and unsupported audience-size claims corrected; names, sample content, protocol identifiers and unresolved sentence fragments excluded."
             ],
             "reviewed_at": "2026-11-06T11:17:02+00:00"
+        },
+        "eb71761b8809d4d04b30b9837a9a55fc40bd25a38f96ec45f38539a433664c41": {
+            "source_hash": "eb71761b8809d4d04b30b9837a9a55fc40bd25a38f96ec45f38539a433664c41",
+            "translation_hash": "eb71761b8809d4d04b30b9837a9a55fc40bd25a38f96ec45f38539a433664c41",
+            "status": "editorial",
+            "contexts": [
+                "Clip transfer owner status and complete ready notification. Pending means provider confirmation/playback is not verified: no watch link, no success notice. Author titles remain literal. English/German reference copy for queue, provider wait, cancel, failures and readiness, with regional cancel/cancelled spelling. Full 125-language acceptance remains separate."
+            ],
+            "reviewed_at": "2026-11-07T20:14:15+00:00"
         },
         "eb970d213e6b508a86a3d2a6c15e088798f7177d36a7327373c066e0b80824e7": {
             "source_hash": "eb970d213e6b508a86a3d2a6c15e088798f7177d36a7327373c066e0b80824e7",
@@ -34721,6 +34919,15 @@
             ],
             "reviewed_at": "2026-11-06T10:57:46+00:00"
         },
+        "f32049471ac9ecadaaa5d53ba458dc3431d8a46b6edf002c5ffbace41dbe9ce6": {
+            "source_hash": "f32049471ac9ecadaaa5d53ba458dc3431d8a46b6edf002c5ffbace41dbe9ce6",
+            "translation_hash": "f32049471ac9ecadaaa5d53ba458dc3431d8a46b6edf002c5ffbace41dbe9ce6",
+            "status": "editorial",
+            "contexts": [
+                "Clip transfer owner status and complete ready notification. Pending means provider confirmation/playback is not verified: no watch link, no success notice. Author titles remain literal. English/German reference copy for queue, provider wait, cancel, failures and readiness, with regional cancel/cancelled spelling. Full 125-language acceptance remains separate."
+            ],
+            "reviewed_at": "2026-11-07T20:14:15+00:00"
+        },
         "f32445a73e56fb696a69e8eb47cf64a2b824fb9252c1e599ac332fe4885b4805": {
             "source_hash": "f32445a73e56fb696a69e8eb47cf64a2b824fb9252c1e599ac332fe4885b4805",
             "translation_hash": "f32445a73e56fb696a69e8eb47cf64a2b824fb9252c1e599ac332fe4885b4805",
@@ -35540,6 +35747,15 @@
             ],
             "reviewed_at": "2026-11-06T10:57:44+00:00"
         },
+        "f7edc7780028380c1df29be9e7aa1e179a57e6cb9340f02e53d3385445d5cbb1": {
+            "source_hash": "f7edc7780028380c1df29be9e7aa1e179a57e6cb9340f02e53d3385445d5cbb1",
+            "translation_hash": "f7edc7780028380c1df29be9e7aa1e179a57e6cb9340f02e53d3385445d5cbb1",
+            "status": "editorial",
+            "contexts": [
+                "Clip transfer owner status and complete ready notification. Pending means provider confirmation/playback is not verified: no watch link, no success notice. Author titles remain literal. English/German reference copy for queue, provider wait, cancel, failures and readiness, with regional cancel/cancelled spelling. Full 125-language acceptance remains separate."
+            ],
+            "reviewed_at": "2026-11-07T20:14:15+00:00"
+        },
         "f7f4f32b3ca411e8894f30a946b6bcb99fb13c6c43290d017a6b677167b03853": {
             "source_hash": "f7f4f32b3ca411e8894f30a946b6bcb99fb13c6c43290d017a6b677167b03853",
             "translation_hash": "f7f4f32b3ca411e8894f30a946b6bcb99fb13c6c43290d017a6b677167b03853",
@@ -35818,6 +36034,15 @@
                 "English reference editorial pass: contact/refund requests, help/scheduling, Playlist management, video/Shorts actions, growth guidance and import states/errors. Source technical backend terms retained only for developer instructions; existing import success correctly makes no processing-start claim."
             ],
             "reviewed_at": "2026-11-06T10:57:44+00:00"
+        },
+        "f99cc406ede6deb98744976c7f070f36d759a40411c89e2d85524b8dd74804ad": {
+            "source_hash": "f99cc406ede6deb98744976c7f070f36d759a40411c89e2d85524b8dd74804ad",
+            "translation_hash": "f99cc406ede6deb98744976c7f070f36d759a40411c89e2d85524b8dd74804ad",
+            "status": "editorial",
+            "contexts": [
+                "Clip transfer owner status and complete ready notification. Pending means provider confirmation/playback is not verified: no watch link, no success notice. Author titles remain literal. English/German reference copy for queue, provider wait, cancel, failures and readiness, with regional cancel/cancelled spelling. Full 125-language acceptance remains separate."
+            ],
+            "reviewed_at": "2026-11-07T20:14:15+00:00"
         },
         "f9b960cf17f8246f5e98a283ebbb31c4ca85a23def33fce29d39c9f2dd9669b1": {
             "source_hash": "f9b960cf17f8246f5e98a283ebbb31c4ca85a23def33fce29d39c9f2dd9669b1",

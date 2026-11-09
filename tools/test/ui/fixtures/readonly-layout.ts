@@ -62,6 +62,7 @@ export type LayoutOptions = {
   touch?: boolean;
   userAgent?: string;
   transform?: PayloadTransform;
+  strictHttps?: boolean;
 };
 
 export type LayoutSession = {
@@ -79,7 +80,7 @@ export async function layoutSession(browser: Browser, options: LayoutOptions = {
   const base = process.env.BASE_URL || 'https://crozztube.local:8443';
   const origin = new URL(base).origin;
   const context = await browser.newContext({
-    baseURL: base, ignoreHTTPSErrors: true,
+    baseURL: base, ignoreHTTPSErrors: options.strictHttps !== true,
     ...(options.userAgent ? { userAgent: options.userAgent } : {}),
     viewport: { width: options.width || 1440, height: options.height || 900 },
     reducedMotion: 'reduce', colorScheme: options.dark ? 'dark' : 'light',

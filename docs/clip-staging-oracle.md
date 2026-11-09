@@ -1,8 +1,9 @@
 # Oracle-Zugang für den Clip-Zwischenspeicher
 
-Dieser geprüfte Teil von Schritt 2 konfiguriert nur die Oracle-Verbindung.
-Warteschlange, sichere Browser-Uploads, Odysee-Import und Bereinigung sind noch
-nicht vollständig umgesetzt oder extern abgenommen. Es werden keine lokalen
+Dieser Teil von Schritt 2 enthält die Oracle-Verbindung und einen getrennten
+Objekttransport mit begrenzten Uploadrechten. Warteschlange, Browser-CORS,
+Odysee-Import und automatische Bereinigung sind noch nicht vollständig umgesetzt
+oder extern abgenommen. Es werden keine lokalen
 Video-Uploads aktiviert. Der allgemeine Dateispeicher bleibt unverändert.
 
 Trage die Werte lokal in die `.env` des laufenden ursprünglichen Projekts ein,
@@ -59,3 +60,45 @@ Storage belegt sein. Wir behalten zunächst eine deutlich kleinere Belegungsgren
 
 Quellen: [S3-Kompatibilität und Zugang](https://docs.oracle.com/en-us/iaas/Content/Object/Tasks/s3compatibleapi.htm),
 [Always-Free-Grenzen](https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier_topic-Always_Free_Resources.htm).
+
+## Begrenzte Uploadrechte und Übergabekopie
+
+`OracleStagingStore` stellt eine höchstens zehn Minuten gültige POST-Berechtigung
+für genau einen serverseitig zugewiesenen UUID-Objektnamen aus. Die signierte
+Policy bindet Bucket, MP4-Inhaltstyp, exakte Bytezahl und SHA-256-Prüfsumme.
+Die Dateigröße ist auf 64 MiB begrenzt. Kontoschlüssel bleiben serverseitig;
+das Formular enthält die abgeleitete Signatur und die öffentliche Zugriffsschlüssel-ID.
+
+Nach dem Upload prüft der Server ausschließlich Objektmetadaten. Oracle kopiert
+das Objekt intern vom Präfix `clips/incoming/` nach `clips/handoff/`. Eine
+ETag-Bedingung verhindert, dass eine zwischenzeitlich ersetzte Quelldatei
+unbemerkt kopiert wird. Auch die fertige Kopie wird geprüft. Der Hoster erhält
+eine eigene, höchstens eine Stunde gültige Leseberechtigung für diese Kopie.
+Die Anwendung liest oder transportiert bei diesen Operationen keine Videodaten.
+
+Das Browser-Formular berechtigt nicht zum Schreiben auf das Handoff-Präfix.
+Es kann aber bis zum Ablauf für dieselbe Incoming-Datei erneut verwendet werden.
+Deshalb muss die spätere Warteschlange beide Kopien reservieren, abgelaufene
+Aufträge nach laufenden Uploads erneut bereinigen und die Reservierung bis zur
+bestätigten abschließenden Bereinigung behalten. `deleteCopies` allein ist kein
+Nachweis einer dauerhaft abgeschlossenen Auftragsbereinigung.
+
+Der externe Protokolltest wurde am 7. November 2026 mit 256 synthetischen
+Textbytes durchgeführt: manipulierte Formularfelder, falsche Bytezahl und
+falscher Dateiinhalt wurden abgewiesen; korrekter POST, abgelehnte Kopie mit
+falschem ETag, validierte interne Kopie, verweigerter anonymer Abruf,
+signierter Abruf und bestätigte Löschung beider Objekte waren erfolgreich.
+Das war kein Video- oder Browser-Test und kein Odysee-Import.
+
+Der ausdrücklich gestartete Test erzeugt ausschließlich einen zufällig benannten
+Protokoll-Testauftrag und löscht nur dessen eigene beiden Objekte:
+
+```sh
+php tools/test/php/clip-staging-live-probe.php --run
+```
+
+Ohne `--run` erfolgt keine Anfrage. Der Offline-Harness führt diesen externen
+Test nicht automatisch aus. Für einen Live-Test des späteren Gesamtablaufs
+sind weiterhin Browser, Warteschlange und Odysee-Verarbeitung nötig.
+
+Quelle: [Oracles POST-Policy, Größen- und Prüfsummenbedingungen](https://docs.oracle.com/en-us/iaas/Content/Object/s3-post-upload.htm).

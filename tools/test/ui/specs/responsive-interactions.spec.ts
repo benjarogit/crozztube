@@ -333,7 +333,13 @@ test('opening scrolled navigation keeps the sticky header and drawer aligned', a
 
 test('navigation stays aligned after profile tip/back and video comment jumps', async ({ browser }) => {
   const video = applicationJson('/api/videos?type=video&per_page=1', false).data[0];
-  const session = await layoutSession(browser, { authenticated: false, width: 924, height: 902, transform: (_path, payload) => payload.video ? { ...payload, video: { ...payload.video, source_type: 'upload', import_provider: null, video_url: null, video_sources: [], embed_url: null, playback_pending: false } } : payload });
+  const session = await layoutSession(browser, { authenticated: false, width: 924, height: 902, transform: (path, payload) => {
+    // This navigation fixture has no playable media. Keep the independently
+    // loaded resolver plugin consistent with it, rather than refreshing a real
+    // imported video's expiring source in a read-only layout test.
+    if (path.startsWith('/api/source-resolver/status/')) return { ...payload, source: null };
+    return payload.video ? { ...payload, video: { ...payload.video, source_type: 'upload', import_provider: null, video_url: null, video_sources: [], embed_url: null, playback_pending: false } } : payload;
+  } });
   try {
     const { page } = session;
     const openAndCheck = async (name: string) => {

@@ -209,6 +209,13 @@ Route::prefix('v1')
             TrackNativeDeviceSession::class,
         ])->group(function (): void {
             Route::middleware(RequireTokenAbility::class.':account:read')->group(function (): void {
+                Route::get('/clip-transfers', [\App\Http\Controllers\Api\ClipTransferController::class, 'index'])->name('clip-transfers.index');
+                Route::get('/clip-transfers/{uuid}', [\App\Http\Controllers\Api\ClipTransferController::class, 'show'])->whereUuid('uuid')->name('clip-transfers.show');
+                Route::get('/clip-transfers/{uuid}/playback', [\App\Http\Controllers\Api\ClipTransferController::class, 'playback'])->whereUuid('uuid')->middleware('throttle:20,1')->name('clip-transfers.playback');
+            });
+            Route::post('/clip-transfers/{uuid}/cancel', [\App\Http\Controllers\Api\ClipTransferController::class, 'cancel'])
+                ->whereUuid('uuid')->middleware([RequireTokenAbility::class.':account:write', 'throttle:api-write'])->name('clip-transfers.cancel');
+            Route::middleware(RequireTokenAbility::class.':account:read')->group(function (): void {
                 Route::get('/auth/sessions', [NativeDeviceSessionController::class, 'index'])->name('auth.sessions.index');
                 Route::delete('/auth/sessions/current', [NativeDeviceSessionController::class, 'destroyCurrent'])->name('auth.sessions.current.destroy');
             });

@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Models\Video;
 use App\Services\Api\V1\CommunityAccessService;
 use App\Services\Api\V1\VideoAccessService;
+use App\Support\MediaProviderSettings;
 use App\Support\Thumbnails\Hosters;
 use App\Support\Thumbnails\NightWindow;
 use App\Support\Thumbnails\RemoteImages;
@@ -344,7 +345,7 @@ class ImageUploads
 
     private function ensureMirrors(ImageUpload $upload): void
     {
-        foreach (config('thumbnails.providers') as $id => $provider) {
+        foreach (MediaProviderSettings::imageProviders() as $id => $provider) {
             ImageUploadMirror::firstOrCreate(['image_upload_id' => $upload->id, 'provider_id' => $id],
                 ['source_version' => $upload->content_hash, 'priority' => $provider['priority'], 'status' => 'pending', 'next_attempt_at' => NightWindow::next()]);
         }

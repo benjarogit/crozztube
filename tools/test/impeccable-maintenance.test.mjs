@@ -32,6 +32,7 @@ function fixture(t) {
   return { root, remote };
 }
 const passing = [[process.execPath, '-e', 'process.exit(0)']];
+const nextPatch = version => { const parts = version.split('.').map(Number); parts[2]++; return parts.join('.'); };
 function skillFixture(t) {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'crozztube-lock-test-'));
   t.after(() => fs.rmSync(dir, { recursive: true, force: true }));
@@ -54,9 +55,13 @@ test('corrupted binary bytes are rejected before any engine execution', () => {
 test('an engine release without a matching installer remains pending without writes', async t => {
   const root = skillFixture(t);
   const before = fs.readFileSync(path.join(root, 'harness/impeccable.lock.json'));
-  const releases = [{ tag_name: 'skill-v4.8.0' }, { tag_name: 'cli-v4.8.0' }, { tag_name: 'engine-v0.1.18' }, { tag_name: 'engine-v0.1.19' }];
+  const lock = installed(root), candidate = nextPatch(lock.engine.version);
+  const releases = [{ tag_name: `skill-v${lock.skill.version}` }, { tag_name: `cli-v${lock.cli.referenceVersion}` },
+    { tag_name: `engine-v${lock.engine.version}` }, { tag_name: `engine-v${candidate}` }];
   const report = await check(root, { releases, resolve: async () => 'a'.repeat(40), read: async (_, file) => fs.readFileSync(path.join(root, file)) });
   assert.equal(report.updates.length, 0);
+  assert.equal(report.pending.length, 1);
+  assert.equal(report.pending[0].version, candidate);
   assert.match(report.pending[0].reason, /still pins/);
   await apply(root, report);
   assert.deepEqual(fs.readFileSync(path.join(root, 'harness/impeccable.lock.json')), before);
@@ -64,18 +69,19 @@ test('an engine release without a matching installer remains pending without wri
 
 test('a consistent engine update applies verified objects and retains local-only files', async t => {
   const root = skillFixture(t);
-  const lock = installed(root);
+  const lock = installed(root), candidate = nextPatch(lock.engine.version);
   const commit = 'a'.repeat(40);
   const names = ['scripts/VERSION', 'scripts/engine-checksums.txt', 'scripts/impeccable', 'scripts/impeccable.cmd'];
   const incoming = Object.fromEntries(names.map(file => [prefix + file, fs.readFileSync(path.join(root, prefix + file))]));
-  incoming[prefix + names[0]] = Buffer.from('0.1.19\n');
-  incoming[prefix + names[1]] = Buffer.from(incoming[prefix + names[1]].toString().replaceAll('0.1.18', '0.1.19'));
+  incoming[prefix + names[0]] = Buffer.from(candidate + '\n');
+  incoming[prefix + names[1]] = Buffer.from(incoming[prefix + names[1]].toString().replaceAll(lock.engine.version, candidate));
   const tree = Object.entries(incoming).map(([file, bytes]) => ({ path: file, sha: file.endsWith('impeccable.cmd') ? lock.files[file].upstreamBlob : blobHash(bytes), mode: '100644', type: 'blob' }));
-  const checksums = parseChecksums(incoming[prefix + names[1]].toString(), '0.1.19');
+  const checksums = parseChecksums(incoming[prefix + names[1]].toString(), candidate);
   const original = Object.fromEntries(Object.keys(incoming).map(file => [lock.files[file].upstreamBlob, fs.readFileSync(path.join(root, file))]));
   const local = fs.readFileSync(path.join(root, prefix + 'SOURCE.md'));
-  await apply(root, { updates: [{ kind: 'engine', version: '0.1.19', engine: '0.1.19', commit, checksums }], pending: [] }, { tree: async () => tree, read: async (_, file) => incoming[file], blob: async sha => original[sha] });
-  assert.equal(installed(root).engine.version, '0.1.19');
+  await apply(root, { updates: [{ kind: 'engine', version: candidate, engine: candidate, commit, checksums }], pending: [] }, { tree: async () => tree, read: async (_, file) => incoming[file], blob: async sha => original[sha] });
+  assert.equal(installed(root).engine.version, candidate);
+  assert.notEqual(installed(root).engine.version, lock.engine.version);
   assert.deepEqual(fs.readFileSync(path.join(root, prefix + 'SOURCE.md')), local);
 });
 

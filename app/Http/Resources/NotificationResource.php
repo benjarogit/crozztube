@@ -44,6 +44,7 @@ class NotificationResource extends JsonResource
     private function actionText(): string
     {
         return match ($this->type) {
+            'clip_ready' => '',
             'video_ready' => 'is ready to watch',
             'live_replay_ready' => 'is ready to replay',
             'video_comment' => 'commented on your video',
@@ -70,6 +71,7 @@ class NotificationResource extends JsonResource
     private function actorText(string $actorName, ?string $replayAudienceRole): string
     {
         return match ($this->type) {
+            'clip_ready' => 'Your clip is ready to watch.',
             'video_ready' => 'Your video',
             'live_replay_ready' => match ($replayAudienceRole) {
                 'streamer' => 'Your live stream',
@@ -96,6 +98,11 @@ class NotificationResource extends JsonResource
 
     private function targetUrl($video, $comment, $actor, $communityPost): ?string
     {
+        if ($this->type === 'clip_ready') {
+            $id = (string) data_get($this->data, 'clip_id', '');
+
+            return \Illuminate\Support\Str::isUuid($id) ? '/clip-uploads?clip='.$id : '/clip-uploads';
+        }
         if (filled(data_get($this->data, 'to'))) {
             return (string) data_get($this->data, 'to');
         }
@@ -122,6 +129,7 @@ class NotificationResource extends JsonResource
     private function detailText($video, $comment, $communityPost, ?string $replayAudienceRole): string
     {
         return match ($this->type) {
+            'clip_ready' => (string) data_get($this->data, 'title', ''),
             'video_ready' => $video?->title ? 'Your upload "'.$video->title.'" has finished processing.' : 'Your upload has finished processing.',
             'live_replay_ready' => $video?->title
                 ? ($replayAudienceRole === 'streamer' ? 'The replay "'.$video->title.'" has finished processing.' : 'The replay "'.$video->title.'" is now available to watch.')
@@ -165,7 +173,7 @@ class NotificationResource extends JsonResource
     private function badgeIcon(): string
     {
         return match ($this->type) {
-            'video_ready', 'live_replay_ready' => 'play',
+            'video_ready', 'live_replay_ready', 'clip_ready' => 'play',
             'video_comment', 'comment_mention', 'community_mention' => 'comment',
             'video_like', 'comment_like', 'community_like' => 'heart',
             'community_comment' => 'comment',
@@ -181,7 +189,7 @@ class NotificationResource extends JsonResource
     private function badgeClass(): string
     {
         return match ($this->type) {
-            'video_ready', 'live_replay_ready' => 'playlist',
+            'video_ready', 'live_replay_ready', 'clip_ready' => 'playlist',
             'video_comment', 'comment_mention', 'community_mention', 'community_comment', 'community_poll_vote' => 'comment',
             'video_like', 'comment_like', 'community_like' => 'like',
             'channel_subscribe' => 'follow',

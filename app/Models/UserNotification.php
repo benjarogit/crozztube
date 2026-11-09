@@ -35,6 +35,7 @@ class UserNotification extends Model
         'comment_id',
         'channel_id',
         'community_post_id',
+        'clip_transfer_id',
         'type',
         'data',
         'read_at',

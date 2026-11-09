@@ -17,15 +17,16 @@ class ThumbnailStatus extends Command
 
     public function handle(): int
     {
+        $providers = \App\Support\MediaProviderSettings::imageProviders();
         $this->line(json_encode([
             'night' => [config('thumbnails.night_start'), config('thumbnails.night_end'), config('thumbnails.timezone')],
             'in_window' => NightWindow::contains(), 'paused' => NightWindow::paused(),
             'providers' => ThumbnailProvider::orderBy('priority')->get()->map(fn ($p) => [
                 'id' => $p->id, 'priority' => $p->priority,
-                'configured' => (bool) config('thumbnails.providers.'.$p->id.'.supported')
-                    && (! config('thumbnails.providers.'.$p->id.'.requires_key', true)
-                        || trim((string) config('thumbnails.providers.'.$p->id.'.key')) !== ''),
-                'supported' => (bool) config('thumbnails.providers.'.$p->id.'.supported'), 'paused_until' => $p->paused_until,
+                'configured' => (bool) ($providers[$p->id]['supported'] ?? false)
+                    && (! ($providers[$p->id]['requires_key'] ?? true)
+                        || trim((string) ($providers[$p->id]['key'] ?? '')) !== ''),
+                'supported' => (bool) ($providers[$p->id]['supported'] ?? false), 'paused_until' => $p->paused_until,
                 'circuit_open' => $p->circuit_open, 'last_result' => $p->last_result,
             ]),
             'states' => ThumbnailMirror::query()->whereHas('video', fn ($q) => $q->whereColumn('videos.thumbnail_source_version', 'thumbnail_mirrors.source_version'))
