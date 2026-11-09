@@ -55,6 +55,9 @@
         "clip-workflow-copy",
         "clip-confirmation-browser",
         "clip-gateway",
+        "action-copy",
+        "action-consistency-browser",
+        "watch-menu-regressions",
         "staged-safety"
       ]
     },
@@ -361,6 +364,33 @@
         "tools/test/php/clip-gateway-checks.php"
       ],
       "timeoutMs": 30000
+    },
+    "action-copy": {
+      "argv": [
+        "php",
+        "tools/test/php/action-copy-checks.php"
+      ],
+      "timeoutMs": 30000
+    },
+    "action-consistency-browser": {
+      "argv": [
+        "node",
+        "tools/test/ui/action-consistency.mjs"
+      ],
+      "timeoutMs": 240000
+    },
+    "watch-menu-regressions": {
+      "argv": [
+        "node",
+        "tools/test/ui/node_modules/playwright/cli.js",
+        "test",
+        "--config",
+        "tools/test/ui/playwright.config.ts",
+        "watch-menu.spec.ts",
+        "--project=chromium",
+        "--workers=1"
+      ],
+      "timeoutMs": 180000
     }
   },
   "defaults": {

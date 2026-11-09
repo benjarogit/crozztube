@@ -4982,7 +4982,7 @@ function StudioCommentsCard({ initialComments, navigate, auth }) {
   return <article className="studio-card recent-comments-card">
     <div className="studio-card-head compact">
       <h2>Recent Comments</h2>
-      <button className="text-button" onClick={() => navigate('/studio/content')}>View all <span>→</span></button>
+      <button className="text-button" onClick={() => navigate('/studio/content')}>View all</button>
     </div>
     {notice && <div className="studio-comment-notice" aria-live="polite">{notice}</div>}
     {orderedComments.length ? orderedComments.map((comment) => <div className={`studio-comment-row ${comment.pinned ? 'is-pinned' : ''}`} key={comment.id} id={`comment-${comment.id}`}>
@@ -15136,6 +15136,9 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
   const defaultQualityAppliedRef = useRef(false);
   const detailMenuRef = useRef(null);
   const detailMenuShellRef = useRef(null);
+  const detailShareShellRef = useRef(null);
+  const detailMenuTriggerRef = useRef(null);
+  const returnToManageRef = useRef(false);
   const playerContextMenuRef = useRef(null);
   const watchPlayerStageRef = useRef(null);
   const watchVideoPlayerRef = useRef(null);
@@ -15168,6 +15171,7 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
   const [localLiked, setLocalLiked] = useState(false);
   const [localSubscribed, setLocalSubscribed] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [dropdownView, setDropdownView] = useState('actions');
   const [dropdownLayout, setDropdownLayout] = useState(null);
   const [descriptionExpanded, setDescriptionExpanded] = useState(false);
   const [watchNotice, setWatchNotice] = useState('');
@@ -15625,10 +15629,13 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
   useEffect(() => {
     if (!dropdownOpen) return undefined;
     const closeOnOutside = (event) => {
-      if (!detailMenuShellRef.current?.contains(event.target) && !detailMenuRef.current?.contains(event.target)) setDropdownOpen(false);
+      if (!detailMenuShellRef.current?.contains(event.target) && !detailShareShellRef.current?.contains(event.target) && !detailMenuRef.current?.contains(event.target)) setDropdownOpen(false);
     };
     const closeOnEscape = (event) => {
-      if (event.key === 'Escape') { setDropdownOpen(false); detailMenuShellRef.current?.querySelector('button')?.focus(); }
+      if (event.key !== 'Escape' || event.defaultPrevented) return;
+      event.preventDefault();
+      if (dropdownView === 'manage') { returnToManageRef.current = true; setDropdownView('actions'); }
+      else { setDropdownOpen(false); detailMenuTriggerRef.current?.focus({ preventScroll: true }); }
     };
     document.addEventListener('mousedown', closeOnOutside);
     document.addEventListener('keydown', closeOnEscape);
@@ -15636,11 +15643,11 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
       document.removeEventListener('mousedown', closeOnOutside);
       document.removeEventListener('keydown', closeOnEscape);
     };
-  }, [dropdownOpen]);
+  }, [dropdownOpen, dropdownView]);
 
   useLayoutEffect(() => {
     if (!dropdownOpen) { setDropdownLayout(null); return undefined; }
-    const shell = detailMenuShellRef.current;
+    const shell = detailMenuTriggerRef.current;
     const menu = detailMenuRef.current;
     if (!shell || !menu) return undefined;
     const updatePlacement = () => {
@@ -15676,11 +15683,14 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
       window.visualViewport?.removeEventListener('resize', updatePlacement);
       window.visualViewport?.removeEventListener('scroll', updatePlacement);
     };
-  }, [dropdownOpen]);
+  }, [dropdownOpen, dropdownView]);
 
   useLayoutEffect(() => {
-    if (dropdownOpen && dropdownLayout) detailMenuRef.current?.querySelector('button:not(:disabled)')?.focus({ preventScroll: true });
-  }, [dropdownOpen, Boolean(dropdownLayout)]);
+    if (!dropdownOpen || !dropdownLayout) return;
+    const selector = returnToManageRef.current && dropdownView === 'actions' ? '[data-watch-manage]' : 'button:not(:disabled)';
+    detailMenuRef.current?.querySelector(selector)?.focus({ preventScroll: true });
+    returnToManageRef.current = false;
+  }, [dropdownOpen, dropdownView, Boolean(dropdownLayout)]);
 
   const handleDetailMenuKeys = (event) => {
     const items = [...(detailMenuRef.current?.querySelectorAll('button:not(:disabled)') || [])];
@@ -15689,9 +15699,13 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
       const index = items.indexOf(document.activeElement);
       const next = event.key === 'Home' ? 0 : event.key === 'End' ? items.length - 1 : (index + (event.key === 'ArrowUp' ? -1 : 1) + items.length) % items.length;
       items[next]?.focus();
+    } else if (event.key === 'ArrowRight' && document.activeElement?.hasAttribute('data-watch-manage')) {
+      event.preventDefault(); setDropdownView('manage');
+    } else if (event.key === 'ArrowLeft' && dropdownView === 'manage') {
+      event.preventDefault(); returnToManageRef.current = true; setDropdownView('actions');
     } else if (event.key === 'Tab') {
       setDropdownOpen(false);
-      detailMenuShellRef.current?.querySelector('button')?.focus({ preventScroll: true });
+      detailMenuTriggerRef.current?.focus({ preventScroll: true });
     }
   };
 
@@ -15946,10 +15960,13 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
     }
   };
 
-  const toggleVideoDropdown = async () => {
-    const opening = !dropdownOpen;
+  const toggleVideoDropdown = async (view, trigger) => {
+    const opening = !dropdownOpen || (view === 'share') !== (dropdownView === 'share');
+    detailMenuTriggerRef.current = trigger;
+    returnToManageRef.current = false;
+    setDropdownView(view);
     setDropdownOpen(opening);
-    if (opening) await refreshWatchMenuState();
+    if (opening && view === 'actions') await refreshWatchMenuState();
   };
 
   useEffect(() => {
@@ -16084,6 +16101,7 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
       }
     }
     setDropdownOpen(false);
+    if (action === 'share' || action === 'copy' || action === 'pin') detailMenuTriggerRef.current?.focus({ preventScroll: true });
   };
 
   const like = async () => {
@@ -16790,22 +16808,27 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
             <button className={`action-pill ${liked ? 'active' : ''}`} onClick={like} aria-label={t(liked ? 'Unlike video' : 'Like video')} aria-pressed={liked}><Icon name="like" size={18} /> {formatNumber(video.likes_count)}</button>
             <button type="button" className="action-pill" aria-label={t('Comments')} onClick={() => document.querySelector('.watch-comments-card')?.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' })}><Icon name="comment" size={18} /> {formatNumber(video.comments_count)}</button>
             <button className={`action-pill ${isWatchLater ? 'active' : ''}`} onClick={saveVideo} aria-label={t(isWatchLater ? 'Remove from Watch later' : 'Add to Watch later')} aria-pressed={isWatchLater}><Icon name="bookmark" size={18}/><span data-i18n-skip>{t(isWatchLater ? 'Saved' : 'Save')}</span></button>
-            <button className="action-pill" onClick={shareVideo}><Icon name="share" size={18} /> Share</button>
+            <button ref={detailShareShellRef} type="button" className={`action-pill ${dropdownOpen && dropdownView === 'share' ? 'active' : ''}`} aria-label={t('Share Video')} aria-haspopup="menu" aria-expanded={dropdownOpen && dropdownView === 'share'} aria-controls={`watch-video-actions-${slug}`} onClick={(event) => toggleVideoDropdown('share', event.currentTarget)}><Icon name="share" size={18} /> Share</button>
             <div className="video-detail-menu-shell" ref={detailMenuShellRef}>
-              <button className={`action-pill icon-only ${dropdownOpen ? 'active' : ''}`} onClick={toggleVideoDropdown} aria-label="Video actions" aria-haspopup="menu" aria-controls={`watch-video-actions-${slug}`} aria-expanded={dropdownOpen}><Icon name="more" size={18} /></button>
-              {dropdownOpen && createPortal(<div ref={detailMenuRef} id={`watch-video-actions-${slug}`} role="menu" aria-label={t('Video actions')} className={`video-detail-action-menu watch-detail-menu open-${dropdownLayout?.placement || 'down'}`} onKeyDown={handleDetailMenuKeys} style={dropdownLayout ? { top: dropdownLayout.top, left: dropdownLayout.left, width: dropdownLayout.width, maxHeight: dropdownLayout.maxHeight, '--watch-menu-sheet-max-height': `${dropdownLayout.sheetMaxHeight}px` } : { visibility: 'hidden' }}>
-                {canTipVideoCreator && <button type="button" role="menuitem" className="video-detail-action-item creator-tip-action" onClick={() => { setDropdownOpen(false); auth.user ? setCreatorTipOpen(true) : navigate('/login'); }}><Icon name="wallet" size={20}/><span>Send tip</span></button>}
-                {isOwnVideoChannel && <><button type="button" role="menuitem" className="video-detail-action-item" onClick={() => runVideoMenuAction('edit')}><Icon name="edit" size={20}/><span>Edit video</span></button>{!video.is_short && video.source_type !== 'live_replay' && <button type="button" role="menuitem" className="video-detail-action-item" onClick={() => runVideoMenuAction('boost')}><Icon name="trending" size={20}/><span>Boost video</span></button>}<button type="button" role="menuitem" className={`video-detail-action-item ${videoMenuState.pinned ? 'is-selected' : ''}`} onClick={() => runVideoMenuAction('pin')} disabled={videoMenuState.pinning}><Icon name={videoMenuState.pinned ? 'pinOff' : 'pin'} size={20}/><span>{videoMenuState.pinning ? 'Saving...' : videoMenuState.pinned ? 'Unpin from profile' : 'Pin to profile'}</span></button><div className="video-detail-menu-divider" /></>}
-                <button type="button" role="menuitem" className="video-detail-action-item" onClick={() => runVideoMenuAction('playlist')}><Icon name="queue" size={20}/><span>{videoMenuState.playlist ? 'Remove from Playlist' : 'Add to Playlist'}</span></button>
-                <div className="video-detail-menu-divider" />
-                <button type="button" role="menuitem" className="video-detail-action-item" onClick={() => runVideoMenuAction('share')}><Icon name="share" size={20}/><span>Share Video</span></button>
-                <button type="button" role="menuitem" className="video-detail-action-item" onClick={() => runVideoMenuAction('copy')}><Icon name="link" size={20}/><span>Copy Link</span></button>
-                <div className="video-detail-menu-divider" />
-                <button type="button" role="menuitem" className="video-detail-action-item" onClick={() => runVideoMenuAction('watchLater')}><Icon name="clock" size={20}/><span>{isWatchLater ? 'Remove from Watch later' : 'Add to Watch later'}</span></button>
-                <div className="video-detail-menu-divider" />
-                <button type="button" role="menuitem" className={`video-detail-action-item ${videoMenuState.reported ? 'is-selected' : ''}`} onClick={() => runVideoMenuAction('report')}><Icon name="flag" size={20}/><span>{videoMenuState.reported ? 'Reported' : 'Report Video'}</span></button>
-                {!isOwnVideoChannel && <button type="button" role="menuitem" className={`video-detail-action-item danger ${videoMenuState.hidden ? 'is-selected' : ''}`} onClick={() => runVideoMenuAction('notInterested')}><Icon name="block" size={20}/><span>{videoMenuState.hidden ? 'Marked Not Interested' : 'Not Interested'}</span></button>}
-                {canDeleteVideo && <><div className="video-detail-menu-divider" /><button type="button" role="menuitem" className="video-detail-action-item danger" onClick={() => runVideoMenuAction('delete')} disabled={videoDeleting}><Icon name="trash" size={20}/><span>{videoDeleting ? 'Deleting...' : 'Delete Video'}</span></button></>}
+              <button className={`action-pill icon-only ${dropdownOpen && dropdownView !== 'share' ? 'active' : ''}`} onClick={(event) => toggleVideoDropdown('actions', event.currentTarget)} aria-label="Video actions" aria-haspopup="menu" aria-controls={`watch-video-actions-${slug}`} aria-expanded={dropdownOpen && dropdownView !== 'share'}><Icon name="more" size={18} /></button>
+              {dropdownOpen && createPortal(<div ref={detailMenuRef} id={`watch-video-actions-${slug}`} role="menu" aria-label={t(dropdownView === 'share' ? 'Share Video' : dropdownView === 'manage' ? 'Manage video' : 'Video actions')} className={`video-detail-action-menu watch-detail-menu open-${dropdownLayout?.placement || 'down'}`} onKeyDown={handleDetailMenuKeys} style={dropdownLayout ? { top: dropdownLayout.top, left: dropdownLayout.left, width: dropdownLayout.width, maxHeight: dropdownLayout.maxHeight, '--watch-menu-sheet-max-height': `${dropdownLayout.sheetMaxHeight}px` } : { visibility: 'hidden' }}>
+                {dropdownView === 'share' ? <>
+                  <button type="button" role="menuitem" className="video-detail-action-item" onClick={() => runVideoMenuAction('share')}><Icon name="share" size={20}/><span>Share Video</span></button>
+                  <button type="button" role="menuitem" className="video-detail-action-item" onClick={() => runVideoMenuAction('copy')}><Icon name="link" size={20}/><span>Copy Link</span></button>
+                </> : dropdownView === 'manage' ? <>
+                  <button type="button" role="menuitem" className="video-detail-action-item" onClick={() => { returnToManageRef.current = true; setDropdownView('actions'); }}><Icon name="chevronLeft" size={20}/><span>Back</span></button>
+                  <div className="video-detail-menu-divider" />
+                  {isOwnVideoChannel && <><button type="button" role="menuitem" className="video-detail-action-item" onClick={() => runVideoMenuAction('edit')}><Icon name="edit" size={20}/><span>Edit video</span></button>{!video.is_short && video.source_type !== 'live_replay' && <button type="button" role="menuitem" className="video-detail-action-item" onClick={() => runVideoMenuAction('boost')}><Icon name="trending" size={20}/><span>Boost video</span></button>}<button type="button" role="menuitem" className={`video-detail-action-item ${videoMenuState.pinned ? 'is-selected' : ''}`} onClick={() => runVideoMenuAction('pin')} disabled={videoMenuState.pinning}><Icon name={videoMenuState.pinned ? 'pinOff' : 'pin'} size={20}/><span>{videoMenuState.pinning ? 'Saving...' : videoMenuState.pinned ? 'Unpin from profile' : 'Pin to profile'}</span></button></>}
+                  {canDeleteVideo && <>{isOwnVideoChannel && <div className="video-detail-menu-divider" />}<button type="button" role="menuitem" className="video-detail-action-item danger" onClick={() => runVideoMenuAction('delete')} disabled={videoDeleting}><Icon name="trash" size={20}/><span>{videoDeleting ? 'Deleting...' : 'Delete Video'}</span></button></>}
+                </> : <>
+                  {canTipVideoCreator && <button type="button" role="menuitem" className="video-detail-action-item creator-tip-action" onClick={() => { setDropdownOpen(false); auth.user ? setCreatorTipOpen(true) : navigate('/login'); }}><Icon name="wallet" size={20}/><span>Send tip</span></button>}
+                  {(isOwnVideoChannel || canDeleteVideo) && <button type="button" role="menuitem" className="video-detail-action-item" data-watch-manage aria-haspopup="menu" aria-expanded={false} onClick={() => setDropdownView('manage')}><Icon name="edit" size={20}/><span>Manage video</span><Icon name="chevronRight" size={16}/></button>}
+                  <button type="button" role="menuitem" className="video-detail-action-item" onClick={() => runVideoMenuAction('playlist')}><Icon name="queue" size={20}/><span>{videoMenuState.playlist ? 'Remove from Playlist' : 'Add to Playlist'}</span></button>
+                  {!isOwnVideoChannel && <><div className="video-detail-menu-divider" />
+                    {video.can_report !== false && <button type="button" role="menuitem" className={`video-detail-action-item ${videoMenuState.reported ? 'is-selected' : ''}`} onClick={() => runVideoMenuAction('report')}><Icon name="flag" size={20}/><span>{videoMenuState.reported ? 'Reported' : 'Report Video'}</span></button>}
+                    <button type="button" role="menuitem" className={`video-detail-action-item danger ${videoMenuState.hidden ? 'is-selected' : ''}`} onClick={() => runVideoMenuAction('notInterested')}><Icon name="block" size={20}/><span>{videoMenuState.hidden ? 'Marked Not Interested' : 'Not Interested'}</span></button>
+                  </>}
+                </>}
               </div>, document.body)}
             </div>
           </div>

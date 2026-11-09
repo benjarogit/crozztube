@@ -1,0 +1,41 @@
+{
+  "context": "Watch-page menu disclosure for owner/moderator management actions. Full action label in the existing icon-and-text menu; separate from viewer sharing. Reference/regional English and informal German checked in the owner, guest and moderator flows.",
+  "messages": {
+    "Manage video": {
+      "en": "Manage video",
+      "de": "Video verwalten"
+    },
+    "Edit video": {
+      "en": "Edit video",
+      "de": "Video bearbeiten"
+    },
+    "Boost video": {
+      "en": "Boost video",
+      "de": "Video bewerben"
+    },
+    "Pin to profile": {
+      "en": "Pin to profile",
+      "de": "Im Profil anpinnen"
+    },
+    "Unpin from profile": {
+      "en": "Unpin from profile",
+      "de": "Anpinnen aufheben"
+    },
+    "Delete Video": {
+      "en": "Delete video",
+      "de": "Video löschen"
+    },
+    "Report Video": {
+      "en": "Report video",
+      "de": "Video melden"
+    },
+    "Not Interested": {
+      "en": "Not interested",
+      "de": "Kein Interesse"
+    },
+    "Marked Not Interested": {
+      "en": "Marked as not interested",
+      "de": "Als „Kein Interesse“ markiert"
+    }
+  }
+}

@@ -7557,7 +7557,7 @@ function TableFooter({ text, pages = [], activePage = 1, lastPage = null, onPage
   };
   const maxPage = lastPage || Math.max(...pages.map((page) => Number(page) || 1), activePage);
 
-  return <div className="admin-table-footer"><span>{text}</span><div className="admin-pagination"><button type="button" onClick={(event) => goToPage(activePage - 1, event.currentTarget)} disabled={!onPageChange || activePage <= 1}><AdminIcon name="chevronLeft" size={14} /></button>{pages.map((page, index) => <button type="button" className={Number(page) === activePage || (!onPageChange && index === 0) ? 'active' : ''} key={`${page}-${index}`} onClick={(event) => goToPage(page, event.currentTarget)} disabled={!onPageChange}>{page}</button>)}<button type="button" onClick={(event) => goToPage(activePage + 1, event.currentTarget)} disabled={!onPageChange || activePage >= maxPage}><AdminIcon name="chevronRight" size={14} /></button></div></div>;
+  return <div className="admin-table-footer"><span>{text}</span><div className="admin-pagination"><button type="button" onClick={(event) => goToPage(activePage - 1, event.currentTarget)} disabled={!onPageChange || activePage <= 1}><AdminIcon name="chevronLeft" size={14} /></button>{pages.map((page, index) => <button type="button" className={Number(page) === activePage || (!onPageChange && index === 0) ? 'active' : ''} aria-current={Number(page) === activePage || (!onPageChange && index === 0) ? 'page' : undefined} key={`${page}-${index}`} onClick={(event) => goToPage(page, event.currentTarget)} disabled={!onPageChange}>{page}</button>)}<button type="button" onClick={(event) => goToPage(activePage + 1, event.currentTarget)} disabled={!onPageChange || activePage >= maxPage}><AdminIcon name="chevronRight" size={14} /></button></div></div>;
 }
 
 function SideCard({ title, action, children, className = '', onAction = null }) {
@@ -7912,6 +7912,7 @@ function AdminIcon({ name, size = 20 }) {
     userPlus: <><circle cx="9" cy="8" r="3.5" /><path d="M3.5 20a5.5 5.5 0 0 1 11 0" /><path d="M18 8h4M20 6v4" /></>,
     play: <path d="M8 5v14l11-7-11-7Z" />,
     chevronDown: <path d="m7 10 5 5 5-5" />,
+    chevronLeft: <path d="m15 6-6 6 6 6" />,
     chevronRight: <path d="m9 6 6 6-6 6" />,
     menu: <><path d="M4 7h16" /><path d="M4 12h16" /><path d="M4 17h16" /></>,
     close: <><path d="m6 6 12 12" /><path d="M18 6 6 18" /></>,

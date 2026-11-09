@@ -848,6 +848,15 @@
             ],
             "reviewed_at": "2026-11-06T11:32:47+00:00"
         },
+        "05a79885effe6f14b868a3683f72a8cee43c9964d437e957499bf4256b01f157": {
+            "source_hash": "60f7c4c8be73d49ba1430f4691490ebd6e5103b855e4e30f4eff923b27b2ff0e",
+            "translation_hash": "60f7c4c8be73d49ba1430f4691490ebd6e5103b855e4e30f4eff923b27b2ff0e",
+            "status": "editorial",
+            "contexts": [
+                "Watch-page menu disclosure for owner/moderator management actions. Full action label in the existing icon-and-text menu; separate from viewer sharing. Reference/regional English and informal German checked in the owner, guest and moderator flows."
+            ],
+            "reviewed_at": "2026-11-09T10:17:46+00:00"
+        },
         "05b0bbc867479c5409f07ac61dffbc624cff168b750019454fe0bfb9deb7dc27": {
             "source_hash": "05b0bbc867479c5409f07ac61dffbc624cff168b750019454fe0bfb9deb7dc27",
             "translation_hash": "05b0bbc867479c5409f07ac61dffbc624cff168b750019454fe0bfb9deb7dc27",
@@ -3997,6 +4006,15 @@
                 "English reference editorial pass: contact/refund requests, help/scheduling, Playlist management, video/Shorts actions, growth guidance and import states/errors. Source technical backend terms retained only for developer instructions; existing import success correctly makes no processing-start claim."
             ],
             "reviewed_at": "2026-11-06T10:57:45+00:00"
+        },
+        "1e3ae189b0e055e7e6c1c68fc9af1d7c05088885252bd5fe5f7382a0b07cd095": {
+            "source_hash": "1e3ae189b0e055e7e6c1c68fc9af1d7c05088885252bd5fe5f7382a0b07cd095",
+            "translation_hash": "1e3ae189b0e055e7e6c1c68fc9af1d7c05088885252bd5fe5f7382a0b07cd095",
+            "status": "editorial",
+            "contexts": [
+                "Watch-page menu disclosure for owner/moderator management actions. Full action label in the existing icon-and-text menu; separate from viewer sharing. Reference/regional English and informal German checked in the owner, guest and moderator flows."
+            ],
+            "reviewed_at": "2026-11-09T10:17:46+00:00"
         },
         "1e408b8676e4f51c9e3240ff9b017c630009279a6a2588a92a8ab0bafb5948b6": {
             "source_hash": "1e408b8676e4f51c9e3240ff9b017c630009279a6a2588a92a8ab0bafb5948b6",
@@ -8953,13 +8971,13 @@
             "reviewed_at": "2026-11-06T11:24:08+00:00"
         },
         "414278b279dc37e330bfe81d108f4f4519e46ccfe07b3c2799b5b7491c3d4598": {
-            "source_hash": "414278b279dc37e330bfe81d108f4f4519e46ccfe07b3c2799b5b7491c3d4598",
-            "translation_hash": "414278b279dc37e330bfe81d108f4f4519e46ccfe07b3c2799b5b7491c3d4598",
+            "source_hash": "870a5987eec398593991c2e1c167e2dd294a3d88c3f52a5dc873891b8e1cb241",
+            "translation_hash": "870a5987eec398593991c2e1c167e2dd294a3d88c3f52a5dc873891b8e1cb241",
             "status": "editorial",
             "contexts": [
-                "English reference editorial pass for community/bookmarks, livestream setup/readiness, theme/design settings, support tickets, LiveKit/RTMP/WebRTC/TURN configuration, certificates, Docker status and scheduler administration. Technical parameters retained where administrators need them. Obsolete promises about future broadcasting replaced with present configuration requirements; names/examples/time quantities/fragments excluded."
+                "Watch-page menu disclosure for owner/moderator management actions. Full action label in the existing icon-and-text menu; separate from viewer sharing. Reference/regional English and informal German checked in the owner, guest and moderator flows."
             ],
-            "reviewed_at": "2026-11-06T11:31:07+00:00"
+            "reviewed_at": "2026-11-09T10:17:46+00:00"
         },
         "41692c4d9260d3e694cbc88eca065bf68a370c30d6674c995dd7e2a80cd0ea5e": {
             "source_hash": "41692c4d9260d3e694cbc88eca065bf68a370c30d6674c995dd7e2a80cd0ea5e",
@@ -9734,6 +9752,15 @@
                 "Editorial review of all built-in help/page definitions: personal English and German guidance; API identifiers retained for developer instructions; legal and refund meaning preserved; administrator overrides excluded."
             ],
             "reviewed_at": "2026-11-06T09:18:02+00:00"
+        },
+        "47a1ad3ba9b3f71a8501951a3831eb3417bb227bc3ad90f59c4e17570935f9a3": {
+            "source_hash": "47a1ad3ba9b3f71a8501951a3831eb3417bb227bc3ad90f59c4e17570935f9a3",
+            "translation_hash": "47a1ad3ba9b3f71a8501951a3831eb3417bb227bc3ad90f59c4e17570935f9a3",
+            "status": "editorial",
+            "contexts": [
+                "Watch-page menu disclosure for owner/moderator management actions. Full action label in the existing icon-and-text menu; separate from viewer sharing. Reference/regional English and informal German checked in the owner, guest and moderator flows."
+            ],
+            "reviewed_at": "2026-11-09T10:17:46+00:00"
         },
         "47aaf31b83d6bfd705b80bcd5b6269be4caa3cf54cfa546b0ae7bc4078b39b0f": {
             "source_hash": "47aaf31b83d6bfd705b80bcd5b6269be4caa3cf54cfa546b0ae7bc4078b39b0f",
@@ -17026,13 +17053,13 @@
             "reviewed_at": "2026-11-06T11:32:47+00:00"
         },
         "77e588cf1bbc62f3ddd5585c730b2c4e4dbe766d705d69357e0a0929057a8821": {
-            "source_hash": "77e588cf1bbc62f3ddd5585c730b2c4e4dbe766d705d69357e0a0929057a8821",
-            "translation_hash": "77e588cf1bbc62f3ddd5585c730b2c4e4dbe766d705d69357e0a0929057a8821",
+            "source_hash": "c4c52572fc84d41e93374f4559256b722505987affda0a3f4b662942c5a736de",
+            "translation_hash": "c4c52572fc84d41e93374f4559256b722505987affda0a3f4b662942c5a736de",
             "status": "editorial",
             "contexts": [
-                "English reference editorial pass: contact/refund requests, help/scheduling, Playlist management, video/Shorts actions, growth guidance and import states/errors. Source technical backend terms retained only for developer instructions; existing import success correctly makes no processing-start claim."
+                "Watch-page menu disclosure for owner/moderator management actions. Full action label in the existing icon-and-text menu; separate from viewer sharing. Reference/regional English and informal German checked in the owner, guest and moderator flows."
             ],
-            "reviewed_at": "2026-11-06T10:57:45+00:00"
+            "reviewed_at": "2026-11-09T10:17:46+00:00"
         },
         "77fbd0751dfa1b9300b92673015b52cf4112f83d16d5953ed9ed7d5254e2b167": {
             "source_hash": "77fbd0751dfa1b9300b92673015b52cf4112f83d16d5953ed9ed7d5254e2b167",
@@ -24818,9 +24845,9 @@
             "translation_hash": "af29345f117aac790e81ab7a599d2ec7f569f7ab3f85dd96862b4156ac214394",
             "status": "editorial",
             "contexts": [
-                "English editorial reference for account recovery/verification, social sign-in, category/role/permission management, wallet/monetization, theme, mass import, user privacy/moderation, device sessions and livestream setup. Technical connection labels remain useful in admin/studio; procedural copy clarified. Proper names, UI style tokens and quantity fragments excluded."
+                "Watch-page menu disclosure for owner/moderator management actions. Full action label in the existing icon-and-text menu; separate from viewer sharing. Reference/regional English and informal German checked in the owner, guest and moderator flows."
             ],
-            "reviewed_at": "2026-11-06T11:28:45+00:00"
+            "reviewed_at": "2026-11-09T10:17:46+00:00"
         },
         "af2e712f0204eef37ef6274f0955743e288ceaf592183e7dfe00642abe52919a": {
             "source_hash": "af2e712f0204eef37ef6274f0955743e288ceaf592183e7dfe00642abe52919a",
@@ -32508,13 +32535,13 @@
             "reviewed_at": "2026-11-06T09:28:00+00:00"
         },
         "e36186131e0ba7545cab2c6c3f04cb9eaac44ac2759f6fafcf0a3543d2d73caa": {
-            "source_hash": "e36186131e0ba7545cab2c6c3f04cb9eaac44ac2759f6fafcf0a3543d2d73caa",
-            "translation_hash": "e36186131e0ba7545cab2c6c3f04cb9eaac44ac2759f6fafcf0a3543d2d73caa",
+            "source_hash": "7991fb97920105ebad050fdecd10163ffa6fdd6e457d6a330bf62c3b36421488",
+            "translation_hash": "7991fb97920105ebad050fdecd10163ffa6fdd6e457d6a330bf62c3b36421488",
             "status": "editorial",
             "contexts": [
-                "English reference editorial pass: contact/refund requests, help/scheduling, Playlist management, video/Shorts actions, growth guidance and import states/errors. Source technical backend terms retained only for developer instructions; existing import success correctly makes no processing-start claim."
+                "Watch-page menu disclosure for owner/moderator management actions. Full action label in the existing icon-and-text menu; separate from viewer sharing. Reference/regional English and informal German checked in the owner, guest and moderator flows."
             ],
-            "reviewed_at": "2026-11-06T10:57:45+00:00"
+            "reviewed_at": "2026-11-09T10:17:46+00:00"
         },
         "e3794ddbc4b7cc4b7f6fc377a057bb2da4e1a2c525f3ecc75e3ccd981b42ef74": {
             "source_hash": "e3794ddbc4b7cc4b7f6fc377a057bb2da4e1a2c525f3ecc75e3ccd981b42ef74",
@@ -36238,9 +36265,9 @@
             "translation_hash": "fa924e296301067911fc806ebd54df12cddd4f45749cf4ba2b50a1f69eadd9ca",
             "status": "editorial",
             "contexts": [
-                "English reference editorial pass: navigation, channel/profile actions, upload/import status, chat, community, moderation, live discovery, library, account controls and admin settings. Obsolete developer-facing upload wording and unsupported audience-size claims corrected; names, sample content, protocol identifiers and unresolved sentence fragments excluded."
+                "Watch-page menu disclosure for owner/moderator management actions. Full action label in the existing icon-and-text menu; separate from viewer sharing. Reference/regional English and informal German checked in the owner, guest and moderator flows."
             ],
-            "reviewed_at": "2026-11-06T11:17:03+00:00"
+            "reviewed_at": "2026-11-09T10:17:46+00:00"
         },
         "faa35af36616749806e1d57f9c6fae986145021ba13246c06b420434091c4663": {
             "source_hash": "faa35af36616749806e1d57f9c6fae986145021ba13246c06b420434091c4663",
@@ -36906,9 +36933,9 @@
             "translation_hash": "fe93cfdc777d4234fcee73cf749eaa63a10a94674dcf29a4678610f43341ced9",
             "status": "editorial",
             "contexts": [
-                "English editorial reference for account recovery/verification, social sign-in, category/role/permission management, wallet/monetization, theme, mass import, user privacy/moderation, device sessions and livestream setup. Technical connection labels remain useful in admin/studio; procedural copy clarified. Proper names, UI style tokens and quantity fragments excluded."
+                "Watch-page menu disclosure for owner/moderator management actions. Full action label in the existing icon-and-text menu; separate from viewer sharing. Reference/regional English and informal German checked in the owner, guest and moderator flows."
             ],
-            "reviewed_at": "2026-11-06T11:28:45+00:00"
+            "reviewed_at": "2026-11-09T10:17:46+00:00"
         },
         "fe948162bd3cc15e316f11b45c8b70331c99d28f27c8daebab8cd494ba813694": {
             "source_hash": "fe948162bd3cc15e316f11b45c8b70331c99d28f27c8daebab8cd494ba813694",

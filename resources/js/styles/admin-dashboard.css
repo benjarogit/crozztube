@@ -1068,19 +1068,26 @@
   border:1px solid var(--ad-border);
   border-radius:8px;
   background:var(--ad-panel);
-  color:#24365f;
+  color:var(--ad-text);
   font-size:12px;
   font-weight:850;
-  white-space:nowrap
+  white-space:nowrap;
+  transition:background-color .16s ease,border-color .16s ease,color .16s ease
 }
-.admin-action-button:hover {
-  border-color:var(--ad-border-strong);
-  background:var(--ad-panel-2)
+.admin-action-button:not(:disabled):hover {
+  border-color:var(--ad-primary);
+  background:var(--ad-primary-soft)
 }
 .admin-action-button.primary {
-  border-color:transparent;
-  background:linear-gradient(135deg,var(--ad-primary),var(--ad-primary-2));
-  color:#fff
+  border-color:var(--ad-primary);
+  background:var(--ad-primary);
+  color:var(--ad-primary-ink)
+}
+.admin-action-button.primary:not(:disabled):hover,
+.admin-action-button.primary:not(:disabled):active {
+  background:var(--ad-primary);
+  color:var(--ad-primary-ink);
+  border-color:color-mix(in srgb,var(--ad-primary) 72%,var(--ad-primary-ink))
 }
 .admin-action-button.compact {
   height:34px;
@@ -1363,6 +1370,7 @@
   font-size:12px;
   font-weight:850
 }
+.admin-action-button:disabled,
 .admin-small-select:disabled,
 .admin-tabs button:disabled,
 .admin-filter-button:disabled,
@@ -1769,25 +1777,52 @@
 .admin-pagination {
   display:flex;
   align-items:center;
-  gap:9px
+  flex-wrap:wrap;
+  gap:8px
 }
 .admin-pagination button {
-  min-width:29px;
-  height:29px;
+  min-width:36px;
+  min-height:36px;
   display:grid;
   place-items:center;
-  border-radius:7px;
-  color:#52617d;
-  font-size:12px;
-  font-weight:800
-}
-.admin-pagination button.active {
-  background:linear-gradient(135deg,var(--ad-primary),var(--ad-primary-2));
-  color:#fff
-}
-.admin-pagination button:last-child {
+  padding:0 8px;
   border:1px solid var(--ad-border);
-  background:var(--ad-panel)
+  border-radius:8px;
+  background:var(--ad-panel);
+  color:var(--ad-text);
+  font-size:12px;
+  font-weight:700;
+  font-variant-numeric:tabular-nums;
+  transition:background-color .16s ease,border-color .16s ease,color .16s ease
+}
+.admin-pagination button:not(:disabled):hover {
+  background:var(--ad-primary-soft);
+  border-color:var(--ad-primary)
+}
+.admin-pagination button.active,
+.admin-pagination button.active:not(:disabled):hover {
+  background:var(--ad-primary);
+  border-color:var(--ad-primary);
+  color:var(--ad-primary-ink)
+}
+.admin-pagination button:not(:disabled):active {
+  background:color-mix(in srgb,var(--ad-primary) 20%,var(--ad-panel));
+  border-color:var(--ad-primary)
+}
+.admin-pagination button.active:not(:disabled):active {
+  background:var(--ad-primary);
+  color:var(--ad-primary-ink);
+  transform:translateY(1px)
+}
+.admin-pagination button:focus-visible {
+  outline:2px solid var(--ad-primary);
+  outline-offset:3px
+}
+@media(pointer:coarse) {
+  .admin-pagination button { min-width:44px; min-height:44px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .admin-pagination button,.admin-action-button { transition:none; }
 }
 .admin-side-card {
   padding:16px 16px
