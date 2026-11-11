@@ -14,7 +14,8 @@ let checks = 0;
 try {
   for (const scenario of [
     { language: 'en', width: 1440, source: true, dark: false },
-    { language: 'de_de', width: 390, source: false, dark: true },
+    { language: 'de_de', width: 390, source: true, dark: true },
+    { language: 'de_de', width: 412, source: false, dark: false },
   ]) {
     const session = await layoutSession(browser, {
       authenticated: true,
@@ -56,11 +57,19 @@ try {
       checks++;
 
       if (scenario.source) {
-        await expect(dialog.getByLabel('Clip title')).toHaveValue('Originaltitel bleibt unverändert clip');
-        await expect(dialog.getByLabel('Start time in seconds')).toHaveValue('0');
-        await expect(dialog.getByLabel('End time in seconds')).toHaveValue('30');
-        await expect(dialog.getByLabel('Visibility')).toHaveValue('private');
-        checks += 4;
+        const labels = scenario.language === 'en'
+          ? { title: 'Clip title', start: 'Start time in seconds', duration: 'Duration', visibility: 'Visibility', create: 'Create a clip' }
+          : { title: 'Clip-Titel', start: 'Startzeit in Sekunden', duration: 'Dauer', visibility: 'Sichtbarkeit', create: 'Clip erstellen' };
+        await expect(dialog.getByLabel(labels.title)).toHaveValue('Originaltitel bleibt unverändert clip');
+        await expect(dialog.getByLabel(labels.start)).toHaveValue('0');
+        await expect(dialog.getByRole('slider', { name: labels.duration })).toHaveValue('30');
+        await expect(dialog.getByLabel(labels.visibility)).toHaveValue('private');
+        await dialog.getByRole('button', { name: '60 s' }).click();
+        await expect(dialog.getByRole('slider', { name: labels.duration })).toHaveValue('60');
+        await dialog.getByLabel(labels.start).fill('60');
+        await expect(dialog).toContainText('1:00 – 2:00');
+        await expect(dialog.getByRole('button', { name: labels.create })).toBeVisible();
+        checks += 7;
       } else {
         await expect(dialog).toContainText('Diese Quelle kann dein Browser nicht als Clip verarbeiten.');
         await expect(dialog.getByRole('button', { name: 'Zeitlink kopieren' })).toBeVisible();
@@ -68,7 +77,7 @@ try {
       }
 
       await expectContained(page, `clip composer ${scenario.language} ${scenario.width}`);
-      await page.screenshot({ path: `${artifacts}/${scenario.language}-${scenario.width}.png`, fullPage: true });
+      await page.screenshot({ path: `${artifacts}/${scenario.language}-${scenario.width}-${scenario.source ? 'form' : 'fallback'}.png`, fullPage: true });
       await page.keyboard.press('Escape');
       await expect(dialog).toHaveCount(0);
       await expect(trigger).toBeFocused();
@@ -82,7 +91,7 @@ try {
       await session.context.close();
     }
   }
-  console.log(`${checks} clip composer browser checks passed. English/German, desktop/mobile, light/dark, direct-source form, time-link fallback, focus return, no writes or media.`);
+  console.log(`${checks} clip composer browser checks passed. Timeline, duration presets, English/German, desktop/mobile, light/dark, time-link fallback, focus return, no writes or media.`);
 } finally {
   await browser.close();
 }

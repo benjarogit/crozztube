@@ -11,6 +11,15 @@ const wait = (milliseconds, signal) => new Promise((resolve, reject) => {
     reject(new DOMException('The clip was canceled.', 'AbortError'));
   }, { once: true });
 });
+const formatTimestamp = value => {
+  const seconds = Math.max(0, Math.floor(Number(value) || 0));
+  const hours = Math.floor(seconds / 3600);
+  const minutes = Math.floor((seconds % 3600) / 60);
+  const remainder = seconds % 60;
+  return hours
+    ? `${hours}:${String(minutes).padStart(2, '0')}:${String(remainder).padStart(2, '0')}`
+    : `${minutes}:${String(remainder).padStart(2, '0')}`;
+};
 
 export default function ClipComposer({
   open,
@@ -42,6 +51,10 @@ export default function ClipComposer({
   const [error, setError] = useState('');
   const [fallback, setFallback] = useState(false);
   const busy = phase !== 'idle';
+  const totalSeconds = Math.max(5, Math.floor(Number(duration || video?.duration_seconds || form.end || 5)));
+  const clipSeconds = Math.max(5, Math.min(60, Number(form.end) - Number(form.start)));
+  const maximumClipSeconds = Math.max(5, Math.min(60, totalSeconds - Number(form.start)));
+  const maximumStart = Math.max(0, totalSeconds - clipSeconds);
   const mountedMedia = getMediaElement?.();
   const directSourceEligible = (
     /^https?:\/\//i.test(sourceUrl || '')
@@ -202,11 +215,45 @@ export default function ClipComposer({
       </div> : <form onSubmit={create}>
         <label><span>{t('Clip title')}</span>
           <input data-i18n-skip value={form.title} maxLength={200} required disabled={busy} onChange={event => setForm(current => ({ ...current, title: event.target.value }))}/></label>
-        <div className="clip-composer-range">
-          <label><span>{t('Start time in seconds')}</span>
-            <input type="number" min="0" step="0.1" required disabled={busy} value={form.start} onChange={event => setForm(current => ({ ...current, start: event.target.value }))}/></label>
-          <label><span>{t('End time in seconds')}</span>
-            <input type="number" min="5" step="0.1" required disabled={busy} value={form.end} onChange={event => setForm(current => ({ ...current, end: event.target.value }))}/></label>
+        <div className="clip-composer-timing">
+          <div className="clip-composer-slider-field">
+            <div className="clip-composer-slider-heading">
+              <label htmlFor="clip-start">{t('Start time in seconds')}</label>
+              <output htmlFor="clip-start" data-i18n-skip>{formatTimestamp(form.start)}</output>
+            </div>
+            <input id="clip-start" type="range" min="0" max={maximumStart} step="1" required disabled={busy}
+              value={Math.min(Number(form.start), maximumStart)}
+              aria-valuetext={formatTimestamp(form.start)}
+              onChange={event => {
+                const start = Number(event.target.value);
+                setForm(current => ({ ...current, start, end: start + clipSeconds }));
+              }}/>
+            <div className="clip-composer-slider-scale" data-i18n-skip><span>0:00</span><span>{formatTimestamp(maximumStart)}</span></div>
+          </div>
+          <div className="clip-composer-slider-field">
+            <div className="clip-composer-slider-heading">
+              <label htmlFor="clip-duration">{t('Duration')}</label>
+              <output htmlFor="clip-duration" data-i18n-skip>{formatTimestamp(clipSeconds)}</output>
+            </div>
+            <input id="clip-duration" type="range" min="5" max={maximumClipSeconds} step="1" required disabled={busy}
+              value={Math.min(clipSeconds, maximumClipSeconds)}
+              aria-valuetext={formatTimestamp(clipSeconds)}
+              onChange={event => {
+                const seconds = Number(event.target.value);
+                setForm(current => ({ ...current, end: Number(current.start) + seconds }));
+              }}/>
+            <div className="clip-composer-duration-presets" aria-label={t('Duration')}>
+              {[15, 30, 60].map(seconds => <button key={seconds} type="button" disabled={busy || seconds > maximumClipSeconds}
+                aria-pressed={clipSeconds === seconds}
+                onClick={() => setForm(current => ({ ...current, end: Number(current.start) + seconds }))}>
+                <span data-i18n-skip>{seconds} s</span>
+              </button>)}
+            </div>
+          </div>
+          <div className="clip-composer-selection" data-i18n-skip>
+            <strong>{formatTimestamp(form.start)} – {formatTimestamp(form.end)}</strong>
+            <span>{formatTimestamp(clipSeconds)}</span>
+          </div>
         </div>
         <label><span>{t('Visibility')}</span>
           <select value={form.visibility} disabled={busy} onChange={event => setForm(current => ({ ...current, visibility: event.target.value }))}>
@@ -222,7 +269,7 @@ export default function ClipComposer({
         </div>}
         {error && <p className="clip-composer-error" role="alert">{t(error)}</p>}
         <footer><button type="button" className="btn subtle" onClick={close}>{t(busy ? 'Cancel' : 'Close')}</button>
-          <button type="submit" className="btn primary" disabled={busy}>{t(busy ? 'Creating clip…' : 'Create clip')}</button></footer>
+          <button type="submit" className="btn primary" disabled={busy}>{t(busy ? 'Creating clip…' : 'Create a clip')}</button></footer>
       </form>}
     </section>
   </div>, document.body);
