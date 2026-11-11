@@ -215,6 +215,12 @@ Route::prefix('v1')
             });
             Route::post('/clip-transfers/{uuid}/cancel', [\App\Http\Controllers\Api\ClipTransferController::class, 'cancel'])
                 ->whereUuid('uuid')->middleware([RequireTokenAbility::class.':account:write', 'throttle:api-write'])->name('clip-transfers.cancel');
+            Route::post('/videos/{video:slug}/clip-transfers', [\App\Http\Controllers\Api\ClipTransferController::class, 'store'])
+                ->middleware([RequireTokenAbility::class.':account:write', 'throttle:api-write'])->name('clip-transfers.store');
+            Route::post('/clip-transfers/{uuid}/upload-grant', [\App\Http\Controllers\Api\ClipTransferController::class, 'uploadGrant'])
+                ->whereUuid('uuid')->middleware([RequireTokenAbility::class.':account:write', 'throttle:api-write'])->name('clip-transfers.upload-grant');
+            Route::post('/clip-transfers/{uuid}/uploaded', [\App\Http\Controllers\Api\ClipTransferController::class, 'uploaded'])
+                ->whereUuid('uuid')->middleware([RequireTokenAbility::class.':account:write', 'throttle:api-write'])->name('clip-transfers.uploaded');
             Route::middleware(RequireTokenAbility::class.':account:read')->group(function (): void {
                 Route::get('/auth/sessions', [NativeDeviceSessionController::class, 'index'])->name('auth.sessions.index');
                 Route::delete('/auth/sessions/current', [NativeDeviceSessionController::class, 'destroyCurrent'])->name('auth.sessions.current.destroy');

@@ -1,4 +1,5 @@
 import ResponsiveOverlays from './components/ResponsiveOverlays.jsx';
+import ClipComposer from './components/ClipComposer.jsx';
 import ClipUploads from './components/ClipUploads.jsx';
 import AttachmentImage, { ImageUploadPreview, attachmentCandidates } from './components/AttachmentImage.jsx';
 import { useHostedImages, hostedImagesReady, appendHostedImageIds } from './imageUploadQueue.js';
@@ -15202,6 +15203,7 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
   const [playerStatsOpen, setPlayerStatsOpen] = useState(false);
   const [playerStatsTick, setPlayerStatsTick] = useState(0);
   const [embedPlayerUrl, setEmbedPlayerUrl] = useState('');
+  const [clipComposerOpen, setClipComposerOpen] = useState(false);
   const [playlistPickerOpen, setPlaylistPickerOpen] = useState(false);
   const [playlistCreateOpen, setPlaylistCreateOpen] = useState(false);
   const [userPlaylists, setUserPlaylists] = useState([]);
@@ -15370,6 +15372,7 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
     setPlayerStatsOpen(false);
     setPlayerStatsTick(0);
     setEmbedPlayerUrl('');
+    setClipComposerOpen(false);
     playerAdResumeRef.current = false;
     playerAdClickResumeRef.current = false;
     playerAdBreaksRef.current = new Set();
@@ -16206,6 +16209,11 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
     default: true,
   }] : [], [video?.caption_tracks, video?.captions_url, video?.language, video?.language_code]);
   const videoSources = useMemo(() => videoSourcesFor(video), [video]);
+  const clipSourceUrl = useMemo(() => {
+    const source = videoSources.find(item => inferVideoType(item) === 'video/mp4' && typeof item?.src === 'string');
+    if (!source) return '';
+    try { return new URL(source.src, window.location.origin).toString(); } catch { return ''; }
+  }, [videoSources]);
   const embedUrl = httpEmbedUrl(video?.embed_url);
   const posterUrl = resolvedThumbnail;
   const videoChapters = useMemo(
@@ -16823,6 +16831,7 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
                 </> : <>
                   {canTipVideoCreator && <button type="button" role="menuitem" className="video-detail-action-item creator-tip-action" onClick={() => { setDropdownOpen(false); auth.user ? setCreatorTipOpen(true) : navigate('/login'); }}><Icon name="wallet" size={20}/><span>Send tip</span></button>}
                   {(isOwnVideoChannel || canDeleteVideo) && <button type="button" role="menuitem" className="video-detail-action-item" data-watch-manage aria-haspopup="menu" aria-expanded={false} onClick={() => setDropdownView('manage')}><Icon name="edit" size={20}/><span>Manage video</span><Icon name="chevronRight" size={16}/></button>}
+                  <button type="button" role="menuitem" className="video-detail-action-item" onClick={() => { setDropdownOpen(false); auth.user ? setClipComposerOpen(true) : navigate('/login'); }}><Icon name="play" size={20}/><span>{t('Create a clip')}</span></button>
                   <button type="button" role="menuitem" className="video-detail-action-item" onClick={() => runVideoMenuAction('playlist')}><Icon name="queue" size={20}/><span>{videoMenuState.playlist ? 'Remove from Playlist' : 'Add to Playlist'}</span></button>
                   {!isOwnVideoChannel && <><div className="video-detail-menu-divider" />
                     {video.can_report !== false && <button type="button" role="menuitem" className={`video-detail-action-item ${videoMenuState.reported ? 'is-selected' : ''}`} onClick={() => runVideoMenuAction('report')}><Icon name="flag" size={20}/><span>{videoMenuState.reported ? 'Reported' : 'Report Video'}</span></button>}
@@ -16852,6 +16861,7 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
     </section>
     {playlistPickerOpen && <AddToPlaylistModal video={video} playlists={userPlaylists} loading={playlistLoading} error={playlistError} savingId={playlistSavingId} onClose={() => setPlaylistPickerOpen(false)} onRefresh={loadUserPlaylists} onToggle={togglePlaylistVideo} onCreate={() => { setPlaylistPickerOpen(false); setPlaylistCreateOpen(true); }} />}
     {playlistCreateOpen && <NewPlaylistModal videos={[video]} initialAddVideos initialVideoIds={[video.id]} onClose={() => setPlaylistCreateOpen(false)} onCreate={createWatchPlaylist} />}
+    <ClipComposer open={clipComposerOpen} api={api} video={video} sourceUrl={clipSourceUrl} currentTime={currentPlaybackSeconds()} duration={playerDuration || video.duration_seconds} Icon={Icon} onClose={() => { setClipComposerOpen(false); window.requestAnimationFrame(() => detailMenuTriggerRef.current?.focus()); }} onCreated={(transfer) => navigate(`/clip-uploads?clip=${encodeURIComponent(transfer.id)}`)} onTimeLink={() => copyPlayerText(watchUrlAtTime(currentUrl(), currentPlaybackSeconds()), 'Video URL at current time copied.')} />
     <CreatorTipDialog open={creatorTipOpen} creator={video.channel} video={video} settings={creatorTips || {}} navigate={navigate} onClose={() => setCreatorTipOpen(false)} onSent={notify} />
     <AppConfirmDialog dialog={deleteConfirm} busy={videoDeleting} onCancel={() => setDeleteConfirm(null)} onConfirm={confirmDeleteVideo} />
     {watchToast && <button type="button" className="copy-toast-notice watch-player-toast" role="status" aria-live="polite" onClick={() => setWatchToast('')}><span><Icon name="info" size={18}/></span><strong>{watchToast}</strong></button>}

@@ -717,6 +717,9 @@ Route::get('/search', function (Request $request) {
 Route::middleware(['auth:sanctum', \App\Http\Middleware\EnsureUgcSafety::class])->group(function (): void {
     Route::get('/clip-transfers', [\App\Http\Controllers\Api\ClipTransferController::class, 'index']);
     Route::get('/clip-transfers/{uuid}', [\App\Http\Controllers\Api\ClipTransferController::class, 'show'])->whereUuid('uuid');
+    Route::post('/videos/{video:slug}/clip-transfers', [\App\Http\Controllers\Api\ClipTransferController::class, 'store'])->middleware('throttle:api-write');
+    Route::post('/clip-transfers/{uuid}/upload-grant', [\App\Http\Controllers\Api\ClipTransferController::class, 'uploadGrant'])->whereUuid('uuid')->middleware('throttle:api-write');
+    Route::post('/clip-transfers/{uuid}/uploaded', [\App\Http\Controllers\Api\ClipTransferController::class, 'uploaded'])->whereUuid('uuid')->middleware('throttle:api-write');
     Route::post('/clip-transfers/{uuid}/cancel', [\App\Http\Controllers\Api\ClipTransferController::class, 'cancel'])->whereUuid('uuid')->middleware('throttle:api-write');
     Route::get('/clip-transfers/{uuid}/playback', [\App\Http\Controllers\Api\ClipTransferController::class, 'playback'])->whereUuid('uuid')->middleware('throttle:20,1');
     Route::get('/account/safety', [\App\Http\Controllers\Api\V1\SafetyController::class, 'show']);

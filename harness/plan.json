@@ -77,6 +77,8 @@
         "harness-tests",
         "clip-encoder-unit",
         "clip-browser-format",
+        "clip-api",
+        "clip-composer-ui",
         "staged-safety"
       ]
     },
@@ -216,6 +218,20 @@
         "tools/test/clip-browser-format.mjs"
       ],
       "timeoutMs": 60000
+    },
+    "clip-api": {
+      "argv": [
+        "php",
+        "tools/test/php/clip-api-checks.php"
+      ],
+      "timeoutMs": 30000
+    },
+    "clip-composer-ui": {
+      "argv": [
+        "node",
+        "tools/test/ui/clip-composer.mjs"
+      ],
+      "timeoutMs": 120000
     },
     "harness-tests": {
       "argv": [
