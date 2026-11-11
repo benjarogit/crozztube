@@ -10,4 +10,9 @@ return [
         'access_key_id' => env('CLIP_STAGING_OCI_ACCESS_KEY_ID', ''),
         'secret_access_key' => env('CLIP_STAGING_OCI_SECRET_ACCESS_KEY', ''),
     ],
+    'limits' => [
+        'active_global' => (int) env('CLIP_STAGING_ACTIVE_GLOBAL', 3),
+        'new_per_user_day' => (int) env('CLIP_STAGING_NEW_PER_USER_DAY', 5),
+        'reserved_bytes_per_account' => (int) env('CLIP_STAGING_RESERVED_BYTES_PER_ACCOUNT', 1000000000),
+    ],
 ];

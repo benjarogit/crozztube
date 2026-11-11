@@ -13,16 +13,47 @@ final class ClipTransferQueue
 {
     private const ACTIVE = ['uploading', 'sealing', 'registering', 'publishing', 'processing', 'awaiting_confirmation', 'releasing'];
 
-    public function __construct(private int $globalActive = 3, private int $dailyLimit = 5)
+    public function __construct(
+        private int $globalActive = 3,
+        private int $dailyLimit = 5,
+        private int $accountCapacity = 1000000000,
+    )
     {
-        if ($globalActive < 1 || $globalActive > 30 || $dailyLimit < 1 || $dailyLimit > 100) {
+        if ($globalActive < 1 || $globalActive > 30 || $dailyLimit < 1 || $dailyLimit > 100
+            || $accountCapacity < ClipStagingObject::MAX_BYTES * 2 || $accountCapacity > 1000000000) {
             throw new InvalidArgumentException('Invalid clip queue limits.');
         }
     }
 
-    /** Preserve a bucket-bound encrypted snapshot for every assigned transfer. */
-    public function configureOracle(#[\SensitiveParameter] array $settings, int $capacity = 1000000000): string
+    public static function fromConfig(): self
     {
+        return new self(
+            (int) config('clip_staging.limits.active_global', 3),
+            (int) config('clip_staging.limits.new_per_user_day', 5),
+            (int) config('clip_staging.limits.reserved_bytes_per_account', 1000000000),
+        );
+    }
+
+    /**
+     * Keep new admissions aligned with the current administrator connection.
+     * Existing account snapshots remain available for in-flight cleanup.
+     */
+    public function synchronizeOracle(#[\SensitiveParameter] array $settings): ?string
+    {
+        $connection = new OracleStagingConnection($settings);
+        if ($connection->problems()) {
+            $this->locked(fn () => ClipStagingAccount::query()->where('provider', 'oci')->update(['enabled' => false]));
+
+            return null;
+        }
+
+        return $this->configureOracle($settings);
+    }
+
+    /** Preserve a bucket-bound encrypted snapshot for every assigned transfer. */
+    public function configureOracle(#[\SensitiveParameter] array $settings, ?int $capacity = null): string
+    {
+        $capacity ??= $this->accountCapacity;
         $connection = new OracleStagingConnection($settings);
         if ($connection->problems() || $capacity < ClipStagingObject::MAX_BYTES * 2 || $capacity > 1000000000) {
             throw new InvalidArgumentException('Invalid Oracle staging account or capacity.');

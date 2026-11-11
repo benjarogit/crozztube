@@ -5,8 +5,10 @@ namespace App\Console\Commands;
 use App\Support\Clips\ClipTransferProcessor;
 use App\Support\Clips\ClipTransferQueue;
 use App\Support\Clips\OdyseeTransferGateway;
+use App\Support\MediaProviderSettings;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Schema;
+use Throwable;
 
 final class WorkClipTransfers extends Command
 {
@@ -27,14 +29,28 @@ final class WorkClipTransfers extends Command
 
             return self::INVALID;
         }
-        $queue = new ClipTransferQueue();
-        $queue->promote();
+        $queue = null;
+        try {
+            $queue = ClipTransferQueue::fromConfig();
+            $queue->synchronizeOracle(MediaProviderSettings::current()->effective('oracle'));
+            $queue->promote();
+        } catch (Throwable) {
+            // Existing leased work must still run when new admissions are paused.
+            $queue = null;
+            $this->warn('New clip admissions are paused until the Oracle staging configuration is valid.');
+        }
         $processor = new ClipTransferProcessor(new OdyseeTransferGateway());
         $processed = 0;
         while ($processed < $limit && $processor->run()) {
             $processed++;
         }
-        $queue->promote();
+        if ($queue !== null) {
+            try {
+                $queue->promote();
+            } catch (Throwable) {
+                $this->warn('Queued clips remain paused until Oracle staging is available.');
+            }
+        }
         $this->line('Clip metadata phases processed: '.$processed.'.');
 
         return self::SUCCESS;

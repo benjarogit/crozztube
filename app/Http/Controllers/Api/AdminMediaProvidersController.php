@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Support\Clips\ClipTransferQueue;
 use App\Support\Clips\OdyseeAccountLogin;
 use App\Support\Clips\OdyseeLoginFailure;
 use App\Support\Clips\OdyseePublishingConnection;
@@ -15,6 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
 use Throwable;
@@ -57,6 +59,9 @@ class AdminMediaProvidersController extends Controller
                 });
             } else {
                 MediaProviderSettings::current()->save($provider, $changes, $clear);
+            }
+            if ($provider === 'oracle') {
+                $this->synchronizeOracleSettings();
             }
         } catch (InvalidArgumentException) {
             abort(422, 'Check the media provider fields and try again.');
@@ -158,6 +163,13 @@ class AdminMediaProvidersController extends Controller
     protected function checkOracleAccess(OracleStagingConnection $connection): void
     {
         $connection->client()->headBucket(['Bucket' => $connection->bucket()]);
+    }
+
+    protected function synchronizeOracleSettings(): void
+    {
+        if (Schema::hasTable('clip_staging_accounts') && Schema::hasTable('clip_transfer_locks')) {
+            ClipTransferQueue::fromConfig()->synchronizeOracle(MediaProviderSettings::current()->effective('oracle'));
+        }
     }
 
     private function connectionKey(Request $request, string $id): string

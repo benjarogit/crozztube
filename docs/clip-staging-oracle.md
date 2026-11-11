@@ -15,6 +15,9 @@ CLIP_STAGING_OCI_NAMESPACE=
 CLIP_STAGING_OCI_BUCKET=
 CLIP_STAGING_OCI_ACCESS_KEY_ID=
 CLIP_STAGING_OCI_SECRET_ACCESS_KEY=
+CLIP_STAGING_ACTIVE_GLOBAL=3
+CLIP_STAGING_NEW_PER_USER_DAY=5
+CLIP_STAGING_RESERVED_BYTES_PER_ACCOUNT=1000000000
 ```
 
 Die letzten beiden Werte stammen aus **Mein Profil → Token und Schlüssel →
@@ -89,6 +92,12 @@ falscher Dateiinhalt wurden abgewiesen; korrekter POST, abgelehnte Kopie mit
 falschem ETag, validierte interne Kopie, verweigerter anonymer Abruf,
 signierter Abruf und bestätigte Löschung beider Objekte waren erfolgreich.
 Das war kein Video- oder Browser-Test und kein Odysee-Import.
+
+Die drei Betriebsgrenzen entsprechen dem genehmigten Ausgangsstand. Der
+Workerlauf liest sie aus der zentralen Konfiguration und synchronisiert die
+aktuelle Admin-Verbindung vor neuen Aufnahmen. Ungültige Werte oder eine
+unvollständige Verbindung stoppen neue Aufnahmen, nicht die Bereinigung bereits
+gebundener Aufträge.
 
 Der ausdrücklich gestartete Test erzeugt ausschließlich einen zufällig benannten
 Protokoll-Testauftrag und löscht nur dessen eigene beiden Objekte:
