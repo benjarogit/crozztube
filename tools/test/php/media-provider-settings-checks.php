@@ -26,7 +26,9 @@ $path = $directory.'/private/providers.enc';
 $defaults = [
     'fastpic' => ['key' => 'fixture-account-secret', 'enabled' => true, 'supported' => true, 'priority' => 2],
     'postimages' => ['key' => 'fixture-postimages-secret', 'enabled' => true, 'supported' => true],
-    'oracle' => ['region' => 'eu-frankfurt-1', 'namespace' => 'fixture', 'bucket' => 'fixture-bucket', 'access_key_id' => 'fixture-access', 'secret_access_key' => 'fixture-account-secret'],
+    'oracle' => ['region' => 'eu-frankfurt-1', 'namespace' => 'fixture', 'bucket' => 'fixture-bucket',
+        'access_key_id' => 'fixture-access', 'secret_access_key' => 'fixture-account-secret',
+        'capacity_bytes' => 1000000000, 'active_limit' => 3, 'day_limit' => 5, 'month_limit' => 150],
     'odysee' => ['auth_token' => 'fixture-account-secret', 'channel_id' => str_repeat('a', 40)],
 ];
 $key = random_bytes(32);
@@ -48,6 +50,9 @@ try {
     $check($store->effective('fastpic')['priority'] === 2, 'Provider priority and unrelated configuration must remain unchanged.');
     $store->save('oracle', ['bucket' => 'new-private-bucket', 'secret_access_key' => '']);
     $check($store->effective('oracle')['secret_access_key'] === 'fixture-account-secret' && $store->effective('oracle')['bucket'] === 'new-private-bucket', 'Changing public bucket metadata must not blank Oracle credentials.');
+    $store->save('oracle', ['capacity_bytes' => 500000000, 'active_limit' => 2, 'day_limit' => 4, 'month_limit' => 120]);
+    $check($store->effective('oracle')['capacity_bytes'] === 500000000 && $store->effective('oracle')['month_limit'] === 120,
+        'Operational clip limits must persist with the encrypted provider settings.');
     $check($store->effective('fastpic')['day_limit'] === 17, 'Saving one provider must preserve changes to other providers.');
     $store->save('fastpic', [], ['key']);
     $check($store->effective('fastpic')['key'] === '' && ! $store->adminSettings()['fastpic']['configured_secrets']['key'], 'Explicit clear must override, not reactivate, the old environment key.');
@@ -89,6 +94,7 @@ try {
         ['unknown', [], []], ['fastpic', ['endpoint' => 'https://attacker.invalid'], []],
         ['fastpic', ['enabled' => 'yes'], []], ['fastpic', ['key' => "fixture-account-secret\nheader"], []],
         ['fastpic', ['day_limit' => 0], []], ['fastpic', ['day_limit' => 1000001], []],
+        ['oracle', ['capacity_bytes' => 134217727], []], ['oracle', ['capacity_bytes' => 1000000001], []],
         ['oracle', [], ['bucket']], ['fastpic', [], [['key']]],
     ] as [$id, $changes, $clear]) {
         $reject(static fn () => $store->save($id, $changes, $clear));

@@ -27,7 +27,10 @@ Parallelität, Tagesgrenze und reservierbare Bytes je Konto werden zentral aus
 Workerlauf synchronisieren genau das aktuell konfigurierte Konto in die
 Warteschlange. Eine unvollständige Verbindung pausiert nur neue Aufnahmen;
 verschlüsselte Kontosnapshots offener Aufträge bleiben für deren Bereinigung
-erhalten. API-/Monatsverbrauch und dessen Budgets sind noch nicht implementiert.
+erhalten. Eine globale Monatsgrenze zählt jede neue Aufnahme einschließlich
+später abgebrochener oder fehlgeschlagener Aufträge. Dadurch bleibt die Zahl
+neuer Oracle-/Odysee-Workflows konservativ begrenzt; ein separates Budget für
+wiederholte Statusabfragen ist noch nicht implementiert.
 
 Die Belegungsreservierung umfasst die doppelte exakte Dateigröße für Incoming-
 und Handoff-Kopie. Auch ein abgebrochener Auftrag behält diese Reservierung,

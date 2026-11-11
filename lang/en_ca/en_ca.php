@@ -4881,4 +4881,8 @@ The processing job encodes renditions, creates thumbnails when needed, stores ca
   'Manage video' => 'Manage video',
   'Boost video' => 'Boost video',
   'Delete Video' => 'Delete video',
+  'Reserved staging capacity (bytes)' => 'Reserved staging capacity (bytes)',
+  'Maximum active clip transfers' => 'Maximum active clip transfers',
+  'New clips per user each day' => 'New clips per user each day',
+  'New clips per month' => 'New clips per month',
 );

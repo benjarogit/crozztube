@@ -2963,6 +2963,15 @@
             ],
             "reviewed_at": "2026-11-06T10:15:08+00:00"
         },
+        "1655ed386b0cb81ba9cb86c05f621cca936093e5e9fe48954e4ef390019b3382": {
+            "source_hash": "1655ed386b0cb81ba9cb86c05f621cca936093e5e9fe48954e4ef390019b3382",
+            "translation_hash": "1655ed386b0cb81ba9cb86c05f621cca936093e5e9fe48954e4ef390019b3382",
+            "status": "editorial",
+            "contexts": [
+                "Administrator fields for the bounded Oracle staging and Odysee publication workflow. Values limit new clip admission globally and per account; byte capacity includes incoming and handoff reservations."
+            ],
+            "reviewed_at": "2026-11-11T12:03:00+00:00"
+        },
         "16581ae7b947b31ff5ea696d8eab6805f2a1e7e9c64a00302f9bf52d5806ae21": {
             "source_hash": "d5ab591abece1356d0b0f78e13459c944e91c09f70752ea2c53b6c3fd42bf3e0",
             "translation_hash": "d5ab591abece1356d0b0f78e13459c944e91c09f70752ea2c53b6c3fd42bf3e0",
@@ -3646,6 +3655,15 @@
                 "English reference editorial pass: moderation/monetization, static category labels, public help/FAQ/contact/refund guidance, API/developer metadata. User-facing help avoids database/popup jargon; legal/refund conditions preserved. CSS, identifiers, sample statistics and sample creator title excluded from copy review."
             ],
             "reviewed_at": "2026-11-06T10:21:26+00:00"
+        },
+        "1bab96b71920413cca850aed9321f7ebf825cbc7634f8db0adec3c52a34559a3": {
+            "source_hash": "1bab96b71920413cca850aed9321f7ebf825cbc7634f8db0adec3c52a34559a3",
+            "translation_hash": "1bab96b71920413cca850aed9321f7ebf825cbc7634f8db0adec3c52a34559a3",
+            "status": "editorial",
+            "contexts": [
+                "Administrator fields for the bounded Oracle staging and Odysee publication workflow. Values limit new clip admission globally and per account; byte capacity includes incoming and handoff reservations."
+            ],
+            "reviewed_at": "2026-11-11T12:03:00+00:00"
         },
         "1bb2e6e6ee648113c7f33859f600b00f73b4952ce6f68d00ee59b6cff4876a5e": {
             "source_hash": "29c34e6125c7ee1479b24b1259ed403512440a832083de13d397c5170fcbbb62",
@@ -18316,6 +18334,15 @@
             ],
             "reviewed_at": "2026-11-06T11:28:44+00:00"
         },
+        "801b8fa3b8ab3a0740b9030486b5fb574b913469d0a887f895271b1f24dc8b99": {
+            "source_hash": "801b8fa3b8ab3a0740b9030486b5fb574b913469d0a887f895271b1f24dc8b99",
+            "translation_hash": "801b8fa3b8ab3a0740b9030486b5fb574b913469d0a887f895271b1f24dc8b99",
+            "status": "editorial",
+            "contexts": [
+                "Administrator fields for the bounded Oracle staging and Odysee publication workflow. Values limit new clip admission globally and per account; byte capacity includes incoming and handoff reservations."
+            ],
+            "reviewed_at": "2026-11-11T12:03:00+00:00"
+        },
         "802803c7888480fc3a394d9c3060e509a76ff29c9e223246060a734b88a80f41": {
             "source_hash": "802803c7888480fc3a394d9c3060e509a76ff29c9e223246060a734b88a80f41",
             "translation_hash": "802803c7888480fc3a394d9c3060e509a76ff29c9e223246060a734b88a80f41",
@@ -23665,6 +23692,15 @@
                 "English reference editorial pass: imported media/player ads, liked videos, storage and membership settings, payment/integration errors, account restrictions and moderation actions. IDs and provider names retained. Unresolved sentence fragments excluded for complete-message integration."
             ],
             "reviewed_at": "2026-11-06T10:57:46+00:00"
+        },
+        "a6955dea348ca05c0c657e0ddf7fa35a93c8a3270da2638a1797b0896e0c5963": {
+            "source_hash": "a6955dea348ca05c0c657e0ddf7fa35a93c8a3270da2638a1797b0896e0c5963",
+            "translation_hash": "a6955dea348ca05c0c657e0ddf7fa35a93c8a3270da2638a1797b0896e0c5963",
+            "status": "editorial",
+            "contexts": [
+                "Administrator fields for the bounded Oracle staging and Odysee publication workflow. Values limit new clip admission globally and per account; byte capacity includes incoming and handoff reservations."
+            ],
+            "reviewed_at": "2026-11-11T12:03:00+00:00"
         },
         "a69bc55cbe5841a74a18af0ed769632b3a0729abb64043108461a0f190f6df6e": {
             "source_hash": "a69bc55cbe5841a74a18af0ed769632b3a0729abb64043108461a0f190f6df6e",

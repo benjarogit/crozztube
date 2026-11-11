@@ -17,6 +17,7 @@ CLIP_STAGING_OCI_ACCESS_KEY_ID=
 CLIP_STAGING_OCI_SECRET_ACCESS_KEY=
 CLIP_STAGING_ACTIVE_GLOBAL=3
 CLIP_STAGING_NEW_PER_USER_DAY=5
+CLIP_STAGING_NEW_GLOBAL_MONTH=150
 CLIP_STAGING_RESERVED_BYTES_PER_ACCOUNT=1000000000
 ```
 
@@ -93,7 +94,8 @@ falschem ETag, validierte interne Kopie, verweigerter anonymer Abruf,
 signierter Abruf und bestätigte Löschung beider Objekte waren erfolgreich.
 Das war kein Video- oder Browser-Test und kein Odysee-Import.
 
-Die drei Betriebsgrenzen entsprechen dem genehmigten Ausgangsstand. Der
+Die ersten drei Betriebsgrenzen entsprechen dem genehmigten Ausgangsstand; die
+zusätzliche konservative Monatsgrenze erlaubt 150 neue Aufnahmen. Der
 Workerlauf liest sie aus der zentralen Konfiguration und synchronisiert die
 aktuelle Admin-Verbindung vor neuen Aufnahmen. Ungültige Werte oder eine
 unvollständige Verbindung stoppen neue Aufnahmen, nicht die Bereinigung bereits

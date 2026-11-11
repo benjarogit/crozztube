@@ -28,9 +28,10 @@ use Illuminate\Support\Str;
 $input = json_decode(stream_get_contents(STDIN, 4096), true, 16, JSON_THROW_ON_ERROR);
 $user = User::where('username', $input['owner'] ?? 'benny')->firstOrFail();
 if (data_get($user->settings, 'role') !== 'owner') throw new RuntimeException();
-$queue = ClipTransferQueue::fromConfig();
+$oracle = MediaProviderSettings::current()->effective('oracle');
+$queue = ClipTransferQueue::fromOracleSettings($oracle);
 if (($input['operation'] ?? '') === 'reserve') {
-    if ($queue->synchronizeOracle(MediaProviderSettings::current()->effective('oracle')) === null) {
+    if ($queue->synchronizeOracle($oracle) === null) {
         throw new RuntimeException('Oracle staging is not configured.');
     }
     $videoId = DB::table('videos')->where('user_id', $user->id)->orderBy('id')->value('id');

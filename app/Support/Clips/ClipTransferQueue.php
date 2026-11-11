@@ -16,10 +16,12 @@ final class ClipTransferQueue
     public function __construct(
         private int $globalActive = 3,
         private int $dailyLimit = 5,
+        private int $monthlyLimit = 150,
         private int $accountCapacity = 1000000000,
     )
     {
         if ($globalActive < 1 || $globalActive > 30 || $dailyLimit < 1 || $dailyLimit > 100
+            || $monthlyLimit < 1 || $monthlyLimit > 1000000
             || $accountCapacity < ClipStagingObject::MAX_BYTES * 2 || $accountCapacity > 1000000000) {
             throw new InvalidArgumentException('Invalid clip queue limits.');
         }
@@ -30,7 +32,18 @@ final class ClipTransferQueue
         return new self(
             (int) config('clip_staging.limits.active_global', 3),
             (int) config('clip_staging.limits.new_per_user_day', 5),
+            (int) config('clip_staging.limits.new_global_month', 150),
             (int) config('clip_staging.limits.reserved_bytes_per_account', 1000000000),
+        );
+    }
+
+    public static function fromOracleSettings(#[\SensitiveParameter] array $settings): self
+    {
+        return new self(
+            (int) ($settings['active_limit'] ?? config('clip_staging.limits.active_global', 3)),
+            (int) ($settings['day_limit'] ?? config('clip_staging.limits.new_per_user_day', 5)),
+            (int) ($settings['month_limit'] ?? config('clip_staging.limits.new_global_month', 150)),
+            (int) ($settings['capacity_bytes'] ?? config('clip_staging.limits.reserved_bytes_per_account', 1000000000)),
         );
     }
 
@@ -90,6 +103,9 @@ final class ClipTransferQueue
                 }
 
                 return $old;
+            }
+            if (ClipTransfer::query()->where('created_at', '>=', now()->startOfMonth())->count() >= $this->monthlyLimit) {
+                throw new ClipQueueRejected('monthly_limit');
             }
             if (ClipTransfer::query()->where('user_id', $ownerId)->where('created_at', '>=', now()->startOfDay())->count() >= $this->dailyLimit) {
                 throw new ClipQueueRejected('daily_limit');

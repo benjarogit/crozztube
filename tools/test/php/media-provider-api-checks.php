@@ -124,9 +124,16 @@ try {
     $read = $controller->index($request($admin));
     $check($read->getStatusCode() === 200 && str_contains($read->headers->get('Cache-Control'), 'no-store'), 'Credential configuration responses must never be cached.');
     $check(! str_contains($read->getContent(), 'fixture-env-token') && ! str_contains($read->getContent(), 'fixture-secret'), 'Admin API must expose only presence flags, never stored credentials.');
+    $check($read->getData(true)['providers']['oracle']['month_limit'] === 150
+        && $read->getData(true)['providers']['oracle']['capacity_bytes'] === 1000000000,
+        'Oracle operational limits must be available to the administrator form.');
     $check($status(static fn () => $controller->update($request($admin, ['changes' => ['key' => 'fixture-updated-key']]), 'fastpic')) === 200, 'An administrator can change image credentials.');
-    $check($status(static fn () => $controller->update($request($admin, ['changes' => ['region' => 'eu-frankfurt-1']]), 'oracle')) === 200
+    $check($status(static fn () => $controller->update($request($admin, ['changes' => [
+        'region' => 'eu-frankfurt-1', 'capacity_bytes' => 500000000, 'active_limit' => 2, 'day_limit' => 4, 'month_limit' => 120,
+    ]]), 'oracle')) === 200
         && $controller->oracleSynchronizations === 1, 'Saving Oracle settings must synchronize productive queue admission.');
+    $check(MediaProviderSettings::current()->effective('oracle')['month_limit'] === 120,
+        'Saved operational limits must be visible to subsequent workers.');
     $check($status(static fn () => $controller->update($request($admin, ['changes' => [], 'clear_secrets' => ['key']]), 'fastpic')) === 200, 'Explicit secret removal must work even with no other changes.');
     $check(MediaProviderSettings::current()->effective('fastpic')['key'] === '', 'Explicit removal must suppress the old .env key.');
     $check($status(static fn () => $controller->update($request($admin, ['changes' => ['endpoint' => 'https://attacker.invalid']]), 'fastpic')) === 422, 'Administrator forms must not introduce arbitrary credential destinations.');

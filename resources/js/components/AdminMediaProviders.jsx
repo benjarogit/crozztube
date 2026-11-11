@@ -14,6 +14,8 @@ const definitions = {
   ], guide: ['Open the API access page, sign in and copy your personal API key. Paste it into API Key below.', 'The O and M values are public compatibility defaults, not your account key. Change them only when the provider tells you to.', 'Image links are public outside {platform}. A connection test uploads a small synthetic image.'] },
   oracle: { name: 'Oracle', links: [['Oracle customer secret keys', 'https://cloud.oracle.com/identity/domains/my-profile/auth-tokens'], ['Oracle buckets', 'https://cloud.oracle.com/object-storage/buckets']], fields: [
     ['region', 'Region', 'text'], ['namespace', 'Namespace', 'text'], ['bucket', 'Bucket', 'text'], ['access_key_id', 'Access Key', 'password'], ['secret_access_key', 'Secret Key', 'password'],
+    ['capacity_bytes', 'Reserved staging capacity (bytes)', 'number'], ['active_limit', 'Maximum active clip transfers', 'number'],
+    ['day_limit', 'New clips per user each day', 'number'], ['month_limit', 'New clips per month', 'number'],
   ], guide: ['Open Oracle buckets and choose your home region and compartment. Create a private Standard bucket or open your existing one.', 'Copy the selected region into Region, the Object Storage namespace from the bucket details into Namespace, and the bucket name into Bucket.', 'Open Oracle customer secret keys. Under Tokens and keys → Customer secret keys, generate a new pair. Copy its access key into Access Key and the secret shown once into Secret Key. API signing keys and auth tokens are different credentials.', 'Save the connection, then check bucket access. This test does not upload a video.'] },
   odysee: { name: 'Odysee', links: [['Odysee channels', 'https://odysee.com/$/channels'], ['Create an Odysee account', 'https://odysee.com/$/signup']], fields: [
     ['channel_id', 'Channel ID', 'text'], ['auth_token', 'Account token', 'password'],
@@ -105,8 +107,11 @@ export default function AdminMediaProviders({ api, alertAction, platformName = '
     if (type === 'checkbox') return <Toggle key={key} label={t(label)} checked={Boolean(draft[key])} disabled={Boolean(busy)} onChange={(value) => setField(key, value)} />;
     if (key === 'channel_id' && draft.connection_id) return <Select key={key} label={t('Channel')} value={draft[key] || ''} disabled={Boolean(busy)} onChange={(value) => setField(key, value)} options={[["", t('Choose a channel')], ...channels.map((channel) => [channel.id, channel.name])]} />;
     if (type === 'password') return <Secret key={key} label={t(label)} value={draft[key] || ''} configured={Boolean(saved.configured_secrets?.[key])} clear={clear.includes(key)} disabled={Boolean(busy)} onChange={(value) => setField(key, value)} onClear={() => toggleClear(key)} />;
+    const minimum = selected === 'oracle' && key === 'capacity_bytes' ? 134217728 : 1;
+    const maximum = selected !== 'oracle' ? 1000000
+      : key === 'capacity_bytes' ? 1000000000 : key === 'active_limit' ? 30 : key === 'day_limit' ? 100 : 1000000;
     return <Field key={key} label={t(label)} type={type} value={draft[key] ?? ''} disabled={Boolean(busy)} required
-      min={type === 'number' ? 1 : undefined} max={type === 'number' ? 1000000 : undefined} maxLength={type === 'text' ? 512 : undefined}
+      min={type === 'number' ? minimum : undefined} max={type === 'number' ? maximum : undefined} maxLength={type === 'text' ? 512 : undefined}
       pattern={key === 'channel_id' ? '[a-f0-9]{40}' : undefined} onChange={(value) => setField(key, value)} />;
   };
   return <section className="admin-media-providers" aria-label={t('External media services')} data-i18n-skip>

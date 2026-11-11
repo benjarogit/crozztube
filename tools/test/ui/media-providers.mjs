@@ -26,7 +26,9 @@ try {
     const { page, context } = session;
     page.setDefaultTimeout(12_000);
     const providers = {
-      oracle: { region: 'eu-frankfurt-1', namespace: 'fixture-namespace', bucket: 'fixture-private-bucket', access_key_id: '', secret_access_key: '', configured_secrets: { access_key_id: true, secret_access_key: true } },
+      oracle: { region: 'eu-frankfurt-1', namespace: 'fixture-namespace', bucket: 'fixture-private-bucket',
+        access_key_id: '', secret_access_key: '', capacity_bytes: 1000000000, active_limit: 3, day_limit: 5, month_limit: 150,
+        configured_secrets: { access_key_id: true, secret_access_key: true } },
       odysee: { channel_id: 'b'.repeat(40), auth_token: '', configured_secrets: { auth_token: true } },
       directupload: { enabled: true, minute_limit: 10, day_limit: 300, configured_secrets: {} },
       fastpic: { enabled: true, key: '', minute_limit: 60, day_limit: 5000, configured_secrets: { key: true } },
@@ -72,6 +74,9 @@ try {
       await expect(page.locator('#setting-external-media').getByRole('heading')).toHaveText(german ? 'Externe Mediendienste' : 'External media services'); checks++;
       check(await root.locator('input[type=password]').count() === 2, 'Oracle must show separate write-only access and secret fields.');
       for (const field of await root.locator('input[type=password]').all()) { check(await field.inputValue() === '', 'Saved credentials must never be prefilled.'); }
+      check(await root.locator('input[type=number]').count() === 4, 'Oracle must expose all bounded operational limits.');
+      await expect(root.getByLabel(german ? 'Neue Clips pro Monat' : 'New clips per month')).toHaveValue('150'); checks++;
+      await expect(root.getByLabel(german ? 'Reservierte Staging-Kapazität (Bytes)' : 'Reserved staging capacity (bytes)')).toHaveAttribute('max', '1000000000'); checks++;
       const styleOf = (button) => button.evaluate((element) => {
         const style = getComputedStyle(element);
         return Object.fromEntries(['height', 'borderRadius', 'fontSize', 'fontWeight', 'backgroundImage', 'backgroundColor', 'color'].map(key => [key, style[key]]));
@@ -153,6 +158,8 @@ try {
       await save.click();
       await expect(save).toBeDisabled(); checks++;
       check(writes.at(-1).body.changes.secret_access_key === '' && !Object.hasOwn(writes.at(-1).body.changes, 'configured_secrets'), 'Only edited fields and explicit empty secret preservation may be submitted.');
+      check(writes.at(-1).body.changes.month_limit === 150 && writes.at(-1).body.changes.capacity_bytes === 1000000000,
+        'Operational limits must be submitted as bounded numbers.');
       await test.click();
       await expect(dialog).toHaveClass(sharedDialogClass);
       await expect(dialog).toContainText(german ? 'bestätigt' : 'confirmed'); checks++;

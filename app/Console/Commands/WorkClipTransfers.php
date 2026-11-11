@@ -31,8 +31,9 @@ final class WorkClipTransfers extends Command
         }
         $queue = null;
         try {
-            $queue = ClipTransferQueue::fromConfig();
-            $queue->synchronizeOracle(MediaProviderSettings::current()->effective('oracle'));
+            $settings = MediaProviderSettings::current()->effective('oracle');
+            $queue = ClipTransferQueue::fromOracleSettings($settings);
+            $queue->synchronizeOracle($settings);
             $queue->promote();
         } catch (Throwable) {
             // Existing leased work must still run when new admissions are paused.

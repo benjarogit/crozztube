@@ -399,6 +399,7 @@
     "activePerUser": 1,
     "waitingPerUser": 1,
     "newUploadsPerDay": 5,
+    "newUploadsPerMonth": 150,
     "maxClipBytes": 67108864,
     "reservedAndStoredBytesPerAccount": 1000000000,
     "stagingCleanupHours": 24,

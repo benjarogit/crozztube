@@ -1,0 +1,21 @@
+{
+  "context": "Administrator fields for the bounded Oracle staging and Odysee publication workflow. Values limit new clip admission globally and per account; byte capacity includes incoming and handoff reservations.",
+  "messages": {
+    "Reserved staging capacity (bytes)": {
+      "en": "Reserved staging capacity (bytes)",
+      "de": "Reservierte Staging-Kapazität (Bytes)"
+    },
+    "Maximum active clip transfers": {
+      "en": "Maximum active clip transfers",
+      "de": "Maximal aktive Clip-Übertragungen"
+    },
+    "New clips per user each day": {
+      "en": "New clips per user each day",
+      "de": "Neue Clips pro Person und Tag"
+    },
+    "New clips per month": {
+      "en": "New clips per month",
+      "de": "Neue Clips pro Monat"
+    }
+  }
+}

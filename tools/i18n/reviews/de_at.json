@@ -1235,6 +1235,15 @@
       ],
       "reviewed_at": "2026-11-06T09:05:29+00:00"
     },
+    "1655ed386b0cb81ba9cb86c05f621cca936093e5e9fe48954e4ef390019b3382": {
+      "source_hash": "1655ed386b0cb81ba9cb86c05f621cca936093e5e9fe48954e4ef390019b3382",
+      "translation_hash": "9484a5c9656ce0c2c1c6712630a1d76264779f5a9a5cb891ae470e054756be20",
+      "status": "editorial",
+      "contexts": [
+        "Administrator fields for the bounded Oracle staging and Odysee publication workflow. Values limit new clip admission globally and per account; byte capacity includes incoming and handoff reservations."
+      ],
+      "reviewed_at": "2026-11-11T12:02:59+00:00"
+    },
     "170ded248de8b5408392b323bb42b079de76ea9a5b016518d6bfca25303dbc50": {
       "source_hash": "170ded248de8b5408392b323bb42b079de76ea9a5b016518d6bfca25303dbc50",
       "translation_hash": "37345267f77aaafc0462a0331019452b27a5ccacc6b0cd0d7c63e938a0000f70",
@@ -1459,6 +1468,15 @@
         "Owner decision: Shorts are at most60seconds and strictly portrait on all paths. Complete upload guidance and media-metadata status messages; existing historical180s keys retain compatibility with corrected meaning. Import success makes no untrue encoding-start claim."
       ],
       "reviewed_at": "2026-11-06T10:40:04+00:00"
+    },
+    "1bab96b71920413cca850aed9321f7ebf825cbc7634f8db0adec3c52a34559a3": {
+      "source_hash": "1bab96b71920413cca850aed9321f7ebf825cbc7634f8db0adec3c52a34559a3",
+      "translation_hash": "33dee53298cd7baca057b13c988337e8cf56c342672f1c728bbe8ba2bd3d32e0",
+      "status": "editorial",
+      "contexts": [
+        "Administrator fields for the bounded Oracle staging and Odysee publication workflow. Values limit new clip admission globally and per account; byte capacity includes incoming and handoff reservations."
+      ],
+      "reviewed_at": "2026-11-11T12:02:59+00:00"
     },
     "1bb2e6e6ee648113c7f33859f600b00f73b4952ce6f68d00ee59b6cff4876a5e": {
       "source_hash": "29c34e6125c7ee1479b24b1259ed403512440a832083de13d397c5170fcbbb62",
@@ -7187,6 +7205,15 @@
       ],
       "reviewed_at": "2026-11-06T11:21:04+00:00"
     },
+    "801b8fa3b8ab3a0740b9030486b5fb574b913469d0a887f895271b1f24dc8b99": {
+      "source_hash": "801b8fa3b8ab3a0740b9030486b5fb574b913469d0a887f895271b1f24dc8b99",
+      "translation_hash": "27cf83969d28d647076ebb7e2a45f105b002426b0f9a8114f37428655c966cca",
+      "status": "editorial",
+      "contexts": [
+        "Administrator fields for the bounded Oracle staging and Odysee publication workflow. Values limit new clip admission globally and per account; byte capacity includes incoming and handoff reservations."
+      ],
+      "reviewed_at": "2026-11-11T12:02:59+00:00"
+    },
     "80876822cb1df28920a520e7b19111a59eff16209e3e0c41fd42e96aef70575f": {
       "source_hash": "80876822cb1df28920a520e7b19111a59eff16209e3e0c41fd42e96aef70575f",
       "translation_hash": "f241eac699c41ba208fb706d50fc1189a9d899bdae26a8fa5ad3935a9874936b",
@@ -9156,6 +9183,15 @@
         "Source reading: comments and pinned actions, subscriptions, saved videos, player controls, account settings; dictionary messages 191–390"
       ],
       "reviewed_at": "2026-11-06T08:57:05+00:00"
+    },
+    "a6955dea348ca05c0c657e0ddf7fa35a93c8a3270da2638a1797b0896e0c5963": {
+      "source_hash": "a6955dea348ca05c0c657e0ddf7fa35a93c8a3270da2638a1797b0896e0c5963",
+      "translation_hash": "e70f369a86c9946db5f28f45d418b78c18abe1a967895aa60c18ce3fb8d681d7",
+      "status": "editorial",
+      "contexts": [
+        "Administrator fields for the bounded Oracle staging and Odysee publication workflow. Values limit new clip admission globally and per account; byte capacity includes incoming and handoff reservations."
+      ],
+      "reviewed_at": "2026-11-11T12:02:59+00:00"
     },
     "a69c4dece144a46e40d430726395533d8f335a7d601d8ca292220b3a4a7faca4": {
       "source_hash": "a69c4dece144a46e40d430726395533d8f335a7d601d8ca292220b3a4a7faca4",

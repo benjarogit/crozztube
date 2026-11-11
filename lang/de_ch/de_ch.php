@@ -4842,4 +4842,8 @@ Anschliessend erstellt die Verarbeitung die Videoauflösungen und bei Bedarf Vor
   'Manage video' => 'Video verwalten',
   'Boost video' => 'Video bewerben',
   'Delete Video' => 'Video löschen',
+  'Reserved staging capacity (bytes)' => 'Reservierte Staging-Kapazität (Bytes)',
+  'Maximum active clip transfers' => 'Maximal aktive Clip-Übertragungen',
+  'New clips per user each day' => 'Neue Clips pro Person und Tag',
+  'New clips per month' => 'Neue Clips pro Monat',
 );

@@ -168,7 +168,8 @@ class AdminMediaProvidersController extends Controller
     protected function synchronizeOracleSettings(): void
     {
         if (Schema::hasTable('clip_staging_accounts') && Schema::hasTable('clip_transfer_locks')) {
-            ClipTransferQueue::fromConfig()->synchronizeOracle(MediaProviderSettings::current()->effective('oracle'));
+            $settings = MediaProviderSettings::current()->effective('oracle');
+            ClipTransferQueue::fromOracleSettings($settings)->synchronizeOracle($settings);
         }
     }
 
