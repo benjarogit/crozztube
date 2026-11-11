@@ -84,7 +84,7 @@ const result = new Promise((resolve, reject) => {
 
 const page = `<!doctype html>
 <meta charset="utf-8">
-<video id="source" src="/source.mp4" playsinline></video>
+<video id="source" src="/source.mp4" preload="auto" playsinline></video>
 <script type="module">
 import { encodeClip } from '/clipEncoder.js'
 
@@ -96,8 +96,18 @@ try {
             video.addEventListener('error', () => reject(video.error), { once: true })
         })
     }
+    if (video.readyState < 3) {
+        await new Promise((resolve, reject) => {
+            video.addEventListener('canplay', resolve, { once: true })
+            video.addEventListener('error', () => reject(video.error), { once: true })
+        })
+    }
+    await video.play()
+    await new Promise(resolve => setTimeout(resolve, 400))
+    video.pause()
+    const originalTime = video.currentTime
     const clip = await encodeClip({
-        sourceUrl: video.currentSrc,
+        mediaElement: video,
         start: 0,
         end: 5,
     })
@@ -108,6 +118,9 @@ try {
             'x-clip-duration': String(clip.duration),
             'x-clip-width': String(clip.width),
             'x-clip-height': String(clip.height),
+            'x-original-time': String(originalTime),
+            'x-restored-time': String(video.currentTime),
+            'x-restored-paused': String(video.paused),
         },
         body: clip.blob,
     })
@@ -155,8 +168,21 @@ const server = createServer(async (request, response) => {
             return
         }
         if (request.url === '/source.mp4') {
+            const source = await readFile(sourcePath)
             response.setHeader('content-type', 'video/mp4')
-            response.end(await readFile(sourcePath))
+            response.setHeader('accept-ranges', 'bytes')
+            const range = request.headers.range?.match(/^bytes=(\d+)-(\d*)$/)
+            if (range) {
+                const start = Number(range[1])
+                const end = range[2] ? Math.min(Number(range[2]), source.length - 1) : source.length - 1
+                response.statusCode = 206
+                response.setHeader('content-range', `bytes ${start}-${end}/${source.length}`)
+                response.setHeader('content-length', end - start + 1)
+                response.end(source.subarray(start, end + 1))
+                return
+            }
+            response.setHeader('content-length', source.length)
+            response.end(source)
             return
         }
         if (request.url === '/capture' && request.method === 'POST') {
@@ -171,6 +197,9 @@ const server = createServer(async (request, response) => {
                 duration: Number(request.headers['x-clip-duration']),
                 width: Number(request.headers['x-clip-width']),
                 height: Number(request.headers['x-clip-height']),
+                originalTime: Number(request.headers['x-original-time']),
+                restoredTime: Number(request.headers['x-restored-time']),
+                restoredPaused: request.headers['x-restored-paused'] === 'true',
             })
             return
         }
@@ -245,6 +274,9 @@ try {
     assert(video.width <= 1280 && video.height <= 720)
     assert(metadata.duration === 5)
     assert(metadata.width <= 1280 && metadata.height <= 720)
+    assert(metadata.originalTime > 0.1)
+    assert(Math.abs(metadata.restoredTime - metadata.originalTime) < 0.1, `Mounted player was not restored: ${JSON.stringify(metadata)}`)
+    assert.equal(metadata.restoredPaused, true)
 
     const volume = await command('ffmpeg', [
         '-hide_banner',

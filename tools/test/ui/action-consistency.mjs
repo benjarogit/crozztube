@@ -56,6 +56,11 @@ try {
       const menu = page.locator('body > .watch-detail-menu'); await expect(menu).toBeVisible();
       const manage = menu.getByRole('menuitem', { name: language === 'en' ? 'Manage video' : 'Video verwalten', exact: true });
       await expect(manage).toBeVisible();
+      const manageCenters = await manage.locator(':scope > *').evaluateAll(nodes => nodes.map(node => {
+        const box = node.getBoundingClientRect();
+        return box.top + box.height / 2;
+      }));
+      expect(Math.max(...manageCenters) - Math.min(...manageCenters)).toBeLessThan(2); checks++;
       await expect(menu.getByRole('menuitem', { name: /^(Share video|Video teilen|Copy Link|Link kopieren|.*Watch later.*|.*Später ansehen.*)$/i })).toHaveCount(0); checks += 3;
       await manage.focus(); await page.keyboard.press('ArrowRight');
       await expect(menu).toHaveAttribute('aria-label', language === 'en' ? 'Manage video' : 'Video verwalten');

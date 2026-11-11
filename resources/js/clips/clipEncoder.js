@@ -92,22 +92,42 @@ function waitFor(target, success, failures, signal, timeout = 20000) {
   });
 }
 
-export async function encodeClip({ sourceUrl, start, end, signal, onProgress = () => {} }) {
+export async function encodeClip({
+  sourceUrl,
+  mediaElement = null,
+  start,
+  end,
+  signal,
+  onProgress = () => {},
+}) {
   const support = clipEncodingSupport();
   if (!support) throw new ClipEncodingError('unsupported', 'This browser cannot create compatible clips.');
   await prepareEncoders();
-  if (typeof sourceUrl !== 'string' || !/^https?:\/\//.test(sourceUrl)) {
+  const mountedVideo = mediaElement
+    && typeof mediaElement.play === 'function'
+    && typeof mediaElement.pause === 'function'
+    ? mediaElement
+    : null;
+  if (!mountedVideo && (typeof sourceUrl !== 'string' || !/^https?:\/\//.test(sourceUrl))) {
     throw new ClipEncodingError('invalid_source', 'A playable video source is required.');
   }
 
-  const video = document.createElement('video');
+  const video = mountedVideo || document.createElement('video');
+  const ownsVideo = !mountedVideo;
+  const previousPlayback = mountedVideo ? {
+    currentTime: Number(video.currentTime || 0),
+    paused: video.paused,
+    playbackRate: video.playbackRate,
+  } : null;
   const canvas = document.createElement('canvas');
   const context = canvas.getContext('2d', { alpha: false, willReadFrequently: true });
   if (!context) throw new ClipEncodingError('unsupported', 'Canvas video processing is unavailable.');
-  video.crossOrigin = 'anonymous';
-  video.preload = 'auto';
-  video.playsInline = true;
-  video.src = sourceUrl;
+  if (ownsVideo) {
+    video.crossOrigin = 'anonymous';
+    video.preload = 'auto';
+    video.playsInline = true;
+    video.src = sourceUrl;
+  }
   let audioContext;
   let audioProcessor;
   let output;
@@ -118,12 +138,13 @@ export async function encodeClip({ sourceUrl, start, end, signal, onProgress = (
   let objectUrl;
 
   try {
-    video.load();
+    if (ownsVideo) video.load();
     if (video.readyState < 1) await waitFor(video, 'loadedmetadata', ['error'], signal);
     const range = clipRange(start, end, video.duration);
     const dimensions = clipDimensions(video.videoWidth, video.videoHeight);
     canvas.width = dimensions.width;
     canvas.height = dimensions.height;
+    video.playbackRate = 1;
     video.currentTime = range.start;
     if (video.seeking || video.readyState < 2) await waitFor(video, 'seeked', ['error'], signal);
 
@@ -142,7 +163,14 @@ export async function encodeClip({ sourceUrl, start, end, signal, onProgress = (
     silent.connect(silence).connect(audioMix);
     silent.start();
     try {
-      audioContext.createMediaElementSource(video).connect(audioMix);
+      const captured = mountedVideo
+        ? (video.captureStream?.() || video.mozCaptureStream?.())
+        : null;
+      if (captured?.getAudioTracks().length) {
+        audioContext.createMediaStreamSource(captured).connect(audioMix);
+      } else if (ownsVideo) {
+        audioContext.createMediaElementSource(video).connect(audioMix);
+      }
     } catch {
       // The silent AAC track remains available for sources without readable audio.
     }
@@ -263,8 +291,17 @@ export async function encodeClip({ sourceUrl, start, end, signal, onProgress = (
     clearTimeout(timer);
     cancelAnimationFrame(frame);
     video.pause();
-    video.removeAttribute('src');
-    video.load();
+    if (ownsVideo) {
+      video.removeAttribute('src');
+      video.load();
+    } else if (previousPlayback) {
+      video.playbackRate = previousPlayback.playbackRate;
+      video.currentTime = previousPlayback.currentTime;
+      if (video.seeking) {
+        await waitFor(video, 'seeked', ['error'], null, 5000).catch(() => {});
+      }
+      if (!previousPlayback.paused) video.play().catch(() => {});
+    }
     if (audioProcessor) audioProcessor.onaudioprocess = null;
     videoSource?.close();
     audioSource?.close();

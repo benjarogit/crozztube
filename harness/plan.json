@@ -90,6 +90,13 @@
       "checks": [
         "step-04-time-marks"
       ],
+      "checkpointChecks": [
+        "clip-encoder-unit",
+        "clip-browser-format",
+        "clip-composer-ui",
+        "action-consistency-browser",
+        "staged-safety"
+      ],
       "acceptance": [
         "Private Notizen und bewusst veröffentlichte Zeitmarken",
         "Teilen und Zeitsprung ohne private Notizen offenzulegen",

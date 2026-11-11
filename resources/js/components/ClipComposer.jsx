@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import { useI18n } from '../i18n.jsx';
 import './ClipComposer.css';
 
-const fallbackCodes = new Set(['unsupported', 'source_unreadable', 'source_unavailable', 'source_timeout']);
+const fallbackCodes = new Set(['unsupported', 'invalid_source', 'source_unreadable', 'source_unavailable', 'source_timeout']);
 const wait = (milliseconds, signal) => new Promise((resolve, reject) => {
   const timer = window.setTimeout(resolve, milliseconds);
   signal.addEventListener('abort', () => {
@@ -17,12 +17,14 @@ export default function ClipComposer({
   api,
   video,
   sourceUrl,
+  getMediaElement,
   currentTime,
   duration,
   Icon,
   onClose,
   onCreated,
   onTimeLink,
+  onCaptureStateChange,
 }) {
   const { t } = useI18n();
   const dialogRef = useRef(null);
@@ -40,7 +42,16 @@ export default function ClipComposer({
   const [error, setError] = useState('');
   const [fallback, setFallback] = useState(false);
   const busy = phase !== 'idle';
-  const eligibleSource = /^https?:\/\//i.test(sourceUrl || '') && !/\.(?:m3u8|mpd)(?:$|[?#])/i.test(sourceUrl);
+  const mountedMedia = getMediaElement?.();
+  const directSourceEligible = (
+    /^https?:\/\//i.test(sourceUrl || '')
+    && !/\.(?:m3u8|mpd)(?:$|[?#])/i.test(sourceUrl)
+  );
+  const eligibleSource = directSourceEligible || (
+    mountedMedia?.readyState >= 1
+    && Number.isFinite(Number(mountedMedia.duration))
+    && Number(mountedMedia.duration) > 0
+  );
 
   useEffect(() => {
     if (!open) return undefined;
@@ -104,9 +115,11 @@ export default function ClipComposer({
     let clip;
     try {
       setPhase('encoding');
+      onCaptureStateChange?.(true);
       const { encodeClip } = await import('../clips/clipEncoder.js');
       clip = await encodeClip({
         sourceUrl,
+        mediaElement: directSourceEligible ? null : getMediaElement?.(),
         start: Number(form.start),
         end: Number(form.end),
         signal: controller.signal,
@@ -167,6 +180,7 @@ export default function ClipComposer({
     } finally {
       if (clip?.objectUrl) URL.revokeObjectURL(clip.objectUrl);
       abortRef.current = null;
+      onCaptureStateChange?.(false);
     }
   };
 

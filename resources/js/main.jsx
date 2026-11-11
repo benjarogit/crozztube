@@ -15147,6 +15147,8 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
   const scrollMiniplayerFromRectRef = useRef(null);
   const scrollMiniplayerAnimationRef = useRef(null);
   const discardPersistentPlaybackRef = useRef(false);
+  const clipCaptureActiveRef = useRef(false);
+  const clipCaptureStartedRef = useRef(false);
   const watchToastTimerRef = useRef(null);
   const clipAutoOpenRef = useRef('');
   const watchSidebarRef = useRef(null);
@@ -16249,7 +16251,7 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
   const playerDebugInfo = () => playerDebugSnapshot(activeWatchPlayer(), video, videoSources, playerError);
   const syncPersistentPlayback = (force = false, playingOverride = null, markStarted = false) => {
     const player = playerRef.current;
-    if (!player || !video?.slug || isShortVideo(video) || !videoSources.length || playerAdStarted || playerAdResolving) return null;
+    if (clipCaptureActiveRef.current || !player || !video?.slug || isShortVideo(video) || !videoSources.length || playerAdStarted || playerAdResolving) return null;
     const currentTime = Math.max(0, Number(player.currentTime || 0) || 0);
     const duration = Math.max(0, Number(player.duration || video.duration_seconds || 0) || 0);
     const state = persistentPlaybackRef.current;
@@ -16360,7 +16362,7 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
   };
   const recordPlayback = (force = false) => {
     const player = playerRef.current;
-    if (!player || !auth.user || !video?.slug || video.isDemo) return;
+    if (clipCaptureActiveRef.current || !player || !auth.user || !video?.slug || video.isDemo) return;
     const currentTime = Number(player.currentTime || 0);
     const duration = Number(player.duration || 0);
     if (!duration || duration < 1) return;
@@ -16648,6 +16650,7 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
     }
   };
   const handleContentTimeUpdate = () => {
+    if (clipCaptureActiveRef.current) return;
     recordPlayback();
     syncPersistentPlayback();
     if (playerAdStarted || playerAdResolving || !midRollBreaks.length) return;
@@ -16868,7 +16871,7 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
     </section>
     {playlistPickerOpen && <AddToPlaylistModal video={video} playlists={userPlaylists} loading={playlistLoading} error={playlistError} savingId={playlistSavingId} onClose={() => setPlaylistPickerOpen(false)} onRefresh={loadUserPlaylists} onToggle={togglePlaylistVideo} onCreate={() => { setPlaylistPickerOpen(false); setPlaylistCreateOpen(true); }} />}
     {playlistCreateOpen && <NewPlaylistModal videos={[video]} initialAddVideos initialVideoIds={[video.id]} onClose={() => setPlaylistCreateOpen(false)} onCreate={createWatchPlaylist} />}
-    <ClipComposer open={clipComposerOpen} api={api} video={video} sourceUrl={clipSourceUrl} currentTime={currentPlaybackSeconds()} duration={playerDuration || video.duration_seconds} Icon={Icon} onClose={() => { setClipComposerOpen(false); window.requestAnimationFrame(() => detailMenuTriggerRef.current?.focus()); }} onCreated={(transfer) => navigate(`/clip-uploads?clip=${encodeURIComponent(transfer.id)}`)} onTimeLink={() => copyPlayerText(watchUrlAtTime(currentUrl(), currentPlaybackSeconds()), 'Video URL at current time copied.')} />
+    <ClipComposer open={clipComposerOpen} api={api} video={video} sourceUrl={clipSourceUrl} getMediaElement={() => playerMediaElement(playerRef.current)} currentTime={currentPlaybackSeconds()} duration={playerDuration || video.duration_seconds} Icon={Icon} onClose={() => { setClipComposerOpen(false); window.requestAnimationFrame(() => detailMenuTriggerRef.current?.focus()); }} onCreated={(transfer) => navigate(`/clip-uploads?clip=${encodeURIComponent(transfer.id)}`)} onTimeLink={() => copyPlayerText(watchUrlAtTime(currentUrl(), currentPlaybackSeconds()), 'Video URL at current time copied.')} onCaptureStateChange={(active) => { if (active) clipCaptureStartedRef.current = persistentPlaybackRef.current.started; else persistentPlaybackRef.current.started = clipCaptureStartedRef.current; clipCaptureActiveRef.current = active; }} />
     <CreatorTipDialog open={creatorTipOpen} creator={video.channel} video={video} settings={creatorTips || {}} navigate={navigate} onClose={() => setCreatorTipOpen(false)} onSent={notify} />
     <AppConfirmDialog dialog={deleteConfirm} busy={videoDeleting} onCancel={() => setDeleteConfirm(null)} onConfirm={confirmDeleteVideo} />
     {watchToast && <button type="button" className="copy-toast-notice watch-player-toast" role="status" aria-live="polite" onClick={() => setWatchToast('')}><span><Icon name="info" size={18}/></span><strong>{watchToast}</strong></button>}
