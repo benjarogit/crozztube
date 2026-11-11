@@ -18,7 +18,15 @@
     },
     {
       "id": 2,
-      "status": "active"
+      "status": "accepted",
+      "acceptance": {
+        "note": "Cursor beforeShellExecution hook blocked the real deny probe and runtime-check passed. Retained owner clip 5e06399e-041d-4f31-a198-a6dcd4e7af8f had Odysee confirmation, owner-authorized 320x180 playback for 5.13 seconds with advancing media time, exactly one notification, and confirmed Oracle staging cleanup; no video bytes passed through PHP.",
+        "checkedAt": "2026-11-11T12:35:14.358Z",
+        "sourceDigest": "0df086334c08c9d5025d31f4765c8a189c271f869946cdb88ebfc883b470c7b3",
+        "checks": [
+          "step-02-integration"
+        ]
+      }
     },
     {
       "id": 3,
