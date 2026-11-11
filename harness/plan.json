@@ -196,6 +196,13 @@
     }
   ],
   "checks": {
+    "step-03-clips": {
+      "argv": [
+        "bash",
+        "tools/test/step-03-clips.sh"
+      ],
+      "timeoutMs": 480000
+    },
     "step-02-integration": {
       "argv": [
         "node",

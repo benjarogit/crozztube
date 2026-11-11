@@ -208,7 +208,10 @@ class ClipTransferController extends Controller
     {
         $status = (new ClipTransferQueue())->status((int) $row->user_id, $row->uuid);
 
-        $row->loadMissing(['video:id,slug,title', 'collections:id,uuid,title']);
+        $row->loadMissing([
+            'video' => fn ($query) => $query->without('thumbnailMirrors')->select('id', 'slug', 'title'),
+            'collections:id,uuid,title',
+        ]);
 
         return [...$status, 'title' => $row->metadata['title'], 'start' => $row->metadata['start'],
             'end' => $row->metadata['end'], 'visibility' => $row->metadata['visibility'],
@@ -227,14 +230,19 @@ class ClipTransferController extends Controller
         abort_unless($this->installed(), 404);
 
         return ClipTransfer::query()->where('user_id', $request->user()->id)->where('uuid', $uuid)
-            ->with(['video:id,slug,title', 'collections:id,uuid,title'])->firstOrFail();
+            ->with([
+                'video' => fn ($query) => $query->without('thumbnailMirrors')->select('id', 'slug', 'title'),
+                'collections:id,uuid,title',
+            ])->firstOrFail();
     }
 
     private function publicClip(Request $request, string $uuid): ClipTransfer
     {
         abort_unless($this->installed(), 404);
         $row = ClipTransfer::query()->available()->where('uuid', $uuid)
-            ->where('metadata->visibility', 'public')->with('video:id,slug,title')->firstOrFail();
+            ->where('metadata->visibility', 'public')
+            ->with(['video' => fn ($query) => $query->without('thumbnailMirrors')->select('id', 'slug', 'title')])
+            ->firstOrFail();
         $this->authorizeSource($request, $row);
 
         return $row;

@@ -30,7 +30,15 @@
     },
     {
       "id": 3,
-      "status": "active"
+      "status": "accepted",
+      "acceptance": {
+        "note": "Browser produced ffprobe-confirmed MP4 H.264/AAC at 640x360/5.03s with non-silent audio; direct Oracle upload contract carries no video bytes through PHP; queue wait/cancel, retry entry, visibility, collections, public/owner playback and confirmed deletion were covered by backend/browser checks; retained Odysee clip 5e06399e-041d-4f31-a198-a6dcd4e7af8f confirmed real playback, one notification and staging cleanup with bounded traffic.",
+        "checkedAt": "2026-11-11T13:42:11.129Z",
+        "sourceDigest": "9fea82aeb6d17b6c7011bb16b513f39ebeb7c37b881b74db50f73381ee05639a",
+        "checks": [
+          "step-03-clips"
+        ]
+      }
     },
     {
       "id": 4,
