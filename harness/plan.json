@@ -79,6 +79,8 @@
         "clip-browser-format",
         "clip-api",
         "clip-composer-ui",
+        "clip-collections",
+        "clip-management-ui",
         "staged-safety"
       ]
     },
@@ -230,6 +232,23 @@
       "argv": [
         "node",
         "tools/test/ui/clip-composer.mjs"
+      ],
+      "timeoutMs": 120000
+    },
+    "clip-collections": {
+      "argv": [
+        "docker",
+        "exec",
+        "crozztube-web",
+        "php",
+        "tools/test/php/clip-collection-checks.php"
+      ],
+      "timeoutMs": 60000
+    },
+    "clip-management-ui": {
+      "argv": [
+        "node",
+        "tools/test/ui/clip-management.mjs"
       ],
       "timeoutMs": 120000
     },

@@ -15148,6 +15148,7 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
   const scrollMiniplayerAnimationRef = useRef(null);
   const discardPersistentPlaybackRef = useRef(false);
   const watchToastTimerRef = useRef(null);
+  const clipAutoOpenRef = useRef('');
   const watchSidebarRef = useRef(null);
   const upNextRequestRef = useRef('');
   const commentsRequestRef = useRef('');
@@ -15310,6 +15311,12 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
       setVideoMenuState((current) => ({ ...current, hidden: Array.isArray(hidden) && hidden.includes(video.slug) }));
     } catch (_) {}
   }, [video?.slug]);
+  useEffect(() => {
+    if (!auth.user || !video?.slug || new URLSearchParams(window.location.search).get('clip') !== 'create'
+      || clipAutoOpenRef.current === video.slug) return;
+    clipAutoOpenRef.current = video.slug;
+    setClipComposerOpen(true);
+  }, [auth.user?.id, video?.slug]);
   useEffect(() => {
     setUpNextVisibleLimit(6);
     if (playlistContextId) {

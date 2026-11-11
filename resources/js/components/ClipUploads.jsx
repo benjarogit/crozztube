@@ -22,6 +22,10 @@ export default function ClipUploads({ api, navigate, Icon, compact = false, rout
   const [retry, setRetry] = useState(0);
   const [busyId, setBusyId] = useState(null);
   const [playing, setPlaying] = useState(null);
+  const [collections, setCollections] = useState([]);
+  const [collectionTitle, setCollectionTitle] = useState('');
+  const [collectionVisibility, setCollectionVisibility] = useState('private');
+  const [deleteId, setDeleteId] = useState('');
   const alive = useRef(true);
   const rows = useRef(new Map());
   const selected = new URLSearchParams(routeSearch).get('clip') || '';
@@ -37,8 +41,12 @@ export default function ClipUploads({ api, navigate, Icon, compact = false, rout
     const controller = new AbortController();
     const load = async () => {
       try {
-        const data = await api.request('/clip-transfers', { signal: controller.signal, trackPageLoading: false });
+        const [data, collectionData] = await Promise.all([
+          api.request('/clip-transfers', { signal: controller.signal, trackPageLoading: false }),
+          api.request('/clip-collections', { signal: controller.signal, trackPageLoading: false }),
+        ]);
         const rows = Array.isArray(data.transfers) ? data.transfers : [];
+        if (active) setCollections(Array.isArray(collectionData.collections) ? collectionData.collections : []);
         if (selectedId && !rows.some(row => row.id === selectedId)) {
           try {
             const old = await api.request(`/clip-transfers/${selectedId}`, { signal: controller.signal, trackPageLoading: false });
@@ -75,6 +83,63 @@ export default function ClipUploads({ api, navigate, Icon, compact = false, rout
     } catch { if (alive.current) setActionError('Your clip could not be opened. Please try again.'); }
     finally { if (alive.current) setBusyId(null); }
   };
+  const updateVisibility = async (item, visibility) => {
+    setBusyId(item.id); setActionError('');
+    try {
+      const result = await api.request(`/clip-transfers/${item.id}`, {
+        method: 'PATCH', body: JSON.stringify({ visibility }),
+      });
+      if (alive.current && result.transfer) setItems(current => current.map(row => row.id === item.id ? result.transfer : row));
+    } catch { if (alive.current) setActionError('Your clip visibility could not be changed. Please try again.'); }
+    finally { if (alive.current) setBusyId(null); }
+  };
+  const addToCollection = async (item, collectionId) => {
+    if (!collectionId) return;
+    setBusyId(item.id); setActionError('');
+    try {
+      await api.request(`/clip-collections/${collectionId}/clips/${item.id}`, { method: 'PUT', body: '{}' });
+      if (alive.current) setItems(current => current.map(row => row.id === item.id
+        ? { ...row, collections: [...(row.collections || []).filter(entry => entry.id !== collectionId), collections.find(entry => entry.id === collectionId)].filter(Boolean) }
+        : row));
+    } catch { if (alive.current) setActionError('Your clip could not be added to the collection. Please try again.'); }
+    finally { if (alive.current) setBusyId(null); }
+  };
+  const removeFromCollection = async (item, collectionId) => {
+    setBusyId(item.id); setActionError('');
+    try {
+      await api.request(`/clip-collections/${collectionId}/clips/${item.id}`, { method: 'DELETE' });
+      if (alive.current) setItems(current => current.map(row => row.id === item.id
+        ? { ...row, collections: (row.collections || []).filter(entry => entry.id !== collectionId) }
+        : row));
+    } catch { if (alive.current) setActionError('Your clip could not be removed from the collection. Please try again.'); }
+    finally { if (alive.current) setBusyId(null); }
+  };
+  const createCollection = async event => {
+    event.preventDefault();
+    setBusyId('collection'); setActionError('');
+    try {
+      const result = await api.request('/clip-collections', {
+        method: 'POST',
+        body: JSON.stringify({ title: collectionTitle.trim(), visibility: collectionVisibility }),
+      });
+      if (alive.current && result.collection) {
+        setCollections(current => [result.collection, ...current]);
+        setCollectionTitle('');
+      }
+    } catch { if (alive.current) setActionError('Your clip collection could not be created. Please try again.'); }
+    finally { if (alive.current) setBusyId(null); }
+  };
+  const deleteClip = async item => {
+    setBusyId(item.id); setActionError('');
+    try {
+      const result = await api.request(`/clip-transfers/${item.id}`, { method: 'DELETE' });
+      if (alive.current && result.transfer) {
+        setItems(current => current.map(row => row.id === item.id ? result.transfer : row));
+        setDeleteId('');
+      }
+    } catch { if (alive.current) setActionError('Your clip could not be deleted. Please try again.'); }
+    finally { if (alive.current) setBusyId(null); }
+  };
 
   if (compact && !items.length) return null;
   const content = <>
@@ -85,6 +150,15 @@ export default function ClipUploads({ api, navigate, Icon, compact = false, rout
     {loading && !items.length && <p role="status">{t('Loading your clip uploads…')}</p>}
     {error && <div className="clip-uploads-error" role="alert"><p>{t(error)}</p><button type="button" className="btn subtle" onClick={() => setRetry(value => value + 1)}>{t('Try again')}</button></div>}
     {actionError && <p role="alert" className="error">{t(actionError)}</p>}
+    {!compact && <section className="clip-collections-manager" aria-labelledby="clip-collections-title">
+      <div><h2 id="clip-collections-title">{t('Clip collections')}</h2>
+        <p>{t('Group your clips into private or public collections.')}</p></div>
+      <form onSubmit={createCollection}>
+        <label><span>{t('Collection title')}</span><input value={collectionTitle} maxLength={120} required onChange={event => setCollectionTitle(event.target.value)} /></label>
+        <label><span>{t('Visibility')}</span><select value={collectionVisibility} onChange={event => setCollectionVisibility(event.target.value)}><option value="private">{t('Private')}</option><option value="public">{t('Public')}</option></select></label>
+        <button type="submit" className="btn subtle" disabled={busyId === 'collection'}>{t(busyId === 'collection' ? 'Creating collection…' : 'Create collection')}</button>
+      </form>
+    </section>}
     {!loading && !error && selectedId && !items.some(row => row.id === selectedId) && <p role="status">{t('This clip upload is not available.')}</p>}
     {!loading && !error && !items.length && <p className="state-card">{t('You have no clip uploads yet.')}</p>}
     <ul className="clip-transfer-list">{items.map(item => {
@@ -98,11 +172,18 @@ export default function ClipUploads({ api, navigate, Icon, compact = false, rout
           {pending && !item.cancel_requested && item.state !== 'queued' && item.state !== 'uploading' && <p>{t('We are waiting for Odysee to confirm your clip. You can leave this page; we will notify you when it is ready.')}</p>}
           {['queued', 'uploading'].includes(item.state) && <p>{t('Keep the video page open until your browser upload is finished.')}</p>}
           {item.state === 'failed' && <p>{t('Your clip is not available here. Please contact support if you need help.')}</p>}
+          {item.original && <button type="button" className="clip-original-link" onClick={() => navigate(`/watch/${encodeURIComponent(item.original.slug)}?t=${Math.floor(Number(item.start || 0))}`)}>{t('Open original video')}: <span data-i18n-skip>{item.original.title}</span></button>}
+          {!compact && item.collections?.length > 0 && <div className="clip-collection-tags" aria-label={t('Clip collections')}>{item.collections.map(collection => <span key={collection.id}><span data-i18n-skip>{collection.title}</span><button type="button" disabled={busyId === item.id} onClick={() => removeFromCollection(item, collection.id)} aria-label={t('Remove from {collection}', { collection: collection.title })}><Icon name="close" size={12}/></button></span>)}</div>}
         </div>
         <div className="clip-transfer-actions">
           {canWatch && <button type="button" className="btn primary" disabled={busyId === item.id} onClick={() => watch(item)}><Icon name="play" size={16} />{t('Watch clip')}</button>}
+          {canWatch && !compact && <select aria-label={t('Clip visibility')} value={item.visibility} disabled={busyId === item.id} onChange={event => updateVisibility(item, event.target.value)}><option value="private">{t('Private')}</option><option value="public">{t('Public')}</option></select>}
+          {!compact && collections.length > 0 && <select aria-label={t('Add clip to collection')} value="" disabled={busyId === item.id} onChange={event => addToCollection(item, event.target.value)}><option value="">{t('Add to collection…')}</option>{collections.filter(collection => !(item.collections || []).some(entry => entry.id === collection.id)).map(collection => <option key={collection.id} value={collection.id} data-i18n-skip>{collection.title}</option>)}</select>}
+          {item.can_retry && item.original && <button type="button" className="btn subtle" onClick={() => navigate(`/watch/${encodeURIComponent(item.original.slug)}?t=${Math.floor(Number(item.start || 0))}&clip=create`)}>{t('Retry clip')}</button>}
           {pending && !item.cancel_requested && <button type="button" className="btn subtle" disabled={busyId === item.id} onClick={() => cancel(item)}>{t('Cancel clip upload')}</button>}
+          {!pending && !item.cancel_requested && <button type="button" className="btn subtle danger" disabled={busyId === item.id} onClick={() => setDeleteId(item.id)}>{t('Delete clip')}</button>}
         </div>
+        {deleteId === item.id && <div className="clip-delete-confirm" role="alertdialog" aria-label={t('Delete clip')}><p>{t('Delete this clip from Odysee and all of your collections?')}</p><div><button type="button" className="btn subtle" onClick={() => setDeleteId('')}>{t('Keep clip')}</button><button type="button" className="btn danger" disabled={busyId === item.id} onClick={() => deleteClip(item)}>{t('Delete clip')}</button></div></div>}
         {playing?.id === item.id && canWatch && <div className="clip-transfer-player"><iframe key={playing.id} src={playing.url} title={item.title} allow={embedPermissions()} allowFullScreen referrerPolicy="strict-origin-when-cross-origin" /></div>}
       </li>;
     })}</ul>

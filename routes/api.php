@@ -714,14 +714,28 @@ Route::get('/search', function (Request $request) {
     ]);
 });
 
+Route::middleware(\App\Http\Middleware\EnsureUgcSafety::class)->group(function (): void {
+    Route::get('/clips/{uuid}', [\App\Http\Controllers\Api\ClipTransferController::class, 'publicShow'])->whereUuid('uuid');
+    Route::get('/clips/{uuid}/playback', [\App\Http\Controllers\Api\ClipTransferController::class, 'publicPlayback'])->whereUuid('uuid')->middleware('throttle:20,1');
+});
+
 Route::middleware(['auth:sanctum', \App\Http\Middleware\EnsureUgcSafety::class])->group(function (): void {
     Route::get('/clip-transfers', [\App\Http\Controllers\Api\ClipTransferController::class, 'index']);
     Route::get('/clip-transfers/{uuid}', [\App\Http\Controllers\Api\ClipTransferController::class, 'show'])->whereUuid('uuid');
     Route::post('/videos/{video:slug}/clip-transfers', [\App\Http\Controllers\Api\ClipTransferController::class, 'store'])->middleware('throttle:api-write');
     Route::post('/clip-transfers/{uuid}/upload-grant', [\App\Http\Controllers\Api\ClipTransferController::class, 'uploadGrant'])->whereUuid('uuid')->middleware('throttle:api-write');
     Route::post('/clip-transfers/{uuid}/uploaded', [\App\Http\Controllers\Api\ClipTransferController::class, 'uploaded'])->whereUuid('uuid')->middleware('throttle:api-write');
+    Route::patch('/clip-transfers/{uuid}', [\App\Http\Controllers\Api\ClipTransferController::class, 'update'])->whereUuid('uuid')->middleware('throttle:api-write');
+    Route::delete('/clip-transfers/{uuid}', [\App\Http\Controllers\Api\ClipTransferController::class, 'destroy'])->whereUuid('uuid')->middleware('throttle:api-write');
     Route::post('/clip-transfers/{uuid}/cancel', [\App\Http\Controllers\Api\ClipTransferController::class, 'cancel'])->whereUuid('uuid')->middleware('throttle:api-write');
     Route::get('/clip-transfers/{uuid}/playback', [\App\Http\Controllers\Api\ClipTransferController::class, 'playback'])->whereUuid('uuid')->middleware('throttle:20,1');
+    Route::get('/clip-collections', [\App\Http\Controllers\Api\ClipCollectionController::class, 'index']);
+    Route::post('/clip-collections', [\App\Http\Controllers\Api\ClipCollectionController::class, 'store'])->middleware('throttle:api-write');
+    Route::get('/clip-collections/{collection}', [\App\Http\Controllers\Api\ClipCollectionController::class, 'show']);
+    Route::patch('/clip-collections/{collection}', [\App\Http\Controllers\Api\ClipCollectionController::class, 'update'])->middleware('throttle:api-write');
+    Route::delete('/clip-collections/{collection}', [\App\Http\Controllers\Api\ClipCollectionController::class, 'destroy'])->middleware('throttle:api-write');
+    Route::put('/clip-collections/{collection}/clips/{uuid}', [\App\Http\Controllers\Api\ClipCollectionController::class, 'addClip'])->whereUuid('uuid')->middleware('throttle:api-write');
+    Route::delete('/clip-collections/{collection}/clips/{uuid}', [\App\Http\Controllers\Api\ClipCollectionController::class, 'removeClip'])->whereUuid('uuid')->middleware('throttle:api-write');
     Route::get('/account/safety', [\App\Http\Controllers\Api\V1\SafetyController::class, 'show']);
     Route::post('/account/safety/consent', [\App\Http\Controllers\Api\V1\SafetyController::class, 'consent'])->middleware('throttle:api-write');
     Route::get('/account/blocks', [\App\Http\Controllers\Api\V1\SafetyController::class, 'blocks']);

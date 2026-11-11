@@ -66,7 +66,9 @@ class ClipTransferController extends Controller
         if (! $this->installed()) {
             return $this->response(['transfers' => []]);
         }
-        $items = ClipTransfer::query()->where('user_id', $request->user()->id)->latest('id')->limit(50)->get();
+        $items = ClipTransfer::query()->where('user_id', $request->user()->id)
+            ->with(['video:id,slug,title', 'collections:id,uuid,title'])
+            ->latest('id')->limit(50)->get();
 
         return $this->response(['transfers' => $items->map(fn ($row) => $this->payload($row))->all()]);
     }
@@ -118,6 +120,61 @@ class ClipTransferController extends Controller
         return $this->response(['transfer' => $this->payload($row)]);
     }
 
+    public function update(Request $request, string $uuid): JsonResponse
+    {
+        $data = $request->validate(['visibility' => ['required', 'in:private,public']]);
+        $row = $this->owned($request, $uuid);
+        abort_unless($row->phase === 'ready' && $row->available_at !== null && ! $row->cancel_requested, 409,
+            'The clip must be ready before its visibility can change.');
+        $this->authorizeSource($request, $row);
+        if ($row->metadata['visibility'] !== $data['visibility']) {
+            $settings = MediaProviderSettings::current()->effective('odysee');
+            $settings['channel_id'] = $row->publisher_channel_id;
+            try {
+                $this->publisher($settings)->visibility(
+                    $row->uuid,
+                    $row->provider_state['claim'],
+                    $data['visibility'] === 'public',
+                );
+            } catch (Throwable) {
+                abort(503, 'The clip visibility could not be confirmed.');
+            }
+            $metadata = $row->metadata;
+            $metadata['visibility'] = $data['visibility'];
+            $row->update(['metadata' => $metadata]);
+        }
+
+        return $this->response(['transfer' => $this->payload($row->fresh(['video', 'collections']))]);
+    }
+
+    public function destroy(Request $request, string $uuid): JsonResponse
+    {
+        $row = $this->owned($request, $uuid);
+        if ($row->phase === 'ready' && isset($row->provider_state['claim'])) {
+            $settings = MediaProviderSettings::current()->effective('odysee');
+            $settings['channel_id'] = $row->publisher_channel_id;
+            try {
+                $this->publisher($settings)->abandon($row->uuid, $row->provider_state['claim']);
+            } catch (Throwable) {
+                abort(503, 'Clip deletion is waiting for provider confirmation.');
+            }
+            $row->update([
+                'phase' => 'cancelled',
+                'cancel_requested' => true,
+                'available_at' => null,
+            ]);
+        } else {
+            try {
+                $row = (new ClipTransferQueue())->cancel((int) $request->user()->id, $row->uuid);
+            } catch (ClipQueueRejected $error) {
+                return $this->rejected($error);
+            }
+        }
+        $row->collections()->detach();
+
+        return $this->response(['transfer' => $this->payload($row->fresh(['video', 'collections']))], 202);
+    }
+
     public function playback(Request $request, string $uuid): JsonResponse
     {
         $row = $this->owned($request, $uuid);
@@ -130,14 +187,38 @@ class ClipTransferController extends Controller
         return $this->response(['embed_url' => $embed]);
     }
 
+    public function publicShow(Request $request, string $uuid): JsonResponse
+    {
+        $row = $this->publicClip($request, $uuid);
+
+        return $this->response(['clip' => $this->publicPayload($row)]);
+    }
+
+    public function publicPlayback(Request $request, string $uuid): JsonResponse
+    {
+        $row = $this->publicClip($request, $uuid);
+        $settings = MediaProviderSettings::current()->effective('odysee');
+        $settings['channel_id'] = $row->publisher_channel_id;
+        $embed = $this->publisher($settings)->embed($row->uuid, $row->provider_state['claim']);
+
+        return $this->response(['embed_url' => $embed]);
+    }
+
     private function payload(ClipTransfer $row): array
     {
         $status = (new ClipTransferQueue())->status((int) $row->user_id, $row->uuid);
+
+        $row->loadMissing(['video:id,slug,title', 'collections:id,uuid,title']);
 
         return [...$status, 'title' => $row->metadata['title'], 'start' => $row->metadata['start'],
             'end' => $row->metadata['end'], 'visibility' => $row->metadata['visibility'],
             'available_at' => $row->available_at?->toIso8601String(),
             'can_watch' => $row->phase === 'ready' && $row->available_at !== null && ! $row->cancel_requested,
+            'can_retry' => in_array($row->phase, ['failed', 'cancelled'], true) && $row->video !== null,
+            'original' => $row->video ? ['slug' => $row->video->slug, 'title' => $row->video->title] : null,
+            'collections' => $row->collections->map(fn ($collection) => [
+                'id' => $collection->uuid, 'title' => $collection->title,
+            ])->all(),
             'created_at' => $row->created_at?->toIso8601String()];
     }
 
@@ -145,7 +226,30 @@ class ClipTransferController extends Controller
     {
         abort_unless($this->installed(), 404);
 
-        return ClipTransfer::query()->where('user_id', $request->user()->id)->where('uuid', $uuid)->firstOrFail();
+        return ClipTransfer::query()->where('user_id', $request->user()->id)->where('uuid', $uuid)
+            ->with(['video:id,slug,title', 'collections:id,uuid,title'])->firstOrFail();
+    }
+
+    private function publicClip(Request $request, string $uuid): ClipTransfer
+    {
+        abort_unless($this->installed(), 404);
+        $row = ClipTransfer::query()->available()->where('uuid', $uuid)
+            ->where('metadata->visibility', 'public')->with('video:id,slug,title')->firstOrFail();
+        $this->authorizeSource($request, $row);
+
+        return $row;
+    }
+
+    private function publicPayload(ClipTransfer $row): array
+    {
+        return [
+            'id' => $row->uuid,
+            'title' => $row->metadata['title'],
+            'start' => $row->metadata['start'],
+            'end' => $row->metadata['end'],
+            'original' => $row->video ? ['slug' => $row->video->slug, 'title' => $row->video->title] : null,
+            'available_at' => $row->available_at?->toIso8601String(),
+        ];
     }
 
     private function installed(): bool
