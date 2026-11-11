@@ -235,6 +235,9 @@ als begonnen gespeichert. Bei verlorenem Ergebnis wird nicht blind neu publizier
 Ein akzeptierter Auftrag bleibt in `processing` beziehungsweise
 `awaiting_confirmation`, auch nach 24 Stunden. Zeitablauf allein ist keine
 Providerablehnung. Nur explizite Ablehnung oder Besitzerabbruch beendet ihn.
+Die Statusabfrage reduziert sich dabei von 30 Sekunden über fünf und 15 Minuten
+auf sechs Stunden ab dem zweiten Tag. Das begrenzt langfristigen API-Verbrauch,
+ohne einen ausstehenden Auftrag aufzugeben.
 Die 24-Stunden-Grenze gilt weiterhin für abgebrochene Browser-/Stagingarbeit.
 Während der Provider wartet, bleiben Oracle-Übergabekopie und Reservierung erhalten;
 eine Lifecycle-Regel darf diese aktiven Übergaben nicht vorzeitig entfernen.

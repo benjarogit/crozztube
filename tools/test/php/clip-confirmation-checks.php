@@ -113,6 +113,7 @@ try {
     Carbon::setTestNow('2026-11-07 14:00:00');
     $due($job);
     $check($job->phase === 'awaiting_confirmation' && $job->available_at === null, 'Two hours of provider delay remain pending rather than a ten-minute failure.');
+    $check($job->next_check_at->timestamp - now()->timestamp === 900, 'Established provider waits use a bounded fifteen-minute polling interval.');
     $check($gateway->deletions === 0 && $gateway->cleanups === 0, 'Waiting for confirmation must not remove the Odysee upload or staging copy.');
     $controller = new ClipTransferController();
     $payload = $controller->show($request(1), $job->uuid)->getData(true)['transfer'];
@@ -196,6 +197,7 @@ try {
     $deletions = $gateway->deletions; $cleanups = $gateway->cleanups;
     $gateway->playable = false; Carbon::setTestNow(now()->addHours(25)); $due($job);
     $check($job->phase === 'awaiting_confirmation' && $job->available_at === null && UserNotification::count() === 0, 'Provider processing stays pending even after 24 hours; time alone is not rejection.');
+    $check($job->next_check_at->timestamp - now()->timestamp === 21600, 'Long provider waits back off to a bounded six-hour polling interval.');
     $check($gateway->deletions === $deletions && $gateway->cleanups === $cleanups && $job->reservation_released_at === null, 'Keep the provider entry and staging reservation while waiting for confirmation.');
     $gateway->playable = true; $due($job);
     $check($job->phase === 'ready', 'A late provider confirmation can still make the original job available.');
