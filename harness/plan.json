@@ -72,6 +72,12 @@
         "Private und öffentliche Clips, Originalzuordnung und Sammlungen",
         "Ungeeignete Quellen bieten Zeitmarke statt manuellen Upload",
         "Warten, Abbruch, Retry, Sichtbarkeit, Wiedergabe und Löschen vollständig geprüft"
+      ],
+      "checkpointChecks": [
+        "harness-tests",
+        "clip-encoder-unit",
+        "clip-browser-format",
+        "staged-safety"
       ]
     },
     {
@@ -194,6 +200,22 @@
         "--id=5e06399e-041d-4f31-a198-a6dcd4e7af8f"
       ],
       "timeoutMs": 120000
+    },
+    "clip-encoder-unit": {
+      "argv": [
+        "node",
+        "--test",
+        "--test-reporter=spec",
+        "tools/test/clip-encoder.test.mjs"
+      ],
+      "timeoutMs": 30000
+    },
+    "clip-browser-format": {
+      "argv": [
+        "node",
+        "tools/test/clip-browser-format.mjs"
+      ],
+      "timeoutMs": 60000
     },
     "harness-tests": {
       "argv": [
