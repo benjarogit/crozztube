@@ -313,6 +313,7 @@ node tools/test/ui/clip-workflow-live-observe.mjs --run --id=5e06399e-041d-4f31-
 Ohne `--run` werden keine Anfragen gestellt. Der Test ist absichtlich auf einen
 kleinen synthetischen Besitzer-Testclip begrenzt und verwendet nur einen
 Browserworker mit regulärer TLS-Prüfung. Die Herkunftsseite und vorhandene
-Browserentwürfe bleiben unverändert. Diese Teilprüfung ist bestanden;
-Schritt 2 bleibt bis zur vollständigen Abnahme einschließlich der noch offenen
-unveröffentlichten Sammlung, Betriebsgrenzen und übrigen Fehlerfälle offen.
+Browserentwürfe bleiben unverändert. Dieser behaltene Auftrag ist der
+verbindliche Live-Abschlusscheck für Schritt 2. Private und öffentliche
+Clip-Sammlungen sowie die Browser-Erzeugung vollständiger Clips beginnen erst
+in Schritt 3.

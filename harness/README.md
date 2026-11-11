@@ -99,4 +99,6 @@ mit `git add -f -- build/assets/<datei>` aufgenommen.
 
 Die verbleibenden Schritte sind absichtlich noch nicht umgesetzt. Ihre
 Checknamen sind Abschlussanforderungen und keine erfolgreich bestandenen
-Platzhalter. Insbesondere fehlt weiterhin die echte Drei-Konten-/Odysee-Abnahme.
+Platzhalter. Schritt 2 verwendet den behaltenen synthetischen Besitzerclip für
+eine begrenzte echte Odysee-Wiedergabeprüfung; neue Veröffentlichungen gehören
+nicht in den automatischen Abschlusscheck.
