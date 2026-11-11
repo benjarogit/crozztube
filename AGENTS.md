@@ -34,5 +34,5 @@ The user's approved plan is implemented in order, one active step at a time.
   provider content, original audio, captions, chapters and mounted player/forms.
 - Use the relevant project language/design skills for UI/copy changes.
 - Use bounded media traffic and one browser-test worker.
-- A hook must be reviewed/trusted in Codex and observed firing before runtime
+- A project hook must be loaded by the active agent runtime and observed firing before runtime
   enforcement is claimed. Never bypass hook trust to satisfy this acceptance.

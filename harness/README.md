@@ -57,12 +57,12 @@ Schrittwechsel. Der Stop-Hook erzeugt höchstens eine Reparaturfortsetzung;
 bleibt der Abschluss offen, meldet er eine Blockade statt einer Endlosschleife.
 Fragen und ausdrückliche Unterbrechungen respektieren die Nutzersteuerung.
 
-## Tatsächliche Codex-Hooks prüfen
+## Tatsächliche Projekt-Hooks prüfen
 
-Die Definition steht in `.codex/hooks.json`. Codex verlangt für neue Hooks eine
-Prüfung und Vertrauen in die konkrete Definition. Öffne **Settings → Hooks**
-oder **Review hooks**; in der CLI alternativ `/hooks`. Es genügt nicht, dass
-die Projektdatei existiert. Siehe [offizielle Hooks-Dokumentation](https://learn.chatgpt.com/docs/hooks).
+Cursor lädt die aktive Definition aus `.cursor/hooks.json`; die parallele
+`.codex/hooks.json` bleibt für den älteren Codex-Laufzeitweg erhalten. Öffne
+**Customize → Hooks**, um die geladene Projektdefinition und ihre Ausführungen
+zu sehen. Es genügt nicht, dass nur eine Konfigurationsdatei existiert.
 
 Nach der Vertrauensprüfung wird der harmlose Negativtest **als Agent-Toolaufruf**
 ausgeführt, nicht als manuell simulierte stdin-Nachricht:
@@ -75,8 +75,9 @@ node tools/harness/cli.mjs runtime-check
 Der erste Befehl muss vor seiner Ausführung mit
 `CROZZTUBE_HARNESS_PROBE_BLOCKED` abgewiesen werden. Läuft er doch, meldet er
 einen Fehler. Erst ein passender Runtime-Beleg mit Session-ID und aktuellem
-Hash von Definition und Hookcode erfüllt `runtime-check` und die Abschluss-
-Voraussetzung. Trust-Bypass-Schalter gehören nicht zur Abnahme.
+Hash von aktiver Definition und Hookcode erfüllt `runtime-check` und die
+Abschlussvoraussetzung. Ein Cursor-Shellereignis liefert derzeit nicht in jeder
+Version eine Session-ID; das echte blockierte Ereignis selbst bleibt zwingend.
 
 ## Prüfwerkzeuge und Geheimnisse
 

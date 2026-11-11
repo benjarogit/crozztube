@@ -1,8 +1,7 @@
 #!/usr/bin/env node
 import fs from 'node:fs';
 import path from 'node:path';
-import { createHash } from 'node:crypto';
-import { repository, load, localPath, published, setMode, stopDecision } from './workflow.mjs';
+import { repository, load, localPath, published, setMode, stopDecision, hookDigest } from './workflow.mjs';
 
 let output = {};
 try {
@@ -11,21 +10,31 @@ try {
   const root = repository();
   load(root);
   let decision = 'observed';
-  if (event === 'PreToolUse') {
+  const cursorShell = event === 'beforeShellExecution';
+  if (event === 'PreToolUse' || cursorShell) {
     const tool = String(input.tool_name || '');
-    const command = input.tool_input?.cmd ?? input.tool_input?.command ?? input.tool_input?.code ?? '';
-    if (/Bash|exec_command|functions\.exec|run_in_terminal/.test(tool) && /tools\/harness\/cli\.mjs\s+deny-probe(?:\s|$)/.test(command)) {
+    const command = cursorShell ? String(input.command || '')
+      : input.tool_input?.cmd ?? input.tool_input?.command ?? input.tool_input?.code ?? '';
+    const shellTool = cursorShell || /Bash|exec_command|functions\.exec|run_in_terminal/.test(tool);
+    if (shellTool && /tools\/harness\/cli\.mjs\s+deny-probe(?:\s|$)/.test(command)) {
       decision = 'probe-blocked';
-      output = { hookSpecificOutput: { hookEventName: 'PreToolUse', permissionDecision: 'deny', permissionDecisionReason: 'CROZZTUBE_HARNESS_PROBE_BLOCKED: the project hook intercepted the harmless runtime probe.' } };
+      const reason = 'CROZZTUBE_HARNESS_PROBE_BLOCKED: the project hook intercepted the harmless runtime probe.';
+      output = cursorShell
+        ? { permission: 'deny', user_message: reason, agent_message: reason }
+        : { hookSpecificOutput: { hookEventName: 'PreToolUse', permissionDecision: 'deny', permissionDecisionReason: reason } };
     }
     const transition = /tools\/harness\/cli\.mjs\s+begin\s+(\d+)(?:\s|$)/.exec(command);
-    if (transition && /Bash|exec_command|functions\.exec|run_in_terminal/.test(tool)) {
+    if (transition && shellTool) {
       const context = load(root);
       if (Number(transition[1]) !== context.step.id + 1 || !published(root, context)) {
         decision = 'advance-blocked';
-        output = { hookSpecificOutput: { hookEventName: 'PreToolUse', permissionDecision: 'deny', permissionDecisionReason: 'CrozzTube harness: the current step is not accepted, cleanly committed and confirmed pushed. Keep it open.' } };
+        const reason = 'CrozzTube harness: the current step is not accepted, cleanly committed and confirmed pushed. Keep it open.';
+        output = cursorShell
+          ? { permission: 'deny', user_message: reason, agent_message: reason }
+          : { hookSpecificOutput: { hookEventName: 'PreToolUse', permissionDecision: 'deny', permissionDecisionReason: reason } };
       }
     }
+    if (cursorShell && decision === 'observed') output = { permission: 'allow' };
   } else if (event === 'UserPromptSubmit') {
     const prompt = String(input.prompt || '').trim();
     if (/^(?:warte|stopp?|pause|halt|stop)\b/i.test(prompt)) setMode(root, 'paused', 'Explicit user interruption; await an explicit implementation resume.');
@@ -34,11 +43,13 @@ try {
     setMode(root, 'discussion', 'Turn interrupted; honor new user input before resuming implementation.');
   } else if (event === 'Stop') output = stopDecision(root, input);
 
-  const hookDigest = createHash('sha256').update(fs.readFileSync(path.join(root, '.codex/hooks.json'))).update(fs.readFileSync(path.join(root, 'tools/harness/codex-hook.mjs'))).update(fs.readFileSync(path.join(root, 'tools/harness/workflow.mjs'))).digest('hex');
+  const digest = hookDigest(root);
   const receiptFile = localPath(root, 'hook-receipts.jsonl');
   fs.mkdirSync(path.dirname(receiptFile), { recursive: true, mode: 0o700 });
   const previous = fs.existsSync(receiptFile) ? fs.readFileSync(receiptFile, 'utf8').trim().split('\n').filter(Boolean).slice(-499) : [];
-  previous.push(JSON.stringify({ event, decision, session: input.session_id || null, at: new Date().toISOString(), hookDigest }));
+  previous.push(JSON.stringify({ event, decision,
+    session: input.session_id || input.conversation_id || input.generation_id || input.request_id || null,
+    at: new Date().toISOString(), hookDigest: digest }));
   fs.writeFileSync(receiptFile, previous.join('\n') + '\n', { mode: 0o600 });
 } catch {
   // Do not expose tool arguments, credentials or user prompts in a hook error.

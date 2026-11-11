@@ -23,10 +23,10 @@ try {
     if (!fs.existsSync(path.join(root, 'harness/baseline.md'))) throw Error('Baseline evidence missing.');
     console.log('PASS: the checked application baseline is preserved; only harness files changed.');
   } else if (command === 'runtime-check') {
-    if (!runtimeEvidence(root)) throw Error('Runtime probe not observed. Review/trust project hooks in Codex, then execute the deny probe.');
-    console.log('PASS: a real Codex PreToolUse hook blocked the current runtime probe.');
+    if (!runtimeEvidence(root)) throw Error('Runtime probe not observed. Load the project hook in Cursor, then execute the deny probe.');
+    console.log('PASS: a real project hook blocked the current runtime probe.');
   } else if (command === 'deny-probe') {
-    throw Error('The deny probe executed: the Codex hook did not intercept it. Step 1 remains open.');
+    throw Error('The deny probe executed: the project hook did not intercept it. The current step remains open.');
   } else throw Error('Unknown command. Use status, resume, mode, verify, checkpoint, complete, begin, baseline-check or runtime-check.');
 } catch (error) {
   console.error(`Harness: ${error.message}`);

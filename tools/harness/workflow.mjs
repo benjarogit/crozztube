@@ -135,11 +135,24 @@ export function begin(root, id) {
   writeJson(path.join(root, 'harness/progress.json'), context.progress);
   setMode(root, 'implementing');
 }
+export function hookDigest(root) {
+  const hash = createHash('sha256');
+  for (const file of ['.codex/hooks.json', '.cursor/hooks.json', 'tools/harness/codex-hook.mjs', 'tools/harness/workflow.mjs']) {
+    const absolute = path.join(root, file);
+    if (fs.existsSync(absolute)) hash.update(file + '\0').update(fs.readFileSync(absolute));
+  }
+
+  return hash.digest('hex');
+}
 export function runtimeEvidence(root) {
   const file = localPath(root, 'hook-receipts.jsonl');
   if (!fs.existsSync(file)) return false;
-  const hookDigest = createHash('sha256').update(fs.readFileSync(path.join(root, '.codex/hooks.json'))).update(fs.readFileSync(path.join(root, 'tools/harness/codex-hook.mjs'))).update(fs.readFileSync(path.join(root, 'tools/harness/workflow.mjs'))).digest('hex');
-  return fs.readFileSync(file, 'utf8').trim().split('\n').filter(Boolean).map(line => JSON.parse(line)).some(item => item.event === 'PreToolUse' && item.decision === 'probe-blocked' && item.session && item.hookDigest === hookDigest);
+  const expected = hookDigest(root);
+
+  return fs.readFileSync(file, 'utf8').trim().split('\n').filter(Boolean).map(line => JSON.parse(line))
+    .some(item => ['PreToolUse', 'beforeShellExecution'].includes(item.event)
+      && item.decision === 'probe-blocked' && item.hookDigest === expected
+      && (item.session || item.event === 'beforeShellExecution'));
 }
 export function publish(root, message, { complete = false, note = '' } = {}) {
   const context = load(root);
@@ -150,7 +163,7 @@ export function publish(root, message, { complete = false, note = '' } = {}) {
   if (!message?.trim()) throw Error('A descriptive commit message is required.');
   if (complete) {
     if (!note.trim()) throw Error('Record concrete acceptance evidence.');
-    if (!runtimeEvidence(root)) throw Error('A real trusted Codex hook must block the runtime probe before completion.');
+    if (!runtimeEvidence(root)) throw Error('A real trusted project hook must block the runtime probe before completion.');
     context.record.status = 'accepted';
     context.record.acceptance = { note, checkedAt: proof.checkedAt, sourceDigest: proof.digest, checks: proof.checks.map(item => item.id) };
     writeJson(path.join(root, 'harness/progress.json'), context.progress);
