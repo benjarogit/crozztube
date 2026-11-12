@@ -14,6 +14,7 @@ import {
 import './ClipComposer.css';
 
 const fallbackCodes = new Set(['unsupported', 'invalid_source', 'source_unreadable', 'source_unavailable', 'source_timeout']);
+const clipDetailSeconds = 120;
 const wait = (milliseconds, signal) => new Promise((resolve, reject) => {
   const timer = window.setTimeout(resolve, milliseconds);
   signal.addEventListener('abort', () => {
@@ -74,7 +75,7 @@ export default function ClipComposer({
   const busy = phase !== 'idle';
   const totalSeconds = Math.max(5, Math.floor(Number(duration || video?.duration_seconds || form.end || 5)));
   const clipSeconds = Math.max(5, Math.min(60, Number(form.end) - Number(form.start)));
-  const detailSpan = Math.min(totalSeconds, 180);
+  const detailSpan = Math.min(totalSeconds, clipDetailSeconds);
   const [detailOrigin, setDetailOrigin] = useState(0);
   const maximumDetailOrigin = Math.max(0, totalSeconds - detailSpan);
   const centeredDetailOrigin = clamp(
@@ -155,9 +156,9 @@ export default function ClipComposer({
   };
 
   const updateStart = startValue => {
-    const length = clamp(Number(formRef.current.end) - Number(formRef.current.start), 5, 60);
-    const start = clamp(Math.floor(Number(startValue) || 0), 0, Math.max(0, totalSeconds - length));
-    setForm(current => ({ ...current, start, end: start + length }));
+    const end = Number(formRef.current.end);
+    const start = clamp(Math.floor(Number(startValue) || 0), Math.max(0, end - 60), Math.max(0, end - 5));
+    setForm(current => ({ ...current, start }));
   };
 
   const updateEnd = endValue => {
@@ -177,7 +178,7 @@ export default function ClipComposer({
     if (!open) return undefined;
     setForm({ title: video?.title ? `${video.title} clip` : '', visibility: 'private', ...initialRange });
     const openedTotal = Math.max(5, Math.floor(Number(duration || video?.duration_seconds || initialRange.end || 5)));
-    const openedSpan = Math.min(openedTotal, 180);
+    const openedSpan = Math.min(openedTotal, clipDetailSeconds);
     const openedMid = (initialRange.start + initialRange.end) / 2;
     setDetailOrigin(clamp(Math.floor(openedMid - openedSpan / 2), 0, Math.max(0, openedTotal - openedSpan)));
     setPhase('idle');
@@ -248,7 +249,7 @@ export default function ClipComposer({
   useEffect(() => {
     if (!open) return undefined;
     setDetailOrigin((current) => {
-      const span = Math.min(totalSeconds, 180);
+      const span = Math.min(totalSeconds, clipDetailSeconds);
       const viewEnd = Math.min(totalSeconds, current + span);
       const pad = Math.min(12, Math.floor(span / 10));
       if (Number(form.start) >= current + pad && Number(form.end) <= viewEnd - pad) return current;

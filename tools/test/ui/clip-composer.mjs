@@ -126,9 +126,12 @@ try {
         checks += 2;
         await dialog.getByRole('button', { name: '60 s' }).click();
         await expect(dialog.getByLabel(labels.end)).toHaveValue(String(requestedStart + 60));
-        await dialog.getByLabel(labels.start).fill('5');
+        await dialog.getByLabel(labels.start).fill(String(requestedStart + 5));
         await dialog.getByLabel(labels.start).dispatchEvent('pointerup');
-        await expect(dialog).toContainText('0:05 – 1:05');
+        await expect(dialog.getByLabel(labels.end)).toHaveValue(String(requestedStart + 60));
+        await dialog.getByLabel(labels.end).fill(String(requestedStart + 20));
+        await dialog.getByLabel(labels.end).dispatchEvent('pointerup');
+        await expect(dialog.getByLabel(labels.start)).toHaveValue(String(requestedStart + 5));
         await expect(dialog.getByRole('button', { name: labels.create })).toBeVisible();
         const appearance = await dialog.evaluate(node => {
           const normalize = value => {
