@@ -4944,4 +4944,6 @@ The processing job encodes renditions, creates thumbnails when needed, stores ca
   'Search transcript' => 'Search transcript',
   'Transcript language' => 'Transcript language',
   'No transcript matches.' => 'No transcript matches.',
+  'Mark as watched' => 'Mark as watched',
+  'Watch from start' => 'Watch from start',
 );

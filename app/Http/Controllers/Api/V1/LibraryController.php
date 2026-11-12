@@ -12,6 +12,7 @@ use App\Models\Video;
 use App\Services\Api\V1\VideoAccessService;
 use App\Services\Api\V1\ViewerStateService;
 use App\Support\Api\V1\PaginationPayload;
+use App\Support\WatchProgress;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -27,7 +28,7 @@ class LibraryController extends Controller
         $limit = min(max((int) $request->integer('row_limit', 10), 4), 12);
         $watchLater = $this->watchLaterQuery($request)->take($limit)->get();
         $liked = $this->likedQuery($request)->take($limit)->get();
-        $continue = $this->progressQuery($request)->whereBetween('video_watch_progress.progress', [1, 94])->take($limit)->get();
+        $continue = WatchProgress::applyContinueScope($this->progressQuery($request))->take($limit)->get();
         $history = $this->progressQuery($request)->take($limit)->get();
         // Hydrate every row instance: the same video is loaded as separate models
         // for Watch Later, Liked, Continue Watching, and History.
@@ -43,7 +44,7 @@ class LibraryController extends Controller
         return response()->json([
             'counts' => [
                 'history' => $this->progressQuery($request)->count(),
-                'continue_watching' => $this->progressQuery($request)->whereBetween('video_watch_progress.progress', [1, 94])->count(),
+                'continue_watching' => WatchProgress::applyContinueScope($this->progressQuery($request))->count(),
                 'watch_later' => $this->watchLaterQuery($request)->count(),
                 'liked_videos' => $this->likedQuery($request)->count(),
                 'playlists' => Playlist::query()->where('user_id', $request->user()->id)->count(),

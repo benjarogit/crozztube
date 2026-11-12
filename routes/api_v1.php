@@ -321,6 +321,12 @@ Route::prefix('v1')
 
                 Route::get('/history', [HistoryController::class, 'index'])->name('history.index');
                 Route::get('/history/continue-watching', [HistoryController::class, 'continueWatching'])->name('history.continue');
+                Route::delete('/history/continue-watching/{video:slug}', [HistoryController::class, 'dismissContinue'])
+                    ->middleware('throttle:api-write')->name('history.continue.dismiss');
+                Route::post('/videos/{video:slug}/progress/watched', [HistoryController::class, 'markWatched'])
+                    ->middleware('throttle:api-write')->name('videos.progress.watched');
+                Route::post('/videos/{video:slug}/progress/restart', [HistoryController::class, 'restart'])
+                    ->middleware('throttle:api-write')->name('videos.progress.restart');
                 Route::delete('/history', [HistoryController::class, 'clear'])->name('history.clear');
                 Route::put('/videos/{video:slug}/progress', [HistoryController::class, 'update'])
                     ->middleware('throttle:progress')->name('videos.progress');

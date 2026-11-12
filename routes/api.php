@@ -1112,6 +1112,9 @@ Route::middleware(['auth:sanctum', \App\Http\Middleware\EnsureUgcSafety::class])
     Route::get('/watch-later', [VideoController::class, 'watchLater']);
     Route::get('/bookmarks', [CommunityPostController::class, 'bookmarks']);
     Route::get('/continue-watching', [VideoController::class, 'continueWatching']);
+    Route::delete('/continue-watching/{video:slug}', [VideoController::class, 'dismissContinueWatching']);
+    Route::post('/videos/{video:slug}/progress/watched', [VideoController::class, 'markWatchProgressWatched']);
+    Route::post('/videos/{video:slug}/progress/restart', [VideoController::class, 'restartWatchProgress']);
     Route::get('/liked-videos', [VideoController::class, 'likedVideos']);
     Route::get('/library', [VideoController::class, 'library']);
     Route::get('/subscriptions', [SubscriptionController::class, 'index']);

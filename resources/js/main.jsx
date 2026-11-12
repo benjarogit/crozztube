@@ -6149,13 +6149,14 @@ function PersistentVideoPlayer({ path, navigate, auth, defaultVideoQuality = 'au
 const LEGACY_WATCH_PROGRESS_KEY = 'playhub_watch_progress';
 let legacyWatchProgressMigration = null;
 
-function saveWatchProgress(video, currentTime, duration, user) {
+function saveWatchProgress(video, currentTime, duration, user, state = 'playing') {
   if (!user || !video?.slug || video.isDemo || !duration || duration < 1) return;
   api.request(`/videos/${video.slug}/progress`, {
     method: 'POST',
     body: JSON.stringify({
       current_time: Math.floor(currentTime),
       duration_seconds: Math.floor(duration),
+      state,
     }),
   }).catch(() => {});
 }
@@ -6430,7 +6431,11 @@ function Home({ navigate, auth }) {
       {loading && <div className="state-card">Loading videos...</div>}
 
       {continueVideos.length ? <Section title="Continue watching">
-        <div className="continue-grid">{continueVideos.map((video) => <ContinueCard key={video.slug} video={video} navigate={navigate} />)}</div>
+        <div className="continue-grid">{continueVideos.map((video) => <ContinueCard key={video.slug} video={video} navigate={navigate} onChange={(next) => setContinueVideos((items) => {
+          if (next?.remove) return items.filter((item) => item.slug !== video.slug);
+          if (next?.video) return items.map((item) => item.slug === video.slug ? { ...item, ...next.video } : item).filter((item) => Number(item.progress || 0) > 0 && Number(item.progress || 0) < 95);
+          return items.filter((item) => item.slug !== video.slug);
+        })} />)}</div>
       </Section> : null}
       {(loading || uploadedVideos.length > 0) && <Section title="Discover videos" action="View all" onAction={() => navigate('/explore')}>
         {uploadedVideos.length ? <div className="video-grid">{uploadedVideos.slice(0, 12).map((video, index) => <React.Fragment key={video.id || video.slug}><VideoCard video={{ ...video, rank: null }} navigate={navigate} /><WebsiteAdSlot placement="video_grid" sequence={index + 1} className="website-ad-grid-span"/></React.Fragment>)}</div> : <HomeEmptyVideoSection navigate={navigate} loading={loading} />}
@@ -6618,15 +6623,44 @@ function VideoCard({ video, navigate }) {
     </div>
   </article>;
 }
-function ContinueCard({ video, navigate }) {
+function ContinueCard({ video, navigate, onChange = null }) {
   const { t } = useI18n();
   const { progress, remaining } = continueWatchingState(video);
+  const [busy, setBusy] = useState('');
+  const runAction = async (action, event) => {
+    event?.preventDefault();
+    event?.stopPropagation();
+    if (!video?.slug || busy) return;
+    setBusy(action);
+    try {
+      if (action === 'dismiss') {
+        await api.request(`/continue-watching/${video.slug}`, { method: 'DELETE' });
+        onChange?.({ remove: true });
+      } else if (action === 'watched') {
+        await api.request(`/videos/${video.slug}/progress/watched`, { method: 'POST' });
+        onChange?.({ remove: true });
+      } else if (action === 'restart') {
+        await api.request(`/videos/${video.slug}/progress/restart`, { method: 'POST' });
+        onChange?.({ remove: true });
+        navigate(videoPlaybackPath(video, '?t=0'));
+      }
+    } catch (_) {
+      setBusy('');
+    } finally {
+      if (action !== 'restart') setBusy('');
+    }
+  };
   return <article className="continue-card">
     <VideoNavigationLink video={video} navigate={navigate} className="continue-video-link"><Thumbnail video={video}/><strong data-i18n-skip>{video.title}</strong></VideoNavigationLink>
     <div className="continue-content">
       <button type="button" data-i18n-skip className="channel-inline-link" disabled={!profilePathFor(video.channel)} onClick={(event) => openProfile(event, navigate, video.channel)}>{video.channel?.name || 'Creator'}</button>
       <small data-i18n-skip>{remaining === null ? t('{percent}% watched', { percent: progress }) : t('{time} left', { time: formatDurationSeconds(remaining) || '0:00' })}</small>
       <div className="progress-line" role="progressbar" aria-label={t('Watch progress')} aria-valuemin={0} aria-valuemax={100} aria-valuenow={progress}><i style={{ width: `${progress}%` }}/></div>
+      <div className="continue-actions">
+        <button type="button" className="text-button" disabled={Boolean(busy)} onClick={(event) => runAction('dismiss', event)}>{t('Remove')}</button>
+        <button type="button" className="text-button" disabled={Boolean(busy)} onClick={(event) => runAction('watched', event)}>{t('Mark as watched')}</button>
+        <button type="button" className="text-button" disabled={Boolean(busy)} onClick={(event) => runAction('restart', event)}>{t('Watch from start')}</button>
+      </div>
     </div>
   </article>;
 }
@@ -16576,7 +16610,7 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
       player.currentTime = savedTime;
     }
   };
-  const recordPlayback = (force = false) => {
+  const recordPlayback = (force = false, state = null) => {
     const player = playerRef.current;
     if (clipCaptureActiveRef.current || !player || !auth.user || !video?.slug || video.isDemo) return;
     const currentTime = Number(player.currentTime || 0);
@@ -16584,9 +16618,11 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
     if (!duration || duration < 1) return;
     const now = Date.now();
     const last = progressSyncRef.current;
-    if (!force && last.slug === video.slug && now - last.at < 10000 && Math.abs(currentTime - last.time) < 10) return;
+    const firstForVideo = last.slug !== video.slug;
+    if (!force && !firstForVideo && now - last.at < 10000 && Math.abs(currentTime - last.time) < 10) return;
+    const reportState = state || (firstForVideo ? 'started' : 'playing');
     progressSyncRef.current = { slug: video.slug, at: now, time: currentTime };
-    saveWatchProgress(video, currentTime, duration, auth.user);
+    saveWatchProgress(video, currentTime, duration, auth.user, reportState);
   };
   const shouldAutoStartCurrentVideo = () => {
     if (!autoplayEnabled || !video?.slug) return false;

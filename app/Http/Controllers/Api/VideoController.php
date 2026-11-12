@@ -25,6 +25,7 @@ use App\Support\Slugs;
 use App\Support\VideoChapters;
 use App\Support\VideoImportSettings;
 use App\Support\VideoSales;
+use App\Support\WatchProgress;
 use App\Support\YtDlp;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -422,11 +423,12 @@ class VideoController extends Controller
 
     public function continueWatching(Request $request): AnonymousResourceCollection
     {
-        $videos = Video::query()
-            ->select('videos.*', 'video_watch_progress.progress', 'video_watch_progress.current_time_seconds as current_time', 'video_watch_progress.updated_at as progress_updated_at')
-            ->join('video_watch_progress', 'video_watch_progress.video_id', '=', 'videos.id')
-            ->where('video_watch_progress.user_id', $request->user()->id)
-            ->whereBetween('video_watch_progress.progress', [1, 94])
+        $videos = WatchProgress::applyContinueScope(
+            Video::query()
+                ->select('videos.*', 'video_watch_progress.progress', 'video_watch_progress.current_time_seconds as current_time', 'video_watch_progress.updated_at as progress_updated_at')
+                ->join('video_watch_progress', 'video_watch_progress.video_id', '=', 'videos.id')
+                ->where('video_watch_progress.user_id', $request->user()->id)
+        )
             ->where(function ($query) use ($request): void {
                 $query->where(function ($public): void {
                     $public->where('videos.visibility', 'public')->where('videos.status', 'ready');
@@ -437,6 +439,30 @@ class VideoController extends Controller
             ->paginate(min(max((int) $request->integer('per_page', $request->integer('limit', 5)), 1), 50));
 
         return VideoResource::collection($videos);
+    }
+
+    public function dismissContinueWatching(Request $request, Video $video): JsonResponse
+    {
+        abort_if($video->visibility === 'private' && $request->user()->id !== $video->user_id, 404);
+        abort_unless(VideoSales::hasAccess($video, $request->user()), 403, 'Purchase this video to watch it.');
+
+        return response()->json(WatchProgress::dismiss($request->user(), $video));
+    }
+
+    public function markWatchProgressWatched(Request $request, Video $video): JsonResponse
+    {
+        abort_if($video->visibility === 'private' && $request->user()->id !== $video->user_id, 404);
+        abort_unless(VideoSales::hasAccess($video, $request->user()), 403, 'Purchase this video to watch it.');
+
+        return response()->json(WatchProgress::markWatched($request->user(), $video));
+    }
+
+    public function restartWatchProgress(Request $request, Video $video): JsonResponse
+    {
+        abort_if($video->visibility === 'private' && $request->user()->id !== $video->user_id, 404);
+        abort_unless(VideoSales::hasAccess($video, $request->user()), 403, 'Purchase this video to watch it.');
+
+        return response()->json(WatchProgress::restart($request->user(), $video));
     }
 
     public function likedVideos(Request $request): AnonymousResourceCollection
@@ -650,38 +676,21 @@ class VideoController extends Controller
         $data = $request->validate([
             'current_time' => ['required', 'numeric', 'min:0'],
             'duration_seconds' => ['required', 'numeric', 'min:1'],
+            'state' => ['nullable', Rule::in(['started', 'playing', 'paused', 'completed', 'restarted'])],
+            'event_id' => ['nullable', 'uuid'],
         ]);
 
-        $currentTime = max(0, (int) floor((float) $data['current_time']));
-        $duration = max(1, (int) floor((float) $data['duration_seconds']));
-        $progress = max(0, min(100, (int) round(($currentTime / $duration) * 100)));
+        $payload = WatchProgress::record($request->user(), $video, $data);
 
-        if ($currentTime < 3) {
-            DB::table('video_watch_progress')
-                ->where('user_id', $request->user()->id)
-                ->where('video_id', $video->id)
-                ->delete();
-
-            return response()->json(['progress' => 0, 'current_time' => 0]);
-        }
-
-        if ($progress >= 95) {
-            $progress = 100;
-            $currentTime = $duration;
-        }
-
-        DB::table('video_watch_progress')->updateOrInsert([
-            'user_id' => $request->user()->id,
-            'video_id' => $video->id,
-        ], [
-            'progress' => $progress,
-            'current_time_seconds' => $currentTime,
-            'duration_seconds' => $duration,
-            'created_at' => now(),
-            'updated_at' => now(),
+        return response()->json([
+            'progress' => (int) ($payload['progress'] ?? $payload['progress_percent'] ?? 0),
+            'current_time' => (int) ($payload['current_time'] ?? $payload['position_seconds'] ?? 0),
+            'hidden_from_continue' => (bool) ($payload['hidden_from_continue'] ?? false),
+            'completed' => (bool) ($payload['completed'] ?? false),
+            'persisted' => (bool) ($payload['persisted'] ?? false),
+            'idempotent_replay' => (bool) ($payload['idempotent_replay'] ?? false),
+            'next_update_after_seconds' => $payload['next_update_after_seconds'] ?? null,
         ]);
-
-        return response()->json(['progress' => $progress, 'current_time' => $currentTime]);
     }
 
     public function store(StoreVideoRequest $request): JsonResponse

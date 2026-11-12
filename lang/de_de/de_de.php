@@ -4926,4 +4926,6 @@ Anschließend erstellt die Verarbeitung die Videoauflösungen und bei Bedarf Vor
   'Search transcript' => 'Transkript durchsuchen',
   'Transcript language' => 'Transkriptsprache',
   'No transcript matches.' => 'Keine Treffer im Transkript.',
+  'Mark as watched' => 'Als angesehen markieren',
+  'Watch from start' => 'Von vorne ansehen',
 );

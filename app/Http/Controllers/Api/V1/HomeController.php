@@ -11,6 +11,7 @@ use App\Services\Api\V1\LiveStreamAccessService;
 use App\Services\Api\V1\VideoAccessService;
 use App\Services\Api\V1\ViewerStateService;
 use App\Support\Client\ClientContext;
+use App\Support\WatchProgress;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -59,11 +60,12 @@ class HomeController extends Controller
         $continue = collect();
         $subscriptions = collect();
         if ($request->user()) {
-            $continue = Video::query()
-                ->select('videos.*')
-                ->join('video_watch_progress', 'video_watch_progress.video_id', '=', 'videos.id')
-                ->where('video_watch_progress.user_id', $request->user()->id)
-                ->whereBetween('video_watch_progress.progress', [1, 94])
+            $continue = WatchProgress::applyContinueScope(
+                Video::query()
+                    ->select('videos.*')
+                    ->join('video_watch_progress', 'video_watch_progress.video_id', '=', 'videos.id')
+                    ->where('video_watch_progress.user_id', $request->user()->id)
+            )
                 ->where(fn ($query) => $query
                     ->where(fn ($public) => $access->constrainPublic($public))
                     ->orWhere('videos.user_id', $request->user()->id))

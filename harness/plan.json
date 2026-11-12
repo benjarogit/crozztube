@@ -210,6 +210,13 @@
       ],
       "timeoutMs": 120000
     },
+    "step-06-progress": {
+      "argv": [
+        "bash",
+        "tools/test/step-06-progress.sh"
+      ],
+      "timeoutMs": 120000
+    },
     "step-04-time-marks": {
       "argv": [
         "bash",

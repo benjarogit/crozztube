@@ -11,6 +11,7 @@ use App\Models\VideoCategory;
 use App\Services\Api\V1\VideoAccessService;
 use App\Services\Api\V1\ViewerStateService;
 use App\Support\Api\V1\PaginationPayload;
+use App\Support\WatchProgress;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -84,9 +85,10 @@ class DiscoveryController extends Controller
                 ->whereColumn('video_watch_progress.video_id', 'videos.id')->where('video_watch_progress.user_id', $viewerId)->where('progress', '>', 0));
         }
         if ($section === 'continue') {
-            $query->join('video_watch_progress', 'video_watch_progress.video_id', '=', 'videos.id')
-                ->where('video_watch_progress.user_id', $viewerId)->whereBetween('video_watch_progress.progress', [1, 94])
-                ->orderByDesc('video_watch_progress.updated_at');
+            WatchProgress::applyContinueScope(
+                $query->join('video_watch_progress', 'video_watch_progress.video_id', '=', 'videos.id')
+                    ->where('video_watch_progress.user_id', $viewerId)
+            )->orderByDesc('video_watch_progress.updated_at');
         } elseif ($section === 'popular') {
             $query->orderByDesc('views_count');
         }

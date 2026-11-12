@@ -10,6 +10,7 @@ use App\Services\Api\V1\VideoAccessService;
 use App\Services\Api\V1\ViewerStateService;
 use App\Services\Api\V1\WatchProgressService;
 use App\Support\Api\V1\PaginationPayload;
+use App\Support\WatchProgress;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -47,8 +48,7 @@ class HistoryController extends Controller
             'page' => ['nullable', 'integer', 'min:1', 'max:10000'],
             'per_page' => ['nullable', 'integer', 'min:1', 'max:50'],
         ]);
-        $videos = $this->query($request)
-            ->whereBetween('video_watch_progress.progress', [1, 94])
+        $videos = WatchProgress::applyContinueScope($this->query($request))
             ->orderByDesc('video_watch_progress.updated_at')
             ->orderByDesc('videos.id')
             ->paginate(min(max((int) $request->integer('per_page', 12), 1), 50));
@@ -66,6 +66,30 @@ class HistoryController extends Controller
         WatchProgressService $progress,
     ): JsonResponse {
         return response()->json($progress->update($request->user(), $video, $request->validated()));
+    }
+
+    public function dismissContinue(
+        Request $request,
+        Video $video,
+        WatchProgressService $progress,
+    ): JsonResponse {
+        return response()->json($progress->dismiss($request->user(), $video));
+    }
+
+    public function markWatched(
+        Request $request,
+        Video $video,
+        WatchProgressService $progress,
+    ): JsonResponse {
+        return response()->json($progress->markWatched($request->user(), $video));
+    }
+
+    public function restart(
+        Request $request,
+        Video $video,
+        WatchProgressService $progress,
+    ): JsonResponse {
+        return response()->json($progress->restart($request->user(), $video));
     }
 
     public function destroy(Request $request, Video $video): JsonResponse
