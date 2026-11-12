@@ -66,7 +66,15 @@
     },
     {
       "id": 6,
-      "status": "active"
+      "status": "accepted",
+      "acceptance": {
+        "note": "step-06-progress passed 24 checks: dismiss keeps the history row, stale playing reports cannot clear the hide flag, mark watched and restart share the same rules, and web/V1 controllers keep that hide. On https://crozztube.local:8443 the German home Weiterschauen card showed Entfernen, Als angesehen markieren and Von vorne ansehen for Jägermeister; Entfernen removed the rail while the DB row stayed at progress 42 with hidden_from_continue_at set. Checkpoint 5a75a347 is pushed; runtime-check remains verified.",
+        "checkedAt": "2026-11-12T18:35:57.739Z",
+        "sourceDigest": "e7a26f575da8663fffac96c45b7dca5735354c2d48b0ccde6716a4732840a800",
+        "checks": [
+          "step-06-progress"
+        ]
+      }
     },
     {
       "id": 7,
