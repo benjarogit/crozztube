@@ -21,6 +21,18 @@ The user's approved plan is implemented in order, one active step at a time.
 - Report the result, checks, commit and confirmed push. Never claim a live
   integration was tested based only on mocks or a configuration file.
 
+## Approved Impeccable maintenance exception
+
+- Only Impeccable tooling maintenance may run separately from the active feature.
+  Use an isolated worktree and `codex/impeccable-maintenance`; never modify
+  `harness/progress.json`, feature code, or the active feature checkout.
+- Read `tools/maintenance/README.md`. Stage reviewed paths, then run
+  `maintenance-verify` and `maintenance-checkpoint --message "..."` through the
+  harness CLI. Keep one update PR against the published plan branch; no auto-merge.
+- These checks authorize tooling publication only, never feature completion or
+  `begin N`. Missing upstream checksums, conflicts or failing tests stay open.
+- Preserve project/Git-LFS hooks. Hook trust is never granted automatically.
+
 ## Preservation and safety
 
 - Preserve existing user changes and administrator/creator content. The baseline
