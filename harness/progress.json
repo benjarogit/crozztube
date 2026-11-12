@@ -78,7 +78,15 @@
     },
     {
       "id": 7,
-      "status": "active"
+      "status": "accepted",
+      "acceptance": {
+        "note": "step-07-playlists passed 18 checks: owner invite/revoke, pending invite visibility, editors limited to their own entries, owner reorder, votes leave sort_order unchanged, and concurrent partial reorder rejected. On https://crozztube.local:8443/playlists?id=4 Shared access invited @playlisteditor as editor (pending), then Entfernen cleared the member list (DB members=0). Checkpoint 89c2b191 is pushed; runtime-check remains verified.",
+        "checkedAt": "2026-11-12T18:41:49.776Z",
+        "sourceDigest": "ebe899294ac0c1ebe144ec9e023035216bb94cc18f849044a8160613a6ce581f",
+        "checks": [
+          "step-07-playlists"
+        ]
+      }
     },
     {
       "id": 8,
