@@ -80,8 +80,8 @@ Active branch expectation remains the approved feature branch when implementing 
 | 1 | Ausgangsstand und Harness | `done` | Accepted |
 | 2 | Oracle staging, queue and Odysee transfer | `done` | Accepted |
 | 3 | Full clip workflow | `done` | Accepted; browser-local H.264/AAC, 5–60 s, collections |
-| 4 | Timemarks, share, votes and cleanup | `active` | Checkpoint already includes watch-action reorder and clip preview |
-| 5 | Searchable transcript | `planned` | Enrich with shared time context |
+| 4 | Timemarks, share, votes and cleanup | `done` | Accepted; private/public marks, share, votes, overlay, week/season rank |
+| 5 | Searchable transcript | `active` | Search, language switch, cue seeks; plain text without invented times |
 | 6 | Continue watching management | `planned` | Enrich with guest local history + login sync consent |
 | 7 | Shared playlists | `planned` | Personal collaboration only; no import rights |
 | 8 | Series and seasons | `planned` | Playlist-based; order/title/publish time first |
@@ -217,7 +217,7 @@ Do not take:
 | ID | Decision | Priority | Maps to | Status |
 |---|---|---|---|---|
 | E1 | Shared time context for chapters, transcript hits, notes and comments | P0 | Steps 4–5 | `idea` until step work begins |
-| E2 | Public timemarks remain step 4; time-linked comments and moderated opt-in replay chat are separate later topics | P0/P1 | Step 4 + later | `active` / `idea` |
+| E2 | Public timemarks remain step 4; time-linked comments and moderated opt-in replay chat are separate later topics | P0/P1 | Step 4 + later | `done` / `idea` |
 | E3 | Guest continue-watching locally; login shows preview and explicit merge/keep/discard | P0 | Step 6 | `idea` |
 | E4 | Recommendation reasons, exclusions, personalisation off, plus chronological and random feeds | P0 | Step 11 | `idea` |
 | E5 | Live metadata and collapsible chat in addition to conscious live redirects | P1 | Step 12 + later live work | `idea` |

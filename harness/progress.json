@@ -54,7 +54,15 @@
     },
     {
       "id": 5,
-      "status": "active"
+      "status": "accepted",
+      "acceptance": {
+        "note": "step-05-transcript passed 2 document tests and 11 PHP checks: timed cues keep real starts, plain text invents no timestamps, each language returns its own JSON. On https://crozztube.local:8443/watch/jagermeister-vs-seine-billige-kopie-vom-netto the German UI opened Transkript with German (Original) and German; search Netto filtered cue rows; seeking the 8:33 cue moved playback to about 513.5s while the player stayed playing; switching language kept cues; a forced 500 on transcript fetch showed Das Transkript konnte nicht geladen werden with Wiederholen, and retry restored 19 cues. runtime-check passed.",
+        "checkedAt": "2026-11-12T18:24:43.413Z",
+        "sourceDigest": "e0168be7a16bdaca2e7db8058ce06a023c0359e33471ffc6ac4474afdd7bd637",
+        "checks": [
+          "step-05-transcript"
+        ]
+      }
     },
     {
       "id": 6,
