@@ -5,6 +5,20 @@
 
 ---
 
+## Aktueller Stand (12. Nov 2026)
+
+Verbindliche Quellen für die Weiterarbeit:
+
+- `AGENTS.md` — Implementierungsvertrag
+- `harness/plan.json` / `harness/progress.json` — sequenzieller Ausführungsplan und Fortschritt
+- `docs/product-backlog.md` — Produktideen, Wettbewerbsentscheidungen und spätere Gates
+- `PRODUCT.md` / `DESIGN.md` — Produkt- und UI-Vertrag
+
+Aktiver Harness-Schritt: **4 — Zeitmarken, Teilen, Stimmen und Bereinigung**. Schritte 1–3 sind akzeptiert. Die Watch-Aktionsleiste und die browserlokale Clip-Vorschau sind als geprüfter Zwischenstand enthalten; Schritt 4 insgesamt bleibt offen.
+
+Dieses Handoff bleibt historische Betriebs-/Resolver-Dokumentation (Stand 5. Nov 2026). Es ersetzt weder den Harness noch den Produktbacklog. Keine zweite Featureliste hier pflegen.
+
+
 ## Aktueller Nachtrag: externe Bildanhänge und Sidebar-Footer
 
 Abnahme: **vollständiges Harness 114 PASS / 0 FAIL / 0 SKIP**. Die PHP-Suiten enthalten 200 Einzelprüfungen; Browser: 27 Anhangsformulare/-Sonderfälle, 455 Responsive-Fälle und neun Wiedergabe-/Resolverprüfungen. Ein zusätzlicher `images`-Nachlauf prüft die getrennten HTTP-Limits. Testdaten werden zurückgerollt; keine echten Nachrichten oder Beiträge angelegt.

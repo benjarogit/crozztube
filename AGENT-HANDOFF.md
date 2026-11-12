@@ -1,4 +1,23 @@
-# CrozzTube — Agent-Handoff (Stand: 5. Nov 2026)
+# CrozzTube — Agent-Handoff (Stand: 12. Nov 2026)
+
+> Kompakte Übergabe für den nächsten Agenten.
+> Verbindlich: `AGENTS.md`, `harness/plan.json`, `harness/progress.json`, `docs/product-backlog.md`.
+> Ausführliche Historie weiter unten und in `HANDOFF.md`. Wiki: `Wiki/index.html`.
+
+## Aktueller Auftrag
+
+1. Vor Implementierung `node tools/harness/cli.mjs status` lesen.
+2. Produktideen und Wettbewerbsentscheidungen nur in `docs/product-backlog.md` pflegen; den Harness nicht umgehen.
+3. Aktiver Schritt: **4 — Zeitmarken, Teilen, Stimmen und Bereinigung**.
+4. Bereits verifiziert im Zwischenstand: priorisierte Watch-Aktionsleiste und browserlokale Clip-Vorschau/Timeline.
+5. Rollengrenze: normale Nutzer/Creator empfehlen nur; Curator/Admin importieren und veröffentlichen. Persönliche Playlists dürfen nur freigegebene CrozzTube-Videos sammeln.
+6. Keine Videobytes über CrozzTube/PHP; keine generischen Video-Datei-Uploads.
+
+Die folgenden Abschnitte beschreiben den älteren Betriebs-/Resolver-Stand vom 5. Nov 2026 und sind Historie, keine zweite Roadmap.
+
+---
+
+# Historischer Agent-Handoff (Stand: 5. Nov 2026)
 
 > Kompakte Übergabe für den nächsten Agenten. Ausführliche Historie:
 > `HANDOFF.md` · Wiki (klickbar): `Wiki/index.html` · Tests: `Wiki/tests.html`
