@@ -16,6 +16,9 @@
     "Copy time link": { "en": "Copy time link", "de": "Zeitlink kopieren" },
     "Vote": { "en": "Vote", "de": "Zustimmen" },
     "No time marks yet.": { "en": "No time marks yet.", "de": "Noch keine Zeitmarken." },
-    "Time mark": { "en": "Time mark", "de": "Zeitmarke" }
+    "Time mark": { "en": "Time mark", "de": "Zeitmarke" },
+    "Time marks this week": { "en": "Time marks this week", "de": "Zeitmarken dieser Woche" },
+    "Time marks this season": { "en": "Time marks this season", "de": "Zeitmarken dieser Saison" },
+    "No ranked marks yet.": { "en": "No ranked marks yet.", "de": "Noch keine gewerteten Marken." }
   }
 }

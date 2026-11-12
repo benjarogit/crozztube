@@ -4862,4 +4862,7 @@ Anschliessend erstellt die Verarbeitung die Videoauflösungen und bei Bedarf Vor
   'Vote' => 'Zustimmen',
   'No time marks yet.' => 'Noch keine Zeitmarken.',
   'Time mark' => 'Zeitmarke',
+  'Time marks this week' => 'Zeitmarken dieser Woche',
+  'Time marks this season' => 'Zeitmarken dieser Saison',
+  'No ranked marks yet.' => 'Noch keine gewerteten Marken.',
 );

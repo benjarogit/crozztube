@@ -68,6 +68,9 @@ try {
     $check(($season['votes'] ?? -1) === 1, 'Votes inside 180 days remain in the season rank.');
     $overlayIds = collect(TimeMarks::share($video, $now)['time_marks'])->pluck('id');
     $check(! $overlayIds->contains($stale->id), 'Public marks older than 30 days without a recent vote leave the overlay.');
+    $seasonJson = json_encode(TimeMarks::ranked($video, 'season', $now), JSON_THROW_ON_ERROR);
+    $check(str_contains($seasonJson, 'public mark') && ! str_contains($seasonJson, 'private note'), 'Ranking keeps public mark text and hides private notes.');
+    $check(! collect(TimeMarks::ranked($video, 'week', $now))->pluck('id')->contains($stale->id), 'Stale public marks stay out of the weekly rank.');
 } finally {
     DB::rollBack();
 }

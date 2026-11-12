@@ -264,6 +264,7 @@ Route::get('/videos/{video:slug}/playback-session', [VideoController::class, 'pl
 Route::get('/videos/{video:slug}/comments', [CommentController::class, 'index']);
 Route::get('/videos/{video:slug}/time-marks', [TimeMarkController::class, 'index']);
 Route::get('/videos/{video:slug}/time-marks/share', [TimeMarkController::class, 'share']);
+Route::get('/videos/{video:slug}/time-marks/rank', [TimeMarkController::class, 'rank']);
 Route::get('/comments/{comment}/replies', [CommentController::class, 'replies']);
 Route::get('/channels/{channel:slug}/community-posts', [CommunityPostController::class, 'index']);
 Route::get('/community-posts', [CommunityPostController::class, 'feed']);

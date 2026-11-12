@@ -31,6 +31,16 @@ class TimeMarkController extends Controller
         return response()->json(TimeMarks::share($video, CarbonImmutable::now()));
     }
 
+    public function rank(Video $video): JsonResponse
+    {
+        $now = CarbonImmutable::now();
+
+        return response()->json([
+            'week' => TimeMarks::ranked($video, 'week', $now),
+            'season' => TimeMarks::ranked($video, 'season', $now),
+        ]);
+    }
+
     public function store(Request $request, Video $video): JsonResponse
     {
         $data = $request->validate([

@@ -15117,9 +15117,28 @@ function AuthShell({ title, subtitle, children, social = true, socialProviders =
 }
 
 
-function WatchTimeMarks({ slug, auth, navigate, currentSeconds, onSeek, notify }) {
+function TimeMarkCue({ marks, currentSeconds }) {
+  const [second, setSecond] = useState(0);
+  const readSeconds = useRef(currentSeconds);
+  readSeconds.current = currentSeconds;
+
+  useEffect(() => {
+    const update = () => setSecond(Math.max(0, Math.floor(Number(readSeconds.current()) || 0)));
+    update();
+    const timer = window.setInterval(update, 500);
+    return () => window.clearInterval(timer);
+  }, []);
+
+  const active = [...marks].reverse().find((mark) => second >= Number(mark.start_seconds) && second - Number(mark.start_seconds) <= 8);
+  if (!active?.body) return null;
+  return <p className="watch-time-mark-cue" role="status"><time data-i18n-skip>{formatDurationSeconds(active.start_seconds) || '0:00'}</time><span data-i18n-skip dir="auto">{active.body}</span></p>;
+}
+
+function WatchTimeMarks({ slug, auth, navigate, currentSeconds, onSeek, notify, onOverlay }) {
   const { t } = useI18n();
   const [marks, setMarks] = useState([]);
+  const [week, setWeek] = useState([]);
+  const [season, setSeason] = useState([]);
   const [note, setNote] = useState('');
   const [visibility, setVisibility] = useState('private');
   const [busy, setBusy] = useState(false);
@@ -15143,12 +15162,20 @@ function WatchTimeMarks({ slug, auth, navigate, currentSeconds, onSeek, notify }
       for (const mark of own.time_marks || []) merged.set(mark.id, mark);
     }
     setMarks([...merged.values()].sort((left, right) => left.start_seconds - right.start_seconds));
-  }, [auth.user, slug]);
+    const [shared, ranked] = await Promise.all([
+      api.request(`/videos/${encodeURIComponent(slug)}/time-marks/share`, { trackPageLoading: false }),
+      api.request(`/videos/${encodeURIComponent(slug)}/time-marks/rank`, { trackPageLoading: false }),
+    ]);
+    const overlay = shared.time_marks || [];
+    setWeek(ranked.week || []);
+    setSeason(ranked.season || []);
+    onOverlay(overlay);
+  }, [auth.user, onOverlay, slug]);
 
   useEffect(() => {
     let active = true;
     loadMarks().catch(() => { if (active) setError(t('Time marks could not be loaded. Try again.')); });
-    return () => { active = false; };
+    return () => { active = false; onOverlay([]); };
   }, [loadMarks, t]);
 
   const saveMark = async (event) => {
@@ -15177,7 +15204,7 @@ function WatchTimeMarks({ slug, auth, navigate, currentSeconds, onSeek, notify }
     setError('');
     try {
       await api.request(`/time-marks/${mark.id}/vote`, { method: 'POST', body: '{}', trackPageLoading: false });
-      setMarks((current) => current.map((item) => item.id === mark.id ? { ...item, voted: true, votes_count: item.voted ? item.votes_count : Number(item.votes_count || 0) + 1 } : item));
+      await loadMarks();
     } catch (voteError) {
       setError(voteError.message || t('Your vote could not be saved. Try again.'));
     }
@@ -15206,6 +15233,12 @@ function WatchTimeMarks({ slug, auth, navigate, currentSeconds, onSeek, notify }
       <button type="submit" className="btn subtle" disabled={busy}>{busy ? t('Saving...') : t('Save time mark')}</button>
     </form>
     {error && <p className="watch-time-marks-error" role="alert">{error}</p>}
+    <div className="watch-time-mark-ranks">
+      {[['Time marks this week', week], ['Time marks this season', season]].map(([label, rows]) => <section key={label}>
+        <h3>{t(label)}</h3>
+        {rows.length ? <ol>{rows.map((mark) => <li key={mark.id}><button type="button" onClick={() => onSeek(mark.start_seconds)}><time data-i18n-skip>{formatDurationSeconds(mark.start_seconds) || '0:00'}</time><span data-i18n-skip dir="auto">{mark.body || t('Time mark')}</span></button><span data-i18n-skip>{mark.votes}</span></li>)}</ol> : <p>{t('No ranked marks yet.')}</p>}
+      </section>)}
+    </div>
     {marks.length ? <ol>{marks.map((mark) => <li key={mark.id}>
       <button type="button" onClick={() => onSeek(mark.start_seconds)}><time data-i18n-skip>{formatDurationSeconds(mark.start_seconds) || '0:00'}</time><span data-i18n-skip dir="auto">{mark.body || t('Time mark')}</span></button>
       {mark.visibility === 'private' && <span>{t('Private')}</span>}
@@ -15280,6 +15313,7 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
   const [dropdownLayout, setDropdownLayout] = useState(null);
   const [descriptionExpanded, setDescriptionExpanded] = useState(false);
   const [watchNotice, setWatchNotice] = useState('');
+  const [timeMarkOverlay, setTimeMarkOverlay] = useState([]);
   const [watchToast, setWatchToast] = useState('');
   const [upNext, setUpNext] = useState([]);
   const [upNextVisibleLimit, setUpNextVisibleLimit] = useState(6);
@@ -16895,6 +16929,7 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
             {showPlayerBuffering && <span className="watch-player-loading-label">Loading video</span>}
           </button>}
           {showPlayerBuffering && !showPosterOverlay && <div className="watch-player-buffering" aria-live="polite" aria-label="Loading video" />}
+          {!playerAdStarted && <TimeMarkCue marks={timeMarkOverlay} currentSeconds={currentPlaybackSeconds} />}
           {playerError && <button type="button" className="watch-player-error" onClick={playCurrentVideo}>
             <span className="watch-player-play"><Icon name="play" size={30} /></span>
             <strong>{playerError}</strong>
@@ -16961,7 +16996,7 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
         {videoMenuState.hidden && <div className="watch-hidden-feedback"><Icon name="block" size={18}/><div><strong>Marked as not interested</strong><span>This feedback is saved on this device. You can continue watching or choose another video.</span></div><button className="text-button" onClick={() => { try { const current = JSON.parse(localStorage.getItem(notInterestedVideosKey) || '[]'); localStorage.setItem(notInterestedVideosKey, JSON.stringify((Array.isArray(current) ? current : []).filter((item) => item !== video.slug))); } catch (_) {} setVideoMenuState((state) => ({ ...state, hidden: false })); notify('Not interested feedback removed.'); }}>Undo</button></div>}
         <div className={`description-card ${descriptionExpanded ? 'expanded' : ''}`}><p dir="auto" data-i18n-skip={watchDescription ? true : undefined}>{watchDescription ? <VideoDescriptionText text={watchDescription} onSeek={isPaidVideoLocked ? null : seekToDescriptionTime} /> : 'No description yet.'}</p>{watchDescription && <button className="text-button" onClick={() => setDescriptionExpanded((expanded) => !expanded)}>{descriptionExpanded ? 'Show less' : 'Show more'}</button>}</div>
         {!isPaidVideoLocked && videoChapters.length > 0 && <details className="watch-chapters"><summary data-i18n-skip>{t('Chapters')}</summary><ol>{videoChapters.map((chapter) => <li key={chapter.startTime}><button type="button" onClick={() => seekToDescriptionTime(chapter.startTime)}><time data-i18n-skip>{formatDurationSeconds(chapter.startTime) || '0:00'}</time><span data-i18n-skip dir="auto">{chapter.text}</span></button></li>)}</ol></details>}
-        {!isPaidVideoLocked && <WatchTimeMarks slug={slug} auth={auth} navigate={navigate} currentSeconds={currentPlaybackSeconds} onSeek={seekToDescriptionTime} notify={notify} />}
+        {!isPaidVideoLocked && <WatchTimeMarks slug={slug} auth={auth} navigate={navigate} currentSeconds={currentPlaybackSeconds} onSeek={seekToDescriptionTime} notify={notify} onOverlay={setTimeMarkOverlay} />}
         {video.transcript_url && <VideoTranscript key={`${video.slug}-${video.transcript_url}`} url={video.transcript_url} />}
         {watchTags.length > 0 && <div className="watch-tag-list" aria-label="Tags">{watchTags.map((tag) => <button key={tag} type="button" className="watch-tag-chip" data-i18n-skip onClick={() => navigate(`/search?q=${encodeURIComponent(`#${tag}`)}`)}>#{tag}</button>)}</div>}
       </div>

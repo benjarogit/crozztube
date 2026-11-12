@@ -432,7 +432,7 @@
             "contexts": [
                 "Watch page time marks: a viewer saves a private note or a public mark at the current playback time, votes on someone else's public mark, and copies a timestamp link that never includes private note text."
             ],
-            "reviewed_at": "2026-11-12T10:48:34+00:00"
+            "reviewed_at": "2026-11-12T10:59:48+00:00"
         },
         "072853e34da4dfc6bdba855b9af11a9723b9d32f329c49fc8292af85b87888da": {
             "source_hash": "072853e34da4dfc6bdba855b9af11a9723b9d32f329c49fc8292af85b87888da",
@@ -1314,7 +1314,7 @@
             "contexts": [
                 "Watch page time marks: a viewer saves a private note or a public mark at the current playback time, votes on someone else's public mark, and copies a timestamp link that never includes private note text."
             ],
-            "reviewed_at": "2026-11-12T10:48:34+00:00"
+            "reviewed_at": "2026-11-12T10:59:48+00:00"
         },
         "17f3109b74b35f29274deb3a1a9189c6f7e56139882eb2cd51ea55da06b3571e": {
             "source_hash": "9719bbf6d0a23fa44f964aa7e8c20ab27c8ccba00727a2cd9fd90ae2ffb9bfd0",
@@ -1557,7 +1557,7 @@
             "contexts": [
                 "Watch page time marks: a viewer saves a private note or a public mark at the current playback time, votes on someone else's public mark, and copies a timestamp link that never includes private note text."
             ],
-            "reviewed_at": "2026-11-12T10:48:34+00:00"
+            "reviewed_at": "2026-11-12T10:59:48+00:00"
         },
         "1cdf240aa228f9a451f6894400119ca537250d8e4e7fe2f61445de0a2f0acb0f": {
             "source_hash": "1cdf240aa228f9a451f6894400119ca537250d8e4e7fe2f61445de0a2f0acb0f",
@@ -2803,7 +2803,7 @@
             "contexts": [
                 "Watch page time marks: a viewer saves a private note or a public mark at the current playback time, votes on someone else's public mark, and copies a timestamp link that never includes private note text."
             ],
-            "reviewed_at": "2026-11-12T10:48:34+00:00"
+            "reviewed_at": "2026-11-12T10:59:48+00:00"
         },
         "3130822dd992abb7a04f28aa4755df1f7e584d08144f6149c14eb0c397f300c8": {
             "source_hash": "3130822dd992abb7a04f28aa4755df1f7e584d08144f6149c14eb0c397f300c8",
@@ -3147,7 +3147,7 @@
             "contexts": [
                 "Watch page time marks: a viewer saves a private note or a public mark at the current playback time, votes on someone else's public mark, and copies a timestamp link that never includes private note text."
             ],
-            "reviewed_at": "2026-11-12T10:48:34+00:00"
+            "reviewed_at": "2026-11-12T10:59:48+00:00"
         },
         "37dcd57be264b1490522d5c319794f35d531958e727dac3b301eb1819b25245a": {
             "source_hash": "37dcd57be264b1490522d5c319794f35d531958e727dac3b301eb1819b25245a",
@@ -3229,6 +3229,15 @@
                 "Editorial pass: empty discovery/search states, event fields, admin/moderator access errors, email/SMS configuration, code expiry/security labels and profile verification. User names, sample video titles, code examples and date samples excluded."
             ],
             "reviewed_at": "2026-11-06T09:54:04+00:00"
+        },
+        "39ba844dc549af266f4ab78fb24d6b8793ce80da55e4a679c36fb33c182ebe47": {
+            "source_hash": "39ba844dc549af266f4ab78fb24d6b8793ce80da55e4a679c36fb33c182ebe47",
+            "translation_hash": "7505c05d1c81326d7abca273d43f5f565b637fa8b8e39459c68bde2aa583675b",
+            "status": "editorial",
+            "contexts": [
+                "Watch page time marks: a viewer saves a private note or a public mark at the current playback time, votes on someone else's public mark, and copies a timestamp link that never includes private note text."
+            ],
+            "reviewed_at": "2026-11-12T10:59:48+00:00"
         },
         "3a1b86ed2e8b089bcfcc78610ac08772ef65ba1ad8ee702fc89281b1fc5b1c1b": {
             "source_hash": "3a1b86ed2e8b089bcfcc78610ac08772ef65ba1ad8ee702fc89281b1fc5b1c1b",
@@ -3741,7 +3750,7 @@
             "contexts": [
                 "Watch page time marks: a viewer saves a private note or a public mark at the current playback time, votes on someone else's public mark, and copies a timestamp link that never includes private note text."
             ],
-            "reviewed_at": "2026-11-12T10:48:34+00:00"
+            "reviewed_at": "2026-11-12T10:59:48+00:00"
         },
         "447f0c143abc33563bd21ad603ef5e814c81ba419691b42024a24e7271bbe4a0": {
             "source_hash": "447f0c143abc33563bd21ad603ef5e814c81ba419691b42024a24e7271bbe4a0",
@@ -4317,7 +4326,7 @@
             "contexts": [
                 "Watch page time marks: a viewer saves a private note or a public mark at the current playback time, votes on someone else's public mark, and copies a timestamp link that never includes private note text."
             ],
-            "reviewed_at": "2026-11-12T10:48:34+00:00"
+            "reviewed_at": "2026-11-12T10:59:48+00:00"
         },
         "4e72fa402f0900c2c336755d5e27d2988c076e9234fc3b9467b5cc0447695661": {
             "source_hash": "4e72fa402f0900c2c336755d5e27d2988c076e9234fc3b9467b5cc0447695661",
@@ -6155,7 +6164,7 @@
             "contexts": [
                 "Watch page time marks: a viewer saves a private note or a public mark at the current playback time, votes on someone else's public mark, and copies a timestamp link that never includes private note text."
             ],
-            "reviewed_at": "2026-11-12T10:48:34+00:00"
+            "reviewed_at": "2026-11-12T10:59:48+00:00"
         },
         "6d7e546cce51b4574501450b0cbe769bc084cc2956ca4ce8abb65a32597504c1": {
             "source_hash": "6d7e546cce51b4574501450b0cbe769bc084cc2956ca4ce8abb65a32597504c1",
@@ -6273,6 +6282,15 @@
                 "German complete-message editorial pass for live connection/recovery/moderation, wallet top-up, stickers, ads, language administration and their errors. German personal address, Austrian spelling preserved, Swiss ss. Scope verified against settings/controllers and existing UI; demo content/protocol examples and sentence fragments excluded."
             ],
             "reviewed_at": "2026-11-06T11:21:04+00:00"
+        },
+        "7073ddf873abd8d0680a5a0c768195a4c9560d3bb6fa9d4bddbe43aad03cc8c3": {
+            "source_hash": "7073ddf873abd8d0680a5a0c768195a4c9560d3bb6fa9d4bddbe43aad03cc8c3",
+            "translation_hash": "f473154328a6e9d6bdc9fa9c5eff92a460626632573671ce0e0da71900ea752c",
+            "status": "editorial",
+            "contexts": [
+                "Watch page time marks: a viewer saves a private note or a public mark at the current playback time, votes on someone else's public mark, and copies a timestamp link that never includes private note text."
+            ],
+            "reviewed_at": "2026-11-12T10:59:48+00:00"
         },
         "70a09bebd901ffa4df22f46840b1efca24d4244d2f61146990f812801b40edce": {
             "source_hash": "70a09bebd901ffa4df22f46840b1efca24d4244d2f61146990f812801b40edce",
@@ -7952,7 +7970,7 @@
             "contexts": [
                 "Watch page time marks: a viewer saves a private note or a public mark at the current playback time, votes on someone else's public mark, and copies a timestamp link that never includes private note text."
             ],
-            "reviewed_at": "2026-11-12T10:48:34+00:00"
+            "reviewed_at": "2026-11-12T10:59:48+00:00"
         },
         "8bc7920ee22a677ed35f51b61191743ea8f99c9a4167453e6f3c5357b56843c9": {
             "source_hash": "8bc7920ee22a677ed35f51b61191743ea8f99c9a4167453e6f3c5357b56843c9",
@@ -8485,7 +8503,7 @@
             "contexts": [
                 "Watch page time marks: a viewer saves a private note or a public mark at the current playback time, votes on someone else's public mark, and copies a timestamp link that never includes private note text."
             ],
-            "reviewed_at": "2026-11-12T10:48:34+00:00"
+            "reviewed_at": "2026-11-12T10:59:48+00:00"
         },
         "969ccbd3cf6300ecd5c880459d81ae9027df7517563184a1b8b15282db230621": {
             "source_hash": "969ccbd3cf6300ecd5c880459d81ae9027df7517563184a1b8b15282db230621",
@@ -8822,7 +8840,7 @@
             "contexts": [
                 "Watch page time marks: a viewer saves a private note or a public mark at the current playback time, votes on someone else's public mark, and copies a timestamp link that never includes private note text."
             ],
-            "reviewed_at": "2026-11-12T10:48:34+00:00"
+            "reviewed_at": "2026-11-12T10:59:48+00:00"
         },
         "9d6322c1f4d9d3f38aed8bfbe0b2bcadf66ad82c008476fa62541fa069138e94": {
             "source_hash": "9d6322c1f4d9d3f38aed8bfbe0b2bcadf66ad82c008476fa62541fa069138e94",
@@ -8966,7 +8984,7 @@
             "contexts": [
                 "Watch page time marks: a viewer saves a private note or a public mark at the current playback time, votes on someone else's public mark, and copies a timestamp link that never includes private note text."
             ],
-            "reviewed_at": "2026-11-12T10:48:34+00:00"
+            "reviewed_at": "2026-11-12T10:59:48+00:00"
         },
         "a02077a984ce45f2086bb92729406e3d5a750a794bae5be4fd76f04a29149a1a": {
             "source_hash": "a02077a984ce45f2086bb92729406e3d5a750a794bae5be4fd76f04a29149a1a",
@@ -9299,7 +9317,7 @@
             "contexts": [
                 "Watch page time marks: a viewer saves a private note or a public mark at the current playback time, votes on someone else's public mark, and copies a timestamp link that never includes private note text."
             ],
-            "reviewed_at": "2026-11-12T10:48:34+00:00"
+            "reviewed_at": "2026-11-12T10:59:48+00:00"
         },
         "a6955dea348ca05c0c657e0ddf7fa35a93c8a3270da2638a1797b0896e0c5963": {
             "source_hash": "a6955dea348ca05c0c657e0ddf7fa35a93c8a3270da2638a1797b0896e0c5963",
@@ -11390,7 +11408,7 @@
             "contexts": [
                 "Watch page time marks: a viewer saves a private note or a public mark at the current playback time, votes on someone else's public mark, and copies a timestamp link that never includes private note text."
             ],
-            "reviewed_at": "2026-11-12T10:48:34+00:00"
+            "reviewed_at": "2026-11-12T10:59:48+00:00"
         },
         "cdaa6cdab234cd98ed26ee5102b4da36f8f4153f3bed2badc3324859e54da805": {
             "source_hash": "cdaa6cdab234cd98ed26ee5102b4da36f8f4153f3bed2badc3324859e54da805",
@@ -11543,7 +11561,7 @@
             "contexts": [
                 "Watch page time marks: a viewer saves a private note or a public mark at the current playback time, votes on someone else's public mark, and copies a timestamp link that never includes private note text."
             ],
-            "reviewed_at": "2026-11-12T10:48:34+00:00"
+            "reviewed_at": "2026-11-12T10:59:48+00:00"
         },
         "cf997592c944222e4a6562fa83d4c91995d37d652d1a3375ac7b9ccde111ea27": {
             "source_hash": "cf997592c944222e4a6562fa83d4c91995d37d652d1a3375ac7b9ccde111ea27",
@@ -11643,6 +11661,15 @@
                 "German whole-message rewrite of confirmed real UI mixed-language remnants in source inventory: search, library, account forms, communities, playlist selection, empty/loading/error states, Live discovery/admin ads. Current no longer mistaken for a live database, Live no longer a German imperative, clear-search correctly describes the action. Author sample text and unresolved dynamic fragments excluded; de-AT/de-CH regional spelling retained."
             ],
             "reviewed_at": "2026-11-06T12:18:04+00:00"
+        },
+        "d07aa03de000fe88423a089360f4029f3d48ab7ef0381dca1a40829295fde507": {
+            "source_hash": "d07aa03de000fe88423a089360f4029f3d48ab7ef0381dca1a40829295fde507",
+            "translation_hash": "01f57e8af0b5b09a0827a82a8fdcb9bd1ee600cacd210dfab2324508e769f210",
+            "status": "editorial",
+            "contexts": [
+                "Watch page time marks: a viewer saves a private note or a public mark at the current playback time, votes on someone else's public mark, and copies a timestamp link that never includes private note text."
+            ],
+            "reviewed_at": "2026-11-12T10:59:48+00:00"
         },
         "d084236cbcc7f7f0cf14927ea549cb1afacfa849a8d96408bd5676f5e447994d": {
             "source_hash": "d084236cbcc7f7f0cf14927ea549cb1afacfa849a8d96408bd5676f5e447994d",
@@ -11795,7 +11822,7 @@
             "contexts": [
                 "Watch page time marks: a viewer saves a private note or a public mark at the current playback time, votes on someone else's public mark, and copies a timestamp link that never includes private note text."
             ],
-            "reviewed_at": "2026-11-12T10:48:34+00:00"
+            "reviewed_at": "2026-11-12T10:59:48+00:00"
         },
         "d33fe8237aa830d5994e67b8565d09b4ba5d0d8f64673ee39e2584b7c4c0c143": {
             "source_hash": "d33fe8237aa830d5994e67b8565d09b4ba5d0d8f64673ee39e2584b7c4c0c143",

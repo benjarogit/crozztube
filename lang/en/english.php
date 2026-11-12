@@ -4933,4 +4933,7 @@ The processing job encodes renditions, creates thumbnails when needed, stores ca
   'Vote' => 'Vote',
   'No time marks yet.' => 'No time marks yet.',
   'Time mark' => 'Time mark',
+  'Time marks this week' => 'Time marks this week',
+  'Time marks this season' => 'Time marks this season',
+  'No ranked marks yet.' => 'No ranked marks yet.',
 );

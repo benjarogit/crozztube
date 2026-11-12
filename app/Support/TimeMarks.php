@@ -53,6 +53,9 @@ final class TimeMarks
     {
         return VideoTimeMark::query()
             ->withCount('votes')
+            ->when($viewer, fn ($query) => $query->withExists([
+                'votes as voted' => fn ($vote) => $vote->where('user_id', $viewer->id),
+            ]))
             ->where('video_id', $video->id)
             ->where(function ($query) use ($viewer): void {
                 $query->where('visibility', 'public');
@@ -92,7 +95,12 @@ final class TimeMarks
             ->map(function (VideoTimeMark $mark) use ($since): array {
                 $votes = $mark->votes->filter(fn (VideoTimeMarkVote $vote): bool => $vote->created_at !== null && $vote->created_at->greaterThanOrEqualTo($since))->count();
 
-                return ['id' => $mark->id, 'start_seconds' => $mark->start_seconds, 'votes' => $votes];
+                return [
+                    'id' => $mark->id,
+                    'start_seconds' => $mark->start_seconds,
+                    'body' => $mark->body,
+                    'votes' => $votes,
+                ];
             })
             ->sortByDesc('votes')
             ->values();
@@ -125,6 +133,7 @@ final class TimeMarks
             'visibility' => $mark->visibility,
             'owned' => $viewer !== null && (int) $viewer->id === (int) $mark->user_id,
             'votes_count' => (int) ($mark->votes_count ?? 0),
+            'voted' => (bool) ($mark->voted ?? false),
         ];
     }
 

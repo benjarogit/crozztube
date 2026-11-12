@@ -140,6 +140,11 @@
 .watch-time-marks li > button:first-child { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 12px; flex: 1 1 220px; min-height: 44px; padding: 8px 4px; text-align: start; }
 .watch-time-marks time { font-variant-numeric: tabular-nums; font-weight: 650; }
 .watch-time-marks-error { color: var(--danger); }
+.watch-time-mark-ranks { display: grid; gap: 12px; margin-top: 12px; }
+.watch-time-mark-ranks h3 { margin: 0; font-size: 0.9rem; }
+.watch-time-mark-ranks ol { margin: 8px 0 0; }
+.watch-time-mark-ranks li span:last-child { min-width: 2ch; font-variant-numeric: tabular-nums; font-weight: 650; }
+.video-player .watch-time-mark-cue { position: absolute; left: 16px; bottom: 76px; z-index: 4; display: flex; gap: 12px; max-width: min(520px, calc(100% - 32px)); margin: 0; padding: 8px 12px; border-radius: var(--radius); background: color-mix(in srgb, var(--panel) 88%, transparent); color: var(--text); pointer-events: none; }
 .watch-layout-shell .small-video-row { grid-template-columns: clamp(112px, 42%, 168px) minmax(0, 1fr); }
 .watch-layout-shell .small-video-details small { color: var(--muted); line-height: 1.5; }
 
