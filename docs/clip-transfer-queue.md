@@ -22,8 +22,18 @@ Die Defaults sind drei aktive Vorgänge insgesamt, einer je Konto sowie einer
 aktiv und einer wartend je Nutzer. Fünf neue Aufträge je Anwendungskalendertag
 sind erlaubt. Ein wiederholter Request-Key mit identischen Daten gibt denselben
 Auftrag zurück; abweichende Daten mit demselben Key werden abgewiesen.
-Diese Defaults müssen noch mit den administrierbaren Produktionslimits verbunden
-werden. API-/Monatsverbrauch und dessen Budgets sind noch nicht implementiert.
+Parallelität, Tagesgrenze und reservierbare Bytes je Konto werden zentral aus
+`config/clip_staging.php` gelesen. Das Speichern der Oracle-Verbindung und jeder
+Workerlauf synchronisieren genau das aktuell konfigurierte Konto in die
+Warteschlange. Eine unvollständige Verbindung pausiert nur neue Aufnahmen;
+verschlüsselte Kontosnapshots offener Aufträge bleiben für deren Bereinigung
+erhalten. Eine globale Monatsgrenze zählt jede neue Aufnahme einschließlich
+später abgebrochener oder fehlgeschlagener Aufträge. Dadurch bleibt die Zahl
+neuer Oracle-/Odysee-Workflows konservativ begrenzt. Statusabfragen warten
+anfangs 30 Sekunden, danach fünf beziehungsweise 15 Minuten und ab 24 Stunden
+sechs Stunden. Zusammen mit höchstens drei aktiven Aufträgen bleibt damit auch
+ein langfristiger Provider-Rückstand begrenzt, ohne ihn durch Zeitablauf als
+fehlgeschlagen zu behandeln.
 
 Die Belegungsreservierung umfasst die doppelte exakte Dateigröße für Incoming-
 und Handoff-Kopie. Auch ein abgebrochener Auftrag behält diese Reservierung,

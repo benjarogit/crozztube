@@ -37,8 +37,9 @@ function fixture(t) {
   ] });
   fs.writeFileSync(path.join(root, 'app.txt'), 'original source\n');
   fs.mkdirSync(path.join(root, '.codex'));
+  fs.mkdirSync(path.join(root, '.cursor'));
   fs.mkdirSync(path.join(root, 'tools/harness'), { recursive: true });
-  for (const file of ['.codex/hooks.json', 'tools/harness/codex-hook.mjs', 'tools/harness/workflow.mjs']) fs.copyFileSync(path.join(source, file), path.join(root, file));
+  for (const file of ['.codex/hooks.json', '.cursor/hooks.json', 'tools/harness/codex-hook.mjs', 'tools/harness/workflow.mjs']) fs.copyFileSync(path.join(source, file), path.join(root, file));
   git(root, ['add', '.']); git(root, ['commit', '-qm', 'Fixture baseline']);
   setMode(root, 'implementing');
   t.after(() => fs.rmSync(directory, { recursive: true, force: true }));
@@ -118,7 +119,7 @@ test('missing future checks are failures, never successful placeholders', t => {
 test('acceptance requires a runtime hook, a note and explicitly staged files', t => {
   const { root } = fixture(t);
   verify(root);
-  assert.throws(() => publish(root, 'complete', { complete: true, note: 'checked' }), /real trusted Codex hook/);
+  assert.throws(() => publish(root, 'complete', { complete: true, note: 'checked' }), /real trusted project hook/);
   probe(root);
   assert.throws(() => publish(root, 'complete', { complete: true }), /concrete acceptance/);
   fs.writeFileSync(path.join(root, 'app.txt'), 'changed source');
@@ -182,6 +183,8 @@ test('hook contract handles actual shell argument shapes and preserves user inte
   const { root } = fixture(t);
   const result = hook(root, 'PreToolUse', { tool_name: 'Bash', tool_input: { command: 'node tools/harness/cli.mjs deny-probe' } });
   assert.equal(result.hookSpecificOutput.permissionDecision, 'deny');
+  const cursorResult = hook(root, 'beforeShellExecution', { command: 'node tools/harness/cli.mjs deny-probe' });
+  assert.equal(cursorResult.permission, 'deny');
   const transition = hook(root, 'PreToolUse', { tool_name: 'exec_command', tool_input: { cmd: 'node tools/harness/cli.mjs begin 2' } });
   assert.equal(transition.hookSpecificOutput.permissionDecision, 'deny');
   assert.equal(runtimeEvidence(root), true);

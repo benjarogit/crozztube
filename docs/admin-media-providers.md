@@ -20,6 +20,12 @@ Dateigrößen, feste Anbieter-Endpunkte und die Reihenfolge der Imagehoster blei
 unverändert. Die vorhandenen lokalen Uploadbudgets lassen sich je Imagehoster
 anpassen; sie sind keine vom Anbieter zugesagten Kontingente.
 
+Für Oracle sind außerdem reservierbarer Speicher, global gleichzeitig aktive
+Clip-Übertragungen, neue Clips je Person und Tag sowie neue Clips je Monat
+einstellbar. Die Monatsgrenze zählt Aufnahmeversuche konservativ auch dann, wenn
+sie später abgebrochen werden oder fehlschlagen. Änderungen gelten für neue
+Aufnahmen; laufende Aufträge behalten ihren verschlüsselten Bucket-Snapshot.
+
 Admin-Änderungen liegen verschlüsselt in
 `storage/app/private/media-provider-settings.enc`, mit Dateimodus 0600 und
 atomarer, gesperrter Aktualisierung. Dafür wird Laravels bestehender

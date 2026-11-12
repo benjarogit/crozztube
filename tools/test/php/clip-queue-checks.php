@@ -77,6 +77,18 @@ try {
     DB::table('users')->insert(array_map(static fn ($id) => ['id' => $id], range(1, 8)));
     DB::table('videos')->insert(['id' => 1]);
     $migration->up();
+    config(['clip_staging.limits.active_global' => 2, 'clip_staging.limits.new_per_user_day' => 4,
+        'clip_staging.limits.new_global_month' => 10, 'clip_staging.limits.reserved_bytes_per_account' => 200000000]);
+    $configuredQueue = ClipTransferQueue::fromOracleSettings([...$settings, 'capacity_bytes' => 200000000,
+        'active_limit' => 2, 'day_limit' => 4, 'month_limit' => 10]);
+    $configuredId = $configuredQueue->synchronizeOracle($settings);
+    $check($configuredId !== null && ClipStagingAccount::findOrFail($configuredId)->capacity_bytes === 200000000,
+        'Runtime queue configuration must control the persisted account reservation limit.');
+    $check($configuredQueue->synchronizeOracle([...$settings, 'secret_access_key' => '']) === null
+        && ! ClipStagingAccount::findOrFail($configuredId)->enabled,
+        'Removing an incomplete Oracle connection must pause new admissions without deleting its cleanup snapshot.');
+    config(['clip_staging.limits.active_global' => 3, 'clip_staging.limits.new_per_user_day' => 5,
+        'clip_staging.limits.new_global_month' => 150, 'clip_staging.limits.reserved_bytes_per_account' => 1000000000]);
     $accountId = $queue->configureOracle($settings);
     $account = ClipStagingAccount::findOrFail($accountId);
     $check($account->connection['secret_access_key'] === $settings['secret_access_key'], 'Workers must be able to decrypt the bucket-bound connection.');
@@ -116,6 +128,18 @@ try {
     $reject(static fn () => $queue->enqueue(1, 1, (string) Str::uuid(), $input), 'daily_limit');
     Carbon::setTestNow('2026-11-08 00:00:01');
     $check($queue->enqueue(1, 1, (string) Str::uuid(), $input)->id !== null, 'Daily admission resets at the next configured application calendar day.');
+    Carbon::setTestNow();
+    $reset();
+    Carbon::setTestNow('2026-11-08 12:00:00');
+    $monthly = new ClipTransferQueue(3, 5, 2);
+    foreach ([1, 2] as $owner) {
+        $job = $monthly->enqueue($owner, 1, (string) Str::uuid(), $input);
+        $monthly->cancel($owner, $job->uuid);
+        $job->update(['phase' => 'cancelled']);
+    }
+    $reject(static fn () => $monthly->enqueue(3, 1, (string) Str::uuid(), $input), 'monthly_limit');
+    Carbon::setTestNow('2026-12-01 00:00:01');
+    $check($monthly->enqueue(3, 1, (string) Str::uuid(), $input)->id !== null, 'The global publication budget resets at the next application calendar month.');
     Carbon::setTestNow();
     $reset();
     $job = $queue->enqueue(1, 1, (string) Str::uuid(), $input);
@@ -167,7 +191,8 @@ try {
     foreach (['pool-a', 'pool-b', 'pool-c'] as $id) {
         ClipStagingAccount::create(['id' => $id, 'provider' => 'oci', 'connection' => $settings, 'enabled' => true, 'capacity_bytes' => 1000000000]);
     }
-    $limited = new ClipTransferQueue(2);
+    config(['clip_staging.limits.active_global' => 2]);
+    $limited = ClipTransferQueue::fromConfig();
     foreach ([1, 2, 3] as $owner) {
         $limited->enqueue($owner, 1, (string) Str::uuid(), $input);
     }
@@ -182,6 +207,8 @@ try {
     echo $checks." clip queue checks passed, including independent MySQL writers. Isolated prefixed tables only; no remote uploads.\n";
 } finally {
     Carbon::setTestNow();
+    config(['clip_staging.limits.active_global' => 3, 'clip_staging.limits.new_per_user_day' => 5,
+        'clip_staging.limits.new_global_month' => 150, 'clip_staging.limits.reserved_bytes_per_account' => 1000000000]);
     if (Schema::hasTable('clip_transfers')) {
         $reset();
         $migration->down();

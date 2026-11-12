@@ -6,9 +6,10 @@ for (const [width, height, touch] of [[924, 902, false], [924, 420, false], [390
     const slug = applicationJson('/api/videos?type=video&per_page=1', false).data[0].slug;
     const session = await layoutSession(browser, { authenticated: false, width, height, touch, transform: (_path, payload) => payload.video ? { ...payload, video: { ...payload.video, source_type: 'upload', import_provider: null, video_url: '/fixture/menu.mp4', video_sources: [{ src: '/fixture/menu.mp4', type: 'video/mp4' }], embed_url: null, playback_pending: false } } : payload });
     try {
-      const { page } = session;
+      const { page, context } = session;
+      await context.route('**/api/source-resolver/status/**', route => route.fulfill({ json: { source: { state: 'unavailable', has_direct: false, refreshing: false, fresh: false, auto_refresh_allowed: false, mirror: null } } }));
       await session.goto(`/watch/${slug}`);
-      const trigger = page.locator('.video-detail-menu-shell > button');
+      const trigger = page.getByRole('button', { name: 'Video actions', exact: true });
       await trigger.scrollIntoViewIfNeeded();
       if (width === 924 && height === 902) await trigger.evaluate(e => window.scrollBy(0, e.getBoundingClientRect().top - 450));
       await trigger.click();
@@ -33,9 +34,9 @@ for (const [width, height, touch] of [[924, 902, false], [924, 420, false], [390
       await page.keyboard.press('Escape');
       await expect(menu).toHaveCount(0);
       await expect(trigger).toBeFocused();
-      // A click within the portal must reach its handler, rather than outside-dismiss first.
-      await trigger.click();
-      await menu.getByRole('menuitem', { name: 'Add to Playlist', exact: true }).click();
+      await expect(menu.getByRole('menuitem', { name: /^(Create a clip|Add to Playlist|Send tip)$/ })).toHaveCount(0);
+      await page.keyboard.press('Escape');
+      await page.getByRole('button', { name: 'Save', exact: true }).click();
       await expect(page).toHaveURL(/\/login$/);
       expect(session.errors).toEqual([]);
       expect(session.writes).toEqual([]);

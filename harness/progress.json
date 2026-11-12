@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "activeStep": 2,
+  "activeStep": 4,
   "steps": [
     {
       "id": 1,
@@ -18,15 +18,31 @@
     },
     {
       "id": 2,
-      "status": "active"
+      "status": "accepted",
+      "acceptance": {
+        "note": "Cursor beforeShellExecution hook blocked the real deny probe and runtime-check passed. Retained owner clip 5e06399e-041d-4f31-a198-a6dcd4e7af8f had Odysee confirmation, owner-authorized 320x180 playback for 5.13 seconds with advancing media time, exactly one notification, and confirmed Oracle staging cleanup; no video bytes passed through PHP.",
+        "checkedAt": "2026-11-11T12:35:14.358Z",
+        "sourceDigest": "0df086334c08c9d5025d31f4765c8a189c271f869946cdb88ebfc883b470c7b3",
+        "checks": [
+          "step-02-integration"
+        ]
+      }
     },
     {
       "id": 3,
-      "status": "pending"
+      "status": "accepted",
+      "acceptance": {
+        "note": "Browser produced ffprobe-confirmed MP4 H.264/AAC at 640x360/5.03s with non-silent audio; direct Oracle upload contract carries no video bytes through PHP; queue wait/cancel, retry entry, visibility, collections, public/owner playback and confirmed deletion were covered by backend/browser checks; retained Odysee clip 5e06399e-041d-4f31-a198-a6dcd4e7af8f confirmed real playback, one notification and staging cleanup with bounded traffic.",
+        "checkedAt": "2026-11-11T13:42:11.129Z",
+        "sourceDigest": "9fea82aeb6d17b6c7011bb16b513f39ebeb7c37b881b74db50f73381ee05639a",
+        "checks": [
+          "step-03-clips"
+        ]
+      }
     },
     {
       "id": 4,
-      "status": "pending"
+      "status": "active"
     },
     {
       "id": 5,

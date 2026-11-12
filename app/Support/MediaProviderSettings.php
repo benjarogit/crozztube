@@ -14,7 +14,9 @@ final class MediaProviderSettings
         'directupload' => ['enabled' => 'bool', 'minute_limit' => 'limit', 'day_limit' => 'limit'],
         'fastpic' => ['enabled' => 'bool', 'key' => 'secret', 'minute_limit' => 'limit', 'day_limit' => 'limit'],
         'postimages' => ['enabled' => 'bool', 'key' => 'secret', 'client_o' => 'text', 'client_m' => 'text', 'minute_limit' => 'limit', 'day_limit' => 'limit', 'month_limit' => 'limit'],
-        'oracle' => ['region' => 'text', 'namespace' => 'text', 'bucket' => 'text', 'access_key_id' => 'secret', 'secret_access_key' => 'secret'],
+        'oracle' => ['region' => 'text', 'namespace' => 'text', 'bucket' => 'text', 'access_key_id' => 'secret',
+            'secret_access_key' => 'secret', 'capacity_bytes' => 'bytes', 'active_limit' => 'limit',
+            'day_limit' => 'limit', 'month_limit' => 'limit'],
         'odysee' => ['channel_id' => 'text', 'auth_token' => 'secret'],
     ];
 
@@ -26,7 +28,13 @@ final class MediaProviderSettings
         foreach ((array) config('thumbnails.providers', []) as $id => $settings) {
             $defaults[$id] = [...$settings, 'enabled' => (bool) ($settings['supported'] ?? false)];
         }
-        $defaults['oracle'] = (array) config('clip_staging.oci', []);
+        $limits = (array) config('clip_staging.limits', []);
+        $defaults['oracle'] = [...(array) config('clip_staging.oci', []),
+            'capacity_bytes' => (int) ($limits['reserved_bytes_per_account'] ?? 1000000000),
+            'active_limit' => (int) ($limits['active_global'] ?? 3),
+            'day_limit' => (int) ($limits['new_per_user_day'] ?? 5),
+            'month_limit' => (int) ($limits['new_global_month'] ?? 150),
+        ];
         $defaults['odysee'] = (array) config('clip_publishing.odysee', []);
 
         return new self((string) config('media_providers.settings_path', storage_path('app/private/media-provider-settings.enc')), $defaults, app('encrypter'));
@@ -86,6 +94,7 @@ final class MediaProviderSettings
             $type = $fields[$name];
             if ($type === 'bool' && ! is_bool($value)
                 || $type === 'limit' && (! is_int($value) || $value < 1 || $value > 1000000)
+                || $type === 'bytes' && (! is_int($value) || $value < 134217728 || $value > 1000000000)
                 || in_array($type, ['text', 'secret'], true) && (! is_string($value) || strlen($value) > ($type === 'secret' ? 2048 : 512) || preg_match('/[\x00-\x20\x7f]/', $value))) {
                 throw new InvalidArgumentException('Invalid media provider setting format.');
             }

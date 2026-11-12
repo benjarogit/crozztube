@@ -4,6 +4,8 @@ namespace App\Models;
 
 use App\Support\Clips\ClipStagingObject;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 final class ClipTransfer extends Model
 {
@@ -27,5 +29,16 @@ final class ClipTransfer extends Model
     public function stagingObject(): ClipStagingObject
     {
         return new ClipStagingObject($this->uuid, $this->bytes, $this->sha256);
+    }
+
+    public function video(): BelongsTo
+    {
+        return $this->belongsTo(Video::class);
+    }
+
+    public function collections(): BelongsToMany
+    {
+        return $this->belongsToMany(ClipCollection::class, 'clip_collection_clip')
+            ->withTimestamps()->withPivot('sort_order');
     }
 }

@@ -62,7 +62,9 @@ for (const width of [320, 390, 768, 1024, 1440]) {
       await expect(page.locator('.watch-page h1')).toHaveText(title);
       expect(await page.locator('.watch-toolbar').evaluate(e => getComputedStyle(e).flexDirection)).toBe('row');
       expect((await page.locator('.watch-toolbar .channel-identity').boundingBox())?.height).toBeLessThan(100);
-      await expect(page.locator('.watch-info .action-bar > button[aria-label]')).toHaveCount(3);
+      const actionCount = await page.locator('.watch-info .action-bar > .action-pill').evaluateAll(nodes => nodes.filter(node => getComputedStyle(node).display !== 'none').length);
+      expect(actionCount).toBe(width <= 560 ? 5 : 4);
+      await expect(page.getByRole('button', { name: 'Clip erstellen', exact: true })).toBeVisible();
       await expect(page.locator('.watch-chapters')).toBeVisible();
       await page.locator('.watch-chapters summary').click();
       await expect(page.locator('.watch-chapters li')).toHaveCount(2);

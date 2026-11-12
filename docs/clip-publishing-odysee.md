@@ -235,6 +235,9 @@ als begonnen gespeichert. Bei verlorenem Ergebnis wird nicht blind neu publizier
 Ein akzeptierter Auftrag bleibt in `processing` beziehungsweise
 `awaiting_confirmation`, auch nach 24 Stunden. Zeitablauf allein ist keine
 Providerablehnung. Nur explizite Ablehnung oder Besitzerabbruch beendet ihn.
+Die Statusabfrage reduziert sich dabei von 30 Sekunden über fünf und 15 Minuten
+auf sechs Stunden ab dem zweiten Tag. Das begrenzt langfristigen API-Verbrauch,
+ohne einen ausstehenden Auftrag aufzugeben.
 Die 24-Stunden-Grenze gilt weiterhin für abgebrochene Browser-/Stagingarbeit.
 Während der Provider wartet, bleiben Oracle-Übergabekopie und Reservierung erhalten;
 eine Lifecycle-Regel darf diese aktiven Übergaben nicht vorzeitig entfernen.
@@ -310,6 +313,7 @@ node tools/test/ui/clip-workflow-live-observe.mjs --run --id=5e06399e-041d-4f31-
 Ohne `--run` werden keine Anfragen gestellt. Der Test ist absichtlich auf einen
 kleinen synthetischen Besitzer-Testclip begrenzt und verwendet nur einen
 Browserworker mit regulärer TLS-Prüfung. Die Herkunftsseite und vorhandene
-Browserentwürfe bleiben unverändert. Diese Teilprüfung ist bestanden;
-Schritt 2 bleibt bis zur vollständigen Abnahme einschließlich der noch offenen
-unveröffentlichten Sammlung, Betriebsgrenzen und übrigen Fehlerfälle offen.
+Browserentwürfe bleiben unverändert. Dieser behaltene Auftrag ist der
+verbindliche Live-Abschlusscheck für Schritt 2. Private und öffentliche
+Clip-Sammlungen sowie die Browser-Erzeugung vollständiger Clips beginnen erst
+in Schritt 3.

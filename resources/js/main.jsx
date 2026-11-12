@@ -1,4 +1,5 @@
 import ResponsiveOverlays from './components/ResponsiveOverlays.jsx';
+import ClipComposer from './components/ClipComposer.jsx';
 import ClipUploads from './components/ClipUploads.jsx';
 import AttachmentImage, { ImageUploadPreview, attachmentCandidates } from './components/AttachmentImage.jsx';
 import { useHostedImages, hostedImagesReady, appendHostedImageIds } from './imageUploadQueue.js';
@@ -2327,6 +2328,7 @@ function Icon({ name, size = 20 }) {
     search: <><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></>,
     enter: <><path d="M20 4v7a4 4 0 0 1-4 4H5"/><path d="m9 11-4 4 4 4"/></>,
     play: <path d="M8 5v14l11-7L8 5Z"/>,
+    clip: <><rect x="3" y="5" width="13" height="14" rx="2"/><path d="M16 9.5 21 7v10l-5-2.5"/><path d="M7 12h5"/></>,
     shorts: <path d="m18.931 9.99-1.441-.601 1.717-.913a4.48 4.48 0 0 0 1.874-6.078 4.506 4.506 0 0 0-6.09-1.874L4.792 5.929a4.504 4.504 0 0 0-2.402 4.193 4.521 4.521 0 0 0 2.666 3.904c.036.012 1.442.6 1.442.6l-1.706.901a4.51 4.51 0 0 0-2.369 3.967A4.528 4.528 0 0 0 6.93 24c.725 0 1.437-.174 2.08-.508l10.21-5.406a4.494 4.494 0 0 0 2.39-4.192 4.525 4.525 0 0 0-2.678-3.904ZM9.597 15.19V8.824l6.007 3.184z"/>,
     pause: <><path d="M8 5v14"/><path d="M16 5v14"/></>,
     previous: <><path d="M6 5v14"/><path d="m18 6-9 6 9 6V6Z"/></>,
@@ -4982,7 +4984,7 @@ function StudioCommentsCard({ initialComments, navigate, auth }) {
   return <article className="studio-card recent-comments-card">
     <div className="studio-card-head compact">
       <h2>Recent Comments</h2>
-      <button className="text-button" onClick={() => navigate('/studio/content')}>View all <span>→</span></button>
+      <button className="text-button" onClick={() => navigate('/studio/content')}>View all</button>
     </div>
     {notice && <div className="studio-comment-notice" aria-live="polite">{notice}</div>}
     {orderedComments.length ? orderedComments.map((comment) => <div className={`studio-comment-row ${comment.pinned ? 'is-pinned' : ''}`} key={comment.id} id={`comment-${comment.id}`}>
@@ -15136,6 +15138,11 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
   const defaultQualityAppliedRef = useRef(false);
   const detailMenuRef = useRef(null);
   const detailMenuShellRef = useRef(null);
+  const detailShareShellRef = useRef(null);
+  const detailMenuTriggerRef = useRef(null);
+  const saveTriggerRef = useRef(null);
+  const clipTriggerRef = useRef(null);
+  const returnToManageRef = useRef(false);
   const playerContextMenuRef = useRef(null);
   const watchPlayerStageRef = useRef(null);
   const watchVideoPlayerRef = useRef(null);
@@ -15143,7 +15150,10 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
   const scrollMiniplayerFromRectRef = useRef(null);
   const scrollMiniplayerAnimationRef = useRef(null);
   const discardPersistentPlaybackRef = useRef(false);
+  const clipCaptureActiveRef = useRef(false);
+  const clipCaptureStartedRef = useRef(false);
   const watchToastTimerRef = useRef(null);
+  const clipAutoOpenRef = useRef('');
   const watchSidebarRef = useRef(null);
   const upNextRequestRef = useRef('');
   const commentsRequestRef = useRef('');
@@ -15168,6 +15178,7 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
   const [localLiked, setLocalLiked] = useState(false);
   const [localSubscribed, setLocalSubscribed] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [dropdownView, setDropdownView] = useState('actions');
   const [dropdownLayout, setDropdownLayout] = useState(null);
   const [descriptionExpanded, setDescriptionExpanded] = useState(false);
   const [watchNotice, setWatchNotice] = useState('');
@@ -15198,6 +15209,7 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
   const [playerStatsOpen, setPlayerStatsOpen] = useState(false);
   const [playerStatsTick, setPlayerStatsTick] = useState(0);
   const [embedPlayerUrl, setEmbedPlayerUrl] = useState('');
+  const [clipComposerOpen, setClipComposerOpen] = useState(false);
   const [playlistPickerOpen, setPlaylistPickerOpen] = useState(false);
   const [playlistCreateOpen, setPlaylistCreateOpen] = useState(false);
   const [userPlaylists, setUserPlaylists] = useState([]);
@@ -15305,6 +15317,12 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
     } catch (_) {}
   }, [video?.slug]);
   useEffect(() => {
+    if (!auth.user || !video?.slug || new URLSearchParams(window.location.search).get('clip') !== 'create'
+      || clipAutoOpenRef.current === video.slug) return;
+    clipAutoOpenRef.current = video.slug;
+    setClipComposerOpen(true);
+  }, [auth.user?.id, video?.slug]);
+  useEffect(() => {
     setUpNextVisibleLimit(6);
     if (playlistContextId) {
       setUpNext([]);
@@ -15366,6 +15384,7 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
     setPlayerStatsOpen(false);
     setPlayerStatsTick(0);
     setEmbedPlayerUrl('');
+    setClipComposerOpen(false);
     playerAdResumeRef.current = false;
     playerAdClickResumeRef.current = false;
     playerAdBreaksRef.current = new Set();
@@ -15625,10 +15644,13 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
   useEffect(() => {
     if (!dropdownOpen) return undefined;
     const closeOnOutside = (event) => {
-      if (!detailMenuShellRef.current?.contains(event.target) && !detailMenuRef.current?.contains(event.target)) setDropdownOpen(false);
+      if (!detailMenuShellRef.current?.contains(event.target) && !detailShareShellRef.current?.contains(event.target) && !detailMenuRef.current?.contains(event.target)) setDropdownOpen(false);
     };
     const closeOnEscape = (event) => {
-      if (event.key === 'Escape') { setDropdownOpen(false); detailMenuShellRef.current?.querySelector('button')?.focus(); }
+      if (event.key !== 'Escape' || event.defaultPrevented) return;
+      event.preventDefault();
+      if (dropdownView === 'manage') { returnToManageRef.current = true; setDropdownView('actions'); }
+      else { setDropdownOpen(false); detailMenuTriggerRef.current?.focus({ preventScroll: true }); }
     };
     document.addEventListener('mousedown', closeOnOutside);
     document.addEventListener('keydown', closeOnEscape);
@@ -15636,11 +15658,11 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
       document.removeEventListener('mousedown', closeOnOutside);
       document.removeEventListener('keydown', closeOnEscape);
     };
-  }, [dropdownOpen]);
+  }, [dropdownOpen, dropdownView]);
 
   useLayoutEffect(() => {
     if (!dropdownOpen) { setDropdownLayout(null); return undefined; }
-    const shell = detailMenuShellRef.current;
+    const shell = detailMenuTriggerRef.current;
     const menu = detailMenuRef.current;
     if (!shell || !menu) return undefined;
     const updatePlacement = () => {
@@ -15676,11 +15698,14 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
       window.visualViewport?.removeEventListener('resize', updatePlacement);
       window.visualViewport?.removeEventListener('scroll', updatePlacement);
     };
-  }, [dropdownOpen]);
+  }, [dropdownOpen, dropdownView]);
 
   useLayoutEffect(() => {
-    if (dropdownOpen && dropdownLayout) detailMenuRef.current?.querySelector('button:not(:disabled)')?.focus({ preventScroll: true });
-  }, [dropdownOpen, Boolean(dropdownLayout)]);
+    if (!dropdownOpen || !dropdownLayout) return;
+    const selector = returnToManageRef.current && dropdownView === 'actions' ? '[data-watch-manage]' : 'button:not(:disabled)';
+    detailMenuRef.current?.querySelector(selector)?.focus({ preventScroll: true });
+    returnToManageRef.current = false;
+  }, [dropdownOpen, dropdownView, Boolean(dropdownLayout)]);
 
   const handleDetailMenuKeys = (event) => {
     const items = [...(detailMenuRef.current?.querySelectorAll('button:not(:disabled)') || [])];
@@ -15689,9 +15714,13 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
       const index = items.indexOf(document.activeElement);
       const next = event.key === 'Home' ? 0 : event.key === 'End' ? items.length - 1 : (index + (event.key === 'ArrowUp' ? -1 : 1) + items.length) % items.length;
       items[next]?.focus();
+    } else if (event.key === 'ArrowRight' && document.activeElement?.hasAttribute('data-watch-manage')) {
+      event.preventDefault(); setDropdownView('manage');
+    } else if (event.key === 'ArrowLeft' && dropdownView === 'manage') {
+      event.preventDefault(); returnToManageRef.current = true; setDropdownView('actions');
     } else if (event.key === 'Tab') {
       setDropdownOpen(false);
-      detailMenuShellRef.current?.querySelector('button')?.focus({ preventScroll: true });
+      detailMenuTriggerRef.current?.focus({ preventScroll: true });
     }
   };
 
@@ -15946,10 +15975,13 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
     }
   };
 
-  const toggleVideoDropdown = async () => {
-    const opening = !dropdownOpen;
+  const toggleVideoDropdown = async (view, trigger) => {
+    const opening = !dropdownOpen || (view === 'share') !== (dropdownView === 'share');
+    detailMenuTriggerRef.current = trigger;
+    returnToManageRef.current = false;
+    setDropdownView(view);
     setDropdownOpen(opening);
-    if (opening) await refreshWatchMenuState();
+    if (opening && view === 'actions') await refreshWatchMenuState();
   };
 
   useEffect(() => {
@@ -16084,6 +16116,7 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
       }
     }
     setDropdownOpen(false);
+    if (action === 'share' || action === 'copy' || action === 'pin') detailMenuTriggerRef.current?.focus({ preventScroll: true });
   };
 
   const like = async () => {
@@ -16136,7 +16169,7 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
     setVideo({ ...video, comments_count: video.comments_count + 1 });
     return true;
   };
-  const saveVideo = () => toggleWatchLater();
+  const saveVideo = () => openPlaylistPicker();
   const confirmDeleteVideo = async () => {
     if (!video?.slug || videoDeleting || !canDeleteVideo) return;
     setVideoDeleting(true);
@@ -16188,6 +16221,11 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
     default: true,
   }] : [], [video?.caption_tracks, video?.captions_url, video?.language, video?.language_code]);
   const videoSources = useMemo(() => videoSourcesFor(video), [video]);
+  const clipSourceUrl = useMemo(() => {
+    const source = videoSources.find(item => inferVideoType(item) === 'video/mp4' && typeof item?.src === 'string');
+    if (!source) return '';
+    try { return new URL(source.src, window.location.origin).toString(); } catch { return ''; }
+  }, [videoSources]);
   const embedUrl = httpEmbedUrl(video?.embed_url);
   const posterUrl = resolvedThumbnail;
   const videoChapters = useMemo(
@@ -16212,11 +16250,15 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
     const player = playerAdStarted && !isGoogleImaAd(activePlayerAd) ? playerAdPlayerRef.current : playerRef.current;
     return connectedMediaPlayer(player) ? player : null;
   };
-  const currentPlaybackSeconds = () => Math.max(0, Number(activeWatchPlayer()?.currentTime ?? playerRef.current?.currentTime ?? 0) || 0);
+  const currentPlaybackSeconds = () => {
+    const current = Math.max(0, Number(activeWatchPlayer()?.currentTime ?? playerRef.current?.currentTime ?? 0) || 0);
+    if (current > 0 || persistentPlaybackRef.current.started) return current;
+    return Math.max(0, Number(watchStartTimeFromLocation()) || 0);
+  };
   const playerDebugInfo = () => playerDebugSnapshot(activeWatchPlayer(), video, videoSources, playerError);
   const syncPersistentPlayback = (force = false, playingOverride = null, markStarted = false) => {
     const player = playerRef.current;
-    if (!player || !video?.slug || isShortVideo(video) || !videoSources.length || playerAdStarted || playerAdResolving) return null;
+    if (clipCaptureActiveRef.current || !player || !video?.slug || isShortVideo(video) || !videoSources.length || playerAdStarted || playerAdResolving) return null;
     const currentTime = Math.max(0, Number(player.currentTime || 0) || 0);
     const duration = Math.max(0, Number(player.duration || video.duration_seconds || 0) || 0);
     const state = persistentPlaybackRef.current;
@@ -16327,7 +16369,7 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
   };
   const recordPlayback = (force = false) => {
     const player = playerRef.current;
-    if (!player || !auth.user || !video?.slug || video.isDemo) return;
+    if (clipCaptureActiveRef.current || !player || !auth.user || !video?.slug || video.isDemo) return;
     const currentTime = Number(player.currentTime || 0);
     const duration = Number(player.duration || 0);
     if (!duration || duration < 1) return;
@@ -16615,6 +16657,7 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
     }
   };
   const handleContentTimeUpdate = () => {
+    if (clipCaptureActiveRef.current) return;
     recordPlayback();
     syncPersistentPlayback();
     if (playerAdStarted || playerAdResolving || !midRollBreaks.length) return;
@@ -16785,27 +16828,34 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
         {watchNotice && <div className="watch-action-notice" aria-live="polite">{watchNotice}</div>}
         <div className="watch-toolbar">
           <button type="button" className="channel-identity profile-identity-button" onClick={(event) => openProfile(event, navigate, video.channel)} disabled={!profilePathFor(video.channel)}><Avatar label={video.channel?.name || 'Channel'} image={assetUrl(video.channel?.avatar_url || video.channel?.avatar_path)} /><div><strong><span data-i18n-skip>{video.channel?.name || t('Channel')}</span><VerifiedBadge verified={video.channel?.verified} /></strong><span className="channel-subscriber-count"><LocalizedCount value={formatNumber(video.channel?.subscribers_count || 0)} unit="subscriber" /></span></div></button>
-          <button className={`btn ${subscribed || isOwnVideoChannel ? 'subtle' : 'primary'}`} onClick={subscribe} disabled={isOwnVideoChannel}>{isOwnVideoChannel ? 'Your channel' : subscribed ? 'Unsubscribe' : 'Subscribe'}</button>
+          <div className="watch-creator-actions">
+            <button className={`btn ${subscribed || isOwnVideoChannel ? 'subtle' : 'primary'}`} onClick={subscribe} disabled={isOwnVideoChannel}>{isOwnVideoChannel ? 'Your channel' : subscribed ? 'Unsubscribe' : 'Subscribe'}</button>
+            {canTipVideoCreator && <button type="button" className="btn subtle watch-support-button creator-tip-action" onClick={() => auth.user ? setCreatorTipOpen(true) : navigate('/login')}><Icon name="wallet" size={16}/><span>{t('Send tip')}</span></button>}
+          </div>
           <div className="action-bar">
             <button className={`action-pill ${liked ? 'active' : ''}`} onClick={like} aria-label={t(liked ? 'Unlike video' : 'Like video')} aria-pressed={liked}><Icon name="like" size={18} /> {formatNumber(video.likes_count)}</button>
-            <button type="button" className="action-pill" aria-label={t('Comments')} onClick={() => document.querySelector('.watch-comments-card')?.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' })}><Icon name="comment" size={18} /> {formatNumber(video.comments_count)}</button>
-            <button className={`action-pill ${isWatchLater ? 'active' : ''}`} onClick={saveVideo} aria-label={t(isWatchLater ? 'Remove from Watch later' : 'Add to Watch later')} aria-pressed={isWatchLater}><Icon name="bookmark" size={18}/><span data-i18n-skip>{t(isWatchLater ? 'Saved' : 'Save')}</span></button>
-            <button className="action-pill" onClick={shareVideo}><Icon name="share" size={18} /> Share</button>
+            <button type="button" className="action-pill watch-comments-action" aria-label={t('Comments')} onClick={() => document.querySelector('.watch-comments-card')?.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' })}><Icon name="comment" size={18} /> {formatNumber(video.comments_count)}</button>
+            <button ref={saveTriggerRef} type="button" className={`action-pill ${isWatchLater || videoMenuState.playlist ? 'active' : ''}`} onClick={saveVideo} aria-label={t('Save')} aria-pressed={isWatchLater || videoMenuState.playlist} aria-haspopup="dialog"><Icon name="bookmark" size={18}/><span data-i18n-skip>{t(isWatchLater || videoMenuState.playlist ? 'Saved' : 'Save')}</span></button>
+            <button ref={detailShareShellRef} type="button" className={`action-pill ${dropdownOpen && dropdownView === 'share' ? 'active' : ''}`} aria-label={t('Share Video')} aria-haspopup="menu" aria-expanded={dropdownOpen && dropdownView === 'share'} aria-controls={`watch-video-actions-${slug}`} onClick={(event) => toggleVideoDropdown('share', event.currentTarget)}><Icon name="share" size={18} /> Share</button>
+            <button ref={clipTriggerRef} type="button" className="action-pill" aria-label={t('Create a clip')} onClick={() => auth.user ? setClipComposerOpen(true) : navigate('/login')}><Icon name="clip" size={18}/><span>{t('Clip')}</span></button>
             <div className="video-detail-menu-shell" ref={detailMenuShellRef}>
-              <button className={`action-pill icon-only ${dropdownOpen ? 'active' : ''}`} onClick={toggleVideoDropdown} aria-label="Video actions" aria-haspopup="menu" aria-controls={`watch-video-actions-${slug}`} aria-expanded={dropdownOpen}><Icon name="more" size={18} /></button>
-              {dropdownOpen && createPortal(<div ref={detailMenuRef} id={`watch-video-actions-${slug}`} role="menu" aria-label={t('Video actions')} className={`video-detail-action-menu watch-detail-menu open-${dropdownLayout?.placement || 'down'}`} onKeyDown={handleDetailMenuKeys} style={dropdownLayout ? { top: dropdownLayout.top, left: dropdownLayout.left, width: dropdownLayout.width, maxHeight: dropdownLayout.maxHeight, '--watch-menu-sheet-max-height': `${dropdownLayout.sheetMaxHeight}px` } : { visibility: 'hidden' }}>
-                {canTipVideoCreator && <button type="button" role="menuitem" className="video-detail-action-item creator-tip-action" onClick={() => { setDropdownOpen(false); auth.user ? setCreatorTipOpen(true) : navigate('/login'); }}><Icon name="wallet" size={20}/><span>Send tip</span></button>}
-                {isOwnVideoChannel && <><button type="button" role="menuitem" className="video-detail-action-item" onClick={() => runVideoMenuAction('edit')}><Icon name="edit" size={20}/><span>Edit video</span></button>{!video.is_short && video.source_type !== 'live_replay' && <button type="button" role="menuitem" className="video-detail-action-item" onClick={() => runVideoMenuAction('boost')}><Icon name="trending" size={20}/><span>Boost video</span></button>}<button type="button" role="menuitem" className={`video-detail-action-item ${videoMenuState.pinned ? 'is-selected' : ''}`} onClick={() => runVideoMenuAction('pin')} disabled={videoMenuState.pinning}><Icon name={videoMenuState.pinned ? 'pinOff' : 'pin'} size={20}/><span>{videoMenuState.pinning ? 'Saving...' : videoMenuState.pinned ? 'Unpin from profile' : 'Pin to profile'}</span></button><div className="video-detail-menu-divider" /></>}
-                <button type="button" role="menuitem" className="video-detail-action-item" onClick={() => runVideoMenuAction('playlist')}><Icon name="queue" size={20}/><span>{videoMenuState.playlist ? 'Remove from Playlist' : 'Add to Playlist'}</span></button>
-                <div className="video-detail-menu-divider" />
-                <button type="button" role="menuitem" className="video-detail-action-item" onClick={() => runVideoMenuAction('share')}><Icon name="share" size={20}/><span>Share Video</span></button>
-                <button type="button" role="menuitem" className="video-detail-action-item" onClick={() => runVideoMenuAction('copy')}><Icon name="link" size={20}/><span>Copy Link</span></button>
-                <div className="video-detail-menu-divider" />
-                <button type="button" role="menuitem" className="video-detail-action-item" onClick={() => runVideoMenuAction('watchLater')}><Icon name="clock" size={20}/><span>{isWatchLater ? 'Remove from Watch later' : 'Add to Watch later'}</span></button>
-                <div className="video-detail-menu-divider" />
-                <button type="button" role="menuitem" className={`video-detail-action-item ${videoMenuState.reported ? 'is-selected' : ''}`} onClick={() => runVideoMenuAction('report')}><Icon name="flag" size={20}/><span>{videoMenuState.reported ? 'Reported' : 'Report Video'}</span></button>
-                {!isOwnVideoChannel && <button type="button" role="menuitem" className={`video-detail-action-item danger ${videoMenuState.hidden ? 'is-selected' : ''}`} onClick={() => runVideoMenuAction('notInterested')}><Icon name="block" size={20}/><span>{videoMenuState.hidden ? 'Marked Not Interested' : 'Not Interested'}</span></button>}
-                {canDeleteVideo && <><div className="video-detail-menu-divider" /><button type="button" role="menuitem" className="video-detail-action-item danger" onClick={() => runVideoMenuAction('delete')} disabled={videoDeleting}><Icon name="trash" size={20}/><span>{videoDeleting ? 'Deleting...' : 'Delete Video'}</span></button></>}
+              <button className={`action-pill icon-only ${dropdownOpen && dropdownView !== 'share' ? 'active' : ''}`} onClick={(event) => toggleVideoDropdown('actions', event.currentTarget)} aria-label="Video actions" aria-haspopup="menu" aria-controls={`watch-video-actions-${slug}`} aria-expanded={dropdownOpen && dropdownView !== 'share'}><Icon name="more" size={18} /></button>
+              {dropdownOpen && createPortal(<div ref={detailMenuRef} id={`watch-video-actions-${slug}`} role="menu" aria-label={t(dropdownView === 'share' ? 'Share Video' : dropdownView === 'manage' ? 'Manage video' : 'Video actions')} className={`video-detail-action-menu watch-detail-menu open-${dropdownLayout?.placement || 'down'}`} onKeyDown={handleDetailMenuKeys} style={dropdownLayout ? { top: dropdownLayout.top, left: dropdownLayout.left, width: dropdownLayout.width, maxHeight: dropdownLayout.maxHeight, '--watch-menu-sheet-max-height': `${dropdownLayout.sheetMaxHeight}px` } : { visibility: 'hidden' }}>
+                {dropdownView === 'share' ? <>
+                  <button type="button" role="menuitem" className="video-detail-action-item" onClick={() => runVideoMenuAction('share')}><Icon name="share" size={20}/><span>Share Video</span></button>
+                  <button type="button" role="menuitem" className="video-detail-action-item" onClick={() => runVideoMenuAction('copy')}><Icon name="link" size={20}/><span>Copy Link</span></button>
+                </> : dropdownView === 'manage' ? <>
+                  <button type="button" role="menuitem" className="video-detail-action-item" onClick={() => { returnToManageRef.current = true; setDropdownView('actions'); }}><Icon name="chevronLeft" size={20}/><span>Back</span></button>
+                  <div className="video-detail-menu-divider" />
+                  {isOwnVideoChannel && <><button type="button" role="menuitem" className="video-detail-action-item" onClick={() => runVideoMenuAction('edit')}><Icon name="edit" size={20}/><span>Edit video</span></button>{!video.is_short && video.source_type !== 'live_replay' && <button type="button" role="menuitem" className="video-detail-action-item" onClick={() => runVideoMenuAction('boost')}><Icon name="trending" size={20}/><span>Boost video</span></button>}<button type="button" role="menuitem" className={`video-detail-action-item ${videoMenuState.pinned ? 'is-selected' : ''}`} onClick={() => runVideoMenuAction('pin')} disabled={videoMenuState.pinning}><Icon name={videoMenuState.pinned ? 'pinOff' : 'pin'} size={20}/><span>{videoMenuState.pinning ? 'Saving...' : videoMenuState.pinned ? 'Unpin from profile' : 'Pin to profile'}</span></button></>}
+                  {canDeleteVideo && <>{isOwnVideoChannel && <div className="video-detail-menu-divider" />}<button type="button" role="menuitem" className="video-detail-action-item danger" onClick={() => runVideoMenuAction('delete')} disabled={videoDeleting}><Icon name="trash" size={20}/><span>{videoDeleting ? 'Deleting...' : 'Delete Video'}</span></button></>}
+                </> : <>
+                  {(isOwnVideoChannel || canDeleteVideo) && <button type="button" role="menuitem" className="video-detail-action-item" data-watch-manage aria-haspopup="menu" aria-expanded={false} onClick={() => setDropdownView('manage')}><Icon name="edit" size={20}/><span>Manage video</span><Icon name="chevronRight" size={16}/></button>}
+                  {!isOwnVideoChannel && <>
+                    {video.can_report !== false && <button type="button" role="menuitem" className={`video-detail-action-item ${videoMenuState.reported ? 'is-selected' : ''}`} onClick={() => runVideoMenuAction('report')}><Icon name="flag" size={20}/><span>{videoMenuState.reported ? 'Reported' : 'Report Video'}</span></button>}
+                    <button type="button" role="menuitem" className={`video-detail-action-item danger ${videoMenuState.hidden ? 'is-selected' : ''}`} onClick={() => runVideoMenuAction('notInterested')}><Icon name="block" size={20}/><span>{videoMenuState.hidden ? 'Marked Not Interested' : 'Not Interested'}</span></button>
+                  </>}
+                </>}
               </div>, document.body)}
             </div>
           </div>
@@ -16827,8 +16877,9 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
     <section className="watch-comments-section">
       <WatchCommentsPanel video={video} comments={comments} setComments={setComments} body={body} setBody={setBody} onSubmitComment={comment} auth={auth} navigate={navigate} slug={slug} setVideo={setVideo} notify={notify} commentsLimit={20} commentsLoadStep={20} commentsHasMore={commentsHasMore} loadingMoreComments={loadingMoreComments} onLoadMoreComments={loadMoreComments} />
     </section>
-    {playlistPickerOpen && <AddToPlaylistModal video={video} playlists={userPlaylists} loading={playlistLoading} error={playlistError} savingId={playlistSavingId} onClose={() => setPlaylistPickerOpen(false)} onRefresh={loadUserPlaylists} onToggle={togglePlaylistVideo} onCreate={() => { setPlaylistPickerOpen(false); setPlaylistCreateOpen(true); }} />}
+    {playlistPickerOpen && <AddToPlaylistModal video={video} playlists={userPlaylists} loading={playlistLoading} error={playlistError} savingId={playlistSavingId} watchLater={isWatchLater} watchLaterBusy={playlistSavingId === 'watch-later'} onToggleWatchLater={async () => { setPlaylistSavingId('watch-later'); try { await toggleWatchLater(); } finally { setPlaylistSavingId(null); } }} onClose={() => { setPlaylistPickerOpen(false); window.requestAnimationFrame(() => saveTriggerRef.current?.focus({ preventScroll: true })); }} onRefresh={loadUserPlaylists} onToggle={togglePlaylistVideo} onCreate={() => { setPlaylistPickerOpen(false); setPlaylistCreateOpen(true); }} />}
     {playlistCreateOpen && <NewPlaylistModal videos={[video]} initialAddVideos initialVideoIds={[video.id]} onClose={() => setPlaylistCreateOpen(false)} onCreate={createWatchPlaylist} />}
+    <ClipComposer open={clipComposerOpen} api={api} video={video} sourceUrl={clipSourceUrl} getMediaElement={() => playerMediaElement(playerRef.current)} currentTime={currentPlaybackSeconds()} duration={playerDuration || video.duration_seconds} Icon={Icon} onClose={() => { setClipComposerOpen(false); window.requestAnimationFrame(() => clipTriggerRef.current?.focus({ preventScroll: true })); }} onCreated={(transfer) => navigate(`/clip-uploads?clip=${encodeURIComponent(transfer.id)}`)} onTimeLink={() => copyPlayerText(watchUrlAtTime(currentUrl(), currentPlaybackSeconds()), 'Video URL at current time copied.')} onCaptureStateChange={(active) => { if (active) clipCaptureStartedRef.current = persistentPlaybackRef.current.started; else persistentPlaybackRef.current.started = clipCaptureStartedRef.current; clipCaptureActiveRef.current = active; }} />
     <CreatorTipDialog open={creatorTipOpen} creator={video.channel} video={video} settings={creatorTips || {}} navigate={navigate} onClose={() => setCreatorTipOpen(false)} onSent={notify} />
     <AppConfirmDialog dialog={deleteConfirm} busy={videoDeleting} onCancel={() => setDeleteConfirm(null)} onConfirm={confirmDeleteVideo} />
     {watchToast && <button type="button" className="copy-toast-notice watch-player-toast" role="status" aria-live="polite" onClick={() => setWatchToast('')}><span><Icon name="info" size={18}/></span><strong>{watchToast}</strong></button>}
@@ -24222,7 +24273,7 @@ function CreatorProfileLibraryTab({ library, playlists, videos, canEdit, loading
 }
 
 
-function AddToPlaylistModal({ video, playlists, loading, error, savingId, onClose, onRefresh, onToggle, onCreate }) {
+function AddToPlaylistModal({ video, playlists, loading, error, savingId, onClose, onRefresh, onToggle, onCreate, watchLater = false, watchLaterBusy = false, onToggleWatchLater = null }) {
   const videoId = Number(video?.id);
   const attachedCount = playlists.filter((playlist) => (playlist.video_ids || []).map(Number).includes(videoId)).length;
 
@@ -24243,7 +24294,7 @@ function AddToPlaylistModal({ video, playlists, loading, error, savingId, onClos
     <section className="add-to-playlist-modal">
       <header className="add-to-playlist-header">
         <span className="playlist-modal-icon"><Icon name="playlist" size={24}/></span>
-        <div><h2 id="add-playlist-title">Add to Playlist</h2><p>{attachedCount ? `Saved in ${attachedCount} playlist${attachedCount === 1 ? '' : 's'}.` : 'Choose where this video should be saved.'}</p></div>
+        <div><h2 id="add-playlist-title">Save</h2><p>{attachedCount || watchLater ? `Saved in ${[watchLater ? 'Watch later' : null, attachedCount ? `${attachedCount} playlist${attachedCount === 1 ? '' : 's'}` : null].filter(Boolean).join(' · ')}.` : 'Choose where this video should be saved.'}</p></div>
         <button type="button" className="playlist-modal-close" onClick={onClose} aria-label="Close"><Icon name="close" size={22}/></button>
       </header>
       <div className="add-to-playlist-video">
@@ -24252,9 +24303,14 @@ function AddToPlaylistModal({ video, playlists, loading, error, savingId, onClos
       </div>
       <div className="add-to-playlist-body">
         {error && <div className="profile-action-notice" aria-live="polite">{error}</div>}
+        {onToggleWatchLater && <button type="button" className={`add-to-playlist-row ${watchLater ? 'selected' : ''}`} disabled={watchLaterBusy || Boolean(savingId)} onClick={(event) => { event.preventDefault(); event.stopPropagation(); onToggleWatchLater(); }}>
+          <div className="playlist-gradient-thumb" style={{ '--playlist-color': '#6c4cff' }}><Icon name="clock" size={22}/></div>
+          <span><strong>Watch later</strong><small>Save for later</small></span>
+          <em>{watchLaterBusy ? '...' : watchLater ? '✓' : '+'}</em>
+        </button>}
         {loading ? <div className="state-card">Loading playlists...</div> : playlists.length ? playlists.map((playlist) => {
           const attached = (playlist.video_ids || []).map(Number).includes(videoId);
-          return <button type="button" key={playlist.id} className={`add-to-playlist-row ${attached ? 'selected' : ''}`} disabled={savingId === playlist.id} onClick={(event) => { event.preventDefault(); event.stopPropagation(); onToggle(playlist); }}>
+          return <button type="button" key={playlist.id} className={`add-to-playlist-row ${attached ? 'selected' : ''}`} disabled={savingId === playlist.id || watchLaterBusy} onClick={(event) => { event.preventDefault(); event.stopPropagation(); onToggle(playlist); }}>
             {playlist.video ? <Thumbnail video={playlist.video} /> : <div className="playlist-gradient-thumb" style={{ '--playlist-color': playlist.color || '#6c4cff' }}><Icon name="playlist" size={22}/></div>}
             <span><strong>{playlist.title}</strong><small>{playlist.videos_count || 0} {(playlist.videos_count || 0) === 1 ? 'video' : 'videos'} · {playlist.privacy || 'public'}</small></span>
             <em>{savingId === playlist.id ? '...' : attached ? '✓' : '+'}</em>

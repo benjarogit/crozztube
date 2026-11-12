@@ -55,6 +55,9 @@
         "clip-workflow-copy",
         "clip-confirmation-browser",
         "clip-gateway",
+        "action-copy",
+        "action-consistency-browser",
+        "watch-menu-regressions",
         "staged-safety"
       ]
     },
@@ -69,6 +72,16 @@
         "Private und öffentliche Clips, Originalzuordnung und Sammlungen",
         "Ungeeignete Quellen bieten Zeitmarke statt manuellen Upload",
         "Warten, Abbruch, Retry, Sichtbarkeit, Wiedergabe und Löschen vollständig geprüft"
+      ],
+      "checkpointChecks": [
+        "harness-tests",
+        "clip-encoder-unit",
+        "clip-browser-format",
+        "clip-api",
+        "clip-composer-ui",
+        "clip-collections",
+        "clip-management-ui",
+        "staged-safety"
       ]
     },
     {
@@ -76,6 +89,13 @@
       "title": "Zeitmarken, Teilen, Stimmen und Bereinigung",
       "checks": [
         "step-04-time-marks"
+      ],
+      "checkpointChecks": [
+        "clip-encoder-unit",
+        "clip-browser-format",
+        "clip-composer-ui",
+        "action-consistency-browser",
+        "staged-safety"
       ],
       "acceptance": [
         "Private Notizen und bewusst veröffentlichte Zeitmarken",
@@ -183,6 +203,69 @@
     }
   ],
   "checks": {
+    "step-03-clips": {
+      "argv": [
+        "bash",
+        "tools/test/step-03-clips.sh"
+      ],
+      "timeoutMs": 480000
+    },
+    "step-02-integration": {
+      "argv": [
+        "node",
+        "tools/test/ui/clip-workflow-live-observe.mjs",
+        "--run",
+        "--id=5e06399e-041d-4f31-a198-a6dcd4e7af8f"
+      ],
+      "timeoutMs": 120000
+    },
+    "clip-encoder-unit": {
+      "argv": [
+        "node",
+        "--test",
+        "--test-reporter=spec",
+        "tools/test/clip-encoder.test.mjs"
+      ],
+      "timeoutMs": 30000
+    },
+    "clip-browser-format": {
+      "argv": [
+        "node",
+        "tools/test/clip-browser-format.mjs"
+      ],
+      "timeoutMs": 60000
+    },
+    "clip-api": {
+      "argv": [
+        "php",
+        "tools/test/php/clip-api-checks.php"
+      ],
+      "timeoutMs": 30000
+    },
+    "clip-composer-ui": {
+      "argv": [
+        "node",
+        "tools/test/ui/clip-composer.mjs"
+      ],
+      "timeoutMs": 120000
+    },
+    "clip-collections": {
+      "argv": [
+        "docker",
+        "exec",
+        "crozztube-web",
+        "php",
+        "tools/test/php/clip-collection-checks.php"
+      ],
+      "timeoutMs": 60000
+    },
+    "clip-management-ui": {
+      "argv": [
+        "node",
+        "tools/test/ui/clip-management.mjs"
+      ],
+      "timeoutMs": 120000
+    },
     "harness-tests": {
       "argv": [
         "node",
@@ -361,6 +444,33 @@
         "tools/test/php/clip-gateway-checks.php"
       ],
       "timeoutMs": 30000
+    },
+    "action-copy": {
+      "argv": [
+        "php",
+        "tools/test/php/action-copy-checks.php"
+      ],
+      "timeoutMs": 30000
+    },
+    "action-consistency-browser": {
+      "argv": [
+        "node",
+        "tools/test/ui/action-consistency.mjs"
+      ],
+      "timeoutMs": 240000
+    },
+    "watch-menu-regressions": {
+      "argv": [
+        "node",
+        "tools/test/ui/node_modules/playwright/cli.js",
+        "test",
+        "--config",
+        "tools/test/ui/playwright.config.ts",
+        "watch-menu.spec.ts",
+        "--project=chromium",
+        "--workers=1"
+      ],
+      "timeoutMs": 180000
     }
   },
   "defaults": {
@@ -369,6 +479,7 @@
     "activePerUser": 1,
     "waitingPerUser": 1,
     "newUploadsPerDay": 5,
+    "newUploadsPerMonth": 150,
     "maxClipBytes": 67108864,
     "reservedAndStoredBytesPerAccount": 1000000000,
     "stagingCleanupHours": 24,

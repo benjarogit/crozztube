@@ -317,6 +317,15 @@
       ],
       "reviewed_at": "2026-11-06T09:05:29+00:00"
     },
+    "05a79885effe6f14b868a3683f72a8cee43c9964d437e957499bf4256b01f157": {
+      "source_hash": "60f7c4c8be73d49ba1430f4691490ebd6e5103b855e4e30f4eff923b27b2ff0e",
+      "translation_hash": "bd980426432ab8d7abbda48bd23918cde286a0d94de64979ab6b410441d0f73d",
+      "status": "editorial",
+      "contexts": [
+        "Watch-page menu disclosure for owner/moderator management actions. Full action label in the existing icon-and-text menu; separate from viewer sharing. Reference/regional English and informal German checked in the owner, guest and moderator flows."
+      ],
+      "reviewed_at": "2026-11-09T10:17:44+00:00"
+    },
     "05b0bbc867479c5409f07ac61dffbc624cff168b750019454fe0bfb9deb7dc27": {
       "source_hash": "05b0bbc867479c5409f07ac61dffbc624cff168b750019454fe0bfb9deb7dc27",
       "translation_hash": "450e7d42104eab0e5e347e521008113ec946ae66a0bd09da86c46e25555c9e78",
@@ -1226,6 +1235,15 @@
       ],
       "reviewed_at": "2026-11-06T09:05:29+00:00"
     },
+    "1655ed386b0cb81ba9cb86c05f621cca936093e5e9fe48954e4ef390019b3382": {
+      "source_hash": "1655ed386b0cb81ba9cb86c05f621cca936093e5e9fe48954e4ef390019b3382",
+      "translation_hash": "9484a5c9656ce0c2c1c6712630a1d76264779f5a9a5cb891ae470e054756be20",
+      "status": "editorial",
+      "contexts": [
+        "Administrator fields for the bounded Oracle staging and Odysee publication workflow. Values limit new clip admission globally and per account; byte capacity includes incoming and handoff reservations."
+      ],
+      "reviewed_at": "2026-11-11T12:02:59+00:00"
+    },
     "170ded248de8b5408392b323bb42b079de76ea9a5b016518d6bfca25303dbc50": {
       "source_hash": "170ded248de8b5408392b323bb42b079de76ea9a5b016518d6bfca25303dbc50",
       "translation_hash": "37345267f77aaafc0462a0331019452b27a5ccacc6b0cd0d7c63e938a0000f70",
@@ -1451,6 +1469,15 @@
       ],
       "reviewed_at": "2026-11-06T10:40:04+00:00"
     },
+    "1bab96b71920413cca850aed9321f7ebf825cbc7634f8db0adec3c52a34559a3": {
+      "source_hash": "1bab96b71920413cca850aed9321f7ebf825cbc7634f8db0adec3c52a34559a3",
+      "translation_hash": "33dee53298cd7baca057b13c988337e8cf56c342672f1c728bbe8ba2bd3d32e0",
+      "status": "editorial",
+      "contexts": [
+        "Administrator fields for the bounded Oracle staging and Odysee publication workflow. Values limit new clip admission globally and per account; byte capacity includes incoming and handoff reservations."
+      ],
+      "reviewed_at": "2026-11-11T12:02:59+00:00"
+    },
     "1bb2e6e6ee648113c7f33859f600b00f73b4952ce6f68d00ee59b6cff4876a5e": {
       "source_hash": "29c34e6125c7ee1479b24b1259ed403512440a832083de13d397c5170fcbbb62",
       "translation_hash": "68d472e7620259213e5a66f59085e10a7a92a9c1e544f2ca5f64cce1b106fcb2",
@@ -1585,6 +1612,15 @@
         "Editorial pass: previously untranslated LiveKit/TURN configuration, server cron jobs, live waiting/chat/polls/contributions, guest stage consent and camera/microphone states, local gifts/Super Stickers. Original technical paths and named placeholders retained; event fragments remain flagged for later whole-message integration."
       ],
       "reviewed_at": "2026-11-06T09:49:48+00:00"
+    },
+    "1e3ae189b0e055e7e6c1c68fc9af1d7c05088885252bd5fe5f7382a0b07cd095": {
+      "source_hash": "1e3ae189b0e055e7e6c1c68fc9af1d7c05088885252bd5fe5f7382a0b07cd095",
+      "translation_hash": "7abaedd44656358a7b2ed5a3890cfd27bd802d12644db4a29a3030f8ebe13c84",
+      "status": "editorial",
+      "contexts": [
+        "Watch-page menu disclosure for owner/moderator management actions. Full action label in the existing icon-and-text menu; separate from viewer sharing. Reference/regional English and informal German checked in the owner, guest and moderator flows."
+      ],
+      "reviewed_at": "2026-11-09T10:17:44+00:00"
     },
     "1e408b8676e4f51c9e3240ff9b017c630009279a6a2588a92a8ab0bafb5948b6": {
       "source_hash": "1e408b8676e4f51c9e3240ff9b017c630009279a6a2588a92a8ab0bafb5948b6",
@@ -3500,6 +3536,15 @@
       ],
       "reviewed_at": "2026-11-06T09:54:04+00:00"
     },
+    "414278b279dc37e330bfe81d108f4f4519e46ccfe07b3c2799b5b7491c3d4598": {
+      "source_hash": "870a5987eec398593991c2e1c167e2dd294a3d88c3f52a5dc873891b8e1cb241",
+      "translation_hash": "76336d1383ac20002c045933aa9095b18bc25c9ce6dfed8fc0ac8e831047ef43",
+      "status": "editorial",
+      "contexts": [
+        "Watch-page menu disclosure for owner/moderator management actions. Full action label in the existing icon-and-text menu; separate from viewer sharing. Reference/regional English and informal German checked in the owner, guest and moderator flows."
+      ],
+      "reviewed_at": "2026-11-09T10:17:44+00:00"
+    },
     "41a7a9e32c3fea2179f16e3243eadd48910571920e407a4bfe642e6886767fdf": {
       "source_hash": "41a7a9e32c3fea2179f16e3243eadd48910571920e407a4bfe642e6886767fdf",
       "translation_hash": "b4a7ab94840914e3b3145f80e970f4b217245c78c4c92480042ca3e0df7eb46a",
@@ -3787,6 +3832,15 @@
         "Editorial review of all built-in help/page definitions: personal English and German guidance; API identifiers retained for developer instructions; legal and refund meaning preserved; administrator overrides excluded."
       ],
       "reviewed_at": "2026-11-06T09:18:00+00:00"
+    },
+    "47a1ad3ba9b3f71a8501951a3831eb3417bb227bc3ad90f59c4e17570935f9a3": {
+      "source_hash": "47a1ad3ba9b3f71a8501951a3831eb3417bb227bc3ad90f59c4e17570935f9a3",
+      "translation_hash": "0a50317532939789047b49746c6731b82195168e43d519398df06baa25297f77",
+      "status": "editorial",
+      "contexts": [
+        "Watch-page menu disclosure for owner/moderator management actions. Full action label in the existing icon-and-text menu; separate from viewer sharing. Reference/regional English and informal German checked in the owner, guest and moderator flows."
+      ],
+      "reviewed_at": "2026-11-09T10:17:44+00:00"
     },
     "47aaf31b83d6bfd705b80bcd5b6269be4caa3cf54cfa546b0ae7bc4078b39b0f": {
       "source_hash": "47aaf31b83d6bfd705b80bcd5b6269be4caa3cf54cfa546b0ae7bc4078b39b0f",
@@ -6616,6 +6670,15 @@
       ],
       "reviewed_at": "2026-11-06T09:05:29+00:00"
     },
+    "77e588cf1bbc62f3ddd5585c730b2c4e4dbe766d705d69357e0a0929057a8821": {
+      "source_hash": "c4c52572fc84d41e93374f4559256b722505987affda0a3f4b662942c5a736de",
+      "translation_hash": "72093c711cd95ad098f3a58db5361b5a1f2c7cd661275d71b8687099371c5be2",
+      "status": "editorial",
+      "contexts": [
+        "Watch-page menu disclosure for owner/moderator management actions. Full action label in the existing icon-and-text menu; separate from viewer sharing. Reference/regional English and informal German checked in the owner, guest and moderator flows."
+      ],
+      "reviewed_at": "2026-11-09T10:17:44+00:00"
+    },
     "781ef78695630d8055644ee752c61785eab5a3f7c79a75073f94778a723da679": {
       "source_hash": "781ef78695630d8055644ee752c61785eab5a3f7c79a75073f94778a723da679",
       "translation_hash": "bd1f41f46f06028665abb9f9c8d7d835efbf6b0e8f00546b3361bec9f18d69ae",
@@ -7141,6 +7204,15 @@
         "German complete-message editorial pass for live connection/recovery/moderation, wallet top-up, stickers, ads, language administration and their errors. German personal address, Austrian spelling preserved, Swiss ss. Scope verified against settings/controllers and existing UI; demo content/protocol examples and sentence fragments excluded."
       ],
       "reviewed_at": "2026-11-06T11:21:04+00:00"
+    },
+    "801b8fa3b8ab3a0740b9030486b5fb574b913469d0a887f895271b1f24dc8b99": {
+      "source_hash": "801b8fa3b8ab3a0740b9030486b5fb574b913469d0a887f895271b1f24dc8b99",
+      "translation_hash": "27cf83969d28d647076ebb7e2a45f105b002426b0f9a8114f37428655c966cca",
+      "status": "editorial",
+      "contexts": [
+        "Administrator fields for the bounded Oracle staging and Odysee publication workflow. Values limit new clip admission globally and per account; byte capacity includes incoming and handoff reservations."
+      ],
+      "reviewed_at": "2026-11-11T12:02:59+00:00"
     },
     "80876822cb1df28920a520e7b19111a59eff16209e3e0c41fd42e96aef70575f": {
       "source_hash": "80876822cb1df28920a520e7b19111a59eff16209e3e0c41fd42e96aef70575f",
@@ -9112,6 +9184,15 @@
       ],
       "reviewed_at": "2026-11-06T08:57:05+00:00"
     },
+    "a6955dea348ca05c0c657e0ddf7fa35a93c8a3270da2638a1797b0896e0c5963": {
+      "source_hash": "a6955dea348ca05c0c657e0ddf7fa35a93c8a3270da2638a1797b0896e0c5963",
+      "translation_hash": "e70f369a86c9946db5f28f45d418b78c18abe1a967895aa60c18ce3fb8d681d7",
+      "status": "editorial",
+      "contexts": [
+        "Administrator fields for the bounded Oracle staging and Odysee publication workflow. Values limit new clip admission globally and per account; byte capacity includes incoming and handoff reservations."
+      ],
+      "reviewed_at": "2026-11-11T12:02:59+00:00"
+    },
     "a69c4dece144a46e40d430726395533d8f335a7d601d8ca292220b3a4a7faca4": {
       "source_hash": "a69c4dece144a46e40d430726395533d8f335a7d601d8ca292220b3a4a7faca4",
       "translation_hash": "4a6d2dcf3b9c99625bcaefc35830bd46d78a2b8af730573bc2eef0a270024fc9",
@@ -9577,12 +9658,12 @@
     },
     "af29345f117aac790e81ab7a599d2ec7f569f7ab3f85dd96862b4156ac214394": {
       "source_hash": "af29345f117aac790e81ab7a599d2ec7f569f7ab3f85dd96862b4156ac214394",
-      "translation_hash": "dbf9a4ec3c34e1f8540ae08b5decc11ac390164c6a4cae9973d227667346db6f",
+      "translation_hash": "e0fc7843c846b7e4e8d714ce83fe449e9a76db56896924fb3870c6f20294f0b9",
       "status": "editorial",
       "contexts": [
-        "German whole-message rewrite of confirmed real UI mixed-language remnants in source inventory: search, library, account forms, communities, playlist selection, empty/loading/error states, Live discovery/admin ads. Current no longer mistaken for a live database, Live no longer a German imperative, clear-search correctly describes the action. Author sample text and unresolved dynamic fragments excluded; de-AT/de-CH regional spelling retained."
+        "Watch-page menu disclosure for owner/moderator management actions. Full action label in the existing icon-and-text menu; separate from viewer sharing. Reference/regional English and informal German checked in the owner, guest and moderator flows."
       ],
-      "reviewed_at": "2026-11-06T12:18:04+00:00"
+      "reviewed_at": "2026-11-09T10:17:44+00:00"
     },
     "af2e712f0204eef37ef6274f0955743e288ceaf592183e7dfe00642abe52919a": {
       "source_hash": "af2e712f0204eef37ef6274f0955743e288ceaf592183e7dfe00642abe52919a",
@@ -12670,6 +12751,15 @@
       ],
       "reviewed_at": "2026-11-06T08:48:01+00:00"
     },
+    "e36186131e0ba7545cab2c6c3f04cb9eaac44ac2759f6fafcf0a3543d2d73caa": {
+      "source_hash": "7991fb97920105ebad050fdecd10163ffa6fdd6e457d6a330bf62c3b36421488",
+      "translation_hash": "8ef69bb30f7577b58ede5f19cd605b65053929ffac66042f12a12095b0a0acc4",
+      "status": "editorial",
+      "contexts": [
+        "Watch-page menu disclosure for owner/moderator management actions. Full action label in the existing icon-and-text menu; separate from viewer sharing. Reference/regional English and informal German checked in the owner, guest and moderator flows."
+      ],
+      "reviewed_at": "2026-11-09T10:17:44+00:00"
+    },
     "e392a3891c070abe312d9c08bb6a4a9f5342424dd15c80f1d5cf67d14b79650a": {
       "source_hash": "e392a3891c070abe312d9c08bb6a4a9f5342424dd15c80f1d5cf67d14b79650a",
       "translation_hash": "45f96e916050cd8a6465b8b36bea037d0b5e3642a13b253a23298fb1a67feb46",
@@ -14022,6 +14112,15 @@
       ],
       "reviewed_at": "2026-11-06T09:49:48+00:00"
     },
+    "fa924e296301067911fc806ebd54df12cddd4f45749cf4ba2b50a1f69eadd9ca": {
+      "source_hash": "fa924e296301067911fc806ebd54df12cddd4f45749cf4ba2b50a1f69eadd9ca",
+      "translation_hash": "027859d28b8df5be8a1a6c9cc0824048b33b140ba4734945420eca2c4cc0413a",
+      "status": "editorial",
+      "contexts": [
+        "Watch-page menu disclosure for owner/moderator management actions. Full action label in the existing icon-and-text menu; separate from viewer sharing. Reference/regional English and informal German checked in the owner, guest and moderator flows."
+      ],
+      "reviewed_at": "2026-11-09T10:17:44+00:00"
+    },
     "faa35af36616749806e1d57f9c6fae986145021ba13246c06b420434091c4663": {
       "source_hash": "faa35af36616749806e1d57f9c6fae986145021ba13246c06b420434091c4663",
       "translation_hash": "838592345a372a087605a72f7b049172b005020b8e9f3378df02122e623b7ce6",
@@ -14293,6 +14392,15 @@
       ],
       "reviewed_at": "2026-11-06T12:22:14+00:00",
       "verified_at": "2026-11-06T12:22:16+00:00"
+    },
+    "fe93cfdc777d4234fcee73cf749eaa63a10a94674dcf29a4678610f43341ced9": {
+      "source_hash": "fe93cfdc777d4234fcee73cf749eaa63a10a94674dcf29a4678610f43341ced9",
+      "translation_hash": "949095dcad712f9d84162299c47d6ba9e5b65e2c3cd79f1417b8d2391f642ecc",
+      "status": "editorial",
+      "contexts": [
+        "Watch-page menu disclosure for owner/moderator management actions. Full action label in the existing icon-and-text menu; separate from viewer sharing. Reference/regional English and informal German checked in the owner, guest and moderator flows."
+      ],
+      "reviewed_at": "2026-11-09T10:17:44+00:00"
     },
     "fe948162bd3cc15e316f11b45c8b70331c99d28f27c8daebab8cd494ba813694": {
       "source_hash": "fe948162bd3cc15e316f11b45c8b70331c99d28f27c8daebab8cd494ba813694",

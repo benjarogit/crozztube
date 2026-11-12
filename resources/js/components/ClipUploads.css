@@ -14,11 +14,28 @@
 .clip-transfer-status svg { flex:0 0 auto; }
 .clip-transfer-actions { display:flex; flex-wrap:wrap; gap:8px; min-width:0; max-inline-size:100%; }
 .clip-transfer-actions .btn,.clip-uploads-heading .btn,.clip-uploads-error .btn { min-height:44px; white-space:normal; overflow-wrap:anywhere; }
+.clip-transfer-actions select { min-height:44px; max-inline-size:220px; padding:8px 34px 8px 10px; border:1px solid var(--line); border-radius:12px; background:var(--panel); color:var(--text); }
 .clip-uploads-error { margin-block:16px; }
 .clip-transfer-player { grid-column:1/-1; min-width:0; }
 .clip-transfer-player iframe { display:block; width:100%; aspect-ratio:16/9; border:0; border-radius:var(--radius); background:#101010; }
+.clip-collections-manager { display:grid; grid-template-columns:minmax(200px,1fr) minmax(320px,1.4fr); gap:20px; align-items:end; margin-block:24px 8px; padding:20px; border-radius:var(--radius); background:var(--soft); }
+.clip-collections-manager h2 { margin:0 0 6px; font-size:1.15rem; }
+.clip-collections-manager p { margin:0; color:var(--muted); }
+.clip-collections-manager form { display:grid; grid-template-columns:minmax(0,1fr) minmax(120px,.5fr) auto; gap:10px; align-items:end; }
+.clip-collections-manager label { display:grid; gap:6px; min-width:0; font-weight:600; }
+.clip-collections-manager input,.clip-collections-manager select { min-height:44px; min-width:0; padding:8px 10px; border:1px solid var(--line); border-radius:12px; background:var(--panel); color:var(--text); font:inherit; }
+.clip-original-link { display:block; max-inline-size:100%; margin-block-start:10px; padding:0; border:0; background:none; color:var(--text); text-align:start; text-decoration:underline; text-underline-offset:3px; cursor:pointer; overflow-wrap:anywhere; }
+.clip-collection-tags { display:flex; flex-wrap:wrap; gap:6px; margin-block-start:10px; }
+.clip-collection-tags>span { display:inline-flex; align-items:center; gap:4px; min-height:32px; padding:4px 4px 4px 10px; border-radius:999px; background:var(--soft); }
+.clip-collection-tags button { display:grid; width:28px; height:28px; place-items:center; border:0; border-radius:50%; background:transparent; color:var(--text); cursor:pointer; }
+.clip-delete-confirm { grid-column:1/-1; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px; padding:14px; border-radius:12px; background:var(--soft); }
+.clip-delete-confirm p { margin:0; color:var(--text); }
+.clip-delete-confirm>div { display:flex; flex-wrap:wrap; gap:8px; }
 @media(max-width:640px) {
   .clip-uploads-panel { padding:16px; }
   .clip-transfer-row { grid-template-columns:minmax(0,1fr); padding-inline:8px; }
   .clip-transfer-actions { justify-self:start; }
+  .clip-collections-manager { grid-template-columns:minmax(0,1fr); padding:16px; }
+  .clip-collections-manager form { grid-template-columns:minmax(0,1fr); }
+  .clip-transfer-actions select { max-inline-size:100%; width:100%; }
 }

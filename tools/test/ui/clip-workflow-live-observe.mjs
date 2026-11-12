@@ -8,7 +8,7 @@ const id = process.argv.find(arg => arg.startsWith('--id='))?.slice(5);
 if (!/^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/.test(id || '')) {
   console.error('A valid existing synthetic transfer ID is required.'); process.exit(1);
 }
-let browser;
+let browser, phase = 'owner evidence';
 try {
   const result = spawnSync('docker', ['compose', '-f', 'docker/compose.yml', 'exec', '-T', '-u', 'www-data', 'web',
     'php', 'tools/test/php/clip-workflow-live-bridge.php', '--run'], {
@@ -21,6 +21,7 @@ try {
     || data.notifications !== 1 || !data.cleanup_checked) throw new Error('Availability, notification or cleanup evidence is incomplete.');
   const embed = new URL(data.embed);
   if (embed.protocol !== 'https:' || embed.hostname !== 'odysee.com' || !embed.pathname.startsWith('/$/embed/')) throw new Error();
+  phase = 'browser startup';
   browser = await chromium.launch({ headless: true });
   const context = await browser.newContext(); // Normal TLS; no account credentials in this browser.
   const page = await context.newPage(); let requests = 0;
@@ -33,15 +34,24 @@ try {
     }
     await route.continue();
   });
+  phase = 'embed loading';
   await page.goto(embed.toString(), { waitUntil: 'domcontentloaded', timeout: 30000 });
-  const play = page.getByRole('button', { name: 'Play', exact: true }).first();
-  await play.waitFor({ state: 'visible', timeout: 20000 });
+  phase = 'play control';
+  const play = page.getByRole('button', { name: /^(?:Play(?: video)?|Abspielen)$/i }).first();
+  try {
+    await play.waitFor({ state: 'visible', timeout: 20000 });
+  } catch {
+    await page.screenshot({ path: '/tmp/crozztube-tests/clip-live-play-control.png' });
+    throw new Error('Player control was not reachable; screenshot captured.');
+  }
   // Consent belongs only to this disposable test context; reject optional tracking.
   const reject = page.getByRole('button', { name: 'Reject All', exact: true });
   if (await reject.isVisible()) await reject.click();
   await play.click();
+  phase = 'media attachment';
   const video = page.locator('video').first();
   await video.waitFor({ state: 'attached', timeout: 15000 });
+  phase = 'media playback';
   const playback = await video.evaluate(async node => {
     node.muted = true;
     try {
@@ -57,6 +67,7 @@ try {
   console.log(`Retained clip ${id}: Odysee confirmation, owner-authorized playback, one notification and staging cleanup confirmed.`);
   console.log(`Actual Odysee player: ${playback.width}×${playback.height}, ${playback.duration.toFixed(2)} seconds, playback advanced ${playback.time.toFixed(2)} seconds. No video passed through PHP.`);
 } catch (error) {
-  console.error(/^(The retained clip|Availability,|Actual Odysee)/.test(error?.message || '') ? error.message : 'Live observation failed; sensitive diagnostics suppressed.');
+  console.error(/^(The retained clip|Availability,|Actual Odysee|Player control)/.test(error?.message || '')
+    ? error.message : `Live observation failed during ${phase}; sensitive diagnostics suppressed.`);
   process.exitCode = 1;
 } finally { await browser?.close(); }

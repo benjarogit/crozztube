@@ -244,6 +244,13 @@ final class ClipTransferProcessor
 
     private function pollDelay(ClipTransfer $transfer): int
     {
-        return $transfer->created_at->diffInSeconds(now(), true) >= 600 ? 300 : 30;
+        $age = $transfer->created_at->diffInSeconds(now(), true);
+
+        return match (true) {
+            $age < 600 => 30,
+            $age < 3600 => 300,
+            $age < 86400 => 900,
+            default => 21600,
+        };
     }
 }

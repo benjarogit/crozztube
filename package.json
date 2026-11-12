@@ -9,11 +9,13 @@
     "preview": "vite preview --host 0.0.0.0"
   },
   "dependencies": {
+    "@mediabunny/aac-encoder": "^1.65.2",
     "@vidstack/react": "^1.15.6",
     "@vitejs/plugin-react": "^5.0.0",
     "countries-list": "^3.3.0",
     "emoji-picker-react": "^4.19.1",
     "livekit-client": "^2.20.1",
+    "mediabunny": "^1.65.2",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-international-phone": "^4.8.0",

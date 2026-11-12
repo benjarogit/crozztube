@@ -6,7 +6,18 @@ $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
 set_exception_handler(static function (Throwable $error): void {
     $safe = $error instanceof Illuminate\Database\QueryException ? 'SQL '.(int) ($error->errorInfo[1] ?? 0)
         : ($error instanceof RuntimeException ? $error->getMessage() : get_class($error));
-    fwrite(STDERR, 'Clip confirmation checks failed: '.$safe."\n"); exit(1);
+    if ($error instanceof Illuminate\Database\QueryException
+        && preg_match("/Table '[^']+\\.([^']+)' doesn't exist/", (string) ($error->errorInfo[2] ?? ''), $match)) {
+        $safe .= ' missing '.$match[1];
+    }
+    $location = basename($error->getFile()).':'.$error->getLine();
+    foreach ($error->getTrace() as $frame) {
+        if (isset($frame['file']) && ! str_contains($frame['file'], '/vendor/')) {
+            $location = basename($frame['file']).':'.($frame['line'] ?? 0);
+            break;
+        }
+    }
+    fwrite(STDERR, 'Clip confirmation checks failed: '.$safe.' at '.$location."\n"); exit(1);
 });
 
 use App\Http\Controllers\Api\ClipTransferController;
@@ -60,7 +71,7 @@ final class ConfirmationGatewayFixture implements ClipTransferGateway
     public function cleanup(ClipTransfer $transfer): void { $this->cleanups++; }
 }
 
-$prefix = 'clipc_'.bin2hex(random_bytes(6)).'_';
+$prefix = 'clipc_'.bin2hex(random_bytes(5)).'_';
 $config = config('database.connections.'.config('database.default'));
 if (($config['driver'] ?? null) !== 'mysql') throw new RuntimeException('Use the webcontainer MySQL fixture.');
 config(['database.connections.clip_confirmation_fixture' => [...$config, 'prefix' => $prefix]]);
@@ -69,6 +80,7 @@ if (Schema::getConnection()->getTablePrefix() !== $prefix) throw new RuntimeExce
 $push = new ConfirmationPushFixture(); $app->instance(PushDeliveryService::class, $push);
 $base = require __DIR__.'/../../../database/migrations/2026_11_07_000001_create_clip_transfers.php';
 $lifecycle = require __DIR__.'/../../../database/migrations/2026_11_07_000002_add_clip_confirmation_lifecycle.php';
+$collections = require __DIR__.'/../../../database/migrations/2026_11_11_000001_create_clip_collections.php';
 $checks = 0;
 $check = static function (bool $ok, string $label) use (&$checks): void { if (! $ok) throw new RuntimeException($label); $checks++; };
 $queue = new ClipTransferQueue();
@@ -92,15 +104,15 @@ $reset = static function (): void {
 };
 try {
     Schema::create('users', function (Blueprint $t) { $t->id(); $t->json('settings')->nullable(); });
-    Schema::create('videos', fn (Blueprint $t) => $t->id());
+    Schema::create('videos', function (Blueprint $t) { $t->id(); $t->string('slug'); $t->string('title'); });
     Schema::create('user_notifications', function (Blueprint $t) {
         $t->id(); $t->unsignedBigInteger('user_id');
         foreach (['actor_id', 'video_id', 'comment_id', 'channel_id', 'community_post_id'] as $key) $t->unsignedBigInteger($key)->nullable();
         $t->string('type'); $t->json('data')->nullable(); $t->timestamp('read_at')->nullable(); $t->timestamps();
     });
     DB::table('users')->insert([['id' => 1, 'settings' => '{}'], ['id' => 2, 'settings' => '{}']]);
-    DB::table('videos')->insert(['id' => 1]);
-    $base->up(); $lifecycle->up(); $queue->configureOracle($account);
+    DB::table('videos')->insert(['id' => 1, 'slug' => 'fixture-video', 'title' => 'Fixture video']);
+    $base->up(); $lifecycle->up(); $collections->up(); $queue->configureOracle($account);
     Carbon::setTestNow('2026-11-07 12:00:00');
     $job = $queue->enqueue(1, 1, (string) Str::uuid(), $input);
     $queue->uploaded(1, $job->uuid);
@@ -113,6 +125,7 @@ try {
     Carbon::setTestNow('2026-11-07 14:00:00');
     $due($job);
     $check($job->phase === 'awaiting_confirmation' && $job->available_at === null, 'Two hours of provider delay remain pending rather than a ten-minute failure.');
+    $check($job->next_check_at->timestamp - now()->timestamp === 900, 'Established provider waits use a bounded fifteen-minute polling interval.');
     $check($gateway->deletions === 0 && $gateway->cleanups === 0, 'Waiting for confirmation must not remove the Odysee upload or staging copy.');
     $controller = new ClipTransferController();
     $payload = $controller->show($request(1), $job->uuid)->getData(true)['transfer'];
@@ -196,6 +209,7 @@ try {
     $deletions = $gateway->deletions; $cleanups = $gateway->cleanups;
     $gateway->playable = false; Carbon::setTestNow(now()->addHours(25)); $due($job);
     $check($job->phase === 'awaiting_confirmation' && $job->available_at === null && UserNotification::count() === 0, 'Provider processing stays pending even after 24 hours; time alone is not rejection.');
+    $check($job->next_check_at->timestamp - now()->timestamp === 21600, 'Long provider waits back off to a bounded six-hour polling interval.');
     $check($gateway->deletions === $deletions && $gateway->cleanups === $cleanups && $job->reservation_released_at === null, 'Keep the provider entry and staging reservation while waiting for confirmation.');
     $gateway->playable = true; $due($job);
     $check($job->phase === 'ready', 'A late provider confirmation can still make the original job available.');
@@ -213,6 +227,7 @@ try {
     Carbon::setTestNow();
     if (Schema::hasTable('clip_transfers')) {
         $reset();
+        if (Schema::hasTable('clip_collections')) $collections->down();
         if (Schema::hasColumn('clip_transfers', 'available_at')) $lifecycle->down();
         $base->down();
     }

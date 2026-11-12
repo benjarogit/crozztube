@@ -25,7 +25,7 @@ try {
       await session.goto(`/clip-uploads?clip=${id}`);
       const panel = page.locator('.clip-uploads-page');
       await expect(panel).toBeVisible();
-      await expect(panel.locator('h2')).toHaveText(title);
+      await expect(panel.locator('.clip-transfer-copy h2,.clip-transfer-copy h3')).toHaveText(title);
       await expect(panel).toContainText(language === 'en' ? 'Waiting for Odysee confirmation' : 'Wartet auf die Bestätigung von Odysee');
       await expect(panel).toContainText(language === 'en' ? 'we will notify you' : 'Wir benachrichtigen dich');
       await expect(panel.locator('iframe')).toHaveCount(0);
