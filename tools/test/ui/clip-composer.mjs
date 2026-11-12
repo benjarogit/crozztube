@@ -78,7 +78,8 @@ try {
           mediaRequests.push(request.url());
         }
       });
-      await session.goto(`/watch/${encodeURIComponent(original.slug)}`);
+      const requestedStart = scenario.width === 1440 ? 5 : 0;
+      await session.goto(`/watch/${encodeURIComponent(original.slug)}${requestedStart ? `?t=${requestedStart}` : ''}`);
       await expect(page.locator('.watch-page')).toBeVisible();
       if (scenario.source) {
         const mediaElement = page.locator('.watch-vidstack-player video');
@@ -89,6 +90,7 @@ try {
         name: scenario.language === 'en' ? 'Create a clip' : 'Clip erstellen',
         exact: true,
       });
+      const writesBeforeDialog = session.writes.length;
       await trigger.click();
       const dialog = page.getByRole('dialog', {
         name: scenario.language === 'en' ? 'Create a clip' : 'Clip erstellen',
@@ -101,13 +103,14 @@ try {
           ? { title: 'Clip title', start: 'Start time in seconds', end: 'End time in seconds', visibility: 'Visibility', create: 'Create a clip', play: 'Play', pause: 'Pause' }
           : { title: 'Clip-Titel', start: 'Startzeit in Sekunden', end: 'Endzeit in Sekunden', visibility: 'Sichtbarkeit', create: 'Clip erstellen', play: 'Abspielen', pause: 'Pause' };
         await expect(dialog.getByLabel(labels.title)).toHaveValue('Originaltitel bleibt unverändert clip');
-        await expect(dialog.getByLabel(labels.start)).toHaveValue('0');
-        await expect(dialog.getByLabel(labels.end)).toHaveValue('30');
+        await expect(dialog.getByLabel(labels.start)).toHaveValue(String(requestedStart));
+        await expect(dialog.getByLabel(labels.end)).toHaveValue(String(requestedStart + 30));
         await expect(dialog.getByLabel(labels.visibility)).toHaveValue('private');
         await expect(dialog.locator('.clip-composer-preview canvas')).toBeVisible();
         await expect(dialog.locator('.clip-composer-preview-controls')).toHaveCount(0);
         await expect(dialog.locator('.clip-composer-overview')).toHaveCount(0);
-        await expect(dialog.locator('.clip-composer-preview-frame .clip-composer-player-controls')).toBeVisible();
+        await expect(dialog.locator('.clip-composer-timing')).toHaveCount(0);
+        await expect(dialog.locator('.clip-composer-preview-frame .clip-composer-preview-trim')).toBeVisible();
         await expect.poll(async () => dialog.locator('.clip-composer-preview canvas').evaluate(canvas => {
           if (!canvas.width || !canvas.height) return false;
           const context2d = canvas.getContext('2d');
@@ -122,7 +125,7 @@ try {
         await expect(play).toBeVisible();
         checks += 2;
         await dialog.getByRole('button', { name: '60 s' }).click();
-        await expect(dialog.getByLabel(labels.end)).toHaveValue('60');
+        await expect(dialog.getByLabel(labels.end)).toHaveValue(String(requestedStart + 60));
         await dialog.getByLabel(labels.start).fill('5');
         await dialog.getByLabel(labels.start).dispatchEvent('pointerup');
         await expect(dialog).toContainText('0:05 – 1:05');
@@ -139,7 +142,6 @@ try {
           const root = getComputedStyle(document.documentElement);
           const close = node.querySelector('.clip-composer-close');
           const title = node.querySelector('input:not([type="range"])');
-          const timing = node.querySelector('.clip-composer-timing');
           const selected = node.querySelector('.clip-composer-duration-presets [aria-pressed="true"]');
           return {
             panel2: normalize(root.getPropertyValue('--panel-2')),
@@ -148,13 +150,11 @@ try {
             closeRadius: getComputedStyle(close).borderRadius,
             title: getComputedStyle(title).backgroundColor,
             titleRadius: getComputedStyle(title).borderRadius,
-            timing: getComputedStyle(timing).backgroundColor,
             selected: getComputedStyle(selected).backgroundColor,
           };
         });
         assert.equal(appearance.close, appearance.panel2);
         assert.equal(appearance.title, appearance.panel2);
-        assert.equal(appearance.timing, appearance.panel2);
         assert.equal(appearance.selected, appearance.primarySoft);
         assert.equal(appearance.closeRadius, appearance.titleRadius);
         checks += 12;
@@ -169,9 +169,10 @@ try {
       await page.keyboard.press('Escape');
       await expect(dialog).toHaveCount(0);
       await expect(trigger).toBeFocused();
-      assert(session.writes.every(write => write.startsWith('POST /api/source-resolver/refresh/')),
-        `Unexpected write attempt: ${session.writes.join(', ')}`);
-      assert(!session.writes.some(write => write.includes('clip-transfer')), 'The read-only dialog test must not start a clip transfer.');
+      const previewWrites = session.writes.slice(writesBeforeDialog);
+      assert(previewWrites.every(write => write.startsWith('POST /api/source-resolver/refresh/')),
+        `Unexpected preview write attempt: ${previewWrites.join(', ')}`);
+      assert(!previewWrites.some(write => write.includes('clip-transfer')), 'The read-only dialog test must not start a clip transfer.');
       assert(!mediaRequests.some(url => /clip-transfer|upload/i.test(url)), 'Preview must not upload media.');
       assert.deepEqual(session.errors, []);
       assert.deepEqual(session.failedGets, []);

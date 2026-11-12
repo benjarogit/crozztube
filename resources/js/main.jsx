@@ -16250,7 +16250,11 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
     const player = playerAdStarted && !isGoogleImaAd(activePlayerAd) ? playerAdPlayerRef.current : playerRef.current;
     return connectedMediaPlayer(player) ? player : null;
   };
-  const currentPlaybackSeconds = () => Math.max(0, Number(activeWatchPlayer()?.currentTime ?? playerRef.current?.currentTime ?? 0) || 0);
+  const currentPlaybackSeconds = () => {
+    const current = Math.max(0, Number(activeWatchPlayer()?.currentTime ?? playerRef.current?.currentTime ?? 0) || 0);
+    if (current > 0 || persistentPlaybackRef.current.started) return current;
+    return Math.max(0, Number(watchStartTimeFromLocation()) || 0);
+  };
   const playerDebugInfo = () => playerDebugSnapshot(activeWatchPlayer(), video, videoSources, playerError);
   const syncPersistentPlayback = (force = false, playingOverride = null, markStarted = false) => {
     const player = playerRef.current;

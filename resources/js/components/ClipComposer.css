@@ -54,6 +54,7 @@
   object-fit: contain;
   background: #0b1220;
 }
+.clip-composer-preview[data-ready="false"] canvas { opacity: 0; }
 .clip-composer-preview-empty {
   position: absolute;
   inset: 0;
@@ -66,7 +67,7 @@
 .clip-composer-preview[data-ready="true"] .clip-composer-preview-empty { display: none; }
 .clip-composer-preview-toggle {
   position: absolute;
-  inset: 0 0 42px;
+  inset: 0 0 88px;
   display: grid;
   place-items: center;
   width: 100%;
@@ -88,75 +89,15 @@
   background: color-mix(in srgb, #000 55%, transparent);
   pointer-events: none;
 }
-.clip-composer-player-controls {
+.clip-composer-preview-trim {
   position: absolute;
-  inset-inline: 12px;
-  bottom: 8px;
+  inset: auto 0 0;
   z-index: 2;
-  height: 32px;
-}
-.clip-composer-player-track {
-  position: absolute;
-  inset-inline: 0;
-  top: 7px;
-  height: 5px;
-  overflow: hidden;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, .4);
-  pointer-events: none;
-}
-.clip-composer-player-selection {
-  position: absolute;
-  inset-block: 0;
-  min-width: 3px;
-  border-radius: inherit;
-  background: var(--primary);
-}
-.clip-composer-player-scrubber {
-  position: absolute;
-  inset-inline: 0;
-  top: 0;
-  z-index: 2;
-  width: 100%;
-  height: 18px;
-  margin: 0;
-  border: 0;
-  background: transparent;
-  cursor: pointer;
-  appearance: none;
-  -webkit-appearance: none;
-}
-.clip-composer-player-scrubber::-webkit-slider-runnable-track { height: 5px; background: transparent; }
-.clip-composer-player-scrubber::-moz-range-track { height: 5px; background: transparent; }
-.clip-composer-player-scrubber::-webkit-slider-thumb {
-  width: 12px;
-  height: 12px;
-  margin-top: -3.5px;
-  border: 2px solid #fff;
-  border-radius: 50%;
-  background: var(--primary);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, .45);
-  appearance: none;
-  -webkit-appearance: none;
-}
-.clip-composer-player-scrubber::-moz-range-thumb {
-  width: 9px;
-  height: 9px;
-  border: 2px solid #fff;
-  border-radius: 50%;
-  background: var(--primary);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, .45);
-}
-.clip-composer-player-scrubber:focus-visible { outline: 2px solid #fff; outline-offset: 3px; border-radius: 4px; }
-.clip-composer-player-time {
-  position: absolute;
-  inset-inline-start: 0;
-  bottom: 0;
+  display: grid;
+  gap: 0;
+  padding: 8px 12px;
   color: #fff;
-  font-size: .72rem;
-  font-weight: 700;
-  font-variant-numeric: tabular-nums;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, .8);
+  background: rgba(0, 0, 0, .72);
 }
 
 .clip-composer label { display: grid; gap: 8px; min-width: 0; font-weight: 650; }
@@ -164,14 +105,6 @@
 .clip-composer input:not([type="range"]):hover,.clip-composer select:hover { border-color: var(--line-strong); }
 .clip-composer input:not([type="range"]):focus,.clip-composer select:focus { border-color: var(--primary); outline: 2px solid color-mix(in srgb, var(--primary) 35%, transparent); outline-offset: 1px; }
 
-.clip-composer-timing {
-  display: grid;
-  gap: 14px;
-  padding: 16px;
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  background: var(--panel-2);
-}
 .clip-composer-timeline-meta {
   display: flex;
   align-items: baseline;
@@ -181,6 +114,12 @@
 }
 .clip-composer-timeline-meta strong { font-size: 1rem; }
 .clip-composer-timeline-meta span { color: var(--primary); font-size: .875rem; font-weight: 700; }
+.clip-composer-preview-trim .clip-composer-timeline-meta {
+  padding-inline: 2px;
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, .8);
+}
+.clip-composer-preview-trim .clip-composer-timeline-meta span { color: #fff; }
 
 .clip-composer-timeline {
   position: relative;
@@ -273,7 +212,12 @@
   font-size: .75rem;
   font-variant-numeric: tabular-nums;
 }
+.clip-composer-preview-trim .clip-composer-slider-scale {
+  color: rgba(255, 255, 255, .8);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, .8);
+}
 .clip-composer-duration-presets { display: flex; flex-wrap: wrap; gap: 8px; }
+.clip-composer-preview > .clip-composer-duration-presets { margin-top: 10px; }
 .clip-composer-duration-presets button { min-width: 58px; min-height: 36px; padding: 0 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--panel); color: var(--text); font: inherit; font-weight: 750; cursor: pointer; }
 .clip-composer-duration-presets button:hover:not(:disabled) { border-color: var(--primary); background: var(--primary-soft); color: var(--primary); }
 .clip-composer-duration-presets button:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
@@ -296,7 +240,6 @@
   .clip-composer-backdrop { align-items: end; padding: 0; }
   .clip-composer { max-height: calc(100dvh - 24px); border-radius: 16px 16px 0 0; }
   .clip-composer > header,.clip-composer form,.clip-composer-fallback { padding: 20px 16px; }
-  .clip-composer-timing { padding: 14px 12px; }
   .clip-composer-preview-frame { max-height: min(36vh, 220px); }
   .clip-composer footer { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .clip-composer footer .btn { width: 100%; }
