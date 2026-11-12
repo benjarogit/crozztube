@@ -29,6 +29,7 @@ const formatTimestamp = value => {
     ? `${hours}:${String(minutes).padStart(2, '0')}:${String(remainder).padStart(2, '0')}`
     : `${minutes}:${String(remainder).padStart(2, '0')}`;
 };
+const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
 
 export default function ClipComposer({
   open,
@@ -72,8 +73,9 @@ export default function ClipComposer({
   const busy = phase !== 'idle';
   const totalSeconds = Math.max(5, Math.floor(Number(duration || video?.duration_seconds || form.end || 5)));
   const clipSeconds = Math.max(5, Math.min(60, Number(form.end) - Number(form.start)));
-  const maximumClipSeconds = Math.max(5, Math.min(60, totalSeconds - Number(form.start)));
-  const maximumStart = Math.max(0, totalSeconds - clipSeconds);
+  const startPercent = totalSeconds ? (Number(form.start) / totalSeconds) * 100 : 0;
+  const endPercent = totalSeconds ? (Number(form.end) / totalSeconds) * 100 : 100;
+  const cursorPercent = totalSeconds ? (clamp(Number(previewCursor), 0, totalSeconds) / totalSeconds) * 100 : 0;
   const mountedMedia = getMediaElement?.();
   const directSourceEligible = (
     /^https?:\/\//i.test(sourceUrl || '')
@@ -103,16 +105,16 @@ export default function ClipComposer({
     return painted;
   };
 
-  const syncPreviewToStart = async (start = Number(formRef.current.start)) => {
+  const syncPreviewToTime = async (seconds = Number(formRef.current.start)) => {
     const media = getMediaElement?.();
     if (!media || !canMirrorMedia(media)) {
       setPreviewReady(false);
       return false;
     }
     media.pause();
-    const ok = await seekMedia(media, start);
+    const ok = await seekMedia(media, seconds);
     paintPreview(media);
-    setPreviewCursor(start);
+    setPreviewCursor(seconds);
     return ok;
   };
 
@@ -127,7 +129,26 @@ export default function ClipComposer({
     } catch {
       // Ignore players that reject pause during dialog teardown.
     }
-    if (resetToStart) await syncPreviewToStart(Number(formRef.current.start));
+    if (resetToStart) await syncPreviewToTime(Number(formRef.current.start));
+  };
+
+  const updateStart = startValue => {
+    const length = clamp(Number(formRef.current.end) - Number(formRef.current.start), 5, 60);
+    const start = clamp(Math.floor(Number(startValue) || 0), 0, Math.max(0, totalSeconds - length));
+    setForm(current => ({ ...current, start, end: start + length }));
+  };
+
+  const updateEnd = endValue => {
+    const start = Number(formRef.current.start);
+    const end = clamp(Math.floor(Number(endValue) || 0), start + 5, Math.min(totalSeconds, start + 60));
+    setForm(current => ({ ...current, end }));
+  };
+
+  const applyDuration = seconds => {
+    const length = clamp(Math.floor(Number(seconds) || 30), 5, Math.min(60, totalSeconds));
+    const start = Math.min(Number(formRef.current.start), Math.max(0, totalSeconds - length));
+    setForm(current => ({ ...current, start, end: start + length }));
+    return start;
   };
 
   useEffect(() => {
@@ -153,11 +174,11 @@ export default function ClipComposer({
     }
     seekSchedulerRef.current = createSeekScheduler(async (seconds) => {
       if (previewPlayingRef.current || phaseRef.current !== 'idle') return;
-      await syncPreviewToStart(seconds);
+      await syncPreviewToTime(seconds);
     });
     window.requestAnimationFrame(() => {
-      syncPreviewToStart(initialRange.start);
-      dialogRef.current?.querySelector('input:not([type="range"])')?.focus();
+      syncPreviewToTime(initialRange.start);
+      dialogRef.current?.querySelector('.clip-composer-preview-toggle')?.focus();
     });
     const previous = document.activeElement;
     const keydown = event => {
@@ -230,8 +251,10 @@ export default function ClipComposer({
     }
     const start = Number(formRef.current.start);
     const end = Number(formRef.current.end);
+    const resumeFrom = Number(media.currentTime || start);
+    const playFrom = resumeFrom >= end - 0.05 || resumeFrom < start ? start : resumeFrom;
     media.pause();
-    const ok = await seekMedia(media, start);
+    const ok = await seekMedia(media, playFrom);
     if (!ok) {
       setPreviewReady(false);
       return;
@@ -331,7 +354,7 @@ export default function ClipComposer({
       if (fallbackCodes.has(failure?.code)) setFallback(true);
       setError('Your clip could not be created. Please try again.');
       setPhase('idle');
-      await syncPreviewToStart(Number(form.start));
+      await syncPreviewToTime(Number(form.start));
     } finally {
       if (clip?.objectUrl) URL.revokeObjectURL(clip.objectUrl);
       abortRef.current = null;
@@ -354,73 +377,86 @@ export default function ClipComposer({
           <p>{t('You can still share a link that starts at the current time.')}</p></div>
         <button type="button" className="btn primary" onClick={() => { onTimeLink(); onClose(); }}>{t('Copy time link')}</button>
       </div> : <form onSubmit={create}>
-        <div className="clip-composer-preview" data-ready={previewReady ? 'true' : 'false'}>
-          <div className="clip-composer-preview-frame">
-            <canvas ref={canvasRef} aria-hidden="true" />
-            {!previewReady && <div className="clip-composer-preview-empty" role="status">{t('Preview')}</div>}
+        <div className="clip-composer-preview" data-ready={previewReady ? 'true' : 'false'} data-playing={previewPlaying ? 'true' : 'false'}>
+          <button
+            type="button"
+            className="clip-composer-preview-toggle"
+            disabled={busy || !eligibleSource}
+            aria-pressed={previewPlaying}
+            aria-label={t(previewPlaying ? 'Pause' : 'Play')}
+            onClick={togglePreviewPlayback}
+          >
+            <span className="clip-composer-preview-frame">
+              <canvas ref={canvasRef} aria-hidden="true" />
+              {!previewReady && <span className="clip-composer-preview-empty" role="status">{t('Preview')}</span>}
+              {previewReady && !previewPlaying && <span className="clip-composer-preview-affordance" aria-hidden="true"><Icon name="play" size={28}/></span>}
+            </span>
+          </button>
+        </div>
+        <div
+          className="clip-composer-timing"
+          style={{
+            '--clip-start': `${startPercent}%`,
+            '--clip-end': `${endPercent}%`,
+            '--clip-cursor': `${cursorPercent}%`,
+          }}
+        >
+          <div className="clip-composer-timeline-meta" data-i18n-skip>
+            <strong>{formatTimestamp(form.start)} – {formatTimestamp(form.end)}</strong>
+            <span>{formatTimestamp(clipSeconds)}</span>
           </div>
-          <div className="clip-composer-preview-controls">
-            <button type="button" className="btn subtle" disabled={busy || !eligibleSource} onClick={togglePreviewPlayback} aria-pressed={previewPlaying}>
-              <Icon name={previewPlaying ? 'pause' : 'play'} size={16}/>
-              <span>{t(previewPlaying ? 'Pause' : 'Play')}</span>
-            </button>
-            <div className="clip-composer-preview-times" data-i18n-skip>
-              <strong>{formatTimestamp(previewCursor)}</strong>
-              <span>{formatTimestamp(form.start)} – {formatTimestamp(form.end)}</span>
+          <div className="clip-composer-timeline" role="group" aria-label={t('Duration')}>
+            <div className="clip-composer-timeline-track" aria-hidden="true">
+              <i className="clip-composer-timeline-selection" />
+              <i className="clip-composer-timeline-cursor" />
             </div>
+            <label className="sr-only" htmlFor="clip-start">{t('Start time in seconds')}</label>
+            <input
+              id="clip-start"
+              className="clip-composer-handle clip-composer-handle-start"
+              type="range"
+              min="0"
+              max={Math.max(0, totalSeconds - clipSeconds)}
+              step="1"
+              required
+              disabled={busy}
+              value={Math.min(Number(form.start), Math.max(0, totalSeconds - clipSeconds))}
+              aria-valuetext={formatTimestamp(form.start)}
+              onChange={event => updateStart(event.target.value)}
+              onPointerUp={event => seekSchedulerRef.current?.commit(Number(event.currentTarget.value))}
+              onKeyUp={event => seekSchedulerRef.current?.commit(Number(event.currentTarget.value))}
+            />
+            <label className="sr-only" htmlFor="clip-end">{t('End time in seconds')}</label>
+            <input
+              id="clip-end"
+              className="clip-composer-handle clip-composer-handle-end"
+              type="range"
+              min={Math.min(totalSeconds, Number(form.start) + 5)}
+              max={Math.min(totalSeconds, Number(form.start) + 60)}
+              step="1"
+              required
+              disabled={busy}
+              value={Math.min(Math.max(Number(form.end), Number(form.start) + 5), Math.min(totalSeconds, Number(form.start) + 60))}
+              aria-valuetext={formatTimestamp(form.end)}
+              onChange={event => updateEnd(event.target.value)}
+              onPointerUp={() => seekSchedulerRef.current?.commit(Number(formRef.current.start))}
+              onKeyUp={() => seekSchedulerRef.current?.commit(Number(formRef.current.start))}
+            />
+            <div className="clip-composer-slider-scale" data-i18n-skip>
+              <span>0:00</span>
+              <span>{formatTimestamp(totalSeconds)}</span>
+            </div>
+          </div>
+          <div className="clip-composer-duration-presets" aria-label={t('Duration')}>
+            {[15, 30, 60].map(seconds => <button key={seconds} type="button" disabled={busy || seconds > totalSeconds}
+              aria-pressed={clipSeconds === seconds}
+              onClick={() => seekSchedulerRef.current?.commit(applyDuration(seconds))}>
+              <span data-i18n-skip>{seconds} s</span>
+            </button>)}
           </div>
         </div>
         <label><span>{t('Clip title')}</span>
           <input data-i18n-skip value={form.title} maxLength={200} required disabled={busy} onChange={event => setForm(current => ({ ...current, title: event.target.value }))}/></label>
-        <div className="clip-composer-timing">
-          <div className="clip-composer-slider-field">
-            <div className="clip-composer-slider-heading">
-              <label htmlFor="clip-start">{t('Start time in seconds')}</label>
-              <output htmlFor="clip-start" data-i18n-skip>{formatTimestamp(form.start)}</output>
-            </div>
-            <input id="clip-start" type="range" min="0" max={maximumStart} step="1" required disabled={busy}
-              value={Math.min(Number(form.start), maximumStart)}
-              aria-valuetext={formatTimestamp(form.start)}
-              onChange={event => {
-                const start = Number(event.target.value);
-                setForm(current => ({ ...current, start, end: start + clipSeconds }));
-              }}
-              onPointerUp={event => seekSchedulerRef.current?.commit(Number(event.currentTarget.value))}
-              onKeyUp={event => seekSchedulerRef.current?.commit(Number(event.currentTarget.value))}
-            />
-            <div className="clip-composer-slider-scale" data-i18n-skip><span>0:00</span><span>{formatTimestamp(maximumStart)}</span></div>
-          </div>
-          <div className="clip-composer-slider-field">
-            <div className="clip-composer-slider-heading">
-              <label htmlFor="clip-duration">{t('Duration')}</label>
-              <output htmlFor="clip-duration" data-i18n-skip>{formatTimestamp(clipSeconds)}</output>
-            </div>
-            <input id="clip-duration" type="range" min="5" max={maximumClipSeconds} step="1" required disabled={busy}
-              value={Math.min(clipSeconds, maximumClipSeconds)}
-              aria-valuetext={formatTimestamp(clipSeconds)}
-              onChange={event => {
-                const seconds = Number(event.target.value);
-                setForm(current => ({ ...current, end: Number(current.start) + seconds }));
-              }}
-              onPointerUp={() => seekSchedulerRef.current?.commit(Number(formRef.current.start))}
-              onKeyUp={() => seekSchedulerRef.current?.commit(Number(formRef.current.start))}
-            />
-            <div className="clip-composer-duration-presets" aria-label={t('Duration')}>
-              {[15, 30, 60].map(seconds => <button key={seconds} type="button" disabled={busy || seconds > maximumClipSeconds}
-                aria-pressed={clipSeconds === seconds}
-                onClick={() => {
-                  setForm(current => ({ ...current, end: Number(current.start) + seconds }));
-                  seekSchedulerRef.current?.commit(Number(formRef.current.start));
-                }}>
-                <span data-i18n-skip>{seconds} s</span>
-              </button>)}
-            </div>
-          </div>
-          <div className="clip-composer-selection" data-i18n-skip>
-            <strong>{formatTimestamp(form.start)} – {formatTimestamp(form.end)}</strong>
-            <span>{formatTimestamp(clipSeconds)}</span>
-          </div>
-        </div>
         <label><span>{t('Visibility')}</span>
           <select value={form.visibility} disabled={busy} onChange={event => setForm(current => ({ ...current, visibility: event.target.value }))}>
             <option value="private">{t('Private')}</option>

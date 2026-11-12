@@ -36,7 +36,20 @@
 .clip-composer-close:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
 
 .clip-composer form { display: grid; gap: 18px; padding: 24px; }
-.clip-composer-preview { display: grid; gap: 12px; }
+.clip-composer-preview { display: grid; }
+.clip-composer-preview-toggle {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: 14px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  text-align: start;
+}
+.clip-composer-preview-toggle:disabled { cursor: wait; }
+.clip-composer-preview-toggle:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
 .clip-composer-preview-frame {
   position: relative;
   overflow: hidden;
@@ -62,53 +75,140 @@
   pointer-events: none;
 }
 .clip-composer-preview[data-ready="true"] .clip-composer-preview-empty { display: none; }
-.clip-composer-preview-controls {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-.clip-composer-preview-controls .btn {
-  min-height: 44px;
-  gap: 8px;
-}
-.clip-composer-preview-times {
+.clip-composer-preview-affordance {
+  position: absolute;
+  inset: 50% auto auto 50%;
   display: grid;
-  justify-items: end;
-  gap: 2px;
-  min-width: 0;
-  color: var(--muted);
-  font-variant-numeric: tabular-nums;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: color-mix(in srgb, #000 46%, transparent);
+  color: #fff;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
 }
-.clip-composer-preview-times strong { color: var(--text); font-size: .95rem; }
+.clip-composer-preview[data-playing="true"] .clip-composer-preview-affordance { display: none; }
+
 .clip-composer label { display: grid; gap: 8px; min-width: 0; font-weight: 650; }
 .clip-composer input:not([type="range"]),.clip-composer select { width: 100%; min-height: 46px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--panel-2); color: var(--text); font: inherit; }
 .clip-composer input:not([type="range"]):hover,.clip-composer select:hover { border-color: var(--line-strong); }
 .clip-composer input:not([type="range"]):focus,.clip-composer select:focus { border-color: var(--primary); outline: 2px solid color-mix(in srgb, var(--primary) 35%, transparent); outline-offset: 1px; }
-.clip-composer-timing { display: grid; gap: 20px; padding: 18px; border: 1px solid var(--line); border-radius: 14px; background: var(--panel-2); }
-.clip-composer-slider-field { display: grid; gap: 8px; min-width: 0; }
-.clip-composer-slider-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; }
-.clip-composer-slider-heading label { display: block; }
-.clip-composer-slider-heading output { color: var(--text); font-weight: 800; font-variant-numeric: tabular-nums; }
-.clip-composer-slider-field input[type="range"] { width: 100%; height: 44px; margin: 0; padding: 0; border: 0; background: transparent; accent-color: var(--primary); cursor: pointer; -webkit-appearance: none; }
-.clip-composer-slider-field input[type="range"]:disabled { cursor: wait; opacity: .65; }
-.clip-composer-slider-field input[type="range"]:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; border-radius: 8px; }
-.clip-composer-slider-field input[type="range"]::-webkit-slider-runnable-track { height: 6px; border-radius: 6px; background: var(--line-strong, var(--line)); }
-.clip-composer-slider-field input[type="range"]::-webkit-slider-thumb { width: 22px; height: 22px; margin-top: -8px; border: 3px solid var(--panel); border-radius: 50%; background: var(--primary); box-shadow: 0 2px 6px color-mix(in srgb, #000 24%, transparent); -webkit-appearance: none; }
-.clip-composer-slider-field input[type="range"]::-moz-range-track { height: 6px; border-radius: 6px; background: var(--line-strong, var(--line)); }
-.clip-composer-slider-field input[type="range"]::-moz-range-progress { height: 6px; border-radius: 6px; background: var(--primary); }
-.clip-composer-slider-field input[type="range"]::-moz-range-thumb { width: 18px; height: 18px; border: 3px solid var(--panel); border-radius: 50%; background: var(--primary); box-shadow: 0 2px 6px color-mix(in srgb, #000 24%, transparent); }
-.clip-composer-slider-scale { display: flex; justify-content: space-between; margin-top: -8px; color: var(--muted); font-size: .75rem; font-variant-numeric: tabular-nums; }
+
+.clip-composer-timing {
+  display: grid;
+  gap: 14px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--panel-2);
+}
+.clip-composer-timeline-meta {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  font-variant-numeric: tabular-nums;
+}
+.clip-composer-timeline-meta strong { font-size: 1rem; }
+.clip-composer-timeline-meta span { color: var(--primary); font-size: .875rem; font-weight: 700; }
+
+.clip-composer-timeline {
+  position: relative;
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  padding-block: 10px;
+}
+.clip-composer-timeline-track {
+  position: relative;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--line-strong, var(--line));
+  pointer-events: none;
+}
+.clip-composer-timeline-selection {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: var(--clip-start, 0%);
+  width: max(12px, calc(var(--clip-end, 100%) - var(--clip-start, 0%)));
+  border-radius: inherit;
+  background: var(--primary);
+}
+.clip-composer-timeline-cursor {
+  position: absolute;
+  top: -4px;
+  bottom: -4px;
+  inset-inline-start: var(--clip-cursor, 0%);
+  width: 2px;
+  border-radius: 2px;
+  background: #fff;
+  box-shadow: 0 0 0 1px color-mix(in srgb, #000 35%, transparent);
+  transform: translateX(-50%);
+}
+.clip-composer-handle {
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  width: 100%;
+  height: 44px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  accent-color: var(--primary);
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  pointer-events: none;
+}
+.clip-composer-handle:disabled { cursor: wait; opacity: .65; }
+.clip-composer-handle:focus-visible { outline: none; }
+.clip-composer-handle:focus-visible::-webkit-slider-thumb { outline: 2px solid var(--primary); outline-offset: 2px; }
+.clip-composer-handle:focus-visible::-moz-range-thumb { outline: 2px solid var(--primary); outline-offset: 2px; }
+.clip-composer-handle::-webkit-slider-runnable-track { height: 8px; background: transparent; border: 0; }
+.clip-composer-handle::-moz-range-track { height: 8px; background: transparent; border: 0; }
+.clip-composer-handle::-webkit-slider-thumb {
+  width: 22px;
+  height: 22px;
+  margin-top: -7px;
+  border: 3px solid var(--panel);
+  border-radius: 50%;
+  background: var(--primary);
+  box-shadow: 0 2px 6px color-mix(in srgb, #000 24%, transparent);
+  -webkit-appearance: none;
+  appearance: none;
+  pointer-events: auto;
+  position: relative;
+  z-index: 2;
+}
+.clip-composer-handle::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border: 3px solid var(--panel);
+  border-radius: 50%;
+  background: var(--primary);
+  box-shadow: 0 2px 6px color-mix(in srgb, #000 24%, transparent);
+  pointer-events: auto;
+  position: relative;
+  z-index: 2;
+}
+.clip-composer-handle-end { z-index: 3; }
+.clip-composer-handle-start { z-index: 4; }
+.clip-composer-slider-scale {
+  display: flex;
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: .75rem;
+  font-variant-numeric: tabular-nums;
+}
 .clip-composer-duration-presets { display: flex; flex-wrap: wrap; gap: 8px; }
 .clip-composer-duration-presets button { min-width: 58px; min-height: 36px; padding: 0 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--panel); color: var(--text); font: inherit; font-weight: 750; cursor: pointer; }
 .clip-composer-duration-presets button:hover:not(:disabled) { border-color: var(--primary); background: var(--primary-soft); color: var(--primary); }
 .clip-composer-duration-presets button:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
 .clip-composer-duration-presets button[aria-pressed="true"] { border-color: var(--primary); background: var(--primary-soft); color: var(--primary); }
 .clip-composer-duration-presets button:disabled { cursor: not-allowed; opacity: .45; }
-.clip-composer-selection { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 44px; padding: 10px 12px; border: 1px solid color-mix(in srgb, var(--primary) 28%, var(--line)); border-radius: 10px; background: var(--primary-soft); color: var(--text); font-variant-numeric: tabular-nums; }
-.clip-composer-selection strong { font-size: 1rem; }
-.clip-composer-selection span { color: var(--primary); font-size: .875rem; font-weight: 700; }
+
 .clip-composer footer { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px; padding-block-start: 4px; }
 .clip-composer footer .btn { min-height: 44px; }
 
@@ -125,11 +225,8 @@
   .clip-composer-backdrop { align-items: end; padding: 0; }
   .clip-composer { max-height: calc(100dvh - 24px); border-radius: 16px 16px 0 0; }
   .clip-composer > header,.clip-composer form,.clip-composer-fallback { padding: 20px 16px; }
-  .clip-composer-timing { padding: 16px 12px; }
+  .clip-composer-timing { padding: 14px 12px; }
   .clip-composer-preview-frame { max-height: min(36vh, 220px); }
-  .clip-composer-preview-controls { align-items: stretch; }
-  .clip-composer-preview-controls .btn { flex: 1 1 auto; justify-content: center; }
-  .clip-composer-preview-times { justify-items: start; }
   .clip-composer footer { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .clip-composer footer .btn { width: 100%; }
 }
