@@ -69,7 +69,37 @@ try {
         await dialog.getByLabel(labels.start).fill('60');
         await expect(dialog).toContainText('1:00 – 2:00');
         await expect(dialog.getByRole('button', { name: labels.create })).toBeVisible();
-        checks += 7;
+        const appearance = await dialog.evaluate(node => {
+          const normalize = value => {
+            const sample = document.createElement('span');
+            sample.style.backgroundColor = value;
+            document.body.append(sample);
+            const color = getComputedStyle(sample).backgroundColor;
+            sample.remove();
+            return color;
+          };
+          const root = getComputedStyle(document.documentElement);
+          const close = node.querySelector('.clip-composer-close');
+          const title = node.querySelector('input:not([type="range"])');
+          const timing = node.querySelector('.clip-composer-timing');
+          const selected = node.querySelector('.clip-composer-duration-presets [aria-pressed="true"]');
+          return {
+            panel2: normalize(root.getPropertyValue('--panel-2')),
+            primarySoft: normalize(root.getPropertyValue('--primary-soft')),
+            close: getComputedStyle(close).backgroundColor,
+            closeRadius: getComputedStyle(close).borderRadius,
+            title: getComputedStyle(title).backgroundColor,
+            titleRadius: getComputedStyle(title).borderRadius,
+            timing: getComputedStyle(timing).backgroundColor,
+            selected: getComputedStyle(selected).backgroundColor,
+          };
+        });
+        assert.equal(appearance.close, appearance.panel2);
+        assert.equal(appearance.title, appearance.panel2);
+        assert.equal(appearance.timing, appearance.panel2);
+        assert.equal(appearance.selected, appearance.primarySoft);
+        assert.equal(appearance.closeRadius, appearance.titleRadius);
+        checks += 12;
       } else {
         await expect(dialog).toContainText('Diese Quelle kann dein Browser nicht als Clip verarbeiten.');
         await expect(dialog.getByRole('button', { name: 'Zeitlink kopieren' })).toBeVisible();
