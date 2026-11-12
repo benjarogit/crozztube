@@ -54,7 +54,7 @@ class SpaController extends Controller
                 'thumbnailUrl' => $video->thumbnail_url,
                 'watchUrl' => url('/watch/'.$video->slug),
                 'siteName' => $siteName,
-                'primaryColor' => data_get($settings, 'design.colors.primary') ?: ($settings['defaultPrimaryColor'] ?? '#b68a2d'),
+                'primaryColor' => data_get($settings, 'design.colors.primary') ?: ($settings['defaultPrimaryColor'] ?? '#d4b477'),
                 'fontFamily' => $settings['fontFamily'] ?? null,
             ],
             'faviconUrl' => $settings['faviconUrl'] ?? null,
@@ -93,12 +93,12 @@ class SpaController extends Controller
         $image = imagecreatetruecolor(1200, 630);
         abort_unless($image, 500);
 
-        $background = $this->imageColor($image, data_get($settings, 'design.colors.bg'), '#f6f7fb');
-        $panel = $this->imageColor($image, data_get($settings, 'design.colors.panel'), '#ffffff');
-        $text = $this->imageColor($image, data_get($settings, 'design.colors.text'), '#0a1220');
-        $muted = $this->imageColor($image, data_get($settings, 'design.colors.muted'), '#657186');
-        $line = $this->imageColor($image, data_get($settings, 'design.colors.line'), '#e1e6ef');
-        $accent = $this->imageColor($image, data_get($settings, 'design.colors.primary'), '#b68a2d');
+        $background = $this->imageColor($image, data_get($settings, 'design.colors.bg'), '#edf0f4');
+        $panel = $this->imageColor($image, data_get($settings, 'design.colors.panel'), '#fcfdff');
+        $text = $this->imageColor($image, data_get($settings, 'design.colors.text'), '#28384b');
+        $muted = $this->imageColor($image, data_get($settings, 'design.colors.muted'), '#586478');
+        $line = $this->imageColor($image, data_get($settings, 'design.colors.line'), '#d1dae5');
+        $accent = $this->imageColor($image, data_get($settings, 'design.colors.primary'), '#d4b477');
         $white = imagecolorallocate($image, 255, 255, 255);
 
         imagefill($image, 0, 0, $background);

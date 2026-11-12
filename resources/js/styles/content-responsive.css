@@ -47,7 +47,7 @@
 
 .admin-content-mobile-selection { display: none; }
 .studio-content-page .content-check:has(input:focus-visible) > span {
-  outline: 2px solid var(--primary);
+  outline: 2px solid var(--focus);
   outline-offset: 3px;
 }
 

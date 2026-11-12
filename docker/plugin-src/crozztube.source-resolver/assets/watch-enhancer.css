@@ -33,10 +33,12 @@
   display: contents;
 }
 
-.crz-mirror-toggle.is-active,
-.crz-mirror-link:hover {
-  color: var(--accent, #ff4d4d);
-  border-color: currentColor;
+.action-pill.crz-mirror-toggle.is-active,
+.action-pill.crz-mirror-toggle.is-active:hover,
+.action-pill.crz-mirror-link:hover {
+  background: var(--control-selected-bg, var(--panel-2));
+  border-color: var(--line, #d1dae5);
+  color: var(--text, #28384b);
 }
 
 /* Refresh banner (filled in by the auto-refresh flow). */

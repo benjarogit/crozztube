@@ -24,7 +24,7 @@
 .shorts-uploader-link:not(:disabled):hover strong { text-decoration: underline; }
 .shorts-uploader-link:focus-visible,
 .shorts-creator-follow:focus-visible {
-  outline: 2px solid var(--primary);
+  outline: 2px solid var(--focus);
   outline-offset: 3px;
   border-radius: 6px;
 }

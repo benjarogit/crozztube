@@ -57,7 +57,7 @@ body .language-dialog {
 
 [aria-modal="true"] :focus-visible,
 [data-responsive-overlay] :focus-visible {
-  outline: 2px solid var(--ad-primary, var(--primary));
+  outline: 2px solid var(--ad-primary, var(--focus));
   outline-offset: 3px;
 }
 

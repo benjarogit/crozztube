@@ -50,7 +50,7 @@
   border:1px solid color-mix(in srgb,var(--primary) 20%,var(--line));
   border-radius:var(--radius);
   background:var(--primary-soft);
-  color:var(--primary);
+  color:var(--link);
   font-weight:800;
   font-size:13px;
 }
@@ -98,7 +98,7 @@
 
 @keyframes settingsSectionHighlight{
   0%,18%{
-    border-color:var(--primary);
+    border-color:var(--link);
     box-shadow:0 0 0 4px color-mix(in srgb,var(--primary) 22%,transparent),0 16px 38px color-mix(in srgb,var(--primary) 10%,transparent);
   }
   100%{
@@ -110,7 +110,7 @@
 @media(prefers-reduced-motion:reduce){
   .settings-section-highlight{
     animation:none;
-    border-color:var(--primary);
+    border-color:var(--link);
     box-shadow:0 0 0 4px color-mix(in srgb,var(--primary) 22%,transparent);
   }
 }
@@ -148,7 +148,7 @@
 
 .settings-section-nav button.active{
   background:linear-gradient(90deg,var(--primary-soft),color-mix(in srgb,var(--primary-soft) 45%,transparent));
-  color:var(--primary);
+  color:var(--link);
 }
 
 .settings-section-nav button:active{
@@ -281,11 +281,11 @@
   border:1px solid var(--line);
   border-radius:50%;
   background:var(--panel);
-  color:var(--primary);
+  color:var(--link);
 }
 
 .settings-avatar-link{
-  color:var(--primary);
+  color:var(--link);
   font-size:12px;
   font-weight:900;
 }
@@ -443,7 +443,7 @@
 }
 
 .settings-channel-field button:hover{
-  color:var(--primary);
+  color:var(--link);
   background:var(--primary-soft);
 }
 
@@ -494,7 +494,7 @@
   place-items:center;
   border-radius:6px;
   background:var(--primary-soft);
-  color:var(--primary);
+  color:var(--link);
   font-style:normal;
   font-size:11.5px;
   font-weight:950;
@@ -565,7 +565,7 @@
 }
 
 .settings-text-action{
-  color:var(--primary);
+  color:var(--link);
   font-size:12px;
   font-weight:900;
 }
@@ -725,7 +725,7 @@
   place-items:center;
   border-radius:9px;
   background:var(--primary-soft);
-  color:var(--primary);
+  color:var(--link);
   font-size:11.5px;
   font-weight:900;
   text-transform:capitalize;
@@ -867,7 +867,7 @@
   place-items:center;
   border-radius:var(--radius);
   background:var(--panel);
-  color:var(--primary)!important;
+  color:var(--link)!important;
 }
 
 .settings-device-row strong{
@@ -883,7 +883,7 @@
   border-radius:999px;
   padding:0 8px;
   background:var(--primary-soft);
-  color:var(--primary);
+  color:var(--link);
   font-size:11.5px;
   font-style:normal;
   font-weight:900;
@@ -1108,7 +1108,7 @@
 
 .settings-segmented button.active{
   background:var(--primary-soft);
-  color:var(--primary);
+  color:var(--link);
 }
 
 .settings-accent-row{
@@ -1132,7 +1132,7 @@
 }
 
 .settings-accent-list button.active{
-  outline:3px solid var(--primary);
+  outline:3px solid var(--focus);
   outline-offset:2px;
 }
 
@@ -1157,7 +1157,7 @@
   border:1px solid var(--line);
   border-radius:50%;
   background:var(--panel);
-  color:var(--primary);
+  color:var(--link);
   font-size:13px;
   font-weight:950;
 }
@@ -1211,7 +1211,7 @@
   padding:0 10px;
   border-radius:9px;
   background:var(--primary-soft);
-  color:var(--primary);
+  color:var(--link);
   font-style:normal;
   font-size:11.5px;
   font-weight:950;
@@ -1346,7 +1346,7 @@
 }
 
 .plan-option-card>strong{
-  color:var(--primary);
+  color:var(--link);
   font-size:28px;
   line-height:1;
   letter-spacing:-.045em;
@@ -1395,7 +1395,7 @@
 
 .plan-option-card li svg{
   flex:0 0 auto;
-  color:var(--primary);
+  color:var(--link);
 }
 
 .plan-details-card{
@@ -1488,7 +1488,7 @@
 .wallet-form input:focus,
 .wallet-form select:focus,
 .wallet-form textarea:focus{
-  border-color:var(--primary);
+  border-color:var(--link);
   box-shadow:0 0 0 3px var(--primary-soft);
 }
 
@@ -1552,7 +1552,7 @@
   place-items:center;
   border-radius:11px;
   background:var(--primary-soft);
-  color:var(--primary);
+  color:var(--link);
 }
 
 .wallet-transaction-row.withdraw>span{
@@ -1613,7 +1613,7 @@
 }
 
 .settings-link-row:hover{
-  color:var(--primary);
+  color:var(--link);
 }
 
 .settings-right-rail{
@@ -1637,7 +1637,7 @@
 }
 
 .settings-preview-head button{
-  color:var(--primary);
+  color:var(--link);
   font-size:12px;
   font-weight:900;
   white-space:nowrap;
@@ -1786,7 +1786,7 @@
 .settings-rail-row:hover strong,
 .settings-rail-row:hover svg,
 .settings-rail-row:hover b{
-  color:var(--primary);
+  color:var(--link);
 }
 
 :root[data-theme="dark"] .settings-card,
@@ -1884,7 +1884,7 @@
   border-radius:var(--radius); background:var(--panel); color:var(--text);
   padding:10px 12px; font:inherit; font-size:16px;
 }
-.settings-section-select select:focus-visible { outline:2px solid var(--primary); outline-offset:3px; }
+.settings-section-select select:focus-visible { outline:2px solid var(--focus); outline-offset:3px; }
 
 @container account-settings (max-width:899px){
   .settings-top-grid,

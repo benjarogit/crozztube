@@ -16,10 +16,10 @@ class BrandedEmail
         $settings = GeneralSettings::settings();
         $name = trim((string) ($settings['platformName'] ?? config('app.name', 'PlayHub'))) ?: 'PlayHub';
         $logoText = $name;
-        $primary = self::hexColor($settings['defaultPrimaryColor'] ?? data_get($settings, 'design.colors.primary'), '#b68a2d');
-        $secondary = self::hexColor($settings['defaultSecondaryColor'] ?? data_get($settings, 'design.colors.primary-2'), '#6f5119');
-        $textColor = self::hexColor(data_get($settings, 'design.colors.text'), '#0a1220');
-        $mutedColor = self::hexColor(data_get($settings, 'design.colors.muted'), '#657186');
+        $primary = self::hexColor($settings['defaultPrimaryColor'] ?? data_get($settings, 'design.colors.primary'), '#d4b477');
+        $secondary = self::hexColor($settings['defaultSecondaryColor'] ?? data_get($settings, 'design.colors.primary-2'), '#bb9e69');
+        $textColor = self::hexColor(data_get($settings, 'design.colors.text'), '#28384b');
+        $mutedColor = self::hexColor(data_get($settings, 'design.colors.muted'), '#586478');
         $softColor = self::mixWithWhite($primary, 0.9);
         $accentText = self::contrastColor($primary);
         $siteUrl = rtrim((string) config('app.url', ''), '/') ?: url('/');

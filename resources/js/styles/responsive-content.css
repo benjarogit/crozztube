@@ -327,7 +327,7 @@
   .home-page .hero-autoplay-toggle { width: 44px; height: 44px; }
   .home-page .hero-autoplay-toggle { background: var(--panel-2); color: var(--text); border-color: var(--line); }
   .home-page .hero-dot:focus-visible,
-  .home-page .hero-autoplay-toggle:focus-visible { outline-color: var(--primary); }
+  .home-page .hero-autoplay-toggle:focus-visible { outline-color: var(--link); }
 }
 
 @media (max-width: 860px) {

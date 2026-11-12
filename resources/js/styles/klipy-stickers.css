@@ -8,7 +8,7 @@
 .klipy-live-search{display:flex;align-items:center;gap:8px;margin:10px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;color:var(--muted);background:var(--panel-2)}
 .klipy-live-search svg{flex:0 0 auto}
 .klipy-live-search input{width:100%;min-width:0;padding:0;border:0;outline:0;background:transparent;color:var(--text);font:inherit;font-size:13px}
-.klipy-live-search:focus-within{border-color:var(--primary)}
+.klipy-live-search:focus-within{border-color:var(--link)}
 .live-super-sticker-dropdown>.klipy-attribution{padding:9px;background:var(--panel)}
 .live-super-sticker-dropdown{display:flex;flex-direction:column}
 .live-super-sticker-dropdown>header,.live-super-sticker-dropdown>.klipy-live-search,.live-super-sticker-dropdown>.klipy-attribution{flex:0 0 auto}
@@ -17,7 +17,7 @@
 .comment-sticker-grid button:disabled{opacity:.6;cursor:wait}
 .admin-klipy-settings{display:grid;gap:16px;max-width:100%;padding:18px}
 .admin-klipy-settings>p{margin:0;max-width:860px;color:var(--muted);font-size:13px;line-height:1.6}
-.admin-klipy-settings a:not(.klipy-attribution){color:var(--primary)}
+.admin-klipy-settings a:not(.klipy-attribution){color:var(--link)}
 .admin-klipy-settings fieldset{min-width:0;margin:0;padding:0;border:0;display:grid;gap:20px}
 .admin-klipy-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
 .admin-klipy-fields .admin-edit-field{min-width:0;margin:0}
@@ -29,7 +29,7 @@
 .admin-klipy-actions button{min-height:40px}
 .admin-klipy-notice{margin:0;padding:12px 14px;border:1px solid var(--line);border-radius:9px;background:var(--primary-soft);color:var(--text);font-size:13px;line-height:1.5;overflow-wrap:anywhere}
 .admin-klipy-notice.error{background:color-mix(in srgb,#ef4444 8%,var(--panel));border-color:color-mix(in srgb,#ef4444 35%,var(--line))}
-.admin-klipy-notice button{margin-left:10px;color:var(--primary);text-decoration:underline}
+.admin-klipy-notice button{margin-left:10px;color:var(--link);text-decoration:underline}
 @media(max-width:520px){
   .comment-sticker-picker{grid-template-rows:auto auto minmax(0,1fr) auto}
   .admin-klipy-settings{padding:14px}

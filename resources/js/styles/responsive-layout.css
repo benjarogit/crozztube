@@ -22,7 +22,7 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  border-inline-end: 1px solid var(--line);
+  border-inline-end: 1px solid var(--surface-edge, var(--line));
   background: var(--panel);
   transform: translateX(0);
   visibility: visible;
@@ -91,7 +91,7 @@
 .app-shell .topbar .logo-text { letter-spacing: -.03em; }
 .app-shell .nav-item { min-height: 44px; height: auto; padding-block: 10px; }
 .app-shell .sidebar .nav-item span { white-space: normal; overflow-wrap: anywhere; }
-:where(button, a, input, select, textarea):focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
+:where(button, a, input, select, textarea):focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
 :root[dir="rtl"] .app-shell > .sidebar { inset-inline-start: 0; inset-inline-end: auto; }
 :root[dir="rtl"] .app-shell[data-navigation-mode="overlay"]:not(.mobile-nav-open):not(.sidebar-dragging) > .sidebar,
 :root[dir="rtl"] .app-shell[data-navigation-mode="docked"].sidebar-collapsed:not(.sidebar-dragging) > .sidebar { transform: translateX(100%); }

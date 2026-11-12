@@ -5,20 +5,20 @@
 .admin-dashboard-shell {
   --ad-sidebar-width:var(--website-admin-sidebar-width,264px);
   --ad-topbar-height:64px;
-  --ad-bg:var(--website-admin-bg,#fbfcff);
-  --ad-panel:var(--website-admin-panel,#fff);
-  --ad-panel-2:var(--website-admin-panel-2,#f8faff);
-  --ad-panel-3:var(--website-admin-panel-3,#f0f3fb);
-  --ad-text:var(--website-admin-text,#09112d);
-  --ad-heading:var(--website-admin-heading,#090f28);
-  --ad-muted:var(--website-admin-muted,#61708f);
-  --ad-soft:var(--website-admin-soft,#98a4bc);
-  --ad-border:var(--website-admin-border,#e3e8f2);
-  --ad-border-strong:var(--website-admin-border-strong,#d7dfed);
-  --ad-primary:var(--website-admin-primary,var(--primary,#b68a2d));
-  --ad-primary-ink:var(--website-admin-primary-ink,#000);
-  --ad-primary-2:var(--website-admin-primary-2,var(--primary-2,#6f5119));
-  --ad-primary-soft:var(--website-admin-primary-soft,var(--primary-soft,#fff2cf));
+  --ad-bg:var(--website-admin-bg,#edf0f4);
+  --ad-panel:var(--website-admin-panel,#fcfdff);
+  --ad-panel-2:var(--website-admin-panel-2,#eaeced);
+  --ad-panel-3:var(--website-admin-panel-3,#e8edf3);
+  --ad-text:var(--website-admin-text,#28384b);
+  --ad-heading:var(--website-admin-heading,#28384b);
+  --ad-muted:var(--website-admin-muted,#586478);
+  --ad-soft:var(--website-admin-soft,#586478);
+  --ad-border:var(--website-admin-border,#d1dae5);
+  --ad-border-strong:var(--website-admin-border-strong,#d1dae5);
+  --ad-primary:var(--website-admin-primary,var(--primary,#d4b477));
+  --ad-primary-ink:var(--website-admin-primary-ink,#142331);
+  --ad-primary-2:var(--website-admin-primary-2,var(--primary-2,#bb9e69));
+  --ad-primary-soft:var(--website-admin-primary-soft,var(--primary-soft,#eadabb));
   --ad-page-subtitle:var(--website-admin-page-subtitle,#657395);
   --ad-field-label:var(--website-admin-field-label,#53617e);
   --ad-settings-copy:var(--website-admin-settings-copy,#657493);
@@ -56,19 +56,19 @@
   outline-offset:3px
 }
 .admin-dashboard-shell[data-admin-theme="dark"] {
-  --ad-bg:var(--website-admin-bg,#000);
-  --ad-panel:var(--website-admin-panel,#050505);
-  --ad-panel-2:var(--website-admin-panel-2,#0b0b0b);
-  --ad-panel-3:var(--website-admin-panel-3,#111);
-  --ad-text:var(--website-admin-text,#f7f7f8);
-  --ad-heading:var(--website-admin-heading,#fff);
-  --ad-muted:var(--website-admin-muted,#a4a7af);
-  --ad-soft:var(--website-admin-soft,#72757d);
-  --ad-border:var(--website-admin-border,#1f1f1f);
-  --ad-border-strong:var(--website-admin-border-strong,#333);
-  --ad-primary:var(--website-admin-primary,var(--primary,#b68a2d));
-  --ad-primary-2:var(--website-admin-primary-2,var(--primary-2,#6f5119));
-  --ad-primary-soft:var(--website-admin-primary-soft,var(--primary-soft,rgba(208,170,88,.22)));
+  --ad-bg:var(--website-admin-bg,#142237);
+  --ad-panel:var(--website-admin-panel,#25354b);
+  --ad-panel-2:var(--website-admin-panel-2,#262d34);
+  --ad-panel-3:var(--website-admin-panel-3,#19293e);
+  --ad-text:var(--website-admin-text,#e0e6ed);
+  --ad-heading:var(--website-admin-heading,#e0e6ed);
+  --ad-muted:var(--website-admin-muted,#a0afc1);
+  --ad-soft:var(--website-admin-soft,#959ea8);
+  --ad-border:var(--website-admin-border,#3b4d63);
+  --ad-border-strong:var(--website-admin-border-strong,#3b4d63);
+  --ad-primary:var(--website-admin-primary,var(--primary,#d4b477));
+  --ad-primary-2:var(--website-admin-primary-2,var(--primary-2,#bb9e69));
+  --ad-primary-soft:var(--website-admin-primary-soft,var(--primary-soft,rgba(212,180,119,.22)));
   --ad-page-subtitle:var(--website-admin-page-subtitle,#a0a5af);
   --ad-field-label:var(--website-admin-field-label,#a9a9a9);
   --ad-settings-copy:var(--website-admin-settings-copy,#979797);
@@ -1109,7 +1109,7 @@
   position:relative;
   min-height:138px;
   padding:20px 18px 17px;
-  border:1px solid color-mix(in srgb,var(--metric-accent) 18%,var(--ad-border));
+  border:1px solid var(--ad-border);
   border-radius:10px;
   background:var(--ad-panel);
   box-shadow:var(--ad-shadow);
@@ -4878,3 +4878,4 @@
   .admin-media-providers .admin-outline-action { min-height:44px }
 }
 @media(max-width:600px) { .admin-media-fields input { font-size:16px } }
+.admin-card,.admin-metric-card{border-color:var(--surface-edge,var(--ad-border))}

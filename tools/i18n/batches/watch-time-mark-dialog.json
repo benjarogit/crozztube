@@ -1,0 +1,9 @@
+{
+  "context": "Watch page time-mark dialog. The list stays on the page; this control opens the existing dialog to add one private note or public mark. German uses the informal singular and the existing Zeitmarke wording.",
+  "messages": {
+    "Set time mark": {
+      "en": "Set time mark",
+      "de": "Zeitmarke setzen"
+    }
+  }
+}

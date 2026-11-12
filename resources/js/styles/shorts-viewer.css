@@ -280,7 +280,7 @@
 
 .shorts-viewer .shorts-detail-side-actions > button.active > svg {
   background: var(--primary-soft) !important;
-  color: var(--primary);
+  color: var(--link);
   fill: currentColor;
 }
 
@@ -378,15 +378,17 @@
   padding-inline: 14px;
   border: 0;
   border-radius: 999px;
-  background: #fff;
-  color: #111;
+  background: var(--primary);
+  color: var(--primary-ink);
   font-size: 12px;
   font-weight: 750;
   white-space: nowrap;
 }
 
-.shorts-viewer .shorts-detail-creator .btn:hover { background: #e5e5e5; }
-.shorts-viewer .shorts-detail-creator .btn.active { background: rgb(255 255 255 / .2); color: #fff; }
+.shorts-viewer .shorts-detail-creator .btn:hover { background: var(--primary-2); color: var(--primary-ink); }
+.shorts-viewer .shorts-detail-creator .btn:active { background: var(--control-primary-press); color: var(--primary-ink); }
+.shorts-viewer .shorts-detail-creator .btn.active,
+.shorts-viewer .shorts-detail-creator .btn.active:hover { background: rgb(255 255 255 / .2); color: #fff; }
 
 .shorts-viewer .shorts-detail-overlay h1 {
   display: block;
@@ -679,7 +681,7 @@
 
 .shorts-viewer button:focus-visible,
 .shorts-viewer [tabindex]:focus-visible {
-  outline: 2px solid var(--primary);
+  outline: 2px solid var(--focus);
   outline-offset: 3px;
 }
 

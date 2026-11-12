@@ -46,8 +46,8 @@ final class ApplicationBootstrapService
                     'mode' => in_array($general['defaultThemeMode'] ?? null, ['light', 'dark', 'system'], true)
                         ? $general['defaultThemeMode']
                         : 'system',
-                    'primary' => $this->color($general['defaultPrimaryColor'] ?? null, '#b68a2d'),
-                    'secondary' => $this->color($general['defaultSecondaryColor'] ?? null, '#6f5119'),
+                    'primary' => $this->color($general['defaultPrimaryColor'] ?? null, '#d4b477'),
+                    'secondary' => $this->color($general['defaultSecondaryColor'] ?? null, '#bb9e69'),
                     'primary_soft' => $this->color($general['defaultPrimarySoftColor'] ?? null, '#fff2cf'),
                 ],
             ],

@@ -45,7 +45,7 @@
   background: transparent;
 }
 .upload-import-heading { display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: 12px; align-items: start; }
-.upload-import-icon { color: var(--primary); display: flex; margin-top: 2px; }
+.upload-import-icon { color: var(--link); display: flex; margin-top: 2px; }
 .upload-import-heading h2 { font-size: 1.125rem; line-height: 1.35; }
 .upload-import-heading p { margin-top: 8px; }
 .upload-import-field { min-width: 0; gap: 8px; }
@@ -87,7 +87,7 @@
 .upload-import-duplicate { display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 8px; font-size: .8125rem; line-height: 1.5; }
 .upload-import-duplicate .text-button { display: block; margin-top: 4px; text-align: start; }
 .upload-import-url-row > input:focus-visible, .upload-fetch-button:focus-visible {
-  outline: 2px solid var(--primary);
+  outline: 2px solid var(--focus);
   outline-offset: 3px;
 }
 

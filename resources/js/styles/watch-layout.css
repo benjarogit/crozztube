@@ -26,9 +26,11 @@
 .watch-layout-shell .watch-sidebar {
   position: static;
   margin: 0;
-  padding: 0;
-  border: 0;
-  background: transparent;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--panel);
+  box-shadow: none;
   gap: 8px;
 }
 
@@ -87,8 +89,12 @@
 }
 
 .watch-layout-shell .description-card {
-  margin-top: 12px;
-  padding: 12px;
+  margin-top: 16px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--panel);
+  box-shadow: none;
 }
 
 @container watch-layout (min-width: 1000px) {
@@ -136,7 +142,7 @@
 }
 .watch-transcript summary { cursor: pointer; font-weight: 750; min-height: 44px; padding-block: 10px; }
 .watch-transcript summary:focus-visible,
-.watch-transcript-text:focus-visible { outline: 2px solid var(--primary); outline-offset: 4px; }
+.watch-transcript-text:focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; }
 .watch-transcript-text {
   max-height: 400px;
   margin-top: 12px;

@@ -56,8 +56,8 @@
   backdrop-filter: none;
   transform: none;
 }
-.hosted-image-actions > button:hover:not(:disabled) { background: var(--primary-soft); color: var(--primary); }
-.hosted-image-actions > button:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+.hosted-image-actions > button:hover:not(:disabled) { background: var(--primary-soft); color: var(--link); }
+.hosted-image-actions > button:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 .hosted-image-actions > button:disabled { opacity: .55; cursor: wait; }
 .image-attachment-unavailable { display: grid; place-items: center; width: 100%; min-height: 80px; overflow: hidden; background: var(--panel-3); color: var(--muted); }
 .image-attachment-unavailable > svg { width: 48px; max-width: 50%; fill: none; stroke: currentColor; stroke-width: 1.5; }

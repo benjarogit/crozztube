@@ -12004,6 +12004,15 @@
             ],
             "reviewed_at": "2026-11-06T09:32:20+00:00"
         },
+        "d5ffbdb846819fae0216e90eab22066ba34a704cb4ed5d4446b27b3f6e621175": {
+            "source_hash": "d5ffbdb846819fae0216e90eab22066ba34a704cb4ed5d4446b27b3f6e621175",
+            "translation_hash": "40fc5f4c467bfb4b0edd6ae17d0c987c8af7c87662e8855f49de3c1547df7595",
+            "status": "editorial",
+            "contexts": [
+                "Watch page time-mark dialog. The list stays on the page; this control opens the existing dialog to add one private note or public mark. German uses the informal singular and the existing Zeitmarke wording."
+            ],
+            "reviewed_at": "2026-11-12T12:39:15+00:00"
+        },
         "d61106e5f63a3c92f8c2f98db2260b7c93006d7206c3cd579ed593c1515f485a": {
             "source_hash": "d61106e5f63a3c92f8c2f98db2260b7c93006d7206c3cd579ed593c1515f485a",
             "translation_hash": "d217a478c21b4cfc118b34dd3d2cb7a5ef3e71d1442e1dbdc50dcef9eb4d3524",

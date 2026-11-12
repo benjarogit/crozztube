@@ -883,13 +883,13 @@ function applyWebsiteConfiguration(website = {}, theme = 'light', user = null) {
     if (value !== null && value !== undefined && value !== '') root.style.setProperty(`--website-admin-${cssVarName(key)}`, value);
   });
 
-  const defaultPrimary = config.defaultPrimaryColor || colors.primary || '#b68a2d';
-  const defaultSecondary = config.defaultSecondaryColor || colors['primary-2'] || '#6f5119';
+  const defaultPrimary = config.defaultPrimaryColor || colors.primary || '#d4b477';
+  const defaultSecondary = config.defaultSecondaryColor || colors['primary-2'] || '#bb9e69';
   const defaultPalette = Object.values(ACCENT_PALETTES).find((palette) => palette.primary.toLowerCase() === String(defaultPrimary).toLowerCase());
   const userPalette = hasUserAccent ? ACCENT_PALETTES[userAccent] : null;
   const defaultSoft = theme === 'dark'
-    ? (defaultPalette?.softDark || colors['primary-soft'] || 'rgba(208,170,88,.22)')
-    : (config.defaultPrimarySoftColor || defaultPalette?.softLight || colors['primary-soft'] || '#fff2cf');
+    ? (defaultPalette?.softDark || colors['primary-soft'] || 'rgba(212,180,119,.22)')
+    : (config.defaultPrimarySoftColor || defaultPalette?.softLight || colors['primary-soft'] || '#eadabb');
   root.style.setProperty('--viewer-accent-ink', accentInk(userPalette?.primary || defaultPrimary));
   root.style.setProperty('--website-admin-primary', userPalette?.primary || defaultPrimary);
   root.style.setProperty('--website-admin-primary-ink', accentInk(userPalette?.primary || defaultPrimary));
@@ -904,8 +904,8 @@ function applyWebsiteConfiguration(website = {}, theme = 'light', user = null) {
     root.style.setProperty('--primary', defaultPrimary);
     root.style.setProperty('--primary-2', defaultSecondary);
     const softDefault = theme === 'dark'
-      ? (colors['primary-soft'] || 'rgba(208,170,88,.22)')
-      : (config.defaultPrimarySoftColor || colors['primary-soft'] || '#fff2cf');
+      ? (colors['primary-soft'] || 'rgba(212,180,119,.22)')
+      : (config.defaultPrimarySoftColor || colors['primary-soft'] || '#eadabb');
     root.style.setProperty('--primary-soft', softDefault);
   }
 
@@ -1690,7 +1690,7 @@ const ACCENT_PALETTES = Object.freeze({
   green: { label: 'Green', primary: '#22c55e', primary2: '#16a34a', softLight: '#e7f8ed', softDark: 'rgba(34,197,94,.18)' },
   lime: { label: 'Lime', primary: '#84cc16', primary2: '#65a30d', softLight: '#ecfccb', softDark: 'rgba(132,204,22,.18)' },
   amber: { label: 'Amber', primary: '#f59e0b', primary2: '#d97706', softLight: '#fff4dc', softDark: 'rgba(245,158,11,.20)' },
-  obsidianGold: { label: 'Obsidian Gold', primary: '#b68a2d', primary2: '#6f5119', swatch: '#d0aa58', softLight: '#fff2cf', softDark: 'rgba(208,170,88,.22)' },
+  obsidianGold: { label: 'Obsidian Gold', primary: '#d4b477', primary2: '#bb9e69', swatch: '#d4b477', softLight: '#eadabb', softDark: 'rgba(212,180,119,.22)' },
   orange: { label: 'Orange', primary: '#f97316', primary2: '#ea580c', softLight: '#ffedd5', softDark: 'rgba(249,115,22,.20)' },
   coral: { label: 'Coral', primary: '#ef4444', primary2: '#dc2626', softLight: '#ffe8e8', softDark: 'rgba(239,68,68,.18)' },
   rose: { label: 'Rose', primary: '#f43f5e', primary2: '#e11d48', softLight: '#ffe4e6', softDark: 'rgba(244,63,94,.18)' },
@@ -1723,7 +1723,7 @@ const normalizeAccentPreference = (value) => (value && ACCENT_PALETTES[value] ? 
 const defaultAccentPreferenceFromWebsite = (website = {}) => {
   const design = website?.design && typeof website.design === 'object' ? website.design : {};
   const colors = design.colors && typeof design.colors === 'object' ? design.colors : {};
-  const defaultPrimary = website?.defaultPrimaryColor || colors.primary || '#b68a2d';
+  const defaultPrimary = website?.defaultPrimaryColor || colors.primary || '#d4b477';
   return Object.entries(ACCENT_PALETTES).find(([, palette]) => palette.primary.toLowerCase() === String(defaultPrimary).toLowerCase())?.[0] || 'obsidianGold';
 };
 
@@ -3648,7 +3648,7 @@ function useBoostImpression(video) {
   return ref;
 }
 
-function Thumbnail({ video, large = false, showDuration = true }) {
+function Thumbnail({ video, large = false, showDuration = true, overlay = null }) {
   const boostRef = useBoostImpression(video);
   const className = `thumb thumb-${large ? 'large' : 'card'}${video.thumbnail_url ? '' : ` theme-${video.theme || 'mountain'}`}`;
   const promoted = video.boost ? <span className="promoted-video-badge"><Icon name="trending" size={12}/> {video.boost.label || 'Promoted'}</span> : null;
@@ -3656,7 +3656,7 @@ function Thumbnail({ video, large = false, showDuration = true }) {
   const content = video.thumbnail_url
     ? <><ThumbnailImage video={video} alt="" />{showDuration && <Duration value={video.duration} />}{shortBadge}{promoted}{video.sale?.is_paid && <span className="paid-video-badge"><Icon name="wallet" size={12}/> {video.sale.is_purchased ? 'Purchased' : video.sale.price_label}</span>}</>
     : <><BlankThumbnail />{showDuration && <Duration value={video.duration} />}{shortBadge}{promoted}{video.sale?.is_paid && <span className="paid-video-badge"><Icon name="wallet" size={12}/> {video.sale.is_purchased ? 'Purchased' : video.sale.price_label}</span>}</>;
-  return <div ref={boostRef} className={className}>{content}</div>;
+  return <div ref={boostRef} className={className}>{content}{overlay}</div>;
 }
 function Duration({ value }) { return value ? <span className="duration">{value}</span> : null; }
 
@@ -6584,16 +6584,35 @@ function SmallVideoRow({ video, navigate }) {
     <div className="small-video-details"><button type="button" data-i18n-skip className="channel-inline-link" disabled={!profilePathFor(video.channel)} onClick={(event) => openProfile(event, navigate, video.channel)}>{video.channel?.name || 'Creator'}</button><small><LocalizedCount value={formatNumber(video.views_count)} unit="view" /> · {video.created_label}</small></div>
   </article>;
 }
+function videoCardCount(value) {
+  if (value === null || value === undefined || value === '') return null;
+  const count = Number(value);
+  return Number.isFinite(count) ? count : null;
+}
+function VideoCardStat({ icon, value, label }) {
+  return <span className="video-card-stat" data-i18n-skip>
+    <Icon name={icon} size={14}/>
+    <span aria-hidden="true">{formatNumber(value)}</span>
+    <span className="sr-only">{label}</span>
+  </span>;
+}
 function VideoCard({ video, navigate }) {
+  const { t, count } = useI18n();
+  const commentsCount = videoCardCount(video.comments_count);
+  const likesCount = videoCardCount(video.likes_count);
   return <article className="video-card">
     {video.rank && <span className="rank-badge">#{video.rank}</span>}
     <VideoNavigationLink video={video} navigate={navigate} className="video-card-link">
-      <Thumbnail video={video}/><h3 data-i18n-skip>{video.title}</h3>
+      <Thumbnail video={video} overlay={(commentsCount !== null || likesCount !== null) && <div className="video-card-stats">
+        {commentsCount !== null && <VideoCardStat icon="comment" value={commentsCount} label={count(commentsCount, 'comment')}/>}
+        {likesCount !== null && <VideoCardStat icon="like" value={likesCount} label={`${formatNumber(likesCount)} ${t('Likes')}`}/>}
+      </div>}/>
+      <h3 data-i18n-skip>{video.title}</h3>
     </VideoNavigationLink>
     <div className="video-body">
       <SearchVideoActions video={video} navigate={navigate}/>
-      <button data-i18n-skip type="button" className="channel-name channel-link" onClick={(event) => openProfile(event, navigate, video.channel)} disabled={!profilePathFor(video.channel)}>{video.channel?.name || 'Creator'}</button>
       <p className="muted-line">{video.boost ? <><span data-i18n-skip={video.boost.label ? '' : undefined}>{video.boost.label || 'Promoted'}</span> · </> : null}<LocalizedCount value={formatNumber(video.views_count)} unit="view" /> · {video.created_label}</p>
+      <button data-i18n-skip type="button" className="channel-name channel-link" onClick={(event) => openProfile(event, navigate, video.channel)} disabled={!profilePathFor(video.channel)}>{video.channel?.name || 'Creator'}</button>
       {video.progress > 0 && <div className="progress-line" aria-hidden="true"><i style={{ width: `${Math.min(100, Math.max(0, Number(video.progress) || 0))}%` }}/></div>}
     </div>
   </article>;
@@ -15144,8 +15163,11 @@ function WatchTimeMarks({ slug, auth, navigate, currentSeconds, onSeek, notify, 
   const [visibility, setVisibility] = useState('private');
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
+  const [composerOpen, setComposerOpen] = useState(false);
   const [playbackSecond, setPlaybackSecond] = useState(0);
   const readSeconds = useRef(currentSeconds);
+  const dialogRef = useRef(null);
+  const openButtonRef = useRef(null);
   readSeconds.current = currentSeconds;
 
   useEffect(() => {
@@ -15154,6 +15176,37 @@ function WatchTimeMarks({ slug, auth, navigate, currentSeconds, onSeek, notify, 
     const timer = window.setInterval(update, 1000);
     return () => window.clearInterval(timer);
   }, []);
+
+  useEffect(() => {
+    if (!composerOpen) return undefined;
+    const previous = document.activeElement;
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        setComposerOpen(false);
+        return;
+      }
+      if (event.key !== 'Tab' || !dialogRef.current) return;
+      const focusable = [...dialogRef.current.querySelectorAll('button:not(:disabled), textarea:not(:disabled), input:not(:disabled)')];
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+    document.addEventListener('keydown', onKeyDown);
+    const frame = window.requestAnimationFrame(() => dialogRef.current?.querySelector('textarea')?.focus());
+    return () => {
+      document.removeEventListener('keydown', onKeyDown);
+      window.cancelAnimationFrame(frame);
+      if (previous instanceof HTMLElement) previous.focus();
+    };
+  }, [composerOpen]);
 
   const loadMarks = useCallback(async () => {
     const published = await api.request(`/videos/${encodeURIComponent(slug)}/time-marks`, { trackPageLoading: false });
@@ -15191,6 +15244,7 @@ function WatchTimeMarks({ slug, auth, navigate, currentSeconds, onSeek, notify, 
         trackPageLoading: false,
       });
       setNote('');
+      setComposerOpen(false);
       await loadMarks();
       notify(t(visibility === 'private' ? 'Your private note was saved.' : 'Your time mark was published.'));
     } catch (saveError) {
@@ -15226,22 +15280,40 @@ function WatchTimeMarks({ slug, auth, navigate, currentSeconds, onSeek, notify, 
     }
   };
 
+  const closeComposer = () => { if (!busy) setComposerOpen(false); };
+
   return <section className="watch-time-marks" aria-labelledby="watch-time-marks-title">
-    <h2 id="watch-time-marks-title">{t('Time marks')}</h2>
-    <form onSubmit={saveMark}>
-      <p>{t('Current time')} <time data-i18n-skip>{formatDurationSeconds(playbackSecond) || '0:00'}</time></p>
-      <label htmlFor="watch-time-mark-note">{t('Time mark note')}</label>
-      <textarea id="watch-time-mark-note" value={note} maxLength={280} onChange={(event) => setNote(event.target.value)} />
-      <div role="radiogroup" aria-label={t('Visibility')}>
-        <label><input type="radio" name="time-mark-visibility" checked={visibility === 'private'} onChange={() => setVisibility('private')} /> {t('Private note')}</label>
-        <label><input type="radio" name="time-mark-visibility" checked={visibility === 'public'} onChange={() => setVisibility('public')} /> {t('Public time mark')}</label>
-      </div>
-      <button type="submit" className="btn subtle" disabled={busy}>{busy ? t('Saving...') : t('Save time mark')}</button>
-    </form>
-    {error && <p className="watch-time-marks-error" role="alert">{error}</p>}
+    <div className="watch-time-marks-head">
+      <h2 id="watch-time-marks-title">{t('Time marks')}</h2>
+      <button type="button" className="btn subtle" ref={openButtonRef} onClick={() => { setError(''); setComposerOpen(true); }}>{t('Set time mark')}</button>
+    </div>
+    {error && !composerOpen && <p className="watch-time-marks-error" role="alert">{error}</p>}
     <div className="watch-time-mark-switch" role="tablist" aria-label={t('Time mark ranking')}>
       {[['all', 'All time marks'], ['week', 'Week rank'], ['season', 'Season rank']].map(([value, label]) => <button key={value} type="button" role="tab" aria-selected={rankWindow === value} onClick={() => setRankWindow(value)}>{t(label)}</button>)}
     </div>
+    {composerOpen && createPortal(<div className="clip-composer-backdrop" onMouseDown={(event) => { if (event.target === event.currentTarget) closeComposer(); }}>
+      <section ref={dialogRef} className="clip-composer watch-time-mark-dialog" role="dialog" aria-modal="true" aria-labelledby="watch-time-mark-dialog-title">
+        <header>
+          <div><h2 id="watch-time-mark-dialog-title">{t('Set time mark')}</h2></div>
+          <button type="button" className="clip-composer-close" onClick={closeComposer} aria-label={t('Close')}><Icon name="close" size={20}/></button>
+        </header>
+        <form onSubmit={saveMark}>
+          <p>{t('Current time')} <time data-i18n-skip>{formatDurationSeconds(playbackSecond) || '0:00'}</time></p>
+          <label htmlFor="watch-time-mark-note">{t('Time mark note')}
+            <textarea id="watch-time-mark-note" value={note} maxLength={280} onChange={(event) => setNote(event.target.value)} />
+          </label>
+          <div role="radiogroup" aria-label={t('Visibility')}>
+            <label><input type="radio" name="time-mark-visibility" checked={visibility === 'private'} onChange={() => setVisibility('private')} /> {t('Private note')}</label>
+            <label><input type="radio" name="time-mark-visibility" checked={visibility === 'public'} onChange={() => setVisibility('public')} /> {t('Public time mark')}</label>
+          </div>
+          {error && <p className="clip-composer-error" role="alert">{error}</p>}
+          <footer>
+            <button type="button" className="btn subtle" onClick={closeComposer} disabled={busy}>{t('Cancel')}</button>
+            <button type="submit" className="btn primary" disabled={busy}>{busy ? t('Saving...') : t('Save time mark')}</button>
+          </footer>
+        </form>
+      </section>
+    </div>, document.body)}
     {shownMarks.length ? <ol>{shownMarks.map((mark) => <li key={mark.id}>
       <button type="button" onClick={() => onSeek(mark.start_seconds)}><time data-i18n-skip>{formatDurationSeconds(mark.start_seconds) || '0:00'}</time><span data-i18n-skip dir="auto">{mark.body || t('Time mark')}</span></button>
       {mark.visibility === 'private' && <span>{t('Private')}</span>}
@@ -16966,7 +17038,7 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
         <div className="watch-toolbar">
           <button type="button" className="channel-identity profile-identity-button" onClick={(event) => openProfile(event, navigate, video.channel)} disabled={!profilePathFor(video.channel)}><Avatar label={video.channel?.name || 'Channel'} image={assetUrl(video.channel?.avatar_url || video.channel?.avatar_path)} /><div><strong><span data-i18n-skip>{video.channel?.name || t('Channel')}</span><VerifiedBadge verified={video.channel?.verified} /></strong><span className="channel-subscriber-count"><LocalizedCount value={formatNumber(video.channel?.subscribers_count || 0)} unit="subscriber" /></span></div></button>
           <div className="watch-creator-actions">
-            <button className={`btn ${subscribed || isOwnVideoChannel ? 'subtle' : 'primary'}`} onClick={subscribe} disabled={isOwnVideoChannel}>{isOwnVideoChannel ? 'Your channel' : subscribed ? 'Unsubscribe' : 'Subscribe'}</button>
+            <button className={`btn ${subscribed ? 'is-selected' : isOwnVideoChannel ? '' : 'primary'}`} onClick={subscribe} disabled={isOwnVideoChannel} aria-pressed={subscribed}>{isOwnVideoChannel ? 'Your channel' : subscribed ? 'Unsubscribe' : 'Subscribe'}</button>
             {canTipVideoCreator && <button type="button" className="btn subtle watch-support-button creator-tip-action" onClick={() => auth.user ? setCreatorTipOpen(true) : navigate('/login')}><Icon name="wallet" size={16}/><span>{t('Send tip')}</span></button>}
           </div>
           <div className="action-bar">
@@ -23254,7 +23326,7 @@ function CreatorProfileHomeTab({ profile, videos, playlists, navigate, search, c
   };
   return <>
     {featuredNotice && <div className="profile-action-notice" aria-live="polite">{featuredNotice}</div>}
-    <article className="studio-card channel-featured-card"><button className="channel-featured-media" onClick={() => navigate(featuredPath)}><Thumbnail video={featured} large />{featuredIsShort && <span className="channel-featured-short-badge"><Icon name="play" size={12}/> Short</span>}<span className="channel-featured-play"><Icon name="play" size={22}/></span></button><div className="channel-featured-copy">{isSelectedFeatured && <span className="text-badge">Pinned</span>}<h2 data-i18n-skip>{featured.title}</h2><div className="channel-featured-meta"><span>{profile.name}</span><span>•</span><span>{formatNumber(featured.views_count)} views</span><span>•</span><span>{dateLabel(featured.published_at || featured.created_at)}</span></div><p data-i18n-skip={featured.description ? '' : undefined}>{featured.description || 'No description provided.'}</p><button className="btn subtle" onClick={() => navigate(featuredPath)}><Icon name="play" size={15}/> Watch now</button></div><span className="channel-featured-menu-shell"><button type="button" className={featuredMenuOpen ? 'more-button active' : 'more-button'} aria-label="More actions" aria-expanded={featuredMenuOpen} onClick={() => setFeaturedMenuOpen((open) => !open)}><Icon name="more" size={17} /></button>{featuredMenuOpen && <span className="channel-featured-action-menu" role="menu"><button type="button" role="menuitem" onClick={() => { setFeaturedMenuOpen(false); navigate(featuredPath); }}><Icon name="play" size={16}/> Watch video</button><button type="button" role="menuitem" onClick={copyFeaturedLink}><Icon name="link" size={16}/> Copy link</button><button type="button" role="menuitem" onClick={shareFeatured}><Icon name="share" size={16}/> Share</button>{canEdit && <button type="button" role="menuitem" className={isSelectedFeatured ? 'is-selected' : ''} onClick={togglePinnedVideo} disabled={featuredSaving || pinningVideoId === featured.id}><Icon name={isSelectedFeatured ? 'pinOff' : 'pin'} size={16}/> {featuredSaving || pinningVideoId === featured.id ? 'Saving...' : isSelectedFeatured ? 'Unpin from profile' : 'Pin to profile'}</button>}</span>}</span></article>
+    <article className="studio-card channel-featured-card"><button className="channel-featured-media" onClick={() => navigate(featuredPath)}><Thumbnail video={featured} large />{featuredIsShort && <span className="channel-featured-short-badge"><Icon name="play" size={12}/> Short</span>}<span className="channel-featured-play"><Icon name="play" size={22}/></span></button><div className="channel-featured-copy">{isSelectedFeatured && <span className="text-badge">Pinned</span>}<h2 data-i18n-skip>{featured.title}</h2><div className="channel-featured-meta"><span>{profile.name}</span><span>•</span><span>{formatNumber(featured.views_count)} views</span><span>•</span><span>{dateLabel(featured.published_at || featured.created_at)}</span></div><p data-i18n-skip={featured.description ? '' : undefined}>{featured.description || 'No description provided.'}</p><button className="btn primary" onClick={() => navigate(featuredPath)}><Icon name="play" size={15}/> Watch now</button></div><span className="channel-featured-menu-shell"><button type="button" className={featuredMenuOpen ? 'more-button active' : 'more-button'} aria-label="More actions" aria-expanded={featuredMenuOpen} onClick={() => setFeaturedMenuOpen((open) => !open)}><Icon name="more" size={17} /></button>{featuredMenuOpen && <span className="channel-featured-action-menu" role="menu"><button type="button" role="menuitem" onClick={() => { setFeaturedMenuOpen(false); navigate(featuredPath); }}><Icon name="play" size={16}/> Watch video</button><button type="button" role="menuitem" onClick={copyFeaturedLink}><Icon name="link" size={16}/> Copy link</button><button type="button" role="menuitem" onClick={shareFeatured}><Icon name="share" size={16}/> Share</button>{canEdit && <button type="button" role="menuitem" className={isSelectedFeatured ? 'is-selected' : ''} onClick={togglePinnedVideo} disabled={featuredSaving || pinningVideoId === featured.id}><Icon name={isSelectedFeatured ? 'pinOff' : 'pin'} size={16}/> {featuredSaving || pinningVideoId === featured.id ? 'Saving...' : isSelectedFeatured ? 'Unpin from profile' : 'Pin to profile'}</button>}</span>}</span></article>
     <section className="profile-section"><div className="section-title"><h2>Recent uploads</h2><button className="text-button" onClick={() => search.openSearch('videos')}>View all</button></div><div className="profile-upload-grid">{recentUploads.map((item) => <article className="profile-video-card" key={item.video.id} onClick={() => navigate(videoPlaybackPath(item.video))}><Thumbnail video={item.video} /><h3>{item.video.title}</h3><p>{item.views} views <span>•</span> {item.time}</p></article>)}</div></section>
     {playlists.length > 0 && <section className="profile-section"><div className="section-title"><h2>Playlists</h2><button className="text-button" onClick={() => search.openSearch('playlists')}>View all</button></div><div className="profile-playlist-grid">{playlists.map((playlist) => <article className="profile-playlist-card" key={playlist.id || playlist.title} role="link" tabIndex={0} onClick={() => navigate(`/playlists?id=${playlist.id}`)} onKeyDown={(event) => { if (event.key === 'Enter') navigate(`/playlists?id=${playlist.id}`); }}>{playlist.video ? <Thumbnail video={playlist.video} /> : <div className="playlist-gradient-thumb" style={{ '--playlist-color': playlist.color }}><Icon name="playlist" size={24}/></div>}<div className="profile-playlist-meta"><Icon name="library" size={14}/><span>{playlist.count} {playlist.count === 1 ? 'video' : 'videos'}</span></div></article>)}</div></section>}
   </>;

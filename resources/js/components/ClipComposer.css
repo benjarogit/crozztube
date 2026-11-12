@@ -32,8 +32,8 @@
 .clip-composer h2 { margin: 0; font-size: 1.5rem; line-height: 1.25; }
 .clip-composer header p { max-inline-size: 60ch; margin: 8px 0 0; color: var(--muted); line-height: 1.5; }
 .clip-composer-close { display: grid; flex: 0 0 44px; width: 44px; height: 44px; place-items: center; border: 1px solid var(--line); border-radius: 12px; background: var(--panel-2); color: var(--muted); cursor: pointer; }
-.clip-composer-close:hover { border-color: transparent; background: var(--primary-soft); color: var(--primary); }
-.clip-composer-close:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+.clip-composer-close:hover { border-color: transparent; background: var(--primary-soft); color: var(--link); }
+.clip-composer-close:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 
 .clip-composer form { display: grid; gap: 18px; padding: 24px; }
 .clip-composer-preview { display: block; }
@@ -79,7 +79,7 @@
   cursor: pointer;
 }
 .clip-composer-preview-toggle:disabled { cursor: wait; }
-.clip-composer-preview-toggle:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
+.clip-composer-preview-toggle:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
 .clip-composer-preview-affordance {
   display: grid;
   place-items: center;
@@ -103,7 +103,7 @@
 .clip-composer label { display: grid; gap: 8px; min-width: 0; font-weight: 650; }
 .clip-composer input:not([type="range"]),.clip-composer select { width: 100%; min-height: 46px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--panel-2); color: var(--text); font: inherit; }
 .clip-composer input:not([type="range"]):hover,.clip-composer select:hover { border-color: var(--line-strong); }
-.clip-composer input:not([type="range"]):focus,.clip-composer select:focus { border-color: var(--primary); outline: 2px solid color-mix(in srgb, var(--primary) 35%, transparent); outline-offset: 1px; }
+.clip-composer input:not([type="range"]):focus,.clip-composer select:focus { border-color: var(--link); outline: 2px solid color-mix(in srgb, var(--focus) 35%, transparent); outline-offset: 1px; }
 
 .clip-composer-timeline-meta {
   display: flex;
@@ -113,7 +113,7 @@
   font-variant-numeric: tabular-nums;
 }
 .clip-composer-timeline-meta strong { font-size: 1rem; }
-.clip-composer-timeline-meta span { color: var(--primary); font-size: .875rem; font-weight: 700; }
+.clip-composer-timeline-meta span { color: var(--link); font-size: .875rem; font-weight: 700; }
 .clip-composer-preview-trim .clip-composer-timeline-meta {
   padding-inline: 2px;
   color: #fff;
@@ -173,7 +173,7 @@
   padding: 0;
   border: 0;
   background: transparent;
-  accent-color: var(--primary);
+  accent-color: var(--link);
   cursor: pointer;
   -webkit-appearance: none;
   appearance: none;
@@ -181,8 +181,8 @@
 }
 .clip-composer-handle:disabled { cursor: wait; opacity: .65; }
 .clip-composer-handle:focus-visible { outline: none; }
-.clip-composer-handle:focus-visible::-webkit-slider-thumb { outline: 2px solid var(--primary); outline-offset: 2px; }
-.clip-composer-handle:focus-visible::-moz-range-thumb { outline: 2px solid var(--primary); outline-offset: 2px; }
+.clip-composer-handle:focus-visible::-webkit-slider-thumb { outline: 2px solid var(--focus); outline-offset: 2px; }
+.clip-composer-handle:focus-visible::-moz-range-thumb { outline: 2px solid var(--focus); outline-offset: 2px; }
 .clip-composer-handle::-webkit-slider-runnable-track { height: 8px; background: transparent; border: 0; }
 .clip-composer-handle::-moz-range-track { height: 8px; background: transparent; border: 0; }
 .clip-composer-handle::-webkit-slider-thumb {
@@ -226,19 +226,19 @@
 .clip-composer-duration-presets { display: flex; flex-wrap: wrap; gap: 8px; }
 .clip-composer-preview > .clip-composer-duration-presets { margin-top: 10px; }
 .clip-composer-duration-presets button { min-width: 58px; min-height: 36px; padding: 0 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--panel); color: var(--text); font: inherit; font-weight: 750; cursor: pointer; }
-.clip-composer-duration-presets button:hover:not(:disabled) { border-color: var(--primary); background: var(--primary-soft); color: var(--primary); }
-.clip-composer-duration-presets button:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
-.clip-composer-duration-presets button[aria-pressed="true"] { border-color: var(--primary); background: var(--primary-soft); color: var(--primary); }
+.clip-composer-duration-presets button:hover:not(:disabled) { border-color: var(--link); background: var(--primary-soft); color: var(--link); }
+.clip-composer-duration-presets button:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.clip-composer-duration-presets button[aria-pressed="true"] { border-color: var(--link); background: var(--primary-soft); color: var(--link); }
 .clip-composer-duration-presets button:disabled { cursor: not-allowed; opacity: .45; }
 
 .clip-composer footer { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px; padding-block-start: 4px; }
 .clip-composer footer .btn { min-height: 44px; }
 
 .clip-composer-progress { display: grid; gap: 8px; color: var(--muted); }
-.clip-composer-progress progress { width: 100%; height: 8px; accent-color: var(--primary); }
+.clip-composer-progress progress { width: 100%; height: 8px; accent-color: var(--link); }
 .clip-composer-error { margin: 0; color: var(--danger, #d14343); line-height: 1.5; }
 .clip-composer-fallback { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 16px; align-items: start; padding: 24px; }
-.clip-composer-fallback svg { color: var(--primary); }
+.clip-composer-fallback svg { color: var(--link); }
 .clip-composer-fallback strong { display: block; font-size: 1.05rem; line-height: 1.4; }
 .clip-composer-fallback p { margin: 6px 0 0; color: var(--muted); line-height: 1.5; }
 .clip-composer-fallback .btn { grid-column: 2; justify-self: start; min-height: 44px; }

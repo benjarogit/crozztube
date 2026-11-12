@@ -21,7 +21,7 @@
 .home-category-slider .carousel-next { right: 0; }
 
 .home-category-section .horizontal-videos:focus-visible {
-  outline: 2px solid var(--primary);
+  outline: 2px solid var(--focus);
   outline-offset: 4px;
   border-radius: 10px;
 }

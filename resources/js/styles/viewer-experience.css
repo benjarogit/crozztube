@@ -1,14 +1,21 @@
 /* Viewer surfaces share the existing brand, type and theme tokens. */
-.home-page .content-section { margin-top: 32px; }
+.home-page .content-section {
+  margin-top: 24px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--panel);
+  box-shadow: none;
+}
 .home-page .section-title { align-items: center; gap: 12px; }
-.home-page .section-title h2 { font-size: 21px; letter-spacing: -.025em; }
+.home-page .section-title h2 { font-size: 16px; font-weight: 750; letter-spacing: -.02em; line-height: 1.3; }
 .home-page .section-title .text-button { min-height: 44px; flex-shrink: 0; }
 .home-page .hero-feature .hero-copy { gap: 18px; max-width: 720px; }
 .home-page .hero-copy h1 { font-weight: 850; letter-spacing: -.025em; }
 .home-page .hero-copy p { color: #eee; max-width: 55ch; }
 .home-page .hero-carousel-controls { bottom: 12px; flex-wrap: wrap; }
 .home-page .hero-dot { min-width: 36px; height: 44px; }
-.home-page .hero-autoplay-toggle { width: 44px; height: 44px; backdrop-filter: none; background: #181818; color: #fff; }
+.home-page .hero-autoplay-toggle { width: 44px; height: 44px; backdrop-filter: none; background: color-mix(in srgb, var(--primary-ink) 62%, transparent); color: #fff; border-color: color-mix(in srgb, #fff 42%, transparent); }
 .home-page .hero-controls-end .duration { padding: 5px 8px; border-radius: 6px; background: #181818; color: #fff; line-height: 1.2; }
 
 .video-card { cursor: default; }
@@ -34,19 +41,24 @@
 .video-card .search-video-menu-shell { position: absolute; inset-inline-end: 0; top: -44px; }
 .video-card .more-button,
 .shorts-poster-card .more-button { width: 44px; height: 44px; }
-.video-card .channel-link { min-height: 28px; max-width: 100%; text-align: start; }
+.video-card .channel-link { display: inline-block; max-width: 100%; min-height: 0; margin: 2px 0 0; padding: 0; line-height: 1.5; text-align: start; vertical-align: baseline; }
+.video-card .channel-link:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
 .video-card .muted-line { margin-top: 2px; line-height: 1.5; }
 .video-card .channel-name { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.video-card .video-card-stats { position: absolute; z-index: 2; inset-inline-start: 8px; bottom: 8px; display: flex; align-items: center; gap: 6px; max-width: calc(100% - 88px); pointer-events: none; }
+.video-card .video-card-stat,
+.video-card .thumb .duration { display: inline-flex; align-items: center; gap: 4px; min-height: 26px; padding: 5px 8px; border: 1px solid rgba(255,255,255,.28); border-radius: 6px; background: rgba(0,0,0,.92); color: #fff; font-size: 13px; font-weight: 650; line-height: 1; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.video-card .video-card-stat svg { display: block; width: 14px; height: 14px; flex: 0 0 auto; }
 .video-card-link:hover h3,
 .shorts-card-link:hover h3 { text-decoration: underline; text-underline-offset: 3px; }
 .video-card-link:focus-visible,
 .shorts-card-link:focus-visible,
 .continue-video-link:focus-visible,
-.small-video-link:focus-visible { outline: 2px solid var(--primary); outline-offset: 4px; }
+.small-video-link:focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; }
 .video-card button:focus-visible,
 .continue-card button:focus-visible,
 .creator-card button:focus-visible,
-.small-video-row button:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+.small-video-row button:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 
 /* Shared grid tracks let the primary link and channel controls remain siblings. */
 .continue-card,
@@ -115,7 +127,8 @@
 .watch-layout-shell .watch-comments-action { display: none; }
 .watch-layout-shell .video-detail-menu-shell { margin-inline-start: auto; }
 .watch-layout-shell .watch-sidebar > .section-title { display: flex; flex-wrap: wrap; flex-direction: row; justify-content: space-between; align-items: center; gap: 12px; }
-.watch-layout-shell .watch-sidebar h2 { font-size: 20px; letter-spacing: -.025em; }
+.watch-layout-shell .watch-sidebar .section-title h2,
+.watch-layout-shell .watch-sidebar h2 { font-size: 16px; font-weight: 750; letter-spacing: -.02em; line-height: 1.3; }
 .watch-layout-shell .watch-autoplay-toggle { margin-inline-start: auto; min-height: 44px; }
 .watch-layout-shell .watch-playlist-context { width: 100%; overflow-wrap: anywhere; }
 .watch-layout-shell .watch-up-next-label { margin: 12px 0 4px; font-size: 14px; color: var(--muted); }
@@ -127,22 +140,24 @@
 .watch-chapters time { color: var(--text); font-weight: 650; font-variant-numeric: tabular-nums; }
 .watch-chapters li span { overflow-wrap: anywhere; }
 .watch-chapters li button:hover { background: var(--panel-2); }
-.watch-chapters :is(button, summary):focus-visible { outline: 2px solid var(--primary); outline-offset: -2px; }
+.watch-chapters :is(button, summary):focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
 .watch-layout-shell .watch-time-marks { margin-top: 16px; padding: 16px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); }
-.watch-time-marks h2 { margin: 0 0 12px; font-size: 1rem; }
-.watch-time-marks form { display: grid; gap: 8px; }
-.watch-time-marks textarea { min-height: 72px; padding: 8px 12px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel-2); color: var(--text); resize: vertical; }
-.watch-time-marks :is(button, label, textarea):focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
-.watch-time-marks [role="radiogroup"] { display: flex; flex-wrap: wrap; gap: 8px; }
-.watch-time-marks [role="radiogroup"] label { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; }
+.watch-time-marks-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+.watch-time-marks-head h2 { margin: 0; font-size: 16px; font-weight: 750; letter-spacing: -.02em; line-height: 1.3; }
+.watch-time-marks :is(button, label, textarea):focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.watch-time-mark-dialog [role="radiogroup"] { display: flex; flex-wrap: wrap; gap: 8px; }
+.watch-time-mark-dialog [role="radiogroup"] label { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font-weight: 650; }
+.watch-time-mark-dialog textarea { width: 100%; min-height: 96px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--panel-2); color: var(--text); font: inherit; resize: vertical; }
 .watch-time-marks ol { margin: 12px 0 0; padding: 0; list-style: none; }
 .watch-time-marks li { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding-block: 8px; border-top: 1px solid var(--line); }
 .watch-time-marks li > button:first-child { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 12px; flex: 1 1 220px; min-height: 44px; padding: 8px 4px; text-align: start; }
 .watch-time-marks time { font-variant-numeric: tabular-nums; font-weight: 650; }
 .watch-time-marks-error { color: var(--danger); }
 .watch-time-mark-switch { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
-.watch-time-mark-switch button { min-height: 44px; padding: 0 12px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel-2); color: var(--text); }
-.watch-time-mark-switch button[aria-selected="true"] { border-color: var(--primary); background: var(--primary-soft); }
+.watch-time-mark-switch button { height: 44px; min-height: 44px; padding: 0 16px; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); color: var(--text); font-size: 13px; font-weight: 800; }
+.watch-time-mark-switch button:hover { background: var(--panel-2); border-color: var(--line); color: var(--text); }
+.watch-time-mark-switch button[aria-selected="true"],
+.watch-time-mark-switch button[aria-selected="true"]:hover { background: var(--control-selected-bg); border-color: color-mix(in srgb, var(--primary) 70%, var(--surface-edge)); color: var(--text); }
 .video-player .watch-time-mark-cue { position: absolute; left: 16px; bottom: 76px; z-index: 4; display: flex; gap: 12px; max-width: min(520px, calc(100% - 32px)); margin: 0; padding: 8px 12px; border-radius: var(--radius); background: color-mix(in srgb, var(--panel) 88%, transparent); color: var(--text); pointer-events: none; }
 .watch-layout-shell .small-video-row { grid-template-columns: clamp(112px, 42%, 168px) minmax(0, 1fr); }
 .watch-layout-shell .small-video-details small { color: var(--muted); line-height: 1.5; }
@@ -150,7 +165,7 @@
 @container content-page (max-width: 639px) {
   .home-page .hero-feature .hero-copy { gap: 12px; }
   .home-page .hero-controls-end .duration { font-size: 12px; }
-  .home-page .section-title h2 { font-size: 19px; }
+  .home-page .section-title h2 { font-size: 16px; }
 }
 @media (hover: hover) and (pointer: fine) {
   .video-card .more-button { opacity: 0; }
@@ -193,24 +208,24 @@
 /* Keep small action text readable without changing the configured accent. */
 .home-page .section-title .text-button,
 .watch-layout-shell .description-card .text-button { color: var(--text); }
-.watch-layout-shell .watch-toolbar > .btn.primary,
-.watch-layout-shell .watch-toolbar > .btn.primary:is(:hover, :focus, :active) {
-  color: var(--viewer-accent-ink, #000);
-  background-color: var(--primary);
-}
-
-/* Poster actions use a calm high-contrast surface; gold confirms interaction. */
-.home-page .hero-buttons .btn { min-height: 48px; gap: 10px; padding-inline: 20px; font-size: 14px; font-weight: 650; }
-.home-page .hero-buttons .btn.primary,
-.home-page .hero-buttons .btn.primary:is(:focus, :active) { background: #fff; border-color: transparent; color: #101216; }
+.home-page .section-title .text-button:hover,
+.watch-layout-shell .description-card .text-button:hover { background: var(--panel-2); color: var(--text); }
 .home-page .hero-buttons .btn.primary svg,
 .home-page .spotlight-watch-action svg { fill: currentColor; }
-.home-page .hero-buttons .btn.primary:is(:hover, :focus-visible, :active) { background: var(--primary); border-color: var(--primary); color: var(--viewer-accent-ink, #000); }
-.home-page .hero-buttons .btn:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+.home-page .hero-buttons .btn.glass:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
 .home-page .spotlight-card:hover,
 .home-page .spotlight-card:focus-visible { background: var(--panel-2); }
-.home-page .spotlight-card:is(:hover, :focus-visible, :active) .spotlight-watch-action { background: var(--primary); border-color: var(--primary); color: var(--viewer-accent-ink, #000); }
-.home-page .spotlight-card:focus-visible { outline: 2px solid var(--primary); outline-offset: -3px; }
+.home-page .spotlight-card:is(:hover, :focus-visible) .spotlight-watch-action { background: var(--primary); border-color: transparent; color: var(--primary-ink); }
+.home-page .spotlight-card:active .spotlight-watch-action { background: var(--control-primary-press); border-color: transparent; color: var(--primary-ink); }
+.home-page .spotlight-card:focus-visible { outline: 2px solid var(--focus); outline-offset: -3px; }
+.action-pill.crz-mirror-toggle.is-active,
+.action-pill.crz-mirror-toggle.is-active:hover,
+.action-pill.crz-mirror-toggle.is-active:active,
+.action-pill.crz-mirror-link:hover {
+  background: var(--control-selected-bg);
+  border-color: var(--line);
+  color: var(--text);
+}
 .thumb .duration { color: #fff; }
 .trending-row .duration,
 .spotlight-card .duration,
@@ -218,15 +233,115 @@
 .small-video-row .duration { inset-inline-end: 6px; bottom: 6px; min-height: 20px; padding: 3px 5px; font-size: 11px; }
 /* Compact browse rows get the same whole-row feedback for mouse and keyboard. */
 .explore-feature-grid .small-video-row { border-radius: var(--radius); transition: background-color .15s ease; }
-.explore-feature-grid .small-video-row:is(:hover, :focus-within) { background: var(--primary-soft); }
+.explore-feature-grid .small-video-row:is(:hover, :focus-within) { background: var(--panel-2); }
 .explore-feature-grid .small-video-row:is(:hover, :focus-within) .small-video-link strong { color: var(--text); text-decoration: underline; text-underline-offset: 3px; }
 @container content-page (max-width: 639px) {
-  .home-page .hero-buttons .btn.primary,
-  .home-page .hero-buttons .btn.primary:is(:focus, :active) { background: var(--text); color: var(--panel); border-color: var(--text); }
-  .home-page .hero-buttons .btn.primary:is(:hover, :focus-visible, :active) { background: var(--primary); color: var(--viewer-accent-ink, #000); border-color: var(--primary); }
-  .home-page .hero-buttons .btn:focus-visible { outline-color: var(--text); }
+  .home-page .hero-buttons .btn.glass,
+  .home-page .hero-buttons .btn.glass:hover,
+  .home-page .hero-buttons .btn.glass:active {
+    background: var(--panel);
+    border-color: var(--line);
+    color: var(--text);
+    backdrop-filter: none;
+  }
+  .home-page .hero-buttons .btn.glass:hover { background: var(--panel-2); }
+  .home-page .hero-buttons .btn.glass:active { background: var(--control-press-bg); }
+  .home-page .hero-buttons .btn.glass.active,
+  .home-page .hero-buttons .btn.glass.active:hover,
+  .home-page .hero-buttons .btn.glass.active:active {
+    background: var(--control-selected-bg);
+    border-color: var(--line);
+    color: var(--text);
+  }
+  .home-page .hero-buttons .btn:focus-visible { outline-color: var(--focus); }
 }
 @media (prefers-reduced-motion: reduce) {
   .home-page .spotlight-watch-action,
   .explore-feature-grid .small-video-row { transition: none; }
+}
+
+/* Shelves and watch blocks share one panel: card fill, visible 1px edge, one radius, one padding.
+   Thumbnails and rows inside a shelf are tiles, not a second card. */
+.home-page .trending-panel,
+.home-page .spotlight-stack,
+.watch-layout-shell .description-card,
+.watch-layout-shell .watch-sidebar,
+.watch-layout-shell .watch-chapters,
+.watch-layout-shell .watch-time-marks,
+.watch-layout-shell .watch-transcript,
+.watch-layout-shell .watch-comments-card {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--panel);
+  box-shadow: none;
+}
+.watch-layout-shell .watch-chapters,
+.watch-layout-shell .watch-time-marks,
+.watch-layout-shell .watch-transcript,
+.watch-layout-shell .watch-comments-card { padding: 18px; }
+.home-page .continue-card,
+.home-page .creator-card {
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+}
+.watch-layout-shell .watch-time-marks h2,
+.watch-layout-shell .watch-transcript summary,
+.watch-layout-shell .watch-chapters summary,
+.watch-layout-shell .watch-comments-head h2 {
+  font-size: 16px;
+  font-weight: 750;
+  letter-spacing: -.02em;
+  line-height: 1.3;
+}
+.watch-layout-shell .watch-comments-head h2 { margin: 0; }
+:root[data-theme="dark"] .home-page .content-section,
+:root[data-theme="dark"] .home-page .trending-panel,
+:root[data-theme="dark"] .home-page .spotlight-stack,
+:root[data-theme="dark"] .watch-layout-shell .description-card,
+:root[data-theme="dark"] .watch-layout-shell .watch-sidebar,
+:root[data-theme="dark"] .watch-layout-shell .watch-chapters,
+:root[data-theme="dark"] .watch-layout-shell .watch-time-marks,
+:root[data-theme="dark"] .watch-layout-shell .watch-transcript,
+:root[data-theme="dark"] .watch-layout-shell .watch-comments-card {
+  background: var(--panel);
+  border-color: var(--surface-edge);
+  box-shadow: none;
+}
+
+/* Watch toolbar controls share one geometry. Gold stays on the primary action. */
+.watch-layout-shell .watch-toolbar .btn,
+.watch-layout-shell .watch-toolbar .action-pill {
+  height: 44px;
+  min-height: 44px;
+  border-radius: 12px;
+  padding: 0 16px;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+.watch-layout-shell .watch-toolbar .btn svg,
+.watch-layout-shell .watch-toolbar .action-pill svg { width: 18px; height: 18px; flex: 0 0 18px; }
+.watch-layout-shell .watch-toolbar .action-pill.icon-only { width: 44px; padding: 0; }
+.watch-layout-shell .watch-toolbar .btn:not(.primary):not(.is-selected),
+.watch-layout-shell .watch-toolbar .action-pill:not(.active):not(.is-active) {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  color: var(--text);
+}
+.watch-layout-shell .watch-toolbar .btn:not(.primary):not(.is-selected):hover,
+.watch-layout-shell .watch-toolbar .action-pill:not(.active):not(.is-active):hover {
+  background: var(--panel-2);
+  border-color: var(--line);
+  color: var(--text);
+}
+.watch-layout-shell .watch-toolbar .action-pill.active,
+.watch-layout-shell .watch-toolbar .action-pill.active:hover,
+.watch-layout-shell .watch-toolbar .action-pill.is-active,
+.watch-layout-shell .watch-toolbar .action-pill.is-active:hover {
+  background: var(--control-selected-bg);
+  border-color: color-mix(in srgb, var(--primary) 70%, var(--surface-edge));
+  color: var(--text);
 }

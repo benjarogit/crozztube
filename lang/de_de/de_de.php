@@ -4922,4 +4922,5 @@ Anschließend erstellt die Verarbeitung die Videoauflösungen und bei Bedarf Vor
   'All time marks' => 'Alle Zeitmarken',
   'Week rank' => 'Woche',
   'Season rank' => 'Saison',
+  'Set time mark' => 'Zeitmarke setzen',
 );
