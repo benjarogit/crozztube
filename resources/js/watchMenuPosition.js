@@ -10,6 +10,6 @@ export function watchMenuPosition(trigger, viewport, naturalHeight) {
   return {
     placement, width, maxHeight,
     left: Math.max(viewport.left, Math.min(trigger.right - width, viewport.right - width)),
-    top: placement === 'up' ? trigger.top - gap - height : trigger.bottom + gap,
+    top: Math.max(viewport.top, placement === 'up' ? trigger.top - gap - height : trigger.bottom + gap),
   };
 }

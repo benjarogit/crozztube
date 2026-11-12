@@ -19,6 +19,10 @@
     "Time mark": { "en": "Time mark", "de": "Zeitmarke" },
     "Time marks this week": { "en": "Time marks this week", "de": "Zeitmarken dieser Woche" },
     "Time marks this season": { "en": "Time marks this season", "de": "Zeitmarken dieser Saison" },
-    "No ranked marks yet.": { "en": "No ranked marks yet.", "de": "Noch keine gewerteten Marken." }
+    "No ranked marks yet.": { "en": "No ranked marks yet.", "de": "Noch keine gewerteten Marken." },
+    "Time mark ranking": { "en": "Time mark ranking", "de": "Zeitmarken-Wertung" },
+    "All time marks": { "en": "All time marks", "de": "Alle Zeitmarken" },
+    "Week rank": { "en": "Week rank", "de": "Woche" },
+    "Season rank": { "en": "Season rank", "de": "Saison" }
   }
 }

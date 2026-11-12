@@ -4904,4 +4904,8 @@ The processing job encodes renditions, creates thumbnails when needed, stores ca
   'Time marks this week' => 'Time marks this week',
   'Time marks this season' => 'Time marks this season',
   'No ranked marks yet.' => 'No ranked marks yet.',
+  'Time mark ranking' => 'Time mark ranking',
+  'All time marks' => 'All time marks',
+  'Week rank' => 'Week rank',
+  'Season rank' => 'Season rank',
 );

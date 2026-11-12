@@ -15139,6 +15139,7 @@ function WatchTimeMarks({ slug, auth, navigate, currentSeconds, onSeek, notify, 
   const [marks, setMarks] = useState([]);
   const [week, setWeek] = useState([]);
   const [season, setSeason] = useState([]);
+  const [rankWindow, setRankWindow] = useState('all');
   const [note, setNote] = useState('');
   const [visibility, setVisibility] = useState('private');
   const [busy, setBusy] = useState(false);
@@ -15210,6 +15211,11 @@ function WatchTimeMarks({ slug, auth, navigate, currentSeconds, onSeek, notify, 
     }
   };
 
+  const rankedRows = rankWindow === 'week' ? week : rankWindow === 'season' ? season : null;
+  const shownMarks = rankedRows
+    ? rankedRows.map((row) => ({ ...(marks.find((mark) => mark.id === row.id) || {}), ...row, visibility: 'public' }))
+    : marks;
+
   const copyTimeLink = async (mark) => {
     const url = watchUrlAtTime(`${window.location.origin}/watch/${slug}`, mark.start_seconds);
     try {
@@ -15233,18 +15239,16 @@ function WatchTimeMarks({ slug, auth, navigate, currentSeconds, onSeek, notify, 
       <button type="submit" className="btn subtle" disabled={busy}>{busy ? t('Saving...') : t('Save time mark')}</button>
     </form>
     {error && <p className="watch-time-marks-error" role="alert">{error}</p>}
-    <div className="watch-time-mark-ranks">
-      {[['Time marks this week', week], ['Time marks this season', season]].map(([label, rows]) => <section key={label}>
-        <h3>{t(label)}</h3>
-        {rows.length ? <ol>{rows.map((mark) => <li key={mark.id}><button type="button" onClick={() => onSeek(mark.start_seconds)}><time data-i18n-skip>{formatDurationSeconds(mark.start_seconds) || '0:00'}</time><span data-i18n-skip dir="auto">{mark.body || t('Time mark')}</span></button><span data-i18n-skip>{mark.votes}</span></li>)}</ol> : <p>{t('No ranked marks yet.')}</p>}
-      </section>)}
+    <div className="watch-time-mark-switch" role="tablist" aria-label={t('Time mark ranking')}>
+      {[['all', 'All time marks'], ['week', 'Week rank'], ['season', 'Season rank']].map(([value, label]) => <button key={value} type="button" role="tab" aria-selected={rankWindow === value} onClick={() => setRankWindow(value)}>{t(label)}</button>)}
     </div>
-    {marks.length ? <ol>{marks.map((mark) => <li key={mark.id}>
+    {shownMarks.length ? <ol>{shownMarks.map((mark) => <li key={mark.id}>
       <button type="button" onClick={() => onSeek(mark.start_seconds)}><time data-i18n-skip>{formatDurationSeconds(mark.start_seconds) || '0:00'}</time><span data-i18n-skip dir="auto">{mark.body || t('Time mark')}</span></button>
       {mark.visibility === 'private' && <span>{t('Private')}</span>}
       {mark.visibility === 'public' && <button type="button" onClick={() => copyTimeLink(mark)}>{t('Copy time link')}</button>}
-      {mark.visibility === 'public' && !mark.owned && <button type="button" onClick={() => voteForMark(mark)} disabled={mark.voted} aria-pressed={Boolean(mark.voted)}>{t('Vote')} <span data-i18n-skip>{mark.votes_count || 0}</span></button>}
-    </li>)}</ol> : <p>{t('No time marks yet.')}</p>}
+      {mark.visibility === 'public' && !mark.owned && <button type="button" onClick={() => voteForMark(mark)} disabled={mark.voted} aria-pressed={Boolean(mark.voted)}>{t('Vote')} <span data-i18n-skip>{rankWindow === 'all' ? (mark.votes_count || 0) : (mark.votes || 0)}</span></button>}
+      {rankWindow !== 'all' && mark.owned && <span data-i18n-skip>{mark.votes || 0}</span>}
+    </li>)}</ol> : <p>{rankWindow === 'all' ? t('No time marks yet.') : t('No ranked marks yet.')}</p>}
   </section>;
 }
 
