@@ -42,7 +42,15 @@
     },
     {
       "id": 4,
-      "status": "active"
+      "status": "accepted",
+      "acceptance": {
+        "note": "Cursor beforeShellExecution blocked the real deny probe; runtime-check passed against the probe-blocked receipt. step-04-time-marks passed 14 checks: share and ranking hide private notes, guests see only public marks, one vote row per viewer, self-votes rejected, and the fixed clock keeps votes older than 7 days out of the week rank, votes inside 180 days in the season rank, and public marks older than 30 days without a recent vote out of the overlay. On https://crozztube.local:8443 the guest watch page showed only the public mark test at 1:30, opened Zeitmarke setzen with private note and public mark, and seeked to 90.9s. That public mark was left in place.",
+        "checkedAt": "2026-11-12T13:28:43.728Z",
+        "sourceDigest": "f11cda11271bc7dbfd3b5473574a7bd7d76f1fc641dba99c5d728d8c0b011d77",
+        "checks": [
+          "step-04-time-marks"
+        ]
+      }
     },
     {
       "id": 5,
