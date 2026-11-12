@@ -301,6 +301,8 @@ Do not take:
 
 ### Watch parties and Discord
 
+Operational requirements that must exist before implementation: [`discord-watch-party-requirements.md`](discord-watch-party-requirements.md). No Discord application, token or live test exists yet.
+
 | ID | Decision | Priority | Status |
 |---|---|---|---|
 | W1 | Provider-neutral watch parties: CrozzTube syncs room state only | P2 | `idea` later gate complex |

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "branch": "codex/viewer-community-features",
+  "branch": "main",
   "remote": "origin",
   "baselineCommit": "d147e6a",
   "steps": [
@@ -203,6 +203,13 @@
     }
   ],
   "checks": {
+    "step-04-time-marks": {
+      "argv": [
+        "bash",
+        "tools/test/step-04-time-marks.sh"
+      ],
+      "timeoutMs": 120000
+    },
     "step-03-clips": {
       "argv": [
         "bash",

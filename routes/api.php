@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\PluginController;
 use App\Http\Controllers\Api\SubscriptionController;
 use App\Http\Controllers\Api\SystemUpdateController;
+use App\Http\Controllers\Api\TimeMarkController;
 use App\Http\Controllers\Api\UploadSessionController;
 use App\Http\Controllers\Api\VideoBoostController;
 use App\Http\Controllers\Api\VideoController;
@@ -261,6 +262,8 @@ Route::get('/videos', [FeedController::class, 'index']);
 Route::get('/videos/{video:slug}', [VideoController::class, 'show']);
 Route::get('/videos/{video:slug}/playback-session', [VideoController::class, 'playbackSession'])->middleware('throttle:120,1');
 Route::get('/videos/{video:slug}/comments', [CommentController::class, 'index']);
+Route::get('/videos/{video:slug}/time-marks', [TimeMarkController::class, 'index']);
+Route::get('/videos/{video:slug}/time-marks/share', [TimeMarkController::class, 'share']);
 Route::get('/comments/{comment}/replies', [CommentController::class, 'replies']);
 Route::get('/channels/{channel:slug}/community-posts', [CommunityPostController::class, 'index']);
 Route::get('/community-posts', [CommunityPostController::class, 'feed']);
@@ -1480,6 +1483,9 @@ Route::middleware(['auth:sanctum', \App\Http\Middleware\EnsureUgcSafety::class])
     Route::post('/videos/{video:slug}/report', [VideoController::class, 'report']);
 
     Route::post('/videos/{video:slug}/comments', [CommentController::class, 'store']);
+    Route::get('/videos/{video:slug}/time-marks/mine', [TimeMarkController::class, 'mine']);
+    Route::post('/videos/{video:slug}/time-marks', [TimeMarkController::class, 'store']);
+    Route::post('/time-marks/{timeMark}/vote', [TimeMarkController::class, 'vote']);
     Route::put('/comments/{comment}', [CommentController::class, 'update']);
     Route::delete('/comments/{comment}', [CommentController::class, 'destroy']);
     Route::post('/comments/{comment}/pin', [CommentController::class, 'togglePin']);

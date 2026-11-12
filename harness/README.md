@@ -47,7 +47,7 @@ Nach einem Pushfehler: Ursache beheben, `resume`, anschließend denselben
 `complete`- beziehungsweise `checkpoint`-Aufruf erneut ausführen.
 
 Es gibt weder automatische Force-Pushes noch Änderungen an gemeinsamen
-Git-LFS-Hooks. Der Zielbranch ist `origin/codex/viewer-community-features`.
+Git-LFS-Hooks. Der Zielbranch ist `origin/main`.
 
 ## Rückfragen, Unterbrechungen und Blockaden
 
