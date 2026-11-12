@@ -66,11 +66,10 @@
 .clip-composer-preview[data-ready="true"] .clip-composer-preview-empty { display: none; }
 .clip-composer-preview-toggle {
   position: absolute;
-  inset: 0;
+  inset: 0 0 42px;
   display: grid;
   place-items: center;
   width: 100%;
-  height: 100%;
   padding: 0;
   border: 0;
   border-radius: inherit;
@@ -88,6 +87,76 @@
   border-radius: 50%;
   background: color-mix(in srgb, #000 55%, transparent);
   pointer-events: none;
+}
+.clip-composer-player-controls {
+  position: absolute;
+  inset-inline: 12px;
+  bottom: 8px;
+  z-index: 2;
+  height: 32px;
+}
+.clip-composer-player-track {
+  position: absolute;
+  inset-inline: 0;
+  top: 7px;
+  height: 5px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .4);
+  pointer-events: none;
+}
+.clip-composer-player-selection {
+  position: absolute;
+  inset-block: 0;
+  min-width: 3px;
+  border-radius: inherit;
+  background: var(--primary);
+}
+.clip-composer-player-scrubber {
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  z-index: 2;
+  width: 100%;
+  height: 18px;
+  margin: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+}
+.clip-composer-player-scrubber::-webkit-slider-runnable-track { height: 5px; background: transparent; }
+.clip-composer-player-scrubber::-moz-range-track { height: 5px; background: transparent; }
+.clip-composer-player-scrubber::-webkit-slider-thumb {
+  width: 12px;
+  height: 12px;
+  margin-top: -3.5px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: var(--primary);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .45);
+  appearance: none;
+  -webkit-appearance: none;
+}
+.clip-composer-player-scrubber::-moz-range-thumb {
+  width: 9px;
+  height: 9px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: var(--primary);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .45);
+}
+.clip-composer-player-scrubber:focus-visible { outline: 2px solid #fff; outline-offset: 3px; border-radius: 4px; }
+.clip-composer-player-time {
+  position: absolute;
+  inset-inline-start: 0;
+  bottom: 0;
+  color: #fff;
+  font-size: .72rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, .8);
 }
 
 .clip-composer label { display: grid; gap: 8px; min-width: 0; font-weight: 650; }
@@ -137,22 +206,6 @@
   border-radius: inherit;
   background: var(--primary);
 }
-.clip-composer-overview {
-  position: relative;
-  height: 8px;
-  border-radius: 999px;
-  background: var(--line);
-  cursor: pointer;
-}
-.clip-composer-overview-window,
-.clip-composer-overview-clip {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  border-radius: inherit;
-}
-.clip-composer-overview-window { background: color-mix(in srgb, var(--primary) 28%, var(--line)); }
-.clip-composer-overview-clip { top: -2px; bottom: -2px; background: var(--primary); }
 .clip-composer-timeline-cursor {
   position: absolute;
   top: -4px;

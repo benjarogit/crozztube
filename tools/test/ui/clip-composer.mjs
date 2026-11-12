@@ -106,13 +106,15 @@ try {
         await expect(dialog.getByLabel(labels.visibility)).toHaveValue('private');
         await expect(dialog.locator('.clip-composer-preview canvas')).toBeVisible();
         await expect(dialog.locator('.clip-composer-preview-controls')).toHaveCount(0);
+        await expect(dialog.locator('.clip-composer-overview')).toHaveCount(0);
+        await expect(dialog.locator('.clip-composer-preview-frame .clip-composer-player-controls')).toBeVisible();
         await expect.poll(async () => dialog.locator('.clip-composer-preview canvas').evaluate(canvas => {
           if (!canvas.width || !canvas.height) return false;
           const context2d = canvas.getContext('2d');
           const sample = context2d.getImageData(Math.floor(canvas.width / 2), Math.floor(canvas.height / 2), 1, 1).data;
           return sample[0] + sample[1] + sample[2] > 0;
         })).toBe(true);
-        checks += 3;
+        checks += 5;
         const play = dialog.getByRole('button', { name: labels.play, exact: true });
         await play.click();
         await expect(dialog.getByRole('button', { name: labels.pause, exact: true })).toBeVisible();

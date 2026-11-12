@@ -83,8 +83,6 @@ export default function ClipComposer({
   const endPercent = ((Number(form.end) - detailStart) / detailWidth) * 100;
   const cursorInView = Number(previewCursor) >= detailStart && Number(previewCursor) <= detailEnd;
   const cursorPercent = cursorInView ? ((Number(previewCursor) - detailStart) / detailWidth) * 100 : startPercent;
-  const overviewStart = totalSeconds ? (detailStart / totalSeconds) * 100 : 0;
-  const overviewWidth = totalSeconds ? (detailWidth / totalSeconds) * 100 : 100;
   const overviewClip = totalSeconds ? (Number(form.start) / totalSeconds) * 100 : 0;
   const overviewClipWidth = totalSeconds ? Math.max((clipSeconds / totalSeconds) * 100, 0.8) : 100;
   const mountedMedia = getMediaElement?.();
@@ -275,14 +273,6 @@ export default function ClipComposer({
     seekSchedulerRef.current?.commit(placeClip(time - clipSeconds / 2));
   };
 
-  const onOverviewPointerDown = event => {
-    if (busy) return;
-    const rect = event.currentTarget.getBoundingClientRect();
-    if (!rect.width) return;
-    const ratio = clamp((event.clientX - rect.left) / rect.width, 0, 1);
-    seekSchedulerRef.current?.commit(placeClip(ratio * totalSeconds - clipSeconds / 2));
-  };
-
   const close = async () => {
     abortRef.current?.abort();
     const transferId = transferRef.current;
@@ -448,6 +438,30 @@ export default function ClipComposer({
             >
               {previewReady && !previewPlaying && <span className="clip-composer-preview-affordance" aria-hidden="true"><Icon name="play" size={28}/></span>}
             </button>
+            <div className="clip-composer-player-controls">
+              <div className="clip-composer-player-track" aria-hidden="true">
+                <i className="clip-composer-player-selection" style={{ insetInlineStart: `${overviewClip}%`, width: `${overviewClipWidth}%` }} />
+              </div>
+              <label className="sr-only" htmlFor="clip-player-start">{t('Seek')}</label>
+              <input
+                id="clip-player-start"
+                className="clip-composer-player-scrubber"
+                type="range"
+                min="0"
+                max={Math.max(0, totalSeconds - clipSeconds)}
+                step="1"
+                value={Math.min(Number(form.start), Math.max(0, totalSeconds - clipSeconds))}
+                disabled={busy}
+                aria-valuetext={formatTimestamp(form.start)}
+                onChange={event => {
+                  const start = placeClip(event.currentTarget.value);
+                  seekSchedulerRef.current?.schedule(start);
+                }}
+                onPointerUp={event => seekSchedulerRef.current?.commit(Number(event.currentTarget.value))}
+                onKeyUp={event => seekSchedulerRef.current?.commit(Number(event.currentTarget.value))}
+              />
+              <span className="clip-composer-player-time" data-i18n-skip>{formatTimestamp(form.start)} / {formatTimestamp(totalSeconds)}</span>
+            </div>
           </div>
         </div>
         <div
@@ -503,14 +517,6 @@ export default function ClipComposer({
           <div className="clip-composer-slider-scale" data-i18n-skip>
             <span>{formatTimestamp(detailStart)}</span>
             <span>{formatTimestamp(detailEnd)}</span>
-          </div>
-          <div className="clip-composer-overview" aria-hidden="true" onPointerDown={onOverviewPointerDown}>
-            <i className="clip-composer-overview-window" style={{ insetInlineStart: `${overviewStart}%`, width: `${overviewWidth}%` }} />
-            <i className="clip-composer-overview-clip" style={{ insetInlineStart: `${overviewClip}%`, width: `${overviewClipWidth}%` }} />
-          </div>
-          <div className="clip-composer-slider-scale" data-i18n-skip>
-            <span>0:00</span>
-            <span>{formatTimestamp(totalSeconds)}</span>
           </div>
           <div className="clip-composer-duration-presets" aria-label={t('Duration')}>
             {[15, 30, 60].map(seconds => <button key={seconds} type="button" disabled={busy || seconds > totalSeconds}
