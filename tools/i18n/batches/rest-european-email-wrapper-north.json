@@ -1,0 +1,23 @@
+{
+  "context": "Native notification header and full sender footer for the seven northern language families, literal linked site token unchanged.",
+  "messages": {
+    "Notification": {
+      "nl": "Melding",
+      "af": "Kennisgewing",
+      "da": "Notifikation",
+      "sv": "Avisering",
+      "nb": "Varsel",
+      "nn": "Varsel",
+      "fi": "Ilmoitus"
+    },
+    "This email was sent by {site}.": {
+      "nl": "Deze e-mail is verstuurd door {site}.",
+      "af": "Hierdie e-pos is deur {site} gestuur.",
+      "da": "Denne mail er sendt af {site}.",
+      "sv": "Det här mejlet skickades av {site}.",
+      "nb": "Denne e-posten ble sendt av {site}.",
+      "nn": "Denne e-posten vart send av {site}.",
+      "fi": "Tämän sähköpostin lähetti {site}."
+    }
+  }
+}

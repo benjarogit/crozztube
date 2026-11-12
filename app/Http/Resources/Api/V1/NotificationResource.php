@@ -35,6 +35,7 @@ class NotificationResource extends JsonResource
     private function title(string $actorName): string
     {
         return match ($this->type) {
+            'clip_ready' => 'Your clip is ready to watch.',
             'video_ready' => 'Your video is ready',
             'live_replay_ready' => 'Live replay ready',
             'video_comment' => $actorName.' commented on your video',
@@ -62,6 +63,7 @@ class NotificationResource extends JsonResource
     private function body(): string
     {
         return mb_substr((string) match ($this->type) {
+            'clip_ready' => data_get($this->data, 'title', ''),
             'video_ready' => $this->video?->title ?: 'Your upload has finished processing.',
             'live_replay_ready' => $this->video?->title ?: 'Your replay is available.',
             'video_comment', 'comment_reply', 'comment_mention', 'community_comment', 'community_mention' => data_get($this->data, 'body', $this->comment?->body ?? ''),
@@ -74,6 +76,11 @@ class NotificationResource extends JsonResource
 
     private function action(): ?array
     {
+        if ($this->type === 'clip_ready') {
+            $id = (string) data_get($this->data, 'clip_id', '');
+
+            return \Illuminate\Support\Str::isUuid($id) ? ['type' => 'clip_transfer', 'id' => $id] : null;
+        }
         if (in_array($this->type, ['account_restricted', 'withdrawal_approved', 'withdrawal_rejected', 'admin_role_moderator'], true)) {
             return ['type' => 'account'];
         }

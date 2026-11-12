@@ -212,7 +212,7 @@ class SearchController extends Controller
             });
         }
         if ($feature === 'captions') {
-            $query->whereNotNull('captions_path');
+            $query->where(fn ($captions) => $captions->whereNotNull('captions_path')->orWhereNotNull('caption_metadata->imported_tracks'));
         } elseif ($feature === 'kids') {
             $query->where('made_for_kids', true);
         }

@@ -146,6 +146,10 @@ Route::prefix('v1')
             Route::get('/videos/{video:slug}/comments/{comment}/context', [CommentController::class, 'context'])
                 ->name('videos.comments.context');
             Route::get('/videos/{video:slug}', [VideoController::class, 'show'])->name('videos.show');
+            Route::get('/clips/{uuid}', [\App\Http\Controllers\Api\ClipTransferController::class, 'publicShow'])
+                ->whereUuid('uuid')->name('clips.show');
+            Route::get('/clips/{uuid}/playback', [\App\Http\Controllers\Api\ClipTransferController::class, 'publicPlayback'])
+                ->whereUuid('uuid')->middleware('throttle:20,1')->name('clips.playback');
             Route::get('/comments/{comment}/replies', [CommentController::class, 'replies'])->name('comments.replies');
             Route::get('/community-posts', [CommunityController::class, 'index'])->name('community.index');
             Route::get('/community-posts/discovery', [CommunityController::class, 'discovery'])->name('community.discovery');
@@ -208,6 +212,32 @@ Route::prefix('v1')
             EnsureAccountActive::class,
             TrackNativeDeviceSession::class,
         ])->group(function (): void {
+            Route::middleware(RequireTokenAbility::class.':account:read')->group(function (): void {
+                Route::get('/clip-transfers', [\App\Http\Controllers\Api\ClipTransferController::class, 'index'])->name('clip-transfers.index');
+                Route::get('/clip-transfers/{uuid}', [\App\Http\Controllers\Api\ClipTransferController::class, 'show'])->whereUuid('uuid')->name('clip-transfers.show');
+                Route::get('/clip-transfers/{uuid}/playback', [\App\Http\Controllers\Api\ClipTransferController::class, 'playback'])->whereUuid('uuid')->middleware('throttle:20,1')->name('clip-transfers.playback');
+                Route::get('/clip-collections', [\App\Http\Controllers\Api\ClipCollectionController::class, 'index'])->name('clip-collections.index');
+                Route::get('/clip-collections/{collection}', [\App\Http\Controllers\Api\ClipCollectionController::class, 'show'])->name('clip-collections.show');
+            });
+            Route::post('/clip-transfers/{uuid}/cancel', [\App\Http\Controllers\Api\ClipTransferController::class, 'cancel'])
+                ->whereUuid('uuid')->middleware([RequireTokenAbility::class.':account:write', 'throttle:api-write'])->name('clip-transfers.cancel');
+            Route::post('/videos/{video:slug}/clip-transfers', [\App\Http\Controllers\Api\ClipTransferController::class, 'store'])
+                ->middleware([RequireTokenAbility::class.':account:write', 'throttle:api-write'])->name('clip-transfers.store');
+            Route::post('/clip-transfers/{uuid}/upload-grant', [\App\Http\Controllers\Api\ClipTransferController::class, 'uploadGrant'])
+                ->whereUuid('uuid')->middleware([RequireTokenAbility::class.':account:write', 'throttle:api-write'])->name('clip-transfers.upload-grant');
+            Route::post('/clip-transfers/{uuid}/uploaded', [\App\Http\Controllers\Api\ClipTransferController::class, 'uploaded'])
+                ->whereUuid('uuid')->middleware([RequireTokenAbility::class.':account:write', 'throttle:api-write'])->name('clip-transfers.uploaded');
+            Route::patch('/clip-transfers/{uuid}', [\App\Http\Controllers\Api\ClipTransferController::class, 'update'])
+                ->whereUuid('uuid')->middleware([RequireTokenAbility::class.':account:write', 'throttle:api-write'])->name('clip-transfers.update');
+            Route::delete('/clip-transfers/{uuid}', [\App\Http\Controllers\Api\ClipTransferController::class, 'destroy'])
+                ->whereUuid('uuid')->middleware([RequireTokenAbility::class.':account:write', 'throttle:api-write'])->name('clip-transfers.destroy');
+            Route::middleware(RequireTokenAbility::class.':account:write')->group(function (): void {
+                Route::post('/clip-collections', [\App\Http\Controllers\Api\ClipCollectionController::class, 'store'])->middleware('throttle:api-write')->name('clip-collections.store');
+                Route::patch('/clip-collections/{collection}', [\App\Http\Controllers\Api\ClipCollectionController::class, 'update'])->middleware('throttle:api-write')->name('clip-collections.update');
+                Route::delete('/clip-collections/{collection}', [\App\Http\Controllers\Api\ClipCollectionController::class, 'destroy'])->middleware('throttle:api-write')->name('clip-collections.destroy');
+                Route::put('/clip-collections/{collection}/clips/{uuid}', [\App\Http\Controllers\Api\ClipCollectionController::class, 'addClip'])->whereUuid('uuid')->middleware('throttle:api-write')->name('clip-collections.clips.add');
+                Route::delete('/clip-collections/{collection}/clips/{uuid}', [\App\Http\Controllers\Api\ClipCollectionController::class, 'removeClip'])->whereUuid('uuid')->middleware('throttle:api-write')->name('clip-collections.clips.remove');
+            });
             Route::middleware(RequireTokenAbility::class.':account:read')->group(function (): void {
                 Route::get('/auth/sessions', [NativeDeviceSessionController::class, 'index'])->name('auth.sessions.index');
                 Route::delete('/auth/sessions/current', [NativeDeviceSessionController::class, 'destroyCurrent'])->name('auth.sessions.current.destroy');

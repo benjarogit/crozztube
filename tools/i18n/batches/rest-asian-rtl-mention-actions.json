@@ -1,0 +1,27 @@
+{
+  "context": "Editorial whole mention/hashtag action titles with named literal name/tag placeholders; source content and names stay unchanged while navigation purpose is translated. Taiwan/Hong Kong post terminology preserved.",
+  "messages": {
+    "View posts tagged {tag}": {
+      "ar": "عرض منشورات بالوسم {tag}",
+      "ja": "{tag}の付いた投稿を見る",
+      "ko_kr": "{tag} 태그가 붙은 게시물 보기",
+      "zh_cn": "查看带有 {tag} 标签的帖子",
+      "zh_tw": "查看標有 {tag} 的貼文",
+      "zh_hk": "查看標有 {tag} 的帖文",
+      "tr_tr": "{tag} etiketli gönderileri gör",
+      "id_id": "Lihat postingan bertag {tag}",
+      "ms_my": "Lihat hantaran bertag {tag}"
+    },
+    "View {name} channel": {
+      "ar": "فتح قناة {name}",
+      "ja": "{name}のチャンネルを開く",
+      "ko_kr": "{name} 채널 열기",
+      "zh_cn": "打开 {name} 的频道",
+      "zh_tw": "開啟 {name} 的頻道",
+      "zh_hk": "開啟 {name} 的頻道",
+      "tr_tr": "{name} kanalını aç",
+      "id_id": "Buka kanal {name}",
+      "ms_my": "Buka saluran {name}"
+    }
+  }
+}

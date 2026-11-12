@@ -1,0 +1,30 @@
+{
+  "id": "crozztube.rumble",
+  "name": "CrozzTube Rumble Provider",
+  "version": "1.1.0",
+  "api": 1,
+  "description": "Rumble als Import- und Wiedergabe-Provider. Liest Metadaten ueber Rumble oEmbed und optional yt-dlp. Der Source Resolver liefert Direktstreams; der offizielle Rumble-Player bleibt als Fallback verfuegbar. Keine Videodateien werden lokal gespeichert.",
+  "homepage": "https://rumble.com/",
+  "author": { "name": "CrozzTube" },
+  "requires": { "playhub": ">=0.9.13", "php": ">=8.3.0", "extensions": ["json", "dom"] },
+  "dependencies": { "crozztube.source-resolver": ">=0.7.2" },
+  "autoload": { "psr-4": { "CrzRumble\\": "src/" } },
+  "providers": ["CrzRumble\\PluginServiceProvider"],
+  "lifecycle": "CrzRumble\\Lifecycle",
+  "settings": [
+    {
+      "key": "enrich_metadata",
+      "label": "Metadaten mit yt-dlp ergaenzen",
+      "type": "boolean",
+      "description": "Ergaenzt Beschreibung, Tags und Kapitel. Wenn yt-dlp nicht verfuegbar ist, werden die Rumble-oEmbed-Daten verwendet.",
+      "default": true,
+      "public": false
+    }
+  ],
+  "capabilities": [
+    "Rumble-Provider fuer URL-Import und manuelle Massenimporte",
+    "Rumble oEmbed mit optionaler yt-dlp-Anreicherung",
+    "Direktstream ueber den gemeinsamen Source Resolver",
+    "Offizieller Rumble-Embed als Wiedergabe-Fallback"
+  ]
+}

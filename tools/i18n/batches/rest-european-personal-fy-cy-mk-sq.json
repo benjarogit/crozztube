@@ -1,0 +1,203 @@
+{
+  "context": "Whole personal singular form/authentication/upload prompts in Frisian, Welsh, Macedonian and Albanian. Welsh dy/ti and singular imperatives, Frisian dyn/dy and natural singular verb forms replace whole formal sentences; headings and mutation are read as messages, not pronoun substitutions. Registration states actual user benefit rather than API plumbing. Names and imported contents unchanged.",
+  "messages": {
+    "Drag and drop your video file here": {
+      "fy": "Sleep dyn fideobestân hjirhinne",
+      "cy": "Llusga a gollwng dy ffeil fideo yma",
+      "mk": "Повлечи ја и пушти ја видеодатотеката тука",
+      "sq": "Tërhiq dhe lësho skedarin tënd video këtu"
+    },
+    "Select files": {
+      "fy": "Kies bestannen",
+      "cy": "Dewisa ffeiliau",
+      "mk": "Избери датотеки",
+      "sq": "Zgjidh skedarët"
+    },
+    "Select Files": {
+      "fy": "Kies bestannen",
+      "cy": "Dewisa ffeiliau",
+      "mk": "Избери датотеки",
+      "sq": "Zgjidh skedarët"
+    },
+    "Select a video to preview it.": {
+      "fy": "Kies in fideo om in foarbyld te besjen.",
+      "cy": "Dewisa fideo i weld rhagolwg.",
+      "mk": "Избери видео за да го прегледаш.",
+      "sq": "Zgjidh një video për ta parë paraprakisht."
+    },
+    "Select a thumbnail image": {
+      "fy": "Kies in miniatuerôfbylding",
+      "cy": "Dewisa fân-lun",
+      "mk": "Избери сликичка",
+      "sq": "Zgjidh një miniaturë"
+    },
+    "Choose who can watch your video": {
+      "fy": "Kies wa’t dyn fideo besjen kin",
+      "cy": "Dewisa pwy sy’n gallu gwylio dy fideo",
+      "mk": "Избери кој може да го гледа твоето видео",
+      "sq": "Zgjidh kush mund ta shikojë videon tënde"
+    },
+    "Review your video settings": {
+      "fy": "Kontrolearje de ynstellingen fan dyn fideo",
+      "cy": "Adolyga osodiadau dy fideo",
+      "mk": "Провери ги поставките за видеото",
+      "sq": "Kontrollo cilësimet e videos tënde"
+    },
+    "Publish and share your video": {
+      "fy": "Publisearje en diel dyn fideo",
+      "cy": "Cyhoedda a rhanna dy fideo",
+      "mk": "Објави го и сподели го твоето видео",
+      "sq": "Publiko dhe ndaj videon tënde"
+    },
+    "Add title, description, tags and more": {
+      "fy": "Foegje in titel, beskriuwing, tags en mear ta",
+      "cy": "Ychwanega deitl, disgrifiad, tagiau a mwy",
+      "mk": "Додај наслов, опис, ознаки и друго",
+      "sq": "Shto titullin, përshkrimin, etiketat dhe më shumë"
+    },
+    "Create a compelling thumbnail": {
+      "fy": "Meitsje in oantreklike miniatuerôfbylding",
+      "cy": "Crëa fân-lun deniadol",
+      "mk": "Направи привлечна сликичка",
+      "sq": "Krijo një miniaturë tërheqëse"
+    },
+    "Enter video title": {
+      "fy": "Jou dyn fideo in titel",
+      "cy": "Rho deitl i dy fideo",
+      "mk": "Внеси наслов за видеото",
+      "sq": "Vendos titullin e videos"
+    },
+    "Enter video description": {
+      "fy": "Skriuw in beskriuwing fan dyn fideo",
+      "cy": "Ysgrifenna ddisgrifiad o dy fideo",
+      "mk": "Опиши го твоето видео",
+      "sq": "Përshkruaj videon tënde"
+    },
+    "Add tags separated by commas": {
+      "fy": "Foegje tags ta, skieden troch komma’s",
+      "cy": "Ychwanega dagiau wedi’u gwahanu gan atalnodau",
+      "mk": "Додај ознаки одделени со запирки",
+      "sq": "Shto etiketa të ndara me presje"
+    },
+    "Add up to 10 tags": {
+      "fy": "Foegje maksimaal 10 tags ta",
+      "cy": "Ychwanega hyd at 10 tag",
+      "mk": "Додај најмногу 10 ознаки",
+      "sq": "Shto deri në 10 etiketa"
+    },
+    "Select a video to create frame thumbnails.": {
+      "fy": "Kies in fideo om miniatuerôfbyldingen fan fideoframes te meitsjen.",
+      "cy": "Dewisa fideo i greu mân-luniau o’i fframiau.",
+      "mk": "Избери видео за да создадеш сликички од неговите кадри.",
+      "sq": "Zgjidh një video për të krijuar miniatura nga kuadrot e saj."
+    },
+    "Use a clear and engaging title": {
+      "fy": "Kies in dúdlike en oantreklike titel",
+      "cy": "Defnyddia deitl clir a deniadol",
+      "mk": "Избери јасен и привлечен наслов",
+      "sq": "Përdor një titull të qartë dhe tërheqës"
+    },
+    "Write a detailed description": {
+      "fy": "Skriuw in dúdlike, folsleine beskriuwing",
+      "cy": "Ysgrifenna ddisgrifiad manwl",
+      "mk": "Напиши детален опис",
+      "sq": "Shkruaj një përshkrim të hollësishëm"
+    },
+    "Choose the right category": {
+      "fy": "Kies in passende kategory",
+      "cy": "Dewisa’r categori addas",
+      "mk": "Избери соодветна категорија",
+      "sq": "Zgjidh kategorinë e duhur"
+    },
+    "Already have an account?": {
+      "fy": "Hast al in akkount?",
+      "cy": "Oes gen ti gyfrif yn barod?",
+      "mk": "Веќе имаш сметка?",
+      "sq": "Ke tashmë një llogari?"
+    },
+    "Create your channel": {
+      "fy": "Meitsje dyn kanaal",
+      "cy": "Crëa dy sianel",
+      "mk": "Создај го твојот канал",
+      "sq": "Krijo kanalin tënd"
+    },
+    "Confirm password": {
+      "fy": "Befêstigje dyn wachtwurd",
+      "cy": "Cadarnha dy gyfrinair",
+      "mk": "Потврди ја лозинката",
+      "sq": "Konfirmo fjalëkalimin"
+    },
+    "Log in to upload, comment, subscribe and manage your creator studio.": {
+      "fy": "Meld dy oan om fideo’s op te laden, reaksjes te jaan, kanalen te folgjen en dyn makkerstudio te behearen.",
+      "cy": "Mewngofnoda i uwchlwytho, rhoi sylwadau, tanysgrifio a rheoli dy stiwdio creu.",
+      "mk": "Најави се за да прикачуваш видеа, коментираш, се претплатуваш и го уредуваш твоето студио.",
+      "sq": "Hyr në llogari për të ngarkuar video, komentuar, abonuar dhe menaxhuar studion tënde."
+    },
+    "Start your PlayHub creator account with working registration and API authentication.": {
+      "fy": "Meitsje in PlayHub-akkount en begjin mei it dielen fan dyn fideo’s.",
+      "cy": "Crëa gyfrif PlayHub a dechreua rannu dy fideos.",
+      "mk": "Создај сметка на PlayHub и почни да ги споделуваш твоите видеа.",
+      "sq": "Krijo një llogari PlayHub dhe fillo të ndash videot e tua."
+    },
+    "Try another search or switch tabs.": {
+      "fy": "Besykje in oare sykterm of kies in oar ljepblêd.",
+      "cy": "Rho gynnig ar chwiliad arall neu newidia dab.",
+      "mk": "Пробај друго пребарување или смени го јазичето.",
+      "sq": "Provo një kërkim tjetër ose ndërro skedën."
+    },
+    "Choose emoji": {
+      "fy": "Kies in emoji",
+      "cy": "Dewisa emoji",
+      "mk": "Избери емоџи",
+      "sq": "Zgjidh një emoji"
+    },
+    "Please fill all password fields.": {
+      "fy": "Folje alle wachtwurdfjilden yn.",
+      "cy": "Llenwa’r holl feysydd cyfrinair.",
+      "mk": "Пополни ги сите полиња за лозинка.",
+      "sq": "Plotëso të gjitha fushat e fjalëkalimit."
+    },
+    "Enter a valid phone number to receive verification codes.": {
+      "fy": "Fier in jildich telefoannûmer yn om ferifikaasjekoades te ûntfangen.",
+      "cy": "Rho rif ffôn dilys i dderbyn codau dilysu.",
+      "mk": "Внеси важечки телефонски број за да добиваш кодови за потврда.",
+      "sq": "Vendos një numër telefoni të vlefshëm për të marrë kodet e verifikimit."
+    },
+    "Please enter a 6-digit verification code.": {
+      "fy": "Fier in ferifikaasjekoade fan 6 sifers yn.",
+      "cy": "Rho god dilysu 6 digid.",
+      "mk": "Внеси код за потврда со 6 цифри.",
+      "sq": "Vendos një kod verifikimi me 6 shifra."
+    },
+    "Tell viewers about your channel...": {
+      "fy": "Fertel sjoggers oer dyn kanaal…",
+      "cy": "Dyweda wrth y gwylwyr am dy sianel…",
+      "mk": "Раскажи им на гледачите за твојот канал…",
+      "sq": "Tregoju shikuesve për kanalin tënd…"
+    },
+    "How can we help you?": {
+      "fy": "Hoe kinne wy dy helpe?",
+      "cy": "Sut gallwn ni dy helpu di?",
+      "mk": "Како можеме да ти помогнеме?",
+      "sq": "Si mund të të ndihmojmë?"
+    },
+    "How can we help?": {
+      "fy": "Hoe kinne wy dy helpe?",
+      "cy": "Sut gallwn ni dy helpu di?",
+      "mk": "Како можеме да ти помогнеме?",
+      "sq": "Si mund të të ndihmojmë?"
+    },
+    "Are you sure you want to continue?": {
+      "fy": "Wolst trochgean?",
+      "cy": "Wyt ti’n siŵr dy fod am barhau?",
+      "mk": "Сигурно сакаш да продолжиш?",
+      "sq": "Je i sigurt që dëshiron të vazhdosh?"
+    },
+    "Sign in with an admin account to view this page.": {
+      "fy": "Meld dy oan mei in behearderakkount om dizze side te besjen.",
+      "cy": "Mewngofnoda gyda chyfrif gweinyddwr i weld y dudalen hon.",
+      "mk": "Најави се со администраторска сметка за да ја видиш оваа страница.",
+      "sq": "Hyr me një llogari administratori për ta parë këtë faqe."
+    }
+  }
+}

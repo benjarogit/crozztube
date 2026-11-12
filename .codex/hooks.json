@@ -1,0 +1,10 @@
+{
+  "description": "CrozzTube sequential implementation and verified publication gates",
+  "hooks": {
+    "SessionStart": [{ "hooks": [{ "type": "command", "command": "node \"$(git rev-parse --show-toplevel)/tools/harness/codex-hook.mjs\" SessionStart", "timeout": 10 }] }],
+    "PreToolUse": [{ "hooks": [{ "type": "command", "command": "node \"$(git rev-parse --show-toplevel)/tools/harness/codex-hook.mjs\" PreToolUse", "timeout": 10 }] }],
+    "UserPromptSubmit": [{ "hooks": [{ "type": "command", "command": "node \"$(git rev-parse --show-toplevel)/tools/harness/codex-hook.mjs\" UserPromptSubmit", "timeout": 10 }] }],
+    "Interrupt": [{ "hooks": [{ "type": "command", "command": "node \"$(git rev-parse --show-toplevel)/tools/harness/codex-hook.mjs\" Interrupt", "timeout": 3 }] }],
+    "Stop": [{ "hooks": [{ "type": "command", "command": "node \"$(git rev-parse --show-toplevel)/tools/harness/codex-hook.mjs\" Stop", "timeout": 15 }] }]
+  }
+}

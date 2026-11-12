@@ -1,0 +1,27 @@
+{
+  "context": "Complete native notification/sender wrappers for eastern European email group. Site stays a linked literal token; no fabricated institutional sender names.",
+  "messages": {
+    "Notification": {
+      "ru": "Уведомление",
+      "uk": "Сповіщення",
+      "pl": "Powiadomienie",
+      "cs": "Oznámení",
+      "sk": "Oznámenie",
+      "bg": "Известие",
+      "ro": "Notificare",
+      "hu": "Értesítés",
+      "el": "Ειδοποίηση"
+    },
+    "This email was sent by {site}.": {
+      "ru": "Это письмо отправлено сайтом {site}.",
+      "uk": "Цей лист надіслано сайтом {site}.",
+      "pl": "Ten e-mail został wysłany przez {site}.",
+      "cs": "Tento e-mail odeslal web {site}.",
+      "sk": "Tento e-mail odoslal web {site}.",
+      "bg": "Този имейл е изпратен от {site}.",
+      "ro": "Acest e-mail a fost trimis de {site}.",
+      "hu": "Ezt az e-mailt innen küldtük: {site}.",
+      "el": "Αυτό το email στάλθηκε από το {site}."
+    }
+  }
+}

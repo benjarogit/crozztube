@@ -1,0 +1,60 @@
+{
+  "context": "Focused native settings/navigation terminology checked in Mozilla official Friulian, Occitan and Aragonese preference catalogs. Changes use established short terms; complex sentences, privacy statements and register outside these labels remain explicitly unreviewed.",
+  "references": [
+    "https://raw.githubusercontent.com/mozilla-l10n/firefox-l10n/main/fur/browser/browser/preferences/preferences.ftl",
+    "https://raw.githubusercontent.com/mozilla-l10n/firefox-l10n/main/oc/browser/browser/preferences/preferences.ftl",
+    "https://raw.githubusercontent.com/mozilla-l10n/firefox-l10n/main/an/browser/browser/preferences/preferences.ftl"
+  ],
+  "messages": {
+    "Home": {
+      "fur": "Pagjine iniziâl",
+      "oci": "Acuèlh",
+      "arg": "Inicio"
+    },
+    "Settings": {
+      "fur": "Impostazions",
+      "oci": "Paramètres",
+      "arg": "Achustes"
+    },
+    "Search": {
+      "fur": "Cîr",
+      "oci": "Recercar",
+      "arg": "Mirar"
+    },
+    "Languages": {
+      "fur": "Lenghis",
+      "oci": "Lengas",
+      "arg": "Idiomas"
+    },
+    "Close": {
+      "fur": "Siere",
+      "oci": "Tampar",
+      "arg": "Zarrar"
+    },
+    "Cancel": {
+      "fur": "Anule",
+      "oci": "Anullar",
+      "arg": "Cancelar"
+    },
+    "General": {
+      "fur": "Gjenerâl",
+      "oci": "General",
+      "arg": "Cheneral"
+    },
+    "Privacy & Safety": {
+      "fur": "Riservatece e sigurece",
+      "oci": "Vida privada e seguretat",
+      "arg": "Privacidat y seguranza"
+    },
+    "Support": {
+      "fur": "Supuart",
+      "oci": "Assisténcia",
+      "arg": "Aduya"
+    },
+    "Learn more": {
+      "fur": "Plui informazions",
+      "oci": "Ne saber mai",
+      "arg": "Saber-ne mas"
+    }
+  }
+}

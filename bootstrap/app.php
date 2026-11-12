@@ -50,7 +50,7 @@ $app = Application::configure(basePath: dirname(__DIR__))
                 | Request::HEADER_X_FORWARDED_PROTO
                 | Request::HEADER_X_FORWARDED_PREFIX,
         );
-        $middleware->api(prepend: [RejectNativeTokensOutsideV1::class]);
+        $middleware->api(prepend: [\App\Http\Middleware\LocalizeResponseMessages::class, RejectNativeTokensOutsideV1::class]);
         // Resolve identity, account/session and token abilities before consent;
         // an invalid or under-scoped credential must not become a Terms prompt.
         $middleware->appendToPriorityList(\Illuminate\Routing\Middleware\SubstituteBindings::class, \App\Http\Middleware\Api\V1\ResolveOptionalSanctum::class);

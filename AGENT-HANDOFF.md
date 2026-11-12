@@ -24,7 +24,7 @@ CrozzTube ist eine **Streaming-Only**-Instanz von PlayHub 0.9.13.
 | Sache | Wert |
 |---|---|
 | URL | `https://crozztube.local:8443` (self-signed) |
-| Admin | `benny` / `meZVRW0bYEbpHsJc` |
+| Admin | `benny` / `lokal hinterlegt; nicht versionieren` |
 | Projekt | `/mnt/intern-1tb/Projekte - Vibe Coding/crozztube` |
 | Repo | `https://github.com/benjarogit/crozztube` (privat), Branch `main` |
 | Docker-Projekt | `crozztube-local`, Compose: `docker/compose.yml` |

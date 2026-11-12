@@ -1,0 +1,73 @@
+{
+  "context": "Owner decision: Shorts are at most60seconds and strictly portrait on all paths. Complete upload guidance and media-metadata status messages; existing historical180s keys retain compatibility with corrected meaning. Import success makes no untrue encoding-start claim.",
+  "messages": {
+    "Shorts must be 60 seconds or less.": {
+      "en": "Shorts must be 60 seconds or less.",
+      "de": "Shorts dürfen höchstens 60 Sekunden lang sein."
+    },
+    "Shorts must use a vertical portrait aspect ratio.": {
+      "en": "Shorts must use a vertical portrait aspect ratio.",
+      "de": "Shorts müssen im Hochformat sein."
+    },
+    "Shorts must be 60 seconds or less and vertical.": {
+      "en": "Shorts must be 60 seconds or less and vertical.",
+      "de": "Shorts dürfen höchstens 60 Sekunden lang sein und müssen im Hochformat sein."
+    },
+    "Shorts must be vertical videos of at most 60 seconds.": {
+      "en": "Shorts must be vertical videos of at most 60 seconds.",
+      "de": "Shorts müssen im Hochformat sein und dürfen höchstens 60 Sekunden lang sein."
+    },
+    "This video will be published as a Short because it is at most 60 seconds and vertical.": {
+      "en": "This video will be published as a Short because it is at most 60 seconds and vertical.",
+      "de": "Dieses Video wird als Short veröffentlicht, weil es höchstens 60 Sekunden lang und im Hochformat ist."
+    },
+    "No shorts uploaded yet. Shorts appear here after a vertical video of at most 60 seconds is imported.": {
+      "en": "No shorts uploaded yet. Shorts appear here after a vertical video of at most 60 seconds is imported.",
+      "de": "Noch keine Shorts vorhanden. Hier erscheinen importierte Videos im Hochformat mit höchstens 60 Sekunden Länge."
+    },
+    "Drag and drop your short file here": {
+      "en": "Drag and drop your short file here",
+      "de": "Zieh deine Short-Videodatei hierher"
+    },
+    "Video: {seconds}s · {width}×{height}. Shorts must be 60 seconds or less and vertical.": {
+      "en": "Video: {seconds}s · {width}×{height}. Shorts must be 60 seconds or less and vertical.",
+      "de": "Video: {seconds}s · {width}×{height}. Shorts dürfen höchstens 60 Sekunden lang sein und müssen im Hochformat sein."
+    },
+    "Your video was imported and processing has started.": {
+      "en": "Your video was imported.",
+      "de": "Dein Video wurde importiert."
+    },
+    "Shorts must be 180 seconds or less.": {
+      "en": "Shorts must be 60 seconds or less.",
+      "de": "Shorts dürfen höchstens 60 Sekunden lang sein."
+    },
+    "Shorts must be square or vertical.": {
+      "en": "Shorts must use a vertical portrait aspect ratio.",
+      "de": "Shorts müssen im Hochformat sein."
+    },
+    "Shorts must be 180 seconds or less and square or vertical.": {
+      "en": "Shorts must be 60 seconds or less and vertical.",
+      "de": "Shorts dürfen höchstens 60 Sekunden lang sein und müssen im Hochformat sein."
+    },
+    "This video will be published as a Short because it is at most 180 seconds and square or vertical.": {
+      "en": "This video will be published as a Short because it is at most 60 seconds and vertical.",
+      "de": "Dieses Video wird als Short veröffentlicht, weil es höchstens 60 Sekunden lang und im Hochformat ist."
+    },
+    "No shorts uploaded yet. Shorts appear here after a square or vertical video of at most 180 seconds is imported.": {
+      "en": "No shorts uploaded yet. Shorts appear here after a vertical video of at most 60 seconds is imported.",
+      "de": "Noch keine Shorts vorhanden. Hier erscheinen importierte Videos im Hochformat mit höchstens 60 Sekunden Länge."
+    },
+    "Shorts must be square or vertical videos of at most 180 seconds.": {
+      "en": "Shorts must be vertical videos of at most 60 seconds.",
+      "de": "Shorts müssen im Hochformat sein und dürfen höchstens 60 Sekunden lang sein."
+    },
+    "· Shorts require 60s max and vertical video": {
+      "en": "· Shorts require 60s max and vertical video",
+      "de": "· Shorts: höchstens 60 Sekunden und nur im Hochformat"
+    },
+    "· Shorts require 180s max and square or vertical video": {
+      "en": "· Shorts require 60s max and vertical video",
+      "de": "· Shorts: höchstens 60 Sekunden und nur im Hochformat"
+    }
+  }
+}

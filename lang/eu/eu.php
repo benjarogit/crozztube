@@ -82,83 +82,83 @@ return array (
     ),
     'user' => 
     array (
-      0 => 'user',
-      1 => 'users',
+      'one' => 'erabiltzaile',
+      'other' => 'erabiltzaile',
     ),
     'users' => 
     array (
-      0 => 'user',
-      1 => 'users',
+      'one' => 'erabiltzaile',
+      'other' => 'erabiltzaile',
     ),
     'video' => 
     array (
-      0 => 'video',
-      1 => 'videos',
+      'one' => 'bideo',
+      'other' => 'bideo',
     ),
     'videos' => 
     array (
-      0 => 'video',
-      1 => 'videos',
+      'one' => 'bideo',
+      'other' => 'bideo',
     ),
     'comment' => 
     array (
-      0 => 'comment',
-      1 => 'comments',
+      'one' => 'iruzkin',
+      'other' => 'iruzkin',
     ),
     'comments' => 
     array (
-      0 => 'comment',
-      1 => 'comments',
+      'one' => 'iruzkin',
+      'other' => 'iruzkin',
     ),
     'subscriber' => 
     array (
-      0 => 'subscriber',
-      1 => 'subscribers',
+      'one' => 'harpidedun',
+      'other' => 'harpidedun',
     ),
     'subscribers' => 
     array (
-      0 => 'subscriber',
-      1 => 'subscribers',
+      'one' => 'harpidedun',
+      'other' => 'harpidedun',
     ),
     'view' => 
     array (
-      0 => 'view',
-      1 => 'views',
+      'one' => 'ikustaldi',
+      'other' => 'ikustaldi',
     ),
     'views' => 
     array (
-      0 => 'view',
-      1 => 'views',
+      'one' => 'ikustaldi',
+      'other' => 'ikustaldi',
     ),
     'like' => 
     array (
-      0 => 'like',
-      1 => 'likes',
+      'one' => 'atsegite',
+      'other' => 'atsegite',
     ),
     'likes' => 
     array (
-      0 => 'like',
-      1 => 'likes',
+      'one' => 'atsegite',
+      'other' => 'atsegite',
     ),
     'reply' => 
     array (
-      0 => 'reply',
-      1 => 'replies',
+      'one' => 'erantzun',
+      'other' => 'erantzun',
     ),
     'replies' => 
     array (
-      0 => 'reply',
-      1 => 'replies',
+      'one' => 'erantzun',
+      'other' => 'erantzun',
     ),
     'playlist' => 
     array (
-      0 => 'playlist',
-      1 => 'playlists',
+      'one' => 'erreprodukzio-zerrenda',
+      'other' => 'erreprodukzio-zerrenda',
     ),
     'playlists' => 
     array (
-      0 => 'playlist',
-      1 => 'playlists',
+      'one' => 'erreprodukzio-zerrenda',
+      'other' => 'erreprodukzio-zerrenda',
     ),
   ),
   '__patterns' => 
@@ -169,13 +169,65 @@ return array (
     'unread' => '{count} unread',
     'saved_videos' => '{count} saved videos',
     'published' => '{count} published',
+    'count_user' => 'Erabiltzaileak: {count}',
+    'count_user_one' => '{count} erabiltzaile',
+    'count_user_other' => '{count} erabiltzaile',
+    'count_video' => 'Bideoak: {count}',
+    'count_video_one' => '{count} bideo',
+    'count_video_other' => '{count} bideo',
+    'count_comment' => 'Iruzkinak: {count}',
+    'count_comment_one' => '{count} iruzkin',
+    'count_comment_other' => '{count} iruzkin',
+    'count_subscriber' => 'Harpidedunak: {count}',
+    'count_subscriber_one' => '{count} harpidedun',
+    'count_subscriber_other' => '{count} harpidedun',
+    'count_view' => 'Ikustaldiak: {count}',
+    'count_view_one' => '{count} ikustaldi',
+    'count_view_other' => '{count} ikustaldi',
+    'count_like' => 'Atsegiteak: {count}',
+    'count_like_one' => '{count} atsegite',
+    'count_like_other' => '{count} atsegite',
+    'count_reply' => 'Erantzunak: {count}',
+    'count_reply_one' => '{count} erantzun',
+    'count_reply_other' => '{count} erantzun',
+    'count_playlist' => 'Erreprodukzio-zerrendak: {count}',
+    'count_playlist_one' => '{count} erreprodukzio-zerrenda',
+    'count_playlist_other' => '{count} erreprodukzio-zerrenda',
+    'duration_year_other' => '{count} urte',
+    'ago_year_other' => 'duela {count} urte',
+    'duration_year' => '{count} urte',
+    'ago_year' => 'duela {count} urte',
+    'duration_month_other' => '{count} hilabete',
+    'ago_month_other' => 'duela {count} hilabete',
+    'duration_month' => '{count} hilabete',
+    'ago_month' => 'duela {count} hilabete',
+    'duration_week_other' => '{count} aste',
+    'ago_week_other' => 'duela {count} aste',
+    'duration_week' => '{count} aste',
+    'ago_week' => 'duela {count} aste',
+    'duration_day_other' => '{count} egun',
+    'ago_day_other' => 'duela {count} egun',
+    'duration_day' => '{count} egun',
+    'ago_day' => 'duela {count} egun',
+    'duration_hour_other' => '{count} ordu',
+    'ago_hour_other' => 'duela {count} ordu',
+    'duration_hour' => '{count} ordu',
+    'ago_hour' => 'duela {count} ordu',
+    'duration_minute_other' => '{count} minutu',
+    'ago_minute_other' => 'duela {count} minutu',
+    'duration_minute' => '{count} minutu',
+    'ago_minute' => 'duela {count} minutu',
+    'duration_second_other' => '{count} segundo',
+    'ago_second_other' => 'duela {count} segundo',
+    'duration_second' => '{count} segundo',
+    'ago_second' => 'duela {count} segundo',
   ),
   'Overview' => 'Ikuspegi orokorra',
   'Home' => 'Hasiera',
   'Explore' => 'Arakatu',
   'Trending' => 'Joera',
   'Subscriptions' => 'Harpidetzak',
-  'Watch Later' => 'Ikusi Gero',
+  'Watch Later' => 'Ikusi gero',
   'Live & Create' => 'Bizi & Sortu',
   'Live' => 'Zuzenean',
   'Upload' => 'Kargatu',
@@ -228,7 +280,7 @@ return array (
   'Thumbnail' => 'Miniatura',
   'Create a compelling thumbnail' => 'Sortu irudi txiki erakargarria',
   'Choose who can watch your video' => 'Aukeratu nork ikus dezakeen zure bideoa',
-  'Review' => 'Berrikuspena',
+  'Review' => 'Berrikusi',
   'Review your video settings' => 'Berrikusi zure bideoaren ezarpenak',
   'Publish' => 'Argitaratu',
   'Publish and share your video' => 'Argitaratu eta partekatu zure bideoa',
@@ -257,8 +309,8 @@ return array (
   'Anyone can search for and watch this video' => 'Edonork bilatu eta ikus dezake bideo hau',
   'Anyone with the link can watch' => 'Esteka duen edonork ikus dezake',
   'Anyone with the link can watch this video' => 'Esteka duen edonork ikus dezake bideo hau',
-  'Only you and people you choose' => 'Zuk bakarrik eta zuk aukeratzen dituzun pertsonak',
-  'Only you and people you choose can watch' => 'Zuk eta zuk aukeratzen duzun jendeak bakarrik ikusi dezakezu',
+  'Only you and people you choose' => 'Bideo hau zuk eta webguneko administratzaileek soilik ikus dezakezue.',
+  'Only you and people you choose can watch' => 'Bideo hau zuk eta webguneko administratzaileek soilik ikus dezakezue.',
   'Thumbnail preview' => 'Miniaturaren aurrebista',
   'No thumbnail selected.' => 'Ez dago miniaturarik hautatu.',
   'More options' => 'Aukera gehiago',
@@ -343,7 +395,7 @@ return array (
   'Search result types' => 'Bilaketa-emaitza motak',
   'Videos' => 'Bideoak',
   'Channels' => 'Kanalak',
-  'Shorts' => 'Galtzamotzak',
+  'Shorts' => 'Shorts',
   'Community' => 'Komunitatea',
   'See all' => 'Ikusi guztiak',
   'Search filters' => 'Bilatu iragazkiak',
@@ -409,12 +461,12 @@ return array (
   'Newest first' => 'Berriena lehenik',
   'Like comment' => 'Atsegin dut iruzkina',
   'Comment options' => 'Iruzkinen aukerak',
-  'Copy Link' => 'Kopiatu Esteka',
-  'Pin Comment' => 'Pin Iruzkina',
-  'Unpin Comment' => 'Kendu iruzkina',
-  'Mute User' => 'Ezkutatu erabiltzailea',
+  'Copy Link' => 'Kopiatu esteka',
+  'Pin Comment' => 'Finkatu iruzkina',
+  'Unpin Comment' => 'Desfinkatu iruzkina',
+  'Mute User' => 'Isilarazi erabiltzailea',
   'Reported' => 'Salatua',
-  'Report Comment' => 'Eman iruzkinaren berri',
+  'Report Comment' => 'Salatu iruzkina',
   'Delete Comment' => 'Ezabatu iruzkina',
   'Pinned' => 'Ainguratuta',
   'No comments yet. Be the first to comment.' => 'Oraindik ez dago iruzkinik. Izan iruzkintzen lehena.',
@@ -563,7 +615,7 @@ return array (
   'Public profile' => 'Profil publikoa',
   'Show subscriptions' => 'Erakutsi harpidetzak',
   'Default quality' => 'Lehenetsitako kalitatea',
-  'Captions' => 'Epigrafeak',
+  'Captions' => 'Azpitituluak',
   'Update password' => 'Eguneratu pasahitza',
   'Current password' => 'Uneko pasahitza',
   'New password' => 'Pasahitz berria',
@@ -1491,7 +1543,7 @@ return array (
   'Import summary' => 'Inportatu laburpena',
   'Source URL' => 'Iturburu URLa',
   'Video imported' => 'Bideoa inportatu da',
-  'Your video was imported and processing has started.' => 'Zure bideoa inportatu da eta prozesatzen hasi da.',
+  'Your video was imported and processing has started.' => 'Zure bideoa inportatu da.',
   'Import Video' => 'Inportatu bideoa',
   'Import a public video URL, customize its details, and publish it through the normal processing pipeline.' => 'Inportatu bideoaren URL publiko bat, pertsonalizatu haren xehetasunak eta argitaratu prozesatzeko kanalizazio arruntaren bidez.',
   'Video Import' => 'Bideo inportazioa',
@@ -1790,7 +1842,7 @@ return array (
   'View users' => 'View users',
   'Login security' => 'Login security',
   'Find creator' => 'Find creator',
-  '· Shorts require 60s max and vertical portrait video' => '· Galtzamotzak require 60s max and vertical portrait Bideoa',
+  '· Shorts require 60s max and vertical portrait video' => 'Shorts bideoek formatu bertikala izan behar dute eta gehienez 60 segundo iraun.',
   '% of uploaded videos' => '% of uploaded Bideoak',
   '% watched' => '% ikusita',
   '+12% vs yesterday' => '+12% vs yesterday',
@@ -2455,9 +2507,9 @@ return array (
   'short was uploaded' => 'short was uploaded',
   'Shortest' => 'Shortest',
   'Shorts discovered' => 'Galtzamotzak discovered',
-  'Shorts must be 60 seconds or less.' => 'Galtzamotzak must be 60 seconds or less.',
+  'Shorts must be 60 seconds or less.' => 'Shorts bideoek gehienez 60 segundo iraun behar dute.',
   'Shorts must be 60 seconds or less. Vertical 9:16 is recommended.' => 'Galtzamotzak must be 60 seconds or less. Vertical 9: 16 is recommended.',
-  'Shorts must use a vertical portrait aspect ratio.' => 'Galtzamotzak must use a vertical portrait aspect ratio.',
+  'Shorts must use a vertical portrait aspect ratio.' => 'Shorts bideoek formatu bertikala izan behar dute.',
   'Shorts stats' => 'Galtzamotzak Estatistikak',
   'Show less' => 'Show less',
   'Show more ⌄' => 'Show more ⌄',
@@ -2770,10 +2822,10 @@ return array (
   'Password looks good.' => 'Password looks good.',
   'Password needs work.' => 'Password needs work.',
   'Add at least 8 characters.' => 'Add at least 8 characters.',
-  'Add a letter.' => 'Add a letter.',
-  'Add a number.' => 'Add a number.',
-  'Add an uppercase letter.' => 'Add an uppercase letter.',
-  'Add a lowercase letter.' => 'Add a lowercase letter.',
+  'Add a letter.' => 'Gehitu latindar letra bat (A–Z edo a–z).',
+  'Add a number.' => 'Gehitu 0–9 arteko digitu bat.',
+  'Add an uppercase letter.' => 'Gehitu latindar letra larri bat (A–Z).',
+  'Add a lowercase letter.' => 'Gehitu latindar letra xehe bat (a–z).',
   'Add a symbol.' => 'Add a symbol.',
   'Use a longer password for this strength level.' => 'Use a longer password for this strength level.',
   'Captcha image' => 'Captcha image',
@@ -3105,7 +3157,7 @@ return array (
   'Log in with Apple' => 'Hasi saioa Apple-rekin',
   'Sign up with Apple' => 'Erregistratu Apple-rekin',
   'or' => 'edo',
-  'We never share your data with third parties.' => 'Ez ditugu inoiz zure datuak hirugarrenekin partekatzen.',
+  'We never share your data with third parties.' => 'Gure pribatutasun-politikan ikus dezakezu nola tratatzen ditugun zure datuak.',
   'Account settings' => 'Kontuaren ezarpenak',
   'Processing...' => 'Prozesatzen...',
   'Submitting request...' => 'Eskaera bidaltzen...',
@@ -4187,7 +4239,7 @@ return array (
   'Ad impression already completed.' => 'Dagoeneko osatu da iragarkiaren inpresioa.',
   'Ad impression completed.' => 'Iragarkiaren inpresioa osatu da.',
   'Ad updated.' => 'Iragarkia eguneratu da.',
-  'Advanced generated LiveKit options' => 'Sortutako ZXTERM1ZX aukera aurreratuak',
+  'Advanced generated LiveKit options' => 'Sortutako LiveKit aukera aurreratuak',
   'Apply configuration' => 'Aplikatu konfigurazioa',
   'Automatic' => 'Automatikoa',
   'A valid phone number is required when using phone delivery.' => 'Baliozko telefono-zenbakia behar da telefono bidezko bidalketa erabiltzean.',
@@ -4215,8 +4267,8 @@ return array (
   'Detected issues' => 'Antzemandako arazoak',
   'Device session not found.' => 'Ez da gailuko saioa aurkitu.',
   'Device signed out successfully.' => 'Behar bezala amaitu da saioa gailuan.',
-  'Docker Configuration' => 'ZXTERM3ZX Konfigurazioa',
-  'Docker container file paths' => 'ZXTERM3ZX edukiontzi-fitxategien bideak',
+  'Docker Configuration' => 'Docker Konfigurazioa',
+  'Docker container file paths' => 'Docker edukiontzi-fitxategien bideak',
   'Do not collapse settings blocks' => 'Ez tolestu ezarpenen blokeak',
   'during this stream' => 'korronte honetan zehar',
   'Enabled contributions will appear here.' => 'Gaitutako ekarpenak hemen agertuko dira.',
@@ -4239,11 +4291,11 @@ return array (
   'Live chat message deleted.' => 'Zuzeneko txataren mezua ezabatu da.',
   'Live control panels' => 'Zuzeneko kontrol panelak',
   'Live Control Room' => 'Zuzeneko Kontrol Aretoa',
-  'LiveKit and Docker logs' => 'ZXTERM1ZX eta ZXTERM3ZX erregistroak',
-  'LiveKit did not return a connection result.' => 'ZXTERM1ZX-k ez du konexio emaitzarik itzuli.',
-  'LiveKit Docker' => 'ZXTERM1ZX ZXTERM3ZX',
-  'LiveKit signaling and authenticated API connection succeeded.' => 'ZXTERM1ZX seinaleztapena eta autentifikatutako API konexioa arrakastatsua izan da.',
-  'LiveKit SSL certificates' => 'ZXTERM1ZX SSL ziurtagiriak',
+  'LiveKit and Docker logs' => 'LiveKit eta Docker erregistroak',
+  'LiveKit did not return a connection result.' => 'LiveKit-k ez du konexio emaitzarik itzuli.',
+  'LiveKit Docker' => 'LiveKit Docker',
+  'LiveKit signaling and authenticated API connection succeeded.' => 'LiveKit seinaleztapena eta autentifikatutako API konexioa arrakastatsua izan da.',
+  'LiveKit SSL certificates' => 'LiveKit SSL ziurtagiriak',
   'Live polls' => 'Zuzeneko inkestak',
   'Live stream' => 'Zuzeneko igorpena',
   'Live stream ended.' => 'Zuzeneko igorpena amaitu da.',
@@ -4276,19 +4328,19 @@ return array (
   'Participant controls' => 'Parte-hartzaileen kontrolak',
   'Participant role' => 'Partaide rola',
   'Participants' => 'Parte hartzaileak',
-  'Payment card numbers are handled by the configured payment provider and are never stored in your PlayHub profile.' => 'Ordainketa-txartelen zenbakiak konfiguratutako ordainketa-hornitzaileak kudeatzen ditu eta ez dira inoiz zure ZXTERM0ZX profilean gordetzen.',
+  'Payment card numbers are handled by the configured payment provider and are never stored in your PlayHub profile.' => 'Ordainketa-txartelen zenbakiak konfiguratutako ordainketa-hornitzaileak kudeatzen ditu eta ez dira inoiz zure PlayHub profilean gordetzen.',
   'Payment history' => 'Ordainketen historia',
   'Peak Viewers' => 'Ikusle gorenak',
-  'PlayHub is installed' => 'ZXTERM0ZX instalatuta dago',
-  'PlayHub recording' => 'ZXTERM0ZX grabaketa',
-  'Please enable JavaScript to use PlayHub.' => 'Gaitu ZXTERM4ZX ZXTERM0ZX erabiltzeko.',
+  'PlayHub is installed' => 'PlayHub instalatuta dago',
+  'PlayHub recording' => 'PlayHub grabaketa',
+  'Please enable JavaScript to use PlayHub.' => 'Gaitu JavaScript PlayHub erabiltzeko.',
   'Poll created.' => 'Inkesta sortu da.',
   'Poll deleted.' => 'Ezabatu da inkesta.',
   'Poll updated.' => 'Inkesta eguneratua.',
-  'Preparing RTMP URL' => 'ZXTERM2ZX URLa prestatzen',
+  'Preparing RTMP URL' => 'RTMP URLa prestatzen',
   'Preparing stream key' => 'Korronte-gakoa prestatzen',
   'Price' => 'Prezioa',
-  'Project-local LiveKit file paths' => 'Proiektu lokaleko ZXTERM1ZX fitxategi-bideak',
+  'Project-local LiveKit file paths' => 'Proiektu lokaleko LiveKit fitxategi-bideak',
   'Pull image' => 'Tira irudia',
   'Quality' => 'Kalitatea',
   'Question' => 'Galdera',
@@ -4305,8 +4357,8 @@ return array (
   'Response' => 'Erantzuna',
   'Restart' => 'Berrabiarazi',
   'Revenue & Tips' => 'Diru-sarrerak eta aholkuak',
-  'RTMP credentials are ready.' => 'ZXTERM2ZX kredentzialak prest daude.',
-  'RTMP ingress' => 'ZXTERM2ZX sarrera',
+  'RTMP credentials are ready.' => 'RTMP kredentzialak prest daude.',
+  'RTMP ingress' => 'RTMP sarrera',
   'Schedule must be in the future.' => 'Egitaraua etorkizunean izan behar da.',
   'Search or enter your country' => 'Bilatu edo sartu zure herrialdea',
   'Select an option' => 'Hautatu aukera bat',
@@ -4331,7 +4383,7 @@ return array (
   'The default quality must be enabled as an upload rendition.' => 'Kalitate lehenetsia kargatzeko erreprodukzio gisa gaitu behar da.',
   'The end date must be later than the start date.' => 'Amaiera-data hasiera-data baino geroagokoa izan behar da.',
   'The invited user must sign in with that account before opening the link.' => 'Gonbidatutako erabiltzaileak kontu horrekin hasi behar du saioa esteka ireki aurretik.',
-  'The logo must be a safe SVG file.' => 'Logotipoak ZXTERM5ZX fitxategi segurua izan behar du.',
+  'The logo must be a safe SVG file.' => 'Logotipoak SVG fitxategi segurua izan behar du.',
   'The new password must be different from the current one.' => 'Pasahitz berriak oraingoaren ezberdina izan behar du.',
   'The provided credentials are incorrect.' => 'Emandako kredentzialak okerrak dira.',
   'The two-factor authentication code is invalid.' => 'Bi faktoreko autentifikazio-kodea baliogabea da.',
@@ -4360,7 +4412,7 @@ return array (
   'View more' => 'Ikusi gehiago',
   'Visible live chat messages will appear here after the replay is ready.' => 'Ikusgai dauden zuzeneko txat mezuak hemen agertuko dira erreprodukzioa prest dagoenean.',
   'Vote recorded.' => 'Botoa grabatuta.',
-  'Waiting for RTMP video' => 'ZXTERM2ZX bideoaren zain',
+  'Waiting for RTMP video' => 'RTMP bideoaren zain',
   'Your ad markup' => 'Zure iragarkien marka',
   'Your participant video will appear here.' => 'Zure parte-hartzaileen bideoa hemen agertuko da.',
   'Also permanently delete all videos uploaded by these users' => 'Erabiltzaile hauek kargatutako bideo guztiak ere ezabatu betiko',
@@ -4450,4 +4502,109 @@ return array (
   'Language not found.' => 'Language not found.',
   'Language directory not found.' => 'Language directory not found.',
   'The selected language directory is read-only. Update its server permissions before editing.' => 'The selected language directory is read-only. Update its server permissions before editing.',
+  'Find out how we handle your data in our privacy policy.' => 'Gure pribatutasun-politikan ikus dezakezu nola tratatzen ditugun zure datuak.',
+  'Shorts must be 180 seconds or less.' => 'Shorts bideoek gehienez 60 segundo iraun behar dute.',
+  'Shorts must be square or vertical.' => 'Shorts bideoek formatu bertikala izan behar dute.',
+  'Shorts must be 60 seconds or less and vertical.' => 'Shorts bideoek formatu bertikala izan behar dute eta gehienez 60 segundo iraun.',
+  'Shorts must be vertical videos of at most 60 seconds.' => 'Shorts bideoek formatu bertikala izan behar dute eta gehienez 60 segundo iraun.',
+  'Shorts must be 180 seconds or less and square or vertical.' => 'Shorts bideoek formatu bertikala izan behar dute eta gehienez 60 segundo iraun.',
+  'Shorts must be square or vertical videos of at most 180 seconds.' => 'Shorts bideoek formatu bertikala izan behar dute eta gehienez 60 segundo iraun.',
+  '· Shorts require 60s max and vertical video' => 'Shorts bideoek formatu bertikala izan behar dute eta gehienez 60 segundo iraun.',
+  '· Shorts require 180s max and square or vertical video' => 'Shorts bideoek formatu bertikala izan behar dute eta gehienez 60 segundo iraun.',
+  'This video will be published as a Short because it is at most 60 seconds and vertical.' => 'Bideo hau Short gisa argitaratuko da, bertikala delako eta gehienez 60 segundo irauten duelako.',
+  'This video will be published as a Short because it is at most 180 seconds and square or vertical.' => 'Bideo hau Short gisa argitaratuko da, bertikala delako eta gehienez 60 segundo irauten duelako.',
+  'No shorts uploaded yet. Shorts appear here after a vertical video of at most 60 seconds is imported.' => 'Oraindik ez dago Shorts bideorik. Hemen agertuko dira inportatutako bideo bertikalak, gehienez 60 segundo irauten dutenak.',
+  'No shorts uploaded yet. Shorts appear here after a square or vertical video of at most 180 seconds is imported.' => 'Oraindik ez dago Shorts bideorik. Hemen agertuko dira inportatutako bideo bertikalak, gehienez 60 segundo irauten dutenak.',
+  'Drag and drop your short file here' => 'Arrastatu zure Short bideo-fitxategia hona',
+  'Video: {seconds}s · {width}×{height}. Shorts must be 60 seconds or less and vertical.' => 'Bideoa: {seconds}s · {width}×{height}. Shorts bideoek formatu bertikala izan behar dute eta gehienez 60 segundo iraun.',
+  'Your video was imported.' => 'Zure bideoa inportatu da.',
+  'View posts tagged {tag}' => 'Ikusi {tag} etiketa duten argitalpenak',
+  'View {name} channel' => 'Ireki {name} erabiltzailearen kanala',
+  'Chapter {number} start time' => '{number}. kapituluaren hasiera-ordua',
+  'Remove chapter {number}' => 'Kendu {number}. kapitulua',
+  'Transcript' => 'Transkripzioa',
+  'Loading transcript…' => 'Transkripzioa kargatzen…',
+  'The transcript could not be loaded.' => 'Ezin izan da transkripzioa kargatu.',
+  'Transcript text' => 'Transkripzioaren testua',
+  'Playlist tip' => 'Aholkua zure erreprodukzio-zerrendarako',
+  'Send a tip to {name}' => 'Lagundu {name} erabiltzaileari',
+  'Support the creator of “{title}”.' => 'Lagundu «{title}» bideoaren sortzaileari.',
+  'Tip sent to {name}.' => 'Zure ekarpena {name} erabiltzaileari bidali zaio.',
+  'Support {name} during this live stream.' => 'Lagundu {name} erabiltzaileari zuzeneko emanaldi honetan.',
+  'Send Super Chat' => 'Bidali Super Chat',
+  'Send tip' => 'Bidali ekarpena',
+  'Password strength must be at least {level}/10.' => 'Zure pasahitzaren indarrak gutxienez {level}/10 izan behar du.',
+  'Code expires in {time}' => 'Zure kodea {time} barru iraungiko da',
+  'Your {SITENAME} verification code' => 'Zure {SITENAME} egiaztapen-kodea',
+  'Your {SITENAME} verification code is: {VERIFICATION_CODE}
+
+This code expires in {EXPIRY_MINUTES} minutes.' => 'Zure {SITENAME} egiaztapen-kodea: {VERIFICATION_CODE}
+
+Kodeak {EXPIRY_MINUTES} min irauten du.',
+  'Reset your {SITENAME} password' => 'Berrezarri zure {SITENAME} pasahitza',
+  'Hello {USERNAME},
+
+Your {SITENAME} password reset code is: {RESET_CODE}
+
+This code expires in {EXPIRY_MINUTES} minutes.' => 'Kaixo, {USERNAME}!
+
+Zure {SITENAME} pasahitza berrezartzeko kodea: {RESET_CODE}
+
+Kodeak {EXPIRY_MINUTES} min irauten du.',
+  'You have been invited to {SITENAME}' => 'Gonbidapena duzu {SITENAME} webgunera',
+  'Hello {USERNAME},
+
+You have been invited to {SITENAME} as {ROLE}.
+
+Login email: {USER_EMAIL}
+Temporary password: {TEMPORARY_PASSWORD}
+Login: {LOGIN_URL}
+
+Please sign in and update your password.' => 'Kaixo, {USERNAME}!
+
+Gonbidapena duzu {SITENAME} webgunera. Zure rola: {ROLE}.
+
+Saioa hasteko helbide elektronikoa: {USER_EMAIL}
+Behin-behineko pasahitza: {TEMPORARY_PASSWORD}
+Hasi saioa: {LOGIN_URL}
+
+Hasi saioa eta aldatu zure pasahitza.',
+  'Your {SITENAME} account has been restricted' => 'Zure {SITENAME} kontua mugatu da',
+  'Hello {USERNAME},
+
+Your {SITENAME} account has been restricted until {BAN_EXPIRES_AT}.
+
+Restrictions:
+{RESTRICTIONS}
+
+If you believe this is a mistake, contact {SUPPORT_EMAIL}.' => 'Kaixo, {USERNAME}!
+
+Zure {SITENAME} kontuak murrizketak ditu {BAN_EXPIRES_AT} arte.
+
+Murrizketak:
+{RESTRICTIONS}
+
+Akatsa dela uste duzu? Idatzi helbide honetara: {SUPPORT_EMAIL}.',
+  'You are now a {SITENAME} moderator' => 'Orain {SITENAME} moderatu dezakezu',
+  'Hello {USERNAME},
+
+You have been assigned the Moderator role on {SITENAME}. You can now access the moderation tools available to your role.
+
+Moderation dashboard: {MODERATION_URL}' => 'Kaixo, {USERNAME}!
+
+Moderatzaile-rola esleitu zaizu {SITENAME} webgunean. Orain zure rolarentzat eskuragarri dauden moderazio-tresnak erabil ditzakezu.
+
+Moderazio-panela: {MODERATION_URL}',
+  'You are moderating "{STREAM_TITLE}" on {SITENAME}' => '«{STREAM_TITLE}» moderatzen ari zara {SITENAME} webgunean',
+  'Hello {USERNAME},
+
+You have been assigned as a moderator for the live stream "{STREAM_TITLE}". Open the stream to access your moderation controls.
+
+Open stream: {STREAM_URL}' => 'Kaixo, {USERNAME}!
+
+«{STREAM_TITLE}» zuzeneko emanaldia moderatzeko ardura esleitu zaizu. Ireki emanaldia moderazio-tresnak erabiltzeko.
+
+Ireki emanaldia: {STREAM_URL}',
+  'Notification' => 'Jakinarazpena',
+  'This email was sent by {site}.' => 'Mezu elektroniko hau {site} webguneak bidali du.',
 );

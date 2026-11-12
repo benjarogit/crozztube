@@ -1,0 +1,137 @@
+{
+  "context": "All six complete default email subjects/bodies in Russian (both regional packs), Ukrainian, Polish, Czech, Slovak, Bulgarian, Romanian, Hungarian and Greek. Friendly singular messages, no polite plural; roles/expiry/credentials/links/restrictions and stream titles remain literal named tokens. Native minute abbreviation or Hungarian invariant singular unit makes1/2/15 valid without concatenated plural fragments. Account restrictions retain meaning; no user/admin-authored templates modified.",
+  "messages": {
+    "Your {SITENAME} verification code": {
+      "ru": "Твой код подтверждения {SITENAME}",
+      "uk": "Твій код підтвердження {SITENAME}",
+      "pl": "Twój kod weryfikacyjny {SITENAME}",
+      "cs": "Tvůj ověřovací kód pro {SITENAME}",
+      "sk": "Tvoj overovací kód pre {SITENAME}",
+      "bg": "Твоят код за потвърждение в {SITENAME}",
+      "ro": "Codul tău de verificare {SITENAME}",
+      "hu": "Ellenőrzőkódod – {SITENAME}",
+      "el": "Ο κωδικός επαλήθευσής σου για το {SITENAME}"
+    },
+    "Your {SITENAME} verification code is: {VERIFICATION_CODE}\n\nThis code expires in {EXPIRY_MINUTES} minutes.": {
+      "ru": "Твой код подтверждения {SITENAME}: {VERIFICATION_CODE}\n\nСрок действия кода: {EXPIRY_MINUTES} мин.",
+      "uk": "Твій код підтвердження {SITENAME}: {VERIFICATION_CODE}\n\nТермін дії коду: {EXPIRY_MINUTES} хв.",
+      "pl": "Twój kod weryfikacyjny {SITENAME}: {VERIFICATION_CODE}\n\nWażność kodu: {EXPIRY_MINUTES} min.",
+      "cs": "Tvůj ověřovací kód pro {SITENAME}: {VERIFICATION_CODE}\n\nPlatnost kódu: {EXPIRY_MINUTES} min.",
+      "sk": "Tvoj overovací kód pre {SITENAME}: {VERIFICATION_CODE}\n\nPlatnosť kódu: {EXPIRY_MINUTES} min.",
+      "bg": "Твоят код за потвърждение в {SITENAME}: {VERIFICATION_CODE}\n\nВалидност на кода: {EXPIRY_MINUTES} мин.",
+      "ro": "Codul tău de verificare {SITENAME}: {VERIFICATION_CODE}\n\nCodul este valabil {EXPIRY_MINUTES} min.",
+      "hu": "Webhely: {SITENAME}\nEllenőrzőkódod: {VERIFICATION_CODE}\n\nA kód érvényessége: {EXPIRY_MINUTES} perc.",
+      "el": "Ο κωδικός επαλήθευσής σου για το {SITENAME}: {VERIFICATION_CODE}\n\nΔιάρκεια ισχύος κωδικού: {EXPIRY_MINUTES} λεπ."
+    },
+    "Reset your {SITENAME} password": {
+      "ru": "Сброс пароля {SITENAME}",
+      "uk": "Скидання пароля {SITENAME}",
+      "pl": "Zresetuj hasło do {SITENAME}",
+      "cs": "Obnov si heslo pro {SITENAME}",
+      "sk": "Obnov si heslo pre {SITENAME}",
+      "bg": "Нулирай паролата си за {SITENAME}",
+      "ro": "Resetează-ți parola {SITENAME}",
+      "hu": "Jelszavad visszaállítása itt: {SITENAME}",
+      "el": "Επαναφορά του κωδικού πρόσβασής σου στο {SITENAME}"
+    },
+    "Hello {USERNAME},\n\nYour {SITENAME} password reset code is: {RESET_CODE}\n\nThis code expires in {EXPIRY_MINUTES} minutes.": {
+      "ru": "Привет, {USERNAME}!\n\nТвой код для сброса пароля {SITENAME}: {RESET_CODE}\n\nСрок действия кода: {EXPIRY_MINUTES} мин.",
+      "uk": "Привіт, {USERNAME}!\n\nТвій код для скидання пароля {SITENAME}: {RESET_CODE}\n\nТермін дії коду: {EXPIRY_MINUTES} хв.",
+      "pl": "Cześć {USERNAME}!\n\nTwój kod do zresetowania hasła do {SITENAME}: {RESET_CODE}\n\nWażność kodu: {EXPIRY_MINUTES} min.",
+      "cs": "Ahoj {USERNAME},\n\nTvůj kód pro obnovení hesla pro {SITENAME}: {RESET_CODE}\n\nPlatnost kódu: {EXPIRY_MINUTES} min.",
+      "sk": "Ahoj {USERNAME},\n\nTvoj kód na obnovenie hesla pre {SITENAME}: {RESET_CODE}\n\nPlatnosť kódu: {EXPIRY_MINUTES} min.",
+      "bg": "Здравей, {USERNAME}!\n\nТвоят код за нулиране на паролата за {SITENAME}: {RESET_CODE}\n\nВалидност на кода: {EXPIRY_MINUTES} мин.",
+      "ro": "Salut {USERNAME},\n\nCodul tău pentru resetarea parolei {SITENAME}: {RESET_CODE}\n\nCodul este valabil {EXPIRY_MINUTES} min.",
+      "hu": "Szia {USERNAME}!\n\nWebhely: {SITENAME}\nJelszó-visszaállítási kódod: {RESET_CODE}\n\nA kód érvényessége: {EXPIRY_MINUTES} perc.",
+      "el": "Γεια σου {USERNAME},\n\nΓια να ορίσεις νέο κωδικό πρόσβασης στο {SITENAME}, χρησιμοποίησε τον κωδικό επαναφοράς: {RESET_CODE}\n\nΔιάρκεια ισχύος κωδικού: {EXPIRY_MINUTES} λεπ."
+    },
+    "You have been invited to {SITENAME}": {
+      "ru": "Приглашение на {SITENAME} для тебя",
+      "uk": "Запрошення на {SITENAME} для тебе",
+      "pl": "Zaproszenie do {SITENAME} dla ciebie",
+      "cs": "Pozvánka do {SITENAME} pro tebe",
+      "sk": "Pozvánka do {SITENAME} pre teba",
+      "bg": "Покана за {SITENAME} за теб",
+      "ro": "O invitație la {SITENAME} pentru tine",
+      "hu": "Meghívást kaptál ide: {SITENAME}",
+      "el": "Μια πρόσκληση στο {SITENAME} για εσένα"
+    },
+    "Hello {USERNAME},\n\nYou have been invited to {SITENAME} as {ROLE}.\n\nLogin email: {USER_EMAIL}\nTemporary password: {TEMPORARY_PASSWORD}\nLogin: {LOGIN_URL}\n\nPlease sign in and update your password.": {
+      "ru": "Привет, {USERNAME}!\n\nДля тебя создано приглашение на {SITENAME}. Твоя роль: {ROLE}.\n\nЭлектронная почта для входа: {USER_EMAIL}\nВременный пароль: {TEMPORARY_PASSWORD}\nВход: {LOGIN_URL}\n\nВойди и смени пароль.",
+      "uk": "Привіт, {USERNAME}!\n\nДля тебе створено запрошення на {SITENAME}. Твоя роль: {ROLE}.\n\nЕлектронна адреса для входу: {USER_EMAIL}\nТимчасовий пароль: {TEMPORARY_PASSWORD}\nВхід: {LOGIN_URL}\n\nУвійди й зміни пароль.",
+      "pl": "Cześć {USERNAME}!\n\nCzeka na ciebie zaproszenie do {SITENAME}. Twoja rola: {ROLE}.\n\nE-mail do logowania: {USER_EMAIL}\nHasło tymczasowe: {TEMPORARY_PASSWORD}\nLogowanie: {LOGIN_URL}\n\nZaloguj się i zmień hasło.",
+      "cs": "Ahoj {USERNAME},\n\nČeká na tebe pozvánka do {SITENAME}. Tvoje role: {ROLE}.\n\nPřihlašovací e-mail: {USER_EMAIL}\nDočasné heslo: {TEMPORARY_PASSWORD}\nPřihlášení: {LOGIN_URL}\n\nPřihlas se a změň si heslo.",
+      "sk": "Ahoj {USERNAME},\n\nČaká na teba pozvánka do {SITENAME}. Tvoja rola: {ROLE}.\n\nPrihlasovací e-mail: {USER_EMAIL}\nDočasné heslo: {TEMPORARY_PASSWORD}\nPrihlásenie: {LOGIN_URL}\n\nPrihlás sa a zmeň si heslo.",
+      "bg": "Здравей, {USERNAME}!\n\nЗа теб има покана за {SITENAME}. Твоята роля: {ROLE}.\n\nИмейл за вход: {USER_EMAIL}\nВременна парола: {TEMPORARY_PASSWORD}\nВход: {LOGIN_URL}\n\nВлез и смени паролата си.",
+      "ro": "Salut {USERNAME},\n\nAi primit o invitație la {SITENAME}. Rolul tău: {ROLE}.\n\nE-mail de autentificare: {USER_EMAIL}\nParolă temporară: {TEMPORARY_PASSWORD}\nAutentificare: {LOGIN_URL}\n\nIntră în cont și schimbă-ți parola.",
+      "hu": "Szia {USERNAME}!\n\nMeghívást kaptál ide: {SITENAME}. A szerepköröd: {ROLE}.\n\nBejelentkezési e-mail-cím: {USER_EMAIL}\nIdeiglenes jelszó: {TEMPORARY_PASSWORD}\nBejelentkezés: {LOGIN_URL}\n\nJelentkezz be, és változtasd meg a jelszavadat.",
+      "el": "Γεια σου {USERNAME},\n\nΈχεις πρόσκληση για το {SITENAME}. Ο ρόλος σου: {ROLE}.\n\nEmail σύνδεσης: {USER_EMAIL}\nΠροσωρινός κωδικός πρόσβασης: {TEMPORARY_PASSWORD}\nΣύνδεση: {LOGIN_URL}\n\nΣυνδέσου και άλλαξε τον κωδικό πρόσβασής σου."
+    },
+    "Your {SITENAME} account has been restricted": {
+      "ru": "На твой аккаунт {SITENAME} наложены ограничения",
+      "uk": "На твій акаунт {SITENAME} накладено обмеження",
+      "pl": "Twoje konto w {SITENAME} zostało ograniczone",
+      "cs": "Tvůj účet na {SITENAME} byl omezen",
+      "sk": "Tvoj účet na {SITENAME} bol obmedzený",
+      "bg": "Акаунтът ти в {SITENAME} е ограничен",
+      "ro": "Contul tău {SITENAME} a fost restricționat",
+      "hu": "A fiókodat korlátoztuk itt: {SITENAME}",
+      "el": "Ο λογαριασμός σου στο {SITENAME} έχει περιοριστεί"
+    },
+    "Hello {USERNAME},\n\nYour {SITENAME} account has been restricted until {BAN_EXPIRES_AT}.\n\nRestrictions:\n{RESTRICTIONS}\n\nIf you believe this is a mistake, contact {SUPPORT_EMAIL}.": {
+      "ru": "Привет, {USERNAME}!\n\nНа твой аккаунт {SITENAME} наложены ограничения до {BAN_EXPIRES_AT}.\n\nОграничения:\n{RESTRICTIONS}\n\nЕсли считаешь, что это ошибка, напиши на {SUPPORT_EMAIL}.",
+      "uk": "Привіт, {USERNAME}!\n\nНа твій акаунт {SITENAME} накладено обмеження до {BAN_EXPIRES_AT}.\n\nОбмеження:\n{RESTRICTIONS}\n\nЯкщо вважаєш, що це помилка, напиши на {SUPPORT_EMAIL}.",
+      "pl": "Cześć {USERNAME}!\n\nNa twoje konto w {SITENAME} nałożono ograniczenia do {BAN_EXPIRES_AT}.\n\nOgraniczenia:\n{RESTRICTIONS}\n\nUważasz, że to pomyłka? Napisz na {SUPPORT_EMAIL}.",
+      "cs": "Ahoj {USERNAME},\n\nTvůj účet na {SITENAME} je omezen do {BAN_EXPIRES_AT}.\n\nOmezení:\n{RESTRICTIONS}\n\nMyslíš, že jde o omyl? Napiš na {SUPPORT_EMAIL}.",
+      "sk": "Ahoj {USERNAME},\n\nTvoj účet na {SITENAME} je obmedzený do {BAN_EXPIRES_AT}.\n\nObmedzenia:\n{RESTRICTIONS}\n\nMyslíš, že ide o omyl? Napíš na {SUPPORT_EMAIL}.",
+      "bg": "Здравей, {USERNAME}!\n\nАкаунтът ти в {SITENAME} е ограничен до {BAN_EXPIRES_AT}.\n\nОграничения:\n{RESTRICTIONS}\n\nМислиш, че това е грешка? Пиши на {SUPPORT_EMAIL}.",
+      "ro": "Salut {USERNAME},\n\nContul tău {SITENAME} este restricționat până la {BAN_EXPIRES_AT}.\n\nRestricții:\n{RESTRICTIONS}\n\nCrezi că este o greșeală? Scrie la {SUPPORT_EMAIL}.",
+      "hu": "Szia {USERNAME}!\n\nA fiókodat korlátoztuk itt: {SITENAME}. A korlátozás vége: {BAN_EXPIRES_AT}.\n\nKorlátozások:\n{RESTRICTIONS}\n\nSzerinted tévedés történt? Írj erre a címre: {SUPPORT_EMAIL}.",
+      "el": "Γεια σου {USERNAME},\n\nΟ λογαριασμός σου στο {SITENAME} έχει περιοριστεί μέχρι {BAN_EXPIRES_AT}.\n\nΠεριορισμοί:\n{RESTRICTIONS}\n\nΠιστεύεις ότι πρόκειται για λάθος; Επικοινώνησε στο {SUPPORT_EMAIL}."
+    },
+    "You are now a {SITENAME} moderator": {
+      "ru": "Теперь ты можешь модерировать {SITENAME}",
+      "uk": "Тепер ти можеш модерувати {SITENAME}",
+      "pl": "Możesz teraz moderować {SITENAME}",
+      "cs": "Teď můžeš moderovat {SITENAME}",
+      "sk": "Teraz môžeš moderovať {SITENAME}",
+      "bg": "Вече можеш да модерираш {SITENAME}",
+      "ro": "Acum poți modera {SITENAME}",
+      "hu": "Mostantól moderálhatsz itt: {SITENAME}",
+      "el": "Τώρα μπορείς να συντονίζεις το {SITENAME}"
+    },
+    "Hello {USERNAME},\n\nYou have been assigned the Moderator role on {SITENAME}. You can now access the moderation tools available to your role.\n\nModeration dashboard: {MODERATION_URL}": {
+      "ru": "Привет, {USERNAME}!\n\nТебе назначена роль модератора на {SITENAME}. Теперь ты можешь пользоваться инструментами модерации, доступными твоей роли.\n\nПанель модерации: {MODERATION_URL}",
+      "uk": "Привіт, {USERNAME}!\n\nТобі призначено роль модератора на {SITENAME}. Тепер ти можеш користуватися інструментами модерації, доступними твоїй ролі.\n\nПанель модерації: {MODERATION_URL}",
+      "pl": "Cześć {USERNAME}!\n\nPrzyznano ci rolę moderatora w {SITENAME}. Możesz teraz korzystać z narzędzi moderacji dostępnych dla twojej roli.\n\nPanel moderacji: {MODERATION_URL}",
+      "cs": "Ahoj {USERNAME},\n\nNa {SITENAME} ti byla přidělena role moderátora. Teď můžeš používat nástroje moderování dostupné pro tvou roli.\n\nPanel moderování: {MODERATION_URL}",
+      "sk": "Ahoj {USERNAME},\n\nNa {SITENAME} ti bola pridelená rola moderátora. Teraz môžeš používať nástroje moderovania dostupné pre tvoju rolu.\n\nPanel moderovania: {MODERATION_URL}",
+      "bg": "Здравей, {USERNAME}!\n\nПолучаваш ролята на модератор в {SITENAME}. Вече можеш да използваш инструментите за модериране, достъпни за твоята роля.\n\nПанел за модериране: {MODERATION_URL}",
+      "ro": "Salut {USERNAME},\n\nAi primit rolul de moderator pe {SITENAME}. Acum poți folosi instrumentele de moderare disponibile pentru rolul tău.\n\nPanou de moderare: {MODERATION_URL}",
+      "hu": "Szia {USERNAME}!\n\nMegkaptad a moderátori szerepkört itt: {SITENAME}. Mostantól használhatod a szerepkörödhöz tartozó moderálási eszközöket.\n\nModerálási felület: {MODERATION_URL}",
+      "el": "Γεια σου {USERNAME},\n\nΣου ανατέθηκε ο ρόλος συντονιστή στο {SITENAME}. Τώρα μπορείς να χρησιμοποιείς τα εργαλεία συντονισμού που αντιστοιχούν στον ρόλο σου.\n\nΠίνακας συντονισμού: {MODERATION_URL}"
+    },
+    "You are moderating \"{STREAM_TITLE}\" on {SITENAME}": {
+      "ru": "Ты модерируешь «{STREAM_TITLE}» на {SITENAME}",
+      "uk": "Ти модеруєш «{STREAM_TITLE}» на {SITENAME}",
+      "pl": "Moderujesz „{STREAM_TITLE}” w {SITENAME}",
+      "cs": "Moderuješ „{STREAM_TITLE}“ na {SITENAME}",
+      "sk": "Moderuješ „{STREAM_TITLE}“ na {SITENAME}",
+      "bg": "Модерираш „{STREAM_TITLE}“ в {SITENAME}",
+      "ro": "Moderezi „{STREAM_TITLE}” pe {SITENAME}",
+      "hu": "Te moderálod ezt: „{STREAM_TITLE}” – {SITENAME}",
+      "el": "Συντονίζεις το «{STREAM_TITLE}» στο {SITENAME}"
+    },
+    "Hello {USERNAME},\n\nYou have been assigned as a moderator for the live stream \"{STREAM_TITLE}\". Open the stream to access your moderation controls.\n\nOpen stream: {STREAM_URL}": {
+      "ru": "Привет, {USERNAME}!\n\nТебе поручена модерация трансляции «{STREAM_TITLE}». Открой трансляцию, чтобы пользоваться инструментами модерации.\n\nОткрыть трансляцию: {STREAM_URL}",
+      "uk": "Привіт, {USERNAME}!\n\nТобі доручено модерацію трансляції «{STREAM_TITLE}». Відкрий трансляцію, щоб користуватися інструментами модерації.\n\nВідкрити трансляцію: {STREAM_URL}",
+      "pl": "Cześć {USERNAME}!\n\nPowierzono ci moderację transmisji na żywo „{STREAM_TITLE}”. Otwórz transmisję, aby skorzystać z narzędzi moderacji.\n\nOtwórz transmisję: {STREAM_URL}",
+      "cs": "Ahoj {USERNAME},\n\nBylo ti svěřeno moderování živého vysílání „{STREAM_TITLE}“. Otevři vysílání a použij nástroje moderování.\n\nOtevřít vysílání: {STREAM_URL}",
+      "sk": "Ahoj {USERNAME},\n\nBolo ti zverené moderovanie živého vysielania „{STREAM_TITLE}“. Otvor vysielanie a použi nástroje moderovania.\n\nOtvoriť vysielanie: {STREAM_URL}",
+      "bg": "Здравей, {USERNAME}!\n\nНа теб е поверено модерирането на излъчването на живо „{STREAM_TITLE}“. Отвори излъчването, за да използваш инструментите за модериране.\n\nОтвори излъчването: {STREAM_URL}",
+      "ro": "Salut {USERNAME},\n\nȚi-a fost încredințată moderarea transmisiei în direct „{STREAM_TITLE}”. Deschide transmisia ca să folosești instrumentele de moderare.\n\nDeschide transmisia: {STREAM_URL}",
+      "hu": "Szia {USERNAME}!\n\nRád bíztuk az élő közvetítés moderálását: „{STREAM_TITLE}”. Nyisd meg a közvetítést a moderálási eszközök használatához.\n\nKözvetítés megnyitása: {STREAM_URL}",
+      "el": "Γεια σου {USERNAME},\n\nΣου ανατέθηκε ο συντονισμός της ζωντανής μετάδοσης «{STREAM_TITLE}». Άνοιξε τη μετάδοση για να χρησιμοποιήσεις τα εργαλεία συντονισμού.\n\nΆνοιγμα μετάδοσης: {STREAM_URL}"
+    }
+  }
+}

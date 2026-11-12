@@ -1,0 +1,13 @@
+{
+  "context": "Mention/hashtag actions use complete named messages while comment/post bodies and names remain literal. The read-only comment reproduction confirms source ownership.",
+  "messages": {
+    "View posts tagged {tag}": {
+      "en": "View posts tagged {tag}",
+      "de": "Beiträge mit dem Tag {tag} ansehen"
+    },
+    "View {name} channel": {
+      "en": "Open the channel for {name}",
+      "de": "Kanal von {name} öffnen"
+    }
+  }
+}

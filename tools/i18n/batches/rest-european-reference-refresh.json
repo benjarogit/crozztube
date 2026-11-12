@@ -1,0 +1,70 @@
+{
+  "context": "Reread changed English reference values: public bio details, actionable stream-service setup, plain support ownership and Dutch public help texts. Existing matching whole translations kept only after reading the changed source, with refreshed source hashes. No blanket review refresh.",
+  "messages": {
+    "Clean light and true black dark layouts for creators, communities and streaming products.": {
+      "nl_be": "Deel je video's, ontdek nieuwe creators en vind jouw community.",
+      "nl_nl": "Deel je video's, ontdek nieuwe creators en vind jouw community.",
+      "ru": "Делись своими видео, открывай новых авторов и находи своё сообщество.",
+      "ru_ru": "Делись своими видео, открывай новых авторов и находи своё сообщество."
+    },
+    "Log in to view your Watch Later videos.": {
+      "nl_be": "Log in om je video’s voor Later bekijken te zien.",
+      "nl_nl": "Log in om je video’s voor Later bekijken te zien."
+    },
+    "Create an account, open Creator Studio, complete your channel profile, then upload or organize videos from your dashboard.": {
+      "nl_be": "Maak een account, open Creator Studio en vul je kanaalprofiel in. Daarna kun je video’s uploaden en ordenen.",
+      "nl_nl": "Maak een account, open Creator Studio en vul je kanaalprofiel in. Daarna kun je video’s uploaden en ordenen."
+    },
+    "Find answers, get support, and learn how to use PlayHub’s upload, account, creator, and admin features.": {
+      "nl_be": "Vind antwoorden en hulp bij uploaden, je account, Creator-functies en beheer in PlayHub.",
+      "nl_nl": "Vind antwoorden en hulp bij uploaden, je account, Creator-functies en beheer in PlayHub."
+    },
+    "Go to Upload, choose your video file, add required details, select category and language, add a thumbnail, then publish. Large files upload in chunks.": {
+      "nl_be": "Open Uploaden, kies je videobestand en vul de verplichte gegevens in. Kies een categorie en taal, voeg een miniatuur toe en publiceer je video. Grote bestanden worden in delen geüpload.",
+      "nl_nl": "Open Uploaden, kies je videobestand en vul de verplichte gegevens in. Kies een categorie en taal, voeg een miniatuur toe en publiceer je video. Grote bestanden worden in delen geüpload."
+    },
+    "Upload, watch, subscribe, moderate, and build with live PlayHub data.": {
+      "nl_be": "Upload, kijk, abonneer je en doe mee met de PlayHub-community.",
+      "nl_nl": "Upload, kijk, abonneer je en doe mee met de PlayHub-community."
+    },
+    "This playlist belongs to your PlayHub account.": {
+      "nl_be": "Deze Playlist hoort bij je PlayHub-account.",
+      "nl_nl": "Deze Playlist hoort bij je PlayHub-account."
+    },
+    "Complete the pre-flight checklist before starting.": {
+      "nl_be": "Rond de startcontrole af voordat je begint.",
+      "nl_nl": "Rond de startcontrole af voordat je begint."
+    },
+    "Your studio settings can be prepared now. Public broadcasting will be enabled with the media engine.": {
+      "nl": "Je kunt je studio alvast instellen. Stel de streamingdienst in om uit te zenden.",
+      "ru": "Студию можно настроить уже сейчас. Для выхода в эфир настрой сервис трансляций.",
+      "uk": "Студію можна налаштувати вже зараз. Для виходу в ефір налаштуй сервіс трансляцій.",
+      "sk": "Štúdio si môžeš pripraviť už teraz. Na vysielanie nastav streamovaciu službu.",
+      "bg": "Можеш да подготвиш студиото си още сега. Настрой услугата за излъчване, за да се включиш на живо.",
+      "el": "Μπορείς να ετοιμάσεις το στούντιό σου από τώρα. Ρύθμισε την υπηρεσία μετάδοσης για να βγεις ζωντανά.",
+      "ro": "Îți poți pregăti studioul de acum. Configurează serviciul de streaming ca să transmiți.",
+      "hu": "A stúdiódat már most beállíthatod. A közvetítéshez állítsd be a streamingszolgáltatást."
+    },
+    "Update your bio, channel details, and public creator presence.": {
+      "nl": "Werk je bio en de openbare gegevens van je kanaal bij.",
+      "ru": "Обнови описание профиля и общедоступные сведения о своём канале.",
+      "uk": "Онови опис профілю та публічні відомості про свій канал.",
+      "sk": "Aktualizuj svoj popis profilu a verejné údaje o kanáli.",
+      "bg": "Обнови биографията си и публичните данни за канала.",
+      "el": "Ενημέρωσε το βιογραφικό σου και τα δημόσια στοιχεία του καναλιού σου.",
+      "ro": "Actualizează-ți biografia și detaliile publice ale canalului.",
+      "hu": "Frissítsd a bemutatkozásodat és a csatornád nyilvános adatait."
+    },
+    "Your message is saved directly in the website backend and appears in the admin dashboard under Support.": {
+      "nl": "Je bericht wordt opgeslagen voor het ondersteuningsteam.",
+      "ru": "Твоё сообщение сохранится для команды поддержки.",
+      "cs": "Tvoje zpráva se uloží pro tým podpory."
+    },
+    "Have a question, feedback, partnership idea, or support request? Send it through the backend form and admins will see it in the Support dashboard.": {
+      "nl": "Heb je een vraag, feedback of een idee voor samenwerking? Neem via het formulier contact op met het team."
+    },
+    "Email delivery is not configured. Configure MAIL_* settings before sending creator announcements.": {
+      "nl": "E-mail is nog niet ingesteld. Stel e-mail in het beheerpaneel in voordat je aankondigingen naar creators stuurt."
+    }
+  }
+}

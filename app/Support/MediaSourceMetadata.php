@@ -6,7 +6,10 @@ use App\Models\Video;
 
 final class MediaSourceMetadata
 {
-    private const EXTERNAL_PROVIDERS = ['youtube', 'vimeo', 'dailymotion', 'twitch'];
+    public static function isExternalProvider(string $provider): bool
+    {
+        return $provider !== 'direct' && array_key_exists($provider, VideoImportSettings::providers());
+    }
 
     /**
      * Return the provider adapter and source format that a client should use.
@@ -18,7 +21,7 @@ final class MediaSourceMetadata
     {
         $originProvider = self::originProvider($video);
 
-        if ($originProvider === 'direct' || ! in_array($originProvider, self::EXTERNAL_PROVIDERS, true)) {
+        if (! self::isExternalProvider($originProvider)) {
             return [
                 'provider' => 'native',
                 'source_type' => self::nativeSourceType($video, $sources),
@@ -59,7 +62,7 @@ final class MediaSourceMetadata
     public static function providerIdForVideo(Video $video, ?string $provider = null): ?string
     {
         $provider ??= self::originProvider($video);
-        if (! in_array($provider, self::EXTERNAL_PROVIDERS, true)) {
+        if (! self::isExternalProvider($provider)) {
             return null;
         }
 
@@ -74,7 +77,7 @@ final class MediaSourceMetadata
     public static function providerUrlForVideo(Video $video, ?string $provider = null): ?string
     {
         $provider ??= self::originProvider($video);
-        if (! in_array($provider, self::EXTERNAL_PROVIDERS, true)) {
+        if (! self::isExternalProvider($provider)) {
             return null;
         }
 
@@ -101,7 +104,7 @@ final class MediaSourceMetadata
             return null;
         }
 
-        return match (true) {
+        $builtin = match (true) {
             self::hostMatches($host, 'youtube.com'),
             self::hostMatches($host, 'youtube-nocookie.com'),
             $host === 'youtu.be' => 'youtube',
@@ -111,6 +114,20 @@ final class MediaSourceMetadata
             self::hostMatches($host, 'twitch.tv') => 'twitch',
             default => null,
         };
+
+        if ($builtin !== null) {
+            return $builtin;
+        }
+
+        foreach (VideoImportSettings::providers() as $key => $definition) {
+            foreach ($definition['domains'] ?? [] as $domain) {
+                if (self::hostMatches($host, $domain)) {
+                    return $key;
+                }
+            }
+        }
+
+        return null;
     }
 
     public static function providerId(string $provider, string $url): ?string
@@ -193,10 +210,12 @@ final class MediaSourceMetadata
             }
         }
 
-        return null;
+        $callback = VideoImportSettings::providers()[$provider]['id_from_url'] ?? null;
+
+        return is_callable($callback) ? $callback($url) : null;
     }
 
-    public static function embedUrl(string $provider, ?string $providerId, string $parent): ?string
+    public static function embedUrl(string $provider, ?string $providerId, string $parent, ?string $sourceUrl = null): ?string
     {
         if (! $providerId) {
             return null;
@@ -204,12 +223,14 @@ final class MediaSourceMetadata
 
         $parent = strtolower(rtrim(trim($parent), '.'));
 
+        $callback = VideoImportSettings::providers()[$provider]['embed_url'] ?? null;
+
         return match ($provider) {
             'youtube' => 'https://www.youtube-nocookie.com/embed/'.rawurlencode($providerId),
             'vimeo' => 'https://player.vimeo.com/video/'.rawurlencode($providerId),
             'dailymotion' => 'https://www.dailymotion.com/embed/video/'.rawurlencode($providerId),
             'twitch' => self::twitchEmbedUrl($providerId, $parent),
-            default => null,
+            default => is_callable($callback) ? $callback($providerId, $parent, $sourceUrl) : null,
         };
     }
 
@@ -274,7 +295,7 @@ final class MediaSourceMetadata
     {
         $provider = strtolower(trim($provider));
 
-        return in_array($provider, [...self::EXTERNAL_PROVIDERS, 'direct'], true) ? $provider : null;
+        return array_key_exists($provider, VideoImportSettings::providers()) ? $provider : null;
     }
 
     private static function hostMatches(string $host, string $domain): bool

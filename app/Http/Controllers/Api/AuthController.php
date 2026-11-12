@@ -254,7 +254,7 @@ class AuthController extends Controller
 
         $this->validateRegistrationCaptcha($request, $authSettings);
         $data = $request->validated();
-        $this->validateRegistrationPasswordStrength((string) $data['password'], $authSettings);
+        $this->validateRegistrationPasswordStrength((string) $data['password'], $authSettings, $request);
         $confirmationMethod = AuthSettings::registrationConfirmationMethod($authSettings);
         $data['email'] = strtolower(trim((string) $data['email']));
         $phone = $this->normalizePhone((string) ($data['phone'] ?? ''));
@@ -681,7 +681,7 @@ class AuthController extends Controller
             ]);
         }
 
-        $this->validateRegistrationPasswordStrength((string) $data['password'], AuthSettings::settings());
+        $this->validateRegistrationPasswordStrength((string) $data['password'], AuthSettings::settings(), $request);
         $user->update(['password' => $data['password']]);
         app(NativeDeviceSessionManager::class)->revokeAll($user);
         $user->tokens()->delete();
@@ -1518,7 +1518,7 @@ class AuthController extends Controller
         return 'default';
     }
 
-    private function validateRegistrationPasswordStrength(string $password, array $settings): void
+    private function validateRegistrationPasswordStrength(string $password, array $settings, Request $request): void
     {
         if (! AuthSettings::passwordStrengthEnabled($settings)) {
             return;
@@ -1532,7 +1532,7 @@ class AuthController extends Controller
         $score = $this->passwordStrengthScore($password);
         if ($score < $level) {
             throw ValidationException::withMessages([
-                'password' => ["Password strength must be at least {$level}/10."],
+                'password' => [app(\App\Services\LocalizationService::class)->translate('Password strength must be at least {level}/10.', $request->header('X-PlayHub-Language') ?: $request->header('X-PlayHub-Locale') ?: $request->getPreferredLanguage(), ['level' => $level])],
             ]);
         }
     }

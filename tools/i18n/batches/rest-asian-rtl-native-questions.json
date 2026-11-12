@@ -1,0 +1,479 @@
+{
+  "kind": "unresolved-linguistic-questions",
+  "note": "No candidate here has been accepted as translated or context-verified. This is not an apply-batch input.",
+  "messages": [
+    {
+      "locale": "am",
+      "source": "Find out how we handle your data in our privacy policy.",
+      "translation": null,
+      "context": "Login privacy link to /privacy, personal single-user address, neutral meaning",
+      "status": "needs-native-reference",
+      "question": "Need an idiomatic complete sentence in personal/community register; available catalog cannot establish linguistic quality."
+    },
+    {
+      "locale": "am",
+      "source": "Paste a public video URL to detect its provider and fetch the details automatically.",
+      "translation": null,
+      "context": "URL import: automatic provider detection and metadata fetch",
+      "status": "needs-native-reference",
+      "question": "Need an idiomatic complete sentence in personal/community register; available catalog cannot establish linguistic quality."
+    },
+    {
+      "locale": "am",
+      "source": "Review",
+      "translation": "ግምገማ",
+      "context": "Upload wizard: check settings before publishing, not a product rating or content comment",
+      "status": "needs-native-reference",
+      "question": "Which idiomatic short action means checking the video settings, without a formal customer register?"
+    },
+    {
+      "locale": "yor",
+      "source": "Find out how we handle your data in our privacy policy.",
+      "translation": null,
+      "context": "Login privacy link to /privacy, personal single-user address, neutral meaning",
+      "status": "needs-native-reference",
+      "question": "Need an idiomatic complete sentence in personal/community register; available catalog cannot establish linguistic quality."
+    },
+    {
+      "locale": "yor",
+      "source": "Paste a public video URL to detect its provider and fetch the details automatically.",
+      "translation": null,
+      "context": "URL import: automatic provider detection and metadata fetch",
+      "status": "needs-native-reference",
+      "question": "Need an idiomatic complete sentence in personal/community register; available catalog cannot establish linguistic quality."
+    },
+    {
+      "locale": "yor",
+      "source": "Review",
+      "translation": "Atunwo",
+      "context": "Upload wizard: check settings before publishing, not a product rating or content comment",
+      "status": "needs-native-reference",
+      "question": "Which idiomatic short action means checking the video settings, without a formal customer register?"
+    },
+    {
+      "locale": "bo",
+      "source": "Find out how we handle your data in our privacy policy.",
+      "translation": null,
+      "context": "Login privacy link to /privacy, personal single-user address, neutral meaning",
+      "status": "needs-native-reference",
+      "question": "Need an idiomatic complete sentence in personal/community register; available catalog cannot establish linguistic quality."
+    },
+    {
+      "locale": "bo",
+      "source": "Paste a public video URL to detect its provider and fetch the details automatically.",
+      "translation": null,
+      "context": "URL import: automatic provider detection and metadata fetch",
+      "status": "needs-native-reference",
+      "question": "Need an idiomatic complete sentence in personal/community register; available catalog cannot establish linguistic quality."
+    },
+    {
+      "locale": "bo",
+      "source": "Review",
+      "translation": "བསྐྱར་ཞིབ",
+      "context": "Upload wizard: check settings before publishing, not a product rating or content comment",
+      "status": "needs-native-reference",
+      "question": "Which idiomatic short action means checking the video settings, without a formal customer register?"
+    },
+    {
+      "locale": "dzo",
+      "source": "Find out how we handle your data in our privacy policy.",
+      "translation": null,
+      "context": "Login privacy link to /privacy, personal single-user address, neutral meaning",
+      "status": "needs-native-reference",
+      "question": "Need an idiomatic complete sentence in personal/community register; available catalog cannot establish linguistic quality."
+    },
+    {
+      "locale": "dzo",
+      "source": "Paste a public video URL to detect its provider and fetch the details automatically.",
+      "translation": null,
+      "context": "URL import: automatic provider detection and metadata fetch",
+      "status": "needs-native-reference",
+      "question": "Need an idiomatic complete sentence in personal/community register; available catalog cannot establish linguistic quality."
+    },
+    {
+      "locale": "dzo",
+      "source": "Review",
+      "translation": "བསྐྱར་ཞིབ",
+      "context": "Upload wizard: check settings before publishing, not a product rating or content comment",
+      "status": "needs-native-reference",
+      "question": "Which idiomatic short action means checking the video settings, without a formal customer register?"
+    },
+    {
+      "locale": "sah",
+      "source": "Find out how we handle your data in our privacy policy.",
+      "translation": "Эн тускунан информацияны хайдах туһанарбыт туһунан кистээһин сиэригэр суруллубут.",
+      "context": "Login privacy link to /privacy, personal single-user address, neutral meaning",
+      "status": "source-assisted-context-checked",
+      "question": "This narrow source-assisted privacy message passed isolated390px login link/no-overflow/no-write checks; remaining Sakha messages still need linguistic references."
+    },
+    {
+      "locale": "sah",
+      "source": "Paste a public video URL to detect its provider and fetch the details automatically.",
+      "translation": null,
+      "context": "URL import: automatic provider detection and metadata fetch",
+      "status": "needs-native-reference",
+      "question": "Need an idiomatic complete sentence in personal/community register; available catalog cannot establish linguistic quality."
+    },
+    {
+      "locale": "sah",
+      "source": "Review",
+      "translation": "Сэрэтии",
+      "context": "Upload wizard: check settings before publishing, not a product rating or content comment",
+      "status": "needs-native-reference",
+      "question": "Which idiomatic short action means checking the video settings, without a formal customer register?"
+    },
+    {
+      "locale": "kir",
+      "source": "Find out how we handle your data in our privacy policy.",
+      "translation": null,
+      "context": "Login privacy link to /privacy, personal single-user address, neutral meaning",
+      "status": "needs-native-reference",
+      "question": "Need an idiomatic complete sentence in personal/community register; available catalog cannot establish linguistic quality."
+    },
+    {
+      "locale": "kir",
+      "source": "Paste a public video URL to detect its provider and fetch the details automatically.",
+      "translation": null,
+      "context": "URL import: automatic provider detection and metadata fetch",
+      "status": "needs-native-reference",
+      "question": "Need an idiomatic complete sentence in personal/community register; available catalog cannot establish linguistic quality."
+    },
+    {
+      "locale": "kir",
+      "source": "Review",
+      "translation": "карап чыгуу",
+      "context": "Upload wizard: check settings before publishing, not a product rating or content comment",
+      "status": "needs-native-reference",
+      "question": "Which idiomatic short action means checking the video settings, without a formal customer register?"
+    },
+    {
+      "locale": "azb",
+      "source": "Find out how we handle your data in our privacy policy.",
+      "translation": null,
+      "context": "Login privacy link to /privacy, personal single-user address, neutral meaning",
+      "status": "needs-native-reference",
+      "question": "Need an idiomatic complete sentence in personal/community register; available catalog cannot establish linguistic quality."
+    },
+    {
+      "locale": "azb",
+      "source": "Paste a public video URL to detect its provider and fetch the details automatically.",
+      "translation": null,
+      "context": "URL import: automatic provider detection and metadata fetch",
+      "status": "needs-native-reference",
+      "question": "Need an idiomatic complete sentence in personal/community register; available catalog cannot establish linguistic quality."
+    },
+    {
+      "locale": "azb",
+      "source": "Review",
+      "translation": "Baxış",
+      "context": "Upload wizard: check settings before publishing, not a product rating or content comment",
+      "status": "needs-native-reference",
+      "question": "Which idiomatic short action means checking the video settings, without a formal customer register?"
+    },
+    {
+      "locale": "ug_cn",
+      "source": "Find out how we handle your data in our privacy policy.",
+      "translation": null,
+      "context": "Login privacy link to /privacy, personal single-user address, neutral meaning",
+      "status": "needs-native-reference",
+      "question": "Need an idiomatic complete sentence in personal/community register; available catalog cannot establish linguistic quality."
+    },
+    {
+      "locale": "ug_cn",
+      "source": "Paste a public video URL to detect its provider and fetch the details automatically.",
+      "translation": null,
+      "context": "URL import: automatic provider detection and metadata fetch",
+      "status": "needs-native-reference",
+      "question": "Need an idiomatic complete sentence in personal/community register; available catalog cannot establish linguistic quality."
+    },
+    {
+      "locale": "ug_cn",
+      "source": "Review",
+      "translation": "ئوبزور",
+      "context": "Upload wizard: check settings before publishing, not a product rating or content comment",
+      "status": "needs-native-reference",
+      "question": "Which idiomatic short action means checking the video settings, without a formal customer register?"
+    },
+    {
+      "locale": "snd",
+      "source": "Find out how we handle your data in our privacy policy.",
+      "translation": null,
+      "context": "Login privacy link to /privacy, personal single-user address, neutral meaning",
+      "status": "needs-native-reference",
+      "question": "Need an idiomatic complete sentence in personal/community register; available catalog cannot establish linguistic quality."
+    },
+    {
+      "locale": "snd",
+      "source": "Paste a public video URL to detect its provider and fetch the details automatically.",
+      "translation": null,
+      "context": "URL import: automatic provider detection and metadata fetch",
+      "status": "needs-native-reference",
+      "question": "Need an idiomatic complete sentence in personal/community register; available catalog cannot establish linguistic quality."
+    },
+    {
+      "locale": "snd",
+      "source": "Review",
+      "translation": "جائزو",
+      "context": "Upload wizard: check settings before publishing, not a product rating or content comment",
+      "status": "needs-native-reference",
+      "question": "Which idiomatic short action means checking the video settings, without a formal customer register?"
+    },
+    {
+      "locale": "ckb",
+      "source": "Find out how we handle your data in our privacy policy.",
+      "translation": null,
+      "context": "Login privacy link to /privacy, personal single-user address, neutral meaning",
+      "status": "needs-native-reference",
+      "question": "Need an idiomatic complete sentence in personal/community register; available catalog cannot establish linguistic quality."
+    },
+    {
+      "locale": "ckb",
+      "source": "Paste a public video URL to detect its provider and fetch the details automatically.",
+      "translation": null,
+      "context": "URL import: automatic provider detection and metadata fetch",
+      "status": "needs-native-reference",
+      "question": "Need an idiomatic complete sentence in personal/community register; available catalog cannot establish linguistic quality."
+    },
+    {
+      "locale": "ckb",
+      "source": "Review",
+      "translation": "پێداچوونەوە",
+      "context": "Upload wizard: check settings before publishing, not a product rating or content comment",
+      "status": "needs-native-reference",
+      "question": "Which idiomatic short action means checking the video settings, without a formal customer register?"
+    },
+    {
+      "locale": "ps",
+      "source": "Find out how we handle your data in our privacy policy.",
+      "translation": null,
+      "context": "Login privacy link to /privacy, personal single-user address, neutral meaning",
+      "status": "needs-native-reference",
+      "question": "Need an idiomatic complete sentence in personal/community register; available catalog cannot establish linguistic quality."
+    },
+    {
+      "locale": "ps",
+      "source": "Paste a public video URL to detect its provider and fetch the details automatically.",
+      "translation": null,
+      "context": "URL import: automatic provider detection and metadata fetch",
+      "status": "needs-native-reference",
+      "question": "Need an idiomatic complete sentence in personal/community register; available catalog cannot establish linguistic quality."
+    },
+    {
+      "locale": "ps",
+      "source": "Review",
+      "translation": "بیاکتنه",
+      "context": "Upload wizard: check settings before publishing, not a product rating or content comment",
+      "status": "needs-native-reference",
+      "question": "Which idiomatic short action means checking the video settings, without a formal customer register?"
+    },
+    {
+      "locale": "ary",
+      "source": "Find out how we handle your data in our privacy policy.",
+      "translation": null,
+      "context": "Login privacy link to /privacy, personal single-user address, neutral meaning",
+      "status": "needs-native-reference",
+      "question": "Need an idiomatic complete sentence in personal/community register; available catalog cannot establish linguistic quality."
+    },
+    {
+      "locale": "ary",
+      "source": "Paste a public video URL to detect its provider and fetch the details automatically.",
+      "translation": null,
+      "context": "URL import: automatic provider detection and metadata fetch",
+      "status": "needs-native-reference",
+      "question": "Need an idiomatic complete sentence in personal/community register; available catalog cannot establish linguistic quality."
+    },
+    {
+      "locale": "ary",
+      "source": "Review",
+      "translation": "مراجعة",
+      "context": "Upload wizard: check settings before publishing, not a product rating or content comment",
+      "status": "needs-native-reference",
+      "question": "Which idiomatic short action means checking the video settings, without a formal customer register?"
+    },
+    {
+      "locale": "si_lk",
+      "source": "Find out how we handle your data in our privacy policy.",
+      "translation": null,
+      "context": "Login privacy link to /privacy, personal single-user address, neutral meaning",
+      "status": "needs-native-reference",
+      "question": "Need an idiomatic complete sentence in personal/community register; available catalog cannot establish linguistic quality."
+    },
+    {
+      "locale": "si_lk",
+      "source": "Paste a public video URL to detect its provider and fetch the details automatically.",
+      "translation": null,
+      "context": "URL import: automatic provider detection and metadata fetch",
+      "status": "needs-native-reference",
+      "question": "Need an idiomatic complete sentence in personal/community register; available catalog cannot establish linguistic quality."
+    },
+    {
+      "locale": "si_lk",
+      "source": "Review",
+      "translation": "සමාලෝචනය කරන්න",
+      "context": "Upload wizard: check settings before publishing, not a product rating or content comment",
+      "status": "needs-native-reference",
+      "question": "Which idiomatic short action means checking the video settings, without a formal customer register?"
+    },
+    {
+      "locale": "my_mm",
+      "source": "Find out how we handle your data in our privacy policy.",
+      "translation": null,
+      "context": "Login privacy link to /privacy, personal single-user address, neutral meaning",
+      "status": "needs-native-reference",
+      "question": "Need an idiomatic complete sentence in personal/community register; available catalog cannot establish linguistic quality."
+    },
+    {
+      "locale": "my_mm",
+      "source": "Paste a public video URL to detect its provider and fetch the details automatically.",
+      "translation": null,
+      "context": "URL import: automatic provider detection and metadata fetch",
+      "status": "needs-native-reference",
+      "question": "Need an idiomatic complete sentence in personal/community register; available catalog cannot establish linguistic quality."
+    },
+    {
+      "locale": "my_mm",
+      "source": "Review",
+      "translation": "သုံးသပ်ချက်",
+      "context": "Upload wizard: check settings before publishing, not a product rating or content comment",
+      "status": "needs-native-reference",
+      "question": "Which idiomatic short action means checking the video settings, without a formal customer register?"
+    },
+    {
+      "locale": "km",
+      "source": "Find out how we handle your data in our privacy policy.",
+      "translation": null,
+      "context": "Login privacy link to /privacy, personal single-user address, neutral meaning",
+      "status": "needs-native-reference",
+      "question": "Need an idiomatic complete sentence in personal/community register; available catalog cannot establish linguistic quality."
+    },
+    {
+      "locale": "km",
+      "source": "Paste a public video URL to detect its provider and fetch the details automatically.",
+      "translation": null,
+      "context": "URL import: automatic provider detection and metadata fetch",
+      "status": "needs-native-reference",
+      "question": "Need an idiomatic complete sentence in personal/community register; available catalog cannot establish linguistic quality."
+    },
+    {
+      "locale": "km",
+      "source": "Review",
+      "translation": "ពិនិត្យ",
+      "context": "Upload wizard: check settings before publishing, not a product rating or content comment",
+      "status": "needs-native-reference",
+      "question": "Which idiomatic short action means checking the video settings, without a formal customer register?"
+    },
+    {
+      "locale": "lo",
+      "source": "Find out how we handle your data in our privacy policy.",
+      "translation": null,
+      "context": "Login privacy link to /privacy, personal single-user address, neutral meaning",
+      "status": "needs-native-reference",
+      "question": "Need an idiomatic complete sentence in personal/community register; available catalog cannot establish linguistic quality."
+    },
+    {
+      "locale": "lo",
+      "source": "Paste a public video URL to detect its provider and fetch the details automatically.",
+      "translation": null,
+      "context": "URL import: automatic provider detection and metadata fetch",
+      "status": "needs-native-reference",
+      "question": "Need an idiomatic complete sentence in personal/community register; available catalog cannot establish linguistic quality."
+    },
+    {
+      "locale": "lo",
+      "source": "Review",
+      "translation": "ທົບທວນຄືນ",
+      "context": "Upload wizard: check settings before publishing, not a product rating or content comment",
+      "status": "needs-native-reference",
+      "question": "Which idiomatic short action means checking the video settings, without a formal customer register?"
+    },
+    {
+      "locale": "jv_id",
+      "source": "Find out how we handle your data in our privacy policy.",
+      "translation": null,
+      "context": "Login privacy link to /privacy, personal single-user address, neutral meaning",
+      "status": "needs-native-reference",
+      "question": "Need an idiomatic complete sentence in personal/community register; available catalog cannot establish linguistic quality."
+    },
+    {
+      "locale": "jv_id",
+      "source": "Paste a public video URL to detect its provider and fetch the details automatically.",
+      "translation": null,
+      "context": "URL import: automatic provider detection and metadata fetch",
+      "status": "needs-native-reference",
+      "question": "Need an idiomatic complete sentence in personal/community register; available catalog cannot establish linguistic quality."
+    },
+    {
+      "locale": "jv_id",
+      "source": "Review",
+      "translation": "Review",
+      "context": "Upload wizard: check settings before publishing, not a product rating or content comment",
+      "status": "needs-native-reference",
+      "question": "Which idiomatic short action means checking the video settings, without a formal customer register?"
+    },
+    {
+      "locale": "tah",
+      "source": "Find out how we handle your data in our privacy policy.",
+      "translation": null,
+      "context": "Login privacy link to /privacy, personal single-user address, neutral meaning",
+      "status": "needs-native-reference",
+      "question": "Need an idiomatic complete sentence in personal/community register; available catalog cannot establish linguistic quality."
+    },
+    {
+      "locale": "tah",
+      "source": "Paste a public video URL to detect its provider and fetch the details automatically.",
+      "translation": null,
+      "context": "URL import: automatic provider detection and metadata fetch",
+      "status": "needs-native-reference",
+      "question": "Need an idiomatic complete sentence in personal/community register; available catalog cannot establish linguistic quality."
+    },
+    {
+      "locale": "tah",
+      "source": "Review",
+      "translation": "Aravihi",
+      "context": "Upload wizard: check settings before publishing, not a product rating or content comment",
+      "status": "needs-native-reference",
+      "question": "Which idiomatic short action means checking the video settings, without a formal customer register?"
+    }
+  ],
+  "research": [
+    {
+      "locale": "bo",
+      "source": "https://raw.githubusercontent.com/mozilla-l10n/firefox-l10n/main/bo/browser/browser/preferences/preferences.ftl",
+      "observed_privacy_header": "Browser Privacy",
+      "conclusion": "The primary software repository itself has English fallback for this privacy header; cannot establish an idiomatic Tibetan full sentence or direct-address register."
+    },
+    {
+      "locale": "ckb",
+      "source": "https://raw.githubusercontent.com/mozilla-l10n/firefox-l10n/main/ckb/browser/browser/preferences/preferences.ftl",
+      "observed_privacy_header": "تایبەتێتی وێبگەڕ",
+      "conclusion": "Confirms a native term for browser privacy, not the complete how-we-handle-data sentence or informal agreement."
+    },
+    {
+      "locale": "km",
+      "source": "https://raw.githubusercontent.com/mozilla-l10n/firefox-l10n/main/km/browser/browser/preferences/preferences.ftl",
+      "observed_privacy_header": "ឯកជនភាព​កម្មវិធី​រុករក​តាម​អ៊ីនធឺណិត",
+      "conclusion": "Confirms native privacy terminology; no matched complete personal policy-link sentence found."
+    },
+    {
+      "locale": "lo",
+      "source": "https://raw.githubusercontent.com/mozilla-l10n/firefox-l10n/main/lo/browser/browser/preferences/preferences.ftl",
+      "observed_privacy_header": "ຄວາມເປັນສ່ວນຕົວຂອງບຣາວເຊີ",
+      "conclusion": "Confirms native browser-privacy terminology, not a complete vetted CrozzTube message."
+    },
+    {
+      "locale": "my_mm",
+      "source": "https://raw.githubusercontent.com/mozilla-l10n/firefox-l10n/main/my/browser/browser/preferences/preferences.ftl",
+      "observed_privacy_header": "ဘရောင်ဇာ ကိုယ်ရေးကာကွယ်မှု",
+      "conclusion": "Confirms native browser-privacy terminology only; personal policy-link sentence remains unaccepted."
+    },
+    {
+      "locale": "sah",
+      "source": "https://raw.githubusercontent.com/mozilla-l10n/firefox-l10n/main/sah/browser/browser/preferences/preferences.ftl",
+      "conclusion": "A separate primary Mozilla aboutRights source attests informal singular Эн and full data-use clause; translatewiki native policy title confirms the policy term. One narrow source-assisted personal privacy message is now editorially adapted; remaining Sakha/import/check-action wording is not certified.",
+      "additional_sources": [
+        "https://raw.githubusercontent.com/mozilla-l10n/firefox-l10n/main/sah/toolkit/toolkit/about/aboutRights.ftl",
+        "https://translatewiki.net/wiki/Project%3APrivacy_policy/sah"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,3155 @@
+{
+  "context": "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented.",
+  "messages": {},
+  "metadata": {
+    "nl": {
+      "__patterns": {
+        "count_user": "Gebruikers: {count}",
+        "count_user_one": "{count} gebruiker",
+        "count_user_other": "{count} gebruikers",
+        "count_video": "Video’s: {count}",
+        "count_video_one": "{count} video",
+        "count_video_other": "{count} video’s",
+        "count_comment": "Reacties: {count}",
+        "count_comment_one": "{count} reactie",
+        "count_comment_other": "{count} reacties",
+        "count_subscriber": "Abonnees: {count}",
+        "count_subscriber_one": "{count} abonnee",
+        "count_subscriber_other": "{count} abonnees",
+        "count_view": "Weergaven: {count}",
+        "count_view_one": "{count} weergave",
+        "count_view_other": "{count} weergaven",
+        "count_like": "Likes: {count}",
+        "count_like_one": "{count} like",
+        "count_like_other": "{count} likes",
+        "count_reply": "Antwoorden: {count}",
+        "count_reply_one": "{count} antwoord",
+        "count_reply_other": "{count} antwoorden",
+        "count_playlist": "Playlists: {count}",
+        "count_playlist_one": "{count} playlist",
+        "count_playlist_other": "{count} playlists"
+      },
+      "__plurals": {
+        "user": {
+          "one": "gebruiker",
+          "other": "gebruikers"
+        },
+        "users": {
+          "one": "gebruiker",
+          "other": "gebruikers"
+        },
+        "video": {
+          "one": "video",
+          "other": "video’s"
+        },
+        "videos": {
+          "one": "video",
+          "other": "video’s"
+        },
+        "comment": {
+          "one": "reactie",
+          "other": "reacties"
+        },
+        "comments": {
+          "one": "reactie",
+          "other": "reacties"
+        },
+        "subscriber": {
+          "one": "abonnee",
+          "other": "abonnees"
+        },
+        "subscribers": {
+          "one": "abonnee",
+          "other": "abonnees"
+        },
+        "view": {
+          "one": "weergave",
+          "other": "weergaven"
+        },
+        "views": {
+          "one": "weergave",
+          "other": "weergaven"
+        },
+        "like": {
+          "one": "like",
+          "other": "likes"
+        },
+        "likes": {
+          "one": "like",
+          "other": "likes"
+        },
+        "reply": {
+          "one": "antwoord",
+          "other": "antwoorden"
+        },
+        "replies": {
+          "one": "antwoord",
+          "other": "antwoorden"
+        },
+        "playlist": {
+          "one": "playlist",
+          "other": "playlists"
+        },
+        "playlists": {
+          "one": "playlist",
+          "other": "playlists"
+        }
+      }
+    },
+    "af": {
+      "__patterns": {
+        "count_user": "Gebruikers: {count}",
+        "count_user_one": "{count} gebruiker",
+        "count_user_other": "{count} gebruikers",
+        "count_video": "Video’s: {count}",
+        "count_video_one": "{count} video",
+        "count_video_other": "{count} video’s",
+        "count_comment": "Opmerkings: {count}",
+        "count_comment_one": "{count} opmerking",
+        "count_comment_other": "{count} opmerkings",
+        "count_subscriber": "Intekenaars: {count}",
+        "count_subscriber_one": "{count} intekenaar",
+        "count_subscriber_other": "{count} intekenaars",
+        "count_view": "Kyke: {count}",
+        "count_view_one": "{count} kyk",
+        "count_view_other": "{count} kyke",
+        "count_like": "Hou van: {count}",
+        "count_reply": "Antwoorde: {count}",
+        "count_reply_one": "{count} antwoord",
+        "count_reply_other": "{count} antwoorde",
+        "count_playlist": "Snitlyste: {count}",
+        "count_playlist_one": "{count} snitlys",
+        "count_playlist_other": "{count} snitlyste"
+      },
+      "__plurals": {
+        "user": {
+          "one": "gebruiker",
+          "other": "gebruikers"
+        },
+        "users": {
+          "one": "gebruiker",
+          "other": "gebruikers"
+        },
+        "video": {
+          "one": "video",
+          "other": "video’s"
+        },
+        "videos": {
+          "one": "video",
+          "other": "video’s"
+        },
+        "comment": {
+          "one": "opmerking",
+          "other": "opmerkings"
+        },
+        "comments": {
+          "one": "opmerking",
+          "other": "opmerkings"
+        },
+        "subscriber": {
+          "one": "intekenaar",
+          "other": "intekenaars"
+        },
+        "subscribers": {
+          "one": "intekenaar",
+          "other": "intekenaars"
+        },
+        "view": {
+          "one": "kyk",
+          "other": "kyke"
+        },
+        "views": {
+          "one": "kyk",
+          "other": "kyke"
+        },
+        "reply": {
+          "one": "antwoord",
+          "other": "antwoorde"
+        },
+        "replies": {
+          "one": "antwoord",
+          "other": "antwoorde"
+        },
+        "playlist": {
+          "one": "snitlys",
+          "other": "snitlyste"
+        },
+        "playlists": {
+          "one": "snitlys",
+          "other": "snitlyste"
+        }
+      }
+    },
+    "da": {
+      "__patterns": {
+        "count_user": "Brugere: {count}",
+        "count_user_one": "{count} bruger",
+        "count_user_other": "{count} brugere",
+        "count_video": "Videoer: {count}",
+        "count_video_one": "{count} video",
+        "count_video_other": "{count} videoer",
+        "count_comment": "Kommentarer: {count}",
+        "count_comment_one": "{count} kommentar",
+        "count_comment_other": "{count} kommentarer",
+        "count_subscriber": "Abonnenter: {count}",
+        "count_subscriber_one": "{count} abonnent",
+        "count_subscriber_other": "{count} abonnenter",
+        "count_view": "Visninger: {count}",
+        "count_view_one": "{count} visning",
+        "count_view_other": "{count} visninger",
+        "count_like": "Likes: {count}",
+        "count_like_one": "{count} like",
+        "count_like_other": "{count} likes",
+        "count_reply": "Svar: {count}",
+        "count_reply_one": "{count} svar",
+        "count_reply_other": "{count} svar",
+        "count_playlist": "Afspilningslister: {count}",
+        "count_playlist_one": "{count} afspilningsliste",
+        "count_playlist_other": "{count} afspilningslister"
+      },
+      "__plurals": {
+        "user": {
+          "one": "bruger",
+          "other": "brugere"
+        },
+        "users": {
+          "one": "bruger",
+          "other": "brugere"
+        },
+        "video": {
+          "one": "video",
+          "other": "videoer"
+        },
+        "videos": {
+          "one": "video",
+          "other": "videoer"
+        },
+        "comment": {
+          "one": "kommentar",
+          "other": "kommentarer"
+        },
+        "comments": {
+          "one": "kommentar",
+          "other": "kommentarer"
+        },
+        "subscriber": {
+          "one": "abonnent",
+          "other": "abonnenter"
+        },
+        "subscribers": {
+          "one": "abonnent",
+          "other": "abonnenter"
+        },
+        "view": {
+          "one": "visning",
+          "other": "visninger"
+        },
+        "views": {
+          "one": "visning",
+          "other": "visninger"
+        },
+        "like": {
+          "one": "like",
+          "other": "likes"
+        },
+        "likes": {
+          "one": "like",
+          "other": "likes"
+        },
+        "reply": {
+          "one": "svar",
+          "other": "svar"
+        },
+        "replies": {
+          "one": "svar",
+          "other": "svar"
+        },
+        "playlist": {
+          "one": "afspilningsliste",
+          "other": "afspilningslister"
+        },
+        "playlists": {
+          "one": "afspilningsliste",
+          "other": "afspilningslister"
+        }
+      }
+    },
+    "sv": {
+      "__patterns": {
+        "count_user": "Användare: {count}",
+        "count_user_one": "{count} användare",
+        "count_user_other": "{count} användare",
+        "count_video": "Videor: {count}",
+        "count_video_one": "{count} video",
+        "count_video_other": "{count} videor",
+        "count_comment": "Kommentarer: {count}",
+        "count_comment_one": "{count} kommentar",
+        "count_comment_other": "{count} kommentarer",
+        "count_subscriber": "Prenumeranter: {count}",
+        "count_subscriber_one": "{count} prenumerant",
+        "count_subscriber_other": "{count} prenumeranter",
+        "count_view": "Visningar: {count}",
+        "count_view_one": "{count} visning",
+        "count_view_other": "{count} visningar",
+        "count_like": "Gilla-markeringar: {count}",
+        "count_like_one": "{count} gilla-markering",
+        "count_like_other": "{count} gilla-markeringar",
+        "count_reply": "Svar: {count}",
+        "count_reply_one": "{count} svar",
+        "count_reply_other": "{count} svar",
+        "count_playlist": "Spellistor: {count}",
+        "count_playlist_one": "{count} spellista",
+        "count_playlist_other": "{count} spellistor"
+      },
+      "__plurals": {
+        "user": {
+          "one": "användare",
+          "other": "användare"
+        },
+        "users": {
+          "one": "användare",
+          "other": "användare"
+        },
+        "video": {
+          "one": "video",
+          "other": "videor"
+        },
+        "videos": {
+          "one": "video",
+          "other": "videor"
+        },
+        "comment": {
+          "one": "kommentar",
+          "other": "kommentarer"
+        },
+        "comments": {
+          "one": "kommentar",
+          "other": "kommentarer"
+        },
+        "subscriber": {
+          "one": "prenumerant",
+          "other": "prenumeranter"
+        },
+        "subscribers": {
+          "one": "prenumerant",
+          "other": "prenumeranter"
+        },
+        "view": {
+          "one": "visning",
+          "other": "visningar"
+        },
+        "views": {
+          "one": "visning",
+          "other": "visningar"
+        },
+        "like": {
+          "one": "gilla-markering",
+          "other": "gilla-markeringar"
+        },
+        "likes": {
+          "one": "gilla-markering",
+          "other": "gilla-markeringar"
+        },
+        "reply": {
+          "one": "svar",
+          "other": "svar"
+        },
+        "replies": {
+          "one": "svar",
+          "other": "svar"
+        },
+        "playlist": {
+          "one": "spellista",
+          "other": "spellistor"
+        },
+        "playlists": {
+          "one": "spellista",
+          "other": "spellistor"
+        }
+      }
+    },
+    "nb": {
+      "__patterns": {
+        "count_user": "Brukere: {count}",
+        "count_user_one": "{count} bruker",
+        "count_user_other": "{count} brukere",
+        "count_video": "Videoer: {count}",
+        "count_video_one": "{count} video",
+        "count_video_other": "{count} videoer",
+        "count_comment": "Kommentarer: {count}",
+        "count_comment_one": "{count} kommentar",
+        "count_comment_other": "{count} kommentarer",
+        "count_subscriber": "Abonnenter: {count}",
+        "count_subscriber_one": "{count} abonnent",
+        "count_subscriber_other": "{count} abonnenter",
+        "count_view": "Visninger: {count}",
+        "count_view_one": "{count} visning",
+        "count_view_other": "{count} visninger",
+        "count_like": "Likerklikk: {count}",
+        "count_like_one": "{count} likerklikk",
+        "count_like_other": "{count} likerklikk",
+        "count_reply": "Svar: {count}",
+        "count_reply_one": "{count} svar",
+        "count_reply_other": "{count} svar",
+        "count_playlist": "Spillelister: {count}",
+        "count_playlist_one": "{count} spilleliste",
+        "count_playlist_other": "{count} spillelister"
+      },
+      "__plurals": {
+        "user": {
+          "one": "bruker",
+          "other": "brukere"
+        },
+        "users": {
+          "one": "bruker",
+          "other": "brukere"
+        },
+        "video": {
+          "one": "video",
+          "other": "videoer"
+        },
+        "videos": {
+          "one": "video",
+          "other": "videoer"
+        },
+        "comment": {
+          "one": "kommentar",
+          "other": "kommentarer"
+        },
+        "comments": {
+          "one": "kommentar",
+          "other": "kommentarer"
+        },
+        "subscriber": {
+          "one": "abonnent",
+          "other": "abonnenter"
+        },
+        "subscribers": {
+          "one": "abonnent",
+          "other": "abonnenter"
+        },
+        "view": {
+          "one": "visning",
+          "other": "visninger"
+        },
+        "views": {
+          "one": "visning",
+          "other": "visninger"
+        },
+        "like": {
+          "one": "likerklikk",
+          "other": "likerklikk"
+        },
+        "likes": {
+          "one": "likerklikk",
+          "other": "likerklikk"
+        },
+        "reply": {
+          "one": "svar",
+          "other": "svar"
+        },
+        "replies": {
+          "one": "svar",
+          "other": "svar"
+        },
+        "playlist": {
+          "one": "spilleliste",
+          "other": "spillelister"
+        },
+        "playlists": {
+          "one": "spilleliste",
+          "other": "spillelister"
+        }
+      }
+    },
+    "nn": {
+      "__patterns": {
+        "count_user": "Brukarar: {count}",
+        "count_user_one": "{count} brukar",
+        "count_user_other": "{count} brukarar",
+        "count_video": "Videoar: {count}",
+        "count_video_one": "{count} video",
+        "count_video_other": "{count} videoar",
+        "count_comment": "Kommentarar: {count}",
+        "count_comment_one": "{count} kommentar",
+        "count_comment_other": "{count} kommentarar",
+        "count_subscriber": "Abonnentar: {count}",
+        "count_subscriber_one": "{count} abonnent",
+        "count_subscriber_other": "{count} abonnentar",
+        "count_view": "Visningar: {count}",
+        "count_view_one": "{count} visning",
+        "count_view_other": "{count} visningar",
+        "count_like": "Likarklikk: {count}",
+        "count_like_one": "{count} likarklikk",
+        "count_like_other": "{count} likarklikk",
+        "count_reply": "Svar: {count}",
+        "count_reply_one": "{count} svar",
+        "count_reply_other": "{count} svar",
+        "count_playlist": "Spelelister: {count}",
+        "count_playlist_one": "{count} speleliste",
+        "count_playlist_other": "{count} spelelister"
+      },
+      "__plurals": {
+        "user": {
+          "one": "brukar",
+          "other": "brukarar"
+        },
+        "users": {
+          "one": "brukar",
+          "other": "brukarar"
+        },
+        "video": {
+          "one": "video",
+          "other": "videoar"
+        },
+        "videos": {
+          "one": "video",
+          "other": "videoar"
+        },
+        "comment": {
+          "one": "kommentar",
+          "other": "kommentarar"
+        },
+        "comments": {
+          "one": "kommentar",
+          "other": "kommentarar"
+        },
+        "subscriber": {
+          "one": "abonnent",
+          "other": "abonnentar"
+        },
+        "subscribers": {
+          "one": "abonnent",
+          "other": "abonnentar"
+        },
+        "view": {
+          "one": "visning",
+          "other": "visningar"
+        },
+        "views": {
+          "one": "visning",
+          "other": "visningar"
+        },
+        "like": {
+          "one": "likarklikk",
+          "other": "likarklikk"
+        },
+        "likes": {
+          "one": "likarklikk",
+          "other": "likarklikk"
+        },
+        "reply": {
+          "one": "svar",
+          "other": "svar"
+        },
+        "replies": {
+          "one": "svar",
+          "other": "svar"
+        },
+        "playlist": {
+          "one": "speleliste",
+          "other": "spelelister"
+        },
+        "playlists": {
+          "one": "speleliste",
+          "other": "spelelister"
+        }
+      }
+    },
+    "fi": {
+      "__patterns": {
+        "count_user": "Käyttäjät: {count}",
+        "count_user_one": "{count} käyttäjä",
+        "count_user_other": "{count} käyttäjää",
+        "count_video": "Videot: {count}",
+        "count_video_one": "{count} video",
+        "count_video_other": "{count} videota",
+        "count_comment": "Kommentit: {count}",
+        "count_comment_one": "{count} kommentti",
+        "count_comment_other": "{count} kommenttia",
+        "count_subscriber": "Tilaajat: {count}",
+        "count_subscriber_one": "{count} tilaaja",
+        "count_subscriber_other": "{count} tilaajaa",
+        "count_view": "Katselukerrat: {count}",
+        "count_view_one": "{count} katselukerta",
+        "count_view_other": "{count} katselukertaa",
+        "count_like": "Tykkäykset: {count}",
+        "count_like_one": "{count} tykkäys",
+        "count_like_other": "{count} tykkäystä",
+        "count_reply": "Vastaukset: {count}",
+        "count_reply_one": "{count} vastaus",
+        "count_reply_other": "{count} vastausta",
+        "count_playlist": "Soittolistat: {count}",
+        "count_playlist_one": "{count} soittolista",
+        "count_playlist_other": "{count} soittolistaa"
+      },
+      "__plurals": {
+        "user": {
+          "one": "käyttäjä",
+          "other": "käyttäjää"
+        },
+        "users": {
+          "one": "käyttäjä",
+          "other": "käyttäjää"
+        },
+        "video": {
+          "one": "video",
+          "other": "videota"
+        },
+        "videos": {
+          "one": "video",
+          "other": "videota"
+        },
+        "comment": {
+          "one": "kommentti",
+          "other": "kommenttia"
+        },
+        "comments": {
+          "one": "kommentti",
+          "other": "kommenttia"
+        },
+        "subscriber": {
+          "one": "tilaaja",
+          "other": "tilaajaa"
+        },
+        "subscribers": {
+          "one": "tilaaja",
+          "other": "tilaajaa"
+        },
+        "view": {
+          "one": "katselukerta",
+          "other": "katselukertaa"
+        },
+        "views": {
+          "one": "katselukerta",
+          "other": "katselukertaa"
+        },
+        "like": {
+          "one": "tykkäys",
+          "other": "tykkäystä"
+        },
+        "likes": {
+          "one": "tykkäys",
+          "other": "tykkäystä"
+        },
+        "reply": {
+          "one": "vastaus",
+          "other": "vastausta"
+        },
+        "replies": {
+          "one": "vastaus",
+          "other": "vastausta"
+        },
+        "playlist": {
+          "one": "soittolista",
+          "other": "soittolistaa"
+        },
+        "playlists": {
+          "one": "soittolista",
+          "other": "soittolistaa"
+        }
+      }
+    },
+    "is": {
+      "__patterns": {
+        "count_user": "Notendur: {count}",
+        "count_user_one": "{count} notandi",
+        "count_user_other": "{count} notendur",
+        "count_video": "Myndbönd: {count}",
+        "count_video_one": "{count} myndband",
+        "count_video_other": "{count} myndbönd",
+        "count_comment": "Athugasemdir: {count}",
+        "count_comment_one": "{count} athugasemd",
+        "count_comment_other": "{count} athugasemdir",
+        "count_subscriber": "Áskrifendur: {count}",
+        "count_subscriber_one": "{count} áskrifandi",
+        "count_subscriber_other": "{count} áskrifendur",
+        "count_view": "Áhorf: {count}",
+        "count_view_one": "{count} áhorf",
+        "count_view_other": "{count} áhorf",
+        "count_like": "Líkar við: {count}",
+        "count_reply": "Svör: {count}",
+        "count_reply_one": "{count} svar",
+        "count_reply_other": "{count} svör",
+        "count_playlist": "Spilunarlistar: {count}",
+        "count_playlist_one": "{count} spilunarlisti",
+        "count_playlist_other": "{count} spilunarlistar"
+      },
+      "__plurals": {
+        "user": {
+          "one": "notandi",
+          "other": "notendur"
+        },
+        "users": {
+          "one": "notandi",
+          "other": "notendur"
+        },
+        "video": {
+          "one": "myndband",
+          "other": "myndbönd"
+        },
+        "videos": {
+          "one": "myndband",
+          "other": "myndbönd"
+        },
+        "comment": {
+          "one": "athugasemd",
+          "other": "athugasemdir"
+        },
+        "comments": {
+          "one": "athugasemd",
+          "other": "athugasemdir"
+        },
+        "subscriber": {
+          "one": "áskrifandi",
+          "other": "áskrifendur"
+        },
+        "subscribers": {
+          "one": "áskrifandi",
+          "other": "áskrifendur"
+        },
+        "view": {
+          "one": "áhorf",
+          "other": "áhorf"
+        },
+        "views": {
+          "one": "áhorf",
+          "other": "áhorf"
+        },
+        "reply": {
+          "one": "svar",
+          "other": "svör"
+        },
+        "replies": {
+          "one": "svar",
+          "other": "svör"
+        },
+        "playlist": {
+          "one": "spilunarlisti",
+          "other": "spilunarlistar"
+        },
+        "playlists": {
+          "one": "spilunarlisti",
+          "other": "spilunarlistar"
+        }
+      }
+    },
+    "et": {
+      "__patterns": {
+        "count_user": "Kasutajad: {count}",
+        "count_user_one": "{count} kasutaja",
+        "count_user_other": "{count} kasutajat",
+        "count_video": "Videod: {count}",
+        "count_video_one": "{count} video",
+        "count_video_other": "{count} videot",
+        "count_comment": "Kommentaarid: {count}",
+        "count_comment_one": "{count} kommentaar",
+        "count_comment_other": "{count} kommentaari",
+        "count_subscriber": "Tellijad: {count}",
+        "count_subscriber_one": "{count} tellija",
+        "count_subscriber_other": "{count} tellijat",
+        "count_view": "Vaatamised: {count}",
+        "count_view_one": "{count} vaatamine",
+        "count_view_other": "{count} vaatamist",
+        "count_like": "Meeldimised: {count}",
+        "count_like_one": "{count} meeldimine",
+        "count_like_other": "{count} meeldimist",
+        "count_reply": "Vastused: {count}",
+        "count_reply_one": "{count} vastus",
+        "count_reply_other": "{count} vastust",
+        "count_playlist": "Esitusloendid: {count}",
+        "count_playlist_one": "{count} esitusloend",
+        "count_playlist_other": "{count} esitusloendit"
+      },
+      "__plurals": {
+        "user": {
+          "one": "kasutaja",
+          "other": "kasutajat"
+        },
+        "users": {
+          "one": "kasutaja",
+          "other": "kasutajat"
+        },
+        "video": {
+          "one": "video",
+          "other": "videot"
+        },
+        "videos": {
+          "one": "video",
+          "other": "videot"
+        },
+        "comment": {
+          "one": "kommentaar",
+          "other": "kommentaari"
+        },
+        "comments": {
+          "one": "kommentaar",
+          "other": "kommentaari"
+        },
+        "subscriber": {
+          "one": "tellija",
+          "other": "tellijat"
+        },
+        "subscribers": {
+          "one": "tellija",
+          "other": "tellijat"
+        },
+        "view": {
+          "one": "vaatamine",
+          "other": "vaatamist"
+        },
+        "views": {
+          "one": "vaatamine",
+          "other": "vaatamist"
+        },
+        "like": {
+          "one": "meeldimine",
+          "other": "meeldimist"
+        },
+        "likes": {
+          "one": "meeldimine",
+          "other": "meeldimist"
+        },
+        "reply": {
+          "one": "vastus",
+          "other": "vastust"
+        },
+        "replies": {
+          "one": "vastus",
+          "other": "vastust"
+        },
+        "playlist": {
+          "one": "esitusloend",
+          "other": "esitusloendit"
+        },
+        "playlists": {
+          "one": "esitusloend",
+          "other": "esitusloendit"
+        }
+      }
+    },
+    "lv": {
+      "__patterns": {
+        "count_user": "Lietotāji: {count}",
+        "count_user_one": "{count} lietotājs",
+        "count_user_other": "{count} lietotāji",
+        "count_user_zero": "{count} lietotāju",
+        "count_video": "Video: {count}",
+        "count_video_one": "{count} video",
+        "count_video_other": "{count} video",
+        "count_video_zero": "{count} video",
+        "count_comment": "Komentāri: {count}",
+        "count_comment_one": "{count} komentārs",
+        "count_comment_other": "{count} komentāri",
+        "count_comment_zero": "{count} komentāru",
+        "count_subscriber": "Abonenti: {count}",
+        "count_subscriber_one": "{count} abonents",
+        "count_subscriber_other": "{count} abonenti",
+        "count_subscriber_zero": "{count} abonentu",
+        "count_view": "Skatījumi: {count}",
+        "count_view_one": "{count} skatījums",
+        "count_view_other": "{count} skatījumi",
+        "count_view_zero": "{count} skatījumu",
+        "count_like": "Patīk: {count}",
+        "count_reply": "Atbildes: {count}",
+        "count_reply_one": "{count} atbilde",
+        "count_reply_other": "{count} atbildes",
+        "count_reply_zero": "{count} atbilžu",
+        "count_playlist": "Atskaņošanas saraksti: {count}",
+        "count_playlist_one": "{count} atskaņošanas saraksts",
+        "count_playlist_other": "{count} atskaņošanas saraksti",
+        "count_playlist_zero": "{count} atskaņošanas sarakstu"
+      },
+      "__plurals": {
+        "user": {
+          "one": "lietotājs",
+          "other": "lietotāji",
+          "zero": "lietotāju"
+        },
+        "users": {
+          "one": "lietotājs",
+          "other": "lietotāji",
+          "zero": "lietotāju"
+        },
+        "video": {
+          "one": "video",
+          "other": "video",
+          "zero": "video"
+        },
+        "videos": {
+          "one": "video",
+          "other": "video",
+          "zero": "video"
+        },
+        "comment": {
+          "one": "komentārs",
+          "other": "komentāri",
+          "zero": "komentāru"
+        },
+        "comments": {
+          "one": "komentārs",
+          "other": "komentāri",
+          "zero": "komentāru"
+        },
+        "subscriber": {
+          "one": "abonents",
+          "other": "abonenti",
+          "zero": "abonentu"
+        },
+        "subscribers": {
+          "one": "abonents",
+          "other": "abonenti",
+          "zero": "abonentu"
+        },
+        "view": {
+          "one": "skatījums",
+          "other": "skatījumi",
+          "zero": "skatījumu"
+        },
+        "views": {
+          "one": "skatījums",
+          "other": "skatījumi",
+          "zero": "skatījumu"
+        },
+        "reply": {
+          "one": "atbilde",
+          "other": "atbildes",
+          "zero": "atbilžu"
+        },
+        "replies": {
+          "one": "atbilde",
+          "other": "atbildes",
+          "zero": "atbilžu"
+        },
+        "playlist": {
+          "one": "atskaņošanas saraksts",
+          "other": "atskaņošanas saraksti",
+          "zero": "atskaņošanas sarakstu"
+        },
+        "playlists": {
+          "one": "atskaņošanas saraksts",
+          "other": "atskaņošanas saraksti",
+          "zero": "atskaņošanas sarakstu"
+        }
+      }
+    },
+    "lt": {
+      "__patterns": {
+        "count_user": "Naudotojai: {count}",
+        "count_user_one": "{count} naudotojas",
+        "count_user_few": "{count} naudotojai",
+        "count_user_many": "{count} naudotojo",
+        "count_user_other": "{count} naudotojų",
+        "count_video": "Vaizdo įrašai: {count}",
+        "count_video_one": "{count} vaizdo įrašas",
+        "count_video_few": "{count} vaizdo įrašai",
+        "count_video_many": "{count} vaizdo įrašo",
+        "count_video_other": "{count} vaizdo įrašų",
+        "count_comment": "Komentarai: {count}",
+        "count_comment_one": "{count} komentaras",
+        "count_comment_few": "{count} komentarai",
+        "count_comment_many": "{count} komentaro",
+        "count_comment_other": "{count} komentarų",
+        "count_subscriber": "Prenumeratoriai: {count}",
+        "count_subscriber_one": "{count} prenumeratorius",
+        "count_subscriber_few": "{count} prenumeratoriai",
+        "count_subscriber_many": "{count} prenumeratoriaus",
+        "count_subscriber_other": "{count} prenumeratorių",
+        "count_view": "Peržiūros: {count}",
+        "count_view_one": "{count} peržiūra",
+        "count_view_few": "{count} peržiūros",
+        "count_view_many": "{count} peržiūros",
+        "count_view_other": "{count} peržiūrų",
+        "count_like": "Patinka: {count}",
+        "count_reply": "Atsakymai: {count}",
+        "count_reply_one": "{count} atsakymas",
+        "count_reply_few": "{count} atsakymai",
+        "count_reply_many": "{count} atsakymo",
+        "count_reply_other": "{count} atsakymų",
+        "count_playlist": "Grojaraščiai: {count}",
+        "count_playlist_one": "{count} grojaraštis",
+        "count_playlist_few": "{count} grojaraščiai",
+        "count_playlist_many": "{count} grojaraščio",
+        "count_playlist_other": "{count} grojaraščių"
+      },
+      "__plurals": {
+        "user": {
+          "one": "naudotojas",
+          "few": "naudotojai",
+          "many": "naudotojo",
+          "other": "naudotojų"
+        },
+        "users": {
+          "one": "naudotojas",
+          "few": "naudotojai",
+          "many": "naudotojo",
+          "other": "naudotojų"
+        },
+        "video": {
+          "one": "vaizdo įrašas",
+          "few": "vaizdo įrašai",
+          "many": "vaizdo įrašo",
+          "other": "vaizdo įrašų"
+        },
+        "videos": {
+          "one": "vaizdo įrašas",
+          "few": "vaizdo įrašai",
+          "many": "vaizdo įrašo",
+          "other": "vaizdo įrašų"
+        },
+        "comment": {
+          "one": "komentaras",
+          "few": "komentarai",
+          "many": "komentaro",
+          "other": "komentarų"
+        },
+        "comments": {
+          "one": "komentaras",
+          "few": "komentarai",
+          "many": "komentaro",
+          "other": "komentarų"
+        },
+        "subscriber": {
+          "one": "prenumeratorius",
+          "few": "prenumeratoriai",
+          "many": "prenumeratoriaus",
+          "other": "prenumeratorių"
+        },
+        "subscribers": {
+          "one": "prenumeratorius",
+          "few": "prenumeratoriai",
+          "many": "prenumeratoriaus",
+          "other": "prenumeratorių"
+        },
+        "view": {
+          "one": "peržiūra",
+          "few": "peržiūros",
+          "many": "peržiūros",
+          "other": "peržiūrų"
+        },
+        "views": {
+          "one": "peržiūra",
+          "few": "peržiūros",
+          "many": "peržiūros",
+          "other": "peržiūrų"
+        },
+        "reply": {
+          "one": "atsakymas",
+          "few": "atsakymai",
+          "many": "atsakymo",
+          "other": "atsakymų"
+        },
+        "replies": {
+          "one": "atsakymas",
+          "few": "atsakymai",
+          "many": "atsakymo",
+          "other": "atsakymų"
+        },
+        "playlist": {
+          "one": "grojaraštis",
+          "few": "grojaraščiai",
+          "many": "grojaraščio",
+          "other": "grojaraščių"
+        },
+        "playlists": {
+          "one": "grojaraštis",
+          "few": "grojaraščiai",
+          "many": "grojaraščio",
+          "other": "grojaraščių"
+        }
+      }
+    },
+    "pl": {
+      "__patterns": {
+        "count_user": "Użytkownicy: {count}",
+        "count_user_one": "{count} użytkownik",
+        "count_user_few": "{count} użytkownicy",
+        "count_user_many": "{count} użytkowników",
+        "count_user_other": "{count} użytkownika",
+        "count_video": "Filmy: {count}",
+        "count_video_one": "{count} film",
+        "count_video_few": "{count} filmy",
+        "count_video_many": "{count} filmów",
+        "count_video_other": "{count} filmu",
+        "count_comment": "Komentarze: {count}",
+        "count_comment_one": "{count} komentarz",
+        "count_comment_few": "{count} komentarze",
+        "count_comment_many": "{count} komentarzy",
+        "count_comment_other": "{count} komentarza",
+        "count_subscriber": "Subskrybenci: {count}",
+        "count_subscriber_one": "{count} subskrybent",
+        "count_subscriber_few": "{count} subskrybenci",
+        "count_subscriber_many": "{count} subskrybentów",
+        "count_subscriber_other": "{count} subskrybenta",
+        "count_view": "Wyświetlenia: {count}",
+        "count_view_one": "{count} wyświetlenie",
+        "count_view_few": "{count} wyświetlenia",
+        "count_view_many": "{count} wyświetleń",
+        "count_view_other": "{count} wyświetlenia",
+        "count_like": "Polubienia: {count}",
+        "count_like_one": "{count} polubienie",
+        "count_like_few": "{count} polubienia",
+        "count_like_many": "{count} polubień",
+        "count_like_other": "{count} polubienia",
+        "count_reply": "Odpowiedzi: {count}",
+        "count_reply_one": "{count} odpowiedź",
+        "count_reply_few": "{count} odpowiedzi",
+        "count_reply_many": "{count} odpowiedzi",
+        "count_reply_other": "{count} odpowiedzi",
+        "count_playlist": "Playlisty: {count}",
+        "count_playlist_one": "{count} playlista",
+        "count_playlist_few": "{count} playlisty",
+        "count_playlist_many": "{count} playlist",
+        "count_playlist_other": "{count} playlisty"
+      },
+      "__plurals": {
+        "user": {
+          "one": "użytkownik",
+          "few": "użytkownicy",
+          "many": "użytkowników",
+          "other": "użytkownika"
+        },
+        "users": {
+          "one": "użytkownik",
+          "few": "użytkownicy",
+          "many": "użytkowników",
+          "other": "użytkownika"
+        },
+        "video": {
+          "one": "film",
+          "few": "filmy",
+          "many": "filmów",
+          "other": "filmu"
+        },
+        "videos": {
+          "one": "film",
+          "few": "filmy",
+          "many": "filmów",
+          "other": "filmu"
+        },
+        "comment": {
+          "one": "komentarz",
+          "few": "komentarze",
+          "many": "komentarzy",
+          "other": "komentarza"
+        },
+        "comments": {
+          "one": "komentarz",
+          "few": "komentarze",
+          "many": "komentarzy",
+          "other": "komentarza"
+        },
+        "subscriber": {
+          "one": "subskrybent",
+          "few": "subskrybenci",
+          "many": "subskrybentów",
+          "other": "subskrybenta"
+        },
+        "subscribers": {
+          "one": "subskrybent",
+          "few": "subskrybenci",
+          "many": "subskrybentów",
+          "other": "subskrybenta"
+        },
+        "view": {
+          "one": "wyświetlenie",
+          "few": "wyświetlenia",
+          "many": "wyświetleń",
+          "other": "wyświetlenia"
+        },
+        "views": {
+          "one": "wyświetlenie",
+          "few": "wyświetlenia",
+          "many": "wyświetleń",
+          "other": "wyświetlenia"
+        },
+        "like": {
+          "one": "polubienie",
+          "few": "polubienia",
+          "many": "polubień",
+          "other": "polubienia"
+        },
+        "likes": {
+          "one": "polubienie",
+          "few": "polubienia",
+          "many": "polubień",
+          "other": "polubienia"
+        },
+        "reply": {
+          "one": "odpowiedź",
+          "few": "odpowiedzi",
+          "many": "odpowiedzi",
+          "other": "odpowiedzi"
+        },
+        "replies": {
+          "one": "odpowiedź",
+          "few": "odpowiedzi",
+          "many": "odpowiedzi",
+          "other": "odpowiedzi"
+        },
+        "playlist": {
+          "one": "playlista",
+          "few": "playlisty",
+          "many": "playlist",
+          "other": "playlisty"
+        },
+        "playlists": {
+          "one": "playlista",
+          "few": "playlisty",
+          "many": "playlist",
+          "other": "playlisty"
+        }
+      }
+    },
+    "cs": {
+      "__patterns": {
+        "count_user": "Uživatelé: {count}",
+        "count_user_one": "{count} uživatel",
+        "count_user_few": "{count} uživatelé",
+        "count_user_many": "{count} uživatele",
+        "count_user_other": "{count} uživatelů",
+        "count_video": "Videa: {count}",
+        "count_video_one": "{count} video",
+        "count_video_few": "{count} videa",
+        "count_video_many": "{count} videa",
+        "count_video_other": "{count} videí",
+        "count_comment": "Komentáře: {count}",
+        "count_comment_one": "{count} komentář",
+        "count_comment_few": "{count} komentáře",
+        "count_comment_many": "{count} komentáře",
+        "count_comment_other": "{count} komentářů",
+        "count_subscriber": "Odběratelé: {count}",
+        "count_subscriber_one": "{count} odběratel",
+        "count_subscriber_few": "{count} odběratelé",
+        "count_subscriber_many": "{count} odběratele",
+        "count_subscriber_other": "{count} odběratelů",
+        "count_view": "Zhlédnutí: {count}",
+        "count_view_one": "{count} zhlédnutí",
+        "count_view_few": "{count} zhlédnutí",
+        "count_view_many": "{count} zhlédnutí",
+        "count_view_other": "{count} zhlédnutí",
+        "count_like": "To se mi líbí: {count}",
+        "count_reply": "Odpovědi: {count}",
+        "count_reply_one": "{count} odpověď",
+        "count_reply_few": "{count} odpovědi",
+        "count_reply_many": "{count} odpovědi",
+        "count_reply_other": "{count} odpovědí",
+        "count_playlist": "Playlisty: {count}",
+        "count_playlist_one": "{count} playlist",
+        "count_playlist_few": "{count} playlisty",
+        "count_playlist_many": "{count} playlistu",
+        "count_playlist_other": "{count} playlistů"
+      },
+      "__plurals": {
+        "user": {
+          "one": "uživatel",
+          "few": "uživatelé",
+          "many": "uživatele",
+          "other": "uživatelů"
+        },
+        "users": {
+          "one": "uživatel",
+          "few": "uživatelé",
+          "many": "uživatele",
+          "other": "uživatelů"
+        },
+        "video": {
+          "one": "video",
+          "few": "videa",
+          "many": "videa",
+          "other": "videí"
+        },
+        "videos": {
+          "one": "video",
+          "few": "videa",
+          "many": "videa",
+          "other": "videí"
+        },
+        "comment": {
+          "one": "komentář",
+          "few": "komentáře",
+          "many": "komentáře",
+          "other": "komentářů"
+        },
+        "comments": {
+          "one": "komentář",
+          "few": "komentáře",
+          "many": "komentáře",
+          "other": "komentářů"
+        },
+        "subscriber": {
+          "one": "odběratel",
+          "few": "odběratelé",
+          "many": "odběratele",
+          "other": "odběratelů"
+        },
+        "subscribers": {
+          "one": "odběratel",
+          "few": "odběratelé",
+          "many": "odběratele",
+          "other": "odběratelů"
+        },
+        "view": {
+          "one": "zhlédnutí",
+          "few": "zhlédnutí",
+          "many": "zhlédnutí",
+          "other": "zhlédnutí"
+        },
+        "views": {
+          "one": "zhlédnutí",
+          "few": "zhlédnutí",
+          "many": "zhlédnutí",
+          "other": "zhlédnutí"
+        },
+        "reply": {
+          "one": "odpověď",
+          "few": "odpovědi",
+          "many": "odpovědi",
+          "other": "odpovědí"
+        },
+        "replies": {
+          "one": "odpověď",
+          "few": "odpovědi",
+          "many": "odpovědi",
+          "other": "odpovědí"
+        },
+        "playlist": {
+          "one": "playlist",
+          "few": "playlisty",
+          "many": "playlistu",
+          "other": "playlistů"
+        },
+        "playlists": {
+          "one": "playlist",
+          "few": "playlisty",
+          "many": "playlistu",
+          "other": "playlistů"
+        }
+      }
+    },
+    "sk": {
+      "__patterns": {
+        "count_user": "Používatelia: {count}",
+        "count_user_one": "{count} používateľ",
+        "count_user_few": "{count} používatelia",
+        "count_user_many": "{count} používateľa",
+        "count_user_other": "{count} používateľov",
+        "count_video": "Videá: {count}",
+        "count_video_one": "{count} video",
+        "count_video_few": "{count} videá",
+        "count_video_many": "{count} videa",
+        "count_video_other": "{count} videí",
+        "count_comment": "Komentáre: {count}",
+        "count_comment_one": "{count} komentár",
+        "count_comment_few": "{count} komentáre",
+        "count_comment_many": "{count} komentára",
+        "count_comment_other": "{count} komentárov",
+        "count_subscriber": "Odberatelia: {count}",
+        "count_subscriber_one": "{count} odberateľ",
+        "count_subscriber_few": "{count} odberatelia",
+        "count_subscriber_many": "{count} odberateľa",
+        "count_subscriber_other": "{count} odberateľov",
+        "count_view": "Pozretia: {count}",
+        "count_view_one": "{count} pozretie",
+        "count_view_few": "{count} pozretia",
+        "count_view_many": "{count} pozretia",
+        "count_view_other": "{count} pozretí",
+        "count_like": "Páči sa mi: {count}",
+        "count_reply": "Odpovede: {count}",
+        "count_reply_one": "{count} odpoveď",
+        "count_reply_few": "{count} odpovede",
+        "count_reply_many": "{count} odpovede",
+        "count_reply_other": "{count} odpovedí",
+        "count_playlist": "Playlisty: {count}",
+        "count_playlist_one": "{count} playlist",
+        "count_playlist_few": "{count} playlisty",
+        "count_playlist_many": "{count} playlistu",
+        "count_playlist_other": "{count} playlistov"
+      },
+      "__plurals": {
+        "user": {
+          "one": "používateľ",
+          "few": "používatelia",
+          "many": "používateľa",
+          "other": "používateľov"
+        },
+        "users": {
+          "one": "používateľ",
+          "few": "používatelia",
+          "many": "používateľa",
+          "other": "používateľov"
+        },
+        "video": {
+          "one": "video",
+          "few": "videá",
+          "many": "videa",
+          "other": "videí"
+        },
+        "videos": {
+          "one": "video",
+          "few": "videá",
+          "many": "videa",
+          "other": "videí"
+        },
+        "comment": {
+          "one": "komentár",
+          "few": "komentáre",
+          "many": "komentára",
+          "other": "komentárov"
+        },
+        "comments": {
+          "one": "komentár",
+          "few": "komentáre",
+          "many": "komentára",
+          "other": "komentárov"
+        },
+        "subscriber": {
+          "one": "odberateľ",
+          "few": "odberatelia",
+          "many": "odberateľa",
+          "other": "odberateľov"
+        },
+        "subscribers": {
+          "one": "odberateľ",
+          "few": "odberatelia",
+          "many": "odberateľa",
+          "other": "odberateľov"
+        },
+        "view": {
+          "one": "pozretie",
+          "few": "pozretia",
+          "many": "pozretia",
+          "other": "pozretí"
+        },
+        "views": {
+          "one": "pozretie",
+          "few": "pozretia",
+          "many": "pozretia",
+          "other": "pozretí"
+        },
+        "reply": {
+          "one": "odpoveď",
+          "few": "odpovede",
+          "many": "odpovede",
+          "other": "odpovedí"
+        },
+        "replies": {
+          "one": "odpoveď",
+          "few": "odpovede",
+          "many": "odpovede",
+          "other": "odpovedí"
+        },
+        "playlist": {
+          "one": "playlist",
+          "few": "playlisty",
+          "many": "playlistu",
+          "other": "playlistov"
+        },
+        "playlists": {
+          "one": "playlist",
+          "few": "playlisty",
+          "many": "playlistu",
+          "other": "playlistov"
+        }
+      }
+    },
+    "sl": {
+      "__patterns": {
+        "count_user": "Uporabniki: {count}",
+        "count_user_one": "{count} uporabnik",
+        "count_user_two": "{count} uporabnika",
+        "count_user_few": "{count} uporabniki",
+        "count_user_other": "{count} uporabnikov",
+        "count_video": "Videoposnetki: {count}",
+        "count_video_one": "{count} videoposnetek",
+        "count_video_two": "{count} videoposnetka",
+        "count_video_few": "{count} videoposnetki",
+        "count_video_other": "{count} videoposnetkov",
+        "count_comment": "Komentarji: {count}",
+        "count_comment_one": "{count} komentar",
+        "count_comment_two": "{count} komentarja",
+        "count_comment_few": "{count} komentarji",
+        "count_comment_other": "{count} komentarjev",
+        "count_subscriber": "Naročniki: {count}",
+        "count_subscriber_one": "{count} naročnik",
+        "count_subscriber_two": "{count} naročnika",
+        "count_subscriber_few": "{count} naročniki",
+        "count_subscriber_other": "{count} naročnikov",
+        "count_view": "Ogledi: {count}",
+        "count_view_one": "{count} ogled",
+        "count_view_two": "{count} ogleda",
+        "count_view_few": "{count} ogledi",
+        "count_view_other": "{count} ogledov",
+        "count_like": "Všečki: {count}",
+        "count_like_one": "{count} všeček",
+        "count_like_two": "{count} všečka",
+        "count_like_few": "{count} všečki",
+        "count_like_other": "{count} všečkov",
+        "count_reply": "Odgovori: {count}",
+        "count_reply_one": "{count} odgovor",
+        "count_reply_two": "{count} odgovora",
+        "count_reply_few": "{count} odgovori",
+        "count_reply_other": "{count} odgovorov",
+        "count_playlist": "Seznami predvajanja: {count}",
+        "count_playlist_one": "{count} seznam predvajanja",
+        "count_playlist_two": "{count} seznama predvajanja",
+        "count_playlist_few": "{count} seznami predvajanja",
+        "count_playlist_other": "{count} seznamov predvajanja"
+      },
+      "__plurals": {
+        "user": {
+          "one": "uporabnik",
+          "two": "uporabnika",
+          "few": "uporabniki",
+          "other": "uporabnikov"
+        },
+        "users": {
+          "one": "uporabnik",
+          "two": "uporabnika",
+          "few": "uporabniki",
+          "other": "uporabnikov"
+        },
+        "video": {
+          "one": "videoposnetek",
+          "two": "videoposnetka",
+          "few": "videoposnetki",
+          "other": "videoposnetkov"
+        },
+        "videos": {
+          "one": "videoposnetek",
+          "two": "videoposnetka",
+          "few": "videoposnetki",
+          "other": "videoposnetkov"
+        },
+        "comment": {
+          "one": "komentar",
+          "two": "komentarja",
+          "few": "komentarji",
+          "other": "komentarjev"
+        },
+        "comments": {
+          "one": "komentar",
+          "two": "komentarja",
+          "few": "komentarji",
+          "other": "komentarjev"
+        },
+        "subscriber": {
+          "one": "naročnik",
+          "two": "naročnika",
+          "few": "naročniki",
+          "other": "naročnikov"
+        },
+        "subscribers": {
+          "one": "naročnik",
+          "two": "naročnika",
+          "few": "naročniki",
+          "other": "naročnikov"
+        },
+        "view": {
+          "one": "ogled",
+          "two": "ogleda",
+          "few": "ogledi",
+          "other": "ogledov"
+        },
+        "views": {
+          "one": "ogled",
+          "two": "ogleda",
+          "few": "ogledi",
+          "other": "ogledov"
+        },
+        "like": {
+          "one": "všeček",
+          "two": "všečka",
+          "few": "všečki",
+          "other": "všečkov"
+        },
+        "likes": {
+          "one": "všeček",
+          "two": "všečka",
+          "few": "všečki",
+          "other": "všečkov"
+        },
+        "reply": {
+          "one": "odgovor",
+          "two": "odgovora",
+          "few": "odgovori",
+          "other": "odgovorov"
+        },
+        "replies": {
+          "one": "odgovor",
+          "two": "odgovora",
+          "few": "odgovori",
+          "other": "odgovorov"
+        },
+        "playlist": {
+          "one": "seznam predvajanja",
+          "two": "seznama predvajanja",
+          "few": "seznami predvajanja",
+          "other": "seznamov predvajanja"
+        },
+        "playlists": {
+          "one": "seznam predvajanja",
+          "two": "seznama predvajanja",
+          "few": "seznami predvajanja",
+          "other": "seznamov predvajanja"
+        }
+      }
+    },
+    "hr": {
+      "__patterns": {
+        "count_user": "Korisnici: {count}",
+        "count_user_one": "{count} korisnik",
+        "count_user_few": "{count} korisnika",
+        "count_user_other": "{count} korisnika",
+        "count_video": "Videozapisi: {count}",
+        "count_video_one": "{count} video",
+        "count_video_few": "{count} videa",
+        "count_video_other": "{count} videa",
+        "count_comment": "Komentari: {count}",
+        "count_comment_one": "{count} komentar",
+        "count_comment_few": "{count} komentara",
+        "count_comment_other": "{count} komentara",
+        "count_subscriber": "Pretplatnici: {count}",
+        "count_subscriber_one": "{count} pretplatnik",
+        "count_subscriber_few": "{count} pretplatnika",
+        "count_subscriber_other": "{count} pretplatnika",
+        "count_view": "Pregledi: {count}",
+        "count_view_one": "{count} pregled",
+        "count_view_few": "{count} pregleda",
+        "count_view_other": "{count} pregleda",
+        "count_like": "Lajkovi: {count}",
+        "count_like_one": "{count} lajk",
+        "count_like_few": "{count} lajka",
+        "count_like_other": "{count} lajkova",
+        "count_reply": "Odgovori: {count}",
+        "count_reply_one": "{count} odgovor",
+        "count_reply_few": "{count} odgovora",
+        "count_reply_other": "{count} odgovora",
+        "count_playlist": "Popisi za reprodukciju: {count}",
+        "count_playlist_one": "{count} popis za reprodukciju",
+        "count_playlist_few": "{count} popisa za reprodukciju",
+        "count_playlist_other": "{count} popisa za reprodukciju"
+      },
+      "__plurals": {
+        "user": {
+          "one": "korisnik",
+          "few": "korisnika",
+          "other": "korisnika"
+        },
+        "users": {
+          "one": "korisnik",
+          "few": "korisnika",
+          "other": "korisnika"
+        },
+        "video": {
+          "one": "video",
+          "few": "videa",
+          "other": "videa"
+        },
+        "videos": {
+          "one": "video",
+          "few": "videa",
+          "other": "videa"
+        },
+        "comment": {
+          "one": "komentar",
+          "few": "komentara",
+          "other": "komentara"
+        },
+        "comments": {
+          "one": "komentar",
+          "few": "komentara",
+          "other": "komentara"
+        },
+        "subscriber": {
+          "one": "pretplatnik",
+          "few": "pretplatnika",
+          "other": "pretplatnika"
+        },
+        "subscribers": {
+          "one": "pretplatnik",
+          "few": "pretplatnika",
+          "other": "pretplatnika"
+        },
+        "view": {
+          "one": "pregled",
+          "few": "pregleda",
+          "other": "pregleda"
+        },
+        "views": {
+          "one": "pregled",
+          "few": "pregleda",
+          "other": "pregleda"
+        },
+        "like": {
+          "one": "lajk",
+          "few": "lajka",
+          "other": "lajkova"
+        },
+        "likes": {
+          "one": "lajk",
+          "few": "lajka",
+          "other": "lajkova"
+        },
+        "reply": {
+          "one": "odgovor",
+          "few": "odgovora",
+          "other": "odgovora"
+        },
+        "replies": {
+          "one": "odgovor",
+          "few": "odgovora",
+          "other": "odgovora"
+        },
+        "playlist": {
+          "one": "popis za reprodukciju",
+          "few": "popisa za reprodukciju",
+          "other": "popisa za reprodukciju"
+        },
+        "playlists": {
+          "one": "popis za reprodukciju",
+          "few": "popisa za reprodukciju",
+          "other": "popisa za reprodukciju"
+        }
+      }
+    },
+    "bs": {
+      "__patterns": {
+        "count_user": "Korisnici: {count}",
+        "count_user_one": "{count} korisnik",
+        "count_user_few": "{count} korisnika",
+        "count_user_other": "{count} korisnika",
+        "count_video": "Videa: {count}",
+        "count_video_one": "{count} video",
+        "count_video_few": "{count} videa",
+        "count_video_other": "{count} videa",
+        "count_comment": "Komentari: {count}",
+        "count_comment_one": "{count} komentar",
+        "count_comment_few": "{count} komentara",
+        "count_comment_other": "{count} komentara",
+        "count_subscriber": "Pretplatnici: {count}",
+        "count_subscriber_one": "{count} pretplatnik",
+        "count_subscriber_few": "{count} pretplatnika",
+        "count_subscriber_other": "{count} pretplatnika",
+        "count_view": "Pregledi: {count}",
+        "count_view_one": "{count} pregled",
+        "count_view_few": "{count} pregleda",
+        "count_view_other": "{count} pregleda",
+        "count_like": "Lajkovi: {count}",
+        "count_like_one": "{count} lajk",
+        "count_like_few": "{count} lajka",
+        "count_like_other": "{count} lajkova",
+        "count_reply": "Odgovori: {count}",
+        "count_reply_one": "{count} odgovor",
+        "count_reply_few": "{count} odgovora",
+        "count_reply_other": "{count} odgovora",
+        "count_playlist": "Liste za reprodukciju: {count}",
+        "count_playlist_one": "{count} lista za reprodukciju",
+        "count_playlist_few": "{count} liste za reprodukciju",
+        "count_playlist_other": "{count} lista za reprodukciju"
+      },
+      "__plurals": {
+        "user": {
+          "one": "korisnik",
+          "few": "korisnika",
+          "other": "korisnika"
+        },
+        "users": {
+          "one": "korisnik",
+          "few": "korisnika",
+          "other": "korisnika"
+        },
+        "video": {
+          "one": "video",
+          "few": "videa",
+          "other": "videa"
+        },
+        "videos": {
+          "one": "video",
+          "few": "videa",
+          "other": "videa"
+        },
+        "comment": {
+          "one": "komentar",
+          "few": "komentara",
+          "other": "komentara"
+        },
+        "comments": {
+          "one": "komentar",
+          "few": "komentara",
+          "other": "komentara"
+        },
+        "subscriber": {
+          "one": "pretplatnik",
+          "few": "pretplatnika",
+          "other": "pretplatnika"
+        },
+        "subscribers": {
+          "one": "pretplatnik",
+          "few": "pretplatnika",
+          "other": "pretplatnika"
+        },
+        "view": {
+          "one": "pregled",
+          "few": "pregleda",
+          "other": "pregleda"
+        },
+        "views": {
+          "one": "pregled",
+          "few": "pregleda",
+          "other": "pregleda"
+        },
+        "like": {
+          "one": "lajk",
+          "few": "lajka",
+          "other": "lajkova"
+        },
+        "likes": {
+          "one": "lajk",
+          "few": "lajka",
+          "other": "lajkova"
+        },
+        "reply": {
+          "one": "odgovor",
+          "few": "odgovora",
+          "other": "odgovora"
+        },
+        "replies": {
+          "one": "odgovor",
+          "few": "odgovora",
+          "other": "odgovora"
+        },
+        "playlist": {
+          "one": "lista za reprodukciju",
+          "few": "liste za reprodukciju",
+          "other": "lista za reprodukciju"
+        },
+        "playlists": {
+          "one": "lista za reprodukciju",
+          "few": "liste za reprodukciju",
+          "other": "lista za reprodukciju"
+        }
+      }
+    },
+    "sr": {
+      "__patterns": {
+        "count_user": "Корисници: {count}",
+        "count_user_one": "{count} корисник",
+        "count_user_few": "{count} корисника",
+        "count_user_other": "{count} корисника",
+        "count_video": "Видео-снимци: {count}",
+        "count_video_one": "{count} видео",
+        "count_video_few": "{count} видеа",
+        "count_video_other": "{count} видеа",
+        "count_comment": "Коментари: {count}",
+        "count_comment_one": "{count} коментар",
+        "count_comment_few": "{count} коментара",
+        "count_comment_other": "{count} коментара",
+        "count_subscriber": "Претплатници: {count}",
+        "count_subscriber_one": "{count} претплатник",
+        "count_subscriber_few": "{count} претплатника",
+        "count_subscriber_other": "{count} претплатника",
+        "count_view": "Прегледи: {count}",
+        "count_view_one": "{count} преглед",
+        "count_view_few": "{count} прегледа",
+        "count_view_other": "{count} прегледа",
+        "count_like": "Лајкови: {count}",
+        "count_like_one": "{count} лајк",
+        "count_like_few": "{count} лајка",
+        "count_like_other": "{count} лајкова",
+        "count_reply": "Одговори: {count}",
+        "count_reply_one": "{count} одговор",
+        "count_reply_few": "{count} одговора",
+        "count_reply_other": "{count} одговора",
+        "count_playlist": "Листе за репродукцију: {count}",
+        "count_playlist_one": "{count} листа за репродукцију",
+        "count_playlist_few": "{count} листе за репродукцију",
+        "count_playlist_other": "{count} листа за репродукцију"
+      },
+      "__plurals": {
+        "user": {
+          "one": "корисник",
+          "few": "корисника",
+          "other": "корисника"
+        },
+        "users": {
+          "one": "корисник",
+          "few": "корисника",
+          "other": "корисника"
+        },
+        "video": {
+          "one": "видео",
+          "few": "видеа",
+          "other": "видеа"
+        },
+        "videos": {
+          "one": "видео",
+          "few": "видеа",
+          "other": "видеа"
+        },
+        "comment": {
+          "one": "коментар",
+          "few": "коментара",
+          "other": "коментара"
+        },
+        "comments": {
+          "one": "коментар",
+          "few": "коментара",
+          "other": "коментара"
+        },
+        "subscriber": {
+          "one": "претплатник",
+          "few": "претплатника",
+          "other": "претплатника"
+        },
+        "subscribers": {
+          "one": "претплатник",
+          "few": "претплатника",
+          "other": "претплатника"
+        },
+        "view": {
+          "one": "преглед",
+          "few": "прегледа",
+          "other": "прегледа"
+        },
+        "views": {
+          "one": "преглед",
+          "few": "прегледа",
+          "other": "прегледа"
+        },
+        "like": {
+          "one": "лајк",
+          "few": "лајка",
+          "other": "лајкова"
+        },
+        "likes": {
+          "one": "лајк",
+          "few": "лајка",
+          "other": "лајкова"
+        },
+        "reply": {
+          "one": "одговор",
+          "few": "одговора",
+          "other": "одговора"
+        },
+        "replies": {
+          "one": "одговор",
+          "few": "одговора",
+          "other": "одговора"
+        },
+        "playlist": {
+          "one": "листа за репродукцију",
+          "few": "листе за репродукцију",
+          "other": "листа за репродукцију"
+        },
+        "playlists": {
+          "one": "листа за репродукцију",
+          "few": "листе за репродукцију",
+          "other": "листа за репродукцију"
+        }
+      }
+    },
+    "bg": {
+      "__patterns": {
+        "count_user": "Потребители: {count}",
+        "count_user_one": "{count} потребител",
+        "count_user_other": "{count} потребители",
+        "count_video": "Видеа: {count}",
+        "count_video_one": "{count} видео",
+        "count_video_other": "{count} видеа",
+        "count_comment": "Коментари: {count}",
+        "count_comment_one": "{count} коментар",
+        "count_comment_other": "{count} коментара",
+        "count_subscriber": "Абонати: {count}",
+        "count_subscriber_one": "{count} абонат",
+        "count_subscriber_other": "{count} абонати",
+        "count_view": "Гледания: {count}",
+        "count_view_one": "{count} гледане",
+        "count_view_other": "{count} гледания",
+        "count_like": "Харесвания: {count}",
+        "count_like_one": "{count} харесване",
+        "count_like_other": "{count} харесвания",
+        "count_reply": "Отговори: {count}",
+        "count_reply_one": "{count} отговор",
+        "count_reply_other": "{count} отговора",
+        "count_playlist": "Плейлисти: {count}",
+        "count_playlist_one": "{count} плейлист",
+        "count_playlist_other": "{count} плейлиста"
+      },
+      "__plurals": {
+        "user": {
+          "one": "потребител",
+          "other": "потребители"
+        },
+        "users": {
+          "one": "потребител",
+          "other": "потребители"
+        },
+        "video": {
+          "one": "видео",
+          "other": "видеа"
+        },
+        "videos": {
+          "one": "видео",
+          "other": "видеа"
+        },
+        "comment": {
+          "one": "коментар",
+          "other": "коментара"
+        },
+        "comments": {
+          "one": "коментар",
+          "other": "коментара"
+        },
+        "subscriber": {
+          "one": "абонат",
+          "other": "абонати"
+        },
+        "subscribers": {
+          "one": "абонат",
+          "other": "абонати"
+        },
+        "view": {
+          "one": "гледане",
+          "other": "гледания"
+        },
+        "views": {
+          "one": "гледане",
+          "other": "гледания"
+        },
+        "like": {
+          "one": "харесване",
+          "other": "харесвания"
+        },
+        "likes": {
+          "one": "харесване",
+          "other": "харесвания"
+        },
+        "reply": {
+          "one": "отговор",
+          "other": "отговора"
+        },
+        "replies": {
+          "one": "отговор",
+          "other": "отговора"
+        },
+        "playlist": {
+          "one": "плейлист",
+          "other": "плейлиста"
+        },
+        "playlists": {
+          "one": "плейлист",
+          "other": "плейлиста"
+        }
+      }
+    },
+    "mk": {
+      "__patterns": {
+        "count_user": "Корисници: {count}",
+        "count_user_one": "{count} корисник",
+        "count_user_other": "{count} корисници",
+        "count_video": "Видеа: {count}",
+        "count_video_one": "{count} видео",
+        "count_video_other": "{count} видеа",
+        "count_comment": "Коментари: {count}",
+        "count_comment_one": "{count} коментар",
+        "count_comment_other": "{count} коментари",
+        "count_subscriber": "Претплатници: {count}",
+        "count_subscriber_one": "{count} претплатник",
+        "count_subscriber_other": "{count} претплатници",
+        "count_view": "Прегледи: {count}",
+        "count_view_one": "{count} преглед",
+        "count_view_other": "{count} прегледи",
+        "count_like": "Допаѓања: {count}",
+        "count_like_one": "{count} допаѓање",
+        "count_like_other": "{count} допаѓања",
+        "count_reply": "Одговори: {count}",
+        "count_reply_one": "{count} одговор",
+        "count_reply_other": "{count} одговори",
+        "count_playlist": "Плејлисти: {count}",
+        "count_playlist_one": "{count} плејлиста",
+        "count_playlist_other": "{count} плејлисти"
+      },
+      "__plurals": {
+        "user": {
+          "one": "корисник",
+          "other": "корисници"
+        },
+        "users": {
+          "one": "корисник",
+          "other": "корисници"
+        },
+        "video": {
+          "one": "видео",
+          "other": "видеа"
+        },
+        "videos": {
+          "one": "видео",
+          "other": "видеа"
+        },
+        "comment": {
+          "one": "коментар",
+          "other": "коментари"
+        },
+        "comments": {
+          "one": "коментар",
+          "other": "коментари"
+        },
+        "subscriber": {
+          "one": "претплатник",
+          "other": "претплатници"
+        },
+        "subscribers": {
+          "one": "претплатник",
+          "other": "претплатници"
+        },
+        "view": {
+          "one": "преглед",
+          "other": "прегледи"
+        },
+        "views": {
+          "one": "преглед",
+          "other": "прегледи"
+        },
+        "like": {
+          "one": "допаѓање",
+          "other": "допаѓања"
+        },
+        "likes": {
+          "one": "допаѓање",
+          "other": "допаѓања"
+        },
+        "reply": {
+          "one": "одговор",
+          "other": "одговори"
+        },
+        "replies": {
+          "one": "одговор",
+          "other": "одговори"
+        },
+        "playlist": {
+          "one": "плејлиста",
+          "other": "плејлисти"
+        },
+        "playlists": {
+          "one": "плејлиста",
+          "other": "плејлисти"
+        }
+      }
+    },
+    "el": {
+      "__patterns": {
+        "count_user": "Χρήστες: {count}",
+        "count_user_one": "{count} χρήστης",
+        "count_user_other": "{count} χρήστες",
+        "count_video": "Βίντεο: {count}",
+        "count_video_one": "{count} βίντεο",
+        "count_video_other": "{count} βίντεο",
+        "count_comment": "Σχόλια: {count}",
+        "count_comment_one": "{count} σχόλιο",
+        "count_comment_other": "{count} σχόλια",
+        "count_subscriber": "Συνδρομητές: {count}",
+        "count_subscriber_one": "{count} συνδρομητής",
+        "count_subscriber_other": "{count} συνδρομητές",
+        "count_view": "Προβολές: {count}",
+        "count_view_one": "{count} προβολή",
+        "count_view_other": "{count} προβολές",
+        "count_like": "Μου αρέσει: {count}",
+        "count_reply": "Απαντήσεις: {count}",
+        "count_reply_one": "{count} απάντηση",
+        "count_reply_other": "{count} απαντήσεις",
+        "count_playlist": "Λίστες αναπαραγωγής: {count}",
+        "count_playlist_one": "{count} λίστα αναπαραγωγής",
+        "count_playlist_other": "{count} λίστες αναπαραγωγής"
+      },
+      "__plurals": {
+        "user": {
+          "one": "χρήστης",
+          "other": "χρήστες"
+        },
+        "users": {
+          "one": "χρήστης",
+          "other": "χρήστες"
+        },
+        "video": {
+          "one": "βίντεο",
+          "other": "βίντεο"
+        },
+        "videos": {
+          "one": "βίντεο",
+          "other": "βίντεο"
+        },
+        "comment": {
+          "one": "σχόλιο",
+          "other": "σχόλια"
+        },
+        "comments": {
+          "one": "σχόλιο",
+          "other": "σχόλια"
+        },
+        "subscriber": {
+          "one": "συνδρομητής",
+          "other": "συνδρομητές"
+        },
+        "subscribers": {
+          "one": "συνδρομητής",
+          "other": "συνδρομητές"
+        },
+        "view": {
+          "one": "προβολή",
+          "other": "προβολές"
+        },
+        "views": {
+          "one": "προβολή",
+          "other": "προβολές"
+        },
+        "reply": {
+          "one": "απάντηση",
+          "other": "απαντήσεις"
+        },
+        "replies": {
+          "one": "απάντηση",
+          "other": "απαντήσεις"
+        },
+        "playlist": {
+          "one": "λίστα αναπαραγωγής",
+          "other": "λίστες αναπαραγωγής"
+        },
+        "playlists": {
+          "one": "λίστα αναπαραγωγής",
+          "other": "λίστες αναπαραγωγής"
+        }
+      }
+    },
+    "ro": {
+      "__patterns": {
+        "count_user": "Utilizatori: {count}",
+        "count_user_one": "{count} utilizator",
+        "count_user_few": "{count} utilizatori",
+        "count_user_other": "{count} de utilizatori",
+        "count_video": "Videoclipuri: {count}",
+        "count_video_one": "{count} videoclip",
+        "count_video_few": "{count} videoclipuri",
+        "count_video_other": "{count} de videoclipuri",
+        "count_comment": "Comentarii: {count}",
+        "count_comment_one": "{count} comentariu",
+        "count_comment_few": "{count} comentarii",
+        "count_comment_other": "{count} de comentarii",
+        "count_subscriber": "Abonați: {count}",
+        "count_subscriber_one": "{count} abonat",
+        "count_subscriber_few": "{count} abonați",
+        "count_subscriber_other": "{count} de abonați",
+        "count_view": "Vizualizări: {count}",
+        "count_view_one": "{count} vizualizare",
+        "count_view_few": "{count} vizualizări",
+        "count_view_other": "{count} de vizualizări",
+        "count_like": "Aprecieri: {count}",
+        "count_like_one": "{count} apreciere",
+        "count_like_few": "{count} aprecieri",
+        "count_like_other": "{count} de aprecieri",
+        "count_reply": "Răspunsuri: {count}",
+        "count_reply_one": "{count} răspuns",
+        "count_reply_few": "{count} răspunsuri",
+        "count_reply_other": "{count} de răspunsuri",
+        "count_playlist": "Liste de redare: {count}",
+        "count_playlist_one": "{count} listă de redare",
+        "count_playlist_few": "{count} liste de redare",
+        "count_playlist_other": "{count} de liste de redare"
+      },
+      "__plurals": {
+        "user": {
+          "one": "utilizator",
+          "few": "utilizatori",
+          "other": "de utilizatori"
+        },
+        "users": {
+          "one": "utilizator",
+          "few": "utilizatori",
+          "other": "de utilizatori"
+        },
+        "video": {
+          "one": "videoclip",
+          "few": "videoclipuri",
+          "other": "de videoclipuri"
+        },
+        "videos": {
+          "one": "videoclip",
+          "few": "videoclipuri",
+          "other": "de videoclipuri"
+        },
+        "comment": {
+          "one": "comentariu",
+          "few": "comentarii",
+          "other": "de comentarii"
+        },
+        "comments": {
+          "one": "comentariu",
+          "few": "comentarii",
+          "other": "de comentarii"
+        },
+        "subscriber": {
+          "one": "abonat",
+          "few": "abonați",
+          "other": "de abonați"
+        },
+        "subscribers": {
+          "one": "abonat",
+          "few": "abonați",
+          "other": "de abonați"
+        },
+        "view": {
+          "one": "vizualizare",
+          "few": "vizualizări",
+          "other": "de vizualizări"
+        },
+        "views": {
+          "one": "vizualizare",
+          "few": "vizualizări",
+          "other": "de vizualizări"
+        },
+        "like": {
+          "one": "apreciere",
+          "few": "aprecieri",
+          "other": "de aprecieri"
+        },
+        "likes": {
+          "one": "apreciere",
+          "few": "aprecieri",
+          "other": "de aprecieri"
+        },
+        "reply": {
+          "one": "răspuns",
+          "few": "răspunsuri",
+          "other": "de răspunsuri"
+        },
+        "replies": {
+          "one": "răspuns",
+          "few": "răspunsuri",
+          "other": "de răspunsuri"
+        },
+        "playlist": {
+          "one": "listă de redare",
+          "few": "liste de redare",
+          "other": "de liste de redare"
+        },
+        "playlists": {
+          "one": "listă de redare",
+          "few": "liste de redare",
+          "other": "de liste de redare"
+        }
+      }
+    },
+    "hu": {
+      "__patterns": {
+        "count_user": "Felhasználók: {count}",
+        "count_user_one": "{count} felhasználó",
+        "count_user_other": "{count} felhasználó",
+        "count_video": "Videók: {count}",
+        "count_video_one": "{count} videó",
+        "count_video_other": "{count} videó",
+        "count_comment": "Hozzászólások: {count}",
+        "count_comment_one": "{count} hozzászólás",
+        "count_comment_other": "{count} hozzászólás",
+        "count_subscriber": "Feliratkozók: {count}",
+        "count_subscriber_one": "{count} feliratkozó",
+        "count_subscriber_other": "{count} feliratkozó",
+        "count_view": "Megtekintések: {count}",
+        "count_view_one": "{count} megtekintés",
+        "count_view_other": "{count} megtekintés",
+        "count_like": "Kedvelések: {count}",
+        "count_like_one": "{count} kedvelés",
+        "count_like_other": "{count} kedvelés",
+        "count_reply": "Válaszok: {count}",
+        "count_reply_one": "{count} válasz",
+        "count_reply_other": "{count} válasz",
+        "count_playlist": "Lejátszási listák: {count}",
+        "count_playlist_one": "{count} lejátszási lista",
+        "count_playlist_other": "{count} lejátszási lista"
+      },
+      "__plurals": {
+        "user": {
+          "one": "felhasználó",
+          "other": "felhasználó"
+        },
+        "users": {
+          "one": "felhasználó",
+          "other": "felhasználó"
+        },
+        "video": {
+          "one": "videó",
+          "other": "videó"
+        },
+        "videos": {
+          "one": "videó",
+          "other": "videó"
+        },
+        "comment": {
+          "one": "hozzászólás",
+          "other": "hozzászólás"
+        },
+        "comments": {
+          "one": "hozzászólás",
+          "other": "hozzászólás"
+        },
+        "subscriber": {
+          "one": "feliratkozó",
+          "other": "feliratkozó"
+        },
+        "subscribers": {
+          "one": "feliratkozó",
+          "other": "feliratkozó"
+        },
+        "view": {
+          "one": "megtekintés",
+          "other": "megtekintés"
+        },
+        "views": {
+          "one": "megtekintés",
+          "other": "megtekintés"
+        },
+        "like": {
+          "one": "kedvelés",
+          "other": "kedvelés"
+        },
+        "likes": {
+          "one": "kedvelés",
+          "other": "kedvelés"
+        },
+        "reply": {
+          "one": "válasz",
+          "other": "válasz"
+        },
+        "replies": {
+          "one": "válasz",
+          "other": "válasz"
+        },
+        "playlist": {
+          "one": "lejátszási lista",
+          "other": "lejátszási lista"
+        },
+        "playlists": {
+          "one": "lejátszási lista",
+          "other": "lejátszási lista"
+        }
+      }
+    },
+    "sq": {
+      "__patterns": {
+        "count_user": "Përdorues: {count}",
+        "count_user_one": "{count} përdorues",
+        "count_user_other": "{count} përdorues",
+        "count_video": "Video: {count}",
+        "count_video_one": "{count} video",
+        "count_video_other": "{count} video",
+        "count_comment": "Komente: {count}",
+        "count_comment_one": "{count} koment",
+        "count_comment_other": "{count} komente",
+        "count_subscriber": "Abonentë: {count}",
+        "count_subscriber_one": "{count} abonent",
+        "count_subscriber_other": "{count} abonentë",
+        "count_view": "Shikime: {count}",
+        "count_view_one": "{count} shikim",
+        "count_view_other": "{count} shikime",
+        "count_like": "Pëlqime: {count}",
+        "count_like_one": "{count} pëlqim",
+        "count_like_other": "{count} pëlqime",
+        "count_reply": "Përgjigje: {count}",
+        "count_reply_one": "{count} përgjigje",
+        "count_reply_other": "{count} përgjigje",
+        "count_playlist": "Lista luajtjeje: {count}",
+        "count_playlist_one": "{count} listë luajtjeje",
+        "count_playlist_other": "{count} lista luajtjeje"
+      },
+      "__plurals": {
+        "user": {
+          "one": "përdorues",
+          "other": "përdorues"
+        },
+        "users": {
+          "one": "përdorues",
+          "other": "përdorues"
+        },
+        "video": {
+          "one": "video",
+          "other": "video"
+        },
+        "videos": {
+          "one": "video",
+          "other": "video"
+        },
+        "comment": {
+          "one": "koment",
+          "other": "komente"
+        },
+        "comments": {
+          "one": "koment",
+          "other": "komente"
+        },
+        "subscriber": {
+          "one": "abonent",
+          "other": "abonentë"
+        },
+        "subscribers": {
+          "one": "abonent",
+          "other": "abonentë"
+        },
+        "view": {
+          "one": "shikim",
+          "other": "shikime"
+        },
+        "views": {
+          "one": "shikim",
+          "other": "shikime"
+        },
+        "like": {
+          "one": "pëlqim",
+          "other": "pëlqime"
+        },
+        "likes": {
+          "one": "pëlqim",
+          "other": "pëlqime"
+        },
+        "reply": {
+          "one": "përgjigje",
+          "other": "përgjigje"
+        },
+        "replies": {
+          "one": "përgjigje",
+          "other": "përgjigje"
+        },
+        "playlist": {
+          "one": "listë luajtjeje",
+          "other": "lista luajtjeje"
+        },
+        "playlists": {
+          "one": "listë luajtjeje",
+          "other": "lista luajtjeje"
+        }
+      }
+    },
+    "ru": {
+      "__patterns": {
+        "count_user": "Пользователи: {count}",
+        "count_user_one": "{count} пользователь",
+        "count_user_few": "{count} пользователя",
+        "count_user_many": "{count} пользователей",
+        "count_user_other": "{count} пользователя",
+        "count_video": "Видео: {count}",
+        "count_video_one": "{count} видео",
+        "count_video_few": "{count} видео",
+        "count_video_many": "{count} видео",
+        "count_video_other": "{count} видео",
+        "count_comment": "Комментарии: {count}",
+        "count_comment_one": "{count} комментарий",
+        "count_comment_few": "{count} комментария",
+        "count_comment_many": "{count} комментариев",
+        "count_comment_other": "{count} комментария",
+        "count_subscriber": "Подписчики: {count}",
+        "count_subscriber_one": "{count} подписчик",
+        "count_subscriber_few": "{count} подписчика",
+        "count_subscriber_many": "{count} подписчиков",
+        "count_subscriber_other": "{count} подписчика",
+        "count_view": "Просмотры: {count}",
+        "count_view_one": "{count} просмотр",
+        "count_view_few": "{count} просмотра",
+        "count_view_many": "{count} просмотров",
+        "count_view_other": "{count} просмотра",
+        "count_like": "Лайки: {count}",
+        "count_like_one": "{count} лайк",
+        "count_like_few": "{count} лайка",
+        "count_like_many": "{count} лайков",
+        "count_like_other": "{count} лайка",
+        "count_reply": "Ответы: {count}",
+        "count_reply_one": "{count} ответ",
+        "count_reply_few": "{count} ответа",
+        "count_reply_many": "{count} ответов",
+        "count_reply_other": "{count} ответа",
+        "count_playlist": "Плейлисты: {count}",
+        "count_playlist_one": "{count} плейлист",
+        "count_playlist_few": "{count} плейлиста",
+        "count_playlist_many": "{count} плейлистов",
+        "count_playlist_other": "{count} плейлиста"
+      },
+      "__plurals": {
+        "user": {
+          "one": "пользователь",
+          "few": "пользователя",
+          "many": "пользователей",
+          "other": "пользователя"
+        },
+        "users": {
+          "one": "пользователь",
+          "few": "пользователя",
+          "many": "пользователей",
+          "other": "пользователя"
+        },
+        "video": {
+          "one": "видео",
+          "few": "видео",
+          "many": "видео",
+          "other": "видео"
+        },
+        "videos": {
+          "one": "видео",
+          "few": "видео",
+          "many": "видео",
+          "other": "видео"
+        },
+        "comment": {
+          "one": "комментарий",
+          "few": "комментария",
+          "many": "комментариев",
+          "other": "комментария"
+        },
+        "comments": {
+          "one": "комментарий",
+          "few": "комментария",
+          "many": "комментариев",
+          "other": "комментария"
+        },
+        "subscriber": {
+          "one": "подписчик",
+          "few": "подписчика",
+          "many": "подписчиков",
+          "other": "подписчика"
+        },
+        "subscribers": {
+          "one": "подписчик",
+          "few": "подписчика",
+          "many": "подписчиков",
+          "other": "подписчика"
+        },
+        "view": {
+          "one": "просмотр",
+          "few": "просмотра",
+          "many": "просмотров",
+          "other": "просмотра"
+        },
+        "views": {
+          "one": "просмотр",
+          "few": "просмотра",
+          "many": "просмотров",
+          "other": "просмотра"
+        },
+        "like": {
+          "one": "лайк",
+          "few": "лайка",
+          "many": "лайков",
+          "other": "лайка"
+        },
+        "likes": {
+          "one": "лайк",
+          "few": "лайка",
+          "many": "лайков",
+          "other": "лайка"
+        },
+        "reply": {
+          "one": "ответ",
+          "few": "ответа",
+          "many": "ответов",
+          "other": "ответа"
+        },
+        "replies": {
+          "one": "ответ",
+          "few": "ответа",
+          "many": "ответов",
+          "other": "ответа"
+        },
+        "playlist": {
+          "one": "плейлист",
+          "few": "плейлиста",
+          "many": "плейлистов",
+          "other": "плейлиста"
+        },
+        "playlists": {
+          "one": "плейлист",
+          "few": "плейлиста",
+          "many": "плейлистов",
+          "other": "плейлиста"
+        }
+      }
+    },
+    "uk": {
+      "__patterns": {
+        "count_user": "Користувачі: {count}",
+        "count_user_one": "{count} користувач",
+        "count_user_few": "{count} користувачі",
+        "count_user_many": "{count} користувачів",
+        "count_user_other": "{count} користувача",
+        "count_video": "Відео: {count}",
+        "count_video_one": "{count} відео",
+        "count_video_few": "{count} відео",
+        "count_video_many": "{count} відео",
+        "count_video_other": "{count} відео",
+        "count_comment": "Коментарі: {count}",
+        "count_comment_one": "{count} коментар",
+        "count_comment_few": "{count} коментарі",
+        "count_comment_many": "{count} коментарів",
+        "count_comment_other": "{count} коментаря",
+        "count_subscriber": "Підписники: {count}",
+        "count_subscriber_one": "{count} підписник",
+        "count_subscriber_few": "{count} підписники",
+        "count_subscriber_many": "{count} підписників",
+        "count_subscriber_other": "{count} підписника",
+        "count_view": "Перегляди: {count}",
+        "count_view_one": "{count} перегляд",
+        "count_view_few": "{count} перегляди",
+        "count_view_many": "{count} переглядів",
+        "count_view_other": "{count} перегляду",
+        "count_like": "Вподобання: {count}",
+        "count_like_one": "{count} вподобання",
+        "count_like_few": "{count} вподобання",
+        "count_like_many": "{count} вподобань",
+        "count_like_other": "{count} вподобання",
+        "count_reply": "Відповіді: {count}",
+        "count_reply_one": "{count} відповідь",
+        "count_reply_few": "{count} відповіді",
+        "count_reply_many": "{count} відповідей",
+        "count_reply_other": "{count} відповіді",
+        "count_playlist": "Плейлисти: {count}",
+        "count_playlist_one": "{count} плейлист",
+        "count_playlist_few": "{count} плейлисти",
+        "count_playlist_many": "{count} плейлистів",
+        "count_playlist_other": "{count} плейлиста"
+      },
+      "__plurals": {
+        "user": {
+          "one": "користувач",
+          "few": "користувачі",
+          "many": "користувачів",
+          "other": "користувача"
+        },
+        "users": {
+          "one": "користувач",
+          "few": "користувачі",
+          "many": "користувачів",
+          "other": "користувача"
+        },
+        "video": {
+          "one": "відео",
+          "few": "відео",
+          "many": "відео",
+          "other": "відео"
+        },
+        "videos": {
+          "one": "відео",
+          "few": "відео",
+          "many": "відео",
+          "other": "відео"
+        },
+        "comment": {
+          "one": "коментар",
+          "few": "коментарі",
+          "many": "коментарів",
+          "other": "коментаря"
+        },
+        "comments": {
+          "one": "коментар",
+          "few": "коментарі",
+          "many": "коментарів",
+          "other": "коментаря"
+        },
+        "subscriber": {
+          "one": "підписник",
+          "few": "підписники",
+          "many": "підписників",
+          "other": "підписника"
+        },
+        "subscribers": {
+          "one": "підписник",
+          "few": "підписники",
+          "many": "підписників",
+          "other": "підписника"
+        },
+        "view": {
+          "one": "перегляд",
+          "few": "перегляди",
+          "many": "переглядів",
+          "other": "перегляду"
+        },
+        "views": {
+          "one": "перегляд",
+          "few": "перегляди",
+          "many": "переглядів",
+          "other": "перегляду"
+        },
+        "like": {
+          "one": "вподобання",
+          "few": "вподобання",
+          "many": "вподобань",
+          "other": "вподобання"
+        },
+        "likes": {
+          "one": "вподобання",
+          "few": "вподобання",
+          "many": "вподобань",
+          "other": "вподобання"
+        },
+        "reply": {
+          "one": "відповідь",
+          "few": "відповіді",
+          "many": "відповідей",
+          "other": "відповіді"
+        },
+        "replies": {
+          "one": "відповідь",
+          "few": "відповіді",
+          "many": "відповідей",
+          "other": "відповіді"
+        },
+        "playlist": {
+          "one": "плейлист",
+          "few": "плейлисти",
+          "many": "плейлистів",
+          "other": "плейлиста"
+        },
+        "playlists": {
+          "one": "плейлист",
+          "few": "плейлисти",
+          "many": "плейлистів",
+          "other": "плейлиста"
+        }
+      }
+    },
+    "bel": {
+      "__patterns": {
+        "count_user": "Карыстальнікі: {count}",
+        "count_user_one": "{count} карыстальнік",
+        "count_user_few": "{count} карыстальнікі",
+        "count_user_many": "{count} карыстальнікаў",
+        "count_user_other": "{count} карыстальніка",
+        "count_video": "Відэа: {count}",
+        "count_video_one": "{count} відэа",
+        "count_video_few": "{count} відэа",
+        "count_video_many": "{count} відэа",
+        "count_video_other": "{count} відэа",
+        "count_comment": "Каментары: {count}",
+        "count_comment_one": "{count} каментар",
+        "count_comment_few": "{count} каментары",
+        "count_comment_many": "{count} каментароў",
+        "count_comment_other": "{count} каментара",
+        "count_subscriber": "Падпісчыкі: {count}",
+        "count_subscriber_one": "{count} падпісчык",
+        "count_subscriber_few": "{count} падпісчыкі",
+        "count_subscriber_many": "{count} падпісчыкаў",
+        "count_subscriber_other": "{count} падпісчыка",
+        "count_view": "Прагляды: {count}",
+        "count_view_one": "{count} прагляд",
+        "count_view_few": "{count} прагляды",
+        "count_view_many": "{count} праглядаў",
+        "count_view_other": "{count} прагляду",
+        "count_like": "Упадабанні: {count}",
+        "count_reply": "Адказы: {count}",
+        "count_reply_one": "{count} адказ",
+        "count_reply_few": "{count} адказы",
+        "count_reply_many": "{count} адказаў",
+        "count_reply_other": "{count} адказу",
+        "count_playlist": "Плэйлісты: {count}",
+        "count_playlist_one": "{count} плэйліст",
+        "count_playlist_few": "{count} плэйлісты",
+        "count_playlist_many": "{count} плэйлістаў",
+        "count_playlist_other": "{count} плэйліста"
+      },
+      "__plurals": {
+        "user": {
+          "one": "карыстальнік",
+          "few": "карыстальнікі",
+          "many": "карыстальнікаў",
+          "other": "карыстальніка"
+        },
+        "users": {
+          "one": "карыстальнік",
+          "few": "карыстальнікі",
+          "many": "карыстальнікаў",
+          "other": "карыстальніка"
+        },
+        "video": {
+          "one": "відэа",
+          "few": "відэа",
+          "many": "відэа",
+          "other": "відэа"
+        },
+        "videos": {
+          "one": "відэа",
+          "few": "відэа",
+          "many": "відэа",
+          "other": "відэа"
+        },
+        "comment": {
+          "one": "каментар",
+          "few": "каментары",
+          "many": "каментароў",
+          "other": "каментара"
+        },
+        "comments": {
+          "one": "каментар",
+          "few": "каментары",
+          "many": "каментароў",
+          "other": "каментара"
+        },
+        "subscriber": {
+          "one": "падпісчык",
+          "few": "падпісчыкі",
+          "many": "падпісчыкаў",
+          "other": "падпісчыка"
+        },
+        "subscribers": {
+          "one": "падпісчык",
+          "few": "падпісчыкі",
+          "many": "падпісчыкаў",
+          "other": "падпісчыка"
+        },
+        "view": {
+          "one": "прагляд",
+          "few": "прагляды",
+          "many": "праглядаў",
+          "other": "прагляду"
+        },
+        "views": {
+          "one": "прагляд",
+          "few": "прагляды",
+          "many": "праглядаў",
+          "other": "прагляду"
+        },
+        "reply": {
+          "one": "адказ",
+          "few": "адказы",
+          "many": "адказаў",
+          "other": "адказу"
+        },
+        "replies": {
+          "one": "адказ",
+          "few": "адказы",
+          "many": "адказаў",
+          "other": "адказу"
+        },
+        "playlist": {
+          "one": "плэйліст",
+          "few": "плэйлісты",
+          "many": "плэйлістаў",
+          "other": "плэйліста"
+        },
+        "playlists": {
+          "one": "плэйліст",
+          "few": "плэйлісты",
+          "many": "плэйлістаў",
+          "other": "плэйліста"
+        }
+      }
+    },
+    "cy": {
+      "__patterns": {
+        "count_user": "Defnyddwyr: {count}",
+        "count_video": "Fideos: {count}",
+        "count_comment": "Sylwadau: {count}",
+        "count_subscriber": "Tanysgrifwyr: {count}",
+        "count_view": "Gwyliadau: {count}",
+        "count_like": "Hoffi: {count}",
+        "count_reply": "Atebion: {count}",
+        "count_playlist": "Rhestri chwarae: {count}"
+      },
+      "__plurals": {}
+    },
+    "gd": {
+      "__patterns": {
+        "count_user": "Luchd-cleachdaidh: {count}",
+        "count_video": "Bhidiothan: {count}",
+        "count_comment": "Beachdan: {count}",
+        "count_subscriber": "Fo-sgrìobhaichean: {count}",
+        "count_view": "Seallaidhean: {count}",
+        "count_like": "Is toil leam: {count}",
+        "count_reply": "Freagairtean: {count}",
+        "count_playlist": "Liostaichean-cluiche: {count}"
+      },
+      "__plurals": {}
+    },
+    "fy": {
+      "__patterns": {
+        "count_user": "Brûkers: {count}",
+        "count_user_one": "{count} brûker",
+        "count_user_other": "{count} brûkers",
+        "count_video": "Fideo’s: {count}",
+        "count_video_one": "{count} fideo",
+        "count_video_other": "{count} fideo’s",
+        "count_comment": "Reaksjes: {count}",
+        "count_comment_one": "{count} reaksje",
+        "count_comment_other": "{count} reaksjes",
+        "count_subscriber": "Abonnees: {count}",
+        "count_subscriber_one": "{count} abonnee",
+        "count_subscriber_other": "{count} abonnees",
+        "count_view": "Werjeften: {count}",
+        "count_view_one": "{count} werjefte",
+        "count_view_other": "{count} werjeften",
+        "count_like": "Likes: {count}",
+        "count_like_one": "{count} like",
+        "count_like_other": "{count} likes",
+        "count_reply": "Antwurden: {count}",
+        "count_reply_one": "{count} antwurd",
+        "count_reply_other": "{count} antwurden",
+        "count_playlist": "Playlists: {count}",
+        "count_playlist_one": "{count} playlist",
+        "count_playlist_other": "{count} playlists"
+      },
+      "__plurals": {
+        "user": {
+          "one": "brûker",
+          "other": "brûkers"
+        },
+        "users": {
+          "one": "brûker",
+          "other": "brûkers"
+        },
+        "video": {
+          "one": "fideo",
+          "other": "fideo’s"
+        },
+        "videos": {
+          "one": "fideo",
+          "other": "fideo’s"
+        },
+        "comment": {
+          "one": "reaksje",
+          "other": "reaksjes"
+        },
+        "comments": {
+          "one": "reaksje",
+          "other": "reaksjes"
+        },
+        "subscriber": {
+          "one": "abonnee",
+          "other": "abonnees"
+        },
+        "subscribers": {
+          "one": "abonnee",
+          "other": "abonnees"
+        },
+        "view": {
+          "one": "werjefte",
+          "other": "werjeften"
+        },
+        "views": {
+          "one": "werjefte",
+          "other": "werjeften"
+        },
+        "like": {
+          "one": "like",
+          "other": "likes"
+        },
+        "likes": {
+          "one": "like",
+          "other": "likes"
+        },
+        "reply": {
+          "one": "antwurd",
+          "other": "antwurden"
+        },
+        "replies": {
+          "one": "antwurd",
+          "other": "antwurden"
+        },
+        "playlist": {
+          "one": "playlist",
+          "other": "playlists"
+        },
+        "playlists": {
+          "one": "playlist",
+          "other": "playlists"
+        }
+      }
+    },
+    "eu": {
+      "__patterns": {
+        "count_user": "Erabiltzaileak: {count}",
+        "count_user_one": "{count} erabiltzaile",
+        "count_user_other": "{count} erabiltzaile",
+        "count_video": "Bideoak: {count}",
+        "count_video_one": "{count} bideo",
+        "count_video_other": "{count} bideo",
+        "count_comment": "Iruzkinak: {count}",
+        "count_comment_one": "{count} iruzkin",
+        "count_comment_other": "{count} iruzkin",
+        "count_subscriber": "Harpidedunak: {count}",
+        "count_subscriber_one": "{count} harpidedun",
+        "count_subscriber_other": "{count} harpidedun",
+        "count_view": "Ikustaldiak: {count}",
+        "count_view_one": "{count} ikustaldi",
+        "count_view_other": "{count} ikustaldi",
+        "count_like": "Atsegiteak: {count}",
+        "count_like_one": "{count} atsegite",
+        "count_like_other": "{count} atsegite",
+        "count_reply": "Erantzunak: {count}",
+        "count_reply_one": "{count} erantzun",
+        "count_reply_other": "{count} erantzun",
+        "count_playlist": "Erreprodukzio-zerrendak: {count}",
+        "count_playlist_one": "{count} erreprodukzio-zerrenda",
+        "count_playlist_other": "{count} erreprodukzio-zerrenda"
+      },
+      "__plurals": {
+        "user": {
+          "one": "erabiltzaile",
+          "other": "erabiltzaile"
+        },
+        "users": {
+          "one": "erabiltzaile",
+          "other": "erabiltzaile"
+        },
+        "video": {
+          "one": "bideo",
+          "other": "bideo"
+        },
+        "videos": {
+          "one": "bideo",
+          "other": "bideo"
+        },
+        "comment": {
+          "one": "iruzkin",
+          "other": "iruzkin"
+        },
+        "comments": {
+          "one": "iruzkin",
+          "other": "iruzkin"
+        },
+        "subscriber": {
+          "one": "harpidedun",
+          "other": "harpidedun"
+        },
+        "subscribers": {
+          "one": "harpidedun",
+          "other": "harpidedun"
+        },
+        "view": {
+          "one": "ikustaldi",
+          "other": "ikustaldi"
+        },
+        "views": {
+          "one": "ikustaldi",
+          "other": "ikustaldi"
+        },
+        "like": {
+          "one": "atsegite",
+          "other": "atsegite"
+        },
+        "likes": {
+          "one": "atsegite",
+          "other": "atsegite"
+        },
+        "reply": {
+          "one": "erantzun",
+          "other": "erantzun"
+        },
+        "replies": {
+          "one": "erantzun",
+          "other": "erantzun"
+        },
+        "playlist": {
+          "one": "erreprodukzio-zerrenda",
+          "other": "erreprodukzio-zerrenda"
+        },
+        "playlists": {
+          "one": "erreprodukzio-zerrenda",
+          "other": "erreprodukzio-zerrenda"
+        }
+      }
+    }
+  }
+}

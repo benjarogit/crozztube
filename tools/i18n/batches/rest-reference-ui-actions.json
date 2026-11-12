@@ -1,0 +1,28 @@
+{
+  "context": "Whole navigation and video action labels from static aria-label/text at actual home/watch/menu buttons. Private playlist helper remains owner-only; private video edit text explicitly describes owner/admin access. No sentence-fragment translation.",
+  "messages": {
+    "Only you can view": {
+      "en": "Only you can view"
+    },
+    "Go to home": {
+      "en": "Go to home",
+      "de": "Zur Startseite"
+    },
+    "Video actions": {
+      "en": "Video actions",
+      "de": "Videoaktionen"
+    },
+    "Add to Watch later": {
+      "en": "Add to Watch later",
+      "de": "Zu „Später ansehen“ hinzufügen"
+    },
+    "Remove from Watch later": {
+      "en": "Remove from Watch later",
+      "de": "Aus „Später ansehen“ entfernen"
+    },
+    "Only you can watch": {
+      "en": "Only you and site admins can watch",
+      "de": "Nur du und das Adminteam können dieses Video ansehen"
+    }
+  }
+}

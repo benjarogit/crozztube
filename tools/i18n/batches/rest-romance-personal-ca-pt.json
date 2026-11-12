@@ -1,0 +1,384 @@
+{
+  "context": "Whole-message rewrite of remaining direct formal address in Catalan and European/Angolan Portuguese, plus the Galician account-responsibility sentence. Personal tu/teu and Catalan tu/teu forms; Brazilian Portuguese is deliberately untouched. Confirmed third-person possessives, provider statements and literal example comments are excluded. Original security responsibilities and storage effects are preserved.",
+  "messages": {
+    "Drag and drop your video file here": {
+      "ca": "Arrossega el fitxer de vídeo aquí",
+      "pt_pt": "Arrasta o teu ficheiro de vídeo para aqui",
+      "pt_ao": "Arrasta o teu ficheiro de vídeo para aqui",
+      "pt_pt_ao90": "Arrasta o teu ficheiro de vídeo para aqui"
+    },
+    "Choose who can watch your video": {
+      "ca": "Tria qui pot veure el teu vídeo",
+      "pt_pt": "Escolhe quem pode ver o teu vídeo",
+      "pt_ao": "Escolhe quem pode ver o teu vídeo",
+      "pt_pt_ao90": "Escolhe quem pode ver o teu vídeo"
+    },
+    "Review your video settings": {
+      "ca": "Revisa la configuració del teu vídeo",
+      "pt_pt": "Revê as definições do teu vídeo",
+      "pt_ao": "Revê as definições do teu vídeo",
+      "pt_pt_ao90": "Revê as definições do teu vídeo"
+    },
+    "Publish and share your video": {
+      "ca": "Publica i comparteix el teu vídeo",
+      "pt_pt": "Publica e partilha o teu vídeo",
+      "pt_ao": "Publica e partilha o teu vídeo",
+      "pt_pt_ao90": "Publica e partilha o teu vídeo"
+    },
+    "Your video was uploaded and processing has started.": {
+      "ca": "S’ha pujat el teu vídeo i ha començat el processament.",
+      "pt_pt": "O teu vídeo foi carregado e o processamento começou.",
+      "pt_ao": "O teu vídeo foi carregado e o processamento começou.",
+      "pt_pt_ao90": "O teu vídeo foi carregado e o processamento começou."
+    },
+    "Create your channel": {
+      "ca": "Crea el teu canal",
+      "pt_pt": "Cria o teu canal",
+      "pt_ao": "Cria o teu canal",
+      "pt_pt_ao90": "Cria o teu canal"
+    },
+    "Log in to upload, comment, subscribe and manage your creator studio.": {
+      "ca": "Inicia la sessió per pujar vídeos, comentar, subscriure’t a canals i gestionar el teu estudi de creació.",
+      "pt_pt": "Entra para carregares vídeos, comentares, subscreveres canais e gerires o teu estúdio de criação.",
+      "pt_ao": "Entra para carregares vídeos, comentares, subscreveres canais e gerires o teu estúdio de criação.",
+      "pt_pt_ao90": "Entra para carregares vídeos, comentares, subscreveres canais e gerires o teu estúdio de criação."
+    },
+    "Start your PlayHub creator account with working registration and API authentication.": {
+      "ca": "Crea el teu compte de PlayHub i uneix-te a la comunitat.",
+      "pt_pt": "Cria a tua conta PlayHub e junta-te à comunidade.",
+      "pt_ao": "Cria a tua conta PlayHub e junta-te à comunidade.",
+      "pt_pt_ao90": "Cria a tua conta PlayHub e junta-te à comunidade."
+    },
+    "Your channel": {
+      "ca": "El teu canal",
+      "pt_pt": "O teu canal",
+      "pt_ao": "O teu canal",
+      "pt_pt_ao90": "O teu canal"
+    },
+    "Grow your channel": {
+      "ca": "Fes créixer el teu canal",
+      "pt_pt": "Faz crescer o teu canal",
+      "pt_ao": "Faz crescer o teu canal",
+      "pt_pt_ao90": "Faz crescer o teu canal"
+    },
+    "Popular from your subscriptions": {
+      "ca": "Popular entre les teves subscripcions",
+      "pt_pt": "Em destaque nas tuas subscrições",
+      "pt_ao": "Em destaque nas tuas subscrições",
+      "pt_pt_ao90": "Em destaque nas tuas subscrições"
+    },
+    "Based on your subscribed channels.": {
+      "ca": "Segons els canals a què t’has subscrit.",
+      "pt_pt": "Com base nos canais que subscreves.",
+      "pt_ao": "Com base nos canais que subscreves.",
+      "pt_pt_ao90": "Com base nos canais que subscreves."
+    },
+    "From your saved channels": {
+      "ca": "Dels canals que has desat",
+      "pt_pt": "Dos canais que guardaste",
+      "pt_ao": "Dos canais que guardaste",
+      "pt_pt_ao90": "Dos canais que guardaste"
+    },
+    "Playback debug info copied. Paste it into your support request.": {
+      "ca": "S’ha copiat la informació de diagnòstic de reproducció. Enganxa-la a la teva petició d’ajuda.",
+      "pt_pt": "Os dados de diagnóstico da reprodução foram copiados. Cola-os no teu pedido de ajuda.",
+      "pt_ao": "Os dados de diagnóstico da reprodução foram copiados. Cola-os no teu pedido de ajuda.",
+      "pt_pt_ao90": "Os dados de diagnóstico da reprodução foram copiados. Cola-os no teu pedido de ajuda."
+    },
+    "Your channel is not ready yet.": {
+      "ca": "El teu canal encara no està preparat.",
+      "pt_pt": "O teu canal ainda não está pronto.",
+      "pt_ao": "O teu canal ainda não está pronto.",
+      "pt_pt_ao90": "O teu canal ainda não está pronto."
+    },
+    "Your display name": {
+      "ca": "El teu nom visible",
+      "pt_pt": "O teu nome de apresentação",
+      "pt_ao": "O teu nome de apresentação",
+      "pt_pt_ao90": "O teu nome de apresentação"
+    },
+    "Tell viewers what your channel is about.": {
+      "ca": "Explica al públic què trobarà al teu canal.",
+      "pt_pt": "Conta aos espectadores o que podem encontrar no teu canal.",
+      "pt_ao": "Conta aos espectadores o que podem encontrar no teu canal.",
+      "pt_pt_ao90": "Conta aos espectadores o que podem encontrar no teu canal."
+    },
+    "Use playlists and series to keep your content easy to find and watch.": {
+      "ca": "Organitza els vídeos en llistes de reproducció i sèries perquè siguin més fàcils de trobar i mirar.",
+      "pt_pt": "Organiza os teus vídeos em listas de reprodução e séries para ser mais fácil encontrá-los e vê-los.",
+      "pt_ao": "Organiza os teus vídeos em listas de reprodução e séries para ser mais fácil encontrá-los e vê-los.",
+      "pt_pt_ao90": "Organiza os teus vídeos em listas de reprodução e séries para ser mais fácil encontrá-los e vê-los."
+    },
+    "Tell viewers about your channel...": {
+      "ca": "Presenta el teu canal al públic…",
+      "pt_pt": "Apresenta o teu canal aos espectadores…",
+      "pt_ao": "Apresenta o teu canal aos espectadores…",
+      "pt_pt_ao90": "Apresenta o teu canal aos espectadores…"
+    },
+    "Add an about section so viewers know what your channel is about.": {
+      "ca": "Afegeix una descripció perquè el públic conegui el teu canal.",
+      "pt_pt": "Adiciona uma descrição para dares a conhecer o teu canal.",
+      "pt_ao": "Adiciona uma descrição para dares a conhecer o teu canal.",
+      "pt_pt_ao90": "Adiciona uma descrição para dares a conhecer o teu canal."
+    },
+    "Create an account, open Creator Studio, complete your channel profile, then upload or organize videos from your dashboard.": {
+      "ca": "Crea un compte, obre l’estudi de creació i completa el perfil del canal. Després podràs pujar i organitzar vídeos des del tauler.",
+      "pt_pt": "Cria uma conta, abre o estúdio de criação e preenche o perfil do teu canal. Depois podes carregar e organizar vídeos no teu painel.",
+      "pt_ao": "Cria uma conta, abre o estúdio de criação e preenche o perfil do teu canal. Depois podes carregar e organizar vídeos no teu painel.",
+      "pt_pt_ao90": "Cria uma conta, abre o estúdio de criação e preenche o perfil do teu canal. Depois podes carregar e organizar vídeos no teu painel."
+    },
+    "Go to Upload, choose your video file, add required details, select category and language, add a thumbnail, then publish. Large files upload in chunks.": {
+      "ca": "Obre la pàgina de pujada, tria el fitxer i omple les dades obligatòries. Tria categoria i llengua, afegeix una miniatura i publica. Els fitxers grans es pugen per parts.",
+      "pt_pt": "Abre a página de carregamento, escolhe o teu ficheiro e preenche os dados obrigatórios. Selecciona a categoria e o idioma, adiciona uma miniatura e publica. Os ficheiros grandes são carregados por partes.",
+      "pt_ao": "Abre a página de carregamento, escolhe o teu ficheiro e preenche os dados obrigatórios. Selecciona a categoria e o idioma, adiciona uma miniatura e publica. Os ficheiros grandes são carregados por partes.",
+      "pt_pt_ao90": "Abre a página de carregamento, escolhe o teu ficheiro e preenche os dados obrigatórios. Seleciona a categoria e o idioma, adiciona uma miniatura e publica. Os ficheiros grandes são carregados por partes."
+    },
+    "How to upload your first video": {
+      "ca": "Com pujar el teu primer vídeo",
+      "pt_pt": "Como carregar o teu primeiro vídeo",
+      "pt_ao": "Como carregar o teu primeiro vídeo",
+      "pt_pt_ao90": "Como carregar o teu primeiro vídeo"
+    },
+    "Manage language, theme, security, and notification settings from your account.": {
+      "ca": "Gestiona la llengua, el tema, la seguretat i les notificacions des del teu compte.",
+      "pt_pt": "Gere o idioma, o tema, a segurança e as notificações na tua conta.",
+      "pt_ao": "Gere o idioma, o tema, a segurança e as notificações na tua conta.",
+      "pt_pt_ao90": "Gere o idioma, o tema, a segurança e as notificações na tua conta."
+    },
+    "Tell us more about your question or request...": {
+      "ca": "Explica’ns una mica més el teu dubte o petició…",
+      "pt_pt": "Conta-nos mais sobre a tua dúvida ou pedido…",
+      "pt_ao": "Conta-nos mais sobre a tua dúvida ou pedido…",
+      "pt_pt_ao90": "Conta-nos mais sobre a tua dúvida ou pedido…"
+    },
+    "Your choices": {
+      "ca": "Les teves opcions",
+      "pt_pt": "As tuas escolhas",
+      "pt_ao": "As tuas escolhas",
+      "pt_pt_ao90": "As tuas escolhas"
+    },
+    "Your message is saved directly in the website backend and appears in the admin dashboard under Support.": {
+      "ca": "El teu missatge es desa al lloc i es mostra a l’equip a l’apartat d’assistència.",
+      "pt_pt": "A tua mensagem é guardada no site e enviada para a área de apoio da equipa.",
+      "pt_ao": "A tua mensagem é guardada no site e enviada para a área de apoio da equipa.",
+      "pt_pt_ao90": "A tua mensagem é guardada no site e enviada para a área de apoio da equipa."
+    },
+    "Your support": {
+      "ca": "El teu suport",
+      "pt_pt": "O teu apoio",
+      "pt_ao": "O teu apoio",
+      "pt_pt_ao90": "O teu apoio"
+    },
+    "Organize your videos into a playlist": {
+      "ca": "Organitza els vídeos en una llista de reproducció",
+      "pt_pt": "Organiza os teus vídeos numa lista de reprodução",
+      "pt_ao": "Organiza os teus vídeos numa lista de reprodução",
+      "pt_pt_ao90": "Organiza os teus vídeos numa lista de reprodução"
+    },
+    "This color will represent your playlist": {
+      "ca": "Aquest color identifica la teva llista de reproducció",
+      "pt_pt": "Esta cor identifica a tua lista de reprodução",
+      "pt_ao": "Esta cor identifica a tua lista de reprodução",
+      "pt_pt_ao90": "Esta cor identifica a tua lista de reprodução"
+    },
+    "This playlist belongs to your PlayHub account.": {
+      "ca": "Aquesta llista de reproducció pertany al teu compte de PlayHub.",
+      "pt_pt": "Esta lista de reprodução pertence à tua conta PlayHub.",
+      "pt_ao": "Esta lista de reprodução pertence à tua conta PlayHub.",
+      "pt_pt_ao90": "Esta lista de reprodução pertence à tua conta PlayHub."
+    },
+    "Explore tools and tips to grow faster, improve your channel, and reach more viewers.": {
+      "ca": "Descobreix eines i consells per fer créixer el canal, millorar-lo i arribar a més públic.",
+      "pt_pt": "Descobre ferramentas e dicas para melhorares o teu canal e chegares a mais espectadores.",
+      "pt_ao": "Descobre ferramentas e dicas para melhorares o teu canal e chegares a mais espectadores.",
+      "pt_pt_ao90": "Descobre ferramentas e dicas para melhorares o teu canal e chegares a mais espectadores."
+    },
+    "Based on your channel data": {
+      "ca": "Segons les dades del teu canal",
+      "pt_pt": "Com base nos dados do teu canal",
+      "pt_ao": "Com base nos dados do teu canal",
+      "pt_pt_ao90": "Com base nos dados do teu canal"
+    },
+    "Upload your first video and give viewers a clear reason to subscribe.": {
+      "ca": "Puja el teu primer vídeo i mostra al públic per què val la pena subscriure’s al canal.",
+      "pt_pt": "Carrega o teu primeiro vídeo e mostra aos espectadores por que vale a pena subscrever o canal.",
+      "pt_ao": "Carrega o teu primeiro vídeo e mostra aos espectadores por que vale a pena subscrever o canal.",
+      "pt_pt_ao90": "Carrega o teu primeiro vídeo e mostra aos espectadores por que vale a pena subscrever o canal."
+    },
+    "Create short vertical videos to reach viewers who have not found your channel yet.": {
+      "ca": "Crea vídeos curts verticals per arribar a qui encara no coneix el teu canal.",
+      "pt_pt": "Cria vídeos curtos verticais para chegares a quem ainda não conhece o teu canal.",
+      "pt_ao": "Cria vídeos curtos verticais para chegares a quem ainda não conhece o teu canal.",
+      "pt_pt_ao90": "Cria vídeos curtos verticais para chegares a quem ainda não conhece o teu canal."
+    },
+    "Ask a question in your next upload and reply quickly when comments arrive.": {
+      "ca": "Fes una pregunta al teu pròxim vídeo i respon aviat als comentaris.",
+      "pt_pt": "Faz uma pergunta no teu próximo vídeo e responde rapidamente aos comentários.",
+      "pt_ao": "Faz uma pergunta no teu próximo vídeo e responde rapidamente aos comentários.",
+      "pt_pt_ao90": "Faz uma pergunta no teu próximo vídeo e responde rapidamente aos comentários."
+    },
+    "Update your bio, channel details, and public creator presence.": {
+      "ca": "Actualitza la biografia i la informació pública del teu canal.",
+      "pt_pt": "Actualiza a tua biografia e os dados públicos do teu canal.",
+      "pt_ao": "Actualiza a tua biografia e os dados públicos do teu canal.",
+      "pt_pt_ao90": "Atualiza a tua biografia e os dados públicos do teu canal."
+    },
+    "Unable to read your Google account details.": {
+      "ca": "No s’han pogut obtenir les dades del teu compte de Google.",
+      "pt_pt": "Não foi possível obter os dados da tua conta Google.",
+      "pt_ao": "Não foi possível obter os dados da tua conta Google.",
+      "pt_pt_ao90": "Não foi possível obter os dados da tua conta Google."
+    },
+    "Unable to read your Facebook account details.": {
+      "ca": "No s’han pogut obtenir les dades del teu compte de Facebook.",
+      "pt_pt": "Não foi possível obter os dados da tua conta Facebook.",
+      "pt_ao": "Não foi possível obter os dados da tua conta Facebook.",
+      "pt_pt_ao90": "Não foi possível obter os dados da tua conta Facebook."
+    },
+    "Manage your available balance, top-ups, and withdrawals.": {
+      "ca": "Gestiona el saldo disponible, les recàrregues i les retirades.",
+      "pt_pt": "Gere o teu saldo disponível, carregamentos e levantamentos.",
+      "pt_ao": "Gere o teu saldo disponível, carregamentos e levantamentos.",
+      "pt_pt_ao90": "Gere o teu saldo disponível, carregamentos e levantamentos."
+    },
+    "Top-ups and withdrawal requests from your wallet.": {
+      "ca": "Recàrregues i peticions de retirada del teu moneder.",
+      "pt_pt": "Carregamentos e pedidos de levantamento da tua carteira.",
+      "pt_ao": "Carregamentos e pedidos de levantamento da tua carteira.",
+      "pt_pt_ao90": "Carregamentos e pedidos de levantamento da tua carteira."
+    },
+    "Set up your stream and go live with your community.": {
+      "ca": "Prepara la transmissió i connecta amb la comunitat en directe.",
+      "pt_pt": "Prepara a tua transmissão e encontra a tua comunidade em directo.",
+      "pt_ao": "Prepara a tua transmissão e encontra a tua comunidade em directo.",
+      "pt_pt_ao90": "Prepara a tua transmissão e encontra a tua comunidade em direto."
+    },
+    "Ask your audience": {
+      "ca": "Fes una pregunta al teu públic",
+      "pt_pt": "Faz uma pergunta ao teu público",
+      "pt_ao": "Faz uma pergunta ao teu público",
+      "pt_pt_ao90": "Faz uma pergunta ao teu público"
+    },
+    "Run ads during your stream": {
+      "ca": "Mostra anuncis durant la transmissió",
+      "pt_pt": "Mostra anúncios durante a tua transmissão",
+      "pt_ao": "Mostra anúncios durante a tua transmissão",
+      "pt_pt_ao90": "Mostra anúncios durante a tua transmissão"
+    },
+    "You're all set! Start your stream and engage with your audience.": {
+      "ca": "Ja està tot a punt! Inicia la transmissió i conversa amb el teu públic.",
+      "pt_pt": "Está tudo pronto! Começa a tua transmissão e conversa com o teu público.",
+      "pt_ao": "Está tudo pronto! Começa a tua transmissão e conversa com o teu público.",
+      "pt_pt_ao90": "Está tudo pronto! Começa a tua transmissão e conversa com o teu público."
+    },
+    "Sign in to like, comment, save posts, and publish community updates from your channel.": {
+      "ca": "Inicia la sessió per marcar m’agrada, comentar, desar publicacions i compartir novetats del canal amb la comunitat.",
+      "pt_pt": "Entra para gostares de publicações, comentares, guardares conteúdo e partilhares novidades do teu canal com a comunidade.",
+      "pt_ao": "Entra para gostares de publicações, comentares, guardares conteúdo e partilhares novidades do teu canal com a comunidade.",
+      "pt_pt_ao90": "Entra para gostares de publicações, comentares, guardares conteúdo e partilhares novidades do teu canal com a comunidade."
+    },
+    "Your Reminders": {
+      "ca": "Els teus recordatoris",
+      "pt_pt": "Os teus lembretes",
+      "pt_ao": "Os teus lembretes",
+      "pt_pt_ao90": "Os teus lembretes"
+    },
+    "Choose a public video to feature at the top of your channel profile.": {
+      "ca": "Tria un vídeo públic per destacar-lo a la part superior del perfil del canal.",
+      "pt_pt": "Escolhe um vídeo público para destacar no topo do perfil do teu canal.",
+      "pt_ao": "Escolhe um vídeo público para destacar no topo do perfil do teu canal.",
+      "pt_pt_ao90": "Escolhe um vídeo público para destacar no topo do perfil do teu canal."
+    },
+    "Allow camera and microphone access to prepare your preview.": {
+      "ca": "Permet l’accés a la càmera i al micròfon per preparar la previsualització.",
+      "pt_pt": "Permite o acesso à câmara e ao microfone para preparares a pré-visualização.",
+      "pt_ao": "Permite o acesso à câmara e ao microfone para preparares a pré-visualização.",
+      "pt_pt_ao90": "Permite o acesso à câmara e ao microfone para preparares a pré-visualização."
+    },
+    "Ask your audience a question": {
+      "ca": "Fes una pregunta al teu públic",
+      "pt_pt": "Faz uma pergunta ao teu público",
+      "pt_ao": "Faz uma pergunta ao teu público",
+      "pt_pt_ao90": "Faz uma pergunta ao teu público"
+    },
+    "Your studio settings can be prepared now. Public broadcasting will be enabled with the media engine.": {
+      "ca": "Ja pots preparar l’estudi. La transmissió pública estarà disponible quan s’activi el motor multimèdia.",
+      "pt_pt": "Já podes preparar o teu estúdio. A transmissão pública ficará disponível com a activação do motor multimédia.",
+      "pt_ao": "Já podes preparar o teu estúdio. A transmissão pública ficará disponível com a activação do motor multimédia.",
+      "pt_pt_ao90": "Já podes preparar o teu estúdio. A transmissão pública ficará disponível com a ativação do motor multimédia."
+    },
+    "Your camera and microphone are publishing through LiveKit.": {
+      "ca": "La càmera i el micròfon estan transmetent a través de LiveKit.",
+      "pt_pt": "A tua câmara e o teu microfone estão a transmitir através do LiveKit.",
+      "pt_ao": "A tua câmara e o teu microfone estão a transmitir através do LiveKit.",
+      "pt_pt_ao90": "A tua câmara e o teu microfone estão a transmitir através do LiveKit."
+    },
+    "Start the live stream before activating its media source.": {
+      "ca": "Inicia la transmissió abans d’activar-ne la font d’àudio i vídeo.",
+      "pt_pt": "Inicia a transmissão antes de activares a fonte de áudio e vídeo.",
+      "pt_ao": "Inicia a transmissão antes de activares a fonte de áudio e vídeo.",
+      "pt_pt_ao90": "Inicia a transmissão antes de ativares a fonte de áudio e vídeo."
+    },
+    "Membership payments recorded for your account.": {
+      "ca": "Pagaments de membresia registrats al teu compte.",
+      "pt_pt": "Pagamentos de adesão registados na tua conta.",
+      "pt_ao": "Pagamentos de adesão registados na tua conta.",
+      "pt_pt_ao90": "Pagamentos de adesão registados na tua conta."
+    },
+    "Search or enter your country": {
+      "ca": "Cerca o introdueix el teu país",
+      "pt_pt": "Pesquisa ou introduz o teu país",
+      "pt_ao": "Pesquisa ou introduz o teu país",
+      "pt_pt_ao90": "Pesquisa ou introduz o teu país"
+    },
+    "Your ad markup": {
+      "ca": "El codi del teu anunci",
+      "pt_pt": "O código do teu anúncio",
+      "pt_ao": "O código do teu anúncio",
+      "pt_pt_ao90": "O código do teu anúncio"
+    },
+    "Your participant video will appear here.": {
+      "ca": "El teu vídeo com a participant apareixerà aquí.",
+      "pt_pt": "O teu vídeo como participante aparecerá aqui.",
+      "pt_ao": "O teu vídeo como participante aparecerá aqui.",
+      "pt_pt_ao90": "O teu vídeo como participante aparecerá aqui."
+    },
+    "Loading your videos...": {
+      "ca": "S’estan carregant els teus vídeos…",
+      "pt_pt": "A carregar os teus vídeos…",
+      "pt_ao": "A carregar os teus vídeos…",
+      "pt_pt_ao90": "A carregar os teus vídeos…"
+    },
+    "No videos match your search.": {
+      "ca": "Cap vídeo coincideix amb la teva cerca.",
+      "pt_pt": "Nenhum vídeo corresponde à tua pesquisa.",
+      "pt_ao": "Nenhum vídeo corresponde à tua pesquisa.",
+      "pt_pt_ao90": "Nenhum vídeo corresponde à tua pesquisa."
+    },
+    "Use Settings to update your profile, security, password, two-factor delivery, devices, preferences, and notification options. If you cannot access your account, use the login flow and provide the account email to the site administrator.": {
+      "ca": "A la configuració pots gestionar el perfil, la seguretat, la contrasenya, la recepció de codis de doble factor, els dispositius, les preferències i les notificacions. Si no pots accedir al compte, fes servir l’ajuda de la pàgina d’inici de sessió i facilita a l’administració el correu electrònic del compte.",
+      "pt_pt": "Nas definições podes actualizar o perfil, a segurança, a palavra-passe, a recepção dos códigos de autenticação, os dispositivos, as preferências e as notificações. Se não conseguires entrar na conta, usa a ajuda da página de entrada e indica à administração o e-mail da conta.",
+      "pt_ao": "Nas definições podes actualizar o perfil, a segurança, a palavra-passe, a recepção dos códigos de autenticação, os dispositivos, as preferências e as notificações. Se não conseguires entrar na conta, usa a ajuda da página de entrada e indica à administração o e-mail da conta.",
+      "pt_pt_ao90": "Nas definições podes atualizar o perfil, a segurança, a palavra-passe, a receção dos códigos de autenticação, os dispositivos, as preferências e as notificações. Se não conseguires entrar na conta, usa a ajuda da página de entrada e indica à administração o e-mail da conta."
+    },
+    "You are responsible for your account credentials, profile activity, uploaded content, comments, messages, and any creator or admin actions performed from your account. Use strong passwords and keep two-factor delivery methods current.": {
+      "ca": "Ets responsable de les dades d’accés, de l’activitat del perfil, del contingut que puges, dels comentaris, dels missatges i de qualsevol acció de creador o d’administració que es faci des del teu compte. Fes servir contrasenyes segures i mantén actualitzats els mitjans per rebre els codis de doble factor.",
+      "gl": "Es responsable dos teus datos de acceso, da actividade do perfil, do contido que sobes, dos comentarios, das mensaxes e de calquera acción de creador ou de administración realizada desde a túa conta. Usa contrasinais seguros e mantén actualizados os medios para recibir os códigos de autenticación de dous factores.",
+      "pt_pt": "És responsável pelos teus dados de acesso, actividade do perfil, conteúdos carregados, comentários, mensagens e quaisquer acções de criador ou de administração realizadas através da tua conta. Usa palavras-passe seguras e mantém actualizados os meios para receber os códigos de autenticação de dois factores.",
+      "pt_ao": "És responsável pelos teus dados de acesso, actividade do perfil, conteúdos carregados, comentários, mensagens e quaisquer acções de criador ou de administração realizadas através da tua conta. Usa palavras-passe seguras e mantém actualizados os meios para receber os códigos de autenticação de dois factores.",
+      "pt_pt_ao90": "És responsável pelos teus dados de acesso, atividade do perfil, conteúdos carregados, comentários, mensagens e quaisquer ações de criador ou de administração realizadas através da tua conta. Usa palavras-passe seguras e mantém atualizados os meios para receber os códigos de autenticação de dois fatores."
+    },
+    "You can clear browser cookies and local storage in your browser settings. Clearing essential storage may sign you out, reset language/theme preferences, remove local playback state, and require you to log in again.": {
+      "ca": "Pots esborrar les galetes i les dades locals a la configuració del navegador. Si esborres dades essencials, pot ser que es tanqui la sessió, es restableixin la llengua i el tema, s’esborri l’estat local de reproducció i hagis de tornar a iniciar la sessió.",
+      "pt_pt": "Podes apagar os cookies e os dados locais nas definições do navegador. Apagar dados essenciais pode terminar a tua sessão, repor o idioma e o tema, remover o estado local da reprodução e obrigar-te a entrar novamente.",
+      "pt_ao": "Podes apagar os cookies e os dados locais nas definições do navegador. Apagar dados essenciais pode terminar a tua sessão, repor o idioma e o tema, remover o estado local da reprodução e obrigar-te a entrar novamente.",
+      "pt_pt_ao90": "Podes apagar os cookies e os dados locais nas definições do navegador. Apagar dados essenciais pode terminar a tua sessão, repor o idioma e o tema, remover o estado local da reprodução e obrigar-te a entrar novamente."
+    },
+    "Payment card numbers are handled by the configured payment provider and are never stored in your PlayHub profile.": {
+      "ca": "Els números de targeta els gestiona el proveïdor de pagament configurat i no es desen mai al teu perfil de PlayHub.",
+      "pt_pt": "Os números dos cartões são tratados pelo prestador de pagamentos configurado e nunca são guardados no teu perfil PlayHub.",
+      "pt_ao": "Os números dos cartões são tratados pelo prestador de pagamentos configurado e nunca são guardados no teu perfil PlayHub.",
+      "pt_pt_ao90": "Os números dos cartões são tratados pelo prestador de pagamentos configurado e nunca são guardados no teu perfil PlayHub."
+    }
+  }
+}

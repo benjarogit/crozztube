@@ -1,0 +1,65 @@
+{
+  "context": "Full second editorial reading of all six German/Austrian/Swiss standard email subjects and bodies: personal greeting/actions, account restrictions and role/live moderator notices, literal names/roles/URLs/credentials and invariant expiry min. Admin overrides remain authoritative; actual six-template renderer follows this batch.",
+  "messages": {
+    "Your {SITENAME} verification code": {
+      "de_de": "Dein Bestätigungscode für {SITENAME}",
+      "de_at": "Dein Bestätigungscode für {SITENAME}",
+      "de_ch": "Dein Bestätigungscode für {SITENAME}"
+    },
+    "Your {SITENAME} verification code is: {VERIFICATION_CODE}\n\nThis code expires in {EXPIRY_MINUTES} minutes.": {
+      "de_de": "Dein Bestätigungscode für {SITENAME} lautet: {VERIFICATION_CODE}\n\nDer Code ist {EXPIRY_MINUTES} Min. gültig.",
+      "de_at": "Dein Bestätigungscode für {SITENAME} lautet: {VERIFICATION_CODE}\n\nDer Code ist {EXPIRY_MINUTES} Min. gültig.",
+      "de_ch": "Dein Bestätigungscode für {SITENAME} lautet: {VERIFICATION_CODE}\n\nDer Code ist {EXPIRY_MINUTES} Min. gültig."
+    },
+    "Reset your {SITENAME} password": {
+      "de_de": "Setze dein Passwort für {SITENAME} zurück",
+      "de_at": "Setze dein Passwort für {SITENAME} zurück",
+      "de_ch": "Setze dein Passwort für {SITENAME} zurück"
+    },
+    "Hello {USERNAME},\n\nYour {SITENAME} password reset code is: {RESET_CODE}\n\nThis code expires in {EXPIRY_MINUTES} minutes.": {
+      "de_de": "Hallo {USERNAME},\n\nmit diesem Code kannst du dein Passwort bei {SITENAME} zurücksetzen: {RESET_CODE}\n\nDer Code ist {EXPIRY_MINUTES} Min. gültig.",
+      "de_at": "Hallo {USERNAME},\n\nmit diesem Code kannst du dein Passwort bei {SITENAME} zurücksetzen: {RESET_CODE}\n\nDer Code ist {EXPIRY_MINUTES} Min. gültig.",
+      "de_ch": "Hallo {USERNAME},\n\nmit diesem Code kannst du dein Passwort bei {SITENAME} zurücksetzen: {RESET_CODE}\n\nDer Code ist {EXPIRY_MINUTES} Min. gültig."
+    },
+    "You have been invited to {SITENAME}": {
+      "de_de": "Du wurdest zu {SITENAME} eingeladen",
+      "de_at": "Du wurdest zu {SITENAME} eingeladen",
+      "de_ch": "Du wurdest zu {SITENAME} eingeladen"
+    },
+    "Hello {USERNAME},\n\nYou have been invited to {SITENAME} as {ROLE}.\n\nLogin email: {USER_EMAIL}\nTemporary password: {TEMPORARY_PASSWORD}\nLogin: {LOGIN_URL}\n\nPlease sign in and update your password.": {
+      "de_de": "Hallo {USERNAME},\n\ndu wurdest mit der Rolle {ROLE} zu {SITENAME} eingeladen.\n\nE-Mail-Adresse für die Anmeldung: {USER_EMAIL}\nVorübergehendes Passwort: {TEMPORARY_PASSWORD}\nAnmelden: {LOGIN_URL}\n\nMelde dich an und ändere dein Passwort.",
+      "de_at": "Hallo {USERNAME},\n\ndu wurdest mit der Rolle {ROLE} zu {SITENAME} eingeladen.\n\nE-Mail-Adresse für die Anmeldung: {USER_EMAIL}\nVorübergehendes Passwort: {TEMPORARY_PASSWORD}\nAnmelden: {LOGIN_URL}\n\nMelde dich an und ändere dein Passwort.",
+      "de_ch": "Hallo {USERNAME},\n\ndu wurdest mit der Rolle {ROLE} zu {SITENAME} eingeladen.\n\nE-Mail-Adresse für die Anmeldung: {USER_EMAIL}\nVorübergehendes Passwort: {TEMPORARY_PASSWORD}\nAnmelden: {LOGIN_URL}\n\nMelde dich an und ändere dein Passwort."
+    },
+    "Your {SITENAME} account has been restricted": {
+      "de_de": "Dein Konto bei {SITENAME} wurde eingeschränkt",
+      "de_at": "Dein Konto bei {SITENAME} wurde eingeschränkt",
+      "de_ch": "Dein Konto bei {SITENAME} wurde eingeschränkt"
+    },
+    "Hello {USERNAME},\n\nYour {SITENAME} account has been restricted until {BAN_EXPIRES_AT}.\n\nRestrictions:\n{RESTRICTIONS}\n\nIf you believe this is a mistake, contact {SUPPORT_EMAIL}.": {
+      "de_de": "Hallo {USERNAME},\n\ndein Konto bei {SITENAME} wurde bis {BAN_EXPIRES_AT} eingeschränkt.\n\nEinschränkungen:\n{RESTRICTIONS}\n\nWenn du glaubst, dass ein Fehler vorliegt, melde dich unter {SUPPORT_EMAIL}.",
+      "de_at": "Hallo {USERNAME},\n\ndein Konto bei {SITENAME} wurde bis {BAN_EXPIRES_AT} eingeschränkt.\n\nEinschränkungen:\n{RESTRICTIONS}\n\nWenn du glaubst, dass ein Fehler vorliegt, melde dich unter {SUPPORT_EMAIL}.",
+      "de_ch": "Hallo {USERNAME},\n\ndein Konto bei {SITENAME} wurde bis {BAN_EXPIRES_AT} eingeschränkt.\n\nEinschränkungen:\n{RESTRICTIONS}\n\nWenn du glaubst, dass ein Fehler vorliegt, melde dich unter {SUPPORT_EMAIL}."
+    },
+    "You are now a {SITENAME} moderator": {
+      "de_de": "Du bist jetzt Moderator bei {SITENAME}",
+      "de_at": "Du bist jetzt Moderator bei {SITENAME}",
+      "de_ch": "Du bist jetzt Moderator bei {SITENAME}"
+    },
+    "Hello {USERNAME},\n\nYou have been assigned the Moderator role on {SITENAME}. You can now access the moderation tools available to your role.\n\nModeration dashboard: {MODERATION_URL}": {
+      "de_de": "Hallo {USERNAME},\n\ndu hast bei {SITENAME} die Rolle Moderator erhalten. Du kannst jetzt die für deine Rolle freigegebenen Moderationsfunktionen nutzen.\n\nModerationsübersicht: {MODERATION_URL}",
+      "de_at": "Hallo {USERNAME},\n\ndu hast bei {SITENAME} die Rolle Moderator erhalten. Du kannst jetzt die für deine Rolle freigegebenen Moderationsfunktionen nutzen.\n\nModerationsübersicht: {MODERATION_URL}",
+      "de_ch": "Hallo {USERNAME},\n\ndu hast bei {SITENAME} die Rolle Moderator erhalten. Du kannst jetzt die für deine Rolle freigegebenen Moderationsfunktionen nutzen.\n\nModerationsübersicht: {MODERATION_URL}"
+    },
+    "You are moderating \"{STREAM_TITLE}\" on {SITENAME}": {
+      "de_de": "Du moderierst „{STREAM_TITLE}“ auf {SITENAME}",
+      "de_at": "Du moderierst „{STREAM_TITLE}“ auf {SITENAME}",
+      "de_ch": "Du moderierst „{STREAM_TITLE}“ auf {SITENAME}"
+    },
+    "Hello {USERNAME},\n\nYou have been assigned as a moderator for the live stream \"{STREAM_TITLE}\". Open the stream to access your moderation controls.\n\nOpen stream: {STREAM_URL}": {
+      "de_de": "Hallo {USERNAME},\n\ndu wurdest als Moderator für den Livestream „{STREAM_TITLE}“ eingesetzt. Öffne den Stream, um die Moderationsfunktionen zu nutzen.\n\nStream öffnen: {STREAM_URL}",
+      "de_at": "Hallo {USERNAME},\n\ndu wurdest als Moderator für den Livestream „{STREAM_TITLE}“ eingesetzt. Öffne den Stream, um die Moderationsfunktionen zu nutzen.\n\nStream öffnen: {STREAM_URL}",
+      "de_ch": "Hallo {USERNAME},\n\ndu wurdest als Moderator für den Livestream „{STREAM_TITLE}“ eingesetzt. Öffne den Stream, um die Moderationsfunktionen zu nutzen.\n\nStream öffnen: {STREAM_URL}"
+    }
+  }
+}

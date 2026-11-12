@@ -1,0 +1,30 @@
+{
+  "context": "Clip transfer owner status and complete ready notification. Pending means provider confirmation/playback is not verified: no watch link, no success notice. Author titles remain literal. English/German reference copy for queue, provider wait, cancel, failures and readiness, with regional cancel/cancelled spelling. Full 125-language acceptance remains separate.",
+  "messages": {
+    "Your clip uploads": {"en":"Your clip uploads","de":"Deine Clip-Uploads"},
+    "Track your uploads. You can watch your clips once Odysee confirms they are available.": {"en":"Track your uploads. You can watch your clips once Odysee confirms they are available.","de":"Verfolge deine Uploads. Du kannst deine Clips ansehen, sobald Odysee ihre Verfügbarkeit bestätigt hat."},
+    "Manage clip uploads": {"en":"Manage clip uploads","de":"Clip-Uploads verwalten"},
+    "Loading your clip uploads…": {"en":"Loading your clip uploads…","de":"Deine Clip-Uploads werden geladen …"},
+    "Your clip uploads could not be loaded.": {"en":"Your clip uploads could not be loaded.","de":"Deine Clip-Uploads konnten nicht geladen werden."},
+    "This clip upload is not available.": {"en":"This clip upload is not available.","de":"Dieser Clip-Upload ist nicht verfügbar."},
+    "You have no clip uploads yet.": {"en":"You have no clip uploads yet.","de":"Du hast noch keine Clips hochgeladen."},
+    "Waiting for an upload slot": {"en":"Waiting for an upload slot","de":"Wartet auf einen freien Uploadplatz"},
+    "Waiting for your browser upload": {"en":"Waiting for your browser upload","de":"Wartet auf deinen Browser-Upload"},
+    "Preparing your clip": {"en":"Preparing your clip","de":"Dein Clip wird vorbereitet"},
+    "Uploading your clip to Odysee": {"en":"Uploading your clip to Odysee","de":"Dein Clip wird zu Odysee hochgeladen"},
+    "Waiting for Odysee confirmation": {"en":"Waiting for Odysee confirmation","de":"Wartet auf die Bestätigung von Odysee"},
+    "We are waiting for Odysee to confirm your clip. You can leave this page; we will notify you when it is ready.": {"en":"We are waiting for Odysee to confirm your clip. You can leave this page; we will notify you when it is ready.","de":"Wir warten darauf, dass Odysee deinen Clip bestätigt. Du kannst diese Seite schließen. Wir benachrichtigen dich, sobald dein Clip verfügbar ist.","de_ch":"Wir warten darauf, dass Odysee deinen Clip bestätigt. Du kannst diese Seite schliessen. Wir benachrichtigen dich, sobald dein Clip verfügbar ist."},
+    "Keep the video page open until your browser upload is finished.": {"en":"Keep the video page open until your browser upload is finished.","de":"Lass die Videoseite geöffnet, bis dein Browser-Upload abgeschlossen ist."},
+    "Your position in the queue: {position}.": {"en":"Your position in the queue: {position}.","de":"Dein Platz in der Warteschlange: {position}."},
+    "Your clip is ready to watch.": {"en":"Your clip is ready to watch.","de":"Dein Clip ist jetzt verfügbar."},
+    "Your clip could not be confirmed.": {"en":"Your clip could not be confirmed.","de":"Dein Clip konnte nicht bestätigt werden."},
+    "Your clip is not available here. Please contact support if you need help.": {"en":"Your clip is not available here. Please contact support if you need help.","de":"Dein Clip ist hier nicht verfügbar. Wenn du Hilfe brauchst, wende dich an den Support."},
+    "Cancel clip upload": {"en":"Cancel clip upload","de":"Clip-Upload abbrechen"},
+    "Canceling your clip upload…": {"en":"Canceling your clip upload…","en_au":"Cancelling your clip upload…","en_ca":"Cancelling your clip upload…","en_gb":"Cancelling your clip upload…","en_nz":"Cancelling your clip upload…","en_za":"Cancelling your clip upload…","de":"Dein Clip-Upload wird abgebrochen …"},
+    "Your clip upload has been canceled.": {"en":"Your clip upload has been canceled.","en_au":"Your clip upload has been cancelled.","en_ca":"Your clip upload has been cancelled.","en_gb":"Your clip upload has been cancelled.","en_nz":"Your clip upload has been cancelled.","en_za":"Your clip upload has been cancelled.","de":"Dein Clip-Upload wurde abgebrochen."},
+    "Your clip upload could not be canceled. Please try again.": {"en":"Your clip upload could not be canceled. Please try again.","en_au":"Your clip upload could not be cancelled. Please try again.","en_ca":"Your clip upload could not be cancelled. Please try again.","en_gb":"Your clip upload could not be cancelled. Please try again.","en_nz":"Your clip upload could not be cancelled. Please try again.","en_za":"Your clip upload could not be cancelled. Please try again.","de":"Dein Clip-Upload konnte nicht abgebrochen werden. Versuch es bitte noch einmal."},
+    "Your clip could not be opened. Please try again.": {"en":"Your clip could not be opened. Please try again.","de":"Dein Clip konnte nicht geöffnet werden. Versuch es bitte noch einmal."},
+    "Your clip is still waiting for Odysee confirmation.": {"en":"Your clip is still waiting for Odysee confirmation.","de":"Dein Clip wartet noch auf die Bestätigung von Odysee."},
+    "Watch clip": {"en":"Watch clip","de":"Clip ansehen"}
+  }
+}

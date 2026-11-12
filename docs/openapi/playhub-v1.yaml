@@ -11237,11 +11237,11 @@ components:
           type: object
           required: [provider, source_type, provider_id, provider_url, sources, expires_at]
           properties:
-            provider: { type: string, enum: [native, youtube, vimeo, dailymotion, twitch] }
+            provider: { type: string, enum: [native, youtube, vimeo, dailymotion, twitch, rumble, odysee, bitchute, auf1] }
             source_type: { type: string, enum: [mp4, hls, dash, webm, embed] }
             provider_id:
               type: [string, 'null']
-              description: Stable external provider identifier when applicable. Twitch IDs are namespaced as `channel:`, `video:`, or `clip:`.
+              description: Stable external provider identifier when applicable. Twitch IDs are namespaced as `channel:`, `video:`, or `clip:`. AUF1 uses its stable numeric content ID.
             provider_url:
               type: [string, 'null']
               format: uri
@@ -11316,7 +11316,7 @@ components:
         id: { type: string }
         url: { type: [string, 'null'], format: uri }
         delivery: { type: string, enum: [progressive, remote, provider] }
-        provider: { type: [string, 'null'], enum: [youtube, vimeo, dailymotion, twitch, null] }
+        provider: { type: [string, 'null'], enum: [youtube, vimeo, dailymotion, twitch, rumble, odysee, bitchute, auf1, null] }
         provider_video_id: { type: [string, 'null'] }
         container: { type: [string, 'null'] }
         mime_type: { type: [string, 'null'] }
@@ -11340,7 +11340,7 @@ components:
         content_type: { type: string, enum: [video, short, replay] }
         provider:
           type: string
-          enum: [native, youtube, vimeo, dailymotion, twitch]
+          enum: [native, youtube, vimeo, dailymotion, twitch, rumble, odysee, bitchute, auf1]
           description: Playback adapter required by this session. Authenticated Vimeo `play` links use `native`; Vimeo embed fallback uses `vimeo`.
         source_type:
           type: string

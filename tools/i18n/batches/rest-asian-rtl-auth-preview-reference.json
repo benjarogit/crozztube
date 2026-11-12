@@ -1,0 +1,60 @@
+{
+  "context": "Editorial login community-preview defaults rechecked against EN6 reference: audience videos/community, sharing interests and own creative pace. Removed UI kit/CMS/design-system promises in three Chinese variants. Existing matching Arabic/Japanese/Korean/Turkish/Indonesian/Malay complete community messages read against the updated reference, no mechanical propagation or author content edited.",
+  "messages": {
+    "Video CMS & Streaming Platform UI Kit": {
+      "ar": "فيديوهاتك. مجتمعك.",
+      "ja": "あなたの動画、あなたのコミュニティ。",
+      "ko_kr": "내 동영상, 내 커뮤니티.",
+      "tr_tr": "Senin videoların. Senin topluluğun.",
+      "id_id": "Videomu. Komunitasmu.",
+      "ms_my": "Video kamu. Komuniti kamu.",
+      "zh_cn": "你的视频，你的社区。",
+      "zh_tw": "你的影片，你的社群。",
+      "zh_hk": "你的影片，你的社群。"
+    },
+    "Clean light and true black dark layouts for creators, communities and streaming products.": {
+      "ar": "شارك فيديوهاتك، واكتشف صنّاع محتوى جددًا، واعثر على مجتمعك.",
+      "ja": "動画をシェアして、新しいクリエイターや仲間を見つけよう。",
+      "ko_kr": "동영상을 공유하고, 새로운 크리에이터와 나만의 커뮤니티를 만나 보세요.",
+      "tr_tr": "Videolarını paylaş, yeni içerik üreticilerini keşfet ve topluluğunu bul.",
+      "id_id": "Bagikan videomu, temukan kreator baru, dan cari komunitasmu.",
+      "ms_my": "Kongsi video kamu, temui pencipta baharu dan cari komuniti kamu.",
+      "zh_cn": "分享你的视频，发现创作者，找到自己的社区。",
+      "zh_tw": "分享你的影片，發掘創作者，找到自己的社群。",
+      "zh_hk": "分享你的影片，發掘創作者，找到自己的社群。"
+    },
+    "Scalable design system": {
+      "ar": "شارك ما تحب",
+      "ja": "好きなことをシェアしよう",
+      "ko_kr": "좋아하는 것을 나눠 보세요",
+      "tr_tr": "Sevdiğin şeyleri paylaş",
+      "id_id": "Bagikan hal yang kamu sukai",
+      "ms_my": "Kongsi perkara yang kamu suka",
+      "zh_cn": "分享你喜爱的内容",
+      "zh_tw": "分享你喜愛的內容",
+      "zh_hk": "分享你喜愛的內容"
+    },
+    "Accessible components": {
+      "ar": "تعرّف على أشخاص يشاركونك اهتماماتك",
+      "ja": "同じことが好きな仲間と出会おう",
+      "ko_kr": "같은 관심사를 가진 사람들을 만나 보세요",
+      "tr_tr": "İlgi alanlarını paylaşan insanlarla tanış",
+      "id_id": "Temui orang dengan minat yang sama",
+      "ms_my": "Temui orang yang berkongsi minat kamu",
+      "zh_cn": "认识兴趣相投的人",
+      "zh_tw": "認識興趣相投的人",
+      "zh_hk": "認識興趣相投的人"
+    },
+    "Built for creator workflows": {
+      "ar": "ابتكر على راحتك",
+      "ja": "自分のペースで作ろう",
+      "ko_kr": "내 속도에 맞춰 만들어 보세요",
+      "tr_tr": "Kendi hızında üret",
+      "id_id": "Berkreasi sesuai ritmemu",
+      "ms_my": "Berkarya mengikut rentak kamu",
+      "zh_cn": "按自己的节奏创作",
+      "zh_tw": "按自己的節奏創作",
+      "zh_hk": "按自己的節奏創作"
+    }
+  }
+}

@@ -21,6 +21,8 @@ class VideoResource extends JsonResource
                 : $this->video_url)
             : null;
         $chaptersEnabled = PlatformFeatureSettings::videoChaptersEnabled() && (bool) $this->chapters_enabled;
+        $videoSources = $this->videoSources($canPlay);
+        $usesResolver = $this->usesSourceResolver();
 
         return [
             'id' => $this->id,
@@ -38,8 +40,11 @@ class VideoResource extends JsonResource
             'made_for_kids' => (bool) $this->made_for_kids,
             'monetization_enabled' => (bool) $this->monetization_enabled,
             'sale' => $sale,
-            'has_captions' => (bool) $this->captions_path,
+            'has_captions' => (bool) $this->captions_path || \App\Support\VideoCaptions::stored($this->resource) !== [],
             'captions_url' => $canPlay ? VideoSales::captionsUrl($this->resource) : null,
+            'caption_tracks' => $canPlay ? \App\Support\VideoCaptions::forResource($this->resource) : [],
+            'transcript_url' => $canPlay && \App\Support\VideoCaptions::stored($this->resource) !== []
+                ? VideoSales::captionsUrl($this->resource, null, 0, true) : null,
             'chapters_enabled' => $chaptersEnabled,
             'chapters_source' => $chaptersEnabled ? $this->chapters_source : null,
             'chapters' => $chaptersEnabled ? VideoChapters::forResource($this->chapters, $this->duration_seconds) : [],
@@ -59,7 +64,7 @@ class VideoResource extends JsonResource
             ])->values(),
             'video_url' => $videoUrl,
             'video_mime_type' => $this->mimeTypeForPath($this->activeVideoPath()),
-            'video_sources' => $this->videoSources($canPlay),
+            'video_sources' => $videoSources,
             'thumbnail_candidates' => $this->thumbnail_candidates,
             'video_width' => $this->video_width, 'video_height' => $this->video_height,
             'thumbnail_url' => VideoSales::thumbnailUrl($this->resource),
@@ -67,7 +72,8 @@ class VideoResource extends JsonResource
             'live_stream_url' => $this->whenLoaded('liveStream', fn () => $this->liveStream ? '/live/'.$this->liveStream->slug : null),
             'import_provider' => $this->import_provider,
             'import_url' => $canPlay && $this->source_type === 'import' ? $this->import_url : null,
-            'embed_url' => $canPlay ? $this->externalEmbedUrl($request) : null,
+            'embed_url' => $canPlay && ! $usesResolver && $videoSources === [] ? $this->externalEmbedUrl($request) : null,
+            'playback_pending' => $canPlay && $usesResolver && $videoSources === [],
             'duration_seconds' => $this->duration_seconds,
             'is_short' => $this->isShort(),
             'views_count' => $this->views_count,
@@ -95,8 +101,12 @@ class VideoResource extends JsonResource
             return [];
         }
 
-        // CrozzTube-Patch: yt-dlp-Resolver-Direkt-URL im eigenen Player bevorzugen,
-        // bevor der Provider-Embed-Mirror genutzt wird.
+        // A provider embed is an explicit Mirror choice. While the resolver is
+        // preparing/renewing native playback, never silently switch adapters.
+        if ($this->usesSourceResolver()) {
+            return \CrzSourceResolver\Support\VideoSources::forVideo($this->resource);
+        }
+
         if ($this->source_type === 'import' && class_exists(\CrzSourceResolver\Support\VideoSources::class)) {
             $resolverSources = \CrzSourceResolver\Support\VideoSources::forVideo($this->resource);
             if (! empty($resolverSources)) {
@@ -155,6 +165,14 @@ class VideoResource extends JsonResource
         return $sources;
     }
 
+    private function usesSourceResolver(): bool
+    {
+        return $this->source_type === 'import'
+            && $this->import_provider !== 'direct'
+            && class_exists(\CrzSourceResolver\Support\VideoSources::class)
+            && \CrzSourceResolver\Resolver::available();
+    }
+
     private function dimensionsFor(?string $quality): array
     {
         return match ($quality) {
@@ -208,8 +226,8 @@ class VideoResource extends JsonResource
         $id = MediaSourceMetadata::providerIdForVideo($this->resource, $provider);
         $parent = $request->getHost() ?: parse_url((string) config('app.url'), PHP_URL_HOST);
 
-        return in_array($provider, ['dailymotion', 'twitch'], true)
-            ? MediaSourceMetadata::embedUrl($provider, $id, (string) $parent)
+        return ! in_array($provider, ['youtube', 'vimeo'], true)
+            ? MediaSourceMetadata::embedUrl($provider, $id, (string) $parent, (string) $this->import_url)
             : null;
     }
 

@@ -50,7 +50,7 @@ class VideoDetailResource extends VideoCardResource
             'media' => [
                 'poster_url' => $this->thumbnail_url,
                 'thumbnail_candidates' => $this->thumbnail_candidates,
-                'has_captions' => filled($this->captions_path),
+                'has_captions' => filled($this->captions_path) || \App\Support\VideoCaptions::stored($this->resource) !== [],
                 'has_chapters' => $chaptersEnabled && count($this->chapters ?: []) > 0,
                 'chapters' => $chaptersEnabled
                     ? VideoChapters::forResource($this->chapters, $this->duration_seconds)

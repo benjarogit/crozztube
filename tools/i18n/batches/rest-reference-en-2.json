@@ -1,0 +1,758 @@
+{
+  "context": "English reference editorial pass: moderation/monetization, static category labels, public help/FAQ/contact/refund guidance, API/developer metadata. User-facing help avoids database/popup jargon; legal/refund conditions preserved. CSS, identifiers, sample statistics and sample creator title excluded from copy review.",
+  "messages": {
+    "Tips Revenue": {
+      "en": "Tips Revenue"
+    },
+    "Revenue by Source": {
+      "en": "Revenue by Source"
+    },
+    "All Status": {
+      "en": "All statuses"
+    },
+    "Top Earning Creators": {
+      "en": "Top Earning Creators"
+    },
+    "Create Payout": {
+      "en": "Create Payout"
+    },
+    "Tax Documents": {
+      "en": "Tax Documents"
+    },
+    "Revenue Settings": {
+      "en": "Revenue Settings"
+    },
+    "All Creators": {
+      "en": "All Creators"
+    },
+    "Partnered": {
+      "en": "Partnered"
+    },
+    "Applied": {
+      "en": "Applied"
+    },
+    "Avg Revenue per Creator": {
+      "en": "Average revenue per Creator"
+    },
+    "Verification Queue": {
+      "en": "Verification Queue"
+    },
+    "Creator Segments": {
+      "en": "Creator Segments"
+    },
+    "Bulk Verify Creators": {
+      "en": "Verify multiple Creators"
+    },
+    "Send Announcement": {
+      "en": "Send Announcement"
+    },
+    "All Content": {
+      "en": "All Content"
+    },
+    "Posts": {
+      "en": "Posts"
+    },
+    "Live Replays": {
+      "en": "Live Replays"
+    },
+    "Content Types": {
+      "en": "Content Types"
+    },
+    "Moderation Summary": {
+      "en": "Moderation Summary"
+    },
+    "Review Flagged Content": {
+      "en": "Review Flagged Content"
+    },
+    "Bulk Update Categories": {
+      "en": "Update categories for multiple items"
+    },
+    "Schedule Content": {
+      "en": "Schedule Content"
+    },
+    "Manage Content Categories": {
+      "en": "Manage Content Categories"
+    },
+    "No records found.": {
+      "en": "No records found."
+    },
+    "No data": {
+      "en": "No data"
+    },
+    "Total": {
+      "en": "Total"
+    },
+    "Status data unavailable": {
+      "en": "Status data unavailable"
+    },
+    "Health data unavailable": {
+      "en": "System status unavailable"
+    },
+    "Upload date unavailable": {
+      "en": "Upload date unavailable"
+    },
+    "Unknown": {
+      "en": "Unknown"
+    },
+    "Untitled": {
+      "en": "Untitled"
+    },
+    "More actions": {
+      "en": "More actions"
+    },
+    "Documentary": {
+      "en": "Documentary"
+    },
+    "Travel & Events": {
+      "en": "Travel & Events"
+    },
+    "Technology": {
+      "en": "Technology"
+    },
+    "Education": {
+      "en": "Education"
+    },
+    "Lifestyle": {
+      "en": "Lifestyle"
+    },
+    "Music": {
+      "en": "Music"
+    },
+    "Sports": {
+      "en": "Sports"
+    },
+    "Gaming": {
+      "en": "Gaming"
+    },
+    "Film & Animation": {
+      "en": "Film & Animation"
+    },
+    "Science & Technology": {
+      "en": "Science & Technology"
+    },
+    "News & Politics": {
+      "en": "News & Politics"
+    },
+    "Entertainment": {
+      "en": "Entertainment"
+    },
+    "Comedy": {
+      "en": "Comedy"
+    },
+    "People & Blogs": {
+      "en": "People & Blogs"
+    },
+    "Howto & Style": {
+      "en": "How-to & style"
+    },
+    "Pets & Animals": {
+      "en": "Pets & Animals"
+    },
+    "Autos & Vehicles": {
+      "en": "Autos & Vehicles"
+    },
+    "About PlayHub": {
+      "en": "About PlayHub"
+    },
+    "Accidental purchase": {
+      "en": "Accidental purchase"
+    },
+    "Account": {
+      "en": "Account"
+    },
+    "Account & Profile": {
+      "en": "Account & Profile"
+    },
+    "Account context": {
+      "en": "Account context"
+    },
+    "Account lifetime": {
+      "en": "Account lifetime"
+    },
+    "Account recovery": {
+      "en": "Account recovery"
+    },
+    "Add subscription, invoice, payment date, and any details admins need...": {
+      "en": "Add your subscription, invoice, payment date and any details the support team needs…"
+    },
+    "Admin support": {
+      "en": "Admin support"
+    },
+    "Admin ticket": {
+      "en": "Admin ticket"
+    },
+    "Admin visibility": {
+      "en": "Admin visibility"
+    },
+    "Admins verify billing records.": {
+      "en": "Admins verify billing records."
+    },
+    "All Topics": {
+      "en": "All Topics"
+    },
+    "Always active": {
+      "en": "Always active"
+    },
+    "Amount": {
+      "en": "Amount"
+    },
+    "API health": {
+      "en": "API health"
+    },
+    "App version": {
+      "en": "App version"
+    },
+    "Authenticated APIs use the existing Laravel Sanctum token flow. Account, upload, creator, playlist, notification, comment, like, subscription, and admin endpoints are served under /api.": {
+      "en": "Authenticated APIs use the existing Laravel Sanctum token flow. Account, upload, creator, playlist, notification, comment, like, subscription, and admin endpoints are served under /api."
+    },
+    "Backend route inventory is not available yet.": {
+      "en": "Backend route inventory is not available yet."
+    },
+    "Backend storage": {
+      "en": "Backend storage"
+    },
+    "Billing": {
+      "en": "Billing"
+    },
+    "Billing or refund": {
+      "en": "Billing or refund"
+    },
+    "Billing settings": {
+      "en": "Billing settings"
+    },
+    "Browse by category": {
+      "en": "Browse by category"
+    },
+    "Build with PlayHub": {
+      "en": "Build with PlayHub"
+    },
+    "Build creator workflows": {
+      "en": "Build creator workflows"
+    },
+    "Business": {
+      "en": "Business"
+    },
+    "Call /api/developers to read the live API base URL, route groups, and limits.": {
+      "en": "Call /api/developers to read the live API base URL, route groups, and limits."
+    },
+    "Call /api/upload-options for configured categories, languages, playlists, and chunk limits.": {
+      "en": "Call /api/upload-options for configured categories, languages, playlists, and chunk limits."
+    },
+    "Categories": {
+      "en": "Categories"
+    },
+    "Check system metadata": {
+      "en": "Check system metadata"
+    },
+    "Close": {
+      "en": "Close"
+    },
+    "Community and resources": {
+      "en": "Community and resources"
+    },
+    "Community guidelines": {
+      "en": "Community guidelines"
+    },
+    "Contact form": {
+      "en": "Contact form"
+    },
+    "Contact support": {
+      "en": "Contact support"
+    },
+    "Contact Support": {
+      "en": "Contact Support"
+    },
+    "Contact support for privacy, data, and account questions.": {
+      "en": "Contact support for privacy, data, and account questions."
+    },
+    "Cookie Category": {
+      "en": "Cookie Category"
+    },
+    "Copy": {
+      "en": "Copy"
+    },
+    "Create an account, open Creator Studio, complete your channel profile, then upload or organize videos from your dashboard.": {
+      "en": "Create an account, open Creator Studio and complete your channel profile. You can then upload and organize your videos."
+    },
+    "Creator channels": {
+      "en": "Creator channels"
+    },
+    "Creator data": {
+      "en": "Creator data"
+    },
+    "Creator profile pages, subscriptions, community posts, comments, and playlists are part of the same account and content system.": {
+      "en": "Creator profile pages, subscriptions, community posts, comments, and playlists are part of the same account and content system."
+    },
+    "Creator publishing": {
+      "en": "Creator publishing"
+    },
+    "Creator tools": {
+      "en": "Creator tools"
+    },
+    "Creators can upload videos, manage visibility, add thumbnails and captions, publish scheduled content, review their library, and track content from Creator Studio.": {
+      "en": "Use Creator Studio to upload videos, choose who can watch, add thumbnails and captions, schedule releases and manage your library."
+    },
+    "curl --request GET \\\\ --url": {
+      "en": "curl --request GET \\\\ --url"
+    },
+    "Current upload categories": {
+      "en": "Current upload categories"
+    },
+    "Database": {
+      "en": "Database"
+    },
+    "Platform content": {
+      "en": "Platform content"
+    },
+    "Engagement such as views, likes, comments, and subscriptions.": {
+      "en": "Engagement such as views, likes, comments, and subscriptions."
+    },
+    "Decision": {
+      "en": "Decision"
+    },
+    "Deployment": {
+      "en": "Deployment"
+    },
+    "Developer products": {
+      "en": "Developer products"
+    },
+    "Discovery metadata": {
+      "en": "Discovery metadata"
+    },
+    "Duplicate charge": {
+      "en": "Duplicate charge"
+    },
+    "Duration": {
+      "en": "Duration"
+    },
+    "Email support": {
+      "en": "Email support"
+    },
+    "Engagement Rate": {
+      "en": "Engagement Rate"
+    },
+    "Environment": {
+      "en": "Environment"
+    },
+    "Essential": {
+      "en": "Essential"
+    },
+    "Examples": {
+      "en": "Examples"
+    },
+    "Explore creators": {
+      "en": "Explore creators"
+    },
+    "Explore videos": {
+      "en": "Explore videos"
+    },
+    "Fastest Rising": {
+      "en": "Fastest Rising"
+    },
+    "Feature not working": {
+      "en": "Feature not working"
+    },
+    "Featured articles": {
+      "en": "Featured articles"
+    },
+    "Find answers, get support, and learn how to use PlayHub’s upload, account, creator, and admin features.": {
+      "en": "Find answers and help with uploads, your account, Creator tools and administration in PlayHub."
+    },
+    "Find quick answers about PlayHub accounts, uploads, support tickets, privacy, and creator tools.": {
+      "en": "Find quick answers about PlayHub accounts, uploads, support tickets, privacy, and creator tools."
+    },
+    "Follow": {
+      "en": "Follow"
+    },
+    "Frequently asked questions": {
+      "en": "Frequently asked questions"
+    },
+    "Functional": {
+      "en": "Functional"
+    },
+    "General inquiries": {
+      "en": "General inquiries"
+    },
+    "Generated": {
+      "en": "Generated"
+    },
+    "Get in touch": {
+      "en": "Get in touch"
+    },
+    "Get started in 3 steps": {
+      "en": "Get started in 3 steps"
+    },
+    "Getting Started": {
+      "en": "Getting Started"
+    },
+    "Getting started on PlayHub": {
+      "en": "Getting started on PlayHub"
+    },
+    "Global and remote": {
+      "en": "Global and remote"
+    },
+    "Go to Upload, choose your video file, add required details, select category and language, add a thumbnail, then publish. Large files upload in chunks.": {
+      "en": "Open Upload, choose your video file and add the required details. Choose a category and language, add a thumbnail, then publish. Large files upload in parts."
+    },
+    "Guest mode": {
+      "en": "Guest mode"
+    },
+    "Have a question, feedback, partnership idea, or support request? Send it through the backend form and admins will see it in the Support dashboard.": {
+      "en": "Have a question, some feedback or an idea for a partnership? Use the form to contact the team."
+    },
+    "High priority": {
+      "en": "High priority"
+    },
+    "How can I become a creator?": {
+      "en": "How can I become a creator?"
+    },
+    "How can we help you?": {
+      "en": "How can we help you?"
+    },
+    "How can we help?": {
+      "en": "How can we help?"
+    },
+    "How do I become a creator?": {
+      "en": "How do I become a creator?"
+    },
+    "How do I report inappropriate content?": {
+      "en": "How do I report inappropriate content?"
+    },
+    "How do I update password or two-factor authentication?": {
+      "en": "How do I update password or two-factor authentication?"
+    },
+    "How do I upload a video?": {
+      "en": "How do I upload a video?"
+    },
+    "How is my privacy protected?": {
+      "en": "How is my privacy protected?"
+    },
+    "How many upload languages are available?": {
+      "en": "How many upload languages are available?"
+    },
+    "How to upload your first video": {
+      "en": "How to upload your first video"
+    },
+    "I need help with my account": {
+      "en": "I need help with my account"
+    },
+    "If approved, payment is returned through the original method.": {
+      "en": "If approved, payment is returned through the original method."
+    },
+    "Join the future of video": {
+      "en": "Join the future of video"
+    },
+    "Keeps queue and watch progress on this device.": {
+      "en": "Keeps queue and watch progress on this device."
+    },
+    "Playback Queue": {
+      "en": "Playback Queue"
+    },
+    "Keeps your temporary playback queue on this device.": {
+      "en": "Keeps your temporary playback queue on this device."
+    },
+    "Watch Progress": {
+      "en": "Watch Progress"
+    },
+    "Saves continue-watching progress for signed-in users.": {
+      "en": "Saves continue-watching progress for signed-in users."
+    },
+    "Languages": {
+      "en": "Languages"
+    },
+    "Large uploads use upload sessions: create a session, send numbered chunks, then complete the session with title, description, category, language, visibility, schedule, thumbnail, captions, and monetization fields.": {
+      "en": "Large uploads use upload sessions: create a session, send numbered chunks, then complete the session with title, description, category, language, visibility, schedule, thumbnail, captions, and monetization fields."
+    },
+    "Live & scheduling": {
+      "en": "Live & scheduling"
+    },
+    "Live counts": {
+      "en": "Live counts"
+    },
+    "Live counts are loaded from the backend.": {
+      "en": "Counts update from the platform."
+    },
+    "Current": {
+      "en": "Current"
+    },
+    "Live endpoint groups": {
+      "en": "Live endpoint groups"
+    },
+    "Loading categories...": {
+      "en": "Loading categories..."
+    },
+    "Loading category activity...": {
+      "en": "Loading category activity..."
+    },
+    "Loading creator and content counts.": {
+      "en": "Loading Creator and content counts…"
+    },
+    "Loading creator channels...": {
+      "en": "Loading creator channels..."
+    },
+    "Loading endpoints": {
+      "en": "Loading endpoints"
+    },
+    "Loading live API capabilities from the backend.": {
+      "en": "Loading available API features…"
+    },
+    "Loading live API metadata...": {
+      "en": "Loading live API metadata..."
+    },
+    "Loading live PlayHub platform data from the backend...": {
+      "en": "Loading PlayHub platform information…"
+    },
+    "Loading routes": {
+      "en": "Loading routes"
+    },
+    "Loading taxonomy metadata.": {
+      "en": "Loading categories and languages…"
+    },
+    "Loading upload configuration.": {
+      "en": "Loading upload configuration."
+    },
+    "Loading...": {
+      "en": "Loading..."
+    },
+    "Local storage": {
+      "en": "Local storage"
+    },
+    "Manage language, theme, security, and notification settings from your account.": {
+      "en": "Manage language, theme, security, and notification settings from your account."
+    },
+    "Max upload": {
+      "en": "Max upload"
+    },
+    "Messages submitted on the Contact page are saved and shown in the admin Support dashboard as contact tickets.": {
+      "en": "Messages submitted on the Contact page are saved and shown in the admin Support dashboard as contact tickets."
+    },
+    "More⌄": {
+      "en": "More⌄"
+    },
+    "Need help?": {
+      "en": "Need help?"
+    },
+    "Need more help?": {
+      "en": "Need more help?"
+    },
+    "No answers found for this topic and search.": {
+      "en": "No answers found for this topic and search."
+    },
+    "No category activity found yet.": {
+      "en": "No category activity found yet."
+    },
+    "No creator channels found yet.": {
+      "en": "No creator channels found yet."
+    },
+    "No upload categories are configured.": {
+      "en": "No upload categories are configured."
+    },
+    "Normal priority": {
+      "en": "Normal priority"
+    },
+    "Not available": {
+      "en": "Not available"
+    },
+    "Not provided": {
+      "en": "Not provided"
+    },
+    "On this page": {
+      "en": "On this page"
+    },
+    "Open Help Center": {
+      "en": "Open Help Center"
+    },
+    "Open settings": {
+      "en": "Open settings"
+    },
+    "Open Settings, go to Security, then use the password or two-factor dialog. Two-factor delivery supports email or phone when configured.": {
+      "en": "Open Settings, go to Security, then use the password or two-factor dialog. Two-factor delivery supports email or phone when configured."
+    },
+    "Operational snapshot": {
+      "en": "Operational snapshot"
+    },
+    "Optional, but recommended": {
+      "en": "Optional, but recommended"
+    },
+    "Other": {
+      "en": "Other"
+    },
+    "Partnerships, press, and platform operations.": {
+      "en": "Partnerships, press, and platform operations."
+    },
+    "Payment help": {
+      "en": "Payment help"
+    },
+    "Platform": {
+      "en": "Platform"
+    },
+    "Playback": {
+      "en": "Playback"
+    },
+    "PlayHub": {
+      "en": "PlayHub"
+    },
+    "PlayHub is a video platform for uploading, watching, scheduling, managing, and moderating creator content from one account.": {
+      "en": "PlayHub is a video platform for uploading, watching, scheduling, managing, and moderating creator content from one account."
+    },
+    "PlayHub provides creator channels, video uploads, scheduled publishing, subscriptions, comments, playlists, watch later, live content pages, and administration tools from one platform.": {
+      "en": "PlayHub provides creator channels, video uploads, scheduled publishing, subscriptions, comments, playlists, watch later, live content pages, and administration tools from one platform."
+    },
+    "Popular questions": {
+      "en": "Popular questions"
+    },
+    "Privacy, cookie, account security, support messages, and moderation data are handled through the policies and backend records connected to PlayHub.": {
+      "en": "Read our privacy and cookie policies to learn how this website handles account, security, support and moderation data."
+    },
+    "Profile, login, security, and settings help.": {
+      "en": "Profile, login, security, and settings help."
+    },
+    "Profile, security, and preferences.": {
+      "en": "Profile, security, and preferences."
+    },
+    "Public API route": {
+      "en": "Public API route"
+    },
+    "Public JSON endpoints include /api/health for deployment status and /api/upload-options for upload categories, languages, limits, chunk size, and trending tags.": {
+      "en": "Public JSON endpoints include /api/health for deployment status and /api/upload-options for upload categories, languages, limits, chunk size, and trending tags."
+    },
+    "Public REST API": {
+      "en": "Public REST API"
+    },
+    "Published videos": {
+      "en": "Published videos"
+    },
+    "Purchase date": {
+      "en": "Purchase date"
+    },
+    "Purpose": {
+      "en": "Purpose"
+    },
+    "Questions about privacy?": {
+      "en": "Questions about privacy?"
+    },
+    "Quick links": {
+      "en": "Quick links"
+    },
+    "Rate limits": {
+      "en": "Rate limits"
+    },
+    "Read upload options": {
+      "en": "Read upload options"
+    },
+    "Platform capabilities": {
+      "en": "Platform capabilities"
+    },
+    "Platform overview": {
+      "en": "Platform overview"
+    },
+    "Reason": {
+      "en": "Reason"
+    },
+    "Recent creator channels": {
+      "en": "Recent creator channels"
+    },
+    "Refund": {
+      "en": "Refund"
+    },
+    "Refund and paid feature guidance.": {
+      "en": "Refund and paid feature guidance."
+    },
+    "Refund handling is tied to billing records and administrator review. If billing is not configured for this deployment, there is no platform charge to refund.": {
+      "en": "Refund handling is tied to billing records and administrator review. If billing is not configured for this deployment, there is no platform charge to refund."
+    },
+    "Refund issued": {
+      "en": "Refund issued"
+    },
+    "Refund page": {
+      "en": "Refund page"
+    },
+    "Refund reason": {
+      "en": "Refund reason"
+    },
+    "Refund request": {
+      "en": "Refund request"
+    },
+    "Refund request process": {
+      "en": "Refund request process"
+    },
+    "Registered users": {
+      "en": "Registered users"
+    },
+    "Related legal pages": {
+      "en": "Related legal pages"
+    },
+    "Report a problem": {
+      "en": "Report a problem"
+    },
+    "Reports, moderation, and privacy.": {
+      "en": "Reports, moderation, and privacy."
+    },
+    "Reports, moderation, privacy, and community safety.": {
+      "en": "Reports, moderation, privacy, and community safety."
+    },
+    "Request a refund": {
+      "en": "Request a refund"
+    },
+    "Required": {
+      "en": "Required"
+    },
+    "Required for login, security, and app routing.": {
+      "en": "Required for login, security, and app routing."
+    },
+    "Response targets": {
+      "en": "Response targets"
+    },
+    "Review privacy and cookie details for this deployment.": {
+      "en": "Review privacy and cookie details for this deployment."
+    },
+    "Safety": {
+      "en": "Safety"
+    },
+    "Safety / technical": {
+      "en": "Safety / technical"
+    },
+    "Safety or report": {
+      "en": "Safety or report"
+    },
+    "Sample endpoints": {
+      "en": "Sample endpoints"
+    },
+    "sample endpoints loaded": {
+      "en": "sample endpoints loaded"
+    },
+    "Schedule video": {
+      "en": "Schedule video"
+    },
+    "Scheduled video release and reminders.": {
+      "en": "Scheduled video release and reminders."
+    },
+    "Scheduled videos": {
+      "en": "Scheduled videos"
+    },
+    "Scheduling a video release": {
+      "en": "Scheduling a video release"
+    },
+    "Search for answers...": {
+      "en": "Search for answers..."
+    },
+    "Search help articles, topics, or questions...": {
+      "en": "Search help articles, topics, or questions..."
+    },
+    "Select a reason": {
+      "en": "Select a reason"
+    },
+    "Send a message and it will be saved for admins.": {
+      "en": "Send your question to the support team."
+    },
+    "Send billing details to admin support for review.": {
+      "en": "Send your billing details to the support team for review."
+    },
+    "Send message": {
+      "en": "Send message"
+    },
+    "Send order details through the refund popup.": {
+      "en": "Send your order details using the refund form."
+    }
+  }
+}

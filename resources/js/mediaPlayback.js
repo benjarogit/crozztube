@@ -81,7 +81,11 @@ export function playMediaWhenReady(player, { signal, reload = false, timeoutMs =
       media.load();
     }
     if (player.state?.canPlay && !media?.error && !(reload && media?.readyState === 0)) begin();
-    else if (media && (media.currentSrc || media.getAttribute?.('src'))) begin(media);
+    // HLS/DASH must initialize their manifest, audio groups and text renderer
+    // before native play. A native early canplay can otherwise bypass setup.
+    else if (media && !['hls', 'dash'].includes(player.provider?.type)
+      && !/mpegurl|dash\+xml/i.test(String(player.state?.source?.type || ''))
+      && (media.currentSrc || media.getAttribute?.('src'))) begin(media);
     else player.startLoading?.();
   });
 }

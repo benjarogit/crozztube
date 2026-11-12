@@ -1,0 +1,1561 @@
+{
+    "version": 1,
+    "locale": "lt_lt",
+    "messages": {
+        "0116e51968c832c491eae96e91771961fb2caa591bb4baffc3617aa0e79a2750": {
+            "source_hash": "bb4c4d4c15fc959504789370e02c67d45e8f2e7ea72ad7312ef0b52755b46932",
+            "translation_hash": "df08c328634bbd131a47c817028bb76cffabc02d6e9c12a3b58c76b563a9aa8a",
+            "status": "verified",
+            "contexts": [
+                "Whole named action labels in actual comment/post mentions and manual chapter editor. Mention display text and user names remain unchanged. Named placeholders preserve unknown names and tags; labels are personal imperatives or natural infinitives, with regional scripts retained. No native confidence asserted for Gaelic/Silesian phrases withheld from this batch.",
+                "Creator Studio comments: pinned/unpinned menu, reply/copy/mute/report/delete labels at390px; original author/body/mention/tag retained, complete localized mention-action titles; menus only, no action mutations or runtime errors"
+            ],
+            "reviewed_at": "2026-11-06T11:09:00+00:00",
+            "verified_at": "2026-11-06T11:18:09.022Z"
+        },
+        "01edbac4bdaccf9dbf3d47506375e20dd48c6ee23f2881768a46f9b84f98c154": {
+            "source_hash": "01edbac4bdaccf9dbf3d47506375e20dd48c6ee23f2881768a46f9b84f98c154",
+            "translation_hash": "08dd9a33697dafca9f3475b49350eb3b539c7d73b071a8c279645cc1234964c1",
+            "status": "editorial",
+            "contexts": [
+                "Seven complete context-specific creator support messages, explicitly separating playlist advice from monetary contributions. Amount-based tip/live support dialogs retain arbitrary names/titles as named tokens and Super Chat as the feature name. Support-success confirms the actual sent contribution, not advice or a future payment promise. No native full-message confidence claimed for Gaelic/Silesian."
+            ],
+            "reviewed_at": "2026-11-06T11:26:19+00:00"
+        },
+        "0606d0e8977e7005f2142a85ce689aec42a867a50eefaf25fc5f1691f960eae7": {
+            "source_hash": "0606d0e8977e7005f2142a85ce689aec42a867a50eefaf25fc5f1691f960eae7",
+            "translation_hash": "92d57434622e73214bd6a33fce944dc2a4035add52aeb0c3c01f1d7183e3e979",
+            "status": "verified",
+            "contexts": [
+                "Complete optional video transcript panel labels, loading, actual failed HTTP request and accessibility text. The transcript body is provider/author content and stays untouched, including words that match interface keys. Existing retry button supplies retry action; no request failure causes invented.",
+                "Actual optional watch transcript panel at390px: summary, held loading request,503 failure, explicit retry and unchanged provider transcript body/accessible label; no overflow/runtime errors/application writes"
+            ],
+            "reviewed_at": "2026-11-06T11:20:32+00:00",
+            "verified_at": "2026-11-06T11:36:47.654Z"
+        },
+        "0669fc7da6e219887ad6453d264d02e36b60c259bf39d47fe157a0507a681c0f": {
+            "source_hash": "1ab7ad9e2cea6bda9119572637bdf712f9e223fa599fd27cc5fc1409e5b6960a",
+            "translation_hash": "c66d41d9246f9a78a3531b12dddd3a51624ecb3cdc6afc1850cc8c0c13a9cf62",
+            "status": "verified",
+            "contexts": [
+                "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented.",
+                "Actual browser localization of eight complete quantity messages, 0/1/2/3/5/11/21/101/1.5, including CLDR dual/few/many/zero and native anchor cases where applicable; 390px, no runtime errors or application writes"
+            ],
+            "reviewed_at": "2026-11-06T10:35:35+00:00",
+            "verified_at": "2026-11-06T10:48:46.748Z"
+        },
+        "06a9c7831045c250f88d026206a49bc5c0771ad1a1804a45417f3fa483ca1d11": {
+            "source_hash": "06a9c7831045c250f88d026206a49bc5c0771ad1a1804a45417f3fa483ca1d11",
+            "translation_hash": "f8c2373300bcd6a2d5bd413bf3d06915fc015cdad8472b0c77d5ee343cb425dd",
+            "status": "editorial",
+            "contexts": [
+                "Seven complete context-specific creator support messages, explicitly separating playlist advice from monetary contributions. Amount-based tip/live support dialogs retain arbitrary names/titles as named tokens and Super Chat as the feature name. Support-success confirms the actual sent contribution, not advice or a future payment promise. No native full-message confidence claimed for Gaelic/Silesian."
+            ],
+            "reviewed_at": "2026-11-06T11:26:19+00:00"
+        },
+        "084158cdbcaeb326bbd2069ae7549527054a9baabc8d3d0874793052055d3c22": {
+            "source_hash": "6d2ecc6831d7433e031cb311047a382c46a1f8a678bce56e9ff62f9fff9e1e37",
+            "translation_hash": "b783e6953d3ecca0b0130e1de10a0fd2ec96e78db2dc3374b15c8e902fa26a1a",
+            "status": "editorial",
+            "contexts": [
+                "Complete password-strength validation, verification-code countdown and four actual ASCII character-class hints. Named level/time preserved. A–Z/a–z/0–9 remain explicit in every script; accented/non-Latin letters are never falsely promised to satisfy these classes. Personal singular, including Frisian/Welsh/Balkan prompts. No policy or strength algorithm changes."
+            ],
+            "reviewed_at": "2026-11-06T11:33:11+00:00"
+        },
+        "084e23c0ec0cdd8b5c101d32aaab70ae942d4af014bf9fea8be0b630d3b71d6d": {
+            "source_hash": "9719bbf6d0a23fa44f964aa7e8c20ab27c8ccba00727a2cd9fd90ae2ffb9bfd0",
+            "translation_hash": "6ede4ff5fcc529316836761e00da98c34e9cca3201ea696dd148d16fee769b58",
+            "status": "verified",
+            "contexts": [
+                "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented.",
+                "Actual browser localization of eight complete quantity messages, 0/1/2/3/5/11/21/101/1.5, including CLDR dual/few/many/zero and native anchor cases where applicable; 390px, no runtime errors or application writes"
+            ],
+            "reviewed_at": "2026-11-06T10:35:35+00:00",
+            "verified_at": "2026-11-06T10:48:46.748Z"
+        },
+        "0dcce2f150b6b33d71ad3ccbc3dbffc0c3b81d19f29b18d55935cea0f083d9e7": {
+            "source_hash": "31c05b7a82b2206256d6ce4e748f91ed1912de9a449e903fceb7b6935345d0d8",
+            "translation_hash": "021fd661a8b90b56ce89657a5cebe8ead8c1ea6c442e2603401b71e0bd44e191",
+            "status": "verified",
+            "contexts": [
+                "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented.",
+                "Actual browser localization of eight complete quantity messages, 0/1/2/3/5/11/21/101/1.5, including CLDR dual/few/many/zero and native anchor cases where applicable; 390px, no runtime errors or application writes"
+            ],
+            "reviewed_at": "2026-11-06T10:35:35+00:00",
+            "verified_at": "2026-11-06T10:48:46.748Z"
+        },
+        "0ecda0421ac7d20053940a6f3a7b0535a1dc6068cbd9ca4986f4bfa6d067c618": {
+            "source_hash": "0ecda0421ac7d20053940a6f3a7b0535a1dc6068cbd9ca4986f4bfa6d067c618",
+            "translation_hash": "4dc9ee58dde3ceca646631617f6c17dfe30ff873a94ae9d6528e55bb74c74917",
+            "status": "editorial",
+            "contexts": [
+                "Whole-message personal-address correction in Estonian/Latvian/Lithuanian/Slovenian/Croatian/Bosnian/Macedonian/Albanian/Serbian. Actual account/channel labels and form/chat/upload prompts; correct singular verb forms and script, no formal customer pronouns. Serbian Cyrillic retained."
+            ],
+            "reviewed_at": "2026-11-06T10:25:43+00:00"
+        },
+        "0fb51d778aa1abff81b66e02b32307251a2970ad648294dd8474311989c86981": {
+            "source_hash": "0fb51d778aa1abff81b66e02b32307251a2970ad648294dd8474311989c86981",
+            "translation_hash": "360d5f6adcdb207ea15856f38abb1a8a35b1352f7fe0a764840045d8cabd8e07",
+            "status": "editorial",
+            "contexts": [
+                "Owner-approved 60-second strictly portrait Shorts policy. Complete current messages and historical180/square-compatible keys all express60seconds/portrait; automatic classification and empty state mention import without inventing encoding. Gaelic only confidently reviewed short constraints; no invented full auto/empty statement, Silesian withheld for native review."
+            ],
+            "reviewed_at": "2026-11-06T10:50:57+00:00"
+        },
+        "1099021fe46eed2839db89411c95332e81e6e7e057b338750db6b4dd1d24ba3d": {
+            "source_hash": "1099021fe46eed2839db89411c95332e81e6e7e057b338750db6b4dd1d24ba3d",
+            "translation_hash": "826a0837297d9b2160a50cf6c6ee13bfeb78dab6cc9f721c19715820b62dd8d8",
+            "status": "editorial",
+            "contexts": [
+                "Whole-message personal-address correction in Estonian/Latvian/Lithuanian/Slovenian/Croatian/Bosnian/Macedonian/Albanian/Serbian. Actual account/channel labels and form/chat/upload prompts; correct singular verb forms and script, no formal customer pronouns. Serbian Cyrillic retained."
+            ],
+            "reviewed_at": "2026-11-06T10:25:43+00:00"
+        },
+        "114ec33fd67903ada6f5d40f91a61b47e0ef0e3748e822ecc382a1d58bf3815e": {
+            "source_hash": "3c5b5984a434aed0875b90f4d16795c2df13ed6caba1f0005ffec45dc8291c97",
+            "translation_hash": "28cd90b110721e195119ba15689abf3c4c9ea072466a7f706350dc4b7bf7a42c",
+            "status": "editorial",
+            "contexts": [
+                "Complete password-strength validation, verification-code countdown and four actual ASCII character-class hints. Named level/time preserved. A–Z/a–z/0–9 remain explicit in every script; accented/non-Latin letters are never falsely promised to satisfy these classes. Personal singular, including Frisian/Welsh/Balkan prompts. No policy or strength algorithm changes."
+            ],
+            "reviewed_at": "2026-11-06T11:33:11+00:00"
+        },
+        "11daac00337505cb78d21495a692f541a3bad70014920cea16a3b3efc343c78a": {
+            "source_hash": "11daac00337505cb78d21495a692f541a3bad70014920cea16a3b3efc343c78a",
+            "translation_hash": "5fff310118214dff2605c83913e22808c41901262dd0bd6882b6aaace34631c0",
+            "status": "editorial",
+            "contexts": [
+                "Complete chapter editor/validation messages with named placeholders: maximum count, first0:00 for manual chapters, invalid/ordered/gapped timestamps, must start before video end, names and160-character limit. Checkbox name aligned with quoted recovery action; personal singular imperative, provider/user chapter names never translated. SI seconds avoid false cardinal inflection at1s versus10s. Silesian/Gaelic/Basque long validation not guessed."
+            ],
+            "reviewed_at": "2026-11-06T11:19:22+00:00"
+        },
+        "12935cabfe2bf71c4f7038873698b5cb1edb43224436d2882c987a36103c8819": {
+            "source_hash": "12935cabfe2bf71c4f7038873698b5cb1edb43224436d2882c987a36103c8819",
+            "translation_hash": "f8d38530c5bc933e2c3141788975e2f7ec8fc82b6312a8402160e3a012f2fc6a",
+            "status": "editorial",
+            "contexts": [
+                "Complete chapter editor/validation messages with named placeholders: maximum count, first0:00 for manual chapters, invalid/ordered/gapped timestamps, must start before video end, names and160-character limit. Checkbox name aligned with quoted recovery action; personal singular imperative, provider/user chapter names never translated. SI seconds avoid false cardinal inflection at1s versus10s. Silesian/Gaelic/Basque long validation not guessed."
+            ],
+            "reviewed_at": "2026-11-06T11:19:22+00:00"
+        },
+        "14f9ba573b664556864eec66a75f606fca4cfc6bc703f11d1db5f56a18180abd": {
+            "source_hash": "42c316f6f693f840629d7fc9dea8b9fcd37bf864df3600d3a02d0046c8f7cf7c",
+            "translation_hash": "9005a3bd19da92605b134e1b4276e496610cfb04e5086726f52993b392c62ef2",
+            "status": "verified",
+            "contexts": [
+                "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented.",
+                "Actual browser localization of eight complete quantity messages, 0/1/2/3/5/11/21/101/1.5, including CLDR dual/few/many/zero and native anchor cases where applicable; 390px, no runtime errors or application writes"
+            ],
+            "reviewed_at": "2026-11-06T10:35:35+00:00",
+            "verified_at": "2026-11-06T10:48:46.748Z"
+        },
+        "15157c4a577711cd0f5512ec00afa608f443952425eff8709bb219ed9aeddb69": {
+            "source_hash": "15157c4a577711cd0f5512ec00afa608f443952425eff8709bb219ed9aeddb69",
+            "translation_hash": "571a9ed5e9294bfabac060f5478d9a1956df3fefba241ea876d597d449f26306",
+            "status": "editorial",
+            "contexts": [
+                "Owner-approved 60-second strictly portrait Shorts policy. Complete current messages and historical180/square-compatible keys all express60seconds/portrait; automatic classification and empty state mention import without inventing encoding. Gaelic only confidently reviewed short constraints; no invented full auto/empty statement, Silesian withheld for native review."
+            ],
+            "reviewed_at": "2026-11-06T10:50:57+00:00"
+        },
+        "1595e6c2c25e9f5943c408d939a082ad75274658fc09e95e69ef94d4d1b6316e": {
+            "source_hash": "37841075cf3a8e25119f751b2db44f7c494d8a381e40804760281753824f6a76",
+            "translation_hash": "59a8e83356d8d76fd93547a8c91b6dc1d013e4f6e62512ea73ffe59478eb6d0a",
+            "status": "editorial",
+            "contexts": [
+                "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented."
+            ],
+            "reviewed_at": "2026-11-06T10:35:35+00:00"
+        },
+        "1774a6c8d96868445c495770c294aa3c432ba4f917de2179d51ef00b381ffcbe": {
+            "source_hash": "1774a6c8d96868445c495770c294aa3c432ba4f917de2179d51ef00b381ffcbe",
+            "translation_hash": "eba241eccd16e1c001a397e42f88eb30250cfd2cb329dbd9b0e43b77e6b56946",
+            "status": "verified",
+            "contexts": [
+                "Whole named action labels in actual comment/post mentions and manual chapter editor. Mention display text and user names remain unchanged. Named placeholders preserve unknown names and tags; labels are personal imperatives or natural infinitives, with regional scripts retained. No native confidence asserted for Gaelic/Silesian phrases withheld from this batch.",
+                "Actual manual chapter editor at390px: complete checkbox/name labels, missing names1/2,10s minimum gap, invalid time and chapter at exact video end; correct import-success confirmation after a stubbed submit; original title and chapter names retained; no overflow/runtime errors/application writes"
+            ],
+            "reviewed_at": "2026-11-06T11:09:00+00:00",
+            "verified_at": "2026-11-06T11:22:54.219Z"
+        },
+        "17f3109b74b35f29274deb3a1a9189c6f7e56139882eb2cd51ea55da06b3571e": {
+            "source_hash": "9719bbf6d0a23fa44f964aa7e8c20ab27c8ccba00727a2cd9fd90ae2ffb9bfd0",
+            "translation_hash": "cb4be2fa75a193c33ee327e671f7fa408dac6ef926a9fbb8ecdd9bd978b2bc0c",
+            "status": "editorial",
+            "contexts": [
+                "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented."
+            ],
+            "reviewed_at": "2026-11-06T10:35:35+00:00"
+        },
+        "185bccf6a0bad8cc7e716511b9f2c9f5c301a12b70d296c4bd302803486218af": {
+            "source_hash": "e1f0d3ceb1b69ac4967e3f8d52814f18f83823e7ad6394b2849e81604a14e794",
+            "translation_hash": "3b0a4289aee8b1b5955952a40213c8a2fbe022df01704140ddb0a6fd7768017d",
+            "status": "editorial",
+            "contexts": [
+                "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented."
+            ],
+            "reviewed_at": "2026-11-06T10:35:35+00:00"
+        },
+        "198176f49d4ec699321821bd970d473d13ca97d996815de7b9d60dd2d009216c": {
+            "source_hash": "ab95d4f48374bfc675eea310670103c4037ffe95fd94e9b319a4c536a4e1baeb",
+            "translation_hash": "f519d97a8df15d5c71c680399f7cb7107e33f01316a1b0638a9e0e0d3a1853c3",
+            "status": "editorial",
+            "contexts": [
+                "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented."
+            ],
+            "reviewed_at": "2026-11-06T10:35:35+00:00"
+        },
+        "1a19c29cec8fdaf816b850a292e48211b135cd395469343dfb9230c08ec71659": {
+            "source_hash": "1a19c29cec8fdaf816b850a292e48211b135cd395469343dfb9230c08ec71659",
+            "translation_hash": "89fd9f48cc44651c31f17e3228f442a5d5bd1e2192ee9b5c7f555a659aa19a27",
+            "status": "verified",
+            "contexts": [
+                "Complete chapter editor/validation messages with named placeholders: maximum count, first0:00 for manual chapters, invalid/ordered/gapped timestamps, must start before video end, names and160-character limit. Checkbox name aligned with quoted recovery action; personal singular imperative, provider/user chapter names never translated. SI seconds avoid false cardinal inflection at1s versus10s. Silesian/Gaelic/Basque long validation not guessed.",
+                "Actual manual chapter editor at390px: complete checkbox/name labels, missing names1/2,10s minimum gap, invalid time and chapter at exact video end; correct import-success confirmation after a stubbed submit; original title and chapter names retained; no overflow/runtime errors/application writes"
+            ],
+            "reviewed_at": "2026-11-06T11:19:22+00:00",
+            "verified_at": "2026-11-06T11:22:54.219Z"
+        },
+        "1b6edb00ffd7010ed8102926c71b565c3f43da048cf6409fcf6a5463296ba843": {
+            "source_hash": "1b6edb00ffd7010ed8102926c71b565c3f43da048cf6409fcf6a5463296ba843",
+            "translation_hash": "fdb304aa33b1489f107c6208d80774a77b04ee3d6940b464f063de52caeeb777",
+            "status": "editorial",
+            "contexts": [
+                "Owner-approved 60-second strictly portrait Shorts policy. Complete current messages and historical180/square-compatible keys all express60seconds/portrait; automatic classification and empty state mention import without inventing encoding. Gaelic only confidently reviewed short constraints; no invented full auto/empty statement, Silesian withheld for native review."
+            ],
+            "reviewed_at": "2026-11-06T10:50:57+00:00"
+        },
+        "1bb2e6e6ee648113c7f33859f600b00f73b4952ce6f68d00ee59b6cff4876a5e": {
+            "source_hash": "29c34e6125c7ee1479b24b1259ed403512440a832083de13d397c5170fcbbb62",
+            "translation_hash": "7c360c404d422e3f0619812381abe8ef9890d858ea4be94c1a0656dfe7779e90",
+            "status": "editorial",
+            "contexts": [
+                "Import completion state aligned with corrected English reference and actual external playback: confirms import only, never claims a new encoding/processing job was started. Personal singular wording and regional scripts retained."
+            ],
+            "reviewed_at": "2026-11-06T10:56:26+00:00"
+        },
+        "1e0f4a036ef6a459ddf90056cd2f2251be9f750a73608c00046e63d235ff3183": {
+            "source_hash": "1b6edb00ffd7010ed8102926c71b565c3f43da048cf6409fcf6a5463296ba843",
+            "translation_hash": "fdb304aa33b1489f107c6208d80774a77b04ee3d6940b464f063de52caeeb777",
+            "status": "editorial",
+            "contexts": [
+                "Owner-approved 60-second strictly portrait Shorts policy. Complete current messages and historical180/square-compatible keys all express60seconds/portrait; automatic classification and empty state mention import without inventing encoding. Gaelic only confidently reviewed short constraints; no invented full auto/empty statement, Silesian withheld for native review."
+            ],
+            "reviewed_at": "2026-11-06T10:50:57+00:00"
+        },
+        "20064e29bbcd272f9981538e0e9f9144c0d094feee9ebd05d8a66fed4f4d7aad": {
+            "source_hash": "20064e29bbcd272f9981538e0e9f9144c0d094feee9ebd05d8a66fed4f4d7aad",
+            "translation_hash": "4968d65f1c371e83b0258057b4473130cf70dae37503437ea3f1110afb3c2f80",
+            "status": "editorial",
+            "contexts": [
+                "Seven complete context-specific creator support messages, explicitly separating playlist advice from monetary contributions. Amount-based tip/live support dialogs retain arbitrary names/titles as named tokens and Super Chat as the feature name. Support-success confirms the actual sent contribution, not advice or a future payment promise. No native full-message confidence claimed for Gaelic/Silesian."
+            ],
+            "reviewed_at": "2026-11-06T11:26:19+00:00"
+        },
+        "24765e71415925b2759e80dbb9fada03adf075603ab095d4be1b3c419137a6f6": {
+            "source_hash": "2f8ea1648738615037e9338c20dfc59d0eff6ba7865122da01ddd7b6cc0badde",
+            "translation_hash": "2566e2a0adcd01d4353aa3c352fcb0892709127d32262a82a7fceaf350cc91c7",
+            "status": "editorial",
+            "contexts": [
+                "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented."
+            ],
+            "reviewed_at": "2026-11-06T10:35:35+00:00"
+        },
+        "2615baa3c3c422a919445361fa065bc14229dcbda76a695f0ec373ed33c86784": {
+            "source_hash": "2615baa3c3c422a919445361fa065bc14229dcbda76a695f0ec373ed33c86784",
+            "translation_hash": "60bdbb1c3ffd085881ed3bff2d55e8189f02d19dca93c377b47e8cce2438a8e3",
+            "status": "editorial",
+            "contexts": [
+                "Seven complete context-specific creator support messages, explicitly separating playlist advice from monetary contributions. Amount-based tip/live support dialogs retain arbitrary names/titles as named tokens and Super Chat as the feature name. Support-success confirms the actual sent contribution, not advice or a future payment promise. No native full-message confidence claimed for Gaelic/Silesian."
+            ],
+            "reviewed_at": "2026-11-06T11:26:19+00:00"
+        },
+        "275e361cd65a5b5ca0df1ae5d25122a055a1f2ea1793e3d43b018f4e0254313d": {
+            "source_hash": "275e361cd65a5b5ca0df1ae5d25122a055a1f2ea1793e3d43b018f4e0254313d",
+            "translation_hash": "8c9133a857105ef059f7b7df39639afe2bcf88416c2f77ffd84e07ee6a30b4fa",
+            "status": "verified",
+            "contexts": [
+                "Complete native notification header/sender footer for seven additional European languages; linked site token kept literal.",
+                "Actual EmailTemplates and BrandedEmail renderers (European northern/eastern groups): all 6 subjects/bodies; 1/2/15-minute expiry; literal usernames/roles/title/credentials/URLs retained; HTML escaping and LTR attributes; fixture-only override precedence; no sending or production writes. Rendering check, not complete visual email-client acceptance."
+            ],
+            "reviewed_at": "2026-11-06T11:38:11+00:00",
+            "verified_at": "2026-11-06T12:16:34+00:00"
+        },
+        "289c881eaedda461c474ac960eb0018cd99a88428777863ca98bfeb4ea3b05ce": {
+            "source_hash": "8a28d7496c7e0ab8913a909c9ccbed7fb96e1cdea18c5ae67aaf0d6d8e03ccd8",
+            "translation_hash": "442190eb33be1bd84018863e407b6836c0c7a8d00852fe061ca86d525a8c7f90",
+            "status": "verified",
+            "contexts": [
+                "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented.",
+                "Actual browser localization of eight complete quantity messages, 0/1/2/3/5/11/21/101/1.5, including CLDR dual/few/many/zero and native anchor cases where applicable; 390px, no runtime errors or application writes"
+            ],
+            "reviewed_at": "2026-11-06T10:35:35+00:00",
+            "verified_at": "2026-11-06T10:48:46.747Z"
+        },
+        "29c34e6125c7ee1479b24b1259ed403512440a832083de13d397c5170fcbbb62": {
+            "source_hash": "29c34e6125c7ee1479b24b1259ed403512440a832083de13d397c5170fcbbb62",
+            "translation_hash": "7c360c404d422e3f0619812381abe8ef9890d858ea4be94c1a0656dfe7779e90",
+            "status": "verified",
+            "contexts": [
+                "Import completion state aligned with corrected English reference and actual external playback: confirms import only, never claims a new encoding/processing job was started. Personal singular wording and regional scripts retained.",
+                "Actual manual chapter editor at390px: complete checkbox/name labels, missing names1/2,10s minimum gap, invalid time and chapter at exact video end; correct import-success confirmation after a stubbed submit; original title and chapter names retained; no overflow/runtime errors/application writes"
+            ],
+            "reviewed_at": "2026-11-06T10:56:26+00:00",
+            "verified_at": "2026-11-06T11:22:54.219Z"
+        },
+        "2a99ce205f6ea2ff49ed45baa2181d817944448a046e962ac1a0254b09146cc6": {
+            "source_hash": "2a99ce205f6ea2ff49ed45baa2181d817944448a046e962ac1a0254b09146cc6",
+            "translation_hash": "5f547f1a1552716749adb2f798dde04f30c216e6c0e05e318c15601717c559d9",
+            "status": "editorial",
+            "contexts": [
+                "Complete chapter editor/validation messages with named placeholders: maximum count, first0:00 for manual chapters, invalid/ordered/gapped timestamps, must start before video end, names and160-character limit. Checkbox name aligned with quoted recovery action; personal singular imperative, provider/user chapter names never translated. SI seconds avoid false cardinal inflection at1s versus10s. Silesian/Gaelic/Basque long validation not guessed."
+            ],
+            "reviewed_at": "2026-11-06T11:19:22+00:00"
+        },
+        "2b626d04167717455b90fa6a1e8c464da3981deac0461aafa26989805e520e8f": {
+            "source_hash": "fc2673773d21f7212f14bc4701c667a6887a68310c2c95533b3a4414e62a4746",
+            "translation_hash": "e40ae901debb50490ba7af3f8705fc9bea633109a59d01dac2421e4c7d3f8b1c",
+            "status": "verified",
+            "contexts": [
+                "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented.",
+                "Actual browser localization of eight complete quantity messages, 0/1/2/3/5/11/21/101/1.5, including CLDR dual/few/many/zero and native anchor cases where applicable; 390px, no runtime errors or application writes"
+            ],
+            "reviewed_at": "2026-11-06T10:35:35+00:00",
+            "verified_at": "2026-11-06T10:48:46.748Z"
+        },
+        "2daa7d6119fb59b1bd299d8447fb191629bbb462e1ead1fe3d152d6ed2b55539": {
+            "source_hash": "fc2673773d21f7212f14bc4701c667a6887a68310c2c95533b3a4414e62a4746",
+            "translation_hash": "1fbfdaef10243864b0b1940f0e6c349e2fd8f69d875d5d6ccb9bfe196267b860",
+            "status": "editorial",
+            "contexts": [
+                "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented."
+            ],
+            "reviewed_at": "2026-11-06T10:35:35+00:00"
+        },
+        "2f74b9f2a13256e156692cf5e7a71a35cb55003ac788d2b781d24ba8da38bdab": {
+            "source_hash": "32fc8a36b656f391302a3690066e62c06c0e698693fb627f05cac08a39f359e5",
+            "translation_hash": "5e927212881fec64dba80f2b0419dd5b59f8b446fcd094cfaa0af8b836776416",
+            "status": "verified",
+            "contexts": [
+                "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented.",
+                "Actual browser localization of eight complete quantity messages, 0/1/2/3/5/11/21/101/1.5, including CLDR dual/few/many/zero and native anchor cases where applicable; 390px, no runtime errors or application writes"
+            ],
+            "reviewed_at": "2026-11-06T10:35:35+00:00",
+            "verified_at": "2026-11-06T10:48:46.748Z"
+        },
+        "3008f5d6455bee37fa7c500f1e02ddff2faa59351bd40d42b4efe4542e9cd277": {
+            "source_hash": "3008f5d6455bee37fa7c500f1e02ddff2faa59351bd40d42b4efe4542e9cd277",
+            "translation_hash": "c67ba07b82eb756b0b3d637f0f8d37f3f25879f889d0ea472a3256ad95088148",
+            "status": "verified",
+            "contexts": [
+                "Six complete standard email templates in Estonian, Latvian, Lithuanian, Belarusian, Basque, Frisian and Welsh. Friendly singular; no formal address; whole code/reset/invitation/restriction/moderator/live-moderator messages. Minute abbreviations keep1/2/15 valid without importing English plural forms. All named credentials/roles/URLs/date/restriction/title tokens and administrator overrides remain intact.",
+                "Actual EmailTemplates and BrandedEmail renderers (European northern/eastern groups): all 6 subjects/bodies; 1/2/15-minute expiry; literal usernames/roles/title/credentials/URLs retained; HTML escaping and LTR attributes; fixture-only override precedence; no sending or production writes. Rendering check, not complete visual email-client acceptance."
+            ],
+            "reviewed_at": "2026-11-06T11:38:09+00:00",
+            "verified_at": "2026-11-06T12:16:34+00:00"
+        },
+        "31b6958044f3ea928aabc3092fb33177ca3609407ad7ed0427de160c1aecda87": {
+            "source_hash": "31b6958044f3ea928aabc3092fb33177ca3609407ad7ed0427de160c1aecda87",
+            "translation_hash": "53abbaae2e5311383c26d3e811f3059140b45c23606f67496c479fc1379fe552",
+            "status": "verified",
+            "contexts": [
+                "Six complete standard email templates in Estonian, Latvian, Lithuanian, Belarusian, Basque, Frisian and Welsh. Friendly singular; no formal address; whole code/reset/invitation/restriction/moderator/live-moderator messages. Minute abbreviations keep1/2/15 valid without importing English plural forms. All named credentials/roles/URLs/date/restriction/title tokens and administrator overrides remain intact.",
+                "Actual EmailTemplates and BrandedEmail renderers (European northern/eastern groups): all 6 subjects/bodies; 1/2/15-minute expiry; literal usernames/roles/title/credentials/URLs retained; HTML escaping and LTR attributes; fixture-only override precedence; no sending or production writes. Rendering check, not complete visual email-client acceptance."
+            ],
+            "reviewed_at": "2026-11-06T11:38:09+00:00",
+            "verified_at": "2026-11-06T12:16:34+00:00"
+        },
+        "32db8c09dd4cd8aa7096fa642e4eec09e1b141274d63341b94ea3d3c42d06fa2": {
+            "source_hash": "32db8c09dd4cd8aa7096fa642e4eec09e1b141274d63341b94ea3d3c42d06fa2",
+            "translation_hash": "65343802976b7fd25c8cb8725753afc61dd11f9605872a80649f45f82d97bd08",
+            "status": "editorial",
+            "contexts": [
+                "Whole-message personal-address correction in Estonian/Latvian/Lithuanian/Slovenian/Croatian/Bosnian/Macedonian/Albanian/Serbian. Actual account/channel labels and form/chat/upload prompts; correct singular verb forms and script, no formal customer pronouns. Serbian Cyrillic retained."
+            ],
+            "reviewed_at": "2026-11-06T10:25:43+00:00"
+        },
+        "356d54d6a9453a6b43f35d1bf8771d67ea101e57f3b47283572cc9309468bae2": {
+            "source_hash": "2c2111437fc5948d0538d71ece3b0196282a838e802546b1fe8ab35766d0ca8d",
+            "translation_hash": "c8e571c7c9ea2c0571241c72ae7fa00baaebc9604343a8f29cd763bc933c1491",
+            "status": "verified",
+            "contexts": [
+                "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented.",
+                "Actual browser localization of eight complete quantity messages, 0/1/2/3/5/11/21/101/1.5, including CLDR dual/few/many/zero and native anchor cases where applicable; 390px, no runtime errors or application writes"
+            ],
+            "reviewed_at": "2026-11-06T10:35:35+00:00",
+            "verified_at": "2026-11-06T10:48:46.748Z"
+        },
+        "3a78695388b38b5cceefaf6796b0137877514593543b91af2752d5a17e3d736c": {
+            "source_hash": "3a78695388b38b5cceefaf6796b0137877514593543b91af2752d5a17e3d736c",
+            "translation_hash": "719328db9e74695316ff503dc46edac19611b002aa9ee7fa2bef72668143a86e",
+            "status": "verified",
+            "contexts": [
+                "Editorial source-context pass: navigation, video Shorts product name (not clothing), upload Review/check action, stream status, storage quota, video captions, administrator device-distribution chart, dashboard and selection actions. Regional scripts retained; simple player terminology cross-checked in Mozilla localization sources. Sparse entries only where confidently reviewed; no claim of whole-pack acceptance.",
+                "Upload at 390px: actual navigation, review step, private-access wording and applicable personal form prompts; user input stays literal; no overflow/runtime errors/application writes"
+            ],
+            "reviewed_at": "2026-11-06T10:16:43+00:00",
+            "verified_at": "2026-11-06T11:11:30.206Z"
+        },
+        "3c784a16cf27568e948bbdffd5d250bb35e98454112f9196c59f7636666699f7": {
+            "source_hash": "3c784a16cf27568e948bbdffd5d250bb35e98454112f9196c59f7636666699f7",
+            "translation_hash": "3c784a16cf27568e948bbdffd5d250bb35e98454112f9196c59f7636666699f7",
+            "status": "verified",
+            "contexts": [
+                "Editorial source-context pass: navigation, video Shorts product name (not clothing), upload Review/check action, stream status, storage quota, video captions, administrator device-distribution chart, dashboard and selection actions. Regional scripts retained; simple player terminology cross-checked in Mozilla localization sources. Sparse entries only where confidently reviewed; no claim of whole-pack acceptance.",
+                "Upload at 390px: actual navigation, review step, private-access wording and applicable personal form prompts; user input stays literal; no overflow/runtime errors/application writes"
+            ],
+            "reviewed_at": "2026-11-06T10:16:43+00:00",
+            "verified_at": "2026-11-06T11:11:30.206Z"
+        },
+        "3c85dd95bf45423f1c54d631207ebf97b5eda1987ed70ce3ae853694eb60cbf0": {
+            "source_hash": "ab95d4f48374bfc675eea310670103c4037ffe95fd94e9b319a4c536a4e1baeb",
+            "translation_hash": "ccc5d85897567efe8776cea78d181cb940ef57733ed4a9d76d3ba862116efa8a",
+            "status": "verified",
+            "contexts": [
+                "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented.",
+                "Actual browser localization of eight complete quantity messages, 0/1/2/3/5/11/21/101/1.5, including CLDR dual/few/many/zero and native anchor cases where applicable; 390px, no runtime errors or application writes"
+            ],
+            "reviewed_at": "2026-11-06T10:35:35+00:00",
+            "verified_at": "2026-11-06T10:48:46.748Z"
+        },
+        "3f8fe694ff5c3131fbc0611a3d8bd17bd1b88d39afb2722bef1d2179f2691fc6": {
+            "source_hash": "3f8fe694ff5c3131fbc0611a3d8bd17bd1b88d39afb2722bef1d2179f2691fc6",
+            "translation_hash": "d913de08d7dffd11b3e588bdf4a7a470071d9b519fec55f419eb1f083dec98b8",
+            "status": "editorial",
+            "contexts": [
+                "Complete chapter editor/validation messages with named placeholders: maximum count, first0:00 for manual chapters, invalid/ordered/gapped timestamps, must start before video end, names and160-character limit. Checkbox name aligned with quoted recovery action; personal singular imperative, provider/user chapter names never translated. SI seconds avoid false cardinal inflection at1s versus10s. Silesian/Gaelic/Basque long validation not guessed."
+            ],
+            "reviewed_at": "2026-11-06T11:19:22+00:00"
+        },
+        "43bf6af8e2d9b895620783088525d4a4f20e3ea34508cea6e8171fb6c0abff21": {
+            "source_hash": "43bf6af8e2d9b895620783088525d4a4f20e3ea34508cea6e8171fb6c0abff21",
+            "translation_hash": "1b4df36dfdc7f9787b477901ab51eb271e45e47feffe8ac2f9b9b5ead7e72236",
+            "status": "editorial",
+            "contexts": [
+                "Editorial source-context pass: navigation, video Shorts product name (not clothing), upload Review/check action, stream status, storage quota, video captions, administrator device-distribution chart, dashboard and selection actions. Regional scripts retained; simple player terminology cross-checked in Mozilla localization sources. Sparse entries only where confidently reviewed; no claim of whole-pack acceptance."
+            ],
+            "reviewed_at": "2026-11-06T10:16:43+00:00"
+        },
+        "45ebf7019bc81b08f76cdc4be85fb11d59f00dd93fea6680c56381013a7ba7f8": {
+            "source_hash": "3cce81c94f79cd460993acaed44928f6bba85ff7f4cc4f8467bffb7835b9b0c0",
+            "translation_hash": "14c5e20c12450ea8cea2b36a0eedad5f80305bb7321de9f054fb0e5a96642710",
+            "status": "verified",
+            "contexts": [
+                "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented.",
+                "Actual browser localization of eight complete quantity messages, 0/1/2/3/5/11/21/101/1.5, including CLDR dual/few/many/zero and native anchor cases where applicable; 390px, no runtime errors or application writes"
+            ],
+            "reviewed_at": "2026-11-06T10:35:35+00:00",
+            "verified_at": "2026-11-06T10:48:46.747Z"
+        },
+        "4878b7fb1ec4e88c2ca4956f0140235053c1a8176791a1f2455d4a0ce8d0f774": {
+            "source_hash": "4878b7fb1ec4e88c2ca4956f0140235053c1a8176791a1f2455d4a0ce8d0f774",
+            "translation_hash": "df1253f31fb727fd1388c00ac72fb41387ec78d13228f3f3d4945381060a6b69",
+            "status": "editorial",
+            "contexts": [
+                "Whole-message personal-address correction in Estonian/Latvian/Lithuanian/Slovenian/Croatian/Bosnian/Macedonian/Albanian/Serbian. Actual account/channel labels and form/chat/upload prompts; correct singular verb forms and script, no formal customer pronouns. Serbian Cyrillic retained."
+            ],
+            "reviewed_at": "2026-11-06T10:25:43+00:00"
+        },
+        "4a819eaea7f49acaa5837c64f69a70843d4c64118eb509490bbb7fad61f10104": {
+            "source_hash": "4a819eaea7f49acaa5837c64f69a70843d4c64118eb509490bbb7fad61f10104",
+            "translation_hash": "11eeed083b644add7d98d81508c7ad672a293c25c56c6a93e31c7d42ff9a261b",
+            "status": "editorial",
+            "contexts": [
+                "Owner-approved 60-second strictly portrait Shorts policy. Complete current messages and historical180/square-compatible keys all express60seconds/portrait; automatic classification and empty state mention import without inventing encoding. Gaelic only confidently reviewed short constraints; no invented full auto/empty statement, Silesian withheld for native review."
+            ],
+            "reviewed_at": "2026-11-06T10:50:57+00:00"
+        },
+        "4fcff7391dc118f561c7fd42e37211115763d147df1d5da3045918a5cfc9ad45": {
+            "source_hash": "4fcff7391dc118f561c7fd42e37211115763d147df1d5da3045918a5cfc9ad45",
+            "translation_hash": "360d5f6adcdb207ea15856f38abb1a8a35b1352f7fe0a764840045d8cabd8e07",
+            "status": "editorial",
+            "contexts": [
+                "Owner-approved 60-second strictly portrait Shorts policy. Complete current messages and historical180/square-compatible keys all express60seconds/portrait; automatic classification and empty state mention import without inventing encoding. Gaelic only confidently reviewed short constraints; no invented full auto/empty statement, Silesian withheld for native review."
+            ],
+            "reviewed_at": "2026-11-06T10:50:57+00:00"
+        },
+        "4fdf3f52c4b12a65c322d74d7e3ee363d1b653e74563f4dcd6b5edeb273ddb93": {
+            "source_hash": "4fdf3f52c4b12a65c322d74d7e3ee363d1b653e74563f4dcd6b5edeb273ddb93",
+            "translation_hash": "111d569372ca2ce50d08070c44098976a69b0702787458e7e839412793918664",
+            "status": "verified",
+            "contexts": [
+                "Complete Creator Studio comment action menu labels. Pin/unpin are paired actions, report is moderation, copy only copies a link. Mute action hides that user’s content and notifications rather than deleting or blocking their account. Proper user names/comment bodies are excluded. Infinitives and personal singular imperatives are idiomatic per locale; no formal address.",
+                "Creator Studio comments: pinned/unpinned menu, reply/copy/mute/report/delete labels at390px; original author/body/mention/tag retained, complete localized mention-action titles; menus only, no action mutations or runtime errors"
+            ],
+            "reviewed_at": "2026-11-06T11:15:06+00:00",
+            "verified_at": "2026-11-06T11:18:09.022Z"
+        },
+        "50cb06b6b17a2875684d6a08cc83bdc9ad8ae39349e18fde33e717c15cbf6d68": {
+            "source_hash": "50cb06b6b17a2875684d6a08cc83bdc9ad8ae39349e18fde33e717c15cbf6d68",
+            "translation_hash": "5d653b28caf7a64bb1fc9b74219dcc26732701b27b8fb57c750cbf51d11f16ac",
+            "status": "verified",
+            "contexts": [
+                "Complete Creator Studio comment action menu labels. Pin/unpin are paired actions, report is moderation, copy only copies a link. Mute action hides that user’s content and notifications rather than deleting or blocking their account. Proper user names/comment bodies are excluded. Infinitives and personal singular imperatives are idiomatic per locale; no formal address.",
+                "Creator Studio comments: pinned/unpinned menu, reply/copy/mute/report/delete labels at390px; original author/body/mention/tag retained, complete localized mention-action titles; menus only, no action mutations or runtime errors"
+            ],
+            "reviewed_at": "2026-11-06T11:15:06+00:00",
+            "verified_at": "2026-11-06T11:18:09.022Z"
+        },
+        "514a392cd10e469c3038c58b83a9c4bdad3a815841924620b7cd22751e218c80": {
+            "source_hash": "9c744a3288b536aa9fbca9658ab7578cabc4152abe27e5f20b4cdd9dff0f1119",
+            "translation_hash": "360d5f6adcdb207ea15856f38abb1a8a35b1352f7fe0a764840045d8cabd8e07",
+            "status": "editorial",
+            "contexts": [
+                "Owner-approved 60-second strictly portrait Shorts policy. Complete current messages and historical180/square-compatible keys all express60seconds/portrait; automatic classification and empty state mention import without inventing encoding. Gaelic only confidently reviewed short constraints; no invented full auto/empty statement, Silesian withheld for native review."
+            ],
+            "reviewed_at": "2026-11-06T10:50:57+00:00"
+        },
+        "5274edf142258c6b840305d13bc7f8173495b4f6b4eb2eda098140eeca5fdbe3": {
+            "source_hash": "c6a4abaa3a61494fe6c1fc669767b26b9276845ff1ff8436b0aba3bb65ff506f",
+            "translation_hash": "156febaee38dd3405daf767caf3e8dfa9eeac61023e9b1fbbedbeb254152683d",
+            "status": "verified",
+            "contexts": [
+                "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented.",
+                "Actual browser localization of eight complete quantity messages, 0/1/2/3/5/11/21/101/1.5, including CLDR dual/few/many/zero and native anchor cases where applicable; 390px, no runtime errors or application writes"
+            ],
+            "reviewed_at": "2026-11-06T10:35:35+00:00",
+            "verified_at": "2026-11-06T10:48:46.748Z"
+        },
+        "52c071b27c561ef0ddc011de611db41f427cf59cb7d8d663da39d2df7a6c78db": {
+            "source_hash": "52c071b27c561ef0ddc011de611db41f427cf59cb7d8d663da39d2df7a6c78db",
+            "translation_hash": "3c2bdec18c6e4c8d4a69ce16f5df09056caa88be18a14831e8ad9257fd7ebeb1",
+            "status": "verified",
+            "contexts": [
+                "Whole named action labels in actual comment/post mentions and manual chapter editor. Mention display text and user names remain unchanged. Named placeholders preserve unknown names and tags; labels are personal imperatives or natural infinitives, with regional scripts retained. No native confidence asserted for Gaelic/Silesian phrases withheld from this batch.",
+                "Actual manual chapter editor at390px: complete checkbox/name labels, missing names1/2,10s minimum gap, invalid time and chapter at exact video end; correct import-success confirmation after a stubbed submit; original title and chapter names retained; no overflow/runtime errors/application writes"
+            ],
+            "reviewed_at": "2026-11-06T11:09:00+00:00",
+            "verified_at": "2026-11-06T11:22:54.219Z"
+        },
+        "534716e70e416c6e5bdb2517a5ec912abc41f1ed2050702ab26c52e172a88b22": {
+            "source_hash": "534716e70e416c6e5bdb2517a5ec912abc41f1ed2050702ab26c52e172a88b22",
+            "translation_hash": "789a65ac4ef9e2c522c84d4ac05fe57435ffe130ff812b8ae8aaac89ebfe3e10",
+            "status": "verified",
+            "contexts": [
+                "Complete Creator Studio comment action menu labels. Pin/unpin are paired actions, report is moderation, copy only copies a link. Mute action hides that user’s content and notifications rather than deleting or blocking their account. Proper user names/comment bodies are excluded. Infinitives and personal singular imperatives are idiomatic per locale; no formal address.",
+                "Creator Studio comments: pinned/unpinned menu, reply/copy/mute/report/delete labels at390px; original author/body/mention/tag retained, complete localized mention-action titles; menus only, no action mutations or runtime errors"
+            ],
+            "reviewed_at": "2026-11-06T11:15:06+00:00",
+            "verified_at": "2026-11-06T11:18:09.022Z"
+        },
+        "555bc506807442df9677c78fd0b336b77c6e09e02abe07c628e176d80beea64e": {
+            "source_hash": "2f8ea1648738615037e9338c20dfc59d0eff6ba7865122da01ddd7b6cc0badde",
+            "translation_hash": "2566e2a0adcd01d4353aa3c352fcb0892709127d32262a82a7fceaf350cc91c7",
+            "status": "editorial",
+            "contexts": [
+                "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented."
+            ],
+            "reviewed_at": "2026-11-06T10:35:35+00:00"
+        },
+        "58b40acd2193c9c80012d94ab8d5e18800ed3c58e25f94f7362581d5bda465e8": {
+            "source_hash": "cedf1a91d91f00d31c4409dcbec2076e971b4701ad70605573d497a9b8dd1da7",
+            "translation_hash": "299f10fc7e56acbf8f561154b2b3f184c739ee1c2a27b7ef0000853b979fb5bb",
+            "status": "verified",
+            "contexts": [
+                "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented.",
+                "Actual browser localization of eight complete quantity messages, 0/1/2/3/5/11/21/101/1.5, including CLDR dual/few/many/zero and native anchor cases where applicable; 390px, no runtime errors or application writes"
+            ],
+            "reviewed_at": "2026-11-06T10:35:35+00:00",
+            "verified_at": "2026-11-06T10:48:46.748Z"
+        },
+        "5fb80a91b0d8036c2d1e8b41f1c28b627fe12dfdc5d0437f9dfd9a03113c04f8": {
+            "source_hash": "95185b6fa17df19a65621782475bb3c01decff9e90d5bda58a89803a40a0cd8b",
+            "translation_hash": "eef203ee3a0fd01fe2b01227aa2aac01dc92eea9d462e9c465285ae1c2a0056f",
+            "status": "editorial",
+            "contexts": [
+                "Owner-approved 60-second strictly portrait Shorts policy. Complete current messages and historical180/square-compatible keys all express60seconds/portrait; automatic classification and empty state mention import without inventing encoding. Gaelic only confidently reviewed short constraints; no invented full auto/empty statement, Silesian withheld for native review."
+            ],
+            "reviewed_at": "2026-11-06T10:50:57+00:00"
+        },
+        "6089f25bdda1e957df9a76c6c1c8c56886a4762f685922409c2d6a818ff50602": {
+            "source_hash": "665560d063640cc0c09c13dedac17d8003082960e096bcf96ece534335984902",
+            "translation_hash": "f039f8c132889da0be8c687fae65ce1552bfa3c991842467717ffd5d8b144d01",
+            "status": "verified",
+            "contexts": [
+                "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented.",
+                "Actual browser localization of eight complete quantity messages, 0/1/2/3/5/11/21/101/1.5, including CLDR dual/few/many/zero and native anchor cases where applicable; 390px, no runtime errors or application writes"
+            ],
+            "reviewed_at": "2026-11-06T10:35:35+00:00",
+            "verified_at": "2026-11-06T10:48:46.747Z"
+        },
+        "638f01139801d6fa3bba5ec161ff1185f47ebaded4b75a6296f6eed28f2662de": {
+            "source_hash": "b0b1c780ec908b7d3a878550393521478cd6290201009898a9e6afd7570c345a",
+            "translation_hash": "c41a49d64f7f84e9d48f9d643ac289953ef3b017daae2367d8efe27ef7fc95b6",
+            "status": "editorial",
+            "contexts": [
+                "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented."
+            ],
+            "reviewed_at": "2026-11-06T10:35:35+00:00"
+        },
+        "66689a080d8c2d3804edeb92c3314aa955cda9502c5423c4f819cd618445c403": {
+            "source_hash": "66689a080d8c2d3804edeb92c3314aa955cda9502c5423c4f819cd618445c403",
+            "translation_hash": "7496e3db4bd13970543a7415ff6b1caf086d463ca45f8e03fa6b19177f6e9617",
+            "status": "editorial",
+            "contexts": [
+                "Whole-message personal-address correction in Estonian/Latvian/Lithuanian/Slovenian/Croatian/Bosnian/Macedonian/Albanian/Serbian. Actual account/channel labels and form/chat/upload prompts; correct singular verb forms and script, no formal customer pronouns. Serbian Cyrillic retained."
+            ],
+            "reviewed_at": "2026-11-06T10:25:43+00:00"
+        },
+        "67b696468610b879ed7f224dbf6b0861f27e39d20454cb9d7af1ec52d3e5eeaa": {
+            "source_hash": "67b696468610b879ed7f224dbf6b0861f27e39d20454cb9d7af1ec52d3e5eeaa",
+            "translation_hash": "f77c75ca14b0897009a063dab87eb6d6571b404e278facbfa5c21c153957b758",
+            "status": "editorial",
+            "contexts": [
+                "Editorial source-context pass: navigation, video Shorts product name (not clothing), upload Review/check action, stream status, storage quota, video captions, administrator device-distribution chart, dashboard and selection actions. Regional scripts retained; simple player terminology cross-checked in Mozilla localization sources. Sparse entries only where confidently reviewed; no claim of whole-pack acceptance."
+            ],
+            "reviewed_at": "2026-11-06T10:16:43+00:00"
+        },
+        "68236bd2d96435ea6633875685f8ee96d24771fb4627e1e3e821c805b93d68f2": {
+            "source_hash": "665560d063640cc0c09c13dedac17d8003082960e096bcf96ece534335984902",
+            "translation_hash": "4d0e353d045c03611daf5897496b69bdcab4ff0cd26683a7f6fbf93738f3fe06",
+            "status": "verified",
+            "contexts": [
+                "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented.",
+                "Actual browser localization of eight complete quantity messages, 0/1/2/3/5/11/21/101/1.5, including CLDR dual/few/many/zero and native anchor cases where applicable; 390px, no runtime errors or application writes"
+            ],
+            "reviewed_at": "2026-11-06T10:35:35+00:00",
+            "verified_at": "2026-11-06T10:48:46.747Z"
+        },
+        "689ac540969381da352a1a1943ecaa1d14f8d7f6df5234d228942c9db57d37f8": {
+            "source_hash": "c6a4abaa3a61494fe6c1fc669767b26b9276845ff1ff8436b0aba3bb65ff506f",
+            "translation_hash": "16a296299de16d5f3d8df40fb32029761721c4b19e32ef4622e205b4f68ff76e",
+            "status": "editorial",
+            "contexts": [
+                "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented."
+            ],
+            "reviewed_at": "2026-11-06T10:35:35+00:00"
+        },
+        "6b8be7af1fdc06a1d2772428d9cf3cbfbf50ec9ab1496191a93d36e638f70fe2": {
+            "source_hash": "cedf1a91d91f00d31c4409dcbec2076e971b4701ad70605573d497a9b8dd1da7",
+            "translation_hash": "975b773f34b06a2315a94e7a3956cae66d56f0d2fe847bf087007f8c6242043d",
+            "status": "editorial",
+            "contexts": [
+                "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented."
+            ],
+            "reviewed_at": "2026-11-06T10:35:35+00:00"
+        },
+        "6cfdfd198d9f08301674556e25d2532e29cf9ebdb96641732c764aedd2330948": {
+            "source_hash": "6cfdfd198d9f08301674556e25d2532e29cf9ebdb96641732c764aedd2330948",
+            "translation_hash": "2fd48bfed7e564423c8bbe6a8e0c34fdd5e34deab190816bad1ec49cf94a176d",
+            "status": "editorial",
+            "contexts": [
+                "Whole-message personal-address correction in Estonian/Latvian/Lithuanian/Slovenian/Croatian/Bosnian/Macedonian/Albanian/Serbian. Actual account/channel labels and form/chat/upload prompts; correct singular verb forms and script, no formal customer pronouns. Serbian Cyrillic retained."
+            ],
+            "reviewed_at": "2026-11-06T10:25:43+00:00"
+        },
+        "721164f0dc7096a8c09be2069c5c689a56df933fc5798822e8134bd3e76771eb": {
+            "source_hash": "721164f0dc7096a8c09be2069c5c689a56df933fc5798822e8134bd3e76771eb",
+            "translation_hash": "53bd4bb4e881ea1f14b7f814142c8b21e57059783c10e0801cef834a1a9f035a",
+            "status": "verified",
+            "contexts": [
+                "Complete optional video transcript panel labels, loading, actual failed HTTP request and accessibility text. The transcript body is provider/author content and stays untouched, including words that match interface keys. Existing retry button supplies retry action; no request failure causes invented.",
+                "Actual optional watch transcript panel at390px: summary, held loading request,503 failure, explicit retry and unchanged provider transcript body/accessible label; no overflow/runtime errors/application writes"
+            ],
+            "reviewed_at": "2026-11-06T11:20:32+00:00",
+            "verified_at": "2026-11-06T11:36:47.654Z"
+        },
+        "724e78a3254c899d16ef6324a7abc9a8f5240ffce8bff74976df397c68ce9d78": {
+            "source_hash": "724e78a3254c899d16ef6324a7abc9a8f5240ffce8bff74976df397c68ce9d78",
+            "translation_hash": "9c4d5599b649ec496ca1bf4a17bb29c8d0db650643cb5a95e3fb145b5ad9fce7",
+            "status": "verified",
+            "contexts": [
+                "Complete Creator Studio comment action menu labels. Pin/unpin are paired actions, report is moderation, copy only copies a link. Mute action hides that user’s content and notifications rather than deleting or blocking their account. Proper user names/comment bodies are excluded. Infinitives and personal singular imperatives are idiomatic per locale; no formal address.",
+                "Creator Studio comments: pinned/unpinned menu, reply/copy/mute/report/delete labels at390px; original author/body/mention/tag retained, complete localized mention-action titles; menus only, no action mutations or runtime errors"
+            ],
+            "reviewed_at": "2026-11-06T11:15:06+00:00",
+            "verified_at": "2026-11-06T11:18:09.022Z"
+        },
+        "72669450222f5874f3c6f9d066e1838f2ff14558832810947136cec2e267b2d4": {
+            "source_hash": "cedf1a91d91f00d31c4409dcbec2076e971b4701ad70605573d497a9b8dd1da7",
+            "translation_hash": "d90f8e4035489248d3ab0f1194b2ef4d8d4937c375d142e1c9ba6a25e344f932",
+            "status": "verified",
+            "contexts": [
+                "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented.",
+                "Actual browser localization of eight complete quantity messages, 0/1/2/3/5/11/21/101/1.5, including CLDR dual/few/many/zero and native anchor cases where applicable; 390px, no runtime errors or application writes"
+            ],
+            "reviewed_at": "2026-11-06T10:35:35+00:00",
+            "verified_at": "2026-11-06T10:48:46.747Z"
+        },
+        "7361a76fabe16ae55c1ab66b48937ace7758fd53ec8391a6dc60e0b4f4263a09": {
+            "source_hash": "5d4afb9a8a031707a81ccb5e66e41b849c24fc11619571f295fb1699223e34bd",
+            "translation_hash": "8a4b5e8926f69657102f86e682d9a457489d33d7920e3d41e8581e0320525a93",
+            "status": "editorial",
+            "contexts": [
+                "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented."
+            ],
+            "reviewed_at": "2026-11-06T10:35:35+00:00"
+        },
+        "73f91221eb2f939b8d7354daa143e32ec8b4a913d167407669d88fa92d4af2a1": {
+            "source_hash": "73f91221eb2f939b8d7354daa143e32ec8b4a913d167407669d88fa92d4af2a1",
+            "translation_hash": "0c7933a20860b1755d5d4f7d08bba5696f4824a48366c875dd3ee1694d3574d5",
+            "status": "editorial",
+            "contexts": [
+                "Whole-message personal-address correction in Estonian/Latvian/Lithuanian/Slovenian/Croatian/Bosnian/Macedonian/Albanian/Serbian. Actual account/channel labels and form/chat/upload prompts; correct singular verb forms and script, no formal customer pronouns. Serbian Cyrillic retained."
+            ],
+            "reviewed_at": "2026-11-06T10:25:43+00:00"
+        },
+        "748b69851f6b0354dc5544ea0d2d4bbe0adb76d549cdb95f88099456e5a42673": {
+            "source_hash": "b5e323788c7bae3783f65123e9de2b0ce52de766ff440de31a9344933019d971",
+            "translation_hash": "04032f9abe50056c77f50e292da39158ddd339f0e2473ca7659b5fad0062aec5",
+            "status": "editorial",
+            "contexts": [
+                "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented."
+            ],
+            "reviewed_at": "2026-11-06T10:35:35+00:00"
+        },
+        "7721e29d6e90498909c2d621e6504a6d2b645776880383c857ae20cef8d2ea4c": {
+            "source_hash": "7721e29d6e90498909c2d621e6504a6d2b645776880383c857ae20cef8d2ea4c",
+            "translation_hash": "c1ca8e1110ff024f0ebda7e7b991031f55be335360cb196e5108ee00ac0d3e32",
+            "status": "editorial",
+            "contexts": [
+                "Editorial source-context pass: navigation, video Shorts product name (not clothing), upload Review/check action, stream status, storage quota, video captions, administrator device-distribution chart, dashboard and selection actions. Regional scripts retained; simple player terminology cross-checked in Mozilla localization sources. Sparse entries only where confidently reviewed; no claim of whole-pack acceptance."
+            ],
+            "reviewed_at": "2026-11-06T10:16:43+00:00"
+        },
+        "78cf71eecdf6222bb182a29b9af6166cd77da43d01be45581d82608065d4f1a6": {
+            "source_hash": "78cf71eecdf6222bb182a29b9af6166cd77da43d01be45581d82608065d4f1a6",
+            "translation_hash": "6fd61352c0661e0cd2124a71a3a73ade0abedd9545da002946212e27e05388c7",
+            "status": "verified",
+            "contexts": [
+                "Six complete standard email templates in Estonian, Latvian, Lithuanian, Belarusian, Basque, Frisian and Welsh. Friendly singular; no formal address; whole code/reset/invitation/restriction/moderator/live-moderator messages. Minute abbreviations keep1/2/15 valid without importing English plural forms. All named credentials/roles/URLs/date/restriction/title tokens and administrator overrides remain intact.",
+                "Actual EmailTemplates and BrandedEmail renderers (European northern/eastern groups): all 6 subjects/bodies; 1/2/15-minute expiry; literal usernames/roles/title/credentials/URLs retained; HTML escaping and LTR attributes; fixture-only override precedence; no sending or production writes. Rendering check, not complete visual email-client acceptance."
+            ],
+            "reviewed_at": "2026-11-06T11:38:09+00:00",
+            "verified_at": "2026-11-06T12:16:34+00:00"
+        },
+        "790236755f3a04eb833d5e9712d0c164a74391e966107551f9e2748a1fd10d19": {
+            "source_hash": "790236755f3a04eb833d5e9712d0c164a74391e966107551f9e2748a1fd10d19",
+            "translation_hash": "ecdca9248fd5c7099cba302b30065637cd5f7d51d334787a2aba1107555c88c3",
+            "status": "editorial",
+            "contexts": [
+                "Whole-message personal-address correction in Estonian/Latvian/Lithuanian/Slovenian/Croatian/Bosnian/Macedonian/Albanian/Serbian. Actual account/channel labels and form/chat/upload prompts; correct singular verb forms and script, no formal customer pronouns. Serbian Cyrillic retained."
+            ],
+            "reviewed_at": "2026-11-06T10:25:43+00:00"
+        },
+        "79031d2dc515e09b2a6a06bdde5f4dcdce8f19dddc3c4b7565bd14bf9f11a8a6": {
+            "source_hash": "79031d2dc515e09b2a6a06bdde5f4dcdce8f19dddc3c4b7565bd14bf9f11a8a6",
+            "translation_hash": "aff8d6694cc01be4ed296ce1063d57d8631dcdd2a39decc717320cc4343c2a89",
+            "status": "verified",
+            "contexts": [
+                "Complete chapter editor/validation messages with named placeholders: maximum count, first0:00 for manual chapters, invalid/ordered/gapped timestamps, must start before video end, names and160-character limit. Checkbox name aligned with quoted recovery action; personal singular imperative, provider/user chapter names never translated. SI seconds avoid false cardinal inflection at1s versus10s. Silesian/Gaelic/Basque long validation not guessed.",
+                "Actual manual chapter editor at390px: complete checkbox/name labels, missing names1/2,10s minimum gap, invalid time and chapter at exact video end; correct import-success confirmation after a stubbed submit; original title and chapter names retained; no overflow/runtime errors/application writes"
+            ],
+            "reviewed_at": "2026-11-06T11:19:22+00:00",
+            "verified_at": "2026-11-06T11:22:54.219Z"
+        },
+        "798ca2ce18bf2038bc13aaa33ebfe6db7020df5b4bba40f68e21462a9207db3d": {
+            "source_hash": "798ca2ce18bf2038bc13aaa33ebfe6db7020df5b4bba40f68e21462a9207db3d",
+            "translation_hash": "3ad850333bb8df0bdd9a9c270d940b466e270a568b1a625ac0e9c6b372b7e541",
+            "status": "editorial",
+            "contexts": [
+                "Editorial source-context pass: navigation, video Shorts product name (not clothing), upload Review/check action, stream status, storage quota, video captions, administrator device-distribution chart, dashboard and selection actions. Regional scripts retained; simple player terminology cross-checked in Mozilla localization sources. Sparse entries only where confidently reviewed; no claim of whole-pack acceptance."
+            ],
+            "reviewed_at": "2026-11-06T10:16:43+00:00"
+        },
+        "7af36c508516cf272af6f3f98b4977910b0efd7b2a5ac5976ff2a0fbf9771113": {
+            "source_hash": "7af36c508516cf272af6f3f98b4977910b0efd7b2a5ac5976ff2a0fbf9771113",
+            "translation_hash": "f6326227997c0aa5a58b2977aef524bfc77e6def81a46a477a4fc0d4bd506bb4",
+            "status": "editorial",
+            "contexts": [
+                "Editorial source-context pass: navigation, video Shorts product name (not clothing), upload Review/check action, stream status, storage quota, video captions, administrator device-distribution chart, dashboard and selection actions. Regional scripts retained; simple player terminology cross-checked in Mozilla localization sources. Sparse entries only where confidently reviewed; no claim of whole-pack acceptance."
+            ],
+            "reviewed_at": "2026-11-06T10:16:43+00:00"
+        },
+        "7b424670a1985c5092832937d9231feb4ced989472aeb5855e60418b7c074592": {
+            "source_hash": "7b424670a1985c5092832937d9231feb4ced989472aeb5855e60418b7c074592",
+            "translation_hash": "1159ff1a685198309cfb2fbee7d7f594ce3af9fa61daf904018658dd2e6ad0b3",
+            "status": "verified",
+            "contexts": [
+                "Complete Creator Studio comment action menu labels. Pin/unpin are paired actions, report is moderation, copy only copies a link. Mute action hides that user’s content and notifications rather than deleting or blocking their account. Proper user names/comment bodies are excluded. Infinitives and personal singular imperatives are idiomatic per locale; no formal address.",
+                "Creator Studio comments: pinned/unpinned menu, reply/copy/mute/report/delete labels at390px; original author/body/mention/tag retained, complete localized mention-action titles; menus only, no action mutations or runtime errors"
+            ],
+            "reviewed_at": "2026-11-06T11:15:06+00:00",
+            "verified_at": "2026-11-06T11:18:09.022Z"
+        },
+        "7b55cd8c8d056788c1171369011000a13e60818aeeb8b7f04517690712d95d50": {
+            "source_hash": "7b55cd8c8d056788c1171369011000a13e60818aeeb8b7f04517690712d95d50",
+            "translation_hash": "72b429cf74a021620fbe0331d587671a3bdf3a4e0c2c5871720909e29d604070",
+            "status": "verified",
+            "contexts": [
+                "Login privacy link; livestream navigation; upload review step; stream diagnostics; branded email footer",
+                "Login: complete privacy link, 390px, correct locale, no overflow, no writes or runtime errors"
+            ],
+            "reviewed_at": "2026-11-06T08:42:26+00:00",
+            "verified_at": "2026-11-06T08:53:54.399Z"
+        },
+        "7b94a2ebb7ffe4f8868ca9fd5405d5c93126df9ec3fe3334a8ce4466756cf703": {
+            "source_hash": "34cf7fa24901e25bf8615ce4484ce6637a30631e474fedcc5e948fd78dad1fc2",
+            "translation_hash": "b8ce09a16140d0a2872630a8c76bd5659e48724c3d262fee14ed08e2c8deda1b",
+            "status": "editorial",
+            "contexts": [
+                "Complete password-strength validation, verification-code countdown and four actual ASCII character-class hints. Named level/time preserved. A–Z/a–z/0–9 remain explicit in every script; accented/non-Latin letters are never falsely promised to satisfy these classes. Personal singular, including Frisian/Welsh/Balkan prompts. No policy or strength algorithm changes."
+            ],
+            "reviewed_at": "2026-11-06T11:33:11+00:00"
+        },
+        "7d31b83313991d4c969b95ff28385ff891514dbe7a93c93c5db8145ad031420f": {
+            "source_hash": "7d31b83313991d4c969b95ff28385ff891514dbe7a93c93c5db8145ad031420f",
+            "translation_hash": "0e79ad1d22a78f22e64c43b7a0d46882aee34eb3db105cd1be4bc7f4c9ed2345",
+            "status": "verified",
+            "contexts": [
+                "Complete native notification header/sender footer for seven additional European languages; linked site token kept literal.",
+                "Actual EmailTemplates and BrandedEmail renderers (European northern/eastern groups): all 6 subjects/bodies; 1/2/15-minute expiry; literal usernames/roles/title/credentials/URLs retained; HTML escaping and LTR attributes; fixture-only override precedence; no sending or production writes. Rendering check, not complete visual email-client acceptance."
+            ],
+            "reviewed_at": "2026-11-06T11:38:11+00:00",
+            "verified_at": "2026-11-06T12:16:34+00:00"
+        },
+        "7d51f3ce38b28697e532947dbff35191bbe0bc86fdbbf5d34321c30ea7c642e0": {
+            "source_hash": "7d51f3ce38b28697e532947dbff35191bbe0bc86fdbbf5d34321c30ea7c642e0",
+            "translation_hash": "3028d0f2996cca1eadc7867c9cb4355d68ea36796d2ff691bb465e404dab720f",
+            "status": "verified",
+            "contexts": [
+                "Complete optional video transcript panel labels, loading, actual failed HTTP request and accessibility text. The transcript body is provider/author content and stays untouched, including words that match interface keys. Existing retry button supplies retry action; no request failure causes invented.",
+                "Actual optional watch transcript panel at390px: summary, held loading request,503 failure, explicit retry and unchanged provider transcript body/accessible label; no overflow/runtime errors/application writes"
+            ],
+            "reviewed_at": "2026-11-06T11:20:32+00:00",
+            "verified_at": "2026-11-06T11:36:47.654Z"
+        },
+        "7da8355e0ba2d34f6be3d1a9a650ee3ec3a064ceacb085dcc26bf0485d98f6f3": {
+            "source_hash": "7da8355e0ba2d34f6be3d1a9a650ee3ec3a064ceacb085dcc26bf0485d98f6f3",
+            "translation_hash": "326686de87b3691e0a3a1e0a6917e48b0364b0390b82138abff774294339f3f4",
+            "status": "editorial",
+            "contexts": [
+                "Editorial source-context pass: navigation, video Shorts product name (not clothing), upload Review/check action, stream status, storage quota, video captions, administrator device-distribution chart, dashboard and selection actions. Regional scripts retained; simple player terminology cross-checked in Mozilla localization sources. Sparse entries only where confidently reviewed; no claim of whole-pack acceptance."
+            ],
+            "reviewed_at": "2026-11-06T10:16:43+00:00"
+        },
+        "7e721387d474ee248fecc5e05910cbd01c25fa169fb8dcbebdfa10671729efbb": {
+            "source_hash": "7e721387d474ee248fecc5e05910cbd01c25fa169fb8dcbebdfa10671729efbb",
+            "translation_hash": "af47b2124b0627cd0a4aa854baeeb8dd5a09d7d63df3e80c70831ff704d7e8e6",
+            "status": "editorial",
+            "contexts": [
+                "Seven complete context-specific creator support messages, explicitly separating playlist advice from monetary contributions. Amount-based tip/live support dialogs retain arbitrary names/titles as named tokens and Super Chat as the feature name. Support-success confirms the actual sent contribution, not advice or a future payment promise. No native full-message confidence claimed for Gaelic/Silesian."
+            ],
+            "reviewed_at": "2026-11-06T11:26:19+00:00"
+        },
+        "80aef09f019d3d41f2d2e3b0d8447b9d4f148c3baae1a5792ee2d2f50272dc7d": {
+            "source_hash": "c6a4abaa3a61494fe6c1fc669767b26b9276845ff1ff8436b0aba3bb65ff506f",
+            "translation_hash": "1a1bf68fda06ec948222fc2092ad5f5a48fb20f381cacc30ada49487657e2f0c",
+            "status": "verified",
+            "contexts": [
+                "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented.",
+                "Actual browser localization of eight complete quantity messages, 0/1/2/3/5/11/21/101/1.5, including CLDR dual/few/many/zero and native anchor cases where applicable; 390px, no runtime errors or application writes"
+            ],
+            "reviewed_at": "2026-11-06T10:35:35+00:00",
+            "verified_at": "2026-11-06T10:48:46.748Z"
+        },
+        "81592a5a8f958df12a491747223c38339e4e3bc75e9cdb5c9eaf2ba3117255c1": {
+            "source_hash": "7a17802d1a461d8d601d47a39cd4dda66aa2a3e4020f47d87f4f4c6cb7227afd",
+            "translation_hash": "fe8eda343d9947b9265f2159bf667ae992478eb9f7404633373a20bc634ce7a2",
+            "status": "editorial",
+            "contexts": [
+                "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented."
+            ],
+            "reviewed_at": "2026-11-06T10:35:35+00:00"
+        },
+        "82b44aacf297c592a1669eec5f68d795e2dc471e34f4a09f0e622c65bbef283b": {
+            "source_hash": "afb38bb24ee496fa2ca998721134c9891cc61a5c266d634b0289ad63d2184420",
+            "translation_hash": "f56ce71d03741c0219683ac40182ecf86a512a23e687d720325ce00361886789",
+            "status": "verified",
+            "contexts": [
+                "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented.",
+                "Actual browser localization of eight complete quantity messages, 0/1/2/3/5/11/21/101/1.5, including CLDR dual/few/many/zero and native anchor cases where applicable; 390px, no runtime errors or application writes"
+            ],
+            "reviewed_at": "2026-11-06T10:35:35+00:00",
+            "verified_at": "2026-11-06T10:48:46.748Z"
+        },
+        "82d89e7e5f6e58d78e9255933a99d35d9c42ba77140c269713cba8e49fd303a6": {
+            "source_hash": "e1f0d3ceb1b69ac4967e3f8d52814f18f83823e7ad6394b2849e81604a14e794",
+            "translation_hash": "3b0a4289aee8b1b5955952a40213c8a2fbe022df01704140ddb0a6fd7768017d",
+            "status": "editorial",
+            "contexts": [
+                "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented."
+            ],
+            "reviewed_at": "2026-11-06T10:35:35+00:00"
+        },
+        "83385ac8628fd3d8f44633a03b8d10b380945751ba10b9dd528185d5b6bb2252": {
+            "source_hash": "83385ac8628fd3d8f44633a03b8d10b380945751ba10b9dd528185d5b6bb2252",
+            "translation_hash": "e137d487123d8e1864f069c544aa2528323806b74dfc0c92ab2ab250de4e3465",
+            "status": "editorial",
+            "contexts": [
+                "Seven complete context-specific creator support messages, explicitly separating playlist advice from monetary contributions. Amount-based tip/live support dialogs retain arbitrary names/titles as named tokens and Super Chat as the feature name. Support-success confirms the actual sent contribution, not advice or a future payment promise. No native full-message confidence claimed for Gaelic/Silesian."
+            ],
+            "reviewed_at": "2026-11-06T11:26:19+00:00"
+        },
+        "83b4a3c165646b2ebc96e0f329d1a7540455d9448a8bfa0f565665a55dde412f": {
+            "source_hash": "32fc8a36b656f391302a3690066e62c06c0e698693fb627f05cac08a39f359e5",
+            "translation_hash": "222c6d5a23aceeb85b03f3b84aa6c21dfb2fc0177acd2c173c25c43aa4aaf55f",
+            "status": "verified",
+            "contexts": [
+                "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented.",
+                "Actual browser localization of eight complete quantity messages, 0/1/2/3/5/11/21/101/1.5, including CLDR dual/few/many/zero and native anchor cases where applicable; 390px, no runtime errors or application writes"
+            ],
+            "reviewed_at": "2026-11-06T10:35:35+00:00",
+            "verified_at": "2026-11-06T10:48:46.748Z"
+        },
+        "887fa96dfc9112b1146f0544dba33a306c4fe336fa188ee95612148882fb6868": {
+            "source_hash": "887fa96dfc9112b1146f0544dba33a306c4fe336fa188ee95612148882fb6868",
+            "translation_hash": "ce83226b04f642f7659be4aad8e8edde18816f180e778d08dec10894a6ffa565",
+            "status": "verified",
+            "contexts": [
+                "Six complete standard email templates in Estonian, Latvian, Lithuanian, Belarusian, Basque, Frisian and Welsh. Friendly singular; no formal address; whole code/reset/invitation/restriction/moderator/live-moderator messages. Minute abbreviations keep1/2/15 valid without importing English plural forms. All named credentials/roles/URLs/date/restriction/title tokens and administrator overrides remain intact.",
+                "Actual EmailTemplates and BrandedEmail renderers (European northern/eastern groups): all 6 subjects/bodies; 1/2/15-minute expiry; literal usernames/roles/title/credentials/URLs retained; HTML escaping and LTR attributes; fixture-only override precedence; no sending or production writes. Rendering check, not complete visual email-client acceptance."
+            ],
+            "reviewed_at": "2026-11-06T11:38:09+00:00",
+            "verified_at": "2026-11-06T12:16:34+00:00"
+        },
+        "89947c6649d9dc79e2db52a289b82f67a8bc2e78a883d98f94230faf9e26b76c": {
+            "source_hash": "89947c6649d9dc79e2db52a289b82f67a8bc2e78a883d98f94230faf9e26b76c",
+            "translation_hash": "9b98a151b420d723971c65af92067f54a578d7dc82aac7061124de97dab4eb6b",
+            "status": "verified",
+            "contexts": [
+                "Whole named action labels in actual comment/post mentions and manual chapter editor. Mention display text and user names remain unchanged. Named placeholders preserve unknown names and tags; labels are personal imperatives or natural infinitives, with regional scripts retained. No native confidence asserted for Gaelic/Silesian phrases withheld from this batch.",
+                "Creator Studio comments: pinned/unpinned menu, reply/copy/mute/report/delete labels at390px; original author/body/mention/tag retained, complete localized mention-action titles; menus only, no action mutations or runtime errors"
+            ],
+            "reviewed_at": "2026-11-06T11:09:00+00:00",
+            "verified_at": "2026-11-06T11:18:09.022Z"
+        },
+        "8a8a33fdd53c5a6a096c14d7407bc0492e34f3d6245e18b5ebdb93bc1eaec3c1": {
+            "source_hash": "5d4afb9a8a031707a81ccb5e66e41b849c24fc11619571f295fb1699223e34bd",
+            "translation_hash": "8a4b5e8926f69657102f86e682d9a457489d33d7920e3d41e8581e0320525a93",
+            "status": "editorial",
+            "contexts": [
+                "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented."
+            ],
+            "reviewed_at": "2026-11-06T10:35:35+00:00"
+        },
+        "8ad4c0f7841e947feb2412ce56f355eee522347b18cbd3d6fd9af050db5c55fd": {
+            "source_hash": "7b55cd8c8d056788c1171369011000a13e60818aeeb8b7f04517690712d95d50",
+            "translation_hash": "72b429cf74a021620fbe0331d587671a3bdf3a4e0c2c5871720909e29d604070",
+            "status": "editorial",
+            "contexts": [
+                "Deprecated login message key: same owner-approved neutral privacy-policy sentence as the current login; keeps already-open older bundles from displaying the old absolute claim."
+            ],
+            "reviewed_at": "2026-11-06T09:31:14+00:00"
+        },
+        "8e3eab20f2dba72e98e8d6565523358b10ec726963fca66d6d49e1d6c17de167": {
+            "source_hash": "8e3eab20f2dba72e98e8d6565523358b10ec726963fca66d6d49e1d6c17de167",
+            "translation_hash": "cb9751218d59dc9c8e8515fe0e8e27b166952a3a2dd802206d9359137e14d86e",
+            "status": "editorial",
+            "contexts": [
+                "Complete password-strength validation, verification-code countdown and four actual ASCII character-class hints. Named level/time preserved. A–Z/a–z/0–9 remain explicit in every script; accented/non-Latin letters are never falsely promised to satisfy these classes. Personal singular, including Frisian/Welsh/Balkan prompts. No policy or strength algorithm changes."
+            ],
+            "reviewed_at": "2026-11-06T11:33:11+00:00"
+        },
+        "8f2c8b1b4719996a12fc003ff15daacf3ec0ec7c9a1f19e9b75d2c6e1adb4734": {
+            "source_hash": "8f2c8b1b4719996a12fc003ff15daacf3ec0ec7c9a1f19e9b75d2c6e1adb4734",
+            "translation_hash": "af35131d5dd0334e28b82755e0a934968c0cd30eb15cbbc6a77ef1e242063eea",
+            "status": "verified",
+            "contexts": [
+                "Six complete standard email templates in Estonian, Latvian, Lithuanian, Belarusian, Basque, Frisian and Welsh. Friendly singular; no formal address; whole code/reset/invitation/restriction/moderator/live-moderator messages. Minute abbreviations keep1/2/15 valid without importing English plural forms. All named credentials/roles/URLs/date/restriction/title tokens and administrator overrides remain intact.",
+                "Actual EmailTemplates and BrandedEmail renderers (European northern/eastern groups): all 6 subjects/bodies; 1/2/15-minute expiry; literal usernames/roles/title/credentials/URLs retained; HTML escaping and LTR attributes; fixture-only override precedence; no sending or production writes. Rendering check, not complete visual email-client acceptance."
+            ],
+            "reviewed_at": "2026-11-06T11:38:09+00:00",
+            "verified_at": "2026-11-06T12:16:34+00:00"
+        },
+        "91bc70a81d662c5fe1e1d8dedd35ae61516517557d6620f2889e84042a1bf1d4": {
+            "source_hash": "37841075cf3a8e25119f751b2db44f7c494d8a381e40804760281753824f6a76",
+            "translation_hash": "59a8e83356d8d76fd93547a8c91b6dc1d013e4f6e62512ea73ffe59478eb6d0a",
+            "status": "editorial",
+            "contexts": [
+                "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented."
+            ],
+            "reviewed_at": "2026-11-06T10:35:35+00:00"
+        },
+        "923b59f348e1a7c0d47f83e0e163e2814423eb0039768875e0f3f1621d27a702": {
+            "source_hash": "628ba8264d0d4b0cb3dd025a6c61361dd0dfa9c35e3c2e68b140dc73a20dc5ea",
+            "translation_hash": "1757c83d8f147bedefc2b6c9f67b9cc4e70e7add07444acf1162870110992d68",
+            "status": "verified",
+            "contexts": [
+                "Complete chapter editor/validation messages with named placeholders: maximum count, first0:00 for manual chapters, invalid/ordered/gapped timestamps, must start before video end, names and160-character limit. Checkbox name aligned with quoted recovery action; personal singular imperative, provider/user chapter names never translated. SI seconds avoid false cardinal inflection at1s versus10s. Silesian/Gaelic/Basque long validation not guessed.",
+                "Actual manual chapter editor at390px: complete checkbox/name labels, missing names1/2,10s minimum gap, invalid time and chapter at exact video end; correct import-success confirmation after a stubbed submit; original title and chapter names retained; no overflow/runtime errors/application writes"
+            ],
+            "reviewed_at": "2026-11-06T11:19:22+00:00",
+            "verified_at": "2026-11-06T11:22:54.219Z"
+        },
+        "92d2a4fc7ed2f03485acc6af43a6b823a8690c6633dc4ebfb8112271f4b8cba7": {
+            "source_hash": "92d2a4fc7ed2f03485acc6af43a6b823a8690c6633dc4ebfb8112271f4b8cba7",
+            "translation_hash": "6e22dca46e2c6594c05abe98074a33e1504ba7f793ec2c31e76d7fdf5faa9836",
+            "status": "editorial",
+            "contexts": [
+                "Seven complete context-specific creator support messages, explicitly separating playlist advice from monetary contributions. Amount-based tip/live support dialogs retain arbitrary names/titles as named tokens and Super Chat as the feature name. Support-success confirms the actual sent contribution, not advice or a future payment promise. No native full-message confidence claimed for Gaelic/Silesian."
+            ],
+            "reviewed_at": "2026-11-06T11:26:19+00:00"
+        },
+        "95185b6fa17df19a65621782475bb3c01decff9e90d5bda58a89803a40a0cd8b": {
+            "source_hash": "95185b6fa17df19a65621782475bb3c01decff9e90d5bda58a89803a40a0cd8b",
+            "translation_hash": "eef203ee3a0fd01fe2b01227aa2aac01dc92eea9d462e9c465285ae1c2a0056f",
+            "status": "editorial",
+            "contexts": [
+                "Owner-approved 60-second strictly portrait Shorts policy. Complete current messages and historical180/square-compatible keys all express60seconds/portrait; automatic classification and empty state mention import without inventing encoding. Gaelic only confidently reviewed short constraints; no invented full auto/empty statement, Silesian withheld for native review."
+            ],
+            "reviewed_at": "2026-11-06T10:50:57+00:00"
+        },
+        "9858922d6439e4119a2ac49e0aafd7caa3c64de965f5a5291f6b15c4104b70cc": {
+            "source_hash": "de87937934a2dbf8d61903838eac8e763c1c698cdc3b57f1815ed74ae1441ae8",
+            "translation_hash": "de88b55d7e7ad8c130f3accf52120828e7fc75e6a8bd63b9d6e47f51a3594dec",
+            "status": "editorial",
+            "contexts": [
+                "Owner-approved 60-second strictly portrait Shorts policy. Complete current messages and historical180/square-compatible keys all express60seconds/portrait; automatic classification and empty state mention import without inventing encoding. Gaelic only confidently reviewed short constraints; no invented full auto/empty statement, Silesian withheld for native review."
+            ],
+            "reviewed_at": "2026-11-06T10:50:57+00:00"
+        },
+        "9c744a3288b536aa9fbca9658ab7578cabc4152abe27e5f20b4cdd9dff0f1119": {
+            "source_hash": "9c744a3288b536aa9fbca9658ab7578cabc4152abe27e5f20b4cdd9dff0f1119",
+            "translation_hash": "360d5f6adcdb207ea15856f38abb1a8a35b1352f7fe0a764840045d8cabd8e07",
+            "status": "editorial",
+            "contexts": [
+                "Owner-approved 60-second strictly portrait Shorts policy. Complete current messages and historical180/square-compatible keys all express60seconds/portrait; automatic classification and empty state mention import without inventing encoding. Gaelic only confidently reviewed short constraints; no invented full auto/empty statement, Silesian withheld for native review."
+            ],
+            "reviewed_at": "2026-11-06T10:50:57+00:00"
+        },
+        "9de97ee16a4cebc3d656dbc591135772179c7dfaecdb203111ef50bc9733f7e6": {
+            "source_hash": "b0b1c780ec908b7d3a878550393521478cd6290201009898a9e6afd7570c345a",
+            "translation_hash": "c41a49d64f7f84e9d48f9d643ac289953ef3b017daae2367d8efe27ef7fc95b6",
+            "status": "editorial",
+            "contexts": [
+                "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented."
+            ],
+            "reviewed_at": "2026-11-06T10:35:35+00:00"
+        },
+        "9f458b3e3657bbcdf13cb8255436218a8794578f968b17f2acfae4f33285fa1c": {
+            "source_hash": "9f458b3e3657bbcdf13cb8255436218a8794578f968b17f2acfae4f33285fa1c",
+            "translation_hash": "360d5f6adcdb207ea15856f38abb1a8a35b1352f7fe0a764840045d8cabd8e07",
+            "status": "editorial",
+            "contexts": [
+                "Owner-approved 60-second strictly portrait Shorts policy. Complete current messages and historical180/square-compatible keys all express60seconds/portrait; automatic classification and empty state mention import without inventing encoding. Gaelic only confidently reviewed short constraints; no invented full auto/empty statement, Silesian withheld for native review."
+            ],
+            "reviewed_at": "2026-11-06T10:50:57+00:00"
+        },
+        "a69c4dece144a46e40d430726395533d8f335a7d601d8ca292220b3a4a7faca4": {
+            "source_hash": "a69c4dece144a46e40d430726395533d8f335a7d601d8ca292220b3a4a7faca4",
+            "translation_hash": "542e54b7943ed48f80826f73cc59cfe79546f2a5ee12942f2b92c0559d6fa7bd",
+            "status": "editorial",
+            "contexts": [
+                "Editorial source-context pass: navigation, video Shorts product name (not clothing), upload Review/check action, stream status, storage quota, video captions, administrator device-distribution chart, dashboard and selection actions. Regional scripts retained; simple player terminology cross-checked in Mozilla localization sources. Sparse entries only where confidently reviewed; no claim of whole-pack acceptance."
+            ],
+            "reviewed_at": "2026-11-06T10:16:43+00:00"
+        },
+        "a6fc41e0727fc95d9239b2365dd19d1acf712c2b1f4f5990b59adea95ce5ef26": {
+            "source_hash": "4a819eaea7f49acaa5837c64f69a70843d4c64118eb509490bbb7fad61f10104",
+            "translation_hash": "11eeed083b644add7d98d81508c7ad672a293c25c56c6a93e31c7d42ff9a261b",
+            "status": "editorial",
+            "contexts": [
+                "Owner-approved 60-second strictly portrait Shorts policy. Complete current messages and historical180/square-compatible keys all express60seconds/portrait; automatic classification and empty state mention import without inventing encoding. Gaelic only confidently reviewed short constraints; no invented full auto/empty statement, Silesian withheld for native review."
+            ],
+            "reviewed_at": "2026-11-06T10:50:57+00:00"
+        },
+        "a731d46d9dae4592b071a26ad8fff659b31a0f3cc50c1cc1314d1dbe1b3909ba": {
+            "source_hash": "a731d46d9dae4592b071a26ad8fff659b31a0f3cc50c1cc1314d1dbe1b3909ba",
+            "translation_hash": "97c22b1529cada2c97d6b0eb31a215a0b7c151bad0f3f66e17749999a329d8d8",
+            "status": "verified",
+            "contexts": [
+                "Six complete standard email templates in Estonian, Latvian, Lithuanian, Belarusian, Basque, Frisian and Welsh. Friendly singular; no formal address; whole code/reset/invitation/restriction/moderator/live-moderator messages. Minute abbreviations keep1/2/15 valid without importing English plural forms. All named credentials/roles/URLs/date/restriction/title tokens and administrator overrides remain intact.",
+                "Actual EmailTemplates and BrandedEmail renderers (European northern/eastern groups): all 6 subjects/bodies; 1/2/15-minute expiry; literal usernames/roles/title/credentials/URLs retained; HTML escaping and LTR attributes; fixture-only override precedence; no sending or production writes. Rendering check, not complete visual email-client acceptance."
+            ],
+            "reviewed_at": "2026-11-06T11:38:09+00:00",
+            "verified_at": "2026-11-06T12:16:34+00:00"
+        },
+        "a8012f33f390c2cfe03096a8c1aa3588b952707b4b2210a5f949acd52ae521bf": {
+            "source_hash": "665560d063640cc0c09c13dedac17d8003082960e096bcf96ece534335984902",
+            "translation_hash": "dcb433d3334a0b379f56a7fbb0f2a8535287594831a89e438e87f7a8978f3954",
+            "status": "verified",
+            "contexts": [
+                "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented.",
+                "Actual browser localization of eight complete quantity messages, 0/1/2/3/5/11/21/101/1.5, including CLDR dual/few/many/zero and native anchor cases where applicable; 390px, no runtime errors or application writes"
+            ],
+            "reviewed_at": "2026-11-06T10:35:35+00:00",
+            "verified_at": "2026-11-06T10:48:46.747Z"
+        },
+        "aa5f1f6fc5689fbe2a88c9364ed36873507344ddc899813f8243825cebca5323": {
+            "source_hash": "aa5f1f6fc5689fbe2a88c9364ed36873507344ddc899813f8243825cebca5323",
+            "translation_hash": "98bcaa3c495f438e0a42f92ed1079c0136db13f6955789e9270d6d7253f7b73d",
+            "status": "verified",
+            "contexts": [
+                "Whole-message personal-address correction in Estonian/Latvian/Lithuanian/Slovenian/Croatian/Bosnian/Macedonian/Albanian/Serbian. Actual account/channel labels and form/chat/upload prompts; correct singular verb forms and script, no formal customer pronouns. Serbian Cyrillic retained.",
+                "Upload at 390px: actual navigation, review step, private-access wording and applicable personal form prompts; user input stays literal; no overflow/runtime errors/application writes"
+            ],
+            "reviewed_at": "2026-11-06T10:25:43+00:00",
+            "verified_at": "2026-11-06T11:11:30.206Z"
+        },
+        "ac11d6d758b0769de09e8e39f26c9558d79d5e5dccf6083d262e12c238d1c119": {
+            "source_hash": "ab95d4f48374bfc675eea310670103c4037ffe95fd94e9b319a4c536a4e1baeb",
+            "translation_hash": "bce1dfd6a52acf50cebe6dc2ddb3d7f73f2e487c47a626d47b2afe3a8b56e4ee",
+            "status": "verified",
+            "contexts": [
+                "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented.",
+                "Actual browser localization of eight complete quantity messages, 0/1/2/3/5/11/21/101/1.5, including CLDR dual/few/many/zero and native anchor cases where applicable; 390px, no runtime errors or application writes"
+            ],
+            "reviewed_at": "2026-11-06T10:35:35+00:00",
+            "verified_at": "2026-11-06T10:48:46.748Z"
+        },
+        "ac9f0be07636cd951add29579eba7bfdd7c257bed49f8cdc5bbdf0746af373ba": {
+            "source_hash": "ac9f0be07636cd951add29579eba7bfdd7c257bed49f8cdc5bbdf0746af373ba",
+            "translation_hash": "ae38f0d67e4885aafaac5fb651106f94dc9ba76ed33c7d9a2982b81d97eaaa0c",
+            "status": "verified",
+            "contexts": [
+                "Six complete standard email templates in Estonian, Latvian, Lithuanian, Belarusian, Basque, Frisian and Welsh. Friendly singular; no formal address; whole code/reset/invitation/restriction/moderator/live-moderator messages. Minute abbreviations keep1/2/15 valid without importing English plural forms. All named credentials/roles/URLs/date/restriction/title tokens and administrator overrides remain intact.",
+                "Actual EmailTemplates and BrandedEmail renderers (European northern/eastern groups): all 6 subjects/bodies; 1/2/15-minute expiry; literal usernames/roles/title/credentials/URLs retained; HTML escaping and LTR attributes; fixture-only override precedence; no sending or production writes. Rendering check, not complete visual email-client acceptance."
+            ],
+            "reviewed_at": "2026-11-06T11:38:09+00:00",
+            "verified_at": "2026-11-06T12:16:34+00:00"
+        },
+        "adcc7f0fe2f91341b63d68ea999ff4e0159af8a013b1338a157d1486f6f185df": {
+            "source_hash": "66251083bb65b3085af4b0715e407d7f512113433940c974ee3dbf2e43abdf1f",
+            "translation_hash": "0617e011082f19aa065e1d611962bd29d12727567e4f10e5464531259d6422e7",
+            "status": "editorial",
+            "contexts": [
+                "Private video visibility help checked against VideoSales::canViewPrivate: only owner and site administrators. No claim of a per-person sharing feature. Singular personal address. Gaelic/Silesian full sentence withheld pending concrete linguistic verification."
+            ],
+            "reviewed_at": "2026-11-06T10:20:02+00:00"
+        },
+        "ae520acacfafd159f42d51faa8ddd76ece4bae9993e95c48d58ed48e9db5046c": {
+            "source_hash": "ae520acacfafd159f42d51faa8ddd76ece4bae9993e95c48d58ed48e9db5046c",
+            "translation_hash": "6bf81c519a17c2c6825807330e3a76c9b09872af7e77c2056dd4d88429354c25",
+            "status": "editorial",
+            "contexts": [
+                "Whole-message personal-address correction in Estonian/Latvian/Lithuanian/Slovenian/Croatian/Bosnian/Macedonian/Albanian/Serbian. Actual account/channel labels and form/chat/upload prompts; correct singular verb forms and script, no formal customer pronouns. Serbian Cyrillic retained."
+            ],
+            "reviewed_at": "2026-11-06T10:25:43+00:00"
+        },
+        "af8cbab6829c94ddcc18f671075e7630c374168be5969b047e31b910d4198522": {
+            "source_hash": "af8cbab6829c94ddcc18f671075e7630c374168be5969b047e31b910d4198522",
+            "translation_hash": "6ff1fc40a6fd4cbb94c9e1f432fe47abe5b8b824b07e815725f733a6e77d6a69",
+            "status": "editorial",
+            "contexts": [
+                "Whole-message personal-address correction in Estonian/Latvian/Lithuanian/Slovenian/Croatian/Bosnian/Macedonian/Albanian/Serbian. Actual account/channel labels and form/chat/upload prompts; correct singular verb forms and script, no formal customer pronouns. Serbian Cyrillic retained."
+            ],
+            "reviewed_at": "2026-11-06T10:25:43+00:00"
+        },
+        "afd848bd6cfc89b421938f8deda6c672aebcfb18b1c3d7c0ebe56ccdbbf04ed7": {
+            "source_hash": "9719bbf6d0a23fa44f964aa7e8c20ab27c8ccba00727a2cd9fd90ae2ffb9bfd0",
+            "translation_hash": "6e50799073b89b6b044f380d6e57bfc1fda64363ffda4e15628e27af32a1d8c3",
+            "status": "verified",
+            "contexts": [
+                "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented.",
+                "Actual browser localization of eight complete quantity messages, 0/1/2/3/5/11/21/101/1.5, including CLDR dual/few/many/zero and native anchor cases where applicable; 390px, no runtime errors or application writes"
+            ],
+            "reviewed_at": "2026-11-06T10:35:35+00:00",
+            "verified_at": "2026-11-06T10:48:46.748Z"
+        },
+        "aff0766a5290e117b8433c351bae7b7b23bed682b2369bd822d88a647cc58512": {
+            "source_hash": "aff0766a5290e117b8433c351bae7b7b23bed682b2369bd822d88a647cc58512",
+            "translation_hash": "083e3cce4b2fb162ad574bf8bb819cb70a60af1c2caad3a45938ef26a2683785",
+            "status": "verified",
+            "contexts": [
+                "Editorial source-context pass: navigation, video Shorts product name (not clothing), upload Review/check action, stream status, storage quota, video captions, administrator device-distribution chart, dashboard and selection actions. Regional scripts retained; simple player terminology cross-checked in Mozilla localization sources. Sparse entries only where confidently reviewed; no claim of whole-pack acceptance.",
+                "Upload at 390px: actual navigation, review step, private-access wording and applicable personal form prompts; user input stays literal; no overflow/runtime errors/application writes"
+            ],
+            "reviewed_at": "2026-11-06T10:16:43+00:00",
+            "verified_at": "2026-11-06T11:11:30.206Z"
+        },
+        "b3898a8ae204fd95477952b7a71cd4b5de438328c0db1cca9e8bb73b47dc2596": {
+            "source_hash": "c6a4abaa3a61494fe6c1fc669767b26b9276845ff1ff8436b0aba3bb65ff506f",
+            "translation_hash": "156febaee38dd3405daf767caf3e8dfa9eeac61023e9b1fbbedbeb254152683d",
+            "status": "verified",
+            "contexts": [
+                "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented.",
+                "Actual browser localization of eight complete quantity messages, 0/1/2/3/5/11/21/101/1.5, including CLDR dual/few/many/zero and native anchor cases where applicable; 390px, no runtime errors or application writes"
+            ],
+            "reviewed_at": "2026-11-06T10:35:35+00:00",
+            "verified_at": "2026-11-06T10:48:46.748Z"
+        },
+        "b50d0998ff89ca749627f3472b09a9d5657b3899ea09b127660014f420ff0c58": {
+            "source_hash": "b50d0998ff89ca749627f3472b09a9d5657b3899ea09b127660014f420ff0c58",
+            "translation_hash": "56419285529a1c66adfc12af81aa61a4f596d2b63d218847fb2ad465007dbb1c",
+            "status": "verified",
+            "contexts": [
+                "Complete Creator Studio comment action menu labels. Pin/unpin are paired actions, report is moderation, copy only copies a link. Mute action hides that user’s content and notifications rather than deleting or blocking their account. Proper user names/comment bodies are excluded. Infinitives and personal singular imperatives are idiomatic per locale; no formal address.",
+                "Creator Studio comments: pinned/unpinned menu, reply/copy/mute/report/delete labels at390px; original author/body/mention/tag retained, complete localized mention-action titles; menus only, no action mutations or runtime errors"
+            ],
+            "reviewed_at": "2026-11-06T11:15:06+00:00",
+            "verified_at": "2026-11-06T11:18:09.022Z"
+        },
+        "b636e898cbb3dddaa88b1a3ffc1e4f5db33bcc61f483e778c53ad0b689c8e920": {
+            "source_hash": "b636e898cbb3dddaa88b1a3ffc1e4f5db33bcc61f483e778c53ad0b689c8e920",
+            "translation_hash": "8c7b00466caddbaaffbcfaf1110912d914c82d4e87ebead4df2cd443d2289269",
+            "status": "editorial",
+            "contexts": [
+                "Whole-message personal-address correction in Estonian/Latvian/Lithuanian/Slovenian/Croatian/Bosnian/Macedonian/Albanian/Serbian. Actual account/channel labels and form/chat/upload prompts; correct singular verb forms and script, no formal customer pronouns. Serbian Cyrillic retained."
+            ],
+            "reviewed_at": "2026-11-06T10:25:43+00:00"
+        },
+        "b64ac05f17e64d037db81a98f51e2688216e292ae9748f979f04dfbac49fd7fc": {
+            "source_hash": "b64ac05f17e64d037db81a98f51e2688216e292ae9748f979f04dfbac49fd7fc",
+            "translation_hash": "974f64a07ee0acaadaf757753f00d22339c812520a390c612652cb6138af53b7",
+            "status": "editorial",
+            "contexts": [
+                "Editorial source-context pass: navigation, video Shorts product name (not clothing), upload Review/check action, stream status, storage quota, video captions, administrator device-distribution chart, dashboard and selection actions. Regional scripts retained; simple player terminology cross-checked in Mozilla localization sources. Sparse entries only where confidently reviewed; no claim of whole-pack acceptance."
+            ],
+            "reviewed_at": "2026-11-06T10:16:43+00:00"
+        },
+        "b6b5ec7996d07581a2ee732c87a9106d17edb939ed024bfcd1c1550cf26f0fee": {
+            "source_hash": "7a17802d1a461d8d601d47a39cd4dda66aa2a3e4020f47d87f4f4c6cb7227afd",
+            "translation_hash": "fe8eda343d9947b9265f2159bf667ae992478eb9f7404633373a20bc634ce7a2",
+            "status": "editorial",
+            "contexts": [
+                "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented."
+            ],
+            "reviewed_at": "2026-11-06T10:35:35+00:00"
+        },
+        "b7da44afd6275b62c4a903d5a47da5b52446856d2ab8f575fa8b7a21313c91e5": {
+            "source_hash": "b7da44afd6275b62c4a903d5a47da5b52446856d2ab8f575fa8b7a21313c91e5",
+            "translation_hash": "0d058eed91642f2af357d6c58a3602eccd6a5e5c3ae882853258ac6a70179047",
+            "status": "verified",
+            "contexts": [
+                "Complete chapter editor/validation messages with named placeholders: maximum count, first0:00 for manual chapters, invalid/ordered/gapped timestamps, must start before video end, names and160-character limit. Checkbox name aligned with quoted recovery action; personal singular imperative, provider/user chapter names never translated. SI seconds avoid false cardinal inflection at1s versus10s. Silesian/Gaelic/Basque long validation not guessed.",
+                "Actual manual chapter editor at390px: complete checkbox/name labels, missing names1/2,10s minimum gap, invalid time and chapter at exact video end; correct import-success confirmation after a stubbed submit; original title and chapter names retained; no overflow/runtime errors/application writes"
+            ],
+            "reviewed_at": "2026-11-06T11:19:22+00:00",
+            "verified_at": "2026-11-06T11:22:54.219Z"
+        },
+        "b7f84b495e7c0aeb6201bd8f7e5c6a8cdd44d9a7e4ba7887aa44a8f6d68e351a": {
+            "source_hash": "7264dcd533756db7b58b09adef31d8af2267e23592c50aab0ad5572f5afe56e6",
+            "translation_hash": "39be480077d3c85ffdc6c850956316de0d717c9f557d3ee20b664f1f81c7c880",
+            "status": "verified",
+            "contexts": [
+                "Six complete standard email templates in Estonian, Latvian, Lithuanian, Belarusian, Basque, Frisian and Welsh. Friendly singular; no formal address; whole code/reset/invitation/restriction/moderator/live-moderator messages. Minute abbreviations keep1/2/15 valid without importing English plural forms. All named credentials/roles/URLs/date/restriction/title tokens and administrator overrides remain intact.",
+                "Actual EmailTemplates and BrandedEmail renderers (European northern/eastern groups): all 6 subjects/bodies; 1/2/15-minute expiry; literal usernames/roles/title/credentials/URLs retained; HTML escaping and LTR attributes; fixture-only override precedence; no sending or production writes. Rendering check, not complete visual email-client acceptance."
+            ],
+            "reviewed_at": "2026-11-06T11:38:09+00:00",
+            "verified_at": "2026-11-06T12:16:34+00:00"
+        },
+        "b805e2e33fc4872d34dbc55fe497740978755c672f8d4720227511a67c51b75a": {
+            "source_hash": "9719bbf6d0a23fa44f964aa7e8c20ab27c8ccba00727a2cd9fd90ae2ffb9bfd0",
+            "translation_hash": "3979c4ae944d311f5cf17d186bc0b9c609f49cca30e5c93c9753c1ead443119b",
+            "status": "verified",
+            "contexts": [
+                "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented.",
+                "Actual browser localization of eight complete quantity messages, 0/1/2/3/5/11/21/101/1.5, including CLDR dual/few/many/zero and native anchor cases where applicable; 390px, no runtime errors or application writes"
+            ],
+            "reviewed_at": "2026-11-06T10:35:35+00:00",
+            "verified_at": "2026-11-06T10:48:46.748Z"
+        },
+        "b8ca686f453f4499fd69aa0974e82bb08977c032b5bf76255f84923879b72ed7": {
+            "source_hash": "b8ca686f453f4499fd69aa0974e82bb08977c032b5bf76255f84923879b72ed7",
+            "translation_hash": "9fee4144e4f5963e5aceda82bb0dcffe32cc9aee88d628a2e5c10ea7013ab84a",
+            "status": "editorial",
+            "contexts": [
+                "Whole-message personal-address correction in Estonian/Latvian/Lithuanian/Slovenian/Croatian/Bosnian/Macedonian/Albanian/Serbian. Actual account/channel labels and form/chat/upload prompts; correct singular verb forms and script, no formal customer pronouns. Serbian Cyrillic retained."
+            ],
+            "reviewed_at": "2026-11-06T10:25:43+00:00"
+        },
+        "b8ef914365fb9deaefbc8ca386dee4a8936ee9a221b80679d38879d78668cf93": {
+            "source_hash": "b8ef914365fb9deaefbc8ca386dee4a8936ee9a221b80679d38879d78668cf93",
+            "translation_hash": "56a97e699087fc78d4efcf3a8d8f30123f4d757525a04f9bc06a84bfad2e15cf",
+            "status": "editorial",
+            "contexts": [
+                "Editorial source-context pass: navigation, video Shorts product name (not clothing), upload Review/check action, stream status, storage quota, video captions, administrator device-distribution chart, dashboard and selection actions. Regional scripts retained; simple player terminology cross-checked in Mozilla localization sources. Sparse entries only where confidently reviewed; no claim of whole-pack acceptance."
+            ],
+            "reviewed_at": "2026-11-06T10:16:43+00:00"
+        },
+        "ba6984c4c1302b4a1b9f0069c4f0f08ce4d632b3dc15525262ca22bcdea90bad": {
+            "source_hash": "fc2673773d21f7212f14bc4701c667a6887a68310c2c95533b3a4414e62a4746",
+            "translation_hash": "8b0352301a687b442b38a4a119321717c6aa557958110f4b986eac5bac11e0e5",
+            "status": "verified",
+            "contexts": [
+                "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented.",
+                "Actual browser localization of eight complete quantity messages, 0/1/2/3/5/11/21/101/1.5, including CLDR dual/few/many/zero and native anchor cases where applicable; 390px, no runtime errors or application writes"
+            ],
+            "reviewed_at": "2026-11-06T10:35:35+00:00",
+            "verified_at": "2026-11-06T10:48:46.748Z"
+        },
+        "bb954d61fd855c5c03d727bdf0b1b834fcff698322b95d94546acf10846e5e76": {
+            "source_hash": "26bfe5f058be83a797974252e939b585fa3a5b0c22602e7ec2c5730cef02f359",
+            "translation_hash": "7abfada6c9549f4322482fa0b18d7d151fd4cea225c3a245da4459e7ba3f055d",
+            "status": "editorial",
+            "contexts": [
+                "Complete password-strength validation, verification-code countdown and four actual ASCII character-class hints. Named level/time preserved. A–Z/a–z/0–9 remain explicit in every script; accented/non-Latin letters are never falsely promised to satisfy these classes. Personal singular, including Frisian/Welsh/Balkan prompts. No policy or strength algorithm changes."
+            ],
+            "reviewed_at": "2026-11-06T11:33:11+00:00"
+        },
+        "bd212a1b21028cb30a522792fd6b72163b3a48b7f3c23bb86e911aaaf91e33b6": {
+            "source_hash": "ab95d4f48374bfc675eea310670103c4037ffe95fd94e9b319a4c536a4e1baeb",
+            "translation_hash": "9c76d52c3bbdb5f93f1813590ee1cc0a1525bb2517160917003f6787227059e0",
+            "status": "verified",
+            "contexts": [
+                "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented.",
+                "Actual browser localization of eight complete quantity messages, 0/1/2/3/5/11/21/101/1.5, including CLDR dual/few/many/zero and native anchor cases where applicable; 390px, no runtime errors or application writes"
+            ],
+            "reviewed_at": "2026-11-06T10:35:35+00:00",
+            "verified_at": "2026-11-06T10:48:46.748Z"
+        },
+        "c12d56f298c3d990b10462e85eb8c723c643b354e2cc9bc47e14aecdce91de8d": {
+            "source_hash": "c12d56f298c3d990b10462e85eb8c723c643b354e2cc9bc47e14aecdce91de8d",
+            "translation_hash": "c0f7dde75606d747f4d87c5b2f40216184f6e505f0b41a5c131b1fdb68d7ca57",
+            "status": "editorial",
+            "contexts": [
+                "Whole-message personal-address correction in Estonian/Latvian/Lithuanian/Slovenian/Croatian/Bosnian/Macedonian/Albanian/Serbian. Actual account/channel labels and form/chat/upload prompts; correct singular verb forms and script, no formal customer pronouns. Serbian Cyrillic retained."
+            ],
+            "reviewed_at": "2026-11-06T10:25:43+00:00"
+        },
+        "c1781a8668f2fbe9bc83da8dc08fefee631b250c047e1f39c9063db2a356d271": {
+            "source_hash": "b5e323788c7bae3783f65123e9de2b0ce52de766ff440de31a9344933019d971",
+            "translation_hash": "04032f9abe50056c77f50e292da39158ddd339f0e2473ca7659b5fad0062aec5",
+            "status": "editorial",
+            "contexts": [
+                "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented."
+            ],
+            "reviewed_at": "2026-11-06T10:35:35+00:00"
+        },
+        "c253f451bdd56431ff15f638498d0003c36aabd5b07e5d21aaa7f1391410747c": {
+            "source_hash": "c253f451bdd56431ff15f638498d0003c36aabd5b07e5d21aaa7f1391410747c",
+            "translation_hash": "37440b2f97acb31b71c3242462b3b659f826b59845d57434a45bad7c9b3d86a9",
+            "status": "verified",
+            "contexts": [
+                "Complete Creator Studio comment action menu labels. Pin/unpin are paired actions, report is moderation, copy only copies a link. Mute action hides that user’s content and notifications rather than deleting or blocking their account. Proper user names/comment bodies are excluded. Infinitives and personal singular imperatives are idiomatic per locale; no formal address.",
+                "Creator Studio comments: pinned/unpinned menu, reply/copy/mute/report/delete labels at390px; original author/body/mention/tag retained, complete localized mention-action titles; menus only, no action mutations or runtime errors"
+            ],
+            "reviewed_at": "2026-11-06T11:15:06+00:00",
+            "verified_at": "2026-11-06T11:18:09.022Z"
+        },
+        "c2d5ea49b60395ccffee27c10b3998b97d3f1c9d3218e2f32dd774be50914da3": {
+            "source_hash": "c2d5ea49b60395ccffee27c10b3998b97d3f1c9d3218e2f32dd774be50914da3",
+            "translation_hash": "199f190a68b997e27f11a0b677681b5497312aeac3ff48c098c9172b45636c5e",
+            "status": "verified",
+            "contexts": [
+                "Complete chapter editor/validation messages with named placeholders: maximum count, first0:00 for manual chapters, invalid/ordered/gapped timestamps, must start before video end, names and160-character limit. Checkbox name aligned with quoted recovery action; personal singular imperative, provider/user chapter names never translated. SI seconds avoid false cardinal inflection at1s versus10s. Silesian/Gaelic/Basque long validation not guessed.",
+                "Actual manual chapter editor at390px: complete checkbox/name labels, missing names1/2,10s minimum gap, invalid time and chapter at exact video end; correct import-success confirmation after a stubbed submit; original title and chapter names retained; no overflow/runtime errors/application writes"
+            ],
+            "reviewed_at": "2026-11-06T11:19:22+00:00",
+            "verified_at": "2026-11-06T11:22:54.219Z"
+        },
+        "c34dd5f8246e25388de1b5b74b7a79aa9c8012f8fde53a5256ee86c2cc1aec66": {
+            "source_hash": "66251083bb65b3085af4b0715e407d7f512113433940c974ee3dbf2e43abdf1f",
+            "translation_hash": "0617e011082f19aa065e1d611962bd29d12727567e4f10e5464531259d6422e7",
+            "status": "verified",
+            "contexts": [
+                "Private video visibility help checked against VideoSales::canViewPrivate: only owner and site administrators. No claim of a per-person sharing feature. Singular personal address. Gaelic/Silesian full sentence withheld pending concrete linguistic verification.",
+                "Upload at 390px: actual navigation, review step, private-access wording and applicable personal form prompts; user input stays literal; no overflow/runtime errors/application writes"
+            ],
+            "reviewed_at": "2026-11-06T10:20:02+00:00",
+            "verified_at": "2026-11-06T11:11:30.206Z"
+        },
+        "c41dcd1dac7ff7abcf6bd233df902ab7ecd2b70dda6ec764566f2c24b4e4abd5": {
+            "source_hash": "c41dcd1dac7ff7abcf6bd233df902ab7ecd2b70dda6ec764566f2c24b4e4abd5",
+            "translation_hash": "1bcbc353fb3cc29a489c600ba7723dc9367520bf72cc32add0e0e3c9e6b743c9",
+            "status": "verified",
+            "contexts": [
+                "Six complete standard email templates in Estonian, Latvian, Lithuanian, Belarusian, Basque, Frisian and Welsh. Friendly singular; no formal address; whole code/reset/invitation/restriction/moderator/live-moderator messages. Minute abbreviations keep1/2/15 valid without importing English plural forms. All named credentials/roles/URLs/date/restriction/title tokens and administrator overrides remain intact.",
+                "Actual EmailTemplates and BrandedEmail renderers (European northern/eastern groups): all 6 subjects/bodies; 1/2/15-minute expiry; literal usernames/roles/title/credentials/URLs retained; HTML escaping and LTR attributes; fixture-only override precedence; no sending or production writes. Rendering check, not complete visual email-client acceptance."
+            ],
+            "reviewed_at": "2026-11-06T11:38:09+00:00",
+            "verified_at": "2026-11-06T12:16:34+00:00"
+        },
+        "c527756fcc93c94f9059063c56cf6dcbda7f334cec2b76c325d92ef63a46c50b": {
+            "source_hash": "b30e22bf4e275665c48036fda1e0ef4fea009d2d0d9752dbf4c18dff04c48f78",
+            "translation_hash": "89df0cef85fda28d08d202eef2734530378d65c8ba25c30bcf8d3253a599fd3f",
+            "status": "verified",
+            "contexts": [
+                "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented.",
+                "Actual browser localization of eight complete quantity messages, 0/1/2/3/5/11/21/101/1.5, including CLDR dual/few/many/zero and native anchor cases where applicable; 390px, no runtime errors or application writes"
+            ],
+            "reviewed_at": "2026-11-06T10:35:35+00:00",
+            "verified_at": "2026-11-06T10:48:46.748Z"
+        },
+        "c533ce68cc2e36f4a61b2aed36f8c8142b3796f33fa2f139f19a08a19f7198d7": {
+            "source_hash": "c533ce68cc2e36f4a61b2aed36f8c8142b3796f33fa2f139f19a08a19f7198d7",
+            "translation_hash": "d7b06b30d3fb2b5d64f5e445a745cecef1a7f47bbe4aaafbcc411b7e82766c84",
+            "status": "verified",
+            "contexts": [
+                "Six complete standard email templates in Estonian, Latvian, Lithuanian, Belarusian, Basque, Frisian and Welsh. Friendly singular; no formal address; whole code/reset/invitation/restriction/moderator/live-moderator messages. Minute abbreviations keep1/2/15 valid without importing English plural forms. All named credentials/roles/URLs/date/restriction/title tokens and administrator overrides remain intact.",
+                "Actual EmailTemplates and BrandedEmail renderers (European northern/eastern groups): all 6 subjects/bodies; 1/2/15-minute expiry; literal usernames/roles/title/credentials/URLs retained; HTML escaping and LTR attributes; fixture-only override precedence; no sending or production writes. Rendering check, not complete visual email-client acceptance."
+            ],
+            "reviewed_at": "2026-11-06T11:38:09+00:00",
+            "verified_at": "2026-11-06T12:16:34+00:00"
+        },
+        "c8de7216695dcde2ae2cf8d4fa27437f6df16e128338d78ce5fb3249c88bf04f": {
+            "source_hash": "c8de7216695dcde2ae2cf8d4fa27437f6df16e128338d78ce5fb3249c88bf04f",
+            "translation_hash": "c8713f964112aef05dedfbdf15b5443bff468d6c5d20b9defb0cfc6d13b355d1",
+            "status": "verified",
+            "contexts": [
+                "Complete optional video transcript panel labels, loading, actual failed HTTP request and accessibility text. The transcript body is provider/author content and stays untouched, including words that match interface keys. Existing retry button supplies retry action; no request failure causes invented.",
+                "Actual optional watch transcript panel at390px: summary, held loading request,503 failure, explicit retry and unchanged provider transcript body/accessible label; no overflow/runtime errors/application writes"
+            ],
+            "reviewed_at": "2026-11-06T11:20:32+00:00",
+            "verified_at": "2026-11-06T11:36:47.654Z"
+        },
+        "cc0e38da9c41790bffef1b88af32d39ac285edce93da766810edc237cb2f1625": {
+            "source_hash": "cc0e38da9c41790bffef1b88af32d39ac285edce93da766810edc237cb2f1625",
+            "translation_hash": "a5dcb9677d8268bbbadc61acc564ef4c34b1cf60f203b56020651cfeb2d5aad5",
+            "status": "editorial",
+            "contexts": [
+                "Editorial source-context pass: navigation, video Shorts product name (not clothing), upload Review/check action, stream status, storage quota, video captions, administrator device-distribution chart, dashboard and selection actions. Regional scripts retained; simple player terminology cross-checked in Mozilla localization sources. Sparse entries only where confidently reviewed; no claim of whole-pack acceptance."
+            ],
+            "reviewed_at": "2026-11-06T10:16:43+00:00"
+        },
+        "cc578638f76039e1cfda54b6337011e4360929dc294bfd1d87bf364ed0bca50f": {
+            "source_hash": "07f6a4e0d43ae4601b00b4e9d8847ac8902eb88fe26e7f422d13702ce846a266",
+            "translation_hash": "3a082d995aa4ea930098b52de06a0109b72ba7bd93768b0eb1be485bdee2170b",
+            "status": "verified",
+            "contexts": [
+                "Six complete standard email templates in Estonian, Latvian, Lithuanian, Belarusian, Basque, Frisian and Welsh. Friendly singular; no formal address; whole code/reset/invitation/restriction/moderator/live-moderator messages. Minute abbreviations keep1/2/15 valid without importing English plural forms. All named credentials/roles/URLs/date/restriction/title tokens and administrator overrides remain intact.",
+                "Actual EmailTemplates and BrandedEmail renderers (European northern/eastern groups): all 6 subjects/bodies; 1/2/15-minute expiry; literal usernames/roles/title/credentials/URLs retained; HTML escaping and LTR attributes; fixture-only override precedence; no sending or production writes. Rendering check, not complete visual email-client acceptance."
+            ],
+            "reviewed_at": "2026-11-06T11:38:09+00:00",
+            "verified_at": "2026-11-06T12:16:34+00:00"
+        },
+        "cddeba52c286e1c78b09fec91d53c64f43a94737025c5877d777745a786b874e": {
+            "source_hash": "cddeba52c286e1c78b09fec91d53c64f43a94737025c5877d777745a786b874e",
+            "translation_hash": "1d45236384be0654b897459c49089548140db3730a5acba214f367f06b654398",
+            "status": "editorial",
+            "contexts": [
+                "Whole-message personal-address correction in Estonian/Latvian/Lithuanian/Slovenian/Croatian/Bosnian/Macedonian/Albanian/Serbian. Actual account/channel labels and form/chat/upload prompts; correct singular verb forms and script, no formal customer pronouns. Serbian Cyrillic retained."
+            ],
+            "reviewed_at": "2026-11-06T10:25:43+00:00"
+        },
+        "cea4d2e010b8fd52bc28a66eca24ff0d616b2c7d982545757780c196c5cc04c7": {
+            "source_hash": "cea4d2e010b8fd52bc28a66eca24ff0d616b2c7d982545757780c196c5cc04c7",
+            "translation_hash": "f00c665fdcbaaab2e6fdf615e1fc938cf3d5b93a06203ae332fb8e06f42799c6",
+            "status": "editorial",
+            "contexts": [
+                "Editorial source-context pass: navigation, video Shorts product name (not clothing), upload Review/check action, stream status, storage quota, video captions, administrator device-distribution chart, dashboard and selection actions. Regional scripts retained; simple player terminology cross-checked in Mozilla localization sources. Sparse entries only where confidently reviewed; no claim of whole-pack acceptance."
+            ],
+            "reviewed_at": "2026-11-06T10:16:43+00:00"
+        },
+        "d21fb351cb4a4a9101f50778235609204c96d161502a1ffc2f49595197f60aba": {
+            "source_hash": "d21fb351cb4a4a9101f50778235609204c96d161502a1ffc2f49595197f60aba",
+            "translation_hash": "75f5f0e3f9773643fd1dde8661c9837c8122c18d10c768d3f93c566f89e903d1",
+            "status": "editorial",
+            "contexts": [
+                "Complete password-strength validation, verification-code countdown and four actual ASCII character-class hints. Named level/time preserved. A–Z/a–z/0–9 remain explicit in every script; accented/non-Latin letters are never falsely promised to satisfy these classes. Personal singular, including Frisian/Welsh/Balkan prompts. No policy or strength algorithm changes."
+            ],
+            "reviewed_at": "2026-11-06T11:33:11+00:00"
+        },
+        "d337201ad56fb39d7f72598b917c11dce3cc3e323da8fe926b8dd7c8a0e22c8f": {
+            "source_hash": "665560d063640cc0c09c13dedac17d8003082960e096bcf96ece534335984902",
+            "translation_hash": "887d8676e672cc14fbd9e08775e39b3f7cff23dfe2cbedfc93291a8cf8efbe4c",
+            "status": "editorial",
+            "contexts": [
+                "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented."
+            ],
+            "reviewed_at": "2026-11-06T10:35:35+00:00"
+        },
+        "d4b2a4fbc71366a7cc1908b24085073ca221effd5833e45c59cf371333f1daa4": {
+            "source_hash": "fc2673773d21f7212f14bc4701c667a6887a68310c2c95533b3a4414e62a4746",
+            "translation_hash": "dbdfc922a3d17b4fb1220fe3fdc6304e90e33074ef53cc8f42aac0bdf08103ef",
+            "status": "verified",
+            "contexts": [
+                "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented.",
+                "Actual browser localization of eight complete quantity messages, 0/1/2/3/5/11/21/101/1.5, including CLDR dual/few/many/zero and native anchor cases where applicable; 390px, no runtime errors or application writes"
+            ],
+            "reviewed_at": "2026-11-06T10:35:35+00:00",
+            "verified_at": "2026-11-06T10:48:46.748Z"
+        },
+        "d6f05f42fd1b0beb0e33faacc3b686ff484d8ca5eb008fd25498698b2d6d6e92": {
+            "source_hash": "0fb51d778aa1abff81b66e02b32307251a2970ad648294dd8474311989c86981",
+            "translation_hash": "360d5f6adcdb207ea15856f38abb1a8a35b1352f7fe0a764840045d8cabd8e07",
+            "status": "editorial",
+            "contexts": [
+                "Owner-approved 60-second strictly portrait Shorts policy. Complete current messages and historical180/square-compatible keys all express60seconds/portrait; automatic classification and empty state mention import without inventing encoding. Gaelic only confidently reviewed short constraints; no invented full auto/empty statement, Silesian withheld for native review."
+            ],
+            "reviewed_at": "2026-11-06T10:50:57+00:00"
+        },
+        "de87937934a2dbf8d61903838eac8e763c1c698cdc3b57f1815ed74ae1441ae8": {
+            "source_hash": "de87937934a2dbf8d61903838eac8e763c1c698cdc3b57f1815ed74ae1441ae8",
+            "translation_hash": "de88b55d7e7ad8c130f3accf52120828e7fc75e6a8bd63b9d6e47f51a3594dec",
+            "status": "editorial",
+            "contexts": [
+                "Owner-approved 60-second strictly portrait Shorts policy. Complete current messages and historical180/square-compatible keys all express60seconds/portrait; automatic classification and empty state mention import without inventing encoding. Gaelic only confidently reviewed short constraints; no invented full auto/empty statement, Silesian withheld for native review."
+            ],
+            "reviewed_at": "2026-11-06T10:50:57+00:00"
+        },
+        "e595c6664ae62395ece303976ee47e47d531420a768ad387e1a7d00dd83b8ea8": {
+            "source_hash": "e595c6664ae62395ece303976ee47e47d531420a768ad387e1a7d00dd83b8ea8",
+            "translation_hash": "35df83e53f5e76b736615df0fabfdfa8ad126c8a7ed9e016af17c5ecd2b7750a",
+            "status": "editorial",
+            "contexts": [
+                "Whole-message personal-address correction in Estonian/Latvian/Lithuanian/Slovenian/Croatian/Bosnian/Macedonian/Albanian/Serbian. Actual account/channel labels and form/chat/upload prompts; correct singular verb forms and script, no formal customer pronouns. Serbian Cyrillic retained."
+            ],
+            "reviewed_at": "2026-11-06T10:25:43+00:00"
+        },
+        "e77fea936d3e011848f62b927213d94d95a71bdca16e3d7490bcbd65e16824f0": {
+            "source_hash": "e77fea936d3e011848f62b927213d94d95a71bdca16e3d7490bcbd65e16824f0",
+            "translation_hash": "433784084b9dd7e358132940c491023142e4834e43232a7445636d2c2d2167b1",
+            "status": "editorial",
+            "contexts": [
+                "Whole-message personal-address correction in Estonian/Latvian/Lithuanian/Slovenian/Croatian/Bosnian/Macedonian/Albanian/Serbian. Actual account/channel labels and form/chat/upload prompts; correct singular verb forms and script, no formal customer pronouns. Serbian Cyrillic retained."
+            ],
+            "reviewed_at": "2026-11-06T10:25:43+00:00"
+        },
+        "eec8002cba39a624ba045f68e3f5f535972d66162aba6e3b9f1d13838aabc364": {
+            "source_hash": "cedf1a91d91f00d31c4409dcbec2076e971b4701ad70605573d497a9b8dd1da7",
+            "translation_hash": "024c36ba8f30e1b616d481a62b8d58fe99245095b1c64d0d80c4129f2b743b8a",
+            "status": "verified",
+            "contexts": [
+                "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented.",
+                "Actual browser localization of eight complete quantity messages, 0/1/2/3/5/11/21/101/1.5, including CLDR dual/few/many/zero and native anchor cases where applicable; 390px, no runtime errors or application writes"
+            ],
+            "reviewed_at": "2026-11-06T10:35:35+00:00",
+            "verified_at": "2026-11-06T10:48:46.747Z"
+        },
+        "f3bb93249714c8b8f365af05aa98c136ada6a4b882365580e7dac2d4c48314e6": {
+            "source_hash": "32fc8a36b656f391302a3690066e62c06c0e698693fb627f05cac08a39f359e5",
+            "translation_hash": "b3f716b93adddafae2a0e51fd2f9f8266cad99b5cbefcef4a2b4b187a74c6ac4",
+            "status": "editorial",
+            "contexts": [
+                "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented."
+            ],
+            "reviewed_at": "2026-11-06T10:35:35+00:00"
+        },
+        "fa273b9b0012d00997205a065e77eecddad55dc2d1fb04d834ca3ba34b97edb6": {
+            "source_hash": "32fc8a36b656f391302a3690066e62c06c0e698693fb627f05cac08a39f359e5",
+            "translation_hash": "c20c7702a3853ee7da273feecdc76b0c4628f814a88713623cd84e5830ce723d",
+            "status": "verified",
+            "contexts": [
+                "Editorial complete count phrases for users/videos/comments/subscribers/views/likes/replies/Playlists. Named CLDR forms include zero/few/many/two where needed. Generic localized heading-count labels remain grammar-independent fallback; Welsh/Gaelic use those complete labels instead of guessed numeral mutations. Existing other metadata preserved by partial patches. No Silesian native count wording invented.",
+                "Actual browser localization of eight complete quantity messages, 0/1/2/3/5/11/21/101/1.5, including CLDR dual/few/many/zero and native anchor cases where applicable; 390px, no runtime errors or application writes"
+            ],
+            "reviewed_at": "2026-11-06T10:35:35+00:00",
+            "verified_at": "2026-11-06T10:48:46.748Z"
+        },
+        "fb3962e85ebd9896f3d5e76fbcf7dd65d98c4d41f35bb2adec3bc03d1e90fc2f": {
+            "source_hash": "fb3962e85ebd9896f3d5e76fbcf7dd65d98c4d41f35bb2adec3bc03d1e90fc2f",
+            "translation_hash": "903e2fdb9cb6e4e0c9df9dce5eccfd9a787563a33ec6bc934f38287659e26d4b",
+            "status": "verified",
+            "contexts": [
+                "Complete chapter editor/validation messages with named placeholders: maximum count, first0:00 for manual chapters, invalid/ordered/gapped timestamps, must start before video end, names and160-character limit. Checkbox name aligned with quoted recovery action; personal singular imperative, provider/user chapter names never translated. SI seconds avoid false cardinal inflection at1s versus10s. Silesian/Gaelic/Basque long validation not guessed.",
+                "Actual manual chapter editor at390px: complete checkbox/name labels, missing names1/2,10s minimum gap, invalid time and chapter at exact video end; correct import-success confirmation after a stubbed submit; original title and chapter names retained; no overflow/runtime errors/application writes"
+            ],
+            "reviewed_at": "2026-11-06T11:19:22+00:00",
+            "verified_at": "2026-11-06T11:22:54.219Z"
+        },
+        "fb9d4acc100f1720b427fdde5d75587e6b53c57bccfc9a5495e84a792034322a": {
+            "source_hash": "4fcff7391dc118f561c7fd42e37211115763d147df1d5da3045918a5cfc9ad45",
+            "translation_hash": "360d5f6adcdb207ea15856f38abb1a8a35b1352f7fe0a764840045d8cabd8e07",
+            "status": "editorial",
+            "contexts": [
+                "Owner-approved 60-second strictly portrait Shorts policy. Complete current messages and historical180/square-compatible keys all express60seconds/portrait; automatic classification and empty state mention import without inventing encoding. Gaelic only confidently reviewed short constraints; no invented full auto/empty statement, Silesian withheld for native review."
+            ],
+            "reviewed_at": "2026-11-06T10:50:57+00:00"
+        },
+        "fc5b51606e9734860e427b84933a670d3778d460c652baaa91a83e3c7cbfde11": {
+            "source_hash": "fc5b51606e9734860e427b84933a670d3778d460c652baaa91a83e3c7cbfde11",
+            "translation_hash": "c3a0a3f941813e08f0155a8fc2b5eb290344a2de41553bbef4dc6e62c76bcd61",
+            "status": "editorial",
+            "contexts": [
+                "Editorial source-context pass: navigation, video Shorts product name (not clothing), upload Review/check action, stream status, storage quota, video captions, administrator device-distribution chart, dashboard and selection actions. Regional scripts retained; simple player terminology cross-checked in Mozilla localization sources. Sparse entries only where confidently reviewed; no claim of whole-pack acceptance."
+            ],
+            "reviewed_at": "2026-11-06T10:16:43+00:00"
+        },
+        "fca35cb2bcec232248b20afed7b0551fc22d9fa41a58407b63e17a839efa26b6": {
+            "source_hash": "fca35cb2bcec232248b20afed7b0551fc22d9fa41a58407b63e17a839efa26b6",
+            "translation_hash": "84022f26d1781f4d7c9a3fc76844c4e8a06ca7737d5a495a8f446c9f940b52de",
+            "status": "editorial",
+            "contexts": [
+                "Owner-approved 60-second strictly portrait Shorts policy. Complete current messages and historical180/square-compatible keys all express60seconds/portrait; automatic classification and empty state mention import without inventing encoding. Gaelic only confidently reviewed short constraints; no invented full auto/empty statement, Silesian withheld for native review."
+            ],
+            "reviewed_at": "2026-11-06T10:50:57+00:00"
+        },
+        "fe90c32815eec96cea4b7b72e0b7c22a63b8782647f5b650a18f0832bf521415": {
+            "source_hash": "fe90c32815eec96cea4b7b72e0b7c22a63b8782647f5b650a18f0832bf521415",
+            "translation_hash": "d9c027b13cf99a1e4a4aa656165cb37a2c897d15f7f926c16d894132d21444f1",
+            "status": "verified",
+            "contexts": [
+                "Six complete standard email templates in Estonian, Latvian, Lithuanian, Belarusian, Basque, Frisian and Welsh. Friendly singular; no formal address; whole code/reset/invitation/restriction/moderator/live-moderator messages. Minute abbreviations keep1/2/15 valid without importing English plural forms. All named credentials/roles/URLs/date/restriction/title tokens and administrator overrides remain intact.",
+                "Actual EmailTemplates and BrandedEmail renderers (European northern/eastern groups): all 6 subjects/bodies; 1/2/15-minute expiry; literal usernames/roles/title/credentials/URLs retained; HTML escaping and LTR attributes; fixture-only override precedence; no sending or production writes. Rendering check, not complete visual email-client acceptance."
+            ],
+            "reviewed_at": "2026-11-06T11:38:09+00:00",
+            "verified_at": "2026-11-06T12:16:34+00:00"
+        }
+    }
+}

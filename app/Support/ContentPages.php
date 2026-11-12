@@ -201,6 +201,8 @@ class ContentPages
         if (! is_array($content['sections'] ?? null) || $content['sections'] === []) {
             $content['sections'] = $definition['content']['sections'];
         }
+        $defaults = self::localizedDefaults($definition['content'], $locale);
+        if ($sourceLocale === null) $content = $defaults;
 
         return [
             'key' => $key,
@@ -211,8 +213,23 @@ class ContentPages
             'source_locale' => $sourceLocale,
             'updated_at' => $stored['updated_at'] ?? null,
             ...$content,
-            'default_content' => $definition['content'],
+            'default_content' => $defaults,
         ];
+    }
+
+    private static function localizedDefaults(array $content, string $locale): array
+    {
+        $localization = app(\App\Services\LocalizationService::class);
+        foreach (['title', 'navigation_label', 'subtitle'] as $field) {
+            if (is_string($content[$field] ?? null)) $content[$field] = $localization->translate($content[$field], $locale);
+        }
+        foreach ($content['sections'] ?? [] as $index => $section) {
+            $content['sections'][$index]['title'] = $localization->translate($section['title'], $locale);
+            $parts = preg_split('/(\R{2,})/', $section['body'], flags: PREG_SPLIT_DELIM_CAPTURE) ?: [];
+            $content['sections'][$index]['body'] = implode('', array_map(static fn (string $part): string => trim($part) === '' ? $part : $localization->translate($part, $locale), $parts));
+        }
+
+        return $content;
     }
 
     private static function definition(string $key): array
@@ -298,7 +315,8 @@ class ContentPages
     private static function normalizeLocale(?string $locale, bool $strict = false): string
     {
         $installed = GeneralSettings::languageIdentifiers();
-        $locale = strtolower(str_replace('-', '_', trim((string) $locale)));
+        if ($strict && LanguageLocales::isAlias($locale)) throw new InvalidArgumentException('This address-style variant was merged. Choose its regional language.');
+        $locale = LanguageLocales::canonical($locale);
         if ($locale !== '' && in_array($locale, $installed, true)) {
             return $locale;
         }

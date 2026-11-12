@@ -83,6 +83,10 @@ export default function ResponsiveOverlays() {
       }
       // Keep an already-open underlying modal below a newly opened one, including portals.
       next.sort((a, b) => {
+        // A navigation drawer stays underneath its visible account dialog,
+        // including when both become modal during a viewport change.
+        const navigationOrder = Number(b.dataset.responsiveOverlay === 'navigation') - Number(a.dataset.responsiveOverlay === 'navigation');
+        if (navigationOrder) return navigationOrder;
         const ai = stack.indexOf(a); const bi = stack.indexOf(b);
         return (ai < 0 ? Number.MAX_SAFE_INTEGER : ai) - (bi < 0 ? Number.MAX_SAFE_INTEGER : bi);
       });

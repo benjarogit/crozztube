@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "locale": "hy",
+  "messages": {
+    "3c784a16cf27568e948bbdffd5d250bb35e98454112f9196c59f7636666699f7": {
+      "source_hash": "3c784a16cf27568e948bbdffd5d250bb35e98454112f9196c59f7636666699f7",
+      "translation_hash": "3c784a16cf27568e948bbdffd5d250bb35e98454112f9196c59f7636666699f7",
+      "status": "editorial",
+      "contexts": [
+        "Technical semantic correction after inspecting every assigned value: Shorts is the video format name, never trousers; the file-format list contains literal identifiers, not translated/transliterated words. Only these two protected labels are reviewed here; this is not linguistic acceptance of any locale."
+      ],
+      "reviewed_at": "2026-11-06T10:21:17+00:00"
+    },
+    "408b9ccc4e36c5bf30437f2d9ad7e51d51c874f6fd4146fdd6b2df9c34d7f791": {
+      "source_hash": "408b9ccc4e36c5bf30437f2d9ad7e51d51c874f6fd4146fdd6b2df9c34d7f791",
+      "translation_hash": "408b9ccc4e36c5bf30437f2d9ad7e51d51c874f6fd4146fdd6b2df9c34d7f791",
+      "status": "editorial",
+      "contexts": [
+        "Technical semantic correction after inspecting every assigned value: Shorts is the video format name, never trousers; the file-format list contains literal identifiers, not translated/transliterated words. Only these two protected labels are reviewed here; this is not linguistic acceptance of any locale."
+      ],
+      "reviewed_at": "2026-11-06T10:21:17+00:00"
+    },
+    "7b55cd8c8d056788c1171369011000a13e60818aeeb8b7f04517690712d95d50": {
+      "source_hash": "7b55cd8c8d056788c1171369011000a13e60818aeeb8b7f04517690712d95d50",
+      "translation_hash": "16703d985b2422898de1cea534ba8e932e9d6b8839becabfd98ad9ef65b6e9fc",
+      "status": "verified",
+      "contexts": [
+        "Editorial personal login privacy-policy reference in Azerbaijani, Uzbek, Armenian, Georgian, Gujarati, Punjabi/Gurmukhi, Swahili, Filipino and Cebuano; neutral how-data-is-handled meaning, no absolute third-party claim. Deprecated key carries same approved meaning for older bundles.",
+        "Login: complete privacy link, 390px, correct locale, no overflow, no writes or runtime errors"
+      ],
+      "reviewed_at": "2026-11-06T10:34:52+00:00",
+      "verified_at": "2026-11-06T10:35:01.668Z"
+    },
+    "8ad4c0f7841e947feb2412ce56f355eee522347b18cbd3d6fd9af050db5c55fd": {
+      "source_hash": "7b55cd8c8d056788c1171369011000a13e60818aeeb8b7f04517690712d95d50",
+      "translation_hash": "16703d985b2422898de1cea534ba8e932e9d6b8839becabfd98ad9ef65b6e9fc",
+      "status": "editorial",
+      "contexts": [
+        "Editorial personal login privacy-policy reference in Azerbaijani, Uzbek, Armenian, Georgian, Gujarati, Punjabi/Gurmukhi, Swahili, Filipino and Cebuano; neutral how-data-is-handled meaning, no absolute third-party claim. Deprecated key carries same approved meaning for older bundles."
+      ],
+      "reviewed_at": "2026-11-06T10:34:52+00:00"
+    }
+  }
+}

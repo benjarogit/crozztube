@@ -1,0 +1,41 @@
+{
+  "context": "Editorial complete transcript-panel loading/failure/accessible body label and Retry action in seven locales. Native personal/neutral register; provider transcript body remains literal and separate. All full messages read against component loading/retry behavior, no invented reason for failure.",
+  "messages": {
+    "Transcript text": {
+      "he_il": "טקסט התמליל",
+      "fa_ir": "متن ویدیو",
+      "fa_af": "متن ویدیو",
+      "hi_in": "वीडियो का लिखित पाठ",
+      "bn_bd": "ভিডিওর কথার লিখিত রূপ",
+      "th": "ข้อความถอดเสียง",
+      "vi": "Nội dung bản chép lời"
+    },
+    "Loading transcript…": {
+      "he_il": "טוענים את התמליל…",
+      "fa_ir": "در حال دریافت متن ویدیو…",
+      "fa_af": "در حال گرفتن متن ویدیو…",
+      "hi_in": "वीडियो का लिखित पाठ लोड हो रहा है…",
+      "bn_bd": "ভিডিওর কথার লিখিত রূপ লোড হচ্ছে…",
+      "th": "กำลังโหลดข้อความถอดเสียง…",
+      "vi": "Đang tải bản chép lời…"
+    },
+    "The transcript could not be loaded.": {
+      "he_il": "לא הצלחנו לטעון את התמליל.",
+      "fa_ir": "متن ویدیو دریافت نشد.",
+      "fa_af": "متن ویدیو گرفته نشد.",
+      "hi_in": "वीडियो का लिखित पाठ लोड नहीं हो पाया।",
+      "bn_bd": "ভিডিওর কথার লিখিত রূপ লোড করা যায়নি।",
+      "th": "โหลดข้อความถอดเสียงไม่ได้",
+      "vi": "Không tải được bản chép lời."
+    },
+    "Retry": {
+      "he_il": "נסה שוב",
+      "fa_ir": "دوباره تلاش کن",
+      "fa_af": "دوباره تلاش کن",
+      "hi_in": "फिर कोशिश करो",
+      "bn_bd": "আবার চেষ্টা করো",
+      "th": "ลองอีกครั้ง",
+      "vi": "Thử lại"
+    }
+  }
+}

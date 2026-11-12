@@ -5,6 +5,7 @@ namespace App\Support\Thumbnails;
 use App\Models\ThumbnailMirror;
 use App\Models\ThumbnailProvider;
 use App\Models\Video;
+use App\Support\MediaProviderSettings;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Throwable;
@@ -17,7 +18,7 @@ class ThumbnailService
 
     public static function providers(): array
     {
-        return array_filter(config('thumbnails.providers'), fn ($p) => $p['supported']
+        return array_filter(MediaProviderSettings::imageProviders(), fn ($p) => $p['supported']
             && (! ($p['requires_key'] ?? true) || trim((string) $p['key']) !== ''));
     }
 
@@ -34,7 +35,7 @@ class ThumbnailService
             return;
         }
         ThumbnailMirror::where('video_id', $video->id)->where('source_version', '!=', $video->thumbnail_source_version)->where('status', 'pending')->delete();
-        foreach (config('thumbnails.providers') as $id => $provider) {
+        foreach (MediaProviderSettings::imageProviders() as $id => $provider) {
             ThumbnailMirror::firstOrCreate([
                 'video_id' => $video->id, 'provider_id' => $id, 'source_version' => $video->thumbnail_source_version,
             ], ['priority' => $provider['priority'], 'status' => 'pending', 'next_attempt_at' => now()]);
@@ -114,7 +115,7 @@ class ThumbnailService
                         $video->forceFill(['thumbnail_source_version' => $version, 'thumbnail_source_url' => $result['url'],
                             'thumbnail_is_custom' => true, 'thumbnail_path' => $video->thumbnail_path && ! RemoteImages::urlAllowed($video->thumbnail_path) ? $video->thumbnail_path : null])->save();
                         ThumbnailMirror::updateOrCreate(['video_id' => $video->id, 'provider_id' => $id, 'source_version' => $version],
-                            ['priority' => config('thumbnails.providers.'.$id.'.priority'), 'thumbnail_url' => $result['url'],
+                            ['priority' => MediaProviderSettings::imageProviders()[$id]['priority'], 'thumbnail_url' => $result['url'],
                                 'status' => 'available', 'content_hash' => $version, 'last_checked_at' => null, 'next_check_at' => NightWindow::next(), 'failure_count' => 0]);
                     });
                     $this->ensureSource($video);

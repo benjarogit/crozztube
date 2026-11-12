@@ -1,0 +1,23 @@
+{
+  "context": "Editorial chapter boundary correction against current EN reference and validation code start>=duration: chapter must start before video end, covering equal-to-end as well as beyond-end. Complete message, number preserved, 16 locale-specific readings.",
+  "messages": {
+    "Chapter {number} starts after the video ends.": {
+      "ar": "يجب أن يبدأ الفصل {number} قبل نهاية الفيديو.",
+      "ja": "チャプター{number}は動画が終わる前に開始する必要があります。",
+      "ko_kr": "챕터 {number}는 동영상이 끝나기 전에 시작해야 해요.",
+      "zh_cn": "章节 {number} 必须在视频结束前开始。",
+      "zh_tw": "章節 {number} 必須在影片結束前開始。",
+      "zh_hk": "章節 {number} 必須在影片結束前開始。",
+      "tr_tr": "{number}. bölüm video bitmeden başlamalı.",
+      "id_id": "Bab {number} harus dimulai sebelum video berakhir.",
+      "ms_my": "Bab {number} mesti bermula sebelum video tamat.",
+      "he_il": "פרק {number} חייב להתחיל לפני סוף הסרטון.",
+      "fa_ir": "فصل {number} باید قبل از پایان ویدیو شروع شود.",
+      "fa_af": "فصل {number} باید قبل از پایان ویدیو شروع شود.",
+      "hi_in": "अध्याय {number} वीडियो खत्म होने से पहले शुरू होना चाहिए।",
+      "bn_bd": "অধ্যায় {number} ভিডিও শেষ হওয়ার আগে শুরু হতে হবে।",
+      "th": "บทที่ {number} ต้องเริ่มก่อนวิดีโอจบ",
+      "vi": "Chương {number} phải bắt đầu trước khi video kết thúc."
+    }
+  }
+}

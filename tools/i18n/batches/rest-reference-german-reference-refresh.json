@@ -1,0 +1,235 @@
+{
+  "context": "Second complete German/Austrian/Swiss reading against corrected English reference: personal comments/library messages, test-account administration, support/reporting/analytics labels, live connection and ad placement settings. Existing translations remain semantically correct; this refreshes reference hashes after English wording changes. Runtime/context verification remains separate.",
+  "messages": {
+    "Clean light and true black dark layouts for creators, communities and streaming products.": {
+      "de_de": "Teile deine Videos, entdecke neue Creator und finde deine Community.",
+      "de_at": "Teile deine Videos, entdecke neue Creator und finde deine Community.",
+      "de_ch": "Teile deine Videos, entdecke neue Creator und finde deine Community."
+    },
+    "All clear — new comments will appear here.": {
+      "de_de": "Neue Kommentare erscheinen hier, sobald es welche gibt.",
+      "de_at": "Neue Kommentare erscheinen hier, sobald es welche gibt.",
+      "de_ch": "Neue Kommentare erscheinen hier, sobald es welche gibt."
+    },
+    "No unfinished subscribed videos yet.": {
+      "de_de": "Du hast bei deinen abonnierten Kanälen keine angefangenen Videos.",
+      "de_at": "Du hast bei deinen abonnierten Kanälen keine angefangenen Videos.",
+      "de_ch": "Du hast bei deinen abonnierten Kanälen keine angefangenen Videos."
+    },
+    "Log in to view your Watch Later videos.": {
+      "de_de": "Melde dich an, um deine Videos unter „Später ansehen“ zu sehen.",
+      "de_at": "Melde dich an, um deine Videos unter „Später ansehen“ zu sehen.",
+      "de_ch": "Melde dich an, um deine Videos unter „Später ansehen“ zu sehen."
+    },
+    "Monetization Snapshot": {
+      "de_de": "Monetarisierung im Überblick",
+      "de_at": "Monetarisierung im Überblick",
+      "de_ch": "Monetarisierung im Überblick"
+    },
+    "Message composer opened.": {
+      "de_de": "Du kannst jetzt deine Nachricht schreiben.",
+      "de_at": "Du kannst jetzt deine Nachricht schreiben.",
+      "de_ch": "Du kannst jetzt deine Nachricht schreiben."
+    },
+    "Generate Fake Users": {
+      "de_de": "Testnutzer erstellen",
+      "de_at": "Testnutzer erstellen",
+      "de_ch": "Testnutzer erstellen"
+    },
+    "Generate fake users": {
+      "de_de": "Testnutzer erstellen",
+      "de_at": "Testnutzer erstellen",
+      "de_ch": "Testnutzer erstellen"
+    },
+    "Generate users": {
+      "de_de": "Testnutzer erstellen",
+      "de_at": "Testnutzer erstellen",
+      "de_ch": "Testnutzer erstellen"
+    },
+    "Generating...": {
+      "de_de": "Wird erstellt …",
+      "de_at": "Wird erstellt …",
+      "de_ch": "Wird erstellt …"
+    },
+    "Preparing batch...": {
+      "de_de": "Erstellung wird vorbereitet …",
+      "de_at": "Erstellung wird vorbereitet …",
+      "de_ch": "Erstellung wird vorbereitet …"
+    },
+    "Creating user records...": {
+      "de_de": "Nutzerkonten werden erstellt …",
+      "de_at": "Nutzerkonten werden erstellt …",
+      "de_ch": "Nutzerkonten werden erstellt …"
+    },
+    "Generating profiles and avatars...": {
+      "de_de": "Profile und Profilbilder werden erstellt …",
+      "de_at": "Profile und Profilbilder werden erstellt …",
+      "de_ch": "Profile und Profilbilder werden erstellt …"
+    },
+    "Finalizing batch...": {
+      "de_de": "Erstellung wird abgeschlossen …",
+      "de_at": "Erstellung wird abgeschlossen …",
+      "de_ch": "Erstellung wird abgeschlossen …"
+    },
+    "Unable to generate fake users.": {
+      "de_de": "Die Testnutzer konnten nicht erstellt werden.",
+      "de_at": "Die Testnutzer konnten nicht erstellt werden.",
+      "de_ch": "Die Testnutzer konnten nicht erstellt werden."
+    },
+    "Fake users generated.": {
+      "de_de": "Testnutzer erstellt.",
+      "de_at": "Testnutzer erstellt.",
+      "de_ch": "Testnutzer erstellt."
+    },
+    "Bulk suspend users": {
+      "de_de": "Mehrere Nutzer sperren",
+      "de_at": "Mehrere Nutzer sperren",
+      "de_ch": "Mehrere Nutzer sperren"
+    },
+    "Bulk Suspend Users": {
+      "de_de": "Mehrere Nutzer sperren",
+      "de_at": "Mehrere Nutzer sperren",
+      "de_ch": "Mehrere Nutzer sperren"
+    },
+    "Missing user id": {
+      "de_de": "Nutzer-ID fehlt",
+      "de_at": "Nutzer-ID fehlt",
+      "de_ch": "Nutzer-ID fehlt"
+    },
+    "User id is missing from this row.": {
+      "de_de": "In dieser Zeile fehlt die Nutzer-ID.",
+      "de_at": "In dieser Zeile fehlt die Nutzer-ID.",
+      "de_ch": "In dieser Zeile fehlt die Nutzer-ID."
+    },
+    "Fake": {
+      "de_de": "Testnutzer",
+      "de_at": "Testnutzer",
+      "de_ch": "Testnutzer"
+    },
+    "Watch Time Trend": {
+      "de_de": "Entwicklung der Wiedergabezeit",
+      "de_at": "Entwicklung der Wiedergabezeit",
+      "de_ch": "Entwicklung der Wiedergabezeit"
+    },
+    "Agents Online": {
+      "de_de": "Supportteam online",
+      "de_at": "Supportteam online",
+      "de_ch": "Supportteam online"
+    },
+    "System Alerts Email": {
+      "de_de": "E-Mail-Adresse für Systemwarnungen",
+      "de_at": "E-Mail-Adresse für Systemwarnungen",
+      "de_ch": "E-Mail-Adresse für Systemwarnungen"
+    },
+    "New User Notifications": {
+      "de_de": "Benachrichtigungen bei neuen Nutzern",
+      "de_at": "Benachrichtigungen bei neuen Nutzern",
+      "de_ch": "Benachrichtigungen bei neuen Nutzern"
+    },
+    "From Email": {
+      "de_de": "Absenderadresse",
+      "de_at": "Absenderadresse",
+      "de_ch": "Absenderadresse"
+    },
+    "Test Connection": {
+      "de_de": "Verbindung testen",
+      "de_at": "Verbindung testen",
+      "de_ch": "Verbindung testen"
+    },
+    "Stream Health Overview": {
+      "de_de": "Streamstatus im Überblick",
+      "de_at": "Streamstatus im Überblick",
+      "de_ch": "Streamstatus im Überblick"
+    },
+    "Bulk Resolve Reports": {
+      "de_de": "Mehrere Meldungen abschließen",
+      "de_at": "Mehrere Meldungen abschließen",
+      "de_ch": "Mehrere Meldungen abschliessen"
+    },
+    "View Report Guidelines": {
+      "de_de": "Melderichtlinien ansehen",
+      "de_at": "Melderichtlinien ansehen",
+      "de_ch": "Melderichtlinien ansehen"
+    },
+    "All Status": {
+      "de_de": "Alle Statuswerte",
+      "de_at": "Alle Statuswerte",
+      "de_ch": "Alle Statuswerte"
+    },
+    "Avg Revenue per Creator": {
+      "de_de": "Durchschnittlicher Umsatz pro Creator",
+      "de_at": "Durchschnittlicher Umsatz pro Creator",
+      "de_ch": "Durchschnittlicher Umsatz pro Creator"
+    },
+    "Bulk Verify Creators": {
+      "de_de": "Mehrere Creator verifizieren",
+      "de_at": "Mehrere Creator verifizieren",
+      "de_ch": "Mehrere Creator verifizieren"
+    },
+    "Bulk Update Categories": {
+      "de_de": "Kategorien für mehrere Inhalte ändern",
+      "de_at": "Kategorien für mehrere Inhalte ändern",
+      "de_ch": "Kategorien für mehrere Inhalte ändern"
+    },
+    "Health data unavailable": {
+      "de_de": "Systemstatus nicht verfügbar",
+      "de_at": "Systemstatus nicht verfügbar",
+      "de_ch": "Systemstatus nicht verfügbar"
+    },
+    "Howto & Style": {
+      "de_de": "Anleitungen und Stil",
+      "de_at": "Anleitungen und Stil",
+      "de_ch": "Anleitungen und Stil"
+    },
+    "Add a valid phone number to enable phone delivery": {
+      "de_de": "Gib eine gültige Telefonnummer an, um Bestätigungscodes auf deinem Telefon zu empfangen.",
+      "de_at": "Gib eine gültige Telefonnummer an, um Bestätigungscodes auf deinem Telefon zu empfangen.",
+      "de_ch": "Gib eine gültige Telefonnummer an, um Bestätigungscodes auf deinem Telefon zu empfangen."
+    },
+    "Invalid IP block (minutes)": {
+      "de_de": "IP-Sperre bei Fehlversuchen (Minuten)",
+      "de_at": "IP-Sperre bei Fehlversuchen (Minuten)",
+      "de_ch": "IP-Sperre bei Fehlversuchen (Minuten)"
+    },
+    "The selected chat moderation is unavailable.": {
+      "de_de": "Die gewählte Chatmoderation ist nicht verfügbar.",
+      "de_at": "Die gewählte Chatmoderation ist nicht verfügbar.",
+      "de_ch": "Die gewählte Chatmoderation ist nicht verfügbar."
+    },
+    "Add funds securely with an available payment method.": {
+      "de_de": "Lade dein Guthaben mit einer der verfügbaren Zahlungsmethoden auf.",
+      "de_at": "Lade dein Guthaben mit einer der verfügbaren Zahlungsmethoden auf.",
+      "de_ch": "Lade dein Guthaben mit einer der verfügbaren Zahlungsmethoden auf."
+    },
+    "Invite a registered PlayHub user to publish camera and microphone in this live room.": {
+      "de_de": "Lade jemanden mit einem PlayHub-Konto ein, Kamera und Mikrofon in diesem Livestream zu teilen.",
+      "de_at": "Lade jemanden mit einem PlayHub-Konto ein, Kamera und Mikrofon in diesem Livestream zu teilen.",
+      "de_ch": "Lade jemanden mit einem PlayHub-Konto ein, Kamera und Mikrofon in diesem Livestream zu teilen."
+    },
+    "Streaming connection is reconnecting.": {
+      "de_de": "Die Verbindung zum Livestream wird wiederhergestellt.",
+      "de_at": "Die Verbindung zum Livestream wird wiederhergestellt.",
+      "de_ch": "Die Verbindung zum Livestream wird wiederhergestellt."
+    },
+    "Unable to load Stickers": {
+      "de_de": "Sticker konnten nicht geladen werden",
+      "de_at": "Sticker konnten nicht geladen werden",
+      "de_ch": "Sticker konnten nicht geladen werden"
+    },
+    "Unable to save Sticker": {
+      "de_de": "Sticker konnte nicht gespeichert werden",
+      "de_at": "Sticker konnte nicht gespeichert werden",
+      "de_ch": "Sticker konnte nicht gespeichert werden"
+    },
+    "Unable to delete Sticker": {
+      "de_de": "Sticker konnte nicht gelöscht werden",
+      "de_at": "Sticker konnte nicht gelöscht werden",
+      "de_ch": "Sticker konnte nicht gelöscht werden"
+    },
+    "Items in feed placements": {
+      "de_de": "Einträge zwischen Anzeigen im Feed",
+      "de_at": "Einträge zwischen Anzeigen im Feed",
+      "de_ch": "Einträge zwischen Anzeigen im Feed"
+    }
+  }
+}

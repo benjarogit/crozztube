@@ -1,0 +1,347 @@
+{
+  "context": "Complete-message editorial pass in Russian/Ukrainian/Slovak/Bulgarian/Greek/Romanian/Hungarian: local upload prompts, authentication and security, profile description, messaging, confirmation and channel trailer. Singular personal address, full matching verb forms; no mechanical pronoun substitution. Provider/user content excluded.",
+  "messages": {
+    "Drag and drop your video file here": {
+      "ru": "Перетащи сюда видеофайл",
+      "uk": "Перетягни сюди відеофайл",
+      "sk": "Pretiahni sem svoj videosúbor",
+      "bg": "Пусни видеофайла си тук",
+      "el": "Σύρε εδώ το αρχείο βίντεό σου",
+      "ro": "Trage fișierul video aici",
+      "hu": "Húzd ide a videófájlodat"
+    },
+    "Select files": {
+      "ru": "Выбери файлы",
+      "uk": "Вибери файли",
+      "sk": "Vyber súbory",
+      "bg": "Избери файлове",
+      "el": "Διάλεξε αρχεία",
+      "ro": "Alege fișierele",
+      "hu": "Válassz fájlokat"
+    },
+    "Select Files": {
+      "ru": "Выбери файлы",
+      "uk": "Вибери файли",
+      "sk": "Vyber súbory",
+      "bg": "Избери файлове",
+      "el": "Διάλεξε αρχεία",
+      "ro": "Alege fișierele",
+      "hu": "Válassz fájlokat"
+    },
+    "Select a video to preview it.": {
+      "ru": "Выбери видео для предпросмотра.",
+      "uk": "Вибери відео для попереднього перегляду.",
+      "sk": "Vyber video na zobrazenie ukážky.",
+      "bg": "Избери видео за преглед.",
+      "el": "Διάλεξε ένα βίντεο για προεπισκόπηση.",
+      "ro": "Alege un videoclip pentru previzualizare.",
+      "hu": "Válassz egy videót az előnézethez."
+    },
+    "Select a thumbnail image": {
+      "ru": "Выбери обложку видео",
+      "uk": "Вибери обкладинку відео",
+      "sk": "Vyber obrázok náhľadu",
+      "bg": "Избери миниатюра",
+      "el": "Διάλεξε μικρογραφία",
+      "ro": "Alege o miniatură",
+      "hu": "Válassz bélyegképet"
+    },
+    "Choose who can watch your video": {
+      "ru": "Выбери, кто сможет смотреть твоё видео",
+      "uk": "Вибери, хто зможе дивитися твоє відео",
+      "sk": "Vyber, kto si môže pozrieť tvoje video",
+      "bg": "Избери кой може да гледа видеото ти",
+      "el": "Διάλεξε ποιος μπορεί να βλέπει το βίντεό σου",
+      "ro": "Alege cine poate vedea videoclipul tău",
+      "hu": "Válaszd ki, ki nézheti meg a videódat"
+    },
+    "Review your video settings": {
+      "ru": "Проверь настройки видео",
+      "uk": "Перевір налаштування відео",
+      "sk": "Skontroluj nastavenia videa",
+      "bg": "Провери настройките на видеото",
+      "el": "Έλεγξε τις ρυθμίσεις του βίντεό σου",
+      "ro": "Verifică setările videoclipului",
+      "hu": "Ellenőrizd a videód beállításait"
+    },
+    "Publish and share your video": {
+      "ru": "Опубликуй видео и поделись им",
+      "uk": "Опублікуй відео й поділися ним",
+      "sk": "Zverejni a zdieľaj svoje video",
+      "bg": "Публикувай и сподели видеото си",
+      "el": "Δημοσίευσε και μοιράσου το βίντεό σου",
+      "ro": "Publică și distribuie videoclipul tău",
+      "hu": "Tedd közzé és oszd meg a videódat"
+    },
+    "Add title, description, tags and more": {
+      "ru": "Добавь название, описание, теги и другие сведения",
+      "uk": "Додай назву, опис, теги та інші відомості",
+      "sk": "Pridaj názov, popis, značky a ďalšie údaje",
+      "bg": "Добави заглавие, описание, тагове и още",
+      "el": "Πρόσθεσε τίτλο, περιγραφή, ετικέτες και άλλα στοιχεία",
+      "ro": "Adaugă un titlu, o descriere, etichete și alte detalii",
+      "hu": "Adj hozzá címet, leírást, címkéket és további adatokat"
+    },
+    "Create a compelling thumbnail": {
+      "ru": "Создай обложку, которая привлечёт внимание",
+      "uk": "Створи обкладинку, що приверне увагу",
+      "sk": "Vytvor pútavý náhľad",
+      "bg": "Създай привлекателна миниатюра",
+      "el": "Φτιάξε μια μικρογραφία που τραβάει την προσοχή",
+      "ro": "Creează o miniatură care atrage atenția",
+      "hu": "Készíts figyelemfelkeltő bélyegképet"
+    },
+    "Enter video title": {
+      "ru": "Введи название видео",
+      "uk": "Введи назву відео",
+      "sk": "Zadaj názov videa",
+      "bg": "Въведи заглавие на видеото",
+      "el": "Γράψε τον τίτλο του βίντεο",
+      "ro": "Scrie titlul videoclipului",
+      "hu": "Írd be a videó címét"
+    },
+    "Enter video description": {
+      "ru": "Введи описание видео",
+      "uk": "Введи опис відео",
+      "sk": "Zadaj popis videa",
+      "bg": "Въведи описание на видеото",
+      "el": "Γράψε την περιγραφή του βίντεο",
+      "ro": "Scrie descrierea videoclipului",
+      "hu": "Írd be a videó leírását"
+    },
+    "Add tags separated by commas": {
+      "ru": "Введи теги через запятую",
+      "uk": "Введи теги через кому",
+      "sk": "Pridaj značky oddelené čiarkami",
+      "bg": "Добави тагове, разделени със запетаи",
+      "el": "Πρόσθεσε ετικέτες χωρισμένες με κόμματα",
+      "ro": "Adaugă etichete separate prin virgulă",
+      "hu": "Adj meg vesszővel elválasztott címkéket"
+    },
+    "Add up to 10 tags": {
+      "ru": "Добавь до 10 тегов",
+      "uk": "Додай до 10 тегів",
+      "sk": "Pridaj najviac 10 značiek",
+      "bg": "Добави до 10 тага",
+      "el": "Πρόσθεσε έως 10 ετικέτες",
+      "ro": "Adaugă cel mult 10 etichete",
+      "hu": "Legfeljebb 10 címkét adj meg"
+    },
+    "Select a video to create frame thumbnails.": {
+      "ru": "Выбери видео, чтобы создать обложки из кадров.",
+      "uk": "Вибери відео, щоб створити обкладинки з кадрів.",
+      "sk": "Vyber video na vytvorenie náhľadov zo snímok.",
+      "bg": "Избери видео, за да създадеш миниатюри от кадрите му.",
+      "el": "Διάλεξε βίντεο για να δημιουργήσεις μικρογραφίες από τα καρέ του.",
+      "ro": "Alege un videoclip pentru a crea miniaturi din cadrele lui.",
+      "hu": "Válassz egy videót, hogy bélyegképeket készíthess a képkockáiból."
+    },
+    "Use a clear and engaging title": {
+      "ru": "Выбери понятное и интересное название",
+      "uk": "Вибери зрозумілу й цікаву назву",
+      "sk": "Vyber jasný a pútavý názov",
+      "bg": "Избери ясно и интересно заглавие",
+      "el": "Διάλεξε έναν σαφή και ενδιαφέροντα τίτλο",
+      "ro": "Alege un titlu clar și atrăgător",
+      "hu": "Válassz egyértelmű, figyelemfelkeltő címet"
+    },
+    "Write a detailed description": {
+      "ru": "Напиши подробное описание",
+      "uk": "Напиши докладний опис",
+      "sk": "Napíš podrobný popis",
+      "bg": "Напиши подробно описание",
+      "el": "Γράψε μια αναλυτική περιγραφή",
+      "ro": "Scrie o descriere detaliată",
+      "hu": "Írj részletes leírást"
+    },
+    "Choose the right category": {
+      "ru": "Выбери подходящую категорию",
+      "uk": "Вибери відповідну категорію",
+      "sk": "Vyber vhodnú kategóriu",
+      "bg": "Избери подходяща категория",
+      "el": "Διάλεξε την κατάλληλη κατηγορία",
+      "ro": "Alege categoria potrivită",
+      "hu": "Válaszd ki a megfelelő kategóriát"
+    },
+    "Already have an account?": {
+      "ru": "У тебя уже есть аккаунт?",
+      "uk": "У тебе вже є акаунт?",
+      "sk": "Už máš účet?",
+      "bg": "Вече имаш акаунт?",
+      "el": "Έχεις ήδη λογαριασμό;",
+      "ro": "Ai deja un cont?",
+      "hu": "Van már fiókod?"
+    },
+    "Create your channel": {
+      "ru": "Создай свой канал",
+      "uk": "Створи свій канал",
+      "sk": "Vytvor si kanál",
+      "bg": "Създай своя канал",
+      "el": "Φτιάξε το κανάλι σου",
+      "ro": "Creează-ți canalul",
+      "hu": "Hozd létre a csatornádat"
+    },
+    "Confirm password": {
+      "ru": "Подтверди пароль",
+      "uk": "Підтвердь пароль",
+      "sk": "Potvrď heslo",
+      "bg": "Потвърди паролата",
+      "el": "Επιβεβαίωσε τον κωδικό πρόσβασης",
+      "ro": "Confirmă parola",
+      "hu": "Erősítsd meg a jelszót"
+    },
+    "Log in to upload, comment, subscribe and manage your creator studio.": {
+      "ru": "Войди, чтобы загружать видео, оставлять комментарии, подписываться на каналы и управлять своей студией.",
+      "uk": "Увійди, щоб завантажувати відео, коментувати, підписуватися на канали й керувати своєю студією.",
+      "sk": "Prihlás sa a nahrávaj videá, komentuj, odoberaj kanály a spravuj svoje tvorivé štúdio.",
+      "bg": "Влез, за да качваш видеа, да коментираш, да се абонираш и да управляваш студиото си.",
+      "el": "Συνδέσου για να ανεβάζεις βίντεο, να σχολιάζεις, να κάνεις εγγραφές και να διαχειρίζεσαι το στούντιό σου.",
+      "ro": "Intră în cont ca să încarci videoclipuri, să comentezi, să te abonezi și să-ți gestionezi studioul.",
+      "hu": "Jelentkezz be, hogy videókat tölthess fel, hozzászólhass, feliratkozhass és kezelhesd az alkotói stúdiódat."
+    },
+    "Start your PlayHub creator account with working registration and API authentication.": {
+      "ru": "Создай аккаунт PlayHub и присоединяйся к сообществу.",
+      "uk": "Створи акаунт PlayHub і приєднуйся до спільноти.",
+      "sk": "Vytvor si účet PlayHub a pridaj sa ku komunite.",
+      "bg": "Създай акаунт в PlayHub и се присъедини към общността.",
+      "el": "Φτιάξε λογαριασμό στο PlayHub και έλα στην κοινότητα.",
+      "ro": "Creează-ți un cont PlayHub și alătură-te comunității.",
+      "hu": "Hozz létre egy PlayHub-fiókot, és csatlakozz a közösséghez."
+    },
+    "Try another search or switch tabs.": {
+      "ru": "Попробуй другой запрос или переключись на другую вкладку.",
+      "uk": "Спробуй інший запит або перейди на іншу вкладку.",
+      "sk": "Skús iné hľadanie alebo prepni kartu.",
+      "bg": "Опитай друго търсене или смени раздела.",
+      "el": "Δοκίμασε άλλη αναζήτηση ή άλλαξε καρτέλα.",
+      "ro": "Încearcă altă căutare sau schimbă fila.",
+      "hu": "Próbálj másra keresni, vagy válts lapot."
+    },
+    "Manage creator conversations, requests, and mentions.": {
+      "ru": "Управляй перепиской, запросами и упоминаниями.",
+      "uk": "Керуй листуванням, запитами та згадками.",
+      "sk": "Spravuj konverzácie, žiadosti a zmienky.",
+      "bg": "Управлявай разговорите, заявките и споменаванията.",
+      "el": "Διαχειρίσου τις συζητήσεις, τα αιτήματα και τις αναφορές σου.",
+      "ro": "Gestionează conversațiile, solicitările și mențiunile.",
+      "hu": "Kezeld a beszélgetéseket, kéréseket és említéseket."
+    },
+    "Stay updated on comments, likes, follows, playlists, and video activity.": {
+      "ru": "Следи за комментариями, лайками, подписками, плейлистами и активностью вокруг видео.",
+      "uk": "Стеж за коментарями, вподобаннями, підписками, плейлистами й активністю навколо відео.",
+      "sk": "Sleduj komentáre, reakcie, odbery, playlisty a aktivitu pri videách.",
+      "bg": "Следи коментарите, харесванията, абонаментите, плейлистите и активността около видеата.",
+      "el": "Μάθε τα νέα για σχόλια, επισημάνσεις «Μου αρέσει», εγγραφές, λίστες και δραστηριότητα βίντεο.",
+      "ro": "Urmărește comentariile, aprecierile, abonările, listele de redare și activitatea videoclipurilor.",
+      "hu": "Kövesd a hozzászólásokat, kedveléseket, feliratkozásokat, lejátszási listákat és a videók aktivitását."
+    },
+    "Choose emoji": {
+      "ru": "Выбери эмодзи",
+      "uk": "Вибери емодзі",
+      "sk": "Vyber emoji",
+      "bg": "Избери емоджи",
+      "el": "Διάλεξε emoji",
+      "ro": "Alege un emoji",
+      "hu": "Válassz emojit"
+    },
+    "Please fill all password fields.": {
+      "ru": "Заполни все поля с паролями.",
+      "uk": "Заповни всі поля з паролями.",
+      "sk": "Vyplň všetky polia pre heslá.",
+      "bg": "Попълни всички полета за пароли.",
+      "el": "Συμπλήρωσε όλα τα πεδία κωδικού πρόσβασης.",
+      "ro": "Completează toate câmpurile pentru parole.",
+      "hu": "Töltsd ki az összes jelszómezőt."
+    },
+    "Enter a valid phone number to receive verification codes.": {
+      "ru": "Введи действующий номер телефона для получения кодов подтверждения.",
+      "uk": "Введи дійсний номер телефону, щоб отримувати коди підтвердження.",
+      "sk": "Zadaj platné telefónne číslo na prijímanie overovacích kódov.",
+      "bg": "Въведи валиден телефонен номер, за да получаваш кодове за потвърждение.",
+      "el": "Γράψε έναν έγκυρο αριθμό τηλεφώνου για να λαμβάνεις κωδικούς επαλήθευσης.",
+      "ro": "Introdu un număr de telefon valid pentru a primi coduri de verificare.",
+      "hu": "Adj meg érvényes telefonszámot az ellenőrzőkódok fogadásához."
+    },
+    "Please enter a 6-digit verification code.": {
+      "ru": "Введи 6-значный код подтверждения.",
+      "uk": "Введи 6-значний код підтвердження.",
+      "sk": "Zadaj 6-miestny overovací kód.",
+      "bg": "Въведи 6-цифрения код за потвърждение.",
+      "el": "Γράψε τον εξαψήφιο κωδικό επαλήθευσης.",
+      "ro": "Introdu codul de verificare din 6 cifre.",
+      "hu": "Írd be a 6 számjegyű ellenőrzőkódot."
+    },
+    "Tell viewers about your channel...": {
+      "ru": "Расскажи зрителям о своём канале…",
+      "uk": "Розкажи глядачам про свій канал…",
+      "sk": "Predstav divákom svoj kanál…",
+      "bg": "Разкажи на зрителите за канала си…",
+      "el": "Πες στους θεατές για το κανάλι σου…",
+      "ro": "Povestește-le spectatorilor despre canalul tău…",
+      "hu": "Mesélj a nézőknek a csatornádról…"
+    },
+    "Add an about section so viewers know what your channel is about.": {
+      "ru": "Добавь описание, чтобы зрители узнали, о чём твой канал.",
+      "uk": "Додай опис, щоб глядачі дізналися, про що твій канал.",
+      "sk": "Pridaj popis, aby diváci vedeli, o čom je tvoj kanál.",
+      "bg": "Добави описание, за да разберат зрителите за какво е каналът ти.",
+      "el": "Πρόσθεσε μια περιγραφή για να γνωρίσουν οι θεατές το κανάλι σου.",
+      "ro": "Adaugă o descriere ca spectatorii să afle despre ce este canalul tău.",
+      "hu": "Adj hozzá leírást, hogy a nézők megismerjék a csatornádat."
+    },
+    "Use playlists and series to keep your content easy to find and watch.": {
+      "ru": "Объединяй видео в плейлисты и серии, чтобы их было проще находить и смотреть.",
+      "uk": "Об’єднуй відео в плейлисти й серії, щоб їх було легше знаходити й дивитися.",
+      "sk": "Usporiadaj videá do playlistov a sérií, aby sa ľahšie hľadali a pozerali.",
+      "bg": "Подреди видеата си в плейлисти и поредици, за да се намират и гледат по-лесно.",
+      "el": "Οργάνωσε τα βίντεό σου σε λίστες και σειρές για να τα βρίσκει και να τα βλέπει πιο εύκολα το κοινό σου.",
+      "ro": "Organizează videoclipurile în liste și serii ca să fie mai ușor de găsit și urmărit.",
+      "hu": "Rendezd a videóidat lejátszási listákba és sorozatokba, hogy könnyebb legyen megtalálni és megnézni őket."
+    },
+    "How can we help you?": {
+      "ru": "Чем тебе помочь?",
+      "uk": "Чим тобі допомогти?",
+      "sk": "S čím ti môžeme pomôcť?",
+      "bg": "С какво можем да ти помогнем?",
+      "el": "Πώς μπορούμε να σε βοηθήσουμε;",
+      "ro": "Cu ce te putem ajuta?",
+      "hu": "Miben segíthetünk?"
+    },
+    "How can we help?": {
+      "ru": "Чем тебе помочь?",
+      "uk": "Чим тобі допомогти?",
+      "sk": "S čím ti môžeme pomôcť?",
+      "bg": "С какво можем да ти помогнем?",
+      "el": "Πώς μπορούμε να σε βοηθήσουμε;",
+      "ro": "Cu ce te putem ajuta?",
+      "hu": "Miben segíthetünk?"
+    },
+    "Are you sure you want to continue?": {
+      "ru": "Хочешь продолжить?",
+      "uk": "Хочеш продовжити?",
+      "sk": "Chceš pokračovať?",
+      "bg": "Искаш ли да продължиш?",
+      "el": "Θέλεις να συνεχίσεις;",
+      "ro": "Vrei să continui?",
+      "hu": "Szeretnéd folytatni?"
+    },
+    "Choose a public video to feature at the top of your channel profile.": {
+      "ru": "Выбери общедоступное видео, которое появится вверху страницы твоего канала.",
+      "uk": "Вибери загальнодоступне відео для верхньої частини сторінки свого каналу.",
+      "sk": "Vyber verejné video, ktoré sa zobrazí navrchu profilu tvojho kanála.",
+      "bg": "Избери публично видео, което да се показва най-отгоре в канала ти.",
+      "el": "Διάλεξε ένα δημόσιο βίντεο για την κορυφή της σελίδας του καναλιού σου.",
+      "ro": "Alege un videoclip public pe care să-l afișezi în partea de sus a canalului tău.",
+      "hu": "Válassz egy nyilvános videót, amelyet kiemelsz a csatornád tetején."
+    },
+    "Sign in with an admin account to view this page.": {
+      "ru": "Войди с аккаунтом администратора, чтобы открыть эту страницу.",
+      "uk": "Увійди з акаунтом адміністратора, щоб відкрити цю сторінку.",
+      "sk": "Na otvorenie tejto stránky sa prihlás s účtom správcu.",
+      "bg": "Влез с администраторски акаунт, за да отвориш тази страница.",
+      "el": "Συνδέσου με λογαριασμό διαχειριστή για να ανοίξεις αυτή τη σελίδα.",
+      "ro": "Intră cu un cont de administrator pentru a deschide această pagină.",
+      "hu": "Az oldal megnyitásához jelentkezz be rendszergazdai fiókkal."
+    }
+  }
+}

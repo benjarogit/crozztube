@@ -1,0 +1,218 @@
+{
+  "context": "Editorial review of actual import/upload API failures and success messages: URL validation, public-host requirement, platform mismatch, disabled imports, provider metadata, duplicate import and storage failures. Status and machine codes unchanged; failures do not invent causes/recovery promises. Remote saved imports distinguished from local processing.",
+  "messages": {
+    "Use a valid public HTTP or HTTPS video URL.": {
+      "fr": "Utilise un lien vidéo public valide en HTTP ou HTTPS.",
+      "es": "Usa un enlace público de video válido con HTTP o HTTPS.",
+      "pt": "Usa uma ligação pública de vídeo válida com HTTP ou HTTPS.",
+      "pt_br": "Use um link público de vídeo válido com HTTP ou HTTPS.",
+      "it": "Usa un link video pubblico valido con HTTP o HTTPS.",
+      "ca": "Fes servir un enllaç públic de vídeo vàlid amb HTTP o HTTPS.",
+      "gl": "Usa unha ligazón pública de vídeo válida con HTTP ou HTTPS.",
+      "eo": "Uzu validan publikan videoligilon kun HTTP aŭ HTTPS.",
+      "es_es": "Usa un enlace público de vídeo válido con HTTP o HTTPS."
+    },
+    "This video has already been added.": {
+      "fr": "Cette vidéo a déjà été ajoutée.",
+      "es": "Este video ya se ha añadido.",
+      "pt": "Este vídeo já foi adicionado.",
+      "pt_br": "Este vídeo já foi adicionado.",
+      "it": "Questo video è già stato aggiunto.",
+      "ca": "Aquest vídeo ja s’ha afegit.",
+      "gl": "Este vídeo xa se engadiu.",
+      "eo": "Ĉi tiu filmeto jam estis aldonita.",
+      "es_es": "Este vídeo ya se ha añadido."
+    },
+    "Import URL is invalid.": {
+      "fr": "Le lien d’importation n’est pas valide.",
+      "es": "El enlace de importación no es válido.",
+      "pt": "A ligação de importação não é válida.",
+      "pt_br": "O link de importação não é válido.",
+      "it": "Il link di importazione non è valido.",
+      "ca": "L’enllaç d’importació no és vàlid.",
+      "gl": "A ligazón de importación non é válida.",
+      "eo": "La importa ligilo ne estas valida."
+    },
+    "Import URL must use HTTP or HTTPS.": {
+      "fr": "Le lien d’importation doit utiliser HTTP ou HTTPS.",
+      "es": "El enlace de importación debe usar HTTP o HTTPS.",
+      "pt": "A ligação de importação deve usar HTTP ou HTTPS.",
+      "pt_br": "O link de importação deve usar HTTP ou HTTPS.",
+      "it": "Il link di importazione deve usare HTTP o HTTPS.",
+      "ca": "L’enllaç d’importació ha de fer servir HTTP o HTTPS.",
+      "gl": "A ligazón de importación debe usar HTTP ou HTTPS.",
+      "eo": "La importa ligilo devas uzi HTTP aŭ HTTPS."
+    },
+    "Import URL host is invalid.": {
+      "fr": "Le domaine du lien d’importation n’est pas valide.",
+      "es": "El dominio del enlace de importación no es válido.",
+      "pt": "O domínio da ligação de importação não é válido.",
+      "pt_br": "O domínio do link de importação não é válido.",
+      "it": "Il dominio del link di importazione non è valido.",
+      "ca": "El domini de l’enllaç d’importació no és vàlid.",
+      "gl": "O dominio da ligazón de importación non é válido.",
+      "eo": "La domajno de la importa ligilo ne estas valida."
+    },
+    "Import URL does not match the selected provider.": {
+      "fr": "Ce lien ne correspond pas à la plateforme choisie.",
+      "es": "El enlace no corresponde a la plataforma elegida.",
+      "pt": "A ligação não corresponde à plataforma escolhida.",
+      "pt_br": "O link não corresponde à plataforma escolhida.",
+      "it": "Il link non corrisponde alla piattaforma scelta.",
+      "ca": "L’enllaç no correspon a la plataforma triada.",
+      "gl": "A ligazón non corresponde á plataforma escollida.",
+      "eo": "La ligilo ne kongruas kun la elektita platformo."
+    },
+    "Import URL host cannot be resolved.": {
+      "fr": "Le serveur du lien d’importation n’a pas pu être trouvé.",
+      "es": "No se pudo encontrar el servidor del enlace de importación.",
+      "pt": "Não foi possível encontrar o servidor da ligação de importação.",
+      "pt_br": "Não foi possível encontrar o servidor do link de importação.",
+      "it": "Non è stato possibile trovare il server del link di importazione.",
+      "ca": "No s’ha pogut trobar el servidor de l’enllaç d’importació.",
+      "gl": "Non se puido atopar o servidor da ligazón de importación.",
+      "eo": "Ne eblis trovi la servilon de la importa ligilo."
+    },
+    "Import URL must resolve to a public host.": {
+      "fr": "Le lien d’importation doit pointer vers un serveur public.",
+      "es": "El enlace de importación debe apuntar a un servidor público.",
+      "pt": "A ligação de importação deve apontar para um servidor público.",
+      "pt_br": "O link de importação deve apontar para um servidor público.",
+      "it": "Il link di importazione deve puntare a un server pubblico.",
+      "ca": "L’enllaç d’importació ha d’apuntar a un servidor públic.",
+      "gl": "A ligazón de importación debe apuntar a un servidor público.",
+      "eo": "La importa ligilo devas direkti al publika servilo."
+    },
+    "This video import provider is disabled.": {
+      "fr": "L’importation depuis cette plateforme est désactivée.",
+      "es": "La importación desde esta plataforma está desactivada.",
+      "pt": "A importação desta plataforma está desactivada.",
+      "pt_br": "A importação desta plataforma está desativada.",
+      "it": "L’importazione da questa piattaforma è disattivata.",
+      "ca": "La importació des d’aquesta plataforma està desactivada.",
+      "gl": "A importación desde esta plataforma está desactivada.",
+      "eo": "Importado de ĉi tiu platformo estas malŝaltita.",
+      "pt_pt_ao90": "A importação desta plataforma está desativada."
+    },
+    "The import provider returned invalid metadata.": {
+      "fr": "La plateforme a renvoyé des données vidéo non valides.",
+      "es": "La plataforma devolvió datos de video no válidos.",
+      "pt": "A plataforma devolveu dados de vídeo inválidos.",
+      "pt_br": "A plataforma retornou dados de vídeo inválidos.",
+      "it": "La piattaforma ha restituito dati video non validi.",
+      "ca": "La plataforma ha retornat dades de vídeo no vàlides.",
+      "gl": "A plataforma devolveu datos de vídeo non válidos.",
+      "eo": "La platformo liveris nevalidajn videodetalojn.",
+      "es_es": "La plataforma devolvió datos de vídeo no válidos."
+    },
+    "Could not read the provider video ID from this URL.": {
+      "fr": "L’identifiant de la vidéo n’a pas pu être trouvé dans ce lien.",
+      "es": "No se pudo encontrar el identificador del video en este enlace.",
+      "pt": "Não foi possível encontrar o identificador do vídeo nesta ligação.",
+      "pt_br": "Não foi possível encontrar o identificador do vídeo neste link.",
+      "it": "Non è stato possibile trovare l’identificativo del video in questo link.",
+      "ca": "No s’ha pogut trobar l’identificador del vídeo en aquest enllaç.",
+      "gl": "Non se puido atopar o identificador do vídeo nesta ligazón.",
+      "eo": "Ne eblis trovi la identigilon de la filmeto en ĉi tiu ligilo.",
+      "es_es": "No se pudo encontrar el identificador del vídeo en este enlace."
+    },
+    "Video file uploads are disabled. Import a video URL instead.": {
+      "fr": "L’envoi de fichiers vidéo est désactivé. Importe une vidéo à partir d’un lien.",
+      "es": "La subida de archivos de video está desactivada. Importa un video desde un enlace.",
+      "pt": "O carregamento de ficheiros de vídeo está desactivado. Importa um vídeo de uma ligação.",
+      "pt_br": "O envio de arquivos de vídeo está desativado. Importe um vídeo de um link.",
+      "it": "Il caricamento di file video è disattivato. Importa un video da un link.",
+      "ca": "La pujada de fitxers de vídeo està desactivada. Importa un vídeo des d’un enllaç.",
+      "gl": "A subida de ficheiros de vídeo está desactivada. Importa un vídeo desde unha ligazón.",
+      "eo": "Alŝutado de videodosieroj estas malŝaltita. Importu filmeton per ligilo.",
+      "es_es": "La subida de archivos de vídeo está desactivada. Importa un vídeo desde un enlace.",
+      "pt_pt_ao90": "O carregamento de ficheiros de vídeo está desativado. Importa um vídeo de uma ligação."
+    },
+    "Imported videos cannot be sold.": {
+      "fr": "L’accès aux vidéos importées ne peut pas être vendu.",
+      "es": "No se puede vender acceso a videos importados.",
+      "pt": "Não é possível vender acesso a vídeos importados.",
+      "pt_br": "Não é possível vender acesso a vídeos importados.",
+      "it": "Non è possibile vendere l’accesso ai video importati.",
+      "ca": "No es pot vendre l’accés a vídeos importats.",
+      "gl": "Non se pode vender acceso a vídeos importados.",
+      "eo": "Ne eblas vendi aliron al importitaj filmetoj.",
+      "es_es": "No se puede vender acceso a vídeos importados."
+    },
+    "Video import saved.": {
+      "fr": "L’importation de la vidéo a été enregistrée.",
+      "es": "Se ha guardado la importación del video.",
+      "pt": "A importação do vídeo foi guardada.",
+      "pt_br": "A importação do vídeo foi salva.",
+      "it": "L’importazione del video è stata salvata.",
+      "ca": "S’ha desat la importació del vídeo.",
+      "gl": "Gardouse a importación do vídeo.",
+      "eo": "La importaĵo de la filmeto estis konservita.",
+      "es_es": "Se ha guardado la importación del vídeo."
+    },
+    "Video uploaded. Processing has started.": {
+      "fr": "La vidéo a été envoyée. Son traitement a commencé.",
+      "es": "Se ha subido el video. El procesamiento ha comenzado.",
+      "pt": "O vídeo foi carregado e o processamento começou.",
+      "pt_br": "O vídeo foi enviado e o processamento começou.",
+      "it": "Il video è stato caricato. L’elaborazione è iniziata.",
+      "ca": "S’ha pujat el vídeo i ha començat el processament.",
+      "gl": "Subiuse o vídeo e comezou o procesamento.",
+      "eo": "La filmeto estis alŝutita. Prilaborado komenciĝis.",
+      "es_es": "Se ha subido el vídeo. El procesamiento ha comenzado."
+    },
+    "Cannot store uploaded video.": {
+      "fr": "Le fichier vidéo n’a pas pu être enregistré.",
+      "es": "No se pudo guardar el archivo de video.",
+      "pt": "Não foi possível guardar o ficheiro de vídeo.",
+      "pt_br": "Não foi possível salvar o arquivo de vídeo.",
+      "it": "Non è stato possibile salvare il file video.",
+      "ca": "No s’ha pogut desar el fitxer de vídeo.",
+      "gl": "Non se puido gardar o ficheiro de vídeo.",
+      "eo": "Ne eblis konservi la videodosieron.",
+      "es_es": "No se pudo guardar el archivo de vídeo."
+    },
+    "Cannot store uploaded thumbnail.": {
+      "fr": "La miniature n’a pas pu être enregistrée.",
+      "es": "No se pudo guardar la miniatura.",
+      "pt": "Não foi possível guardar a miniatura.",
+      "pt_br": "Não foi possível salvar a miniatura.",
+      "it": "Non è stato possibile salvare la miniatura.",
+      "ca": "No s’ha pogut desar la miniatura.",
+      "gl": "Non se puido gardar a miniatura.",
+      "eo": "Ne eblis konservi la bildeton."
+    },
+    "Cannot store uploaded captions.": {
+      "fr": "Les sous-titres n’ont pas pu être enregistrés.",
+      "es": "No se pudieron guardar los subtítulos.",
+      "pt": "Não foi possível guardar as legendas.",
+      "pt_br": "Não foi possível salvar as legendas.",
+      "it": "Non è stato possibile salvare i sottotitoli.",
+      "ca": "No s’han pogut desar els subtítols.",
+      "gl": "Non se puideron gardar os subtítulos.",
+      "eo": "Ne eblis konservi la subtitolojn."
+    },
+    "Unable to fetch provider details.": {
+      "fr": "Les détails de la vidéo n’ont pas pu être récupérés.",
+      "es": "No se pudieron cargar los datos del video.",
+      "pt": "Não foi possível obter os dados do vídeo.",
+      "pt_br": "Não foi possível carregar os dados do vídeo.",
+      "it": "Non è stato possibile recuperare i dettagli del video.",
+      "ca": "No s’han pogut carregar les dades del vídeo.",
+      "gl": "Non se puideron cargar os datos do vídeo.",
+      "eo": "Ne eblis ŝargi la detalojn de la filmeto.",
+      "es_es": "No se pudieron cargar los datos del vídeo."
+    },
+    "Unable to import video.": {
+      "fr": "La vidéo n’a pas pu être importée.",
+      "es": "No se pudo importar el video.",
+      "pt": "Não foi possível importar o vídeo.",
+      "pt_br": "Não foi possível importar o vídeo.",
+      "it": "Non è stato possibile importare il video.",
+      "ca": "No s’ha pogut importar el vídeo.",
+      "gl": "Non se puido importar o vídeo.",
+      "eo": "Ne eblis importi la filmeton.",
+      "es_es": "No se pudo importar el vídeo."
+    }
+  }
+}

@@ -32,7 +32,7 @@ class AttachmentMemoryImages extends RemoteImages
 {
     public array $calls = [];
     public array $fail = [];
-    public bool $fastHotlinked = true;
+    public bool $fastPreviewOnly = false;
     public mixed $onRequest = null;
     public string $bytes;
 
@@ -51,7 +51,7 @@ class AttachmentMemoryImages extends RemoteImages
         if ($method === 'POST') {
             $data = match ($provider) {
                 'directupload' => '<html><input value="https://s1.directupload.eu/images/261105/attachment.png"></html>',
-                'fastpic' => json_encode(['hotlinked' => $this->fastHotlinked, 'big_link' => 'https://i.fastpic.org/full/attachment.png', 'thumb_link' => 'https://i.fastpic.org/thumb/attachment.png']),
+                'fastpic' => json_encode(['hotlinked' => $this->fastPreviewOnly, 'big_link' => 'https://i.fastpic.org/full/attachment.png', 'thumb_link' => 'https://i.fastpic.org/thumb/attachment.png']),
                 'postimages' => '<data success="1"><links><hotlink>https://i.postimg.cc/test/attachment.png</hotlink></links></data>',
             };
         }
@@ -107,7 +107,8 @@ function imageProvidersReset(): void
     ThumbnailProvider::query()->update(['failed_video_ids' => '[]', 'circuit_open' => false, 'paused_until' => null, 'last_result' => null]);
 }
 
-config(['cache.default' => 'array', 'thumbnails.pause_file' => '/proc/crozztube-image-test-no-pause']);
+config(['cache.default' => 'array', 'thumbnails.pause_file' => '/proc/crozztube-image-test-no-pause',
+    'media_providers.settings_path' => sys_get_temp_dir().'/crz-image-fixture-'.bin2hex(random_bytes(8)).'/settings.enc']);
 foreach (['directupload', 'fastpic', 'postimages'] as $id) {
     config(['thumbnails.providers.'.$id.'.supported' => true, 'thumbnails.providers.'.$id.'.key' => 'test-only',
         'thumbnails.providers.'.$id.'.minute_limit' => 10000, 'thumbnails.providers.'.$id.'.day_limit' => 10000,
@@ -166,18 +167,18 @@ try {
     [$status] = imageApi('PUT', '/api/image-uploads/'.$cancel.'?purpose=private_message&target_id='.$recipient->id, $owner, $http->bytes);
     imageCheck(in_array($status, [409, 410, 422]) && count($http->posts()) === $before, 'cancel before PUT prevents a late upload resurrection');
 
-    imageProvidersReset(); $http->fail = ['directupload' => true]; $http->fastHotlinked = false;
+    imageProvidersReset(); $http->fail = ['directupload' => true]; $http->fastPreviewOnly = true;
     $other = (string) Str::uuid();
     [$status, $fallback] = imageApi('PUT', '/api/image-uploads/'.$other.'?purpose=video_comment&target_id='.$video->id, $owner, $http->bytes.'second');
     imageCheck(in_array($status, [200, 201]) && str_contains($fallback['attachment']['url'] ?? '', 'postimg.cc'), 'attachment skips restricted FastPic preview and uses Postimages');
     imageCheck(! ThumbnailProvider::find('fastpic')->paused_until, 'restricted full-size FastPic upload does not globally pause thumbnails');
     $hosters = $app->make(Hosters::class);
-    imageCheck($hosters->parse('fastpic', json_encode(['hotlinked' => false, 'thumb_link' => 'https://i.fastpic.org/thumb/test.png'])) === 'https://i.fastpic.org/thumb/test.png', 'existing video thumbnail preview fallback remains supported');
+    imageCheck($hosters->parse('fastpic', json_encode(['hotlinked' => true, 'thumb_link' => 'https://i.fastpic.org/thumb/test.png'])) === 'https://i.fastpic.org/thumb/test.png', 'existing video thumbnail preview fallback remains supported');
 
     imageProvidersReset(); $http->fail = ['directupload' => true, 'fastpic' => true, 'postimages' => true];
     [$status] = imageApi('PUT', '/api/image-uploads/'.Str::uuid().'?purpose=video_comment&target_id='.$video->id, $owner, $http->bytes.'failure');
     imageCheck(in_array($status, [422, 502, 503]), 'complete hoster outage returns a recoverable upload failure');
-    imageProvidersReset(); $http->fail = []; $http->fastHotlinked = true;
+    imageProvidersReset(); $http->fail = []; $http->fastPreviewOnly = false;
 
     $bytes = $http->bytes.str_repeat('x', 5 * 1024 * 1024);
     $before = count($http->posts());

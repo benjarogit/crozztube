@@ -55,7 +55,7 @@ final class ClientContextResolver
             return null;
         }
 
-        return strtolower($locale);
+        return str_replace('_', '-', \App\Support\LanguageLocales::canonical($locale));
     }
 
     private function header(Request $request, string $key, int $maximumLength): ?string

@@ -1,0 +1,380 @@
+{
+  "context": "Editorial pass: previously untranslated LiveKit/TURN configuration, server cron jobs, live waiting/chat/polls/contributions, guest stage consent and camera/microphone states, local gifts/Super Stickers. Original technical paths and named placeholders retained; event fragments remain flagged for later whole-message integration.",
+  "messages": {
+    "Private key file path": {
+      "de": "Dateipfad des privaten Schlüssels"
+    },
+    "Relative to livekit/runtime/certs": {
+      "de": "Relativ zu livekit/runtime/certs"
+    },
+    "Relative to livekit/runtime/certs; read-only in Docker": {
+      "de": "Relativ zu livekit/runtime/certs; in Docker nur lesbar"
+    },
+    "Website WebSocket TLS": {
+      "de": "TLS für den Website-WebSocket"
+    },
+    "Keep the existing wss:// URL; this certificate setup is for LiveKit embedded TURN/TLS.": {
+      "de": "Behalte die vorhandene wss://-URL bei. Diese Zertifikatseinstellung gilt für den integrierten TURN/TLS-Server von LiveKit."
+    },
+    "A TURN/TLS domain is required when embedded TURN/TLS is enabled.": {
+      "de": "Für den integrierten TURN/TLS-Server brauchst du eine TURN/TLS-Domain."
+    },
+    "Add readable certificate and private-key files inside livekit/runtime/certs before enabling embedded TURN/TLS.": {
+      "de": "Lege lesbare Zertifikats- und Schlüsseldateien unter livekit/runtime/certs ab, bevor du den integrierten TURN/TLS-Server aktivierst."
+    },
+    "LiveKit certificate paths must be relative to livekit/runtime/certs.": {
+      "de": "Gib LiveKit-Zertifikatspfade relativ zu livekit/runtime/certs an."
+    },
+    "Manage the active crontab for this server user.": {
+      "de": "Verwalte die aktiven Cron-Jobs dieses Servernutzers."
+    },
+    "Cron jobs could not be loaded.": {
+      "de": "Die Cron-Jobs konnten nicht geladen werden."
+    },
+    "Loading cron jobs...": {
+      "de": "Cron-Jobs werden geladen …"
+    },
+    "Laravel scheduler installed": {
+      "de": "Laravel-Scheduler eingerichtet"
+    },
+    "Laravel scheduler missing": {
+      "de": "Laravel-Scheduler fehlt"
+    },
+    "Install Laravel Scheduler": {
+      "de": "Laravel-Scheduler einrichten"
+    },
+    "No cron jobs are installed for this user.": {
+      "de": "Für diesen Servernutzer sind keine Cron-Jobs eingerichtet."
+    },
+    "Comments and environment variables are preserved. Saving replaces the active crontab for this server user.": {
+      "de": "Kommentare und Umgebungsvariablen bleiben erhalten. Beim Speichern ersetzt du die aktive Crontab dieses Servernutzers."
+    },
+    "Cron jobs could not be saved.": {
+      "de": "Die Cron-Jobs konnten nicht gespeichert werden."
+    },
+    "Unable to read server cron jobs:": {
+      "de": "Die Cron-Jobs des Servers konnten nicht gelesen werden:"
+    },
+    "Unable to save server cron jobs:": {
+      "de": "Die Cron-Jobs des Servers konnten nicht gespeichert werden:"
+    },
+    "TLS certificate mode": {
+      "de": "TLS-Zertifikatsmodus"
+    },
+    "Default non-TLS mode": {
+      "de": "Standardmodus ohne TLS"
+    },
+    "Open this TCP port in the firewall when enabled": {
+      "de": "Gib diesen TCP-Port in der Firewall frei, wenn du die Funktion aktivierst."
+    },
+    "Keep the existing wss:// URL; these certificates are only for LiveKit embedded TURN/TLS.": {
+      "de": "Behalte die vorhandene wss://-URL bei. Diese Zertifikate gelten nur für den integrierten TURN/TLS-Server von LiveKit."
+    },
+    "Default non-TLS TURN server port; open this UDP port in the firewall": {
+      "de": "Standardport des TURN-Servers ohne TLS. Gib diesen UDP-Port in der Firewall frei."
+    },
+    "LiveKit TURN/UDP port must be outside the WebRTC UDP port range.": {
+      "de": "Der TURN/UDP-Port von LiveKit muss außerhalb des WebRTC-UDP-Portbereichs liegen."
+    },
+    "LiveKit TURN/TLS port must not match the signaling or WebRTC TCP port.": {
+      "de": "Der TURN/TLS-Port von LiveKit muss sich vom Signalisierungsport und vom WebRTC-TCP-Port unterscheiden."
+    },
+    "Participants are disabled for this stream.": {
+      "de": "Bei diesem Livestream können keine Gäste teilnehmen."
+    },
+    "Scheduled live stream": {
+      "de": "Geplanter Livestream"
+    },
+    "Waiting for live video": {
+      "de": "Wartet auf das Livebild"
+    },
+    "The broadcast is connected and video will appear here.": {
+      "de": "Die Verbindung steht. Das Livebild erscheint hier."
+    },
+    "The replay will appear here when processing is complete.": {
+      "de": "Die Aufzeichnung erscheint hier, sobald die Verarbeitung abgeschlossen ist."
+    },
+    "Live stream link copied.": {
+      "de": "Link zum Livestream kopiert."
+    },
+    "Live chat is turned off": {
+      "de": "Livechat ist ausgeschaltet"
+    },
+    "The creator disabled chat for this stream.": {
+      "de": "Der Creator hat den Chat für diesen Livestream ausgeschaltet."
+    },
+    "Live chat is not active": {
+      "de": "Livechat ist noch nicht aktiv"
+    },
+    "Chat will be available when the stream starts.": {
+      "de": "Der Chat ist verfügbar, sobald der Livestream beginnt."
+    },
+    "Be the first to join the conversation.": {
+      "de": "Mach den Anfang und starte das Gespräch."
+    },
+    "Vote recorded. Results update automatically.": {
+      "de": "Deine Stimme ist eingegangen. Die Ergebnisse aktualisieren sich automatisch."
+    },
+    "No chat messages yet": {
+      "de": "Noch keine Chatnachrichten"
+    },
+    "Chat is closed for this broadcast.": {
+      "de": "Der Chat für diesen Livestream ist geschlossen."
+    },
+    "sent a Super Sticker": {
+      "de": "hat einen Super Sticker gesendet"
+    },
+    "Say something nice...": {
+      "de": "Schreib etwas Nettes …"
+    },
+    "Live chat is disabled": {
+      "de": "Livechat ist deaktiviert"
+    },
+    "Viewer messages and live activity will appear here.": {
+      "de": "Hier erscheinen Chatnachrichten und Aktivitäten aus dem Livestream."
+    },
+    "Enable chat in the stream settings to continue the conversation.": {
+      "de": "Aktiviere den Chat in den Streameinstellungen, um weiterzuplaudern."
+    },
+    "Configure pinned message": {
+      "de": "Angeheftete Nachricht bearbeiten"
+    },
+    "Open stream activity": {
+      "de": "Streamaktivitäten öffnen"
+    },
+    "Live chat settings updated.": {
+      "de": "Livechat-Einstellungen gespeichert."
+    },
+    "Unable to update live chat settings.": {
+      "de": "Die Livechat-Einstellungen konnten nicht gespeichert werden."
+    },
+    "The selected slow mode interval is unavailable.": {
+      "de": "Der gewählte Abstand für den langsamen Modus ist nicht verfügbar."
+    },
+    "The selected chat moderation is unavailable.": {
+      "de": "Die gewählte Chatmoderation ist nicht verfügbar."
+    },
+    "Live chat has been disabled by an administrator.": {
+      "de": "Das Adminteam hat den Livechat deaktiviert."
+    },
+    "Join and leave activity": {
+      "de": "Beitritte und Abgänge"
+    },
+    "No items match this filter": {
+      "de": "Keine Einträge für diesen Filter"
+    },
+    "Choose another filter to see more stream activity.": {
+      "de": "Wähle einen anderen Filter, um weitere Streamaktivitäten zu sehen."
+    },
+    "Live stream started.": {
+      "de": "Livestream gestartet."
+    },
+    "sent a chat message.": {
+      "de": "hat eine Chatnachricht gesendet."
+    },
+    "Poll status changed.": {
+      "de": "Umfragestatus geändert."
+    },
+    "Viewer, chat, contribution, participant, poll, and connection events will appear here.": {
+      "de": "Hier erscheinen Ereignisse zu Zuschauern, Chat, Beiträgen, Gästen, Umfragen und Verbindungen."
+    },
+    "Replay recording unavailable": {
+      "de": "Aufzeichnung nicht verfügbar"
+    },
+    "Replay recording is unavailable until the LiveKit recording service is running.": {
+      "de": "Aufzeichnungen sind erst verfügbar, wenn der LiveKit-Aufzeichnungsdienst läuft."
+    },
+    "Replay keyframe interval": {
+      "de": "Keyframe-Abstand der Aufzeichnung"
+    },
+    "This stream can start in {time}.": {
+      "de": "Dieser Livestream kann in {time} starten."
+    },
+    "All required checks are complete.": {
+      "de": "Alle erforderlichen Prüfungen sind abgeschlossen."
+    },
+    "Scheduled start time reached": {
+      "de": "Geplanter Startzeitpunkt erreicht"
+    },
+    "Subscription, contribution and goal alerts": {
+      "de": "Hinweise zu Abonnements, Unterstützungen und Zielen"
+    },
+    "Thank you to everyone who contributed.": {
+      "de": "Danke an alle, die etwas beigetragen haben."
+    },
+    "Your community is growing.": {
+      "de": "Deine Community wächst."
+    },
+    "Support this creator": {
+      "de": "Diesen Creator unterstützen"
+    },
+    "Send a contribution during the live stream.": {
+      "de": "Unterstütze den Creator während des Livestreams."
+    },
+    "Live contribution options": {
+      "de": "Unterstützung im Livestream"
+    },
+    "Unable to send this contribution.": {
+      "de": "Deine Unterstützung konnte nicht gesendet werden."
+    },
+    "during this live stream.": {
+      "de": "während dieses Livestreams."
+    },
+    "Add a message for the creator": {
+      "de": "Schreib dem Creator eine Nachricht"
+    },
+    "The live advertisement could not be played.": {
+      "de": "Die Werbung im Livestream konnte nicht abgespielt werden."
+    },
+    "Choose which video qualities are retained after processing and the website player default.": {
+      "de": "Wähle, welche Videoauflösungen nach der Verarbeitung erhalten bleiben und mit welcher Qualität der Player startet."
+    },
+    "GENERATED VIDEO QUALITIES": {
+      "de": "ERSTELLTE VIDEOAUFLÖSUNGEN"
+    },
+    "Default player quality": {
+      "de": "Standardqualität im Player"
+    },
+    "Save Upload Settings": {
+      "de": "Uploadeinstellungen speichern"
+    },
+    "Join as a participant": {
+      "de": "Als Gast teilnehmen"
+    },
+    "Choose what to share. The streamer must approve your request before anything is published.": {
+      "de": "Wähle, was du teilen möchtest. Deine Kamera und dein Mikrofon werden erst übertragen, wenn der Streamer deine Anfrage bestätigt."
+    },
+    "Share your microphone": {
+      "de": "Mikrofon teilen"
+    },
+    "Share camera and microphone": {
+      "de": "Kamera und Mikrofon teilen"
+    },
+    "Waiting for the streamer to approve you.": {
+      "de": "Wartet auf die Bestätigung des Streamers."
+    },
+    "Your microphone and camera are ready to join the stage.": {
+      "de": "Dein Mikrofon und deine Kamera sind bereit für die Bühne."
+    },
+    "Your microphone is ready to join the stage.": {
+      "de": "Dein Mikrofon ist bereit für die Bühne."
+    },
+    "You can choose another mode and send a new request.": {
+      "de": "Du kannst einen anderen Modus wählen und eine neue Anfrage senden."
+    },
+    "Your selected microphone and camera are live.": {
+      "de": "Dein ausgewähltes Mikrofon und deine Kamera werden live übertragen."
+    },
+    "Your selected microphone is live.": {
+      "de": "Dein ausgewähltes Mikrofon wird live übertragen."
+    },
+    "Camera and microphone access is not supported by this browser.": {
+      "de": "Dieser Browser unterstützt keinen Zugriff auf Kamera und Mikrofon."
+    },
+    "A working microphone is required to join the stage.": {
+      "de": "Du brauchst ein funktionierendes Mikrofon, um auf die Bühne zu kommen."
+    },
+    "A working camera is required for audio and video mode.": {
+      "de": "Für die Teilnahme mit Bild und Ton brauchst du eine funktionierende Kamera."
+    },
+    "You joined the participant stage.": {
+      "de": "Du bist jetzt auf der Bühne."
+    },
+    "The LiveKit room is still connecting. Try again in a moment.": {
+      "de": "Die Verbindung zum LiveKit-Raum wird noch hergestellt. Versuch es gleich noch einmal."
+    },
+    "Unable to publish your microphone and camera.": {
+      "de": "Dein Mikrofon und deine Kamera konnten nicht übertragen werden."
+    },
+    "Unable to send the participant request.": {
+      "de": "Deine Teilnahmeanfrage konnte nicht gesendet werden."
+    },
+    "The streamer declined your participant request.": {
+      "de": "Der Streamer hat deine Teilnahmeanfrage abgelehnt."
+    },
+    "Unable to leave the participant stage.": {
+      "de": "Die Bühne konnte nicht verlassen werden."
+    },
+    "Your request was sent to the streamer.": {
+      "de": "Deine Anfrage wurde an den Streamer gesendet."
+    },
+    "Participant request declined.": {
+      "de": "Teilnahmeanfrage abgelehnt."
+    },
+    "Unable to update the participant request.": {
+      "de": "Die Teilnahmeanfrage konnte nicht aktualisiert werden."
+    },
+    "LiveKit control room reconnected.": {
+      "de": "Die Verbindung zum LiveKit-Kontrollraum steht wieder."
+    },
+    "Your participant controls": {
+      "de": "Deine Steuerung als Gast"
+    },
+    "Unable to change your microphone.": {
+      "de": "Dein Mikrofon konnte nicht gewechselt werden."
+    },
+    "Unable to change your camera.": {
+      "de": "Deine Kamera konnte nicht gewechselt werden."
+    },
+    "joined as a participant": {
+      "de": "ist als Gast beigetreten"
+    },
+    "left the participant stage": {
+      "de": "hat die Bühne verlassen"
+    },
+    "was removed by the streamer": {
+      "de": "wurde vom Streamer entfernt"
+    },
+    "Remove {name} from this live stream? They will stop publishing immediately.": {
+      "de": "Möchtest du {name} aus diesem Livestream entfernen? Die Übertragung dieser Person endet sofort."
+    },
+    "Unable to copy the participant invite link.": {
+      "de": "Der Einladungslink für Gäste konnte nicht kopiert werden."
+    },
+    "Manage the local gift catalog, images, availability, and prices.": {
+      "de": "Verwalte den lokalen Geschenkekatalog, Bilder, Verfügbarkeit und Preise."
+    },
+    "Unable to load gifts": {
+      "de": "Geschenke konnten nicht geladen werden"
+    },
+    "The gift catalog could not be loaded.": {
+      "de": "Der Geschenkekatalog konnte nicht geladen werden."
+    },
+    "The gift could not be saved.": {
+      "de": "Das Geschenk konnte nicht gespeichert werden."
+    },
+    "Unable to delete gift": {
+      "de": "Geschenk konnte nicht gelöscht werden"
+    },
+    "The gift could not be deleted.": {
+      "de": "Das Geschenk konnte nicht gelöscht werden."
+    },
+    "WebP images are stored locally in the website gifts folder.": {
+      "de": "WebP-Bilder werden lokal im Geschenkeordner der Website gespeichert."
+    },
+    "Enabled for live streams": {
+      "de": "Für Livestreams aktiviert"
+    },
+    "Manage locally stored Super Stickers, availability, and prices.": {
+      "de": "Verwalte lokal gespeicherte Super Sticker, ihre Verfügbarkeit und Preise."
+    },
+    "Unable to load Super Stickers": {
+      "de": "Super Sticker konnten nicht geladen werden"
+    },
+    "The Super Sticker catalog could not be loaded.": {
+      "de": "Der Super-Sticker-Katalog konnte nicht geladen werden."
+    },
+    "Unable to save Super Sticker": {
+      "de": "Super Sticker konnte nicht gespeichert werden"
+    },
+    "The Super Sticker could not be saved.": {
+      "de": "Der Super Sticker konnte nicht gespeichert werden."
+    },
+    "Delete Super Sticker?": {
+      "de": "Super Sticker löschen?"
+    },
+    "Delete Super Sticker": {
+      "de": "Super Sticker löschen"
+    }
+  }
+}

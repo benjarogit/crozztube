@@ -1,0 +1,125 @@
+{
+  "context": "Editorial semantic correction of home/live/review/device distribution/report and import/account actions in Hebrew, Persian/Dari, Hindi, Bengali, Thai and Vietnamese; device distribution also in the first nine reviewed locales. No literal house/life/device failure/clothing meanings. Regional Persian/Dari terminology preserved.",
+  "messages": {
+    "Home": {
+      "he_il": "דף הבית",
+      "fa_ir": "صفحهٔ اصلی",
+      "fa_af": "صفحهٔ اصلی",
+      "hi_in": "होम",
+      "bn_bd": "হোম",
+      "th": "หน้าแรก",
+      "vi": "Trang chủ"
+    },
+    "Live": {
+      "he_il": "שידור חי",
+      "fa_ir": "پخش زنده",
+      "fa_af": "پخش زنده",
+      "hi_in": "लाइव",
+      "bn_bd": "লাইভ",
+      "th": "ถ่ายทอดสด",
+      "vi": "Trực tiếp"
+    },
+    "Live & Create": {
+      "he_il": "שידור ויצירה",
+      "fa_ir": "پخش زنده و ساخت ویدیو",
+      "fa_af": "پخش زنده و ساخت ویدیو",
+      "hi_in": "लाइव और क्रिएट",
+      "bn_bd": "লাইভ ও কনটেন্ট তৈরি",
+      "th": "ไลฟ์และสร้างสรรค์",
+      "vi": "Phát trực tiếp và sáng tạo"
+    },
+    "Review": {
+      "he_il": "בדיקה",
+      "fa_ir": "بررسی",
+      "fa_af": "بررسی",
+      "hi_in": "जाँच करो",
+      "bn_bd": "যাচাই করো",
+      "th": "ตรวจสอบ",
+      "vi": "Kiểm tra"
+    },
+    "Device Breakdown": {
+      "he_il": "התפלגות מכשירים",
+      "fa_ir": "توزیع دستگاه‌ها",
+      "fa_af": "توزیع دستگاه‌ها",
+      "hi_in": "डिवाइस का वितरण",
+      "bn_bd": "ডিভাইসভিত্তিক পরিসংখ্যান",
+      "th": "สัดส่วนอุปกรณ์",
+      "vi": "Phân bố thiết bị",
+      "ar": "توزيع الأجهزة",
+      "ja": "デバイス別の内訳",
+      "ko_kr": "기기별 분포",
+      "zh_cn": "设备分布",
+      "zh_tw": "裝置分布",
+      "zh_hk": "裝置分佈",
+      "tr_tr": "Cihaz dağılımı",
+      "id_id": "Distribusi perangkat",
+      "ms_my": "Pecahan peranti"
+    },
+    "Reports": {
+      "he_il": "דיווחים",
+      "fa_ir": "گزارش‌ها",
+      "fa_af": "گزارش‌ها",
+      "hi_in": "कंटेंट की रिपोर्टें",
+      "bn_bd": "অভিযোগ",
+      "th": "รายงานการละเมิด",
+      "vi": "Báo cáo"
+    },
+    "Import Video": {
+      "he_il": "ייבוא סרטון",
+      "fa_ir": "وارد کردن ویدیو",
+      "fa_af": "وارد کردن ویدیو",
+      "hi_in": "वीडियो इंपोर्ट करो",
+      "bn_bd": "ভিডিও ইমপোর্ট করো",
+      "th": "นำเข้าวิดีโอ",
+      "vi": "Nhập video"
+    },
+    "Fetch details": {
+      "he_il": "טעינת פרטים",
+      "fa_ir": "دریافت جزئیات",
+      "fa_af": "گرفتن معلومات",
+      "hi_in": "जानकारी लाओ",
+      "bn_bd": "তথ্য আনো",
+      "th": "ดึงข้อมูล",
+      "vi": "Tải thông tin"
+    },
+    "Your channel": {
+      "he_il": "הערוץ שלך",
+      "fa_ir": "کانالت",
+      "fa_af": "کانالت",
+      "hi_in": "तुम्हारा चैनल",
+      "bn_bd": "তোমার চ্যানেল",
+      "th": "ช่องของคุณ",
+      "vi": "Kênh của bạn"
+    },
+    "Publish": {
+      "he_il": "פרסום",
+      "fa_ir": "انتشار",
+      "fa_af": "نشر",
+      "hi_in": "प्रकाशित करो",
+      "bn_bd": "প্রকাশ করো",
+      "th": "เผยแพร่",
+      "vi": "Đăng"
+    },
+    "Delete": {
+      "he_il": "מחיקה",
+      "fa_ir": "حذف",
+      "fa_af": "پاک کردن",
+      "hi_in": "मिटाओ",
+      "bn_bd": "মুছে ফেলো",
+      "th": "ลบ",
+      "vi": "Xóa"
+    },
+    "Discard": {
+      "he_il": "ביטול השינויים",
+      "fa_ir": "لغو تغییرات",
+      "fa_af": "لغو تغییرات",
+      "hi_in": "बदलाव रद्द करो",
+      "bn_bd": "পরিবর্তন বাতিল করো",
+      "th": "ยกเลิกการเปลี่ยนแปลง",
+      "vi": "Bỏ thay đổi"
+    },
+    "Search reports...": {
+      "tr_tr": "Şikâyetlerde ara…"
+    }
+  }
+}

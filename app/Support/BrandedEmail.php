@@ -39,6 +39,10 @@ class BrandedEmail
         $initial = function_exists('mb_strtoupper') ? mb_strtoupper($initial) : strtoupper($initial);
         $safeInitial = $escape($initial);
         $body = self::bodyHtml($text, $primary, $softColor, $textColor, $mutedColor);
+        $localization = app(\App\Services\LocalizationService::class);
+        $notificationLabel = $escape($localization->translate('Notification', $locale));
+        $sentBy = $escape($localization->translate('This email was sent by {site}.', $locale));
+        $sentBy = str_replace('{site}', '<a href="'.$safeUrl.'" style="color:'.$primary.';font-weight:700;text-decoration:none;">'.$safeUrl.'</a>', $sentBy);
 
         return <<<HTML
 <!doctype html>
@@ -66,7 +70,7 @@ class BrandedEmail
                 <tr>
                   <td width="42" valign="middle"><div style="width:38px;height:38px;border-radius:7px;background:{$primary};color:{$accentText};font-size:18px;font-weight:800;line-height:38px;text-align:center;">{$safeInitial}</div></td>
                   <td valign="middle" style="padding-left:11px;color:{$textColor};font-size:18px;font-weight:800;line-height:1.2;">{$safeLogoText}</td>
-                  <td align="right" valign="middle" style="color:{$mutedColor};font-size:11.5px;font-weight:700;letter-spacing:0;text-transform:uppercase;">Notification</td>
+                  <td align="right" valign="middle" style="color:{$mutedColor};font-size:11.5px;font-weight:700;letter-spacing:0;text-transform:uppercase;">{$notificationLabel}</td>
                 </tr>
               </table>
             </td>
@@ -81,7 +85,7 @@ class BrandedEmail
           <tr>
             <td class="email-footer" colspan="2" style="padding:22px 36px;border-top:1px solid #e7ebf1;background:#fafbfc;color:{$mutedColor};font-size:12px;line-height:1.6;">
               <strong style="color:{$textColor};">{$safeName}</strong><br>
-              <span>This email was sent by <a href="{$safeUrl}" style="color:{$primary};font-weight:700;text-decoration:none;">{$safeUrl}</a>.</span><br>
+              <span>{$sentBy}</span><br>
               <span>&copy; {$year} {$safeName}</span>
             </td>
           </tr>
@@ -146,7 +150,7 @@ HTML;
 
     private static function languageAttributes(?string $locale): array
     {
-        $locale = strtolower(str_replace('-', '_', trim((string) $locale)));
+        $locale = LanguageLocales::canonical($locale);
         if (! in_array($locale, GeneralSettings::languageIdentifiers(), true)) {
             $locale = strtolower(str_replace('-', '_', (string) (GeneralSettings::settings()['defaultLanguage'] ?? 'en')));
         }
@@ -159,6 +163,6 @@ HTML;
             $direction = data_get($translations, '__meta.direction') === 'rtl' ? 'rtl' : 'ltr';
         }
 
-        return [str_replace('_', '-', $locale), $direction];
+        return [LanguageLocales::languageTag($locale), $direction];
     }
 }

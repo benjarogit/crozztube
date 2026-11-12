@@ -1,0 +1,26 @@
+{
+  "context": "Editorial privacy-link completion: Welsh/Frisian/Scottish Gaelic/Belarusian/Macedonian/Albanian. Neutral owner-approved policy reference, personal singular imperatives/possessives, no new data-sharing promises. Welsh/Frisian/Gaelic terminology checked in primary native-language publications.",
+  "references": [
+    "https://meic.cymru/cy/preifatrwydd/",
+    "https://praatmarfrysk.nl/websjop/klanteservice/",
+    "https://www.gaidhlig.scot/gd/sanas-priobhaideachd-na-laraich-lin/"
+  ],
+  "messages": {
+    "Find out how we handle your data in our privacy policy.": {
+      "fy": "Yn ús privacybelied kinst lêze hoe’t wy mei dyn gegevens omgeane.",
+      "cy": "Darllena ein polisi preifatrwydd i weld sut rydyn ni’n trin dy ddata.",
+      "gd": "Leugh sa phoileasaidh prìobhaideachd againn mar a bhios sinn a’ dèiligeadh ris an dàta agad.",
+      "bel": "Прачытай у нашай палітыцы прыватнасці, як мы апрацоўваем твае даныя.",
+      "mk": "Во нашата политика за приватност можеш да прочиташ како постапуваме со твоите податоци.",
+      "sq": "Lexo politikën tonë të privatësisë për të parë si i trajtojmë të dhënat e tua."
+    },
+    "We never share your data with third parties.": {
+      "fy": "Yn ús privacybelied kinst lêze hoe’t wy mei dyn gegevens omgeane.",
+      "cy": "Darllena ein polisi preifatrwydd i weld sut rydyn ni’n trin dy ddata.",
+      "gd": "Leugh sa phoileasaidh prìobhaideachd againn mar a bhios sinn a’ dèiligeadh ris an dàta agad.",
+      "bel": "Прачытай у нашай палітыцы прыватнасці, як мы апрацоўваем твае даныя.",
+      "mk": "Во нашата политика за приватност можеш да прочиташ како постапуваме со твоите податоци.",
+      "sq": "Lexo politikën tonë të privatësisë për të parë si i trajtojmë të dhënat e tua."
+    }
+  }
+}

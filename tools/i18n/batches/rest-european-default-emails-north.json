@@ -1,0 +1,113 @@
+{
+  "context": "All six complete built-in email subjects/bodies in Dutch/Afrikaans/Danish/Swedish/Bokmål/Nynorsk/Finnish. Friendly singular, native greeting; account invitation role is a literal label to preserve arbitrary roles, code lifetime uses min abbreviation to remain grammatical for1/2/15. Ban expiry, credentials, URLs, restriction blocks and moderation titles keep all original tokens. No administrator template changes or sending.",
+  "messages": {
+    "Your {SITENAME} verification code": {
+      "nl": "Je verificatiecode voor {SITENAME}",
+      "af": "Jou {SITENAME}-verifikasiekode",
+      "da": "Din bekræftelseskode til {SITENAME}",
+      "sv": "Din verifieringskod för {SITENAME}",
+      "nb": "Bekreftelseskoden din for {SITENAME}",
+      "nn": "Stadfestingskoden din for {SITENAME}",
+      "fi": "Vahvistuskoodisi sivustolle {SITENAME}"
+    },
+    "Your {SITENAME} verification code is: {VERIFICATION_CODE}\n\nThis code expires in {EXPIRY_MINUTES} minutes.": {
+      "nl": "Je verificatiecode voor {SITENAME}: {VERIFICATION_CODE}\n\nDeze code is {EXPIRY_MINUTES} min geldig.",
+      "af": "Jou {SITENAME}-verifikasiekode: {VERIFICATION_CODE}\n\nHierdie kode is {EXPIRY_MINUTES} min geldig.",
+      "da": "Din bekræftelseskode til {SITENAME}: {VERIFICATION_CODE}\n\nKoden er gyldig i {EXPIRY_MINUTES} min.",
+      "sv": "Din verifieringskod för {SITENAME}: {VERIFICATION_CODE}\n\nKoden gäller i {EXPIRY_MINUTES} min.",
+      "nb": "Bekreftelseskoden din for {SITENAME}: {VERIFICATION_CODE}\n\nKoden er gyldig i {EXPIRY_MINUTES} min.",
+      "nn": "Stadfestingskoden din for {SITENAME}: {VERIFICATION_CODE}\n\nKoden er gyldig i {EXPIRY_MINUTES} min.",
+      "fi": "Vahvistuskoodisi sivustolle {SITENAME}: {VERIFICATION_CODE}\n\nKoodi on voimassa {EXPIRY_MINUTES} min."
+    },
+    "Reset your {SITENAME} password": {
+      "nl": "Stel je wachtwoord voor {SITENAME} opnieuw in",
+      "af": "Stel jou {SITENAME}-wagwoord terug",
+      "da": "Nulstil din adgangskode til {SITENAME}",
+      "sv": "Återställ ditt lösenord för {SITENAME}",
+      "nb": "Tilbakestill passordet ditt for {SITENAME}",
+      "nn": "Nullstill passordet ditt for {SITENAME}",
+      "fi": "Vaihda salasanasi sivustolla {SITENAME}"
+    },
+    "Hello {USERNAME},\n\nYour {SITENAME} password reset code is: {RESET_CODE}\n\nThis code expires in {EXPIRY_MINUTES} minutes.": {
+      "nl": "Hoi {USERNAME},\n\nJe code om je wachtwoord voor {SITENAME} opnieuw in te stellen: {RESET_CODE}\n\nDeze code is {EXPIRY_MINUTES} min geldig.",
+      "af": "Hallo {USERNAME},\n\nJou kode om jou {SITENAME}-wagwoord terug te stel: {RESET_CODE}\n\nHierdie kode is {EXPIRY_MINUTES} min geldig.",
+      "da": "Hej {USERNAME},\n\nDin kode til at nulstille adgangskoden til {SITENAME}: {RESET_CODE}\n\nKoden er gyldig i {EXPIRY_MINUTES} min.",
+      "sv": "Hej {USERNAME},\n\nDin kod för att återställa lösenordet för {SITENAME}: {RESET_CODE}\n\nKoden gäller i {EXPIRY_MINUTES} min.",
+      "nb": "Hei {USERNAME},\n\nKoden for å tilbakestille passordet ditt for {SITENAME}: {RESET_CODE}\n\nKoden er gyldig i {EXPIRY_MINUTES} min.",
+      "nn": "Hei {USERNAME},\n\nKoden for å nullstille passordet ditt for {SITENAME}: {RESET_CODE}\n\nKoden er gyldig i {EXPIRY_MINUTES} min.",
+      "fi": "Hei {USERNAME},\n\nKoodisi salasanan vaihtamiseen sivustolla {SITENAME}: {RESET_CODE}\n\nKoodi on voimassa {EXPIRY_MINUTES} min."
+    },
+    "You have been invited to {SITENAME}": {
+      "nl": "Je bent uitgenodigd voor {SITENAME}",
+      "af": "Jy is na {SITENAME} genooi",
+      "da": "Du er inviteret til {SITENAME}",
+      "sv": "Du är inbjuden till {SITENAME}",
+      "nb": "Du er invitert til {SITENAME}",
+      "nn": "Du er invitert til {SITENAME}",
+      "fi": "Sinut on kutsuttu sivustolle {SITENAME}"
+    },
+    "Hello {USERNAME},\n\nYou have been invited to {SITENAME} as {ROLE}.\n\nLogin email: {USER_EMAIL}\nTemporary password: {TEMPORARY_PASSWORD}\nLogin: {LOGIN_URL}\n\nPlease sign in and update your password.": {
+      "nl": "Hoi {USERNAME},\n\nJe bent uitgenodigd voor {SITENAME}. Je rol: {ROLE}.\n\nE-mailadres om in te loggen: {USER_EMAIL}\nTijdelijk wachtwoord: {TEMPORARY_PASSWORD}\nInloggen: {LOGIN_URL}\n\nLog in en verander je wachtwoord.",
+      "af": "Hallo {USERNAME},\n\nJy is na {SITENAME} genooi. Jou rol: {ROLE}.\n\nE-posadres om aan te meld: {USER_EMAIL}\nTydelike wagwoord: {TEMPORARY_PASSWORD}\nMeld aan: {LOGIN_URL}\n\nMeld aan en verander jou wagwoord.",
+      "da": "Hej {USERNAME},\n\nDu er inviteret til {SITENAME}. Din rolle: {ROLE}.\n\nLoginmail: {USER_EMAIL}\nMidlertidig adgangskode: {TEMPORARY_PASSWORD}\nLog ind: {LOGIN_URL}\n\nLog ind, og skift din adgangskode.",
+      "sv": "Hej {USERNAME},\n\nDu är inbjuden till {SITENAME}. Din roll: {ROLE}.\n\nE-postadress för inloggning: {USER_EMAIL}\nTillfälligt lösenord: {TEMPORARY_PASSWORD}\nLogga in: {LOGIN_URL}\n\nLogga in och ändra ditt lösenord.",
+      "nb": "Hei {USERNAME},\n\nDu er invitert til {SITENAME}. Rollen din: {ROLE}.\n\nE-postadresse for innlogging: {USER_EMAIL}\nMidlertidig passord: {TEMPORARY_PASSWORD}\nLogg inn: {LOGIN_URL}\n\nLogg inn og endre passordet ditt.",
+      "nn": "Hei {USERNAME},\n\nDu er invitert til {SITENAME}. Rolla di: {ROLE}.\n\nE-postadresse for innlogging: {USER_EMAIL}\nMellombels passord: {TEMPORARY_PASSWORD}\nLogg inn: {LOGIN_URL}\n\nLogg inn og endre passordet ditt.",
+      "fi": "Hei {USERNAME},\n\nSinut on kutsuttu sivustolle {SITENAME}. Roolisi: {ROLE}.\n\nKirjautumisen sähköpostiosoite: {USER_EMAIL}\nVäliaikainen salasana: {TEMPORARY_PASSWORD}\nKirjaudu sisään: {LOGIN_URL}\n\nKirjaudu sisään ja vaihda salasanasi."
+    },
+    "Your {SITENAME} account has been restricted": {
+      "nl": "Je account op {SITENAME} is beperkt",
+      "af": "Jou {SITENAME}-rekening is beperk",
+      "da": "Din konto på {SITENAME} er begrænset",
+      "sv": "Ditt konto på {SITENAME} har begränsats",
+      "nb": "Kontoen din på {SITENAME} er begrenset",
+      "nn": "Kontoen din på {SITENAME} er avgrensa",
+      "fi": "Tiliäsi sivustolla {SITENAME} on rajoitettu"
+    },
+    "Hello {USERNAME},\n\nYour {SITENAME} account has been restricted until {BAN_EXPIRES_AT}.\n\nRestrictions:\n{RESTRICTIONS}\n\nIf you believe this is a mistake, contact {SUPPORT_EMAIL}.": {
+      "nl": "Hoi {USERNAME},\n\nTot {BAN_EXPIRES_AT} gelden er beperkingen voor je account op {SITENAME}.\n\nBeperkingen:\n{RESTRICTIONS}\n\nDenk je dat dit een vergissing is? Neem contact op via {SUPPORT_EMAIL}.",
+      "af": "Hallo {USERNAME},\n\nJou {SITENAME}-rekening is beperk tot {BAN_EXPIRES_AT}.\n\nBeperkings:\n{RESTRICTIONS}\n\nDink jy dit is ’n fout? Kontak {SUPPORT_EMAIL}.",
+      "da": "Hej {USERNAME},\n\nDin konto på {SITENAME} er begrænset indtil {BAN_EXPIRES_AT}.\n\nBegrænsninger:\n{RESTRICTIONS}\n\nMener du, at det er en fejl? Kontakt {SUPPORT_EMAIL}.",
+      "sv": "Hej {USERNAME},\n\nDitt konto på {SITENAME} har begränsningar fram till {BAN_EXPIRES_AT}.\n\nBegränsningar:\n{RESTRICTIONS}\n\nTror du att det är ett misstag? Kontakta {SUPPORT_EMAIL}.",
+      "nb": "Hei {USERNAME},\n\nKontoen din på {SITENAME} er begrenset frem til {BAN_EXPIRES_AT}.\n\nBegrensninger:\n{RESTRICTIONS}\n\nTror du dette er en feil? Kontakt {SUPPORT_EMAIL}.",
+      "nn": "Hei {USERNAME},\n\nKontoen din på {SITENAME} er avgrensa fram til {BAN_EXPIRES_AT}.\n\nAvgrensingar:\n{RESTRICTIONS}\n\nTrur du dette er ein feil? Kontakt {SUPPORT_EMAIL}.",
+      "fi": "Hei {USERNAME},\n\nTiliäsi sivustolla {SITENAME} on rajoitettu ajankohtaan {BAN_EXPIRES_AT} asti.\n\nRajoitukset:\n{RESTRICTIONS}\n\nOnko kyseessä mielestäsi virhe? Ota yhteyttä osoitteeseen {SUPPORT_EMAIL}."
+    },
+    "You are now a {SITENAME} moderator": {
+      "nl": "Je kunt nu modereren op {SITENAME}",
+      "af": "Jy is nou ’n moderator op {SITENAME}",
+      "da": "Du er nu moderator på {SITENAME}",
+      "sv": "Du är nu moderator på {SITENAME}",
+      "nb": "Du er nå moderator på {SITENAME}",
+      "nn": "Du er no moderator på {SITENAME}",
+      "fi": "Olet nyt moderaattori sivustolla {SITENAME}"
+    },
+    "Hello {USERNAME},\n\nYou have been assigned the Moderator role on {SITENAME}. You can now access the moderation tools available to your role.\n\nModeration dashboard: {MODERATION_URL}": {
+      "nl": "Hoi {USERNAME},\n\nJe hebt de moderatorrol op {SITENAME} gekregen. Je kunt nu de moderatietools gebruiken die bij je rol horen.\n\nModeratiedashboard: {MODERATION_URL}",
+      "af": "Hallo {USERNAME},\n\nJy het die moderatorrol op {SITENAME} gekry. Jy kan nou die modereringsnutsgoed gebruik wat by jou rol hoort.\n\nModereringspaneel: {MODERATION_URL}",
+      "da": "Hej {USERNAME},\n\nDu har fået moderatorrollen på {SITENAME}. Du kan nu bruge de moderationsværktøjer, der hører til din rolle.\n\nModerationspanel: {MODERATION_URL}",
+      "sv": "Hej {USERNAME},\n\nDu har fått moderatorrollen på {SITENAME}. Nu kan du använda de modereringsverktyg som hör till din roll.\n\nModereringspanel: {MODERATION_URL}",
+      "nb": "Hei {USERNAME},\n\nDu har fått moderatorrollen på {SITENAME}. Nå kan du bruke modereringsverktøyene som hører til rollen din.\n\nModereringspanel: {MODERATION_URL}",
+      "nn": "Hei {USERNAME},\n\nDu har fått moderatorrolla på {SITENAME}. No kan du bruke modereringsverktøya som høyrer til rolla di.\n\nModereringspanel: {MODERATION_URL}",
+      "fi": "Hei {USERNAME},\n\nOlet saanut moderaattorin roolin sivustolla {SITENAME}. Voit nyt käyttää rooliisi kuuluvia moderointityökaluja.\n\nModerointinäkymä: {MODERATION_URL}"
+    },
+    "You are moderating \"{STREAM_TITLE}\" on {SITENAME}": {
+      "nl": "Je modereert “{STREAM_TITLE}” op {SITENAME}",
+      "af": "Jy modereer “{STREAM_TITLE}” op {SITENAME}",
+      "da": "Du modererer “{STREAM_TITLE}” på {SITENAME}",
+      "sv": "Du modererar ”{STREAM_TITLE}” på {SITENAME}",
+      "nb": "Du modererer «{STREAM_TITLE}» på {SITENAME}",
+      "nn": "Du modererer «{STREAM_TITLE}» på {SITENAME}",
+      "fi": "Moderoit lähetystä ”{STREAM_TITLE}” sivustolla {SITENAME}"
+    },
+    "Hello {USERNAME},\n\nYou have been assigned as a moderator for the live stream \"{STREAM_TITLE}\". Open the stream to access your moderation controls.\n\nOpen stream: {STREAM_URL}": {
+      "nl": "Hoi {USERNAME},\n\nJe bent aangewezen als moderator voor de livestream “{STREAM_TITLE}”. Open de stream om de moderatietools te gebruiken.\n\nStream openen: {STREAM_URL}",
+      "af": "Hallo {USERNAME},\n\nJy is aangewys as moderator vir die regstreekse uitsending “{STREAM_TITLE}”. Maak die uitsending oop om die modereringsnutsgoed te gebruik.\n\nMaak uitsending oop: {STREAM_URL}",
+      "da": "Hej {USERNAME},\n\nDu er valgt som moderator for livestreamen “{STREAM_TITLE}”. Åbn streamen for at bruge dine moderationsværktøjer.\n\nÅbn streamen: {STREAM_URL}",
+      "sv": "Hej {USERNAME},\n\nDu har utsetts till moderator för livesändningen ”{STREAM_TITLE}”. Öppna sändningen för att använda dina modereringsverktyg.\n\nÖppna sändningen: {STREAM_URL}",
+      "nb": "Hei {USERNAME},\n\nDu er utnevnt som moderator for direktesendingen «{STREAM_TITLE}». Åpne sendingen for å bruke modereringsverktøyene dine.\n\nÅpne sendingen: {STREAM_URL}",
+      "nn": "Hei {USERNAME},\n\nDu er vald som moderator for direktesendinga «{STREAM_TITLE}». Opne sendinga for å bruke modereringsverktøya dine.\n\nOpne sendinga: {STREAM_URL}",
+      "fi": "Hei {USERNAME},\n\nSinut on valittu moderaattoriksi suoraan lähetykseen ”{STREAM_TITLE}”. Avaa lähetys käyttääksesi moderointityökaluja.\n\nAvaa lähetys: {STREAM_URL}"
+    }
+  }
+}

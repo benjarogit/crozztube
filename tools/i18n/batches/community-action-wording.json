@@ -1,0 +1,23 @@
+{
+  "context": "Whole German community post actions in viewer/author/moderator menus and their resulting notices, confirmations and failures. Verified against CommunityPost handlers; preserve original posts, authors and URLs. German regional variants share these idiomatic phrases without formal address; no whole-language acceptance is implied. Shared video share action reviewed in Watch More too.",
+  "messages": {
+    "Copy post link": { "en": "Copy post link", "de": "Link zum Beitrag kopieren" },
+    "Share post": { "en": "Share post", "de": "Beitrag teilen" },
+    "Post options": { "en": "Post options", "de": "Beitragsoptionen" },
+    "Edit post": { "en": "Edit post", "de": "Beitrag bearbeiten" },
+    "Delete post": { "en": "Delete post", "de": "Beitrag löschen" },
+    "Remove post": { "en": "Remove post", "de": "Beitrag entfernen" },
+    "Post link copied.": { "en": "Post link copied.", "de": "Beitragslink kopiert." },
+    "Post updated.": { "en": "Post updated.", "de": "Dein Beitrag wurde aktualisiert." },
+    "Unable to copy post link.": { "en": "Unable to copy post link.", "de": "Der Link zum Beitrag konnte nicht kopiert werden." },
+    "Unable to share post.": { "en": "Unable to share post.", "de": "Der Beitrag konnte nicht geteilt werden." },
+    "Unable to delete post.": { "en": "Unable to delete post.", "de": "Der Beitrag konnte nicht gelöscht werden." },
+    "Unable to update post.": { "en": "Unable to update post.", "de": "Der Beitrag konnte nicht aktualisiert werden." },
+    "Delete community post?": { "en": "Delete community post?", "de": "Communitybeitrag löschen?" },
+    "Remove community post?": { "en": "Remove community post?", "de": "Communitybeitrag entfernen?" },
+    "This post will be removed from its community. This cannot be undone.": { "en": "This post will be removed from its community. This cannot be undone.", "de": "Der Beitrag wird aus der Community entfernt. Das kannst du nicht rückgängig machen." },
+    "Deleting...": { "en": "Deleting...", "de": "Wird gelöscht …" },
+    "Removing...": { "en": "Removing...", "de": "Wird entfernt …" },
+    "Share Video": { "en": "Share video", "de": "Video teilen" }
+  }
+}

@@ -1,12 +1,21 @@
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { formatMessage as formatPattern, pluralForm as pluralize, relativeAge, durationUnit, countMessage, countLabel, languageTag, catalogLocale } from './localizationFormat.js';
 
 const STORAGE_KEY = 'playhub_language';
+// Vidstack owns live labels and carries literal chapter, caption and track content.
+// Its portalled menus keep these layout classes outside the React parent tree.
+const directLocalizationSelector = '[data-i18n-skip], .notranslate, .vds-video-layout, .vds-audio-layout, .vds-tooltip-content';
+// Vidstack 1.15 translates the font-menu hint, but renders built-in radio labels raw.
+// Only these two application-owned static option lists participate in the bridge.
+const mediaFontLabelSelector = '.vds-font-family-menu .vds-radio-label, .vds-text-shadow-menu .vds-radio-label';
 const translatableAttributes = ['placeholder', 'title', 'aria-label', 'alt'];
 const textNodeState = new WeakMap();
 const attributeState = new WeakMap();
+const brandedProjectMessages = new Map();
 
 let availableLanguageCodes = [];
+let languageAliases = typeof window !== 'undefined' ? window.__PLAYHUB_WEBSITE__?.languageAliases || {} : {};
 
 export const languagePacks = {};
 
@@ -25,10 +34,12 @@ const I18nContext = createContext({
   direction: 'ltr',
   setLanguage: () => {},
   t: (value, values = {}) => formatPattern(value, values),
+  count: (value, unit) => countLabel(value, unit),
 });
 
 function normalizeLanguage(value) {
-  const next = String(value || '').toLowerCase().replace(/-/g, '_');
+  const raw = catalogLocale(value);
+  const next = languageAliases[raw] || raw;
   if (!availableLanguageCodes.length) return next;
   if (availableLanguageCodes.includes(next)) return next;
   const shortCode = next.split('_')[0];
@@ -62,30 +73,19 @@ function normalizeText(value) {
   return String(value ?? '').replace(/\u00a0/g, ' ').replace(/\s+/g, ' ').trim();
 }
 
+export function brandedProjectText(value, brand = 'PlayHub') {
+  const source = String(value ?? '');
+  if (!source.includes('PlayHub')) return source;
+  const rendered = source.replace(/PlayHub/g, () => brand);
+  brandedProjectMessages.set(normalizeText(rendered), { source: normalizeText(source), brand });
+  return rendered;
+}
+
 function withOriginalSpacing(original, translated) {
   const source = String(original ?? '');
   const leading = source.match(/^\s*/)?.[0] || '';
   const trailing = source.match(/\s*$/)?.[0] || '';
   return `${leading}${translated}${trailing}`;
-}
-
-function pluralize(value, forms = [], language = 'en') {
-  if (!forms.length) return '';
-  const number = Math.abs(Number(String(value).replace(/[^\d.-]/g, ''))) || 0;
-  let category = 'other';
-  try {
-    category = new Intl.PluralRules(String(language || 'en').replace(/_/g, '-')).select(number);
-  } catch (_) {
-    category = 'other';
-  }
-  const indexByCategory = { one: 0, few: 1, many: 2, two: 1, zero: forms.length - 1, other: forms.length - 1 };
-  const index = Math.min(indexByCategory[category] ?? forms.length - 1, forms.length - 1);
-  return forms[index] || forms[forms.length - 1] || '';
-}
-
-function formatPattern(template, values = {}) {
-  if (!template) return null;
-  return String(template).replace(/\{([a-zA-Z0-9_]+)\}/g, (match, key) => values[key] ?? '');
 }
 
 function translatePattern(text, language) {
@@ -95,16 +95,24 @@ function translatePattern(text, language) {
   const patterns = pack.patterns || {};
   const lower = text.toLowerCase();
   const countMatch = lower.match(/^([\d.,kmb]+)\s+([a-z]+)$/i);
-  if (countMatch && translations[countMatch[2]]) {
-    return `${countMatch[1]} ${translations[countMatch[2]]}`;
+  if (countMatch) {
+    const complete = countMessage(countMatch[1], countMatch[2], patterns, language);
+    if (complete) return complete;
+    const formatted = durationUnit(countMatch[1], countMatch[2], language, patterns);
+    if (formatted) return formatted;
   }
   if (countMatch && plurals[countMatch[2]]) {
     return `${countMatch[1]} ${pluralize(countMatch[1], plurals[countMatch[2]], language)}`;
   }
+  if (countMatch && translations[countMatch[2]]) {
+    return `${countMatch[1]} ${translations[countMatch[2]]}`;
+  }
 
   const agoMatch = lower.match(/^([\d.,]+)\s+(year|years|month|months|week|weeks|day|days|hour|hours|minute|minutes|second|seconds)\s+ago$/);
-  if (agoMatch && plurals[agoMatch[2]]) {
-    return formatPattern(patterns.ago, { count: agoMatch[1], unit: pluralize(agoMatch[1], plurals[agoMatch[2]], language) });
+  if (agoMatch) {
+    const formatted = relativeAge(agoMatch[1], agoMatch[2], language, patterns);
+    if (formatted) return formatted;
+    if (plurals[agoMatch[2]]) return formatPattern(patterns.ago, { count: agoMatch[1], unit: pluralize(agoMatch[1], plurals[agoMatch[2]], language) });
   }
 
   const selectedMatch = lower.match(/^([\d.,]+)\s+user(?:s)?\s+selected$/);
@@ -131,10 +139,30 @@ function translatePattern(text, language) {
 
 function translateCore(text, language) {
   const normalized = normalizeText(text);
-  if (!normalized || language === 'en') return normalized;
+  if (!normalized) return normalized;
+  if (/^(?:https?|rtmps?|wss?):\/\//i.test(normalized)) return normalized;
 
+  const count = normalized.match(/^([\d.,kmb]+)\s+(users?|videos?|comments?|subscribers?|views?|likes?|repl(?:y|ies)|playlists?)$/i);
+  if (count) {
+    const complete = countMessage(count[1], count[2].toLowerCase(), languagePacks[language]?.patterns || {}, language);
+    if (complete) return complete;
+  }
+  const time = normalized.match(/^([\d.,]+)\s+(years?|months?|weeks?|days?|hours?|minutes?|seconds?)(\s+ago)?$/i);
+  if (time) {
+    const patterns = languagePacks[language]?.patterns || {};
+    const formatted = time[3] ? relativeAge(time[1], time[2].toLowerCase(), language, patterns) : durationUnit(time[1], time[2].toLowerCase(), language, patterns);
+    if (formatted) return formatted;
+  }
   const dictionary = languagePacks[language]?.translations || {};
-  if (dictionary[normalized]) return dictionary[normalized];
+  const reference = languagePacks.en?.translations || {};
+  const lookup = key => dictionary[key] && dictionary[key] !== key ? dictionary[key] : reference[key] || dictionary[key];
+  const direct = lookup(normalized);
+  if (direct) return direct;
+  const project = brandedProjectMessages.get(normalized);
+  if (project) {
+    const translation = lookup(project.source);
+    if (translation) return translation.replace(/PlayHub/g, () => project.brand);
+  }
 
   const contributionAlertMatch = normalized.match(/^(.+) sent (tip|gift|super chat|super sticker)$/i);
   if (contributionAlertMatch) {
@@ -191,8 +219,11 @@ function translateCore(text, language) {
   const prefixMatch = normalized.match(/^([✓●∞$⊘#•\s]+)(.+)$/);
   if (prefixMatch) return `${prefixMatch[1]}${translateCore(prefixMatch[2], language)}`;
 
-  const colonMatch = normalized.match(/^([^:]{2,40}):\s*(.+)$/);
-  if (colonMatch) return `${translateCore(colonMatch[1], language)}: ${translateCore(colonMatch[2], language)}`;
+  const colonMatch = normalized.match(/^([^:]{2,40})(:\s*)(.+)$/);
+  if (colonMatch) {
+    const left = translateCore(colonMatch[1], language), right = translateCore(colonMatch[3], language);
+    if (left !== colonMatch[1] || right !== colonMatch[3]) return `${left}${colonMatch[2]}${right}`;
+  }
 
   for (const separator of [' · ', ' • ']) {
     if (normalized.includes(separator)) {
@@ -229,7 +260,8 @@ function shouldSkipElement(element) {
   if (!element || element.nodeType !== 1) return true;
   const tag = element.tagName;
   if (['SCRIPT', 'STYLE', 'TEXTAREA'].includes(tag)) return true;
-  return Boolean(element.closest?.('[data-i18n-skip], .notranslate'));
+  if (element.matches?.(mediaFontLabelSelector)) return false;
+  return Boolean(element.closest?.(directLocalizationSelector));
 }
 
 function applyTextNode(node, language) {
@@ -247,7 +279,7 @@ function applyTextNode(node, language) {
 }
 
 function applyElementAttributes(element, language) {
-  if (!element || element.nodeType !== 1 || ['SCRIPT', 'STYLE'].includes(element.tagName) || element.closest?.('[data-i18n-skip], .notranslate')) return;
+  if (!element || element.nodeType !== 1 || element.hasAttribute('data-i18n-skip-attributes') || ['SCRIPT', 'STYLE'].includes(element.tagName) || element.closest?.(directLocalizationSelector)) return;
   let states = attributeState.get(element);
   if (!states) {
     states = {};
@@ -328,7 +360,11 @@ function applyElementTree(root, language) {
     return;
   }
 
-  if (root.nodeType !== Node.ELEMENT_NODE || shouldSkipElement(root)) return;
+  if (root.nodeType !== Node.ELEMENT_NODE) return;
+  root.querySelectorAll?.(mediaFontLabelSelector).forEach(label => {
+    for (const node of label.childNodes) if (node.nodeType === Node.TEXT_NODE) applyTextNode(node, language);
+  });
+  if (shouldSkipElement(root)) return;
   applyElementAttributes(root, language);
   root.querySelectorAll?.('*').forEach((element) => applyElementAttributes(element, language));
 
@@ -379,9 +415,23 @@ export function I18nProvider({ children }) {
   const [catalogVersion, setCatalogVersion] = useState(0);
 
   useEffect(() => {
+    if (language === 'en' || languagePacks.en?.loaded) return undefined;
+    let cancelled = false;
+    fetch('/api/i18n/en', { headers: { Accept: 'application/json' } })
+      .then(response => response.ok ? response.json() : null)
+      .then(pack => {
+        if (cancelled || !pack?.translations) return;
+        languagePacks.en = { ...languagePacks.en, ...pack, loaded: true };
+        restoreTranslatedDom();
+        setCatalogVersion(version => version + 1);
+      }).catch(() => {});
+    return () => { cancelled = true; };
+  }, [language]);
+
+  useEffect(() => {
     if (typeof document !== 'undefined') {
       const direction = getLanguageDirection(language);
-      if (language) document.documentElement.lang = String(language).replace(/_/g, '-');
+      if (language) document.documentElement.lang = languageTag(language);
       document.documentElement.dir = direction;
       document.documentElement.dataset.direction = direction;
       document.body?.setAttribute('dir', direction);
@@ -392,7 +442,7 @@ export function I18nProvider({ children }) {
 
   useEffect(() => {
     const locale = normalizeLanguage(language);
-    if (!locale || locale === 'en' || locale.startsWith('en_')) return undefined;
+    if (!locale) return undefined;
     if (languagePacks[locale]?.loaded) return undefined;
 
     let cancelled = false;
@@ -400,7 +450,8 @@ export function I18nProvider({ children }) {
       .then((response) => response.ok ? response.json() : null)
       .then((pack) => {
         if (cancelled || !pack?.translations) return;
-        languagePacks[locale] = {
+        const canonical = String(pack.code || locale).toLowerCase().replace(/-/g, '_');
+        languagePacks[canonical] = {
           code: pack.code || locale,
           label: pack.label || languagePacks[locale]?.label || locale.toUpperCase(),
           nativeLabel: pack.nativeLabel || pack.native_label || languagePacks[locale]?.nativeLabel || locale.toUpperCase(),
@@ -410,6 +461,11 @@ export function I18nProvider({ children }) {
           patterns: pack.patterns || {},
           loaded: true,
         };
+        if (canonical !== locale) {
+          languageAliases = { ...languageAliases, [locale]: canonical };
+          try { localStorage.setItem(STORAGE_KEY, canonical); } catch (_) {}
+          setLanguageState(canonical);
+        }
         restoreTranslatedDom();
         setCatalogVersion((version) => version + 1);
       })
@@ -429,6 +485,7 @@ export function I18nProvider({ children }) {
         const items = Array.isArray(payload?.languages) ? payload.languages.filter((item) => item?.code) : [];
         if (!items.length) return;
 
+        languageAliases = { ...languageAliases, ...(payload.aliases || {}) };
         availableLanguageCodes = items.map((item) => normalizeLanguage(item.code)).filter(Boolean);
         items.forEach((item) => {
           const code = normalizeLanguage(item.code);
@@ -441,6 +498,7 @@ export function I18nProvider({ children }) {
             plurals: {},
             patterns: {},
             loaded: false,
+            ...languagePacks[code],
           };
         });
         setLanguages(items.map((item) => ({
@@ -450,7 +508,11 @@ export function I18nProvider({ children }) {
           direction: item.direction || getLanguageDirection(item.code),
         })));
         restoreTranslatedDom();
-        setLanguageState((current) => normalizeLanguage(current || storedLanguage() || websiteDefaultLanguage() || navigator.language || 'en'));
+        setLanguageState((current) => {
+          const canonical = normalizeLanguage(current || storedLanguage() || websiteDefaultLanguage() || navigator.language || 'en');
+          try { localStorage.setItem(STORAGE_KEY, canonical); } catch (_) {}
+          return canonical;
+        });
         setCatalogVersion((version) => version + 1);
       })
       .catch(() => {});
@@ -471,6 +533,7 @@ export function I18nProvider({ children }) {
       setLanguageState(normalized);
     },
     t: (text, values = {}) => formatPattern(translateText(text, language), values),
+    count: (value, unit) => countLabel(value, unit, languagePacks[language] || {}, language),
   }), [languages, language, catalogVersion]);
 
   return (

@@ -1,0 +1,97 @@
+{
+  "context": "Owner explicitly decided Shorts are at most 60 seconds and portrait only. Current and historical English keys keep that same approved meaning; no square/180-second promise remains in these messages.",
+  "messages": {
+    "Shorts must be 180 seconds or less.": {
+      "fr": "Un Short ne peut pas dépasser 60 secondes.",
+      "es": "Los Shorts deben durar 60 segundos o menos.",
+      "pt": "Os Shorts devem ter no máximo 60 segundos.",
+      "pt_br": "Os Shorts devem ter no máximo 60 segundos.",
+      "it": "Gli Shorts devono durare al massimo 60 secondi.",
+      "ca": "Els Shorts han de durar com a màxim 60 segons.",
+      "gl": "Os Shorts deben durar como máximo 60 segundos.",
+      "eo": "Shorts devas daŭri maksimume 60 sekundojn."
+    },
+    "Shorts must be square or vertical.": {
+      "fr": "Un Short doit être au format vertical.",
+      "es": "Los Shorts deben tener formato vertical.",
+      "pt": "Os Shorts devem ter formato vertical.",
+      "pt_br": "Os Shorts devem ter formato vertical.",
+      "it": "Gli Shorts devono essere in formato verticale.",
+      "ca": "Els Shorts han de tenir format vertical.",
+      "gl": "Os Shorts deben ter formato vertical.",
+      "eo": "Shorts devas havi vertikalan formaton."
+    },
+    "Shorts must be 180 seconds or less and square or vertical.": {
+      "fr": "Un Short ne peut pas dépasser 60 secondes et doit être vertical.",
+      "es": "Los Shorts deben durar 60 segundos o menos y tener formato vertical.",
+      "pt": "Os Shorts devem ter no máximo 60 segundos e ter formato vertical.",
+      "pt_br": "Os Shorts devem ter no máximo 60 segundos e ter formato vertical.",
+      "it": "Gli Shorts devono durare al massimo 60 secondi ed essere verticali.",
+      "ca": "Els Shorts han de durar com a màxim 60 segons i tenir format vertical.",
+      "gl": "Os Shorts deben durar como máximo 60 segundos e ter formato vertical.",
+      "eo": "Shorts devas daŭri maksimume 60 sekundojn kaj havi vertikalan formaton."
+    },
+    "Shorts must be 60 seconds or less.": {
+      "fr": "Un Short ne peut pas dépasser 60 secondes.",
+      "es": "Los Shorts deben durar 60 segundos o menos.",
+      "pt": "Os Shorts devem ter no máximo 60 segundos.",
+      "pt_br": "Os Shorts devem ter no máximo 60 segundos.",
+      "it": "Gli Shorts devono durare al massimo 60 secondi.",
+      "ca": "Els Shorts han de durar com a màxim 60 segons.",
+      "gl": "Os Shorts deben durar como máximo 60 segundos.",
+      "eo": "Shorts devas daŭri maksimume 60 sekundojn."
+    },
+    "Shorts must use a vertical portrait aspect ratio.": {
+      "fr": "Un Short doit être au format vertical.",
+      "es": "Los Shorts deben tener formato vertical.",
+      "pt": "Os Shorts devem ter formato vertical.",
+      "pt_br": "Os Shorts devem ter formato vertical.",
+      "it": "Gli Shorts devono essere in formato verticale.",
+      "ca": "Els Shorts han de tenir format vertical.",
+      "gl": "Os Shorts deben ter formato vertical.",
+      "eo": "Shorts devas havi vertikalan formaton."
+    },
+    "· Shorts require 180s max and square or vertical video": {
+      "fr": "· Shorts : 60 secondes maximum, au format vertical",
+      "es": "· Shorts: máximo 60 segundos y formato vertical",
+      "pt": "· Shorts: máximo de 60 segundos e formato vertical",
+      "pt_br": "· Shorts: máximo de 60 segundos e formato vertical",
+      "it": "· Shorts: massimo 60 secondi e formato verticale",
+      "ca": "· Shorts: màxim 60 segons i format vertical",
+      "gl": "· Shorts: máximo 60 segundos e formato vertical",
+      "eo": "· Shorts: maksimume 60 sekundoj kaj vertikala formato"
+    },
+    "· Shorts require 60s max and vertical portrait video": {
+      "fr": "· Shorts : 60 secondes maximum, au format vertical",
+      "es": "· Shorts: máximo 60 segundos y formato vertical",
+      "pt": "· Shorts: máximo de 60 segundos e formato vertical",
+      "pt_br": "· Shorts: máximo de 60 segundos e formato vertical",
+      "it": "· Shorts: massimo 60 secondi e formato verticale",
+      "ca": "· Shorts: màxim 60 segons i format vertical",
+      "gl": "· Shorts: máximo 60 segundos e formato vertical",
+      "eo": "· Shorts: maksimume 60 sekundoj kaj vertikala formato"
+    },
+    "This video will be published as a Short because it is at most 180 seconds and square or vertical.": {
+      "fr": "Cette vidéo sera publiée comme Short : elle ne dépasse pas 60 secondes et son format est vertical.",
+      "es": "Este video se publicará como Short porque dura 60 segundos o menos y tiene formato vertical.",
+      "es_es": "Este vídeo se publicará como Short porque dura 60 segundos o menos y tiene formato vertical.",
+      "pt": "Este vídeo será publicado como Short porque tem no máximo 60 segundos e formato vertical.",
+      "pt_br": "Este vídeo será publicado como Short porque tem no máximo 60 segundos e formato vertical.",
+      "it": "Questo video sarà pubblicato come Short perché dura al massimo 60 secondi ed è verticale.",
+      "ca": "Aquest vídeo es publicarà com a Short perquè dura com a màxim 60 segons i té format vertical.",
+      "gl": "Este vídeo publicarase como Short porque dura como máximo 60 segundos e ten formato vertical.",
+      "eo": "Ĉi tiu filmeto estos publikigita kiel Short, ĉar ĝi daŭras maksimume 60 sekundojn kaj havas vertikalan formaton."
+    },
+    "Create a PlayHub Short. Upload a 60-second-or-less video and publish it through the normal processing pipeline.": {
+      "fr": "Crée un Short sur PlayHub. Ajoute une vidéo verticale de 60 secondes maximum, puis publie-la après son traitement.",
+      "es": "Crea un Short en PlayHub. Sube un video vertical de 60 segundos o menos y publícalo tras el procesamiento.",
+      "es_es": "Crea un Short en PlayHub. Sube un vídeo vertical de 60 segundos o menos y publícalo tras el procesamiento.",
+      "pt": "Cria um Short no PlayHub. Carrega um vídeo vertical de até 60 segundos e publica-o após o processamento.",
+      "pt_br": "Crie um Short no PlayHub. Envie um vídeo vertical de até 60 segundos e publique após o processamento.",
+      "it": "Crea uno Short su PlayHub. Carica un video verticale di massimo 60 secondi e pubblicalo dopo l’elaborazione.",
+      "ca": "Crea un Short a PlayHub. Puja un vídeo vertical de 60 segons com a màxim i publica’l després del processament.",
+      "gl": "Crea un Short en PlayHub. Sube un vídeo vertical de 60 segundos como máximo e publícao despois do procesamento.",
+      "eo": "Kreu Short ĉe PlayHub. Alŝutu vertikalan filmeton de maksimume 60 sekundoj kaj publikigu ĝin post prilaborado."
+    }
+  }
+}

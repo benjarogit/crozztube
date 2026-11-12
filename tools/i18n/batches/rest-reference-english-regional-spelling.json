@@ -1,0 +1,222 @@
+{
+  "context": "Full English regional spelling review of31 actual UI/help messages and Color player control. AU/GB/NZ/ZA retain colour/centre/favourite/behaviour and -ise/analyse; Canadian keeps colour/centre/favourite/behaviour with its accepted -ize/analyze forms. Historical English keys, brands, author samples and technical identifiers stay unchanged.",
+  "messages": {
+    "Profile added to favorites.": {
+      "en_au": "Profile added to favourites.",
+      "en_gb": "Profile added to favourites.",
+      "en_nz": "Profile added to favourites.",
+      "en_za": "Profile added to favourites.",
+      "en_ca": "Profile added to favourites."
+    },
+    "Profile removed from favorites.": {
+      "en_au": "Profile removed from favourites.",
+      "en_gb": "Profile removed from favourites.",
+      "en_nz": "Profile removed from favourites.",
+      "en_za": "Profile removed from favourites.",
+      "en_ca": "Profile removed from favourites."
+    },
+    "Analyze platform growth, viewer behavior, engagement, and content performance.": {
+      "en_au": "Analyse platform growth, viewer behaviour, engagement, and content performance.",
+      "en_gb": "Analyse platform growth, viewer behaviour, engagement, and content performance.",
+      "en_nz": "Analyse platform growth, viewer behaviour, engagement, and content performance.",
+      "en_za": "Analyse platform growth, viewer behaviour, engagement, and content performance.",
+      "en_ca": "Analyze platform growth, viewer behaviour, engagement, and content performance."
+    },
+    "Configure platform preferences, integrations, security, storage, and system behavior.": {
+      "en_au": "Configure platform preferences, integrations, security, storage, and system behaviour.",
+      "en_gb": "Configure platform preferences, integrations, security, storage, and system behaviour.",
+      "en_nz": "Configure platform preferences, integrations, security, storage, and system behaviour.",
+      "en_za": "Configure platform preferences, integrations, security, storage, and system behaviour.",
+      "en_ca": "Configure platform preferences, integrations, security, storage, and system behaviour."
+    },
+    "Help center": {
+      "en_au": "Help centre",
+      "en_gb": "Help centre",
+      "en_nz": "Help centre",
+      "en_za": "Help centre",
+      "en_ca": "Help centre"
+    },
+    "Help Center": {
+      "en_au": "Help Centre",
+      "en_gb": "Help Centre",
+      "en_nz": "Help Centre",
+      "en_za": "Help Centre",
+      "en_ca": "Help Centre"
+    },
+    "Configure basic platform settings and default behavior.": {
+      "en_au": "Configure basic platform settings and default behaviour.",
+      "en_gb": "Configure basic platform settings and default behaviour.",
+      "en_nz": "Configure basic platform settings and default behaviour.",
+      "en_za": "Configure basic platform settings and default behaviour.",
+      "en_ca": "Configure basic platform settings and default behaviour."
+    },
+    "Open Help Center": {
+      "en_au": "Open Help Centre",
+      "en_gb": "Open Help Centre",
+      "en_nz": "Open Help Centre",
+      "en_za": "Open Help Centre",
+      "en_ca": "Open Help Centre"
+    },
+    "PlayHub uses essential cookies and browser storage for login sessions, API authentication, CSRF/security behavior, language selection, theme selection, account menu state, and other features required for the application to work.": {
+      "en_au": "PlayHub uses essential cookies and browser storage for login sessions, API authentication, CSRF/security behaviour, language selection, theme selection, account menu state, and other features required for the application to work.",
+      "en_gb": "PlayHub uses essential cookies and browser storage for login sessions, API authentication, CSRF/security behaviour, language selection, theme selection, account menu state, and other features required for the application to work.",
+      "en_nz": "PlayHub uses essential cookies and browser storage for login sessions, API authentication, CSRF/security behaviour, language selection, theme selection, account menu state, and other features required for the application to work.",
+      "en_za": "PlayHub uses essential cookies and browser storage for login sessions, API authentication, CSRF/security behaviour, language selection, theme selection, account menu state, and other features required for the application to work.",
+      "en_ca": "PlayHub uses essential cookies and browser storage for login sessions, API authentication, CSRF/security behaviour, language selection, theme selection, account menu state, and other features required for the application to work."
+    },
+    "Viewers can browse categories, search videos, watch content, subscribe to channels, save videos to watch later, comment, receive notifications, and manage language and accessibility preferences.": {
+      "en_au": "Browse categories, find videos and subscribe to your favourite channels. Save videos for later, join the comments and get notifications. You can also adjust your language and accessibility preferences.",
+      "en_gb": "Browse categories, find videos and subscribe to your favourite channels. Save videos for later, join the comments and get notifications. You can also adjust your language and accessibility preferences.",
+      "en_nz": "Browse categories, find videos and subscribe to your favourite channels. Save videos for later, join the comments and get notifications. You can also adjust your language and accessibility preferences.",
+      "en_za": "Browse categories, find videos and subscribe to your favourite channels. Save videos for later, join the comments and get notifications. You can also adjust your language and accessibility preferences.",
+      "en_ca": "Browse categories, find videos and subscribe to your favourite channels. Save videos for later, join the comments and get notifications. You can also adjust your language and accessibility preferences."
+    },
+    "Select Color": {
+      "en_au": "Select Colour",
+      "en_gb": "Select Colour",
+      "en_nz": "Select Colour",
+      "en_za": "Select Colour",
+      "en_ca": "Select Colour"
+    },
+    "This color will represent your playlist": {
+      "en_au": "This colour will represent your playlist",
+      "en_gb": "This colour will represent your playlist",
+      "en_nz": "This colour will represent your playlist",
+      "en_za": "This colour will represent your playlist",
+      "en_ca": "This colour will represent your playlist"
+    },
+    "4. Pick a color": {
+      "en_au": "4. Pick a colour",
+      "en_gb": "4. Pick a colour",
+      "en_nz": "4. Pick a colour",
+      "en_za": "4. Pick a colour",
+      "en_ca": "4. Pick a colour"
+    },
+    "Add to favorites": {
+      "en_au": "Add to favourites",
+      "en_gb": "Add to favourites",
+      "en_nz": "Add to favourites",
+      "en_za": "Add to favourites",
+      "en_ca": "Add to favourites"
+    },
+    "Organize your favorite videos into a collection.": {
+      "en_au": "Organise your favourite videos into a collection.",
+      "en_gb": "Organise your favourite videos into a collection.",
+      "en_nz": "Organise your favourite videos into a collection.",
+      "en_za": "Organise your favourite videos into a collection.",
+      "en_ca": "Organize your favourite videos into a collection."
+    },
+    "Remove from favorites": {
+      "en_au": "Remove from favourites",
+      "en_gb": "Remove from favourites",
+      "en_nz": "Remove from favourites",
+      "en_za": "Remove from favourites",
+      "en_ca": "Remove from favourites"
+    },
+    "Share your story with the world. Upload, customize, and publish your video.": {
+      "en_au": "Share your story with the world. Upload, customise, and publish your video.",
+      "en_gb": "Share your story with the world. Upload, customise, and publish your video.",
+      "en_nz": "Share your story with the world. Upload, customise, and publish your video.",
+      "en_za": "Share your story with the world. Upload, customise, and publish your video.",
+      "en_ca": "Share your story with the world. Upload, customize, and publish your video."
+    },
+    "Choose the primary website color used for guests and users without a saved accent color.": {
+      "en_au": "Choose the primary website colour used for guests and users without a saved accent colour.",
+      "en_gb": "Choose the primary website colour used for guests and users without a saved accent colour.",
+      "en_nz": "Choose the primary website colour used for guests and users without a saved accent colour.",
+      "en_za": "Choose the primary website colour used for guests and users without a saved accent colour.",
+      "en_ca": "Choose the primary website colour used for guests and users without a saved accent colour."
+    },
+    "Accent color": {
+      "en_au": "Accent colour",
+      "en_gb": "Accent colour",
+      "en_nz": "Accent colour",
+      "en_za": "Accent colour",
+      "en_ca": "Accent colour"
+    },
+    "Admin Panel Colors": {
+      "en_au": "Admin Panel Colours",
+      "en_gb": "Admin Panel Colours",
+      "en_nz": "Admin Panel Colours",
+      "en_za": "Admin Panel Colours",
+      "en_ca": "Admin Panel Colours"
+    },
+    "Dark admin colors": {
+      "en_au": "Dark admin colours",
+      "en_gb": "Dark admin colours",
+      "en_nz": "Dark admin colours",
+      "en_za": "Dark admin colours",
+      "en_ca": "Dark admin colours"
+    },
+    "Dark colors": {
+      "en_au": "Dark colours",
+      "en_gb": "Dark colours",
+      "en_nz": "Dark colours",
+      "en_za": "Dark colours",
+      "en_ca": "Dark colours"
+    },
+    "Light admin colors": {
+      "en_au": "Light admin colours",
+      "en_gb": "Light admin colours",
+      "en_nz": "Light admin colours",
+      "en_za": "Light admin colours",
+      "en_ca": "Light admin colours"
+    },
+    "Light colors": {
+      "en_au": "Light colours",
+      "en_gb": "Light colours",
+      "en_nz": "Light colours",
+      "en_za": "Light colours",
+      "en_ca": "Light colours"
+    },
+    "Manage branding, colors, typography, navigation controls, and global design tokens.": {
+      "en_au": "Manage branding, colours, typography, navigation controls, and global design tokens.",
+      "en_gb": "Manage branding, colours, typography, navigation controls, and global design tokens.",
+      "en_nz": "Manage branding, colours, typography, navigation controls, and global design tokens.",
+      "en_za": "Manage branding, colours, typography, navigation controls, and global design tokens.",
+      "en_ca": "Manage branding, colours, typography, navigation controls, and global design tokens."
+    },
+    "Pick color": {
+      "en_au": "Pick colour",
+      "en_gb": "Pick colour",
+      "en_nz": "Pick colour",
+      "en_za": "Pick colour",
+      "en_ca": "Pick colour"
+    },
+    "Website Colors": {
+      "en_au": "Website Colours",
+      "en_gb": "Website Colours",
+      "en_nz": "Website Colours",
+      "en_za": "Website Colours",
+      "en_ca": "Website Colours"
+    },
+    "Background color": {
+      "en_au": "Background colour",
+      "en_gb": "Background colour",
+      "en_nz": "Background colour",
+      "en_za": "Background colour",
+      "en_ca": "Background colour"
+    },
+    "Configure the creative, placement, targeting, schedule, and display behavior.": {
+      "en_au": "Configure the creative, placement, targeting, schedule, and display behaviour.",
+      "en_gb": "Configure the creative, placement, targeting, schedule, and display behaviour.",
+      "en_nz": "Configure the creative, placement, targeting, schedule, and display behaviour.",
+      "en_za": "Configure the creative, placement, targeting, schedule, and display behaviour.",
+      "en_ca": "Configure the creative, placement, targeting, schedule, and display behaviour."
+    },
+    "PlayHub provides creator channels, video uploads, scheduled publishing, subscriptions, comments, playlists, watch later, live content pages, and administration tools from one platform.\\n\\nThe upload system supports categories and languages from the API, processes uploaded videos, stores thumbnails and captions, and keeps scheduled content private until its release time.": {
+      "en_au": "Discover channels, upload videos and schedule their release. Subscribe to Creators, join the comments and keep your favourites in Playlists or Watch Later. PlayHub also includes live content pages and administration tools.\n\nChoose from the available upload categories and languages. PlayHub processes your videos, stores thumbnails and captions, and keeps scheduled videos private until their release.",
+      "en_gb": "Discover channels, upload videos and schedule their release. Subscribe to Creators, join the comments and keep your favourites in Playlists or Watch Later. PlayHub also includes live content pages and administration tools.\n\nChoose from the available upload categories and languages. PlayHub processes your videos, stores thumbnails and captions, and keeps scheduled videos private until their release.",
+      "en_nz": "Discover channels, upload videos and schedule their release. Subscribe to Creators, join the comments and keep your favourites in Playlists or Watch Later. PlayHub also includes live content pages and administration tools.\n\nChoose from the available upload categories and languages. PlayHub processes your videos, stores thumbnails and captions, and keeps scheduled videos private until their release.",
+      "en_za": "Discover channels, upload videos and schedule their release. Subscribe to Creators, join the comments and keep your favourites in Playlists or Watch Later. PlayHub also includes live content pages and administration tools.\n\nChoose from the available upload categories and languages. PlayHub processes your videos, stores thumbnails and captions, and keeps scheduled videos private until their release.",
+      "en_ca": "Discover channels, upload videos and schedule their release. Subscribe to Creators, join the comments and keep your favourites in Playlists or Watch Later. PlayHub also includes live content pages and administration tools.\n\nChoose from the available upload categories and languages. PlayHub processes your videos, stores thumbnails and captions, and keeps scheduled videos private until their release."
+    },
+    "Color": {
+      "en_au": "Colour",
+      "en_gb": "Colour",
+      "en_nz": "Colour",
+      "en_za": "Colour",
+      "en_ca": "Colour"
+    }
+  }
+}

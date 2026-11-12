@@ -1,0 +1,260 @@
+{
+  "context": "Complete Esperanto editorial review of85 project-default help/API/FAQ/refund/privacy/terms/cookie messages; personal vi and imperative -u throughout, no ceremonial address. Whole messages replace mixed-language fragments and preserve precise duties, data lists, refund/retention conditions and should/must distinction. API paths and enum tokens literal; existing administrator-authored texts untouched.",
+  "messages": {
+    "Company": {
+      "eo": "Pri la retejo"
+    },
+    "About us": {
+      "eo": "Pri ni"
+    },
+    "PlayHub is the video platform running on this deployment, built for creators, viewers, communities, and platform operators.": {
+      "eo": "PlayHub kunigas kreintojn, spektantojn kaj komunumojn. Kunhavigu filmetojn, malkovru kanalojn kaj kreskigu vian komunumon."
+    },
+    "What PlayHub does": {
+      "eo": "Kion vi povas fari en PlayHub"
+    },
+    "PlayHub provides creator channels, video uploads, scheduled publishing, subscriptions, comments, playlists, watch later, live content pages, and administration tools from one platform.\\n\\nThe upload system supports categories and languages from the API, processes uploaded videos, stores thumbnails and captions, and keeps scheduled content private until its release time.": {
+      "eo": "Esploru kanalojn, alŝutu filmetojn kaj planu publikigojn. Abonu viajn ŝatatajn kreintojn, partoprenu en la komentoj kaj konservu filmetojn en ludlistoj aŭ en «Spekti poste». PlayHub ankaŭ inkluzivas paĝojn por rektaj elsendoj kaj administrajn ilojn.\n\nElektu el la disponeblaj kategorioj kaj lingvoj dum alŝutado. PlayHub prilaboras filmetojn, konservas bildetojn kaj subtitolojn kaj tenas planitajn filmetojn privataj ĝis ilia publikigo."
+    },
+    "For creators": {
+      "eo": "Por kreintoj"
+    },
+    "Creators can upload videos, manage visibility, add thumbnails and captions, publish scheduled content, review their library, and track content from Creator Studio.\\n\\nCreator profile pages, subscriptions, community posts, comments, and playlists are part of the same account and content system.": {
+      "eo": "En la studio por kreintoj vi povas alŝuti filmetojn, elekti kiu rajtas spekti ilin, aldoni bildetojn kaj subtitolojn, plani publikigojn kaj administri vian bibliotekon.\n\nVia kanalo, abonoj, komunumaj afiŝoj, komentoj kaj ludlistoj apartenas al via konto."
+    },
+    "For viewers": {
+      "eo": "Por spektantoj"
+    },
+    "Viewers can browse categories, search videos, watch content, subscribe to channels, save videos to watch later, comment, receive notifications, and manage language and accessibility preferences.": {
+      "eo": "Esploru kategoriojn, serĉu filmetojn kaj abonu kanalojn, kiujn vi ŝatas. Konservu filmetojn por poste, partoprenu en komentoj kaj ricevu sciigojn. Vi ankaŭ povas elekti la lingvon kaj alireblecajn opciojn."
+    },
+    "Contact us": {
+      "eo": "Kontaktu nin"
+    },
+    "Use the right PlayHub channel for account help, content reports, technical issues, and administrator requests.": {
+      "eo": "Trovu helpon pri via konto, raportoj pri enhavo, teknikaj problemoj kaj petoj al la administrantoj."
+    },
+    "Account and creator support": {
+      "eo": "Helpo por kontoj kaj kreintoj"
+    },
+    "Sign in and use Settings for account, profile, password, notification, privacy, and creator preferences. Creator upload and content issues should include the video title, channel, browser, and any processing error shown on the upload page.": {
+      "eo": "Ensalutu kaj malfermu la agordojn por administri vian konton, profilon, pasvorton, sciigojn, privatecon kaj preferojn kiel kreinto. Se estas problemo pri alŝuto aŭ enhavo, indiku la titolon de la filmeto, la kanalon, la retumilon kaj la erarojn montritajn sur la alŝuta paĝo."
+    },
+    "Safety and content reports": {
+      "eo": "Sekureco kaj raportoj pri enhavo"
+    },
+    "Use the report actions on videos, comments, and community posts when content may violate platform rules. These reports include the content reference so administrators can review the exact item.": {
+      "eo": "Se filmeto, komento aŭ komunuma afiŝo eble malobservas la regulojn, uzu ĝian raportbutonon. Tiel la administrantoj ricevas la precizan referencon de la kontrolenda enhavo."
+    },
+    "Business or administrative contact": {
+      "eo": "Komerca aŭ administra kontakto"
+    },
+    "Official contact addresses, billing contacts, and external support channels should be configured by the PlayHub site administrator for this deployment. This page intentionally does not display unverified email addresses.": {
+      "eo": "La reteja administranto agordas oficialajn kontaktadresojn, fakturajn kontaktojn kaj eksterajn helpkanalojn. Ĉi tie ne estas montrataj nekontrolitaj retpoŝtadresoj."
+    },
+    "Developers": {
+      "eo": "Programistoj"
+    },
+    "Technical notes for integrations with the current PlayHub API and upload workflow.": {
+      "eo": "Teknikaj indikoj por integri la API de PlayHub kaj la alŝutajn funkciojn."
+    },
+    "API surface": {
+      "eo": "Superrigardo de la API"
+    },
+    "Public JSON endpoints include /api/health for deployment status and /api/upload-options for upload categories, languages, limits, chunk size, and trending tags.\\n\\nAuthenticated APIs use the existing Laravel Sanctum token flow. Account, upload, creator, playlist, notification, comment, like, subscription, and admin endpoints are served under /api.": {
+      "eo": "La publikaj JSON-finpunktoj inkluzivas /api/health por la stato de la platformo kaj /api/upload-options por kategorioj, lingvoj, limoj, grandeco de partoj kaj popularaj etikedoj.\n\nLa protektitaj API uzas la ĵetonan sistemon de Laravel Sanctum. La finpunktoj por kontoj, alŝutoj, kreintoj, ludlistoj, sciigoj, komentoj, ŝatoj, abonoj kaj administrado troviĝas sub /api."
+    },
+    "Uploads": {
+      "eo": "Alŝutoj"
+    },
+    "Large uploads use upload sessions: create a session, send numbered chunks, then complete the session with title, description, category, language, visibility, schedule, thumbnail, captions, and monetization fields.\\n\\nThe processing job encodes renditions, creates thumbnails when needed, stores captions, and marks videos ready when processing completes. Future scheduled videos remain private until the scheduler releases them.": {
+      "eo": "Por grandaj dosieroj, kreu alŝutan seancon, sendu numeritajn partojn kaj kompletigu la seancon per titolo, priskribo, kategorio, lingvo, videbleco, planita tempo, bildeto, subtitoloj kaj enspezigo.\n\nLa prilaborado kreas la versiojn de la filmeto kaj la bezonatajn bildetojn, konservas la subtitolojn kaj markas la filmeton preta kiam ĝi finiĝas. Planitaj filmetoj restas privataj ĝis la plansistemo publikigas ilin."
+    },
+    "Integration rules": {
+      "eo": "Integradaj reguloj"
+    },
+    "Use JSON for normal API requests and FormData for file uploads. Do not bypass validation: categories and languages use configured IDs, visibility is limited to public, unlisted, or private, and captions accept SRT, VTT, or TXT files.": {
+      "eo": "Uzu JSON por ordinaraj API-petoj kaj FormData por alŝuti dosierojn. Respektu la validigon: kategorioj kaj lingvoj uzas la agorditajn ID, videbleco akceptas public, unlisted aŭ private kaj subtitoloj povas esti dosieroj SRT, VTT aŭ TXT."
+    },
+    "Support": {
+      "eo": "Helpo"
+    },
+    "FAQ": {
+      "eo": "Oftaj demandoj"
+    },
+    "Answers for the PlayHub features currently available in this deployment.": {
+      "eo": "Respondoj pri la funkcioj disponeblaj en ĉi tiu retejo."
+    },
+    "How do uploads work?": {
+      "eo": "Kiel mi alŝutu filmeton?"
+    },
+    "Select one or more video files, enter required details, choose category and language, add a thumbnail, choose visibility, and publish. Large files are uploaded in chunks before the server starts processing.": {
+      "eo": "Elektu unu aŭ plurajn filmetdosierojn, plenigu la devigajn detalojn, elektu kategorion kaj lingvon, aldonu bildeton, elektu videblecon kaj publikigu. Grandaj dosieroj estas alŝutataj en partoj antaŭ ol la servilo komencas prilabori ilin."
+    },
+    "Can I schedule a video?": {
+      "eo": "Ĉu mi povas plani publikigon de filmeto?"
+    },
+    "Yes. Use the native schedule date and time field on the upload page. The backend stores scheduled_at, processes the video, keeps it private while the date is in the future, and releases it when the Laravel scheduler runs after the scheduled time.": {
+      "eo": "Jes. Elektu la publikigajn daton kaj horon sur la alŝuta paĝo. La filmeto estas prilaborata kaj restas privata ĝis la elektita tempo. La plansistemo publikigas ĝin dum sia sekva rulado."
+    },
+    "Why is my video still processing?": {
+      "eo": "Kial mia filmeto ankoraŭ estas prilaborata?"
+    },
+    "Uploaded videos are encoded into playable renditions. Processing time depends on file size, duration, server load, and queue status. The upload page and Creator Studio show the current processing status.": {
+      "eo": "Post la alŝuto, PlayHub kreas ludeblajn versiojn de la filmeto. La bezonata tempo dependas de la dosiergrandeco, la daŭro de la filmeto, la ŝarĝo de la servilo kaj la atendovico. Vi povas sekvi la staton sur la alŝuta paĝo aŭ en la studio por kreintoj."
+    },
+    "Can I change privacy later?": {
+      "eo": "Ĉu mi povas ŝanĝi la videblecon poste?"
+    },
+    "Creator Studio content management uses the same visibility model: public, unlisted, or private. Scheduled videos use requested visibility after release.": {
+      "eo": "Jes. En la studio por kreintoj vi povas elekti inter publika, nelistigita kaj privata. Planitaj filmetoj uzas la elektitan videblecon post la publikigo."
+    },
+    "Help Center": {
+      "eo": "Helpocentro"
+    },
+    "Find practical support for account access, uploads, playback, creator tools, and moderation.": {
+      "eo": "Trovu helpon por ensaluti, alŝuti kaj spekti filmetojn, uzi la ilojn por kreintoj kaj kontroli enhavon."
+    },
+    "Account help": {
+      "eo": "Helpo pri via konto"
+    },
+    "Use Settings to update your profile, security, password, two-factor delivery, devices, preferences, and notification options. If you cannot access your account, use the login flow and provide the account email to the site administrator.": {
+      "eo": "En la agordoj vi povas administri vian profilon, sekurecon, pasvorton, ricevon de konfirmkodoj, aparatojn, preferojn kaj sciigojn. Se vi ne povas ensaluti, uzu la helpon de la ensaluta paĝo kaj indiku al la administranto la retpoŝtadreson de via konto."
+    },
+    "Upload and processing help": {
+      "eo": "Helpo pri alŝutoj kaj prilaborado"
+    },
+    "Check the upload queue, chunk upload progress, processing stage, thumbnail selection, captions file type, and required title, description, category, and visibility fields.": {
+      "eo": "Kontrolu la alŝutan atendovicon, la transigan progreson kaj la prilaboran staton. Ankaŭ kontrolu la bildeton, la subtitolan dosierformon kaj la devigajn detalojn de titolo, priskribo, kategorio kaj videbleco."
+    },
+    "Viewing and community help": {
+      "eo": "Helpo pri filmetoj kaj komunumo"
+    },
+    "Playback, comments, likes, watch later, subscriptions, notifications, messages, playlists, and language settings are available through the main navigation and account menu.": {
+      "eo": "La ĉefa navigado kaj la menuo de via konto ebligas aliri ludadon, komentojn, ŝatojn, Spekti poste, abonojn, sciigojn, mesaĝojn, ludlistojn kaj lingvajn agordojn."
+    },
+    "Moderation help": {
+      "eo": "Helpo pri kontrolado de enhavo"
+    },
+    "Use built-in report actions for videos and comments so admins receive the exact content reference. Admin dashboard pages show users, content, reports, monetization, analytics, support, roles, and system settings.": {
+      "eo": "Raportu filmetojn kaj komentojn rekte ĉe la enhavo, por ke la administrantoj ricevu la precizan referencon. La administra panelo montras uzantojn, enhavon, raportojn, enspezigon, statistikojn, helpon, rolojn kaj sistemajn agordojn."
+    },
+    "Refund Policy": {
+      "eo": "Repagaj kondiĉoj"
+    },
+    "Refund handling for paid PlayHub features depends on billing records attached to this deployment.": {
+      "eo": "Repagoj por pagaj funkcioj de PlayHub dependas de la fakturaj registroj de ĉi tiu retejo."
+    },
+    "Eligibility": {
+      "eo": "Postuloj"
+    },
+    "If no paid transaction exists in the connected billing provider or platform records, there is no platform charge to refund. Refunds can only be reviewed against payment records, subscription IDs, invoices, or transaction references.": {
+      "eo": "Se ne ekzistas pagita transakcio ĉe la konektita pagservo aŭ en la platformaj registroj, ne ekzistas platforma pago por repagi. Repagoj povas esti ekzamenataj nur laŭ pagregistroj, abonaj ID, fakturoj aŭ transakciaj referencoj."
+    },
+    "Creator and Pro features": {
+      "eo": "Funkcioj por kreintoj kaj plano Pro"
+    },
+    "If paid creator features or a Pro plan are enabled for this deployment, refund requests should include the account email, transaction ID, subscription ID, payment date, and reason for the request. Administrators should verify the request against payment-provider records before issuing any refund.": {
+      "eo": "Se ĉi tiu retejo ofertas pagajn funkciojn por kreintoj aŭ planon Pro, indiku en via repagpeto la retpoŝtadreson de la konto, la transakcian kaj abonan ID, la pagdaton kaj la kialon. Antaŭ repago, la administrantoj devus kompari la peton kun la registroj de la pagservo."
+    },
+    "Non-refundable cases": {
+      "eo": "Kazoj sen repago"
+    },
+    "PlayHub cannot refund third-party bank fees, chargeback fees, external service fees, or payments made outside the configured platform billing flow. Content removals or account restrictions do not automatically create a refund unless required by law or the active billing terms.": {
+      "eo": "PlayHub ne povas repagi bankajn kotizojn de triaj partioj, kotizojn por pagrevokoj, kostojn de eksteraj servoj aŭ pagojn faritajn ekster la agordita platforma pagsistemo. Forigo de enhavo aŭ limigoj de konto ne aŭtomate donas rajton je repago, krom kiam tion postulas la leĝo aŭ la aplikeblaj fakturaj kondiĉoj."
+    },
+    "Legal": {
+      "eo": "Leĝaj informoj"
+    },
+    "Privacy Policy": {
+      "eo": "Privateca politiko"
+    },
+    "How this PlayHub deployment handles account, content, activity, security, and preference data.": {
+      "eo": "Kiel ĉi tiu retejo PlayHub traktas datumojn pri kontoj, enhavo, agado, sekureco kaj preferoj."
+    },
+    "Data processed by PlayHub": {
+      "eo": "Datumoj traktataj de PlayHub"
+    },
+    "PlayHub stores account details, creator profile data, uploaded videos, thumbnails, captions, categories, languages, playlists, comments, likes, subscriptions, watch-later records, notifications, messages, reports, device/session data, language preference, theme preference, and security settings needed to operate the platform.": {
+      "eo": "PlayHub konservas kontajn datumojn, profilojn de kreintoj, alŝutitajn filmetojn, bildetojn, subtitolojn, kategoriojn, lingvojn, ludlistojn, komentojn, ŝatojn, abonojn, listojn «Spekti poste», sciigojn, mesaĝojn, raportojn, aparatajn kaj seancajn datumojn, lingvajn kaj temajn preferojn kaj sekurecajn agordojn bezonatajn por funkciigi la platformon."
+    },
+    "How data is used": {
+      "eo": "Kiel la datumoj estas uzataj"
+    },
+    "Data is used to authenticate users, publish and process content, show videos and channels, personalize account preferences, prevent abuse, support moderation, provide admin analytics, and keep creator and viewer features working.": {
+      "eo": "La datumoj estas uzataj por aŭtentigi uzantojn, publikigi kaj prilabori enhavon, montri filmetojn kaj kanalojn, adapti preferojn, preventi misuzon, helpi la kontroladon de enhavo, disponigi administrajn statistikojn kaj konservi la funkciojn por kreintoj kaj spektantoj."
+    },
+    "Controls": {
+      "eo": "Kion vi povas administri"
+    },
+    "Users can update profile and preference data in Settings, manage uploaded content in Creator Studio, change password and two-factor options in Security settings, and use report tools for content safety. Administrators can manage users, content, reports, roles, and system settings from the admin dashboard.": {
+      "eo": "Vi povas ĝisdatigi vian profilon kaj preferojn en la agordoj kaj administri alŝutitajn filmetojn en la studio por kreintoj. En la sekurecaj agordoj vi povas ŝanĝi la pasvorton kaj la opciojn de dufaktora aŭtentigo. La raportiloj ebligas peti kontrolon de enhavo. La administrantoj povas administri uzantojn, enhavon, raportojn, rolojn kaj sistemajn agordojn."
+    },
+    "Retention and access": {
+      "eo": "Konservado kaj aliro"
+    },
+    "Uploaded media and account records are retained while needed for platform operation, legal compliance, security, moderation, and user-requested features. Deleting users or content should also remove associated server media files where implemented by the admin tools.": {
+      "eo": "Alŝutitaj dosieroj kaj kontaj datumoj estas konservataj dum ili estas bezonataj por la funkciado de la platformo, laŭleĝaj devoj, sekureco, kontrolado de enhavo kaj funkcioj petitaj de uzantoj. Forigo de uzantoj aŭ enhavo devus ankaŭ forigi la rilatajn dosierojn de la servilo, kie la administraj iloj efektivigas tiun funkcion."
+    },
+    "Terms of Service": {
+      "eo": "Uzkondiĉoj"
+    },
+    "Rules for using this PlayHub deployment as a viewer, creator, or administrator.": {
+      "eo": "Reguloj por uzi ĉi tiun retejon PlayHub kiel spektanto, kreinto aŭ administranto."
+    },
+    "Accounts": {
+      "eo": "Kontoj"
+    },
+    "You are responsible for your account credentials, profile activity, uploaded content, comments, messages, and any creator or admin actions performed from your account. Use strong passwords and keep two-factor delivery methods current.": {
+      "eo": "Vi respondecas pri la ensalutiloj de via konto, la profila agado, alŝutita enhavo, komentoj, mesaĝoj kaj ĉiuj agoj kiel kreinto aŭ administranto faritaj per via konto. Uzu fortajn pasvortojn kaj tenu ĝisdataj la metodojn por ricevi kodojn de dufaktora aŭtentigo."
+    },
+    "Content rules": {
+      "eo": "Reguloj pri enhavo"
+    },
+    "Do not upload content you do not have rights to publish. Do not post illegal, abusive, harmful, deceptive, spam, malware, harassment, or privacy-violating content. PlayHub administrators may restrict, remove, suspend, verify, or delete users and content according to platform rules and applicable law.": {
+      "eo": "Alŝutu nur enhavon, kiun vi rajtas publikigi. Ne publikigu kontraŭleĝan, ofendan, malutilan aŭ trompan enhavon, spamon aŭ fiprogramojn. Ne ĉikanu aliajn homojn nek malobservu ilian privatecon. La administrantoj de PlayHub povas limigi, forigi, suspendi, kontroli aŭ definitive forigi uzantojn kaj enhavon laŭ la platformaj reguloj kaj la aplikebla leĝo."
+    },
+    "Creator uploads": {
+      "eo": "Alŝutoj de kreintoj"
+    },
+    "Creators must provide accurate titles, descriptions, categories, languages, thumbnails, captions, visibility, and scheduling settings. Scheduled videos are not public until their scheduled time and successful processing.": {
+      "eo": "Kreintoj devas disponigi ĝustajn titolojn, priskribojn, kategoriojn, lingvojn, bildetojn, subtitolojn kaj agordojn de videbleco kaj planita publikigo. Planitaj filmetoj fariĝas publikaj nur post la elektita tempo kaj sukcesa prilaborado."
+    },
+    "Service operation": {
+      "eo": "Funkciado de la servo"
+    },
+    "PlayHub may process uploads, create video renditions, generate thumbnails, store metadata, collect engagement activity, and provide analytics. Availability can depend on server queues, storage, media processing, network conditions, and administrator configuration.": {
+      "eo": "PlayHub povas prilabori alŝutojn, krei versiojn de filmetoj kaj bildetojn, konservi metadatumojn, kolekti interagojn kaj disponigi statistikojn. Disponebleco povas dependi de la servilaj atendovicoj, konservospaco, plurmedia prilaborado, retkondiĉoj kaj administra agordo."
+    },
+    "Cookie Policy": {
+      "eo": "Kuketa politiko"
+    },
+    "How PlayHub uses cookies and browser storage for sessions, security, preferences, and playback.": {
+      "eo": "Kiel PlayHub uzas kuketojn kaj retumilan konservadon por seancoj, sekureco, preferoj kaj ludado."
+    },
+    "Essential storage": {
+      "eo": "Esenca konservado"
+    },
+    "PlayHub uses essential cookies and browser storage for login sessions, API authentication, CSRF/security behavior, language selection, theme selection, account menu state, and other features required for the application to work.": {
+      "eo": "PlayHub uzas esencajn kuketojn kaj retumilan konservadon por ensalutaj seancoj, API-aŭtentigo, CSRF-protekto kaj sekureco, elekto de lingvo kaj temo, stato de la kontmenuo kaj aliaj funkcioj bezonataj por la retejo."
+    },
+    "Preference storage": {
+      "eo": "Konservado de preferoj"
+    },
+    "The frontend stores preferences such as selected language, theme, playback queue, watch progress, and interface state so the experience remains consistent across page navigation and reloads.": {
+      "eo": "La interfaco konservas la lingvon, temon, ludvicon, spektadprogreson kaj interfacan staton por ke ili restu samaj kiam vi iras al alia paĝo aŭ reŝargas ĝin."
+    },
+    "Media and analytics storage": {
+      "eo": "Konservado de plurmediaj datumoj kaj statistikoj"
+    },
+    "Playback progress, watch-later state, likes, comments, subscriptions, notifications, and admin analytics are saved when linked to authenticated platform features.": {
+      "eo": "La ludprogreso, la listo «Spekti poste», ŝatoj, komentoj, abonoj, sciigoj kaj administraj statistikoj estas konservataj kiam ili rilatas al funkcioj, kiuj postulas ensaluton."
+    },
+    "Your choices": {
+      "eo": "Viaj elektoj"
+    },
+    "You can clear browser cookies and local storage in your browser settings. Clearing essential storage may sign you out, reset language/theme preferences, remove local playback state, and require you to log in again.": {
+      "eo": "Vi povas forviŝi kuketojn kaj lokajn datumojn en la agordoj de via retumilo. Forviŝo de esencaj datumoj povas elsaluti vin, reagordi la lingvon kaj temon, forigi la lokan ludstaton kaj postuli novan ensaluton."
+    }
+  }
+}

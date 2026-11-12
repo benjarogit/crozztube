@@ -82,83 +82,83 @@ return array (
     ),
     'user' => 
     array (
-      0 => 'user',
-      1 => 'users',
+      'one' => 'bruger',
+      'other' => 'brugere',
     ),
     'users' => 
     array (
-      0 => 'user',
-      1 => 'users',
+      'one' => 'bruger',
+      'other' => 'brugere',
     ),
     'video' => 
     array (
-      0 => 'video',
-      1 => 'videos',
+      'one' => 'video',
+      'other' => 'videoer',
     ),
     'videos' => 
     array (
-      0 => 'video',
-      1 => 'videos',
+      'one' => 'video',
+      'other' => 'videoer',
     ),
     'comment' => 
     array (
-      0 => 'comment',
-      1 => 'comments',
+      'one' => 'kommentar',
+      'other' => 'kommentarer',
     ),
     'comments' => 
     array (
-      0 => 'comment',
-      1 => 'comments',
+      'one' => 'kommentar',
+      'other' => 'kommentarer',
     ),
     'subscriber' => 
     array (
-      0 => 'subscriber',
-      1 => 'subscribers',
+      'one' => 'abonnent',
+      'other' => 'abonnenter',
     ),
     'subscribers' => 
     array (
-      0 => 'subscriber',
-      1 => 'subscribers',
+      'one' => 'abonnent',
+      'other' => 'abonnenter',
     ),
     'view' => 
     array (
-      0 => 'view',
-      1 => 'views',
+      'one' => 'visning',
+      'other' => 'visninger',
     ),
     'views' => 
     array (
-      0 => 'view',
-      1 => 'views',
+      'one' => 'visning',
+      'other' => 'visninger',
     ),
     'like' => 
     array (
-      0 => 'like',
-      1 => 'likes',
+      'one' => 'like',
+      'other' => 'likes',
     ),
     'likes' => 
     array (
-      0 => 'like',
-      1 => 'likes',
+      'one' => 'like',
+      'other' => 'likes',
     ),
     'reply' => 
     array (
-      0 => 'reply',
-      1 => 'replies',
+      'one' => 'svar',
+      'other' => 'svar',
     ),
     'replies' => 
     array (
-      0 => 'reply',
-      1 => 'replies',
+      'one' => 'svar',
+      'other' => 'svar',
     ),
     'playlist' => 
     array (
-      0 => 'playlist',
-      1 => 'playlists',
+      'one' => 'afspilningsliste',
+      'other' => 'afspilningslister',
     ),
     'playlists' => 
     array (
-      0 => 'playlist',
-      1 => 'playlists',
+      'one' => 'afspilningsliste',
+      'other' => 'afspilningslister',
     ),
   ),
   '__patterns' => 
@@ -169,6 +169,30 @@ return array (
     'unread' => '{count} unread',
     'saved_videos' => '{count} saved videos',
     'published' => '{count} published',
+    'count_user' => 'Brugere: {count}',
+    'count_user_one' => '{count} bruger',
+    'count_user_other' => '{count} brugere',
+    'count_video' => 'Videoer: {count}',
+    'count_video_one' => '{count} video',
+    'count_video_other' => '{count} videoer',
+    'count_comment' => 'Kommentarer: {count}',
+    'count_comment_one' => '{count} kommentar',
+    'count_comment_other' => '{count} kommentarer',
+    'count_subscriber' => 'Abonnenter: {count}',
+    'count_subscriber_one' => '{count} abonnent',
+    'count_subscriber_other' => '{count} abonnenter',
+    'count_view' => 'Visninger: {count}',
+    'count_view_one' => '{count} visning',
+    'count_view_other' => '{count} visninger',
+    'count_like' => 'Likes: {count}',
+    'count_like_one' => '{count} like',
+    'count_like_other' => '{count} likes',
+    'count_reply' => 'Svar: {count}',
+    'count_reply_one' => '{count} svar',
+    'count_reply_other' => '{count} svar',
+    'count_playlist' => 'Afspilningslister: {count}',
+    'count_playlist_one' => '{count} afspilningsliste',
+    'count_playlist_other' => '{count} afspilningslister',
   ),
   'Overview' => 'Oversigt',
   'Home' => 'Hjem',
@@ -186,7 +210,7 @@ return array (
   'Settings' => 'Indstillinger',
   'Playlists' => 'Afspilningslister',
   'Show more' => 'Vis mere',
-  'Storage' => 'Opbevaring',
+  'Storage' => 'Lagerplads',
   'Pro Plan' => 'Pro Plan',
   'Manage plan' => 'Administrer plan',
   'Search videos, creators, playlists...' => 'Søg efter videoer, skabere, afspilningslister...',
@@ -257,8 +281,8 @@ return array (
   'Anyone can search for and watch this video' => 'Alle kan søge efter og se denne video',
   'Anyone with the link can watch' => 'Alle med linket kan se',
   'Anyone with the link can watch this video' => 'Alle med linket kan se denne video',
-  'Only you and people you choose' => 'Kun dig og folk du vælger',
-  'Only you and people you choose can watch' => 'Kun dig og personer, du vælger, kan se',
+  'Only you and people you choose' => 'Kun du og sidens administratorer kan se denne video.',
+  'Only you and people you choose can watch' => 'Kun du og sidens administratorer kan se denne video.',
   'Thumbnail preview' => 'Forhåndsvisning af miniaturebilleder',
   'No thumbnail selected.' => 'Der er ikke valgt noget miniaturebillede.',
   'More options' => 'Flere muligheder',
@@ -410,11 +434,11 @@ return array (
   'Like comment' => 'Synes godt om kommentar',
   'Comment options' => 'Kommentarmuligheder',
   'Copy Link' => 'Kopiér link',
-  'Pin Comment' => 'Pin kommentar',
+  'Pin Comment' => 'Fastgør kommentar',
   'Unpin Comment' => 'Frigør kommentar',
-  'Mute User' => 'Slå bruger fra',
+  'Mute User' => 'Skjul bruger',
   'Reported' => 'Rapporteret',
-  'Report Comment' => 'Rapport kommentar',
+  'Report Comment' => 'Anmeld kommentar',
   'Delete Comment' => 'Slet kommentar',
   'Pinned' => 'Fastgjort',
   'No comments yet. Be the first to comment.' => 'Ingen kommentarer endnu. Vær den første til at kommentere.',
@@ -563,7 +587,7 @@ return array (
   'Public profile' => 'Offentlig profil',
   'Show subscriptions' => 'Vis abonnementer',
   'Default quality' => 'Standard kvalitet',
-  'Captions' => 'Billedtekster',
+  'Captions' => 'Undertekster',
   'Update password' => 'Opdater adgangskode',
   'Current password' => 'Nuværende adgangskode',
   'New password' => 'Ny adgangskode',
@@ -664,7 +688,7 @@ return array (
   'Add an about section so viewers know what your channel is about.' => 'Tilføj en om-sektion, så seerne ved, hvad din kanal handler om.',
   'This channel has not added an about section yet.' => 'Denne kanal har endnu ikke tilføjet en om sektion.',
   'Admin' => 'Admin',
-  'Dashboard' => 'Dashboard',
+  'Dashboard' => 'Oversigt',
   'Users' => 'Brugere',
   'Reports' => 'Rapporter',
   'Support' => 'Support',
@@ -761,7 +785,7 @@ return array (
   'Verify selected' => 'Bekræft valgt',
   'Suspend selected' => 'Suspend valgt',
   'Delete selected' => 'Slet valgte',
-  'Clear selection' => 'Ryd markering',
+  'Clear selection' => 'Fjern markering',
   'Select all visible users' => 'Vælg alle synlige brugere',
   'Select row' => 'Vælg række',
   'Open actions' => 'Åbne handlinger',
@@ -807,7 +831,7 @@ return array (
   'Watch Time (hours)' => 'Visningstid (timer)',
   'Sessions' => 'Sessioner',
   'Traffic Sources' => 'Trafikkilder',
-  'Device Breakdown' => 'Enhedsnedbrud',
+  'Device Breakdown' => 'Fordeling efter enhed',
   'Top Performing Categories' => 'Toppræsterende kategorier',
   'Top Traffic Sources' => 'Top trafikkilder',
   'Audience Devices' => 'Publikumsenheder',
@@ -1491,7 +1515,7 @@ return array (
   'Import summary' => 'Importoversigt',
   'Source URL' => 'Kilde-URL',
   'Video imported' => 'Video importeret',
-  'Your video was imported and processing has started.' => 'Din video blev importeret, og behandlingen er startet.',
+  'Your video was imported and processing has started.' => 'Din video er importeret.',
   'Import Video' => 'Importer video',
   'Import a public video URL, customize its details, and publish it through the normal processing pipeline.' => 'Importer en offentlig video-URL, tilpas dens detaljer, og udgiv den gennem den normale behandlingspipeline.',
   'Video Import' => 'Video import',
@@ -1790,7 +1814,7 @@ return array (
   'View users' => 'View users',
   'Login security' => 'Login security',
   'Find creator' => 'Find creator',
-  '· Shorts require 60s max and vertical portrait video' => '· Shorts require 60s max and vertical portrait video',
+  '· Shorts require 60s max and vertical portrait video' => 'Shorts skal være i højformat og må højst vare 60 sekunder.',
   '% of uploaded videos' => '% of uploaded Videoer',
   '% watched' => '% set',
   '+12% vs yesterday' => '+12% vs yesterday',
@@ -2455,9 +2479,9 @@ return array (
   'short was uploaded' => 'short was uploaded',
   'Shortest' => 'Shortest',
   'Shorts discovered' => 'Shorts discovered',
-  'Shorts must be 60 seconds or less.' => 'Shorts must be 60 seconds or less.',
+  'Shorts must be 60 seconds or less.' => 'Shorts må højst vare 60 sekunder.',
   'Shorts must be 60 seconds or less. Vertical 9:16 is recommended.' => 'Shorts must be 60 seconds or less. Vertical 9: 16 is recommended.',
-  'Shorts must use a vertical portrait aspect ratio.' => 'Shorts must use a vertical portrait aspect ratio.',
+  'Shorts must use a vertical portrait aspect ratio.' => 'Shorts skal være i højformat.',
   'Shorts stats' => 'Shorts Statistik',
   'Show less' => 'Show less',
   'Show more ⌄' => 'Show more ⌄',
@@ -2770,10 +2794,10 @@ return array (
   'Password looks good.' => 'Password looks good.',
   'Password needs work.' => 'Password needs work.',
   'Add at least 8 characters.' => 'Add at least 8 characters.',
-  'Add a letter.' => 'Add a letter.',
-  'Add a number.' => 'Add a number.',
-  'Add an uppercase letter.' => 'Add an uppercase letter.',
-  'Add a lowercase letter.' => 'Add a lowercase letter.',
+  'Add a letter.' => 'Tilføj et latinsk bogstav (A–Z eller a–z).',
+  'Add a number.' => 'Tilføj et ciffer (0–9).',
+  'Add an uppercase letter.' => 'Tilføj et stort latinsk bogstav (A–Z).',
+  'Add a lowercase letter.' => 'Tilføj et lille latinsk bogstav (a–z).',
   'Add a symbol.' => 'Add a symbol.',
   'Use a longer password for this strength level.' => 'Use a longer password for this strength level.',
   'Captcha image' => 'Captcha image',
@@ -3105,7 +3129,7 @@ return array (
   'Log in with Apple' => 'Log ind med Apple',
   'Sign up with Apple' => 'Tilmeld dig hos Apple',
   'or' => 'eller',
-  'We never share your data with third parties.' => 'Vi deler aldrig dine data med tredjeparter.',
+  'We never share your data with third parties.' => 'Læs i vores privatlivspolitik, hvordan vi behandler dine data.',
   'Account settings' => 'Kontoindstillinger',
   'Processing...' => 'Behandler...',
   'Submitting request...' => 'Sender anmodning...',
@@ -3257,7 +3281,7 @@ return array (
   'DVR' => 'DVR',
   'Capture Card' => 'Capture kort',
   'High' => 'Høj',
-  'Stream Health' => 'Stream Sundhed',
+  'Stream Health' => 'Streamstatus',
   'Low (1.2s)' => 'Lav (1,2 s)',
   'Deep into the dragon’s lair! Epic boss battles, lore hunting, and community challenges. Join the adventure!' => 'Dybt ind i dragens hule! Episke bosskampe, lore-jagt og samfundsudfordringer. Deltag i eventyret!',
   'Ask your audience' => 'Spørg dit publikum',
@@ -4187,7 +4211,7 @@ return array (
   'Ad impression already completed.' => 'Annoncevisning er allerede gennemført.',
   'Ad impression completed.' => 'Annoncevisning fuldført.',
   'Ad updated.' => 'Annonce opdateret.',
-  'Advanced generated LiveKit options' => 'Avanceret genererede ZXTERM1ZX muligheder',
+  'Advanced generated LiveKit options' => 'Avanceret genererede LiveKit muligheder',
   'Apply configuration' => 'Anvend konfiguration',
   'Automatic' => 'Automatisk',
   'A valid phone number is required when using phone delivery.' => 'Et gyldigt telefonnummer er påkrævet, når du bruger telefonlevering.',
@@ -4215,8 +4239,8 @@ return array (
   'Detected issues' => 'Opdagede problemer',
   'Device session not found.' => 'Enhedssession blev ikke fundet.',
   'Device signed out successfully.' => 'Enheden er logget ud.',
-  'Docker Configuration' => 'ZXTERM3ZX-konfiguration',
-  'Docker container file paths' => 'ZXTERM3ZX container filstier',
+  'Docker Configuration' => 'Docker-konfiguration',
+  'Docker container file paths' => 'Docker container filstier',
   'Do not collapse settings blocks' => 'Undlad at skjule indstillingsblokke',
   'during this stream' => 'under denne strøm',
   'Enabled contributions will appear here.' => 'Aktiverede bidrag vises her.',
@@ -4239,11 +4263,11 @@ return array (
   'Live chat message deleted.' => 'Live chat besked slettet.',
   'Live control panels' => 'Live kontrolpaneler',
   'Live Control Room' => 'Live kontrolrum',
-  'LiveKit and Docker logs' => 'ZXTERM1ZX og ZXTERM3ZX logfiler',
-  'LiveKit did not return a connection result.' => 'ZXTERM1ZX returnerede ikke et forbindelsesresultat.',
-  'LiveKit Docker' => 'ZXTERM1ZX ZXTERM3ZX',
-  'LiveKit signaling and authenticated API connection succeeded.' => 'ZXTERM1ZX-signalering og autentificeret API-forbindelse lykkedes.',
-  'LiveKit SSL certificates' => 'ZXTERM1ZX SSL-certifikater',
+  'LiveKit and Docker logs' => 'LiveKit og Docker logfiler',
+  'LiveKit did not return a connection result.' => 'LiveKit returnerede ikke et forbindelsesresultat.',
+  'LiveKit Docker' => 'LiveKit Docker',
+  'LiveKit signaling and authenticated API connection succeeded.' => 'LiveKit-signalering og autentificeret API-forbindelse lykkedes.',
+  'LiveKit SSL certificates' => 'LiveKit SSL-certifikater',
   'Live polls' => 'Live afstemninger',
   'Live stream' => 'Live stream',
   'Live stream ended.' => 'Livestream sluttede.',
@@ -4276,19 +4300,19 @@ return array (
   'Participant controls' => 'Deltager kontrollerer',
   'Participant role' => 'Deltagerrolle',
   'Participants' => 'Deltagere',
-  'Payment card numbers are handled by the configured payment provider and are never stored in your PlayHub profile.' => 'Betalingskortnumre håndteres af den konfigurerede betalingsudbyder og gemmes aldrig i din ZXTERM0ZX-profil.',
+  'Payment card numbers are handled by the configured payment provider and are never stored in your PlayHub profile.' => 'Betalingskortnumre håndteres af den konfigurerede betalingsudbyder og gemmes aldrig i din PlayHub-profil.',
   'Payment history' => 'Betalingshistorik',
   'Peak Viewers' => 'Peak Viewers',
-  'PlayHub is installed' => 'ZXTERM0ZX er installeret',
-  'PlayHub recording' => 'ZXTERM0ZX optagelse',
-  'Please enable JavaScript to use PlayHub.' => 'Aktiver venligst ZXTERM4ZX for at bruge ZXTERM0ZX.',
+  'PlayHub is installed' => 'PlayHub er installeret',
+  'PlayHub recording' => 'PlayHub optagelse',
+  'Please enable JavaScript to use PlayHub.' => 'Aktiver venligst JavaScript for at bruge PlayHub.',
   'Poll created.' => 'Afstemning oprettet.',
   'Poll deleted.' => 'Afstemning slettet.',
   'Poll updated.' => 'Afstemningen er opdateret.',
-  'Preparing RTMP URL' => 'Forbereder ZXTERM2ZX URL',
+  'Preparing RTMP URL' => 'Forbereder RTMP URL',
   'Preparing stream key' => 'Forbereder streamnøgle',
   'Price' => 'Pris',
-  'Project-local LiveKit file paths' => 'Projektlokale ZXTERM1ZX-filstier',
+  'Project-local LiveKit file paths' => 'Projektlokale LiveKit-filstier',
   'Pull image' => 'Træk billede',
   'Quality' => 'Kvalitet',
   'Question' => 'Spørgsmål',
@@ -4305,8 +4329,8 @@ return array (
   'Response' => 'Svar',
   'Restart' => 'Genstart',
   'Revenue & Tips' => 'Indtægter og tips',
-  'RTMP credentials are ready.' => 'ZXTERM2ZX-legitimationsoplysninger er klar.',
-  'RTMP ingress' => 'ZXTERM2ZX indgang',
+  'RTMP credentials are ready.' => 'RTMP-legitimationsoplysninger er klar.',
+  'RTMP ingress' => 'RTMP indgang',
   'Schedule must be in the future.' => 'Tidsplanen skal ligge i fremtiden.',
   'Search or enter your country' => 'Søg eller indtast dit land',
   'Select an option' => 'Vælg en mulighed',
@@ -4331,7 +4355,7 @@ return array (
   'The default quality must be enabled as an upload rendition.' => 'Standardkvaliteten skal være aktiveret som en uploadgengivelse.',
   'The end date must be later than the start date.' => 'Slutdatoen skal være senere end startdatoen.',
   'The invited user must sign in with that account before opening the link.' => 'Den inviterede bruger skal logge ind med denne konto, før du åbner linket.',
-  'The logo must be a safe SVG file.' => 'Logoet skal være en sikker ZXTERM5ZX-fil.',
+  'The logo must be a safe SVG file.' => 'Logoet skal være en sikker SVG-fil.',
   'The new password must be different from the current one.' => 'Den nye adgangskode skal være forskellig fra den nuværende.',
   'The provided credentials are incorrect.' => 'De angivne legitimationsoplysninger er forkerte.',
   'The two-factor authentication code is invalid.' => 'To-faktor-godkendelseskoden er ugyldig.',
@@ -4360,7 +4384,7 @@ return array (
   'View more' => 'Se mere',
   'Visible live chat messages will appear here after the replay is ready.' => 'Synlige livechatbeskeder vises her, når genafspilningen er klar.',
   'Vote recorded.' => 'Stemme optaget.',
-  'Waiting for RTMP video' => 'Venter på ZXTERM2ZX-video',
+  'Waiting for RTMP video' => 'Venter på RTMP-video',
   'Your ad markup' => 'Din annoncemarkering',
   'Your participant video will appear here.' => 'Din deltagervideo vises her.',
   'Also permanently delete all videos uploaded by these users' => 'Slet også permanent alle videoer uploadet af disse brugere',
@@ -4450,4 +4474,119 @@ return array (
   'Language not found.' => 'Language not found.',
   'Language directory not found.' => 'Language directory not found.',
   'The selected language directory is read-only. Update its server permissions before editing.' => 'The selected language directory is read-only. Update its server permissions before editing.',
+  'Find out how we handle your data in our privacy policy.' => 'Læs i vores privatlivspolitik, hvordan vi behandler dine data.',
+  'Shorts must be 180 seconds or less.' => 'Shorts må højst vare 60 sekunder.',
+  'Shorts must be square or vertical.' => 'Shorts skal være i højformat.',
+  'Shorts must be 60 seconds or less and vertical.' => 'Shorts skal være i højformat og må højst vare 60 sekunder.',
+  'Shorts must be vertical videos of at most 60 seconds.' => 'Shorts skal være i højformat og må højst vare 60 sekunder.',
+  'Shorts must be 180 seconds or less and square or vertical.' => 'Shorts skal være i højformat og må højst vare 60 sekunder.',
+  'Shorts must be square or vertical videos of at most 180 seconds.' => 'Shorts skal være i højformat og må højst vare 60 sekunder.',
+  '· Shorts require 60s max and vertical video' => 'Shorts skal være i højformat og må højst vare 60 sekunder.',
+  '· Shorts require 180s max and square or vertical video' => 'Shorts skal være i højformat og må højst vare 60 sekunder.',
+  'This video will be published as a Short because it is at most 60 seconds and vertical.' => 'Denne video udgives som en Short, fordi den er i højformat og højst varer 60 sekunder.',
+  'This video will be published as a Short because it is at most 180 seconds and square or vertical.' => 'Denne video udgives som en Short, fordi den er i højformat og højst varer 60 sekunder.',
+  'No shorts uploaded yet. Shorts appear here after a vertical video of at most 60 seconds is imported.' => 'Ingen Shorts endnu. Importerede videoer i højformat på højst 60 sekunder vises her.',
+  'No shorts uploaded yet. Shorts appear here after a square or vertical video of at most 180 seconds is imported.' => 'Ingen Shorts endnu. Importerede videoer i højformat på højst 60 sekunder vises her.',
+  'Drag and drop your short file here' => 'Træk din Short-videofil hertil',
+  'Video: {seconds}s · {width}×{height}. Shorts must be 60 seconds or less and vertical.' => 'Video: {seconds}s · {width}×{height}. Shorts skal være i højformat og må højst vare 60 sekunder.',
+  'Chapter {number} name' => 'Navn på kapitel {number}',
+  'A video can have up to {count} chapters.' => 'En video kan have op til {count} kapitler.',
+  'Chapter {number} has an invalid timestamp.' => 'Kapitel {number} har en ugyldig tidskode.',
+  'The first chapter must start at 0:00.' => 'Det første kapitel skal starte ved 0:00.',
+  'Chapter timestamps must be in order and at least {seconds} seconds apart.' => 'Tidskoderne skal være i stigende rækkefølge med mindst {seconds} s imellem.',
+  'Chapter {number} starts after the video ends.' => 'Kapitel {number} skal starte, før videoen slutter.',
+  'Add a name for chapter {number} or turn off Upload with chapters.' => 'Giv kapitel {number} et navn, eller slå »Upload med kapitler« fra.',
+  'The name for chapter {number} must be 160 characters or fewer.' => 'Navnet på kapitel {number} må højst være 160 tegn langt.',
+  'Add at least two chapters or turn off Upload with chapters.' => 'Tilføj mindst to kapitler, eller slå »Upload med kapitler« fra.',
+  'Upload with chapters' => 'Upload med kapitler',
+  'Your video was imported.' => 'Din video er importeret.',
+  'View posts tagged {tag}' => 'Se opslag med tagget {tag}',
+  'View {name} channel' => 'Åbn kanalen for {name}',
+  'Chapter {number} start time' => 'Starttid for kapitel {number}',
+  'Remove chapter {number}' => 'Fjern kapitel {number}',
+  'Transcript' => 'Transskription',
+  'Loading transcript…' => 'Henter transskription…',
+  'The transcript could not be loaded.' => 'Transskriptionen kunne ikke hentes.',
+  'Transcript text' => 'Transskriptionens tekst',
+  'Playlist tip' => 'Tip til din afspilningsliste',
+  'Send a tip to {name}' => 'Støt {name}',
+  'Support the creator of “{title}”.' => 'Støt skaberen af “{title}”.',
+  'Tip sent to {name}.' => 'Dit bidrag er sendt til {name}.',
+  'Support {name} during this live stream.' => 'Støt {name} under denne livestream.',
+  'Send Super Chat' => 'Send Super Chat',
+  'Send tip' => 'Send bidrag',
+  'Your {SITENAME} verification code' => 'Din bekræftelseskode til {SITENAME}',
+  'Your {SITENAME} verification code is: {VERIFICATION_CODE}
+
+This code expires in {EXPIRY_MINUTES} minutes.' => 'Din bekræftelseskode til {SITENAME}: {VERIFICATION_CODE}
+
+Koden er gyldig i {EXPIRY_MINUTES} min.',
+  'Reset your {SITENAME} password' => 'Nulstil din adgangskode til {SITENAME}',
+  'Hello {USERNAME},
+
+Your {SITENAME} password reset code is: {RESET_CODE}
+
+This code expires in {EXPIRY_MINUTES} minutes.' => 'Hej {USERNAME},
+
+Din kode til at nulstille adgangskoden til {SITENAME}: {RESET_CODE}
+
+Koden er gyldig i {EXPIRY_MINUTES} min.',
+  'You have been invited to {SITENAME}' => 'Du er inviteret til {SITENAME}',
+  'Hello {USERNAME},
+
+You have been invited to {SITENAME} as {ROLE}.
+
+Login email: {USER_EMAIL}
+Temporary password: {TEMPORARY_PASSWORD}
+Login: {LOGIN_URL}
+
+Please sign in and update your password.' => 'Hej {USERNAME},
+
+Du er inviteret til {SITENAME}. Din rolle: {ROLE}.
+
+Loginmail: {USER_EMAIL}
+Midlertidig adgangskode: {TEMPORARY_PASSWORD}
+Log ind: {LOGIN_URL}
+
+Log ind, og skift din adgangskode.',
+  'Your {SITENAME} account has been restricted' => 'Din konto på {SITENAME} er begrænset',
+  'Hello {USERNAME},
+
+Your {SITENAME} account has been restricted until {BAN_EXPIRES_AT}.
+
+Restrictions:
+{RESTRICTIONS}
+
+If you believe this is a mistake, contact {SUPPORT_EMAIL}.' => 'Hej {USERNAME},
+
+Din konto på {SITENAME} er begrænset indtil {BAN_EXPIRES_AT}.
+
+Begrænsninger:
+{RESTRICTIONS}
+
+Mener du, at det er en fejl? Kontakt {SUPPORT_EMAIL}.',
+  'You are now a {SITENAME} moderator' => 'Du er nu moderator på {SITENAME}',
+  'Hello {USERNAME},
+
+You have been assigned the Moderator role on {SITENAME}. You can now access the moderation tools available to your role.
+
+Moderation dashboard: {MODERATION_URL}' => 'Hej {USERNAME},
+
+Du har fået moderatorrollen på {SITENAME}. Du kan nu bruge de moderationsværktøjer, der hører til din rolle.
+
+Moderationspanel: {MODERATION_URL}',
+  'You are moderating "{STREAM_TITLE}" on {SITENAME}' => 'Du modererer “{STREAM_TITLE}” på {SITENAME}',
+  'Hello {USERNAME},
+
+You have been assigned as a moderator for the live stream "{STREAM_TITLE}". Open the stream to access your moderation controls.
+
+Open stream: {STREAM_URL}' => 'Hej {USERNAME},
+
+Du er valgt som moderator for livestreamen “{STREAM_TITLE}”. Åbn streamen for at bruge dine moderationsværktøjer.
+
+Åbn streamen: {STREAM_URL}',
+  'Notification' => 'Notifikation',
+  'This email was sent by {site}.' => 'Denne mail er sendt af {site}.',
+  'Password strength must be at least {level}/10.' => 'Din adgangskode skal mindst opnå {level}/10.',
+  'Code expires in {time}' => 'Din kode udløber om {time}',
 );

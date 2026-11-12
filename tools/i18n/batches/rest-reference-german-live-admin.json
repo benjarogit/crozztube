@@ -1,0 +1,660 @@
+{
+  "context": "German complete-message editorial pass for live connection/recovery/moderation, wallet top-up, stickers, ads, language administration and their errors. German personal address, Austrian spelling preserved, Swiss ss. Scope verified against settings/controllers and existing UI; demo content/protocol examples and sentence fragments excluded.",
+  "messages": {
+    "· Shorts require 60s max and vertical portrait video": {
+      "de_de": "· Shorts: höchstens 60 Sekunden, nur Hochkant",
+      "de_at": "· Shorts: höchstens 60 Sekunden, nur Hochkant",
+      "de_ch": "· Shorts: höchstens 60 Sekunden, nur Hochkant"
+    },
+    "% of uploaded videos": {
+      "de_de": "% der hochgeladenen Videos",
+      "de_at": "% der hochgeladenen Videos",
+      "de_ch": "% der hochgeladenen Videos"
+    },
+    "reCAPTCHA secret key": {
+      "de_de": "Geheimer reCAPTCHA-Schlüssel",
+      "de_at": "Geheimer reCAPTCHA-Schlüssel",
+      "de_ch": "Geheimer reCAPTCHA-Schlüssel"
+    },
+    "LiveKit TURN/TLS certificates": {
+      "de_de": "TURN/TLS-Zertifikate für LiveKit",
+      "de_at": "TURN/TLS-Zertifikate für LiveKit",
+      "de_ch": "TURN/TLS-Zertifikate für LiveKit"
+    },
+    "Enable embedded TURN/TLS": {
+      "de_de": "Integrierten TURN/TLS-Dienst aktivieren",
+      "de_at": "Integrierten TURN/TLS-Dienst aktivieren",
+      "de_ch": "Integrierten TURN/TLS-Dienst aktivieren"
+    },
+    "Must match the certificate domain": {
+      "de_de": "Muss mit der Domain im Zertifikat übereinstimmen",
+      "de_at": "Muss mit der Domain im Zertifikat übereinstimmen",
+      "de_ch": "Muss mit der Domain im Zertifikat übereinstimmen"
+    },
+    "Open this port in the firewall when enabled": {
+      "de_de": "Gib diesen Port in der Firewall frei, wenn der Dienst aktiv ist.",
+      "de_at": "Gib diesen Port in der Firewall frei, wenn der Dienst aktiv ist.",
+      "de_ch": "Gib diesen Port in der Firewall frei, wenn der Dienst aktiv ist."
+    },
+    "Certificate file path": {
+      "de_de": "Pfad zur Zertifikatsdatei",
+      "de_at": "Pfad zur Zertifikatsdatei",
+      "de_ch": "Pfad zur Zertifikatsdatei"
+    },
+    "Unable to delete Super Sticker": {
+      "de_de": "Super Sticker konnte nicht gelöscht werden",
+      "de_at": "Super Sticker konnte nicht gelöscht werden",
+      "de_ch": "Super Sticker konnte nicht gelöscht werden"
+    },
+    "The Super Sticker could not be deleted.": {
+      "de_de": "Der Super Sticker konnte nicht gelöscht werden.",
+      "de_at": "Der Super Sticker konnte nicht gelöscht werden.",
+      "de_ch": "Der Super Sticker konnte nicht gelöscht werden."
+    },
+    "Super Sticker catalog": {
+      "de_de": "Super-Sticker-Katalog",
+      "de_at": "Super-Sticker-Katalog",
+      "de_ch": "Super-Sticker-Katalog"
+    },
+    "Loading Super Stickers...": {
+      "de_de": "Super Sticker werden geladen …",
+      "de_at": "Super Sticker werden geladen …",
+      "de_ch": "Super Sticker werden geladen …"
+    },
+    "WebP stickers are stored locally in the website stickers folder.": {
+      "de_de": "WebP-Sticker werden lokal im Stickerordner der Website gespeichert.",
+      "de_at": "WebP-Sticker werden lokal im Stickerordner der Website gespeichert.",
+      "de_ch": "WebP-Sticker werden lokal im Stickerordner der Website gespeichert."
+    },
+    "Choose a Super Sticker": {
+      "de_de": "Wähle einen Super Sticker",
+      "de_at": "Wähle einen Super Sticker",
+      "de_ch": "Wähle einen Super Sticker"
+    },
+    "Add funds securely with an available payment method.": {
+      "de_de": "Lade dein Guthaben mit einer der verfügbaren Zahlungsmethoden auf.",
+      "de_at": "Lade dein Guthaben mit einer der verfügbaren Zahlungsmethoden auf.",
+      "de_ch": "Lade dein Guthaben mit einer der verfügbaren Zahlungsmethoden auf."
+    },
+    "Close recharge dialog": {
+      "de_de": "Guthabenaufladung schließen",
+      "de_at": "Guthabenaufladung schließen",
+      "de_ch": "Guthabenaufladung schliessen"
+    },
+    "Quick top-up amounts": {
+      "de_de": "Betrag zum Aufladen wählen",
+      "de_at": "Betrag zum Aufladen wählen",
+      "de_ch": "Betrag zum Aufladen wählen"
+    },
+    "Loading payment methods...": {
+      "de_de": "Zahlungsmethoden werden geladen …",
+      "de_at": "Zahlungsmethoden werden geladen …",
+      "de_ch": "Zahlungsmethoden werden geladen …"
+    },
+    "Continue with Stripe": {
+      "de_de": "Weiter mit Stripe",
+      "de_at": "Weiter mit Stripe",
+      "de_ch": "Weiter mit Stripe"
+    },
+    "Continue with PayPal": {
+      "de_de": "Weiter mit PayPal",
+      "de_at": "Weiter mit PayPal",
+      "de_ch": "Weiter mit PayPal"
+    },
+    "Continue with payment": {
+      "de_de": "Weiter zur Zahlung",
+      "de_at": "Weiter zur Zahlung",
+      "de_ch": "Weiter zur Zahlung"
+    },
+    "Allow pop-ups to open the payment gateway.": {
+      "de_de": "Erlaube Pop-ups, um die Zahlungsseite zu öffnen.",
+      "de_at": "Erlaube Pop-ups, um die Zahlungsseite zu öffnen.",
+      "de_ch": "Erlaube Pop-ups, um die Zahlungsseite zu öffnen."
+    },
+    "Custom or preset tip": {
+      "de_de": "Wähle einen Betrag oder gib selbst einen ein",
+      "de_at": "Wähle einen Betrag oder gib selbst einen ein",
+      "de_ch": "Wähle einen Betrag oder gib selbst einen ein"
+    },
+    "Invite a registered PlayHub user to publish camera and microphone in this live room.": {
+      "de_de": "Lade jemanden mit einem PlayHub-Konto ein, Kamera und Mikrofon in diesem Livestream zu teilen.",
+      "de_at": "Lade jemanden mit einem PlayHub-Konto ein, Kamera und Mikrofon in diesem Livestream zu teilen.",
+      "de_ch": "Lade jemanden mit einem PlayHub-Konto ein, Kamera und Mikrofon in diesem Livestream zu teilen."
+    },
+    "Streaming connection is reconnecting.": {
+      "de_de": "Die Verbindung zum Livestream wird wiederhergestellt.",
+      "de_at": "Die Verbindung zum Livestream wird wiederhergestellt.",
+      "de_ch": "Die Verbindung zum Livestream wird wiederhergestellt."
+    },
+    "Streaming connection restored.": {
+      "de_de": "Die Verbindung zum Livestream ist wieder da.",
+      "de_at": "Die Verbindung zum Livestream ist wieder da.",
+      "de_ch": "Die Verbindung zum Livestream ist wieder da."
+    },
+    "Streaming connection details are unavailable.": {
+      "de_de": "Die Verbindungsdaten für den Livestream sind gerade nicht verfügbar.",
+      "de_at": "Die Verbindungsdaten für den Livestream sind gerade nicht verfügbar.",
+      "de_ch": "Die Verbindungsdaten für den Livestream sind gerade nicht verfügbar."
+    },
+    "Stream preview connection details are unavailable.": {
+      "de_de": "Die Verbindungsdaten für die Vorschau sind gerade nicht verfügbar.",
+      "de_at": "Die Verbindungsdaten für die Vorschau sind gerade nicht verfügbar.",
+      "de_ch": "Die Verbindungsdaten für die Vorschau sind gerade nicht verfügbar."
+    },
+    "Unable to reconnect to the live control room.": {
+      "de_de": "Die Verbindung zur Livesteuerung konnte nicht wiederhergestellt werden.",
+      "de_at": "Die Verbindung zur Livesteuerung konnte nicht wiederhergestellt werden.",
+      "de_ch": "Die Verbindung zur Livesteuerung konnte nicht wiederhergestellt werden."
+    },
+    "Scheduled browser streams require the webcam source.": {
+      "de_de": "Wähle die Webcam als Quelle, um einen Livestream im Browser zu planen.",
+      "de_at": "Wähle die Webcam als Quelle, um einen Livestream im Browser zu planen.",
+      "de_ch": "Wähle die Webcam als Quelle, um einen Livestream im Browser zu planen."
+    },
+    "Live control room reconnected.": {
+      "de_de": "Die Verbindung zur Livesteuerung ist wieder da.",
+      "de_at": "Die Verbindung zur Livesteuerung ist wieder da.",
+      "de_ch": "Die Verbindung zur Livesteuerung ist wieder da."
+    },
+    "Connecting to the live stage": {
+      "de_de": "Verbindung zur Livebühne wird hergestellt",
+      "de_at": "Verbindung zur Livebühne wird hergestellt",
+      "de_ch": "Verbindung zur Livebühne wird hergestellt"
+    },
+    "● real-time streaming": {
+      "de_de": "● Livestream in Echtzeit",
+      "de_at": "● Livestream in Echtzeit",
+      "de_ch": "● Livestream in Echtzeit"
+    },
+    "Start streaming from OBS to see the stream preview here.": {
+      "de_de": "Starte deinen Stream in OBS, um hier die Vorschau zu sehen.",
+      "de_at": "Starte deinen Stream in OBS, um hier die Vorschau zu sehen.",
+      "de_ch": "Starte deinen Stream in OBS, um hier die Vorschau zu sehen."
+    },
+    "Replay recording is unavailable until the recording service is running.": {
+      "de_de": "Die Aufzeichnung ist erst verfügbar, wenn der Aufzeichnungsdienst läuft.",
+      "de_at": "Die Aufzeichnung ist erst verfügbar, wenn der Aufzeichnungsdienst läuft.",
+      "de_ch": "Die Aufzeichnung ist erst verfügbar, wenn der Aufzeichnungsdienst läuft."
+    },
+    "Your stream is publishing.": {
+      "de_de": "Dein Livestream wird übertragen.",
+      "de_at": "Dein Livestream wird übertragen.",
+      "de_ch": "Dein Livestream wird übertragen."
+    },
+    "The live room is still connecting. Try again in a moment.": {
+      "de_de": "Die Verbindung zum Livestream wird noch aufgebaut. Versuch es gleich noch einmal.",
+      "de_at": "Die Verbindung zum Livestream wird noch aufgebaut. Versuch es gleich noch einmal.",
+      "de_ch": "Die Verbindung zum Livestream wird noch aufgebaut. Versuch es gleich noch einmal."
+    },
+    "The RTMP ingress service is not running.": {
+      "de_de": "Der RTMP-Eingangsdienst läuft nicht.",
+      "de_at": "Der RTMP-Eingangsdienst läuft nicht.",
+      "de_ch": "Der RTMP-Eingangsdienst läuft nicht."
+    },
+    "Streaming credentials are unavailable.": {
+      "de_de": "Die Zugangsdaten für den Livestream sind gerade nicht verfügbar.",
+      "de_at": "Die Zugangsdaten für den Livestream sind gerade nicht verfügbar.",
+      "de_ch": "Die Zugangsdaten für den Livestream sind gerade nicht verfügbar."
+    },
+    "The streaming service is not running.": {
+      "de_de": "Der Streamingdienst läuft nicht.",
+      "de_at": "Der Streamingdienst läuft nicht.",
+      "de_ch": "Der Streamingdienst läuft nicht."
+    },
+    "Browser WebRTC currently requires the webcam source.": {
+      "de_de": "Wähle die Webcam als Quelle, um per WebRTC im Browser zu streamen.",
+      "de_at": "Wähle die Webcam als Quelle, um per WebRTC im Browser zu streamen.",
+      "de_ch": "Wähle die Webcam als Quelle, um per WebRTC im Browser zu streamen."
+    },
+    "The participant identity is invalid.": {
+      "de_de": "Die Teilnehmerkennung ist ungültig.",
+      "de_at": "Die Teilnehmerkennung ist ungültig.",
+      "de_ch": "Die Teilnehmerkennung ist ungültig."
+    },
+    "The recording service did not return a replay recording ID.": {
+      "de_de": "Der Aufzeichnungsdienst hat keine Kennung für die Aufnahme zurückgegeben.",
+      "de_at": "Der Aufzeichnungsdienst hat keine Kennung für die Aufnahme zurückgegeben.",
+      "de_ch": "Der Aufzeichnungsdienst hat keine Kennung für die Aufnahme zurückgegeben."
+    },
+    "Unable to load poll voters.": {
+      "de_de": "Die Teilnehmenden der Umfrage konnten nicht geladen werden.",
+      "de_at": "Die Teilnehmenden der Umfrage konnten nicht geladen werden.",
+      "de_ch": "Die Teilnehmenden der Umfrage konnten nicht geladen werden."
+    },
+    "Poll voter details are unavailable.": {
+      "de_de": "Details zu den Teilnehmenden der Umfrage sind gerade nicht verfügbar.",
+      "de_at": "Details zu den Teilnehmenden der Umfrage sind gerade nicht verfügbar.",
+      "de_ch": "Details zu den Teilnehmenden der Umfrage sind gerade nicht verfügbar."
+    },
+    "No moderators assigned yet.": {
+      "de_de": "Noch niemand für die Moderation eingetragen.",
+      "de_at": "Noch niemand für die Moderation eingetragen.",
+      "de_ch": "Noch niemand für die Moderation eingetragen."
+    },
+    "Manage stream moderators": {
+      "de_de": "Moderation für den Livestream verwalten",
+      "de_at": "Moderation für den Livestream verwalten",
+      "de_ch": "Moderation für den Livestream verwalten"
+    },
+    "Unable to add this moderator.": {
+      "de_de": "Diese Person konnte nicht zur Moderation hinzugefügt werden.",
+      "de_at": "Diese Person konnte nicht zur Moderation hinzugefügt werden.",
+      "de_ch": "Diese Person konnte nicht zur Moderation hinzugefügt werden."
+    },
+    "Unable to remove this moderator.": {
+      "de_de": "Diese Person konnte nicht aus der Moderation entfernt werden.",
+      "de_at": "Diese Person konnte nicht aus der Moderation entfernt werden.",
+      "de_ch": "Diese Person konnte nicht aus der Moderation entfernt werden."
+    },
+    "No pending participant requests": {
+      "de_de": "Keine offenen Teilnahmeanfragen",
+      "de_at": "Keine offenen Teilnahmeanfragen",
+      "de_ch": "Keine offenen Teilnahmeanfragen"
+    },
+    "Ban from live stream?": {
+      "de_de": "Aus diesem Livestream sperren?",
+      "de_at": "Aus diesem Livestream sperren?",
+      "de_ch": "Aus diesem Livestream sperren?"
+    },
+    "You no longer have access to this live stream.": {
+      "de_de": "Du hast keinen Zugriff mehr auf diesen Livestream.",
+      "de_at": "Du hast keinen Zugriff mehr auf diesen Livestream.",
+      "de_ch": "Du hast keinen Zugriff mehr auf diesen Livestream."
+    },
+    "Manage locally stored stickers for comments and live streams.": {
+      "de_de": "Verwalte lokal gespeicherte Sticker für Kommentare und Livestreams.",
+      "de_at": "Verwalte lokal gespeicherte Sticker für Kommentare und Livestreams.",
+      "de_ch": "Verwalte lokal gespeicherte Sticker für Kommentare und Livestreams."
+    },
+    "Unable to load Stickers": {
+      "de_de": "Sticker konnten nicht geladen werden",
+      "de_at": "Sticker konnten nicht geladen werden",
+      "de_ch": "Sticker konnten nicht geladen werden"
+    },
+    "The sticker catalog could not be loaded.": {
+      "de_de": "Der Stickerkatalog konnte nicht geladen werden.",
+      "de_at": "Der Stickerkatalog konnte nicht geladen werden.",
+      "de_ch": "Der Stickerkatalog konnte nicht geladen werden."
+    },
+    "Unable to save Sticker": {
+      "de_de": "Sticker konnte nicht gespeichert werden",
+      "de_at": "Sticker konnte nicht gespeichert werden",
+      "de_ch": "Sticker konnte nicht gespeichert werden"
+    },
+    "The sticker could not be saved.": {
+      "de_de": "Der Sticker konnte nicht gespeichert werden.",
+      "de_at": "Der Sticker konnte nicht gespeichert werden.",
+      "de_ch": "Der Sticker konnte nicht gespeichert werden."
+    },
+    "Unable to delete Sticker": {
+      "de_de": "Sticker konnte nicht gelöscht werden",
+      "de_at": "Sticker konnte nicht gelöscht werden",
+      "de_ch": "Sticker konnte nicht gelöscht werden"
+    },
+    "The sticker could not be deleted.": {
+      "de_de": "Der Sticker konnte nicht gelöscht werden.",
+      "de_at": "Der Sticker konnte nicht gelöscht werden.",
+      "de_ch": "Der Sticker konnte nicht gelöscht werden."
+    },
+    "PNG, GIF, and WebP stickers are stored locally in the website stickers folder.": {
+      "de_de": "PNG-, GIF- und WebP-Sticker werden lokal im Stickerordner der Website gespeichert.",
+      "de_at": "PNG-, GIF- und WebP-Sticker werden lokal im Stickerordner der Website gespeichert.",
+      "de_ch": "PNG-, GIF- und WebP-Sticker werden lokal im Stickerordner der Website gespeichert."
+    },
+    "Choose sticker image": {
+      "de_de": "Stickerbild auswählen",
+      "de_at": "Stickerbild auswählen",
+      "de_ch": "Stickerbild auswählen"
+    },
+    "Enabled for comments and live streams": {
+      "de_de": "Für Kommentare und Livestreams aktiviert",
+      "de_at": "Für Kommentare und Livestreams aktiviert",
+      "de_ch": "Für Kommentare und Livestreams aktiviert"
+    },
+    "Choose a sticker to send": {
+      "de_de": "Wähle einen Sticker zum Senden",
+      "de_at": "Wähle einen Sticker zum Senden",
+      "de_ch": "Wähle einen Sticker zum Senden"
+    },
+    "Close Super Stickers": {
+      "de_de": "Super Sticker schließen",
+      "de_at": "Super Sticker schließen",
+      "de_ch": "Super Sticker schliessen"
+    },
+    "Create, target, schedule, and measure advertising placements across the website.": {
+      "de_de": "Erstelle und plane Werbung auf der Website, lege Zielgruppen fest und prüfe die Ergebnisse.",
+      "de_at": "Erstelle und plane Werbung auf der Website, lege Zielgruppen fest und prüfe die Ergebnisse.",
+      "de_ch": "Erstelle und plane Werbung auf der Website, lege Zielgruppen fest und prüfe die Ergebnisse."
+    },
+    "After website header": {
+      "de_de": "Unter der Kopfzeile der Website",
+      "de_at": "Unter der Kopfzeile der Website",
+      "de_ch": "Unter der Kopfzeile der Website"
+    },
+    "Between community posts": {
+      "de_de": "Zwischen Communitybeiträgen",
+      "de_at": "Zwischen Communitybeiträgen",
+      "de_ch": "Zwischen Communitybeiträgen"
+    },
+    "The advertising catalog could not be loaded.": {
+      "de_de": "Die Werbeübersicht konnte nicht geladen werden.",
+      "de_at": "Die Werbeübersicht konnte nicht geladen werden.",
+      "de_ch": "Die Werbeübersicht konnte nicht geladen werden."
+    },
+    "The ad could not be saved.": {
+      "de_de": "Die Anzeige konnte nicht gespeichert werden.",
+      "de_at": "Die Anzeige konnte nicht gespeichert werden.",
+      "de_ch": "Die Anzeige konnte nicht gespeichert werden."
+    },
+    "The ad could not be deleted.": {
+      "de_de": "Die Anzeige konnte nicht gelöscht werden.",
+      "de_at": "Die Anzeige konnte nicht gelöscht werden.",
+      "de_ch": "Die Anzeige konnte nicht gelöscht werden."
+    },
+    "Items in feed placements": {
+      "de_de": "Einträge zwischen Anzeigen im Feed",
+      "de_at": "Einträge zwischen Anzeigen im Feed",
+      "de_ch": "Einträge zwischen Anzeigen im Feed"
+    },
+    "Show sponsored label": {
+      "de_de": "Als Werbung kennzeichnen",
+      "de_at": "Als Werbung kennzeichnen",
+      "de_ch": "Als Werbung kennzeichnen"
+    },
+    "Open links in new tab": {
+      "de_de": "Links in einem neuen Tab öffnen",
+      "de_at": "Links in einem neuen Tab öffnen",
+      "de_ch": "Links in einem neuen Tab öffnen"
+    },
+    "HTML ads run in an isolated sandbox on the public website.": {
+      "de_de": "HTML-Anzeigen laufen auf der öffentlichen Website in einer isolierten Sandbox.",
+      "de_at": "HTML-Anzeigen laufen auf der öffentlichen Website in einer isolierten Sandbox.",
+      "de_ch": "HTML-Anzeigen laufen auf der öffentlichen Website in einer isolierten Sandbox."
+    },
+    "Enter HTML to preview the ad.": {
+      "de_de": "Gib HTML ein, um die Anzeige in der Vorschau zu sehen.",
+      "de_at": "Gib HTML ein, um die Anzeige in der Vorschau zu sehen.",
+      "de_ch": "Gib HTML ein, um die Anzeige in der Vorschau zu sehen."
+    },
+    "Enter an image URL to preview the ad.": {
+      "de_de": "Gib einen Bildlink ein, um die Anzeige in der Vorschau zu sehen.",
+      "de_at": "Gib einen Bildlink ein, um die Anzeige in der Vorschau zu sehen.",
+      "de_ch": "Gib einen Bildlink ein, um die Anzeige in der Vorschau zu sehen."
+    },
+    "Configure the creative, placement, targeting, schedule, and display behavior.": {
+      "de_de": "Lege Inhalt, Platzierung, Zielgruppen, Zeitplan und Darstellung deiner Anzeige fest.",
+      "de_at": "Lege Inhalt, Platzierung, Zielgruppen, Zeitplan und Darstellung deiner Anzeige fest.",
+      "de_ch": "Lege Inhalt, Platzierung, Zielgruppen, Zeitplan und Darstellung deiner Anzeige fest."
+    },
+    "Loading live streams...": {
+      "de_de": "Livestreams werden geladen …",
+      "de_at": "Livestreams werden geladen …",
+      "de_ch": "Livestreams werden geladen …"
+    },
+    "Add a stream description before scheduling.": {
+      "de_de": "Füge eine Beschreibung hinzu, bevor du den Livestream planst.",
+      "de_at": "Füge eine Beschreibung hinzu, bevor du den Livestream planst.",
+      "de_ch": "Füge eine Beschreibung hinzu, bevor du den Livestream planst."
+    },
+    "Add a stream description before starting.": {
+      "de_de": "Füge eine Beschreibung hinzu, bevor du den Livestream startest.",
+      "de_at": "Füge eine Beschreibung hinzu, bevor du den Livestream startest.",
+      "de_ch": "Füge eine Beschreibung hinzu, bevor du den Livestream startest."
+    },
+    "Complete the required stream details before starting.": {
+      "de_de": "Ergänze die Pflichtangaben, bevor du den Livestream startest.",
+      "de_at": "Ergänze die Pflichtangaben, bevor du den Livestream startest.",
+      "de_ch": "Ergänze die Pflichtangaben, bevor du den Livestream startest."
+    },
+    "Live stream description is required.": {
+      "de_de": "Füge eine Beschreibung für den Livestream hinzu.",
+      "de_at": "Füge eine Beschreibung für den Livestream hinzu.",
+      "de_ch": "Füge eine Beschreibung für den Livestream hinzu."
+    },
+    "Upcoming stream view": {
+      "de_de": "Ansicht für geplante Livestreams",
+      "de_at": "Ansicht für geplante Livestreams",
+      "de_ch": "Ansicht für geplante Livestreams"
+    },
+    "Choose another filter to view available videos.": {
+      "de_de": "Wähle einen anderen Filter, um verfügbare Videos zu sehen.",
+      "de_at": "Wähle einen anderen Filter, um verfügbare Videos zu sehen.",
+      "de_ch": "Wähle einen anderen Filter, um verfügbare Videos zu sehen."
+    },
+    "Video removed from playlist.": {
+      "de_de": "Video aus der Playlist entfernt.",
+      "de_at": "Video aus der Playlist entfernt.",
+      "de_ch": "Video aus der Playlist entfernt."
+    },
+    "This feedback is saved on this device. You can continue watching or choose another video.": {
+      "de_de": "Deine Rückmeldung wird auf diesem Gerät gespeichert. Du kannst weiterschauen oder ein anderes Video auswählen.",
+      "de_at": "Deine Rückmeldung wird auf diesem Gerät gespeichert. Du kannst weiterschauen oder ein anderes Video auswählen.",
+      "de_ch": "Deine Rückmeldung wird auf diesem Gerät gespeichert. Du kannst weiterschauen oder ein anderes Video auswählen."
+    },
+    "Unable to save this preference.": {
+      "de_de": "Diese Einstellung konnte nicht gespeichert werden.",
+      "de_at": "Diese Einstellung konnte nicht gespeichert werden.",
+      "de_ch": "Diese Einstellung konnte nicht gespeichert werden."
+    },
+    "No system log entries were found.": {
+      "de_de": "Keine Einträge im Systemprotokoll gefunden.",
+      "de_at": "Keine Einträge im Systemprotokoll gefunden.",
+      "de_ch": "Keine Einträge im Systemprotokoll gefunden."
+    },
+    "System logs unavailable": {
+      "de_de": "Systemprotokolle nicht verfügbar",
+      "de_at": "Systemprotokolle nicht verfügbar",
+      "de_ch": "Systemprotokolle nicht verfügbar"
+    },
+    "The system logs could not be loaded.": {
+      "de_de": "Die Systemprotokolle konnten nicht geladen werden.",
+      "de_at": "Die Systemprotokolle konnten nicht geladen werden.",
+      "de_ch": "Die Systemprotokolle konnten nicht geladen werden."
+    },
+    "Export Category Analytics": {
+      "de_de": "Kategorieauswertung exportieren",
+      "de_at": "Kategorieauswertung exportieren",
+      "de_ch": "Kategorieauswertung exportieren"
+    },
+    "Export Traffic Sources": {
+      "de_de": "Zugriffsquellen exportieren",
+      "de_at": "Zugriffsquellen exportieren",
+      "de_ch": "Zugriffsquellen exportieren"
+    },
+    "Unable to update notification preferences.": {
+      "de_de": "Deine Benachrichtigungseinstellungen konnten nicht gespeichert werden.",
+      "de_at": "Deine Benachrichtigungseinstellungen konnten nicht gespeichert werden.",
+      "de_ch": "Deine Benachrichtigungseinstellungen konnten nicht gespeichert werden."
+    },
+    "You cannot mute your own notifications.": {
+      "de_de": "Du kannst Benachrichtigungen zu deinem eigenen Konto nicht stummschalten.",
+      "de_at": "Du kannst Benachrichtigungen zu deinem eigenen Konto nicht stummschalten.",
+      "de_ch": "Du kannst Benachrichtigungen zu deinem eigenen Konto nicht stummschalten."
+    },
+    "Login & Registration Preview": {
+      "de_de": "Vorschau für Anmeldung und Registrierung",
+      "de_at": "Vorschau für Anmeldung und Registrierung",
+      "de_ch": "Vorschau für Anmeldung und Registrierung"
+    },
+    "Edit the content shown on the black side of login, registration, and password recovery pages. Enter one feature per line, up to four features.": {
+      "de_de": "Bearbeite die Inhalte auf der dunklen Seite der Anmeldung, Registrierung und Passwortwiederherstellung. Trage bis zu vier Merkmale ein, jeweils eines pro Zeile.",
+      "de_at": "Bearbeite die Inhalte auf der dunklen Seite der Anmeldung, Registrierung und Passwortwiederherstellung. Trage bis zu vier Merkmale ein, jeweils eines pro Zeile.",
+      "de_ch": "Bearbeite die Inhalte auf der dunklen Seite der Anmeldung, Registrierung und Passwortwiederherstellung. Trage bis zu vier Merkmale ein, jeweils eines pro Zeile."
+    },
+    "Edit installed language metadata, translations, plural forms, and patterns.": {
+      "de_de": "Bearbeite Angaben, Übersetzungen, Mehrzahlformen und Textvorlagen der installierten Sprachen.",
+      "de_at": "Bearbeite Angaben, Übersetzungen, Mehrzahlformen und Textvorlagen der installierten Sprachen.",
+      "de_ch": "Bearbeite Angaben, Übersetzungen, Mehrzahlformen und Textvorlagen der installierten Sprachen."
+    },
+    "Search translation keys or values...": {
+      "de_de": "Übersetzungsschlüssel oder Texte suchen …",
+      "de_at": "Übersetzungsschlüssel oder Texte suchen …",
+      "de_ch": "Übersetzungsschlüssel oder Texte suchen …"
+    },
+    "Unable to load languages": {
+      "de_de": "Sprachen konnten nicht geladen werden",
+      "de_at": "Sprachen konnten nicht geladen werden",
+      "de_ch": "Sprachen konnten nicht geladen werden"
+    },
+    "The language catalog could not be loaded.": {
+      "de_de": "Die Sprachübersicht konnte nicht geladen werden.",
+      "de_at": "Die Sprachübersicht konnte nicht geladen werden.",
+      "de_ch": "Die Sprachübersicht konnte nicht geladen werden."
+    },
+    "Unable to load language": {
+      "de_de": "Sprache konnte nicht geladen werden",
+      "de_at": "Sprache konnte nicht geladen werden",
+      "de_ch": "Sprache konnte nicht geladen werden"
+    },
+    "The selected language could not be loaded.": {
+      "de_de": "Die ausgewählte Sprache konnte nicht geladen werden.",
+      "de_at": "Die ausgewählte Sprache konnte nicht geladen werden.",
+      "de_ch": "Die ausgewählte Sprache konnte nicht geladen werden."
+    },
+    "Discard unsaved language changes?": {
+      "de_de": "Ungespeicherte Sprachänderungen verwerfen?",
+      "de_at": "Ungespeicherte Sprachänderungen verwerfen?",
+      "de_ch": "Ungespeicherte Sprachänderungen verwerfen?"
+    },
+    "Your edits will be lost when you switch or reload the language.": {
+      "de_de": "Deine Änderungen gehen verloren, wenn du die Sprache wechselst oder neu lädst.",
+      "de_at": "Deine Änderungen gehen verloren, wenn du die Sprache wechselst oder neu lädst.",
+      "de_ch": "Deine Änderungen gehen verloren, wenn du die Sprache wechselst oder neu lädst."
+    },
+    "Unable to save language": {
+      "de_de": "Sprache konnte nicht gespeichert werden",
+      "de_at": "Sprache konnte nicht gespeichert werden",
+      "de_ch": "Sprache konnte nicht gespeichert werden"
+    },
+    "The language file could not be saved.": {
+      "de_de": "Die Sprachdatei konnte nicht gespeichert werden.",
+      "de_at": "Die Sprachdatei konnte nicht gespeichert werden.",
+      "de_ch": "Die Sprachdatei konnte nicht gespeichert werden."
+    },
+    "No language files were found.": {
+      "de_de": "Keine Sprachdateien gefunden.",
+      "de_at": "Keine Sprachdateien gefunden.",
+      "de_ch": "Keine Sprachdateien gefunden."
+    },
+    "Loading language values...": {
+      "de_de": "Sprachtexte werden geladen …",
+      "de_at": "Sprachtexte werden geladen …",
+      "de_ch": "Sprachtexte werden geladen …"
+    },
+    "No translations found.": {
+      "de_de": "Keine Übersetzungen gefunden.",
+      "de_at": "Keine Übersetzungen gefunden.",
+      "de_ch": "Keine Übersetzungen gefunden."
+    },
+    "No plural forms are configured for this language.": {
+      "de_de": "Für diese Sprache sind noch keine Mehrzahlformen eingerichtet.",
+      "de_at": "Für diese Sprache sind noch keine Mehrzahlformen eingerichtet.",
+      "de_ch": "Für diese Sprache sind noch keine Mehrzahlformen eingerichtet."
+    },
+    "No patterns are configured for this language.": {
+      "de_de": "Für diese Sprache sind noch keine Textvorlagen eingerichtet.",
+      "de_at": "Für diese Sprache sind noch keine Textvorlagen eingerichtet.",
+      "de_ch": "Für diese Sprache sind noch keine Textvorlagen eingerichtet."
+    },
+    "This language file changed after it was loaded. Reload it before saving.": {
+      "de_de": "Diese Sprachdatei wurde inzwischen geändert. Lade sie neu, bevor du speicherst.",
+      "de_at": "Diese Sprachdatei wurde inzwischen geändert. Lade sie neu, bevor du speicherst.",
+      "de_ch": "Diese Sprachdatei wurde inzwischen geändert. Lade sie neu, bevor du speicherst."
+    },
+    "Submit between 1 and 500 language changes at a time.": {
+      "de_de": "Übermittle zwischen 1 und 500 Sprachänderungen auf einmal.",
+      "de_at": "Übermittle zwischen 1 und 500 Sprachänderungen auf einmal.",
+      "de_ch": "Übermittle zwischen 1 und 500 Sprachänderungen auf einmal."
+    },
+    "Each language change must contain a section, key, and text value.": {
+      "de_de": "Jede Sprachänderung braucht einen Bereich, einen Schlüssel und einen Textwert.",
+      "de_at": "Jede Sprachänderung braucht einen Bereich, einen Schlüssel und einen Textwert.",
+      "de_ch": "Jede Sprachänderung braucht einen Bereich, einen Schlüssel und einen Textwert."
+    },
+    "A language value cannot exceed 20,000 characters.": {
+      "de_de": "Ein Sprachtext darf höchstens 20.000 Zeichen enthalten.",
+      "de_at": "Ein Sprachtext darf höchstens 20.000 Zeichen enthalten.",
+      "de_ch": "Ein Sprachtext darf höchstens 20.000 Zeichen enthalten."
+    },
+    "The selected plural form does not exist.": {
+      "de_de": "Diese Mehrzahlform gibt es nicht.",
+      "de_at": "Diese Mehrzahlform gibt es nicht.",
+      "de_ch": "Diese Mehrzahlform gibt es nicht."
+    },
+    "Direction must be ltr or rtl.": {
+      "de_de": "Gib für die Schreibrichtung ltr oder rtl an.",
+      "de_at": "Gib für die Schreibrichtung ltr oder rtl an.",
+      "de_ch": "Gib für die Schreibrichtung ltr oder rtl an."
+    },
+    "Language names must contain 1 to 100 characters.": {
+      "de_de": "Sprachnamen müssen zwischen 1 und 100 Zeichen lang sein.",
+      "de_at": "Sprachnamen müssen zwischen 1 und 100 Zeichen lang sein.",
+      "de_ch": "Sprachnamen müssen zwischen 1 und 100 Zeichen lang sein."
+    },
+    "The selected language key cannot be edited.": {
+      "de_de": "Dieser Sprachschlüssel kann nicht bearbeitet werden.",
+      "de_at": "Dieser Sprachschlüssel kann nicht bearbeitet werden.",
+      "de_ch": "Dieser Sprachschlüssel kann nicht bearbeitet werden."
+    },
+    "The language directory is not writable by the web server.": {
+      "de_de": "Der Webserver hat keine Schreibrechte für den Sprachordner.",
+      "de_at": "Der Webserver hat keine Schreibrechte für den Sprachordner.",
+      "de_ch": "Der Webserver hat keine Schreibrechte für den Sprachordner."
+    },
+    "Unable to lock the language file.": {
+      "de_de": "Die Sprachdatei konnte nicht zum Bearbeiten gesperrt werden.",
+      "de_at": "Die Sprachdatei konnte nicht zum Bearbeiten gesperrt werden.",
+      "de_ch": "Die Sprachdatei konnte nicht zum Bearbeiten gesperrt werden."
+    },
+    "Unable to create a temporary language file.": {
+      "de_de": "Eine temporäre Sprachdatei konnte nicht erstellt werden.",
+      "de_at": "Eine temporäre Sprachdatei konnte nicht erstellt werden.",
+      "de_ch": "Eine temporäre Sprachdatei konnte nicht erstellt werden."
+    },
+    "Unable to write the language file.": {
+      "de_de": "Die Sprachdatei konnte nicht geschrieben werden.",
+      "de_at": "Die Sprachdatei konnte nicht geschrieben werden.",
+      "de_ch": "Die Sprachdatei konnte nicht geschrieben werden."
+    },
+    "The generated language file is invalid.": {
+      "de_de": "Die erstellte Sprachdatei ist ungültig.",
+      "de_at": "Die erstellte Sprachdatei ist ungültig.",
+      "de_ch": "Die erstellte Sprachdatei ist ungültig."
+    },
+    "Unable to replace the language file.": {
+      "de_de": "Die Sprachdatei konnte nicht ersetzt werden.",
+      "de_at": "Die Sprachdatei konnte nicht ersetzt werden.",
+      "de_ch": "Die Sprachdatei konnte nicht ersetzt werden."
+    },
+    "The language file must return an array.": {
+      "de_de": "Die Sprachdatei muss ein Array zurückgeben.",
+      "de_at": "Die Sprachdatei muss ein Array zurückgeben.",
+      "de_ch": "Die Sprachdatei muss ein Array zurückgeben."
+    },
+    "Language directory not found.": {
+      "de_de": "Sprachordner nicht gefunden.",
+      "de_at": "Sprachordner nicht gefunden.",
+      "de_ch": "Sprachordner nicht gefunden."
+    },
+    "The selected language directory is read-only. Update its server permissions before editing.": {
+      "de_de": "Dieser Sprachordner ist schreibgeschützt. Passe seine Rechte auf dem Server an, bevor du ihn bearbeitest.",
+      "de_at": "Dieser Sprachordner ist schreibgeschützt. Passe seine Rechte auf dem Server an, bevor du ihn bearbeitest.",
+      "de_ch": "Dieser Sprachordner ist schreibgeschützt. Passe seine Rechte auf dem Server an, bevor du ihn bearbeitest."
+    },
+    "Share a quick moment and connect with millions of viewers.": {
+      "de_de": "Teile einen kurzen Moment mit deiner Community.",
+      "de_at": "Teile einen kurzen Moment mit deiner Community.",
+      "de_ch": "Teile einen kurzen Moment mit deiner Community."
+    },
+    "Create a PlayHub Short. Upload a 60-second-or-less video and publish it through the normal processing pipeline.": {
+      "de_de": "Erstelle ein PlayHub Short. Lade ein Hochkantvideo mit höchstens 60 Sekunden hoch, ergänze die Details und veröffentliche es.",
+      "de_at": "Erstelle ein PlayHub Short. Lade ein Hochkantvideo mit höchstens 60 Sekunden hoch, ergänze die Details und veröffentliche es.",
+      "de_ch": "Erstelle ein PlayHub Short. Lade ein Hochkantvideo mit höchstens 60 Sekunden hoch, ergänze die Details und veröffentliche es."
+    },
+    "No shorts uploaded yet. Shorts appear here after a 60-second-or-less video finishes processing.": {
+      "de_de": "Noch keine Shorts. Lade ein Hochkantvideo mit höchstens 60 Sekunden hoch. Sobald es verarbeitet ist, erscheint es hier.",
+      "de_at": "Noch keine Shorts. Lade ein Hochkantvideo mit höchstens 60 Sekunden hoch. Sobald es verarbeitet ist, erscheint es hier.",
+      "de_ch": "Noch keine Shorts. Lade ein Hochkantvideo mit höchstens 60 Sekunden hoch. Sobald es verarbeitet ist, erscheint es hier."
+    }
+  }
+}

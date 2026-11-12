@@ -28,6 +28,13 @@ final class VideoSources
             return null;
         }
 
+        if ($row->audio_tracks === null) {
+            // Sources from before language-aware resolution may point at a dub.
+            RefreshSource::request($video->id, force: true);
+
+            return null;
+        }
+
         if ($row->isFresh()) {
             return $row->media_url ?: null;
         }

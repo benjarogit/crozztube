@@ -1,0 +1,25 @@
+{
+  "context": "Accessible chapter start/remove labels preserve named numbers. Chapters must begin strictly before the end, including rejecting an exact-end timestamp. Administrator category/language names remain literal in review.",
+  "messages": {
+    "Chapter {number} start time": {
+      "en": "Chapter {number} start time",
+      "de": "Startzeit für Kapitel {number}"
+    },
+    "Remove chapter {number}": {
+      "en": "Remove chapter {number}",
+      "de": "Kapitel {number} entfernen"
+    },
+    "Add chapter": {
+      "en": "Add chapter",
+      "de": "Kapitel hinzufügen"
+    },
+    "Chapter name": {
+      "en": "Chapter name",
+      "de": "Kapitelname"
+    },
+    "Chapter {number} starts after the video ends.": {
+      "en": "Chapter {number} must start before the video ends.",
+      "de": "Kapitel {number} muss vor dem Ende des Videos beginnen."
+    }
+  }
+}

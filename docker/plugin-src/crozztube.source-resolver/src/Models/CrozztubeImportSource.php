@@ -28,6 +28,7 @@ class CrozztubeImportSource extends Model
         'thumbnail_url',
         'chapters',
         'audio_url',
+        'audio_tracks',
         'variants',
     ];
 
@@ -40,6 +41,7 @@ class CrozztubeImportSource extends Model
         'duration_seconds' => 'integer',
         'chapters' => 'array',
         'variants' => 'array',
+        'audio_tracks' => 'array',
     ];
 
     public const STATES = ['pending', 'refreshing', 'fresh', 'stale', 'error'];

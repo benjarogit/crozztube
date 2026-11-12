@@ -2,6 +2,7 @@
 
 namespace App\Support\Thumbnails;
 
+use App\Support\MediaProviderSettings;
 use RuntimeException;
 
 class Hosters
@@ -10,9 +11,10 @@ class Hosters
 
     public function upload(string $provider, array $image, string $identity, float $deadline, bool $original = false): array
     {
-        $key = (string) config('thumbnails.providers.'.$provider.'.key');
-        if (! config('thumbnails.providers.'.$provider.'.supported')
-            || (config('thumbnails.providers.'.$provider.'.requires_key', true) && $key === '')) {
+        $settings = MediaProviderSettings::imageProviders()[$provider] ?? [];
+        $key = (string) ($settings['key'] ?? '');
+        if (! ($settings['supported'] ?? false)
+            || (($settings['requires_key'] ?? true) && $key === '')) {
             throw new RuntimeException('provider-unconfigured');
         }
         $this->reserveQuota($provider);
@@ -33,13 +35,18 @@ class Hosters
             ], $body);
         } elseif ($provider === 'fastpic') {
             $boundary = 'crz'.bin2hex(random_bytes(16));
-            $body = '--'.$boundary."\r\nContent-Disposition: form-data; name=\"file1\"; filename=\"".$name.'.'.$extension."\"\r\nContent-Type: ".$image['type']."\r\n\r\n".$image['bytes']."\r\n--".$boundary."--\r\n";
+            // Match Fastpic's published ShareX request, including the upload flag.
+            $body = '';
+            foreach (['uploading' => '1', 'check_thumb' => 'no', 'thumb_size' => '350'] as $field => $value) {
+                $body .= '--'.$boundary."\r\nContent-Disposition: form-data; name=\"".$field."\"\r\n\r\n".$value."\r\n";
+            }
+            $body .= '--'.$boundary."\r\nContent-Disposition: form-data; name=\"file1\"; filename=\"".$name.'.'.$extension."\"\r\nContent-Type: ".$image['type']."\r\n\r\n".$image['bytes']."\r\n--".$boundary."--\r\n";
             $response = $this->http->request('https://new.fastpic.org/upload', 'POST', $deadline, 131072,
                 ['Authorization: Bearer '.$key, 'Content-Type: multipart/form-data; boundary='.$boundary], $body);
         } elseif ($provider === 'postimages') {
             // Own account key; public compatibility fields match the ShareX example, not a shared browser token.
             $body = http_build_query(['key' => $key, 'name' => $name, 'type' => $extension, 'image' => base64_encode($image['bytes']),
-                'o' => config('thumbnails.providers.postimages.client_o'), 'm' => config('thumbnails.providers.postimages.client_m'), 'version' => '1.0.1', 'portable' => '1']);
+                'o' => $settings['client_o'], 'm' => $settings['client_m'], 'version' => '1.0.1', 'portable' => '1']);
             $response = $this->http->request('https://api.postimage.org/1/upload', 'POST', $deadline, 131072,
                 ['Content-Type: application/x-www-form-urlencoded'], $body);
         } else {
@@ -59,12 +66,13 @@ class Hosters
 
     private function reserveQuota(string $provider): void
     {
+        $settings = MediaProviderSettings::imageProviders()[$provider] ?? [];
         foreach (['minute' => [now()->format('YmdHi'), 60, now()->addMinutes(2)], 'day' => [now()->format('Ymd'), 5000, now()->addDays(2)], 'month' => [now()->format('Ym'), 1000, now()->addMonths(2)]] as $period => [$bucket, $limit, $expiry]) {
-            if ($period === 'month' && config('thumbnails.providers.'.$provider.'.month_limit') === null) continue;
+            if ($period === 'month' && ($settings['month_limit'] ?? null) === null) continue;
             $key = 'thumbnails:quota:'.$provider.':'.$period.':'.$bucket;
             \Illuminate\Support\Facades\Cache::add($key, 0, $expiry);
             $count = \Illuminate\Support\Facades\Cache::increment($key);
-            if ($count > (int) config('thumbnails.providers.'.$provider.'.'.$period.'_limit', $limit)) {
+            if ($count > (int) ($settings[$period.'_limit'] ?? $limit)) {
                 throw new RuntimeException('quota-limit');
             }
         }
@@ -93,10 +101,21 @@ class Hosters
             }
         } elseif ($provider === 'fastpic') {
             $data = json_decode($body, true, 32, JSON_THROW_ON_ERROR);
-            // The host explicitly reports whether full-size hotlinking is permitted.
-            $hotlinked = filter_var($data['hotlinked'] ?? false, FILTER_VALIDATE_BOOLEAN);
-            if ($original && ! $hotlinked) throw new RuntimeException('full-size-unavailable');
-            $url = $hotlinked ? ($data['big_link'] ?? null) : ($data['thumb_link'] ?? null);
+            // Fastpic's own link generator uses hotlinked=true for the
+            // restricted thumbnail-only mode, false for an original image.
+            $flag = is_array($data) ? ($data['hotlinked'] ?? null) : null;
+            $previewOnly = in_array($flag, [true, false, 0, 1, '0', '1', 'true', 'false'], true)
+                ? filter_var($flag, FILTER_VALIDATE_BOOLEAN) : null;
+            if ($previewOnly === null) throw new RuntimeException('invalid-provider-response');
+            if ($original && $previewOnly) {
+                $thumb = $data['thumb_link'] ?? null;
+                if (! RemoteImages::urlAllowed($thumb) || ! str_starts_with((string) $thumb, 'https://')
+                    || ! preg_match('/(^|\.)fastpic\.(org|ru)$/', (string) parse_url((string) $thumb, PHP_URL_HOST))) {
+                    throw new RuntimeException('invalid-provider-response');
+                }
+                throw new RuntimeException('full-size-unavailable');
+            }
+            $url = $previewOnly ? ($data['thumb_link'] ?? null) : ($data['big_link'] ?? null);
 
         } else {
             if (stripos($body, '<!DOCTYPE') !== false || stripos($body, '<!ENTITY') !== false) {

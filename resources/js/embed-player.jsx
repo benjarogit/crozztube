@@ -5,6 +5,7 @@ import { MediaPlayer, MediaProvider, Track } from '@vidstack/react';
 import { DefaultVideoGestures, DefaultVideoLayout, defaultLayoutIcons } from '@vidstack/react/player/layouts/default';
 import { isPlaybackInterrupted, playMediaWhenReady } from './mediaPlayback.js';
 import { inferVideoType, videoStreamType } from './videoSource.js';
+import { embedPermissions, httpEmbedUrl } from './embedPermissions.js';
 import '@vidstack/react/player/styles/default/theme.css';
 import '@vidstack/react/player/styles/default/layouts/video.css';
 import './embed-player.css';
@@ -33,7 +34,7 @@ function videoSources(video) {
 }
 
 function externalEmbedUrl(value, options) {
-  if (!value) return '';
+  if (!httpEmbedUrl(value)) return '';
   try {
     const url = new URL(value);
     const host = url.hostname.toLowerCase();
@@ -160,7 +161,7 @@ function EmbedPlayer() {
     return <PlayerState video={video} message="Purchase this video on PlayHub to watch it." action="Watch on PlayHub" />;
   }
   if (providerEmbedUrl) {
-    return <iframe className="embed-provider-player" src={providerEmbedUrl} title={video.title} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />;
+    return <iframe className="embed-provider-player" src={providerEmbedUrl} title={video.title} allow={embedPermissions() || undefined} referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />;
   }
   if (!sources.length) return <PlayerState video={video} message="This video does not have a playable source." />;
 

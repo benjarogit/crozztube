@@ -21,6 +21,7 @@ Schedule::command('uploads:prune')->daily()->withoutOverlapping();
 Schedule::call(fn () => MediaImageCache::prune())
     ->daily()->name('prune-media-image-cache')->withoutOverlapping();
 Schedule::command('push:recover')->everyMinute()->withoutOverlapping();
+Schedule::command('crozztube:clips:work --limit=3')->everyMinute()->withoutOverlapping(10);
 
 Artisan::command('playhub:install-admin {credentials}', function (string $credentials): int {
     $path = realpath($credentials);

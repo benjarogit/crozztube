@@ -1,0 +1,573 @@
+{
+  "context": "Editorial review of actual Vidstack liveMediaTranslationWords and transcript/troubleshooting controls. Missing accessible labels filled; Disabled describes feature state, Family means font family, Track means media track, Replay repeats playback, announcements also fits community. Brands and PiP technology name retained where idiomatic. Error and diagnostic instructions whole and personal; raw transcript untouched. PT regional spelling/wording distinct.",
+  "messages": {
+    "Announcements": {
+      "fr": "Annonces",
+      "es": "Anuncios",
+      "pt": "Anúncios",
+      "it": "Annunci",
+      "ca": "Anuncis",
+      "gl": "Anuncios",
+      "eo": "Anoncoj"
+    },
+    "Accessibility": {
+      "fr": "Accessibilité",
+      "es": "Accesibilidad",
+      "pt": "Acessibilidade",
+      "it": "Accessibilità",
+      "ca": "Accessibilitat",
+      "gl": "Accesibilidade",
+      "eo": "Alirebleco"
+    },
+    "AirPlay": {
+      "fr": "AirPlay",
+      "es": "AirPlay",
+      "pt": "AirPlay",
+      "it": "AirPlay",
+      "ca": "AirPlay",
+      "gl": "AirPlay",
+      "eo": "AirPlay"
+    },
+    "Google Cast": {
+      "fr": "Google Cast",
+      "es": "Google Cast",
+      "pt": "Google Cast",
+      "it": "Google Cast",
+      "ca": "Google Cast",
+      "gl": "Google Cast",
+      "eo": "Google Cast"
+    },
+    "Audio": {
+      "fr": "Audio",
+      "es": "Audio",
+      "pt": "Áudio",
+      "it": "Audio",
+      "ca": "Àudio",
+      "gl": "Audio",
+      "eo": "Sono"
+    },
+    "Auto": {
+      "fr": "Auto",
+      "es": "Auto",
+      "pt": "Auto",
+      "it": "Auto",
+      "ca": "Auto",
+      "gl": "Auto",
+      "eo": "Aŭtomate"
+    },
+    "Boost": {
+      "fr": "Amplification",
+      "es": "Amplificación",
+      "pt": "Amplificação",
+      "it": "Amplificazione",
+      "ca": "Amplificació",
+      "gl": "Amplificación",
+      "eo": "Amplifo"
+    },
+    "Captions": {
+      "fr": "Sous-titres",
+      "es": "Subtítulos",
+      "pt": "Legendas",
+      "it": "Sottotitoli",
+      "ca": "Subtítols",
+      "gl": "Subtítulos",
+      "eo": "Subtitoloj"
+    },
+    "Caption Styles": {
+      "fr": "Style des sous-titres",
+      "es": "Estilo de los subtítulos",
+      "pt": "Estilo das legendas",
+      "it": "Stile dei sottotitoli",
+      "ca": "Estil dels subtítols",
+      "gl": "Estilo dos subtítulos",
+      "eo": "Stilo de subtitoloj"
+    },
+    "Captions look like this": {
+      "fr": "Voici un exemple de sous-titres",
+      "es": "Así se ven los subtítulos",
+      "pt": "As legendas aparecem assim",
+      "it": "I sottotitoli appaiono così",
+      "ca": "Els subtítols es veuen així",
+      "gl": "Así se ven os subtítulos",
+      "eo": "Jen kiel aspektas subtitoloj"
+    },
+    "Chapters": {
+      "fr": "Chapitres",
+      "es": "Capítulos",
+      "pt": "Capítulos",
+      "it": "Capitoli",
+      "ca": "Capítols",
+      "gl": "Capítulos",
+      "eo": "Ĉapitroj"
+    },
+    "Closed-Captions Off": {
+      "fr": "Sous-titres désactivés",
+      "es": "Subtítulos desactivados",
+      "pt": "Legendas desativadas",
+      "it": "Sottotitoli disattivati",
+      "ca": "Subtítols desactivats",
+      "gl": "Subtítulos desactivados",
+      "eo": "Subtitoloj malŝaltitaj"
+    },
+    "Closed-Captions On": {
+      "fr": "Sous-titres activés",
+      "es": "Subtítulos activados",
+      "pt": "Legendas ativadas",
+      "it": "Sottotitoli attivati",
+      "ca": "Subtítols activats",
+      "gl": "Subtítulos activados",
+      "eo": "Subtitoloj ŝaltitaj",
+      "pt_ao": "Legendas activadas",
+      "pt_pt": "Legendas activadas"
+    },
+    "Connected": {
+      "fr": "Connexion établie",
+      "es": "Conectado",
+      "pt": "Ligado",
+      "it": "Connesso",
+      "ca": "Connectat",
+      "gl": "Conectado",
+      "eo": "Konektita",
+      "pt_br": "Conectado"
+    },
+    "Continue": {
+      "fr": "Continuer",
+      "es": "Continuar",
+      "pt": "Continuar",
+      "it": "Continua",
+      "ca": "Continua",
+      "gl": "Continuar",
+      "eo": "Daŭrigu"
+    },
+    "Connecting": {
+      "fr": "Connexion en cours",
+      "es": "Conectando",
+      "pt": "A ligar",
+      "it": "Connessione in corso",
+      "ca": "S’està connectant",
+      "gl": "Conectando",
+      "eo": "Konektado",
+      "pt_br": "Conectando"
+    },
+    "Default": {
+      "fr": "Par défaut",
+      "es": "Predeterminado",
+      "pt": "Predefinido",
+      "it": "Predefinito",
+      "ca": "Per defecte",
+      "gl": "Predeterminado",
+      "eo": "Defaŭlta",
+      "pt_br": "Padrão"
+    },
+    "Disabled": {
+      "fr": "Désactivé",
+      "es": "Desactivado",
+      "pt": "Desativado",
+      "it": "Disattivato",
+      "ca": "Desactivat",
+      "gl": "Desactivado",
+      "eo": "Malŝaltita"
+    },
+    "Disconnected": {
+      "fr": "Déconnecté",
+      "es": "Desconectado",
+      "pt": "Desligado",
+      "it": "Disconnesso",
+      "ca": "Desconnectat",
+      "gl": "Desconectado",
+      "eo": "Malkonektita",
+      "pt_br": "Desconectado"
+    },
+    "Display Background": {
+      "fr": "Fond de l’affichage",
+      "es": "Fondo de pantalla",
+      "pt": "Fundo do ecrã",
+      "it": "Sfondo dello schermo",
+      "ca": "Fons de pantalla",
+      "gl": "Fondo da pantalla",
+      "eo": "Ekranfono",
+      "pt_br": "Fundo da tela"
+    },
+    "Download": {
+      "fr": "Télécharger",
+      "es": "Descargar",
+      "pt": "Transferir",
+      "it": "Scarica",
+      "ca": "Baixa",
+      "gl": "Descargar",
+      "eo": "Elŝutu",
+      "pt_br": "Baixar"
+    },
+    "Enter Fullscreen": {
+      "fr": "Passer en plein écran",
+      "es": "Activar pantalla completa",
+      "pt": "Entrar no ecrã inteiro",
+      "it": "Attiva schermo intero",
+      "ca": "Activa la pantalla completa",
+      "gl": "Activar pantalla completa",
+      "eo": "Eniru plenekranan reĝimon",
+      "pt_br": "Entrar em tela cheia"
+    },
+    "Enter PiP": {
+      "fr": "Activer l’image dans l’image",
+      "es": "Activar imagen en imagen",
+      "pt": "Ativar imagem na imagem",
+      "it": "Attiva Picture-in-Picture",
+      "ca": "Activa la imatge sobre imatge",
+      "gl": "Activar imaxe en imaxe",
+      "eo": "Eniru bild-en-bildan reĝimon",
+      "pt_pt": "Activar imagem na imagem",
+      "pt_ao": "Activar imagem na imagem"
+    },
+    "Exit Fullscreen": {
+      "fr": "Quitter le plein écran",
+      "es": "Salir de pantalla completa",
+      "pt": "Sair do ecrã inteiro",
+      "it": "Esci da schermo intero",
+      "ca": "Surt de la pantalla completa",
+      "gl": "Saír da pantalla completa",
+      "eo": "Eliru plenekranan reĝimon",
+      "pt_br": "Sair da tela cheia"
+    },
+    "Exit PiP": {
+      "fr": "Quitter l’image dans l’image",
+      "es": "Salir de imagen en imagen",
+      "pt": "Sair de imagem na imagem",
+      "it": "Esci da Picture-in-Picture",
+      "ca": "Surt de la imatge sobre imatge",
+      "gl": "Saír de imaxe en imaxe",
+      "eo": "Eliru bild-en-bildan reĝimon"
+    },
+    "Font": {
+      "fr": "Police",
+      "es": "Fuente",
+      "pt": "Tipo de letra",
+      "it": "Carattere",
+      "ca": "Tipus de lletra",
+      "gl": "Tipo de letra",
+      "eo": "Tiparo",
+      "pt_br": "Fonte"
+    },
+    "Family": {
+      "fr": "Famille de police",
+      "es": "Familia de fuentes",
+      "pt": "Família de tipos de letra",
+      "it": "Famiglia di caratteri",
+      "ca": "Família tipogràfica",
+      "gl": "Familia tipográfica",
+      "eo": "Tipara familio",
+      "pt_br": "Família de fontes"
+    },
+    "Fullscreen": {
+      "fr": "Plein écran",
+      "es": "Pantalla completa",
+      "pt": "Ecrã inteiro",
+      "it": "Schermo intero",
+      "ca": "Pantalla completa",
+      "gl": "Pantalla completa",
+      "eo": "Plenekrano",
+      "pt_br": "Tela cheia"
+    },
+    "Keyboard Animations": {
+      "fr": "Animations des raccourcis clavier",
+      "es": "Animaciones de los atajos de teclado",
+      "pt": "Animações dos atalhos de teclado",
+      "it": "Animazioni delle scorciatoie da tastiera",
+      "ca": "Animacions de les dreceres de teclat",
+      "gl": "Animacións dos atallos de teclado",
+      "eo": "Animacioj de klavaraj ŝparvojoj"
+    },
+    "LIVE": {
+      "fr": "EN DIRECT",
+      "es": "EN DIRECTO",
+      "pt": "EM DIRETO",
+      "it": "IN DIRETTA",
+      "ca": "EN DIRECTE",
+      "gl": "EN DIRECTO",
+      "eo": "REKTE",
+      "pt_pt": "EM DIRECTO",
+      "pt_ao": "EM DIRECTO",
+      "pt_br": "AO VIVO"
+    },
+    "Loop": {
+      "fr": "Lire en boucle",
+      "es": "Repetir en bucle",
+      "pt": "Repetir",
+      "it": "Ripeti in ciclo",
+      "ca": "Repeteix en bucle",
+      "gl": "Repetir en bucle",
+      "eo": "Ripetu cikle"
+    },
+    "Mute": {
+      "fr": "Couper le son",
+      "es": "Silenciar",
+      "pt": "Silenciar",
+      "it": "Disattiva audio",
+      "ca": "Silencia",
+      "gl": "Silenciar",
+      "eo": "Silentigu"
+    },
+    "Normal": {
+      "fr": "Normal",
+      "es": "Normal",
+      "pt": "Normal",
+      "it": "Normale",
+      "ca": "Normal",
+      "gl": "Normal",
+      "eo": "Normala"
+    },
+    "Off": {
+      "fr": "Désactivé",
+      "es": "Desactivado",
+      "pt": "Desativado",
+      "it": "Disattivato",
+      "ca": "Desactivat",
+      "gl": "Desactivado",
+      "eo": "Malŝaltita"
+    },
+    "Pause": {
+      "fr": "Mettre en pause",
+      "es": "Pausar",
+      "pt": "Pausar",
+      "it": "Pausa",
+      "ca": "Pausa",
+      "gl": "Pausar",
+      "eo": "Paŭzigu"
+    },
+    "Play": {
+      "fr": "Lire",
+      "es": "Reproducir",
+      "pt": "Reproduzir",
+      "it": "Riproduci",
+      "ca": "Reprodueix",
+      "gl": "Reproducir",
+      "eo": "Ludu"
+    },
+    "Playback": {
+      "fr": "Lecture",
+      "es": "Reproducción",
+      "pt": "Reprodução",
+      "it": "Riproduzione",
+      "ca": "Reproducció",
+      "gl": "Reprodución",
+      "eo": "Ludado"
+    },
+    "PiP": {
+      "fr": "Image dans l’image",
+      "es": "Imagen en imagen",
+      "pt": "Imagem na imagem",
+      "it": "Picture-in-Picture",
+      "ca": "Imatge sobre imatge",
+      "gl": "Imaxe en imaxe",
+      "eo": "Bildo en bildo"
+    },
+    "Quality": {
+      "fr": "Qualité",
+      "es": "Calidad",
+      "pt": "Qualidade",
+      "it": "Qualità",
+      "ca": "Qualitat",
+      "gl": "Calidade",
+      "eo": "Kvalito"
+    },
+    "Replay": {
+      "fr": "Relancer la lecture",
+      "es": "Volver a reproducir",
+      "pt": "Reproduzir de novo",
+      "it": "Riproduci di nuovo",
+      "ca": "Torna a reproduir",
+      "gl": "Reproducir de novo",
+      "eo": "Ludu denove"
+    },
+    "Reset": {
+      "fr": "Réinitialiser",
+      "es": "Restablecer",
+      "pt": "Repor",
+      "it": "Ripristina",
+      "ca": "Restableix",
+      "gl": "Restablecer",
+      "eo": "Restarigu",
+      "pt_br": "Redefinir"
+    },
+    "Seek Backward": {
+      "fr": "Reculer",
+      "es": "Retroceder",
+      "pt": "Recuar",
+      "it": "Riavvolgi",
+      "ca": "Retrocedeix",
+      "gl": "Retroceder",
+      "eo": "Iru malantaŭen"
+    },
+    "Seek Forward": {
+      "fr": "Avancer",
+      "es": "Avanzar",
+      "pt": "Avançar",
+      "it": "Avanza",
+      "ca": "Avança",
+      "gl": "Avanzar",
+      "eo": "Iru antaŭen"
+    },
+    "Seek": {
+      "fr": "Position de lecture",
+      "es": "Posición de reproducción",
+      "pt": "Posição de reprodução",
+      "it": "Posizione di riproduzione",
+      "ca": "Posició de reproducció",
+      "gl": "Posición de reprodución",
+      "eo": "Ludpozicio"
+    },
+    "Settings": {
+      "fr": "Paramètres",
+      "es": "Configuración",
+      "pt": "Definições",
+      "it": "Impostazioni",
+      "ca": "Configuració",
+      "gl": "Configuración",
+      "eo": "Agordoj",
+      "pt_br": "Configurações"
+    },
+    "Skip To Live": {
+      "fr": "Revenir au direct",
+      "es": "Ir al directo",
+      "pt": "Ir para o direto",
+      "it": "Vai alla diretta",
+      "ca": "Ves al directe",
+      "gl": "Ir ao directo",
+      "eo": "Iru al la rekta elsendo",
+      "pt_pt": "Ir para o directo",
+      "pt_ao": "Ir para o directo",
+      "pt_br": "Ir para a transmissão ao vivo"
+    },
+    "Speed": {
+      "fr": "Vitesse",
+      "es": "Velocidad",
+      "pt": "Velocidade",
+      "it": "Velocità",
+      "ca": "Velocitat",
+      "gl": "Velocidade",
+      "eo": "Rapido"
+    },
+    "Size": {
+      "fr": "Taille",
+      "es": "Tamaño",
+      "pt": "Tamanho",
+      "it": "Dimensione",
+      "ca": "Mida",
+      "gl": "Tamaño",
+      "eo": "Grando"
+    },
+    "Color": {
+      "fr": "Couleur",
+      "es": "Color",
+      "pt": "Cor",
+      "it": "Colore",
+      "ca": "Color",
+      "gl": "Cor",
+      "eo": "Koloro"
+    },
+    "Opacity": {
+      "fr": "Opacité",
+      "es": "Opacidad",
+      "pt": "Opacidade",
+      "it": "Opacità",
+      "ca": "Opacitat",
+      "gl": "Opacidade",
+      "eo": "Opakeco"
+    },
+    "Shadow": {
+      "fr": "Ombre",
+      "es": "Sombra",
+      "pt": "Sombra",
+      "it": "Ombra",
+      "ca": "Ombra",
+      "gl": "Sombra",
+      "eo": "Ombro"
+    },
+    "Text": {
+      "fr": "Texte",
+      "es": "Texto",
+      "pt": "Texto",
+      "it": "Testo",
+      "ca": "Text",
+      "gl": "Texto",
+      "eo": "Teksto"
+    },
+    "Text Background": {
+      "fr": "Fond du texte",
+      "es": "Fondo del texto",
+      "pt": "Fundo do texto",
+      "it": "Sfondo del testo",
+      "ca": "Fons del text",
+      "gl": "Fondo do texto",
+      "eo": "Tekstfono"
+    },
+    "Track": {
+      "fr": "Piste",
+      "es": "Pista",
+      "pt": "Faixa",
+      "it": "Traccia",
+      "ca": "Pista",
+      "gl": "Pista",
+      "eo": "Trako"
+    },
+    "Unmute": {
+      "fr": "Rétablir le son",
+      "es": "Activar sonido",
+      "pt": "Ativar som",
+      "it": "Attiva audio",
+      "ca": "Activa el so",
+      "gl": "Activar o son",
+      "eo": "Malsilentigu",
+      "pt_pt": "Activar som",
+      "pt_ao": "Activar som"
+    },
+    "Volume": {
+      "fr": "Volume",
+      "es": "Volumen",
+      "pt": "Volume",
+      "it": "Volume",
+      "ca": "Volum",
+      "gl": "Volume",
+      "eo": "Laŭteco"
+    },
+    "Transcript": {
+      "fr": "Transcription",
+      "es": "Transcripción",
+      "pt": "Transcrição",
+      "it": "Trascrizione",
+      "ca": "Transcripció",
+      "gl": "Transcrición",
+      "eo": "Transskribo"
+    },
+    "Transcript text": {
+      "fr": "Texte de la transcription",
+      "es": "Texto de la transcripción",
+      "pt": "Texto da transcrição",
+      "it": "Testo della trascrizione",
+      "ca": "Text de la transcripció",
+      "gl": "Texto da transcrición",
+      "eo": "Teksto de la transskribo"
+    },
+    "Troubleshoot playback issue": {
+      "fr": "Résoudre un problème de lecture",
+      "es": "Resolver un problema de reproducción",
+      "pt": "Resolver um problema de reprodução",
+      "it": "Risolvi un problema di riproduzione",
+      "ca": "Resol un problema de reproducció",
+      "gl": "Resolver un problema de reprodución",
+      "eo": "Solvu ludproblemon"
+    },
+    "Playback debug info copied. Paste it into your support request.": {
+      "fr": "Les informations de diagnostic de lecture ont été copiées. Colle-les dans ta demande d’aide.",
+      "es": "Se ha copiado la información de diagnóstico de reproducción. Pégala en tu solicitud de ayuda.",
+      "pt": "Os dados de diagnóstico da reprodução foram copiados. Cola-os no teu pedido de ajuda.",
+      "it": "Le informazioni diagnostiche di riproduzione sono state copiate. Incollale nella tua richiesta di assistenza.",
+      "ca": "S’ha copiat la informació de diagnòstic de reproducció. Enganxa-la a la teva petició d’ajuda.",
+      "gl": "Copiouse a información de diagnóstico da reprodución. Pégaa na túa solicitude de axuda.",
+      "eo": "La diagnozaj informoj pri ludado estas kopiitaj. Algluu ilin en vian helppeton.",
+      "es_ar": "Se copió la información de diagnóstico de reproducción. Pegala en tu solicitud de ayuda.",
+      "es_uy": "Se copió la información de diagnóstico de reproducción. Pegala en tu solicitud de ayuda.",
+      "pt_br": "Os dados de diagnóstico da reprodução foram copiados. Cole no seu pedido de ajuda."
+    }
+  }
+}

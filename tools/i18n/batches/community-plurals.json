@@ -1,0 +1,1386 @@
+{
+  "context": "Editorial grammar pass for count nouns and complete count labels; French, Dutch, Spanish, Portuguese, Italian and Russian; regional video spelling and pre-AO90 Portuguese retained. Relative time uses supported Intl grammar before these legacy fallback patterns.",
+  "messages": {},
+  "metadata": {
+    "fr": {
+      "__plurals": {
+        "year": {
+          "one": "an",
+          "other": "ans"
+        },
+        "years": {
+          "one": "an",
+          "other": "ans"
+        },
+        "month": {
+          "one": "mois",
+          "other": "mois"
+        },
+        "months": {
+          "one": "mois",
+          "other": "mois"
+        },
+        "week": {
+          "one": "semaine",
+          "other": "semaines"
+        },
+        "weeks": {
+          "one": "semaine",
+          "other": "semaines"
+        },
+        "day": {
+          "one": "jour",
+          "other": "jours"
+        },
+        "days": {
+          "one": "jour",
+          "other": "jours"
+        },
+        "hour": {
+          "one": "heure",
+          "other": "heures"
+        },
+        "hours": {
+          "one": "heure",
+          "other": "heures"
+        },
+        "minute": {
+          "one": "minute",
+          "other": "minutes"
+        },
+        "minutes": {
+          "one": "minute",
+          "other": "minutes"
+        },
+        "second": {
+          "one": "seconde",
+          "other": "secondes"
+        },
+        "seconds": {
+          "one": "seconde",
+          "other": "secondes"
+        },
+        "user": {
+          "one": "utilisateur",
+          "other": "utilisateurs"
+        },
+        "users": {
+          "one": "utilisateur",
+          "other": "utilisateurs"
+        },
+        "video": {
+          "one": "vidéo",
+          "other": "vidéos"
+        },
+        "videos": {
+          "one": "vidéo",
+          "other": "vidéos"
+        },
+        "comment": {
+          "one": "commentaire",
+          "other": "commentaires"
+        },
+        "comments": {
+          "one": "commentaire",
+          "other": "commentaires"
+        },
+        "subscriber": {
+          "one": "abonné",
+          "other": "abonnés"
+        },
+        "subscribers": {
+          "one": "abonné",
+          "other": "abonnés"
+        },
+        "view": {
+          "one": "vue",
+          "other": "vues"
+        },
+        "views": {
+          "one": "vue",
+          "other": "vues"
+        },
+        "like": {
+          "one": "J’aime",
+          "other": "J’aime"
+        },
+        "likes": {
+          "one": "J’aime",
+          "other": "J’aime"
+        },
+        "reply": {
+          "one": "réponse",
+          "other": "réponses"
+        },
+        "replies": {
+          "one": "réponse",
+          "other": "réponses"
+        },
+        "playlist": {
+          "one": "Playlist",
+          "other": "Playlists"
+        },
+        "playlists": {
+          "one": "Playlist",
+          "other": "Playlists"
+        }
+      },
+      "__patterns": {
+        "ago": "il y a {count} {unit}",
+        "selected_users": "Sélection : {count} {users}",
+        "showing": "{items} : {from} à {to} sur {total}",
+        "unread": "Non lus : {count}",
+        "saved_videos": "Vidéos enregistrées : {count}",
+        "published": "Publications : {count}"
+      }
+    },
+    "nl": {
+      "__plurals": {
+        "year": {
+          "one": "jaar",
+          "other": "jaar"
+        },
+        "years": {
+          "one": "jaar",
+          "other": "jaar"
+        },
+        "month": {
+          "one": "maand",
+          "other": "maanden"
+        },
+        "months": {
+          "one": "maand",
+          "other": "maanden"
+        },
+        "week": {
+          "one": "week",
+          "other": "weken"
+        },
+        "weeks": {
+          "one": "week",
+          "other": "weken"
+        },
+        "day": {
+          "one": "dag",
+          "other": "dagen"
+        },
+        "days": {
+          "one": "dag",
+          "other": "dagen"
+        },
+        "hour": {
+          "one": "uur",
+          "other": "uur"
+        },
+        "hours": {
+          "one": "uur",
+          "other": "uur"
+        },
+        "minute": {
+          "one": "minuut",
+          "other": "minuten"
+        },
+        "minutes": {
+          "one": "minuut",
+          "other": "minuten"
+        },
+        "second": {
+          "one": "seconde",
+          "other": "seconden"
+        },
+        "seconds": {
+          "one": "seconde",
+          "other": "seconden"
+        },
+        "user": {
+          "one": "gebruiker",
+          "other": "gebruikers"
+        },
+        "users": {
+          "one": "gebruiker",
+          "other": "gebruikers"
+        },
+        "video": {
+          "one": "video",
+          "other": "video’s"
+        },
+        "videos": {
+          "one": "video",
+          "other": "video’s"
+        },
+        "comment": {
+          "one": "reactie",
+          "other": "reacties"
+        },
+        "comments": {
+          "one": "reactie",
+          "other": "reacties"
+        },
+        "subscriber": {
+          "one": "abonnee",
+          "other": "abonnees"
+        },
+        "subscribers": {
+          "one": "abonnee",
+          "other": "abonnees"
+        },
+        "view": {
+          "one": "weergave",
+          "other": "weergaven"
+        },
+        "views": {
+          "one": "weergave",
+          "other": "weergaven"
+        },
+        "like": {
+          "one": "like",
+          "other": "likes"
+        },
+        "likes": {
+          "one": "like",
+          "other": "likes"
+        },
+        "reply": {
+          "one": "antwoord",
+          "other": "antwoorden"
+        },
+        "replies": {
+          "one": "antwoord",
+          "other": "antwoorden"
+        },
+        "playlist": {
+          "one": "Playlist",
+          "other": "Playlists"
+        },
+        "playlists": {
+          "one": "Playlist",
+          "other": "Playlists"
+        }
+      },
+      "__patterns": {
+        "ago": "{count} {unit} geleden",
+        "selected_users": "{count} {users} geselecteerd",
+        "showing": "{from}–{to} van {total} {items}",
+        "unread": "Ongelezen: {count}",
+        "saved_videos": "Opgeslagen video’s: {count}",
+        "published": "Gepubliceerd: {count}"
+      }
+    },
+    "es": {
+      "__plurals": {
+        "year": {
+          "one": "año",
+          "other": "años"
+        },
+        "years": {
+          "one": "año",
+          "other": "años"
+        },
+        "month": {
+          "one": "mes",
+          "other": "meses"
+        },
+        "months": {
+          "one": "mes",
+          "other": "meses"
+        },
+        "week": {
+          "one": "semana",
+          "other": "semanas"
+        },
+        "weeks": {
+          "one": "semana",
+          "other": "semanas"
+        },
+        "day": {
+          "one": "día",
+          "other": "días"
+        },
+        "days": {
+          "one": "día",
+          "other": "días"
+        },
+        "hour": {
+          "one": "hora",
+          "other": "horas"
+        },
+        "hours": {
+          "one": "hora",
+          "other": "horas"
+        },
+        "minute": {
+          "one": "minuto",
+          "other": "minutos"
+        },
+        "minutes": {
+          "one": "minuto",
+          "other": "minutos"
+        },
+        "second": {
+          "one": "segundo",
+          "other": "segundos"
+        },
+        "seconds": {
+          "one": "segundo",
+          "other": "segundos"
+        },
+        "user": {
+          "one": "usuario",
+          "other": "usuarios"
+        },
+        "users": {
+          "one": "usuario",
+          "other": "usuarios"
+        },
+        "video": {
+          "one": "video",
+          "other": "videos"
+        },
+        "videos": {
+          "one": "video",
+          "other": "videos"
+        },
+        "comment": {
+          "one": "comentario",
+          "other": "comentarios"
+        },
+        "comments": {
+          "one": "comentario",
+          "other": "comentarios"
+        },
+        "subscriber": {
+          "one": "suscriptor",
+          "other": "suscriptores"
+        },
+        "subscribers": {
+          "one": "suscriptor",
+          "other": "suscriptores"
+        },
+        "view": {
+          "one": "vista",
+          "other": "vistas"
+        },
+        "views": {
+          "one": "vista",
+          "other": "vistas"
+        },
+        "like": {
+          "one": "Me gusta",
+          "other": "Me gusta"
+        },
+        "likes": {
+          "one": "Me gusta",
+          "other": "Me gusta"
+        },
+        "reply": {
+          "one": "respuesta",
+          "other": "respuestas"
+        },
+        "replies": {
+          "one": "respuesta",
+          "other": "respuestas"
+        },
+        "playlist": {
+          "one": "Playlist",
+          "other": "Playlists"
+        },
+        "playlists": {
+          "one": "Playlist",
+          "other": "Playlists"
+        }
+      },
+      "__patterns": {
+        "ago": "hace {count} {unit}",
+        "selected_users": "Selección: {count} {users}",
+        "showing": "{items}: del {from} al {to} de {total}",
+        "unread": "Sin leer: {count}",
+        "saved_videos": "Videos guardados: {count}",
+        "published": "Publicados: {count}"
+      }
+    },
+    "es_es": {
+      "__plurals": {
+        "year": {
+          "one": "año",
+          "other": "años"
+        },
+        "years": {
+          "one": "año",
+          "other": "años"
+        },
+        "month": {
+          "one": "mes",
+          "other": "meses"
+        },
+        "months": {
+          "one": "mes",
+          "other": "meses"
+        },
+        "week": {
+          "one": "semana",
+          "other": "semanas"
+        },
+        "weeks": {
+          "one": "semana",
+          "other": "semanas"
+        },
+        "day": {
+          "one": "día",
+          "other": "días"
+        },
+        "days": {
+          "one": "día",
+          "other": "días"
+        },
+        "hour": {
+          "one": "hora",
+          "other": "horas"
+        },
+        "hours": {
+          "one": "hora",
+          "other": "horas"
+        },
+        "minute": {
+          "one": "minuto",
+          "other": "minutos"
+        },
+        "minutes": {
+          "one": "minuto",
+          "other": "minutos"
+        },
+        "second": {
+          "one": "segundo",
+          "other": "segundos"
+        },
+        "seconds": {
+          "one": "segundo",
+          "other": "segundos"
+        },
+        "user": {
+          "one": "usuario",
+          "other": "usuarios"
+        },
+        "users": {
+          "one": "usuario",
+          "other": "usuarios"
+        },
+        "video": {
+          "one": "vídeo",
+          "other": "vídeos"
+        },
+        "videos": {
+          "one": "vídeo",
+          "other": "vídeos"
+        },
+        "comment": {
+          "one": "comentario",
+          "other": "comentarios"
+        },
+        "comments": {
+          "one": "comentario",
+          "other": "comentarios"
+        },
+        "subscriber": {
+          "one": "suscriptor",
+          "other": "suscriptores"
+        },
+        "subscribers": {
+          "one": "suscriptor",
+          "other": "suscriptores"
+        },
+        "view": {
+          "one": "visualización",
+          "other": "visualizaciones"
+        },
+        "views": {
+          "one": "visualización",
+          "other": "visualizaciones"
+        },
+        "like": {
+          "one": "Me gusta",
+          "other": "Me gusta"
+        },
+        "likes": {
+          "one": "Me gusta",
+          "other": "Me gusta"
+        },
+        "reply": {
+          "one": "respuesta",
+          "other": "respuestas"
+        },
+        "replies": {
+          "one": "respuesta",
+          "other": "respuestas"
+        },
+        "playlist": {
+          "one": "Playlist",
+          "other": "Playlists"
+        },
+        "playlists": {
+          "one": "Playlist",
+          "other": "Playlists"
+        }
+      },
+      "__patterns": {
+        "ago": "hace {count} {unit}",
+        "selected_users": "Selección: {count} {users}",
+        "showing": "{items}: del {from} al {to} de {total}",
+        "unread": "Sin leer: {count}",
+        "saved_videos": "Vídeos guardados: {count}",
+        "published": "Publicados: {count}"
+      }
+    },
+    "pt": {
+      "__plurals": {
+        "year": {
+          "one": "ano",
+          "other": "anos"
+        },
+        "years": {
+          "one": "ano",
+          "other": "anos"
+        },
+        "month": {
+          "one": "mês",
+          "other": "meses"
+        },
+        "months": {
+          "one": "mês",
+          "other": "meses"
+        },
+        "week": {
+          "one": "semana",
+          "other": "semanas"
+        },
+        "weeks": {
+          "one": "semana",
+          "other": "semanas"
+        },
+        "day": {
+          "one": "dia",
+          "other": "dias"
+        },
+        "days": {
+          "one": "dia",
+          "other": "dias"
+        },
+        "hour": {
+          "one": "hora",
+          "other": "horas"
+        },
+        "hours": {
+          "one": "hora",
+          "other": "horas"
+        },
+        "minute": {
+          "one": "minuto",
+          "other": "minutos"
+        },
+        "minutes": {
+          "one": "minuto",
+          "other": "minutos"
+        },
+        "second": {
+          "one": "segundo",
+          "other": "segundos"
+        },
+        "seconds": {
+          "one": "segundo",
+          "other": "segundos"
+        },
+        "user": {
+          "one": "utilizador",
+          "other": "utilizadores"
+        },
+        "users": {
+          "one": "utilizador",
+          "other": "utilizadores"
+        },
+        "video": {
+          "one": "vídeo",
+          "other": "vídeos"
+        },
+        "videos": {
+          "one": "vídeo",
+          "other": "vídeos"
+        },
+        "comment": {
+          "one": "comentário",
+          "other": "comentários"
+        },
+        "comments": {
+          "one": "comentário",
+          "other": "comentários"
+        },
+        "subscriber": {
+          "one": "subscritor",
+          "other": "subscritores"
+        },
+        "subscribers": {
+          "one": "subscritor",
+          "other": "subscritores"
+        },
+        "view": {
+          "one": "visualização",
+          "other": "visualizações"
+        },
+        "views": {
+          "one": "visualização",
+          "other": "visualizações"
+        },
+        "like": {
+          "one": "gosto",
+          "other": "gostos"
+        },
+        "likes": {
+          "one": "gosto",
+          "other": "gostos"
+        },
+        "reply": {
+          "one": "resposta",
+          "other": "respostas"
+        },
+        "replies": {
+          "one": "resposta",
+          "other": "respostas"
+        },
+        "playlist": {
+          "one": "Playlist",
+          "other": "Playlists"
+        },
+        "playlists": {
+          "one": "Playlist",
+          "other": "Playlists"
+        }
+      },
+      "__patterns": {
+        "ago": "há {count} {unit}",
+        "selected_users": "Seleção: {count} {users}",
+        "showing": "{items}: de {from} a {to} de {total}",
+        "unread": "Por ler: {count}",
+        "saved_videos": "Vídeos guardados: {count}",
+        "published": "Publicados: {count}"
+      }
+    },
+    "pt_br": {
+      "__plurals": {
+        "year": {
+          "one": "ano",
+          "other": "anos"
+        },
+        "years": {
+          "one": "ano",
+          "other": "anos"
+        },
+        "month": {
+          "one": "mês",
+          "other": "meses"
+        },
+        "months": {
+          "one": "mês",
+          "other": "meses"
+        },
+        "week": {
+          "one": "semana",
+          "other": "semanas"
+        },
+        "weeks": {
+          "one": "semana",
+          "other": "semanas"
+        },
+        "day": {
+          "one": "dia",
+          "other": "dias"
+        },
+        "days": {
+          "one": "dia",
+          "other": "dias"
+        },
+        "hour": {
+          "one": "hora",
+          "other": "horas"
+        },
+        "hours": {
+          "one": "hora",
+          "other": "horas"
+        },
+        "minute": {
+          "one": "minuto",
+          "other": "minutos"
+        },
+        "minutes": {
+          "one": "minuto",
+          "other": "minutos"
+        },
+        "second": {
+          "one": "segundo",
+          "other": "segundos"
+        },
+        "seconds": {
+          "one": "segundo",
+          "other": "segundos"
+        },
+        "user": {
+          "one": "usuário",
+          "other": "usuários"
+        },
+        "users": {
+          "one": "usuário",
+          "other": "usuários"
+        },
+        "video": {
+          "one": "vídeo",
+          "other": "vídeos"
+        },
+        "videos": {
+          "one": "vídeo",
+          "other": "vídeos"
+        },
+        "comment": {
+          "one": "comentário",
+          "other": "comentários"
+        },
+        "comments": {
+          "one": "comentário",
+          "other": "comentários"
+        },
+        "subscriber": {
+          "one": "inscrito",
+          "other": "inscritos"
+        },
+        "subscribers": {
+          "one": "inscrito",
+          "other": "inscritos"
+        },
+        "view": {
+          "one": "visualização",
+          "other": "visualizações"
+        },
+        "views": {
+          "one": "visualização",
+          "other": "visualizações"
+        },
+        "like": {
+          "one": "curtida",
+          "other": "curtidas"
+        },
+        "likes": {
+          "one": "curtida",
+          "other": "curtidas"
+        },
+        "reply": {
+          "one": "resposta",
+          "other": "respostas"
+        },
+        "replies": {
+          "one": "resposta",
+          "other": "respostas"
+        },
+        "playlist": {
+          "one": "Playlist",
+          "other": "Playlists"
+        },
+        "playlists": {
+          "one": "Playlist",
+          "other": "Playlists"
+        }
+      },
+      "__patterns": {
+        "ago": "há {count} {unit}",
+        "selected_users": "Seleção: {count} {users}",
+        "showing": "{items}: de {from} a {to} de {total}",
+        "unread": "Não lidos: {count}",
+        "saved_videos": "Vídeos salvos: {count}",
+        "published": "Publicados: {count}"
+      }
+    },
+    "pt_pt": {
+      "__plurals": {
+        "year": {
+          "one": "ano",
+          "other": "anos"
+        },
+        "years": {
+          "one": "ano",
+          "other": "anos"
+        },
+        "month": {
+          "one": "mês",
+          "other": "meses"
+        },
+        "months": {
+          "one": "mês",
+          "other": "meses"
+        },
+        "week": {
+          "one": "semana",
+          "other": "semanas"
+        },
+        "weeks": {
+          "one": "semana",
+          "other": "semanas"
+        },
+        "day": {
+          "one": "dia",
+          "other": "dias"
+        },
+        "days": {
+          "one": "dia",
+          "other": "dias"
+        },
+        "hour": {
+          "one": "hora",
+          "other": "horas"
+        },
+        "hours": {
+          "one": "hora",
+          "other": "horas"
+        },
+        "minute": {
+          "one": "minuto",
+          "other": "minutos"
+        },
+        "minutes": {
+          "one": "minuto",
+          "other": "minutos"
+        },
+        "second": {
+          "one": "segundo",
+          "other": "segundos"
+        },
+        "seconds": {
+          "one": "segundo",
+          "other": "segundos"
+        },
+        "user": {
+          "one": "utilizador",
+          "other": "utilizadores"
+        },
+        "users": {
+          "one": "utilizador",
+          "other": "utilizadores"
+        },
+        "video": {
+          "one": "vídeo",
+          "other": "vídeos"
+        },
+        "videos": {
+          "one": "vídeo",
+          "other": "vídeos"
+        },
+        "comment": {
+          "one": "comentário",
+          "other": "comentários"
+        },
+        "comments": {
+          "one": "comentário",
+          "other": "comentários"
+        },
+        "subscriber": {
+          "one": "subscritor",
+          "other": "subscritores"
+        },
+        "subscribers": {
+          "one": "subscritor",
+          "other": "subscritores"
+        },
+        "view": {
+          "one": "visualização",
+          "other": "visualizações"
+        },
+        "views": {
+          "one": "visualização",
+          "other": "visualizações"
+        },
+        "like": {
+          "one": "gosto",
+          "other": "gostos"
+        },
+        "likes": {
+          "one": "gosto",
+          "other": "gostos"
+        },
+        "reply": {
+          "one": "resposta",
+          "other": "respostas"
+        },
+        "replies": {
+          "one": "resposta",
+          "other": "respostas"
+        },
+        "playlist": {
+          "one": "Playlist",
+          "other": "Playlists"
+        },
+        "playlists": {
+          "one": "Playlist",
+          "other": "Playlists"
+        }
+      },
+      "__patterns": {
+        "ago": "há {count} {unit}",
+        "selected_users": "Selecção: {count} {users}",
+        "showing": "{items}: de {from} a {to} de {total}",
+        "unread": "Por ler: {count}",
+        "saved_videos": "Vídeos guardados: {count}",
+        "published": "Publicados: {count}"
+      }
+    },
+    "pt_ao": {
+      "__plurals": {
+        "year": {
+          "one": "ano",
+          "other": "anos"
+        },
+        "years": {
+          "one": "ano",
+          "other": "anos"
+        },
+        "month": {
+          "one": "mês",
+          "other": "meses"
+        },
+        "months": {
+          "one": "mês",
+          "other": "meses"
+        },
+        "week": {
+          "one": "semana",
+          "other": "semanas"
+        },
+        "weeks": {
+          "one": "semana",
+          "other": "semanas"
+        },
+        "day": {
+          "one": "dia",
+          "other": "dias"
+        },
+        "days": {
+          "one": "dia",
+          "other": "dias"
+        },
+        "hour": {
+          "one": "hora",
+          "other": "horas"
+        },
+        "hours": {
+          "one": "hora",
+          "other": "horas"
+        },
+        "minute": {
+          "one": "minuto",
+          "other": "minutos"
+        },
+        "minutes": {
+          "one": "minuto",
+          "other": "minutos"
+        },
+        "second": {
+          "one": "segundo",
+          "other": "segundos"
+        },
+        "seconds": {
+          "one": "segundo",
+          "other": "segundos"
+        },
+        "user": {
+          "one": "utilizador",
+          "other": "utilizadores"
+        },
+        "users": {
+          "one": "utilizador",
+          "other": "utilizadores"
+        },
+        "video": {
+          "one": "vídeo",
+          "other": "vídeos"
+        },
+        "videos": {
+          "one": "vídeo",
+          "other": "vídeos"
+        },
+        "comment": {
+          "one": "comentário",
+          "other": "comentários"
+        },
+        "comments": {
+          "one": "comentário",
+          "other": "comentários"
+        },
+        "subscriber": {
+          "one": "subscritor",
+          "other": "subscritores"
+        },
+        "subscribers": {
+          "one": "subscritor",
+          "other": "subscritores"
+        },
+        "view": {
+          "one": "visualização",
+          "other": "visualizações"
+        },
+        "views": {
+          "one": "visualização",
+          "other": "visualizações"
+        },
+        "like": {
+          "one": "gosto",
+          "other": "gostos"
+        },
+        "likes": {
+          "one": "gosto",
+          "other": "gostos"
+        },
+        "reply": {
+          "one": "resposta",
+          "other": "respostas"
+        },
+        "replies": {
+          "one": "resposta",
+          "other": "respostas"
+        },
+        "playlist": {
+          "one": "Playlist",
+          "other": "Playlists"
+        },
+        "playlists": {
+          "one": "Playlist",
+          "other": "Playlists"
+        }
+      },
+      "__patterns": {
+        "ago": "há {count} {unit}",
+        "selected_users": "Selecção: {count} {users}",
+        "showing": "{items}: de {from} a {to} de {total}",
+        "unread": "Por ler: {count}",
+        "saved_videos": "Vídeos guardados: {count}",
+        "published": "Publicados: {count}"
+      }
+    },
+    "it": {
+      "__plurals": {
+        "year": {
+          "one": "anno",
+          "other": "anni"
+        },
+        "years": {
+          "one": "anno",
+          "other": "anni"
+        },
+        "month": {
+          "one": "mese",
+          "other": "mesi"
+        },
+        "months": {
+          "one": "mese",
+          "other": "mesi"
+        },
+        "week": {
+          "one": "settimana",
+          "other": "settimane"
+        },
+        "weeks": {
+          "one": "settimana",
+          "other": "settimane"
+        },
+        "day": {
+          "one": "giorno",
+          "other": "giorni"
+        },
+        "days": {
+          "one": "giorno",
+          "other": "giorni"
+        },
+        "hour": {
+          "one": "ora",
+          "other": "ore"
+        },
+        "hours": {
+          "one": "ora",
+          "other": "ore"
+        },
+        "minute": {
+          "one": "minuto",
+          "other": "minuti"
+        },
+        "minutes": {
+          "one": "minuto",
+          "other": "minuti"
+        },
+        "second": {
+          "one": "secondo",
+          "other": "secondi"
+        },
+        "seconds": {
+          "one": "secondo",
+          "other": "secondi"
+        },
+        "user": {
+          "one": "utente",
+          "other": "utenti"
+        },
+        "users": {
+          "one": "utente",
+          "other": "utenti"
+        },
+        "video": {
+          "one": "video",
+          "other": "video"
+        },
+        "videos": {
+          "one": "video",
+          "other": "video"
+        },
+        "comment": {
+          "one": "commento",
+          "other": "commenti"
+        },
+        "comments": {
+          "one": "commento",
+          "other": "commenti"
+        },
+        "subscriber": {
+          "one": "iscritto",
+          "other": "iscritti"
+        },
+        "subscribers": {
+          "one": "iscritto",
+          "other": "iscritti"
+        },
+        "view": {
+          "one": "visualizzazione",
+          "other": "visualizzazioni"
+        },
+        "views": {
+          "one": "visualizzazione",
+          "other": "visualizzazioni"
+        },
+        "like": {
+          "one": "Mi piace",
+          "other": "Mi piace"
+        },
+        "likes": {
+          "one": "Mi piace",
+          "other": "Mi piace"
+        },
+        "reply": {
+          "one": "risposta",
+          "other": "risposte"
+        },
+        "replies": {
+          "one": "risposta",
+          "other": "risposte"
+        },
+        "playlist": {
+          "one": "Playlist",
+          "other": "Playlist"
+        },
+        "playlists": {
+          "one": "Playlist",
+          "other": "Playlist"
+        }
+      },
+      "__patterns": {
+        "ago": "{count} {unit} fa",
+        "selected_users": "Selezione: {count} {users}",
+        "showing": "{items}: da {from} a {to} di {total}",
+        "unread": "Da leggere: {count}",
+        "saved_videos": "Video salvati: {count}",
+        "published": "Pubblicati: {count}"
+      }
+    },
+    "ru": {
+      "__plurals": {
+        "year": {
+          "one": "год",
+          "few": "года",
+          "many": "лет",
+          "other": "года"
+        },
+        "years": {
+          "one": "год",
+          "few": "года",
+          "many": "лет",
+          "other": "года"
+        },
+        "month": {
+          "one": "месяц",
+          "few": "месяца",
+          "many": "месяцев",
+          "other": "месяца"
+        },
+        "months": {
+          "one": "месяц",
+          "few": "месяца",
+          "many": "месяцев",
+          "other": "месяца"
+        },
+        "week": {
+          "one": "неделя",
+          "few": "недели",
+          "many": "недель",
+          "other": "недели"
+        },
+        "weeks": {
+          "one": "неделя",
+          "few": "недели",
+          "many": "недель",
+          "other": "недели"
+        },
+        "day": {
+          "one": "день",
+          "few": "дня",
+          "many": "дней",
+          "other": "дня"
+        },
+        "days": {
+          "one": "день",
+          "few": "дня",
+          "many": "дней",
+          "other": "дня"
+        },
+        "hour": {
+          "one": "час",
+          "few": "часа",
+          "many": "часов",
+          "other": "часа"
+        },
+        "hours": {
+          "one": "час",
+          "few": "часа",
+          "many": "часов",
+          "other": "часа"
+        },
+        "minute": {
+          "one": "минута",
+          "few": "минуты",
+          "many": "минут",
+          "other": "минуты"
+        },
+        "minutes": {
+          "one": "минута",
+          "few": "минуты",
+          "many": "минут",
+          "other": "минуты"
+        },
+        "second": {
+          "one": "секунда",
+          "few": "секунды",
+          "many": "секунд",
+          "other": "секунды"
+        },
+        "seconds": {
+          "one": "секунда",
+          "few": "секунды",
+          "many": "секунд",
+          "other": "секунды"
+        },
+        "user": {
+          "one": "пользователь",
+          "few": "пользователя",
+          "many": "пользователей",
+          "other": "пользователя"
+        },
+        "users": {
+          "one": "пользователь",
+          "few": "пользователя",
+          "many": "пользователей",
+          "other": "пользователя"
+        },
+        "video": {
+          "one": "видео",
+          "few": "видео",
+          "many": "видео",
+          "other": "видео"
+        },
+        "videos": {
+          "one": "видео",
+          "few": "видео",
+          "many": "видео",
+          "other": "видео"
+        },
+        "comment": {
+          "one": "комментарий",
+          "few": "комментария",
+          "many": "комментариев",
+          "other": "комментария"
+        },
+        "comments": {
+          "one": "комментарий",
+          "few": "комментария",
+          "many": "комментариев",
+          "other": "комментария"
+        },
+        "subscriber": {
+          "one": "подписчик",
+          "few": "подписчика",
+          "many": "подписчиков",
+          "other": "подписчика"
+        },
+        "subscribers": {
+          "one": "подписчик",
+          "few": "подписчика",
+          "many": "подписчиков",
+          "other": "подписчика"
+        },
+        "view": {
+          "one": "просмотр",
+          "few": "просмотра",
+          "many": "просмотров",
+          "other": "просмотра"
+        },
+        "views": {
+          "one": "просмотр",
+          "few": "просмотра",
+          "many": "просмотров",
+          "other": "просмотра"
+        },
+        "like": {
+          "one": "лайк",
+          "few": "лайка",
+          "many": "лайков",
+          "other": "лайка"
+        },
+        "likes": {
+          "one": "лайк",
+          "few": "лайка",
+          "many": "лайков",
+          "other": "лайка"
+        },
+        "reply": {
+          "one": "ответ",
+          "few": "ответа",
+          "many": "ответов",
+          "other": "ответа"
+        },
+        "replies": {
+          "one": "ответ",
+          "few": "ответа",
+          "many": "ответов",
+          "other": "ответа"
+        },
+        "playlist": {
+          "one": "плейлист",
+          "few": "плейлиста",
+          "many": "плейлистов",
+          "other": "плейлиста"
+        },
+        "playlists": {
+          "one": "плейлист",
+          "few": "плейлиста",
+          "many": "плейлистов",
+          "other": "плейлиста"
+        }
+      },
+      "__patterns": {
+        "ago": "{count} {unit} назад",
+        "selected_users": "Выбрано: {count} {users}",
+        "showing": "{items}: {from}–{to} из {total}",
+        "unread": "Непрочитанные: {count}",
+        "saved_videos": "Сохранено видео: {count}",
+        "published": "Опубликовано: {count}"
+      }
+    }
+  }
+}

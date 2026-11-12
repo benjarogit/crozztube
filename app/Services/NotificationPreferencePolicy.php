@@ -16,7 +16,7 @@ class NotificationPreferencePolicy
             'comment_reply' => 'replies',
             'comment_mention', 'community_mention' => 'mentions',
             'channel_subscribe' => 'subscriptions',
-            'video_ready' => 'uploads',
+            'video_ready', 'clip_ready' => 'uploads',
             'live_started', 'live_reminder', 'live_replay_ready' => 'liveReminders',
             default => null,
         };

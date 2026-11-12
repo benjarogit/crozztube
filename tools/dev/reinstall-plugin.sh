@@ -10,7 +10,7 @@ PLUGIN_ID="crozztube.source-resolver"
 BASE_URL="${BASE_URL:-https://crozztube.local:8443}"
 ZIP="${ZIP:-/tmp/opencode/${PLUGIN_ID}.zip}"
 LOGIN="${TEST_USER:-benny}"
-PASSWORD="${TEST_PASSWORD:-meZVRW0bYEbpHsJc}"
+PASSWORD="${TEST_PASSWORD:?Set TEST_PASSWORD in your local environment.}"
 
 say() { printf '\n== %s ==\n' "$*"; }
 

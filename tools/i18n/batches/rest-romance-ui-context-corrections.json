@@ -1,0 +1,153 @@
+{
+  "context": "Second reading against actual watch accessibility snapshot, upload summary heading, support search and navigation. Tip is a monetary contribution, not advice; upload summary is a noun heading, not an upload action. Support ticket is an assistance request and ID is not a national identity document. Personal whole feedback replaces composer jargon. Product/media names and user/provider contents unchanged.",
+  "messages": {
+    "Storage": {
+      "fr": "Stockage",
+      "es": "Almacenamiento",
+      "pt": "Armazenamento",
+      "it": "Spazio di archiviazione",
+      "ca": "Emmagatzematge",
+      "gl": "Almacenamento",
+      "eo": "Konservospaco"
+    },
+    "Analytics": {
+      "fr": "Statistiques",
+      "es": "Estadísticas",
+      "pt": "Estatísticas",
+      "it": "Statistiche",
+      "ca": "Estadístiques",
+      "gl": "Estatísticas",
+      "eo": "Statistikoj"
+    },
+    "Content": {
+      "fr": "Contenu",
+      "es": "Contenido",
+      "pt": "Conteúdo",
+      "it": "Contenuti",
+      "ca": "Contingut",
+      "gl": "Contido",
+      "eo": "Enhavo"
+    },
+    "Upload summary": {
+      "fr": "Récapitulatif de l’envoi",
+      "es": "Resumen de la subida",
+      "pt": "Resumo do envio",
+      "it": "Riepilogo del caricamento",
+      "ca": "Resum de la pujada",
+      "gl": "Resumo da subida",
+      "eo": "Resumo de la alŝuto"
+    },
+    "No current uploads.": {
+      "fr": "Aucun envoi en cours.",
+      "es": "No hay subidas en curso.",
+      "pt": "Não há envios em curso.",
+      "it": "Nessun caricamento in corso.",
+      "ca": "No hi ha pujades en curs.",
+      "gl": "Non hai subidas en curso.",
+      "eo": "Neniu alŝuto okazas nun.",
+      "pt_br": "Não há envios em andamento."
+    },
+    "Search tickets by ID, subject, or user...": {
+      "fr": "Rechercher une demande par identifiant, sujet ou utilisateur…",
+      "es": "Buscar solicitudes por ID, asunto o usuario…",
+      "pt": "Procura pedidos por ID, assunto ou utilizador…",
+      "it": "Cerca richieste per ID, oggetto o utente…",
+      "ca": "Cerca peticions per ID, assumpte o usuari…",
+      "gl": "Busca solicitudes por ID, asunto ou usuario…",
+      "eo": "Serĉu helppetojn laŭ ID, temo aŭ uzanto…",
+      "pt_br": "Busque pedidos por ID, assunto ou usuário…"
+    },
+    "Search by title, creator, or description...": {
+      "fr": "Rechercher par titre, créateur ou description…",
+      "es": "Buscar por título, creador o descripción…",
+      "pt": "Procura por título, criador ou descrição…",
+      "it": "Cerca per titolo, creator o descrizione…",
+      "ca": "Cerca per títol, creador o descripció…",
+      "gl": "Busca por título, creador ou descrición…",
+      "eo": "Serĉu laŭ titolo, kreinto aŭ priskribo…",
+      "pt_br": "Busque por título, criador ou descrição…"
+    },
+    "Message composer opened.": {
+      "fr": "Tu peux maintenant écrire ton message.",
+      "es": "Ya puedes escribir tu mensaje.",
+      "pt": "Já podes escrever a tua mensagem.",
+      "it": "Ora puoi scrivere il tuo messaggio.",
+      "ca": "Ja pots escriure el teu missatge.",
+      "gl": "Xa podes escribir a túa mensaxe.",
+      "eo": "Vi povas nun skribi vian mesaĝon.",
+      "es_ar": "Ya podés escribir tu mensaje.",
+      "es_uy": "Ya podés escribir tu mensaje.",
+      "pt_br": "Você já pode escrever sua mensagem."
+    },
+    "Add sticker": {
+      "fr": "Ajouter un sticker",
+      "es": "Añadir sticker",
+      "pt": "Adicionar autocolante",
+      "it": "Aggiungi adesivo",
+      "ca": "Afegeix un adhesiu",
+      "gl": "Engadir adhesivo",
+      "eo": "Aldonu glumarkon",
+      "pt_br": "Adicionar figurinha"
+    },
+    "Autoplay": {
+      "fr": "Lecture automatique",
+      "es": "Reproducción automática",
+      "pt": "Reprodução automática",
+      "it": "Riproduzione automatica",
+      "ca": "Reproducció automàtica",
+      "gl": "Reprodución automática",
+      "eo": "Aŭtomata ludado"
+    },
+    "Preview unavailable": {
+      "fr": "Aperçu indisponible",
+      "es": "Vista previa no disponible",
+      "pt": "Pré-visualização indisponível",
+      "it": "Anteprima non disponibile",
+      "ca": "Previsualització no disponible",
+      "gl": "Vista previa non dispoñible",
+      "eo": "Antaŭrigardo nedisponebla"
+    },
+    "Tip": {
+      "fr": "Pourboire",
+      "es": "Propina",
+      "pt": "Gorjeta",
+      "it": "Mancia",
+      "ca": "Propina",
+      "gl": "Propina",
+      "eo": "Trinkmono"
+    },
+    "Close tip dialog": {
+      "fr": "Fermer la fenêtre de pourboire",
+      "es": "Cerrar ventana de propina",
+      "pt": "Fechar janela de gorjeta",
+      "it": "Chiudi finestra della mancia",
+      "ca": "Tanca la finestra de propina",
+      "gl": "Pechar a xanela de propina",
+      "eo": "Fermu la trinkmonan fenestron"
+    },
+    "Send a tip or donation directly to this creator.": {
+      "fr": "Envoie un pourboire ou un don directement à ce créateur.",
+      "es": "Envía una propina o donación directamente a este creador.",
+      "pt": "Envia uma gorjeta ou um donativo diretamente a este criador.",
+      "it": "Invia una mancia o una donazione direttamente a questo creator.",
+      "ca": "Envia una propina o una donació directament a aquest creador.",
+      "gl": "Envía unha propina ou doazón directamente a este creador.",
+      "eo": "Sendu trinkmonon aŭ donacon rekte al ĉi tiu kreinto.",
+      "es_ar": "Enviá una propina o donación directamente a este creador.",
+      "es_uy": "Enviá una propina o donación directamente a este creador.",
+      "pt_pt": "Envia uma gorjeta ou um donativo directamente a este criador.",
+      "pt_ao": "Envia uma gorjeta ou um donativo directamente a este criador.",
+      "pt_br": "Envie uma gorjeta ou doação diretamente a este criador."
+    },
+    "Download image": {
+      "fr": "Télécharger l’image",
+      "es": "Descargar imagen",
+      "pt": "Transferir imagem",
+      "it": "Scarica immagine",
+      "ca": "Baixa la imatge",
+      "gl": "Descargar a imaxe",
+      "eo": "Elŝutu la bildon",
+      "pt_br": "Baixar imagem"
+    }
+  }
+}

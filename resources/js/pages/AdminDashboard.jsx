@@ -1,10 +1,11 @@
 import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
-import { LanguageDialog, LanguageSwitcher } from '../i18n.jsx';
+import { LanguageDialog, LanguageSwitcher, useI18n } from '../i18n.jsx';
 import AdaptiveSelect from '../components/AdaptiveSelect.jsx';
 import { OverlayPortal } from '../components/ResponsiveOverlays.jsx';
 import { useResponsiveLayout } from '../responsiveLayout.js';
 import { ADMIN_USER_ROLE_LABELS, adminUserRoleValue, selectedAdminUserRole } from '../adminUserRoles.js';
 import { fetchKlipyStickerPage } from '../klipyCatalog.js';
+import AdminMediaProviders from '../components/AdminMediaProviders.jsx';
 
 const systemSettingsBlocks = [
   { id: 'setting-general', section: 'general', label: 'General' },
@@ -3797,6 +3798,12 @@ function SettingsPage({ navigate, data = {}, api = null, onRefresh = null, alert
             <EditableField label={`${selectedMembershipLabel} price / month`} value={membershipPrices[selectedMembership] ?? storageMembershipPriceDefaults[selectedMembership]} onChange={(value) => setStorageMembershipPrice(selectedMembership, value)} saved={savedSettingField === `storage.membershipPricesUsd.${selectedMembership}`} type="number" step="0.01" suffix={paymentCurrencyLabel} />
             <button type="button" className="admin-outline-action primary-text" onClick={saveStorageSettings} disabled={storageSaving || storageTesting}><AdminIcon name="cloud" size={16} />{storageSaving ? 'Saving...' : 'Save Storage'}</button>
           </SettingsRow>
+          <SettingsRow id="setting-external-media" visible={selectedSettingsBlock.id === 'setting-storage'} title="External media services" description="Manage image hosters, private Oracle staging and Odysee publishing in one place.">
+            <AdminMediaProviders api={api} alertAction={alertAction} platformName={data.general?.platformName || 'CrozzTube'}
+              renderProvider={(props) => <IntegrationBadge {...props} />}
+              renderIcon={() => <AdminIcon name="cloud" size={16} />}
+              controls={{ Field: EditableField, Secret: StorageSecretField, Toggle: EditableToggleField, Select: EditableSelect }} />
+          </SettingsRow>
           <SettingsRow {...settingsRowProps('setting-uploads')} title="Uploads" description="Manage video processing qualities, player defaults, and uploader chapter tools.">
             <EditableToggleField label="Video chapters" checked={uploadSettings.chaptersEnabled ?? true} onChange={(value) => setFeatureValue('uploads', 'chaptersEnabled', value)} saved={savedSettingField === 'features.uploads.chaptersEnabled'} />
             <div className="admin-settings-delimiter"><span>GENERATED VIDEO QUALITIES</span></div>
@@ -7550,7 +7557,7 @@ function TableFooter({ text, pages = [], activePage = 1, lastPage = null, onPage
   };
   const maxPage = lastPage || Math.max(...pages.map((page) => Number(page) || 1), activePage);
 
-  return <div className="admin-table-footer"><span>{text}</span><div className="admin-pagination"><button type="button" onClick={(event) => goToPage(activePage - 1, event.currentTarget)} disabled={!onPageChange || activePage <= 1}><AdminIcon name="chevronLeft" size={14} /></button>{pages.map((page, index) => <button type="button" className={Number(page) === activePage || (!onPageChange && index === 0) ? 'active' : ''} key={`${page}-${index}`} onClick={(event) => goToPage(page, event.currentTarget)} disabled={!onPageChange}>{page}</button>)}<button type="button" onClick={(event) => goToPage(activePage + 1, event.currentTarget)} disabled={!onPageChange || activePage >= maxPage}><AdminIcon name="chevronRight" size={14} /></button></div></div>;
+  return <div className="admin-table-footer"><span>{text}</span><div className="admin-pagination"><button type="button" onClick={(event) => goToPage(activePage - 1, event.currentTarget)} disabled={!onPageChange || activePage <= 1}><AdminIcon name="chevronLeft" size={14} /></button>{pages.map((page, index) => <button type="button" className={Number(page) === activePage || (!onPageChange && index === 0) ? 'active' : ''} aria-current={Number(page) === activePage || (!onPageChange && index === 0) ? 'page' : undefined} key={`${page}-${index}`} onClick={(event) => goToPage(page, event.currentTarget)} disabled={!onPageChange}>{page}</button>)}<button type="button" onClick={(event) => goToPage(activePage + 1, event.currentTarget)} disabled={!onPageChange || activePage >= maxPage}><AdminIcon name="chevronRight" size={14} /></button></div></div>;
 }
 
 function SideCard({ title, action, children, className = '', onAction = null }) {
@@ -7661,10 +7668,11 @@ function AccentPaletteField({ value = '', onChange, saved = false }) {
   </div></div>;
 }
 
-function StorageSecretField({ label, value, configured, clear, onChange, onClear, wide = false }) {
-  return <label className={`admin-field ${wide ? 'wide' : ''}`}><span>{label}</span><div>
-    <input type="password" autoComplete="new-password" style={{ minWidth: 0 }} value={value} placeholder={clear ? 'Will be cleared on save' : configured ? 'Configured — leave blank to keep' : 'Not configured'} onChange={(event) => onChange(event.target.value)} />
-    {(configured || clear) && <button type="button" style={{ width: 'auto', flex: '0 0 auto' }} onClick={onClear} title={clear ? 'Keep the saved secret' : 'Remove the saved secret when settings are saved'}>{clear ? 'Undo clear' : 'Clear'}</button>}
+function StorageSecretField({ label, value, configured, clear, onChange, onClear, wide = false, disabled = false }) {
+  const { t } = useI18n();
+  return <label className={`admin-field ${wide ? 'wide' : ''}`} data-i18n-skip><span>{t(label)}</span><div>
+    <input type="password" autoComplete="new-password" disabled={disabled || clear} style={{ minWidth: 0 }} value={value} placeholder={t(clear ? 'Will be cleared on save' : configured ? 'Configured — leave blank to keep' : 'Not configured')} onChange={(event) => onChange(event.target.value)} />
+    {(configured || clear) && <button type="button" disabled={disabled} style={{ width: 'auto', flex: '0 0 auto' }} onClick={onClear} title={t(clear ? 'Keep the saved secret' : 'Remove the saved secret when settings are saved')}>{t(clear ? 'Undo clear' : 'Remove credential')}</button>}
   </div></label>;
 }
 
@@ -7672,12 +7680,12 @@ function StorageHelp({ children }) {
   return <p style={{ gridColumn: '1 / -1', margin: 0, color: 'var(--ad-settings-copy)', fontSize: 12, lineHeight: 1.6, overflowWrap: 'anywhere' }}>{children}</p>;
 }
 
-function EditableField({ label, value, onChange, type = 'text', wide = false, saved = false, step, suffix = '', showColorPicker = false, placeholder = '' }) {
+function EditableField({ label, value, onChange, type = 'text', wide = false, saved = false, step, suffix = '', showColorPicker = false, placeholder = '', disabled = false, required = false, min, max, maxLength, pattern }) {
   const hasValidColor = typeof value === 'string' && /^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$/.test(value.trim());
   const swatchValue = showColorPicker ? (hasValidColor ? value : '#000000') : '#000000';
 
   return <label className={`admin-field ${wide ? 'wide' : ''} ${saved ? 'saved' : ''}`}><span>{label}</span><div>
-    <input type={type} step={step} value={value} placeholder={placeholder} onChange={(event) => onChange(event.target.value)} />
+    <input type={type} step={step} value={value} placeholder={placeholder} disabled={disabled} required={required} min={min} max={max} maxLength={maxLength} pattern={pattern} onChange={(event) => onChange(event.target.value)} />
     {showColorPicker && <input type="color" className="admin-color-swatch" value={swatchValue} onChange={(event) => onChange(event.target.value)} title="Pick color" />}
     {suffix && <em>{suffix}</em>}
   </div></label>;
@@ -7692,7 +7700,8 @@ function EditableSelect({ label, value, onChange, options, saved = false, wide =
 }
 
 function EditableToggleField({ label, checked = false, onChange, saved = false, disabled = false }) {
-  return <label className={`admin-toggle-field admin-toggle-edit ${saved ? 'saved' : ''}`}><span>{label}</span><button type="button" onClick={() => onChange(!checked)} disabled={disabled}><i className={checked ? 'active' : ''} /><em>{checked ? 'Enabled' : 'Disabled'}</em></button></label>;
+  const { t } = useI18n();
+  return <label className={`admin-toggle-field admin-toggle-edit ${saved ? 'saved' : ''}`}><span>{label}</span><button type="button" aria-pressed={checked} onClick={() => onChange(!checked)} disabled={disabled}><i className={checked ? 'active' : ''} /><em>{t(checked ? 'Enabled' : 'Disabled')}</em></button></label>;
 }
 
 function EditableCheckboxField({ label, checked = false, onChange, saved = false }) {
@@ -7703,8 +7712,8 @@ function ToggleField({ label, value, active = false }) {
   return <label className="admin-toggle-field"><span>{label}</span><div><i className={active ? 'active' : ''} /><em>{value}</em></div></label>;
 }
 
-function IntegrationBadge({ icon, name, status, active = false, wide = false, onClick = null }) {
-  return <button type="button" className={`admin-integration ${active ? 'active' : ''} ${wide ? 'wide' : ''}`} onClick={onClick}><AdminIcon name={icon} size={24} /><span><strong>{name}</strong><small>{status}</small></span></button>;
+function IntegrationBadge({ icon, name, status, active = false, wide = false, onClick = null, disabled = false }) {
+  return <button type="button" className={`admin-integration ${active ? 'active' : ''} ${wide ? 'wide' : ''}`} onClick={onClick} aria-pressed={active} disabled={disabled}><AdminIcon name={icon} size={24} /><span><strong>{name}</strong><small>{status}</small></span></button>;
 }
 
 function PersonCell({ person = null, mini = false, showEmail = false, avatarOnlyName = false, subtitle = null }) {
@@ -7903,6 +7912,7 @@ function AdminIcon({ name, size = 20 }) {
     userPlus: <><circle cx="9" cy="8" r="3.5" /><path d="M3.5 20a5.5 5.5 0 0 1 11 0" /><path d="M18 8h4M20 6v4" /></>,
     play: <path d="M8 5v14l11-7-11-7Z" />,
     chevronDown: <path d="m7 10 5 5 5-5" />,
+    chevronLeft: <path d="m15 6-6 6 6 6" />,
     chevronRight: <path d="m9 6 6 6-6 6" />,
     menu: <><path d="M4 7h16" /><path d="M4 12h16" /><path d="M4 17h16" /></>,
     close: <><path d="m6 6 12 12" /><path d="M18 6 6 18" /></>,

@@ -1,0 +1,1409 @@
+{
+  "context": "English editorial reference for account recovery/verification, social sign-in, category/role/permission management, wallet/monetization, theme, mass import, user privacy/moderation, device sessions and livestream setup. Technical connection labels remain useful in admin/studio; procedural copy clarified. Proper names, UI style tokens and quantity fragments excluded.",
+  "messages": {
+    "Invalid code attempts": {
+      "en": "Invalid code attempts"
+    },
+    "Invalid IP block (minutes)": {
+      "en": "IP block after invalid codes (minutes)"
+    },
+    "Email registration verification is not enabled.": {
+      "en": "Email registration verification is not enabled."
+    },
+    "This email address is already registered.": {
+      "en": "This email address is already registered."
+    },
+    "A verification code has been sent to your email. Enter it below to finish registration.": {
+      "en": "A verification code has been sent to your email. Enter it below to finish registration."
+    },
+    "Enter the email verification code.": {
+      "en": "Enter the email verification code."
+    },
+    "The email verification code has expired. Request a new code.": {
+      "en": "The email verification code has expired. Request a new code."
+    },
+    "The email verification code is invalid.": {
+      "en": "The email verification code is invalid."
+    },
+    "Too many invalid verification codes. Registration is temporarily blocked for this IP address.": {
+      "en": "Too many invalid verification codes. Registration is temporarily blocked for this IP address."
+    },
+    "A valid phone number is required.": {
+      "en": "A valid phone number is required."
+    },
+    "Verification required": {
+      "en": "Verification required"
+    },
+    "No verification": {
+      "en": "No verification"
+    },
+    "Verify by email": {
+      "en": "Verify by email"
+    },
+    "Verify by SMS": {
+      "en": "Verify by SMS"
+    },
+    "Collect phone number": {
+      "en": "Collect phone number"
+    },
+    "Verification code digits": {
+      "en": "Verification code digits"
+    },
+    "Verification code expires (minutes)": {
+      "en": "Verification code expires (minutes)"
+    },
+    "Verification resend attempts": {
+      "en": "Verification resend attempts"
+    },
+    "Enter your email to receive a verification code.": {
+      "en": "Enter your email to receive a verification code."
+    },
+    "Enter your phone number to start registration.": {
+      "en": "Enter your phone number to start registration."
+    },
+    "Email verification code": {
+      "en": "Email verification code"
+    },
+    "Enter a valid email address.": {
+      "en": "Enter a valid email address."
+    },
+    "Require username": {
+      "en": "Require username"
+    },
+    "Username is available.": {
+      "en": "Username is available."
+    },
+    "Username must be at least 4 characters and use only letters, numbers, dashes, and underscores.": {
+      "en": "Choose a username with at least 4 characters. Use only letters, numbers, dashes and underscores."
+    },
+    "This username is already taken.": {
+      "en": "This username is already taken."
+    },
+    "Email is available.": {
+      "en": "Email is available."
+    },
+    "Phone number is available.": {
+      "en": "Phone number is available."
+    },
+    "This phone number already has an account.": {
+      "en": "This phone number already has an account."
+    },
+    "Login instead": {
+      "en": "Login instead"
+    },
+    "Recover account": {
+      "en": "Recover account"
+    },
+    "Checking...": {
+      "en": "Checking..."
+    },
+    "Please fix the highlighted registration fields.": {
+      "en": "Please fix the highlighted registration fields."
+    },
+    "Enter your email, username, or phone": {
+      "en": "Enter your email, username, or phone"
+    },
+    "Enter your password": {
+      "en": "Enter your password"
+    },
+    "Hide password": {
+      "en": "Hide password"
+    },
+    "Show password": {
+      "en": "Show password"
+    },
+    "Remember me": {
+      "en": "Remember me"
+    },
+    "Forgot password?": {
+      "en": "Forgot password?"
+    },
+    "Log in": {
+      "en": "Log in"
+    },
+    "Don't have an account?": {
+      "en": "Don't have an account?"
+    },
+    "Continue with Google": {
+      "en": "Continue with Google"
+    },
+    "Continue with Apple": {
+      "en": "Continue with Apple"
+    },
+    "Forgot your password?": {
+      "en": "Forgot your password?"
+    },
+    "Set a new password": {
+      "en": "Set a new password"
+    },
+    "Enter a new password for your PlayHub account.": {
+      "en": "Enter a new password for your PlayHub account."
+    },
+    "No worries! Enter your email and we'll send you a secure reset link or recovery code.": {
+      "en": "No worries! Enter your email and we'll send you a secure reset link or recovery code."
+    },
+    "If an account exists, a reset link has been sent.": {
+      "en": "If an account exists, a reset link has been sent."
+    },
+    "Enter the verification code and a new password for your PlayHub account.": {
+      "en": "Enter the verification code and a new password for your PlayHub account."
+    },
+    "Enter your email or phone number and we'll send you a verification code.": {
+      "en": "Enter your email or phone number and we'll send you a verification code."
+    },
+    "If an account exists, a verification code has been sent.": {
+      "en": "If an account exists, a verification code has been sent."
+    },
+    "If an account exists, a verification code has been sent by email.": {
+      "en": "If an account exists, a verification code has been sent by email."
+    },
+    "If an account exists, a verification code has been sent by phone.": {
+      "en": "If an account exists, a verification code has been sent by text message."
+    },
+    "Enter the 6-digit code": {
+      "en": "Enter the 6-digit code"
+    },
+    "Use a different email or phone number": {
+      "en": "Use a different email or phone number"
+    },
+    "Send verification code": {
+      "en": "Send verification code"
+    },
+    "This password reset code is invalid or has expired.": {
+      "en": "This password reset code is invalid or has expired."
+    },
+    "Too many invalid verification codes. Try again later.": {
+      "en": "Too many invalid verification codes. Try again later."
+    },
+    "Enter a valid email address or phone number.": {
+      "en": "Enter a valid email address or phone number."
+    },
+    "Password reset successfully.": {
+      "en": "Password reset successfully."
+    },
+    "Create a new password": {
+      "en": "Create a new password"
+    },
+    "Confirm your password": {
+      "en": "Confirm your password"
+    },
+    "Check your inbox and spam folder for an email from PlayHub. The link will expire in 15 minutes.": {
+      "en": "Check your inbox and spam folder for an email from PlayHub. The link will expire in 15 minutes."
+    },
+    "Check your SMS inbox for a password reset code from PlayHub. The code will expire in 15 minutes.": {
+      "en": "Check your SMS inbox for a password reset code from PlayHub. The code will expire in 15 minutes."
+    },
+    "Resetting...": {
+      "en": "Resetting..."
+    },
+    "Reset password": {
+      "en": "Reset password"
+    },
+    "Send reset link": {
+      "en": "Send reset link"
+    },
+    "Use phone number instead": {
+      "en": "Use phone number instead"
+    },
+    "Back to login": {
+      "en": "Back to login"
+    },
+    "Join PlayHub to upload, connect with your audience, and grow your brand.": {
+      "en": "Join PlayHub to upload, connect with your audience, and grow your brand."
+    },
+    "Enter your full name": {
+      "en": "Enter your full name"
+    },
+    "Choose a unique username": {
+      "en": "Choose a unique username"
+    },
+    "Enter your email address": {
+      "en": "Enter your email address"
+    },
+    "Create a strong password": {
+      "en": "Create a strong password"
+    },
+    "This password reset link is invalid or has expired.": {
+      "en": "This password reset link is invalid or has expired."
+    },
+    "Reset your PlayHub password": {
+      "en": "Reset your PlayHub password"
+    },
+    "Use this link to reset your PlayHub password:": {
+      "en": "Use this link to reset your PlayHub password:"
+    },
+    "This link expires in 15 minutes.": {
+      "en": "This link expires in 15 minutes."
+    },
+    "Google and Apple sign-in": {
+      "en": "Google and Apple sign-in"
+    },
+    "Enable Google and Apple OAuth for login and registration.": {
+      "en": "Enable Google and Apple OAuth for login and registration."
+    },
+    "Social sign-in expired. Try again.": {
+      "en": "Social sign-in expired. Try again."
+    },
+    "Google Sign-In is not configured.": {
+      "en": "Google Sign-In is not configured."
+    },
+    "Apple Sign-In is not configured.": {
+      "en": "Apple Sign-In is not configured."
+    },
+    "Unable to finish social sign-in.": {
+      "en": "Unable to finish social sign-in."
+    },
+    "Unable to verify Google sign-in.": {
+      "en": "Unable to verify Google sign-in."
+    },
+    "Unable to read your Google account details.": {
+      "en": "Unable to read your Google account details."
+    },
+    "Google did not return a verified email address.": {
+      "en": "Google did not return a verified email address."
+    },
+    "Unable to verify Apple sign-in.": {
+      "en": "Unable to verify Apple sign-in."
+    },
+    "Apple did not return a verified email address.": {
+      "en": "Apple did not return a verified email address."
+    },
+    "Apple private key is invalid.": {
+      "en": "Apple private key is invalid."
+    },
+    "Social sign-in completed.": {
+      "en": "Social sign-in completed."
+    },
+    "Log in with Facebook": {
+      "en": "Log in with Facebook"
+    },
+    "Sign up with Facebook": {
+      "en": "Sign up with Facebook"
+    },
+    "Google, Facebook and Apple sign-in": {
+      "en": "Google, Facebook and Apple sign-in"
+    },
+    "Enable Google, Facebook and Apple OAuth for login and registration.": {
+      "en": "Enable Google, Facebook and Apple OAuth for login and registration."
+    },
+    "Facebook Login": {
+      "en": "Facebook Login"
+    },
+    "Facebook App ID": {
+      "en": "Facebook App ID"
+    },
+    "Facebook App Secret": {
+      "en": "Facebook App Secret"
+    },
+    "Facebook redirect URI": {
+      "en": "Facebook redirect URI"
+    },
+    "Facebook Login is not configured.": {
+      "en": "Facebook Login is not configured."
+    },
+    "Unable to verify Facebook login.": {
+      "en": "Unable to verify Facebook login."
+    },
+    "Unable to read your Facebook account details.": {
+      "en": "Unable to read your Facebook account details."
+    },
+    "Facebook did not return an email address.": {
+      "en": "Facebook did not return an email address."
+    },
+    "The category update dialog is unavailable.": {
+      "en": "The category update dialog is unavailable."
+    },
+    "Choose the category to apply to content matching the current filters.": {
+      "en": "Choose the category to apply to content matching the current filters."
+    },
+    "Update Categories": {
+      "en": "Update Categories"
+    },
+    "Updating...": {
+      "en": "Updating..."
+    },
+    "The category management dialog is unavailable.": {
+      "en": "The category management dialog is unavailable."
+    },
+    "Create a new upload and content category.": {
+      "en": "Create a new upload and content category."
+    },
+    "Create Category": {
+      "en": "Create Category"
+    },
+    "Current categories": {
+      "en": "Current categories"
+    },
+    "Categories are configured.": {
+      "en": "Categories are configured."
+    },
+    "No content categories are configured yet.": {
+      "en": "No content categories are configured yet."
+    },
+    "New category name": {
+      "en": "New category name"
+    },
+    "Example: Tutorials": {
+      "en": "Example: Tutorials"
+    },
+    "Sort order": {
+      "en": "Sort order"
+    },
+    "This updates all content matching current filters.": {
+      "en": "This updates all content matching current filters."
+    },
+    "This updates all content because no filters are active.": {
+      "en": "This updates all content because no filters are active."
+    },
+    "Video categories updated.": {
+      "en": "Video categories updated."
+    },
+    "Content category created.": {
+      "en": "Content category created."
+    },
+    "Add new category": {
+      "en": "Add new category"
+    },
+    "Category name": {
+      "en": "Category name"
+    },
+    "Save Category": {
+      "en": "Save Category"
+    },
+    "Content category updated.": {
+      "en": "Content category updated."
+    },
+    "Add or edit upload and content categories.": {
+      "en": "Add or edit upload and content categories."
+    },
+    "Invite creator": {
+      "en": "Invite creator"
+    },
+    "Create a creator account invite.": {
+      "en": "Create a creator account invite."
+    },
+    "Verify creators": {
+      "en": "Verify creators"
+    },
+    "Enter creator email addresses, usernames, or handles to mark their accounts as verified.": {
+      "en": "Enter creator email addresses, usernames, or handles to mark their accounts as verified."
+    },
+    "Creator emails or handles": {
+      "en": "Creator emails or handles"
+    },
+    "Send creator announcement": {
+      "en": "Send creator announcement"
+    },
+    "Send an announcement email to all creator accounts.": {
+      "en": "Send an announcement email to all creator accounts."
+    },
+    "Send announcement": {
+      "en": "Send announcement"
+    },
+    "Enter at least one creator email, username, or handle.": {
+      "en": "Enter at least one creator email, username, or handle."
+    },
+    "Email delivery is not configured. Configure MAIL_* settings before sending creator announcements.": {
+      "en": "Email delivery is not configured. Set up email in the admin dashboard before sending creator announcements."
+    },
+    "Creators verified.": {
+      "en": "Creators verified."
+    },
+    "Creator announcement sent.": {
+      "en": "Creator announcement sent."
+    },
+    "Create new role": {
+      "en": "Create new role"
+    },
+    "Create a custom admin role with a permission group.": {
+      "en": "Create a custom admin role with a permission group."
+    },
+    "Create role": {
+      "en": "Create role"
+    },
+    "Manage permission groups": {
+      "en": "Manage permission groups"
+    },
+    "Add or edit reusable permission groups for admin roles.": {
+      "en": "Add or edit reusable permission groups for admin roles."
+    },
+    "Save group": {
+      "en": "Save group"
+    },
+    "Role name": {
+      "en": "Role name"
+    },
+    "What this role can do": {
+      "en": "What this role can do"
+    },
+    "Permission group": {
+      "en": "Permission group"
+    },
+    "Current group": {
+      "en": "Current group"
+    },
+    "Add new group": {
+      "en": "Add new group"
+    },
+    "Group name": {
+      "en": "Group name"
+    },
+    "What this permission group controls": {
+      "en": "What this permission group controls"
+    },
+    "Permissions": {
+      "en": "Permissions"
+    },
+    "Role created.": {
+      "en": "Role created."
+    },
+    "Permission group saved.": {
+      "en": "Permission group saved."
+    },
+    "Dashboard access": {
+      "en": "Dashboard access"
+    },
+    "User management": {
+      "en": "User management"
+    },
+    "Creator management": {
+      "en": "Creator management"
+    },
+    "Content moderation": {
+      "en": "Content moderation"
+    },
+    "Reports moderation": {
+      "en": "Reports moderation"
+    },
+    "Support tickets": {
+      "en": "Support tickets"
+    },
+    "Analytics reports": {
+      "en": "Analytics reports"
+    },
+    "Monetization settings": {
+      "en": "Monetization settings"
+    },
+    "Website settings": {
+      "en": "Website settings"
+    },
+    "Data export": {
+      "en": "Data export"
+    },
+    "User restrictions": {
+      "en": "User restrictions"
+    },
+    "Platform Administration": {
+      "en": "Platform Administration"
+    },
+    "Full platform administration permissions": {
+      "en": "Full platform administration permissions"
+    },
+    "Content, reports, and user restriction permissions": {
+      "en": "Content, reports, and user restriction permissions"
+    },
+    "Support inbox and user lookup permissions": {
+      "en": "Support inbox and user lookup permissions"
+    },
+    "Analytics and export permissions": {
+      "en": "Analytics and export permissions"
+    },
+    "Custom admin role": {
+      "en": "Custom admin role"
+    },
+    "No members": {
+      "en": "No members"
+    },
+    "No permissions": {
+      "en": "No permissions"
+    },
+    "Reusable permission group": {
+      "en": "Reusable permission group"
+    },
+    "Group": {
+      "en": "Group"
+    },
+    "Wallet": {
+      "en": "Wallet"
+    },
+    "Manage your available balance, top-ups, and withdrawals.": {
+      "en": "Manage your available balance, top-ups, and withdrawals."
+    },
+    "Current balance": {
+      "en": "Current balance"
+    },
+    "Available for withdrawals.": {
+      "en": "Available for withdrawals."
+    },
+    "Pending withdrawals": {
+      "en": "Pending withdrawals"
+    },
+    "Reserved until processed.": {
+      "en": "Reserved until processed."
+    },
+    "Currency": {
+      "en": "Currency"
+    },
+    "Set by the payment configuration.": {
+      "en": "Set by the payment configuration."
+    },
+    "Top up": {
+      "en": "Top up"
+    },
+    "Add funds through an enabled payment provider.": {
+      "en": "Add funds through an enabled payment provider."
+    },
+    "Payment provider is not configured.": {
+      "en": "Payment provider is not configured."
+    },
+    "Top up wallet": {
+      "en": "Top up wallet"
+    },
+    "Withdraw": {
+      "en": "Withdraw"
+    },
+    "Submit a withdrawal request for admin processing.": {
+      "en": "Submit a withdrawal request for admin processing."
+    },
+    "Method": {
+      "en": "Method"
+    },
+    "Bank transfer": {
+      "en": "Bank transfer"
+    },
+    "Account details": {
+      "en": "Account details"
+    },
+    "Bank account, PayPal email, or payout ID": {
+      "en": "Bank account, PayPal email, or payout ID"
+    },
+    "Note": {
+      "en": "Note"
+    },
+    "Optional payout note": {
+      "en": "Optional payout note"
+    },
+    "Request withdrawal": {
+      "en": "Request withdrawal"
+    },
+    "Top-ups and withdrawal requests from your wallet.": {
+      "en": "Top-ups and withdrawal requests from your wallet."
+    },
+    "Withdrawal": {
+      "en": "Withdrawal"
+    },
+    "Top-up": {
+      "en": "Top-up"
+    },
+    "No wallet activity yet.": {
+      "en": "No wallet activity yet."
+    },
+    "Wallet top-up was cancelled.": {
+      "en": "Wallet top-up was cancelled."
+    },
+    "Payment provider did not return a checkout URL.": {
+      "en": "Payment provider did not return a checkout URL."
+    },
+    "Wallet top-up could not be started.": {
+      "en": "Wallet top-up could not be started."
+    },
+    "Withdrawal request could not be submitted.": {
+      "en": "Withdrawal request could not be submitted."
+    },
+    "Wallet could not be loaded.": {
+      "en": "Wallet could not be loaded."
+    },
+    "Wallet top-up completed.": {
+      "en": "Wallet top-up completed."
+    },
+    "Wallet top-up could not be verified.": {
+      "en": "Wallet top-up could not be verified."
+    },
+    "Loading wallet...": {
+      "en": "Loading wallet..."
+    },
+    "Submitting...": {
+      "en": "Submitting..."
+    },
+    "Withdrawal request submitted.": {
+      "en": "Withdrawal request submitted."
+    },
+    "Wallet storage is not ready.": {
+      "en": "Wallet storage is not ready."
+    },
+    "Insufficient wallet balance.": {
+      "en": "Insufficient wallet balance."
+    },
+    "Top-up amount must be at least 1.00.": {
+      "en": "Top-up amount must be at least 1.00."
+    },
+    "Stripe payment amount is invalid.": {
+      "en": "Stripe payment amount is invalid."
+    },
+    "PayPal payment amount is invalid.": {
+      "en": "PayPal payment amount is invalid."
+    },
+    "Creator earnings": {
+      "en": "Creator earnings"
+    },
+    "Generated from monetized activity.": {
+      "en": "Generated from monetized activity."
+    },
+    "Click earning": {
+      "en": "Click earning"
+    },
+    "View earning": {
+      "en": "View earning"
+    },
+    "Like earning": {
+      "en": "Like earning"
+    },
+    "Subscriber earning": {
+      "en": "Subscriber earning"
+    },
+    "Comment earning": {
+      "en": "Comment earning"
+    },
+    "Monetization Settings": {
+      "en": "Monetization Settings"
+    },
+    "Enable creator monetization": {
+      "en": "Enable creator monetization"
+    },
+    "Platform commission": {
+      "en": "Platform commission"
+    },
+    "Per click": {
+      "en": "Per click"
+    },
+    "Per view": {
+      "en": "Per view"
+    },
+    "Per like": {
+      "en": "Per like"
+    },
+    "Per subscriber": {
+      "en": "Per subscriber"
+    },
+    "Per comment": {
+      "en": "Per comment"
+    },
+    "Save monetization": {
+      "en": "Save monetization"
+    },
+    "Monetization saved": {
+      "en": "Monetization saved"
+    },
+    "Save failed": {
+      "en": "Save failed"
+    },
+    "Monetization settings saved.": {
+      "en": "Monetization settings saved."
+    },
+    "Monetization settings could not be saved.": {
+      "en": "Monetization settings could not be saved."
+    },
+    "Current earnings": {
+      "en": "Current earnings"
+    },
+    "Views earned": {
+      "en": "Views earned"
+    },
+    "Engagement earned": {
+      "en": "Engagement earned"
+    },
+    "Likes/comments": {
+      "en": "Likes/comments"
+    },
+    "Earnings": {
+      "en": "Earnings"
+    },
+    "Creator Earnings": {
+      "en": "Creator Earnings"
+    },
+    "Platform Commission": {
+      "en": "Platform Commission"
+    },
+    "Creator earning": {
+      "en": "Creator earning"
+    },
+    "Pending Payout Requests": {
+      "en": "Pending Payout Requests"
+    },
+    "Recent Transactions": {
+      "en": "Recent Transactions"
+    },
+    "Payout Requests": {
+      "en": "Payout Requests"
+    },
+    "Manage Payout Methods": {
+      "en": "Manage Payout Methods"
+    },
+    "Not monetized": {
+      "en": "Not monetized"
+    },
+    "Default Theme": {
+      "en": "Default Theme"
+    },
+    "Choose the primary website color used for guests and users without a saved accent color.": {
+      "en": "Choose the primary website color used for guests and users without a saved accent color."
+    },
+    "Theme": {
+      "en": "Theme"
+    },
+    "Accent color": {
+      "en": "Accent color"
+    },
+    "Light": {
+      "en": "Light"
+    },
+    "Dark": {
+      "en": "Dark"
+    },
+    "System": {
+      "en": "System"
+    },
+    "Admin notifications": {
+      "en": "Admin notifications"
+    },
+    "Checking platform health...": {
+      "en": "Checking platform health..."
+    },
+    "No active admin notifications.": {
+      "en": "No active admin notifications."
+    },
+    "View all notifications": {
+      "en": "View all notifications"
+    },
+    "Refresh admin data": {
+      "en": "Refresh admin data"
+    },
+    "Reload metrics, reports, notifications, and system health.": {
+      "en": "Reload metrics, reports, notifications, and system health."
+    },
+    "No export data": {
+      "en": "No export data"
+    },
+    "There are no rows available for this export.": {
+      "en": "There are no rows available for this export."
+    },
+    "There are no rows available to export on this page.": {
+      "en": "There are no rows available to export on this page."
+    },
+    "Admin API unavailable": {
+      "en": "Admin API unavailable"
+    },
+    "Admin API client is unavailable.": {
+      "en": "Admin API client is unavailable."
+    },
+    "Action completed": {
+      "en": "Action completed"
+    },
+    "Action completed.": {
+      "en": "Action completed."
+    },
+    "Action failed": {
+      "en": "Action failed"
+    },
+    "Admin action failed.": {
+      "en": "Admin action failed."
+    },
+    "Payment settings": {
+      "en": "Payment settings"
+    },
+    "No transactions yet": {
+      "en": "No transactions yet"
+    },
+    "Payment records are not configured.": {
+      "en": "Payment records are not configured."
+    },
+    "No records": {
+      "en": "No records"
+    },
+    "Google Client ID": {
+      "en": "Google Client ID"
+    },
+    "Google Client Secret": {
+      "en": "Google Client Secret"
+    },
+    "Google redirect URI": {
+      "en": "Google redirect URI"
+    },
+    "Apple Services ID": {
+      "en": "Apple Services ID"
+    },
+    "Apple Team ID": {
+      "en": "Apple Team ID"
+    },
+    "Apple Key ID": {
+      "en": "Apple Key ID"
+    },
+    "Apple private key (.p8)": {
+      "en": "Apple private key (.p8)"
+    },
+    "Apple redirect URI": {
+      "en": "Apple redirect URI"
+    },
+    "Client secret configured. Leave blank to keep existing secret.": {
+      "en": "A client secret is saved. Leave this blank to keep it."
+    },
+    "Private key configured. Leave blank to keep existing key.": {
+      "en": "A private key is saved. Leave this blank to keep it."
+    },
+    "Save Social Login": {
+      "en": "Save Social Login"
+    },
+    "Log in with Google": {
+      "en": "Log in with Google"
+    },
+    "Sign up with Google": {
+      "en": "Sign up with Google"
+    },
+    "Log in with Apple": {
+      "en": "Log in with Apple"
+    },
+    "Sign up with Apple": {
+      "en": "Sign up with Apple"
+    },
+    "or": {
+      "en": "or"
+    },
+    "Account settings": {
+      "en": "Account settings"
+    },
+    "Processing...": {
+      "en": "Processing..."
+    },
+    "Submitting request...": {
+      "en": "Submitting request..."
+    },
+    "Updating records...": {
+      "en": "Updating records..."
+    },
+    "Finalizing...": {
+      "en": "Finalizing..."
+    },
+    "Completed": {
+      "en": "Completed"
+    },
+    "Continue": {
+      "en": "Continue"
+    },
+    "Enter details": {
+      "en": "Enter details"
+    },
+    "Complete the fields below to continue.": {
+      "en": "Complete the fields below to continue."
+    },
+    "Provider": {
+      "en": "Provider"
+    },
+    "No enabled providers": {
+      "en": "No enabled providers"
+    },
+    "Enable providers in System Settings first.": {
+      "en": "Enable providers in System Settings first."
+    },
+    "Video URLs (optional)": {
+      "en": "Video URLs (optional)"
+    },
+    "URL ready. Count limits how many are imported.": {
+      "en": "The video URL is ready. Import count sets the maximum number of videos to import."
+    },
+    "URLs ready. Count limits how many are imported.": {
+      "en": "The video URLs are ready. Import count sets the maximum number of videos to import."
+    },
+    "Leave empty to discover videos from the selected provider, keyword, or category.": {
+      "en": "Leave empty to discover videos from the selected provider, keyword, or category."
+    },
+    "Keyword": {
+      "en": "Keyword"
+    },
+    "Optional search keyword": {
+      "en": "Optional search keyword"
+    },
+    "Import count": {
+      "en": "Import count"
+    },
+    "Visibility": {
+      "en": "Visibility"
+    },
+    "Public": {
+      "en": "Public"
+    },
+    "Unlisted": {
+      "en": "Unlisted"
+    },
+    "Private": {
+      "en": "Private"
+    },
+    "Extra tags": {
+      "en": "Extra tags"
+    },
+    "Comma separated, optional": {
+      "en": "Comma separated, optional"
+    },
+    "Mark imported videos as made for kids": {
+      "en": "Mark imported videos as made for kids"
+    },
+    "Enable monetization on imported videos": {
+      "en": "Enable monetization on imported videos"
+    },
+    "Skip duplicate URLs in this batch": {
+      "en": "Skip duplicate URLs in this batch"
+    },
+    "Stop on first failed import": {
+      "en": "Stop on first failed import"
+    },
+    "Start Import": {
+      "en": "Start Import"
+    },
+    "Importing...": {
+      "en": "Importing..."
+    },
+    "Mass Import": {
+      "en": "Mass Import"
+    },
+    "Mass import": {
+      "en": "Mass import"
+    },
+    "Mass import unavailable": {
+      "en": "Mass import unavailable"
+    },
+    "Mass import failed": {
+      "en": "Mass import failed"
+    },
+    "Mass import failed.": {
+      "en": "Mass import failed."
+    },
+    "Mass import finished": {
+      "en": "Mass import finished"
+    },
+    "Mass import completed": {
+      "en": "Mass import completed"
+    },
+    "Starting mass import...": {
+      "en": "Starting mass import..."
+    },
+    "Choose a category, enter a keyword, or paste video URLs.": {
+      "en": "Choose a category, enter a keyword, or paste video URLs."
+    },
+    "No provider video URL was returned.": {
+      "en": "No provider video URL was returned."
+    },
+    "Enable YouTube, Vimeo, Dailymotion, or Twitch in System Settings > Video Import first.": {
+      "en": "Enable at least one provider in System Settings > Video Import first."
+    },
+    "Search or enter your location": {
+      "en": "Search or enter your location"
+    },
+    "Anyone": {
+      "en": "Anyone"
+    },
+    "Display your email on your public profile": {
+      "en": "Display your email on your public profile"
+    },
+    "This user cannot receive private messages.": {
+      "en": "This user cannot receive private messages."
+    },
+    "This user has disabled private messages.": {
+      "en": "This user has disabled private messages."
+    },
+    "This user only accepts private messages from subscribers.": {
+      "en": "This user only accepts private messages from subscribers."
+    },
+    "Muted users": {
+      "en": "Muted users"
+    },
+    "No muted users.": {
+      "en": "No muted users."
+    },
+    "Loading muted users...": {
+      "en": "Loading muted users..."
+    },
+    "User unmuted.": {
+      "en": "User unmuted."
+    },
+    "Unable to unmute user.": {
+      "en": "Unable to unmute user."
+    },
+    "Unable to load muted users.": {
+      "en": "Unable to load muted users."
+    },
+    "Unable to update comment.": {
+      "en": "Unable to update comment."
+    },
+    "No comment text.": {
+      "en": "No comment text."
+    },
+    "Comment moderation": {
+      "en": "Comment moderation"
+    },
+    "No comments to review.": {
+      "en": "No comments to review."
+    },
+    "Unknown user": {
+      "en": "Unknown user"
+    },
+    "This user is not accepting private messages.": {
+      "en": "This user is not accepting private messages."
+    },
+    "Search people by name or username": {
+      "en": "Search people by name or username"
+    },
+    "Close muted users": {
+      "en": "Close muted users"
+    },
+    "Close comment moderation": {
+      "en": "Close comment moderation"
+    },
+    "Muting...": {
+      "en": "Muting..."
+    },
+    "Pin": {
+      "en": "Pin"
+    },
+    "Unpin": {
+      "en": "Unpin"
+    },
+    "Website": {
+      "en": "Website"
+    },
+    "Location": {
+      "en": "Location"
+    },
+    "Socials": {
+      "en": "Socials"
+    },
+    "Pin to profile": {
+      "en": "Pin to profile"
+    },
+    "Unpin from profile": {
+      "en": "Unpin from profile"
+    },
+    "Video pinned to profile.": {
+      "en": "Video pinned to profile."
+    },
+    "Video unpinned from profile.": {
+      "en": "Video unpinned from profile."
+    },
+    "Unable to pin video.": {
+      "en": "Unable to pin video."
+    },
+    "Search suggestions": {
+      "en": "Search suggestions"
+    },
+    "Search for": {
+      "en": "Search for"
+    },
+    "Set a new password for": {
+      "en": "Set a new password for"
+    },
+    "Passwords do not match.": {
+      "en": "Passwords do not match."
+    },
+    "The user will need the new password on their next login.": {
+      "en": "The user will need the new password on their next login."
+    },
+    "Password updated.": {
+      "en": "Password updated."
+    },
+    "Change password": {
+      "en": "Change password"
+    },
+    "Repeat password": {
+      "en": "Repeat password"
+    },
+    "Review active sessions": {
+      "en": "Review active sessions"
+    },
+    "Active sessions": {
+      "en": "Active sessions"
+    },
+    "Session limit": {
+      "en": "Session limit"
+    },
+    "Sign out other devices": {
+      "en": "Sign out other devices"
+    },
+    "Review browsers and devices signed in to this account. Signing out a device revokes its active session token.": {
+      "en": "Review the browsers and devices signed in to this account. Signing out a device ends its active session."
+    },
+    "Loading devices...": {
+      "en": "Loading devices..."
+    },
+    "No active devices found.": {
+      "en": "No active devices found."
+    },
+    "This device": {
+      "en": "This device"
+    },
+    "Last active": {
+      "en": "Last active"
+    },
+    "Close devices": {
+      "en": "Close devices"
+    },
+    "Only the video owner can pin this video.": {
+      "en": "Only the video owner can pin this video."
+    },
+    "Unable to update pinned video.": {
+      "en": "Unable to update pinned video."
+    },
+    "Verify profile badge": {
+      "en": "Verify profile badge"
+    },
+    "Remove profile badge": {
+      "en": "Remove profile badge"
+    },
+    "Remove the verified profile badge from this user?": {
+      "en": "Remove the verified profile badge from this user?"
+    },
+    "Remove badge": {
+      "en": "Remove badge"
+    },
+    "Profile badge verified.": {
+      "en": "Profile badge verified."
+    },
+    "Profile badge removed.": {
+      "en": "Profile badge removed."
+    },
+    "Enter creator email addresses, usernames, or handles to verify their profile badges.": {
+      "en": "Enter creator email addresses, usernames, or handles to verify their profile badges."
+    },
+    "Creator profile badges verified.": {
+      "en": "Creator profile badges verified."
+    },
+    "Set up your stream and go live with your community.": {
+      "en": "Set up your stream and go live with your community."
+    },
+    "Start live stream": {
+      "en": "Start live stream"
+    },
+    "More live stream options": {
+      "en": "More live stream options"
+    },
+    "Stream Settings": {
+      "en": "Stream Settings"
+    },
+    "Stream Preview": {
+      "en": "Stream Preview"
+    },
+    "Stream Details": {
+      "en": "Stream Details"
+    },
+    "Everyone": {
+      "en": "Everyone"
+    },
+    "Stream Key": {
+      "en": "Stream Key"
+    },
+    "Test connection": {
+      "en": "Test connection"
+    },
+    "Enable DVR": {
+      "en": "Enable DVR"
+    },
+    "Enable Live Chat": {
+      "en": "Enable Live Chat"
+    },
+    "Slow Mode": {
+      "en": "Slow Mode"
+    },
+    "Tips": {
+      "en": "Tips"
+    },
+    "Allow one-time tips": {
+      "en": "Allow one-time tips"
+    },
+    "Stream details added": {
+      "en": "Stream details added"
+    },
+    "Thumbnail uploaded": {
+      "en": "Thumbnail uploaded"
+    },
+    "Monetization set up": {
+      "en": "Monetization set up"
+    },
+    "Connection tested": {
+      "en": "Connection tested"
+    },
+    "Go live": {
+      "en": "Go live"
+    },
+    "Connection Status": {
+      "en": "Connection Status"
+    },
+    "Frame Rate": {
+      "en": "Frame Rate"
+    },
+    "Dropped Frames": {
+      "en": "Dropped Frames"
+    },
+    "Latency": {
+      "en": "Latency"
+    },
+    "Devices": {
+      "en": "Devices"
+    },
+    "Microphone": {
+      "en": "Microphone"
+    },
+    "Ready to go live?": {
+      "en": "Ready to go live?"
+    },
+    "Change thumbnail": {
+      "en": "Change thumbnail"
+    },
+    "Bold": {
+      "en": "Bold"
+    },
+    "Gradient": {
+      "en": "Gradient"
+    },
+    "Font": {
+      "en": "Font"
+    },
+    "Latency Mode": {
+      "en": "Latency Mode"
+    },
+    "Standard": {
+      "en": "Standard"
+    },
+    "Stream Delay": {
+      "en": "Stream Delay"
+    },
+    "Ads": {
+      "en": "Ads"
+    },
+    "Channel Memberships": {
+      "en": "Channel Memberships"
+    },
+    "Payout Method": {
+      "en": "Payout Method"
+    },
+    "Overlay": {
+      "en": "Overlay"
+    },
+    "Capture Card": {
+      "en": "Capture Card"
+    },
+    "High": {
+      "en": "High"
+    },
+    "Stream Health": {
+      "en": "Stream Health"
+    },
+    "Low (1.2s)": {
+      "en": "Low (1.2s)"
+    },
+    "Ask your audience": {
+      "en": "Ask your audience"
+    },
+    "Pinned Message": {
+      "en": "Pinned Message"
+    },
+    "Highlight key info": {
+      "en": "Highlight key info"
+    },
+    "Alerts": {
+      "en": "Alerts"
+    },
+    "Follower, sub, tip alerts": {
+      "en": "Follower, sub, tip alerts"
+    },
+    "Stream Labels": {
+      "en": "Stream Labels"
+    },
+    "Display custom labels": {
+      "en": "Display custom labels"
+    },
+    "Save draft": {
+      "en": "Save draft"
+    },
+    "Overlay / Theme": {
+      "en": "Overlay / Theme"
+    },
+    "Minimal PlayHub": {
+      "en": "Minimal PlayHub"
+    },
+    "Creator Dark": {
+      "en": "Creator Dark"
+    },
+    "Clean Light": {
+      "en": "Clean Light"
+    },
+    "Show stream key": {
+      "en": "Show stream key"
+    },
+    "Show RTMP URL": {
+      "en": "Show RTMP URL"
+    },
+    "Quality / Resolution": {
+      "en": "Quality / Resolution"
+    },
+    "Low latency (1–2s)": {
+      "en": "Low latency (1–2s)"
+    },
+    "Save Replay": {
+      "en": "Save Replay"
+    },
+    "Audience Mode": {
+      "en": "Audience Mode"
+    },
+    "Captions / Subtitles": {
+      "en": "Captions / Subtitles"
+    },
+    "Chat Moderation": {
+      "en": "Chat Moderation"
+    },
+    "Followers-Only Chat": {
+      "en": "Followers-Only Chat"
+    },
+    "Unique Chat Only": {
+      "en": "Unique Chat Only"
+    },
+    "Advanced settings": {
+      "en": "Advanced settings"
+    },
+    "Run ads during your stream": {
+      "en": "Run ads during your stream"
+    },
+    "Offer custom perks to members": {
+      "en": "Offer custom perks to members"
+    },
+    "Let viewers highlight their messages": {
+      "en": "Let viewers highlight their messages"
+    },
+    "Fun animated stickers": {
+      "en": "Fun animated stickers"
+    },
+    "Gifts": {
+      "en": "Gifts"
+    },
+    "Viewers send gifts": {
+      "en": "Viewers send gifts"
+    },
+    "Goal Bar": {
+      "en": "Goal Bar"
+    },
+    "Set funding goals": {
+      "en": "Set funding goals"
+    },
+    "Engagement Tools": {
+      "en": "Engagement Tools"
+    },
+    "Pre-Flight Checklist": {
+      "en": "Before you go live"
+    },
+    "Stream key added": {
+      "en": "Stream key added"
+    },
+    "Run test again": {
+      "en": "Run test again"
+    },
+    "You're all set! Start your stream and engage with your audience.": {
+      "en": "You're all set! Start your stream and engage with your audience."
+    }
+  }
+}

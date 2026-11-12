@@ -2,6 +2,7 @@
 
 namespace App\Support;
 
+use App\Plugins\PluginHooks;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
@@ -13,7 +14,12 @@ class VideoImportSettings
         $path = self::settingsPath();
         $stored = is_file($path) && is_readable($path) ? json_decode((string) @file_get_contents($path), true) : [];
 
-        return array_replace_recursive(self::defaults(), is_array($stored) ? $stored : []);
+        $defaults = self::defaults();
+        foreach (self::providers() as $key => $provider) {
+            $defaults['providers'][$key] ??= ['enabled' => (bool) ($provider['enabled_by_default'] ?? false), 'apiKey' => ''];
+        }
+
+        return array_replace_recursive($defaults, is_array($stored) ? $stored : []);
     }
 
     public static function adminSettings(): array
@@ -51,7 +57,7 @@ class VideoImportSettings
 
     public static function providers(): array
     {
-        return [
+        $providers = [
             'direct' => [
                 'label' => 'Video URL (direct or yt-dlp)',
                 'mirror_label' => 'Original',
@@ -65,7 +71,7 @@ class VideoImportSettings
                 'requires_downloader' => false,
                 'api_key_label' => 'YouTube Data API key',
                 'domains' => ['youtube.com', 'www.youtube.com', 'm.youtube.com', 'youtu.be', 'youtube-nocookie.com', 'www.youtube-nocookie.com'],
-                'help' => 'Fetches YouTube details and plays with the YouTube embed player.',
+                'help' => 'Imports video details, available subtitles and chapters from YouTube.',
             ],
             'vimeo' => [
                 'label' => 'Vimeo',
@@ -89,6 +95,15 @@ class VideoImportSettings
                 'help' => 'Imports Twitch live channels, videos, and clips and plays them with the Twitch embed player.',
             ],
         ];
+
+        if (app()->bound(PluginHooks::class)) {
+            $filtered = app(PluginHooks::class)->filter('playhub.video_import.providers', $providers);
+            if (is_array($filtered)) {
+                $providers = $filtered;
+            }
+        }
+
+        return $providers;
     }
 
     public static function save(array $settings): void
@@ -122,6 +137,36 @@ class VideoImportSettings
         return (bool) ($settings['enabled'] ?? false)
             && array_key_exists($provider, self::providers())
             && (bool) Arr::get($settings, "providers.{$provider}.enabled", false);
+    }
+
+    public static function detectProvider(string $url): ?string
+    {
+        $parts = parse_url(trim($url));
+        if (! is_array($parts) || ! in_array(strtolower($parts['scheme'] ?? ''), ['http', 'https'], true)
+            || empty($parts['host']) || isset($parts['user']) || isset($parts['pass'])) {
+            return null;
+        }
+        $host = strtolower(rtrim($parts['host'], '.'));
+        foreach (self::providers() as $key => $definition) {
+            foreach ($definition['domains'] ?? [] as $domain) {
+                if ($host === $domain || str_ends_with($host, '.'.$domain)) {
+                    return $key;
+                }
+            }
+        }
+
+        return array_key_exists('direct', self::providers()) ? 'direct' : null;
+    }
+
+    public static function resolveProvider(?string $provider, string $url): string
+    {
+        if ($provider && $provider !== 'auto') {
+            return $provider;
+        }
+
+        return self::detectProvider($url) ?? throw \Illuminate\Validation\ValidationException::withMessages([
+            'url' => 'Use a valid public HTTP or HTTPS video URL.',
+        ]);
     }
 
     /**

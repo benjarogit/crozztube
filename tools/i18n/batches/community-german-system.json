@@ -1,0 +1,305 @@
+{
+  "context": "Editorial pass: system/email/storage settings, live schedule, moderation reports and appeals, memberships and Creator administration. Static taxonomy labels reviewed separately from immutable administrator-supplied category names.",
+  "messages": {
+    "CDN Cache TTL": {
+      "de": "Gültigkeitsdauer des CDN-Caches"
+    },
+    "Email / SMTP": {
+      "de": "E-Mail / SMTP"
+    },
+    "Configure outgoing email server settings.": {
+      "de": "Konfiguriere den Server für ausgehende E-Mails."
+    },
+    "SMTP Provider": {
+      "de": "SMTP-Anbieter"
+    },
+    "From Email": {
+      "de": "Absenderadresse"
+    },
+    "Test Connection": {
+      "de": "Verbindung testen"
+    },
+    "Moderation Defaults": {
+      "de": "Moderationsvorgaben"
+    },
+    "Set default moderation and content policy settings.": {
+      "de": "Lege die Standardeinstellungen für Moderation und Inhaltsrichtlinien fest."
+    },
+    "Auto-Approve Users": {
+      "de": "Nutzer automatisch freigeben"
+    },
+    "Default Content Visibility": {
+      "de": "Standardmäßige Sichtbarkeit von Inhalten"
+    },
+    "Profanity Filter": {
+      "de": "Schimpfwortfilter"
+    },
+    "Integrations": {
+      "de": "Integrationen"
+    },
+    "Manage third-party services and API integrations.": {
+      "de": "Verwalte externe Dienste und API-Integrationen."
+    },
+    "View All Integrations": {
+      "de": "Alle Integrationen anzeigen"
+    },
+    "Maintenance Mode": {
+      "de": "Wartungsmodus"
+    },
+    "Temporarily disable platform access for maintenance.": {
+      "de": "Sperre den Plattformzugriff vorübergehend für Wartungsarbeiten."
+    },
+    "Allowed IPs (optional)": {
+      "de": "Erlaubte IPs (optional)"
+    },
+    "Save Maintenance Settings": {
+      "de": "Wartungseinstellungen speichern"
+    },
+    "Server Status": {
+      "de": "Serverstatus"
+    },
+    "Recent Changes": {
+      "de": "Aktuelle Änderungen"
+    },
+    "Backup Summary": {
+      "de": "Backup-Zusammenfassung"
+    },
+    "Run Backup Now": {
+      "de": "Jetzt sichern"
+    },
+    "Clear Cache": {
+      "de": "Cache leeren"
+    },
+    "Rebuild Search Index": {
+      "de": "Suchindex neu erstellen"
+    },
+    "View System Logs": {
+      "de": "Systemprotokolle anzeigen"
+    },
+    "Manage Cron Jobs": {
+      "de": "Cron-Jobs verwalten"
+    },
+    "Live Now": {
+      "de": "Jetzt live"
+    },
+    "Upcoming": {
+      "de": "Demnächst"
+    },
+    "Ended": {
+      "de": "Beendet"
+    },
+    "Flagged": {
+      "de": "Gemeldet"
+    },
+    "Today's Live Schedule": {
+      "de": "Heutige Livestreams"
+    },
+    "Stream Health Overview": {
+      "de": "Streamstatus im Überblick"
+    },
+    "Top Live Categories": {
+      "de": "Beliebte Livestream-Kategorien"
+    },
+    "Create Live Event": {
+      "de": "Live-Event erstellen"
+    },
+    "Schedule Live Stream": {
+      "de": "Livestream planen"
+    },
+    "Moderation Queue": {
+      "de": "Moderationswarteschlange"
+    },
+    "Flagged Streams": {
+      "de": "Gemeldete Livestreams"
+    },
+    "All Reports": {
+      "de": "Alle Meldungen"
+    },
+    "Copyright": {
+      "de": "Urheberrecht"
+    },
+    "Appeals": {
+      "de": "Einsprüche"
+    },
+    "Report Categories": {
+      "de": "Meldekategorien"
+    },
+    "Moderators Online": {
+      "de": "Moderatoren online"
+    },
+    "Resolution Rate": {
+      "de": "Bearbeitungsquote"
+    },
+    "Bulk Resolve Reports": {
+      "de": "Mehrere Meldungen abschließen"
+    },
+    "Assign Reports": {
+      "de": "Meldungen zuweisen"
+    },
+    "Report Settings": {
+      "de": "Meldeeinstellungen"
+    },
+    "View Report Guidelines": {
+      "de": "Melderichtlinien ansehen"
+    },
+    "Revenue Overview": {
+      "de": "Umsatzübersicht"
+    },
+    "Total Revenue": {
+      "de": "Gesamtumsatz"
+    },
+    "Ad Revenue": {
+      "de": "Werbeeinnahmen"
+    },
+    "Membership Revenue": {
+      "de": "Einnahmen aus Mitgliedschaften"
+    },
+    "Tips Revenue": {
+      "de": "Einnahmen aus Trinkgeldern"
+    },
+    "Revenue by Source": {
+      "de": "Umsatz nach Quelle"
+    },
+    "All Status": {
+      "de": "Alle Statuswerte"
+    },
+    "Top Earning Creators": {
+      "de": "Creator mit den höchsten Einnahmen"
+    },
+    "Create Payout": {
+      "de": "Auszahlung erstellen"
+    },
+    "Tax Documents": {
+      "de": "Steuerdokumente"
+    },
+    "Revenue Settings": {
+      "de": "Umsatzeinstellungen"
+    },
+    "All Creators": {
+      "de": "Alle Creator"
+    },
+    "Partnered": {
+      "de": "Partner"
+    },
+    "Applied": {
+      "de": "Bewerbung eingereicht"
+    },
+    "Avg Revenue per Creator": {
+      "de": "Durchschnittlicher Umsatz pro Creator"
+    },
+    "Verification Queue": {
+      "de": "Verifizierungswarteschlange"
+    },
+    "Creator Segments": {
+      "de": "Creator-Gruppen"
+    },
+    "Bulk Verify Creators": {
+      "de": "Mehrere Creator verifizieren"
+    },
+    "Send Announcement": {
+      "de": "Ankündigung senden"
+    },
+    "All Content": {
+      "de": "Alle Inhalte"
+    },
+    "Posts": {
+      "de": "Beiträge"
+    },
+    "Live Replays": {
+      "de": "Livestream-Aufzeichnungen"
+    },
+    "Content Types": {
+      "de": "Inhaltstypen"
+    },
+    "Moderation Summary": {
+      "de": "Zusammenfassung der Moderation"
+    },
+    "Review Flagged Content": {
+      "de": "Gemeldete Inhalte prüfen"
+    },
+    "Bulk Update Categories": {
+      "de": "Kategorien für mehrere Inhalte ändern"
+    },
+    "Schedule Content": {
+      "de": "Veröffentlichung planen"
+    },
+    "Manage Content Categories": {
+      "de": "Inhaltskategorien verwalten"
+    },
+    "No records found.": {
+      "de": "Keine Einträge gefunden."
+    },
+    "No data": {
+      "de": "Keine Daten"
+    },
+    "Total": {
+      "de": "Insgesamt"
+    },
+    "Status data unavailable": {
+      "de": "Statusdaten nicht verfügbar"
+    },
+    "Health data unavailable": {
+      "de": "Systemstatus nicht verfügbar"
+    },
+    "Upload date unavailable": {
+      "de": "Upload-Datum nicht verfügbar"
+    },
+    "Unknown": {
+      "de": "Unbekannt"
+    },
+    "Untitled": {
+      "de": "Ohne Titel"
+    },
+    "More actions": {
+      "de": "Weitere Aktionen"
+    },
+    "Documentary": {
+      "de": "Dokumentarfilm"
+    },
+    "Travel & Events": {
+      "de": "Reisen & Veranstaltungen"
+    },
+    "Technology": {
+      "de": "Technologie"
+    },
+    "Education": {
+      "de": "Bildung"
+    },
+    "Lifestyle": {
+      "de": "Lebensstil"
+    },
+    "Music": {
+      "de": "Musik"
+    },
+    "Sports": {
+      "de": "Sport"
+    },
+    "Gaming": {
+      "de": "Gaming"
+    },
+    "Film & Animation": {
+      "de": "Film & Animation"
+    },
+    "Science & Technology": {
+      "de": "Wissenschaft und Technologie"
+    },
+    "News & Politics": {
+      "de": "Nachrichten & Politik"
+    },
+    "Entertainment": {
+      "de": "Unterhaltung"
+    },
+    "Comedy": {
+      "de": "Comedy"
+    },
+    "People & Blogs": {
+      "de": "Menschen & Blogs"
+    },
+    "Howto & Style": {
+      "de": "Anleitungen und Stil"
+    },
+    "Pets & Animals": {
+      "de": "Haustiere und Tiere"
+    }
+  }
+}

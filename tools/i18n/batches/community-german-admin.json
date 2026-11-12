@@ -1,0 +1,305 @@
+{
+  "context": "Editorial pass: administrator selection, registration/date filters, moderation reports, analytics charts, support status, roles and system preferences. Device Breakdown is a distribution, not a device failure; reviewed Open as ticket status.",
+  "messages": {
+    "Delete selected": {
+      "de": "Ausgewählte löschen"
+    },
+    "Clear selection": {
+      "de": "Auswahl aufheben"
+    },
+    "Select all visible users": {
+      "de": "Alle sichtbaren Nutzer auswählen"
+    },
+    "Select row": {
+      "de": "Zeile auswählen"
+    },
+    "Open actions": {
+      "de": "Aktionen öffnen"
+    },
+    "View activity": {
+      "de": "Aktivität anzeigen"
+    },
+    "Role": {
+      "de": "Rolle"
+    },
+    "Signup Date": {
+      "de": "Anmeldedatum"
+    },
+    "Last Active": {
+      "de": "Zuletzt aktiv"
+    },
+    "All Users": {
+      "de": "Alle Nutzer"
+    },
+    "Active": {
+      "de": "Aktiv"
+    },
+    "Suspended": {
+      "de": "Gesperrt"
+    },
+    "Verified": {
+      "de": "Verifiziert"
+    },
+    "Fake": {
+      "de": "Testnutzer"
+    },
+    "All": {
+      "de": "Alle"
+    },
+    "Pending": {
+      "de": "Ausstehend"
+    },
+    "Deleted": {
+      "de": "Gelöscht"
+    },
+    "Unverified": {
+      "de": "Nicht verifiziert"
+    },
+    "More Filters": {
+      "de": "Weitere Filter"
+    },
+    "Reset": {
+      "de": "Zurücksetzen"
+    },
+    "Email domain": {
+      "de": "E-Mail-Domain"
+    },
+    "Joined after": {
+      "de": "Beigetreten nach"
+    },
+    "Joined before": {
+      "de": "Beigetreten vor"
+    },
+    "Searching users...": {
+      "de": "Nutzer werden gesucht …"
+    },
+    "Users search failed": {
+      "de": "Nutzersuche fehlgeschlagen"
+    },
+    "Unable to search users.": {
+      "de": "Die Nutzer konnten nicht gesucht werden."
+    },
+    "Recent Signups": {
+      "de": "Neueste Registrierungen"
+    },
+    "User Segments": {
+      "de": "Nutzergruppen"
+    },
+    "User Activity Report": {
+      "de": "Bericht zu Nutzeraktivitäten"
+    },
+    "Total Users": {
+      "de": "Nutzer insgesamt"
+    },
+    "Active Users": {
+      "de": "Aktive Nutzer"
+    },
+    "New Signups": {
+      "de": "Neue Registrierungen"
+    },
+    "Suspended Users": {
+      "de": "Gesperrte Nutzer"
+    },
+    "Verification Rate": {
+      "de": "Verifizierungsrate"
+    },
+    "Platform Growth": {
+      "de": "Plattformwachstum"
+    },
+    "Watch Time Trend": {
+      "de": "Entwicklung der Wiedergabezeit"
+    },
+    "Recent Reports / Moderation Queue": {
+      "de": "Neueste Meldungen und Moderationswarteschlange"
+    },
+    "Top Creators": {
+      "de": "Erfolgreiche Creator"
+    },
+    "System Health": {
+      "de": "Systemstatus"
+    },
+    "View status": {
+      "de": "Status anzeigen"
+    },
+    "Review Reports": {
+      "de": "Meldungen prüfen"
+    },
+    "Manage Roles & Permissions": {
+      "de": "Rollen und Berechtigungen verwalten"
+    },
+    "Export Analytics Report": {
+      "de": "Analysebericht exportieren"
+    },
+    "Platform Traffic": {
+      "de": "Plattformzugriffe"
+    },
+    "Watch Time (hours)": {
+      "de": "Wiedergabezeit (Stunden)"
+    },
+    "Sessions": {
+      "de": "Sitzungen"
+    },
+    "Traffic Sources": {
+      "de": "Zugriffsquellen"
+    },
+    "Device Breakdown": {
+      "de": "Geräteverteilung"
+    },
+    "Top Performing Categories": {
+      "de": "Erfolgreichste Kategorien"
+    },
+    "Top Traffic Sources": {
+      "de": "Wichtigste Zugriffsquellen"
+    },
+    "Audience Devices": {
+      "de": "Geräte der Zuschauer"
+    },
+    "Trend Insights": {
+      "de": "Trends im Überblick"
+    },
+    "Create Custom Report": {
+      "de": "Eigenen Bericht erstellen"
+    },
+    "Schedule Report": {
+      "de": "Bericht planen"
+    },
+    "Download Raw Data": {
+      "de": "Rohdaten herunterladen"
+    },
+    "Open": {
+      "de": "Offen"
+    },
+    "In Progress": {
+      "de": "In Bearbeitung"
+    },
+    "Waiting on User": {
+      "de": "Wartet auf Rückmeldung"
+    },
+    "Resolved": {
+      "de": "Gelöst"
+    },
+    "Escalated": {
+      "de": "Eskaliert"
+    },
+    "Agents Online": {
+      "de": "Supportteam online"
+    },
+    "Ticket Categories": {
+      "de": "Ticketkategorien"
+    },
+    "SLA Overview": {
+      "de": "SLA-Übersicht"
+    },
+    "Create Ticket": {
+      "de": "Ticket erstellen"
+    },
+    "View Unassigned Tickets": {
+      "de": "Nicht zugewiesene Tickets anzeigen"
+    },
+    "SLA Breach Report": {
+      "de": "Bericht zu überschrittenen Servicefristen"
+    },
+    "Response Time Report": {
+      "de": "Reaktionszeitbericht"
+    },
+    "Roles": {
+      "de": "Rollen"
+    },
+    "Permission Matrix": {
+      "de": "Berechtigungsmatrix"
+    },
+    "Permission Groups": {
+      "de": "Berechtigungsgruppen"
+    },
+    "Team Members": {
+      "de": "Teammitglieder"
+    },
+    "Invite Member": {
+      "de": "Mitglied einladen"
+    },
+    "All Members": {
+      "de": "Alle Mitglieder"
+    },
+    "Pending Invites": {
+      "de": "Ausstehende Einladungen"
+    },
+    "Deactivated": {
+      "de": "Deaktiviert"
+    },
+    "Recent Access Activity": {
+      "de": "Letzte Zugriffsaktivität"
+    },
+    "Permission Audit": {
+      "de": "Berechtigungsprüfung"
+    },
+    "Sensitive Actions (7d)": {
+      "de": "Sensible Aktionen (7d)"
+    },
+    "Create New Role": {
+      "de": "Neue Rolle erstellen"
+    },
+    "Manage Permission Groups": {
+      "de": "Berechtigungsgruppen verwalten"
+    },
+    "View Permission Matrix": {
+      "de": "Berechtigungsmatrix anzeigen"
+    },
+    "Security Settings": {
+      "de": "Sicherheitseinstellungen"
+    },
+    "General": {
+      "de": "Allgemein"
+    },
+    "Configure basic platform settings and default behavior.": {
+      "de": "Lege die grundlegenden Plattformeinstellungen und das Standardverhalten fest."
+    },
+    "Platform Name": {
+      "de": "Plattformname"
+    },
+    "Default Timezone": {
+      "de": "Standardzeitzone"
+    },
+    "Items Per Page": {
+      "de": "Einträge pro Seite"
+    },
+    "Manage security settings and access controls.": {
+      "de": "Verwalte Sicherheitseinstellungen und Zugriffsrechte."
+    },
+    "Session Timeout": {
+      "de": "Sitzungsdauer bis zur automatischen Abmeldung"
+    },
+    "Password Policy": {
+      "de": "Passwortrichtlinie"
+    },
+    "Login Attempts": {
+      "de": "Anmeldeversuche"
+    },
+    "Configure system and user notifications.": {
+      "de": "Konfiguriere System- und Nutzerbenachrichtigungen."
+    },
+    "System Alerts Email": {
+      "de": "E-Mail-Adresse für Systemwarnungen"
+    },
+    "New User Notifications": {
+      "de": "Benachrichtigungen bei neuen Nutzern"
+    },
+    "Weekly Digest": {
+      "de": "Wöchentliche Zusammenfassung"
+    },
+    "Marketing Emails": {
+      "de": "Marketing-E-Mails"
+    },
+    "Storage & CDN": {
+      "de": "Speicher und CDN"
+    },
+    "Manage media storage and content delivery settings.": {
+      "de": "Verwalte Medienspeicher und die Bereitstellung von Inhalten."
+    },
+    "Storage Provider": {
+      "de": "Speicheranbieter"
+    },
+    "CDN Provider": {
+      "de": "CDN-Anbieter"
+    }
+  }
+}

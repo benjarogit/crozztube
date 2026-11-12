@@ -1,0 +1,10 @@
+{
+  "id": "crozztube.auf1", "name": "CrozzTube AUF1 Provider", "version": "1.0.1", "api": 1,
+  "description": "AUF1-Videoimport mit Metadaten, vorhandenen Kapiteln, nativen Originalquellen und offiziell veroeffentlichtem Player als Fallback.",
+  "homepage": "https://auf1.tv/", "author": { "name": "CrozzTube" },
+  "requires": { "playhub": ">=0.9.13", "php": ">=8.3.0", "extensions": ["json", "mbstring"] },
+  "dependencies": { "crozztube.source-resolver": ">=0.9.0" },
+  "autoload": { "psr-4": { "CrzAuf1\\": "src/" } },
+  "providers": ["CrzAuf1\\PluginServiceProvider"], "lifecycle": "CrzAuf1\\Lifecycle",
+  "capabilities": ["Automatische AUF1-URL-Erkennung", "Metadaten und vorhandene Kapitel", "Native HLS-Quellen mit begrenzten MP4-Fallbacks", "Offizieller Player als Mirror", "Stabile AUF1-Content-ID fuer Duplikaterkennung"]
+}

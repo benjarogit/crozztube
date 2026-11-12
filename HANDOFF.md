@@ -44,7 +44,7 @@ Die neue Kurzreferenz steht in `AGENT-HANDOFF.md`, die vollständige Thumbnail-K
 
 - **Projekt:** CrozzTube = PlayHub web v0.9.13 (Laravel 13, React 19), lokale Instanz.
 - **Konzept:** NUR Streaming/Import für Videos, keine Video-Datei-Uploads. Selbst ausgewählte Bilder werden extern gehostet. **Keine Video-API-Keys** (Bildhoster mit eigenen lokalen Keys). **yt-dlp ist die zentrale Video-Engine**: Metadaten (Titel, Beschreibung, Tags, Thumbnail, Dauer, Kapitel) beim Import und Direkt-URL (eigener Player, HLS bevorzugt) für die Wiedergabe. Der Provider-Embed (YouTube etc.) ist nur Mirror/Fallback.
-- **URL:** `https://crozztube.local:8443` (self-signed) · Admin: `benny` / `meZVRW0bYEbpHsJc`
+- **URL:** `https://crozztube.local:8443` (self-signed) · Admin: `benny` / `lokal hinterlegt; nicht versionieren`
 - **Docker-Stack** (`docker/compose.yml`, Projekt `crozztube-local`): crozztube-web (PHP 8.3 + FFmpeg + yt-dlp 2026.10.26), -mysql (Port 3308! User crozztube/crozztube-local-db), -redis (Pass crozztube-local-redis), -worker (`queue:work videos,maintenance,default`), -cron (schedule:run je Minute + täglicher yt-dlp-Auto-Update), -phpmyadmin (8083), -mailhog.
 - **NICHT anfassen:** Container `crozztube-audit-*` (separate Audit-Instanz unter /home/benny/audit-instance).
 - **Git-Backup:** `https://github.com/benjarogit/crozztube` (privat). Regelmäßig committen + pushen.

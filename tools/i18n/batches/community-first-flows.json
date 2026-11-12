@@ -1,0 +1,257 @@
+{
+  "context": "Source review: authentication preview and public URL import, including provider detection, loading, subtitle counts and chapter selection",
+  "messages": {
+    "Video CMS & Streaming Platform UI Kit": {
+      "fr": "Tes vidéos. Ta communauté.",
+      "nl": "Jouw video's. Jouw community.",
+      "es": "Tus videos. Tu comunidad.",
+      "es_es": "Tus vídeos. Tu comunidad.",
+      "pt": "Os teus vídeos. A tua comunidade.",
+      "pt_br": "Seus vídeos. Sua comunidade.",
+      "it": "I tuoi video. La tua community.",
+      "ru": "Твои видео. Твоё сообщество."
+    },
+    "Clean light and true black dark layouts for creators, communities and streaming products.": {
+      "fr": "Partage tes vidéos, découvre de nouveaux créateurs et trouve ta communauté.",
+      "nl": "Deel je video's, ontdek nieuwe creators en vind jouw community.",
+      "es": "Comparte tus videos, descubre nuevos creadores y encuentra tu comunidad.",
+      "es_es": "Comparte tus vídeos, descubre nuevos creadores y encuentra tu comunidad.",
+      "pt": "Partilha os teus vídeos, descobre novos criadores e encontra a tua comunidade.",
+      "pt_br": "Compartilhe seus vídeos, descubra novos criadores e encontre sua comunidade.",
+      "it": "Condividi i tuoi video, scopri nuovi creator e trova la tua community.",
+      "ru": "Делись своими видео, открывай новых авторов и находи своё сообщество."
+    },
+    "Scalable design system": {
+      "fr": "Partage ce que tu aimes",
+      "nl": "Deel wat je leuk vindt",
+      "es": "Comparte lo que te gusta",
+      "pt": "Partilha o que gostas",
+      "pt_br": "Compartilhe o que você gosta",
+      "it": "Condividi ciò che ami",
+      "ru": "Делись тем, что любишь"
+    },
+    "Light & dark themes": {
+      "fr": "Découvre de nouvelles choses",
+      "nl": "Ontdek iets nieuws",
+      "es": "Descubre algo nuevo",
+      "pt": "Descobre algo novo",
+      "pt_br": "Descubra algo novo",
+      "it": "Scopri qualcosa di nuovo",
+      "ru": "Открывай новое"
+    },
+    "Accessible components": {
+      "fr": "Rencontre des personnes qui partagent tes centres d'intérêt",
+      "nl": "Vind mensen met dezelfde interesses",
+      "es": "Encuentra personas que compartan tus intereses",
+      "pt": "Encontra pessoas com os mesmos interesses",
+      "pt_br": "Encontre pessoas com os mesmos interesses",
+      "it": "Trova persone che condividono i tuoi interessi",
+      "ru": "Находи людей с общими интересами"
+    },
+    "Built for creator workflows": {
+      "fr": "Crée à ton rythme",
+      "nl": "Creëer in je eigen tempo",
+      "es": "Crea a tu ritmo",
+      "pt": "Cria ao teu ritmo",
+      "pt_br": "Crie no seu ritmo",
+      "it": "Crea al tuo ritmo",
+      "ru": "Создавай в своём ритме"
+    },
+    "Import Video": {
+      "fr": "Importer une vidéo",
+      "nl": "Video importeren",
+      "es": "Importar video",
+      "es_es": "Importar vídeo",
+      "pt": "Importar vídeo",
+      "it": "Importa un video",
+      "ru": "Импорт видео"
+    },
+    "Import video from URL": {
+      "fr": "Importer une vidéo à partir d'un lien",
+      "nl": "Video via een link importeren",
+      "es": "Importar un video desde un enlace",
+      "es_es": "Importar un vídeo desde un enlace",
+      "pt": "Importar um vídeo a partir de um link",
+      "it": "Importa un video da un link",
+      "ru": "Импорт видео по ссылке"
+    },
+    "Paste a public video URL to detect its provider and fetch the details automatically.": {
+      "fr": "Colle un lien vidéo public. La plateforme sera reconnue et les détails seront chargés automatiquement.",
+      "nl": "Plak een openbare videolink. We herkennen de aanbieder en halen de videogegevens automatisch op.",
+      "es": "Pega un enlace público a un video. Detectaremos la plataforma y cargaremos los detalles automáticamente.",
+      "es_es": "Pega un enlace público a un vídeo. Detectaremos la plataforma y cargaremos los detalles automáticamente.",
+      "pt": "Cola um link público de vídeo. A plataforma é identificada e os detalhes são obtidos automaticamente.",
+      "pt_br": "Cole um link público de vídeo. A plataforma é identificada e os detalhes são carregados automaticamente.",
+      "it": "Incolla un link pubblico a un video. La piattaforma verrà riconosciuta e i dettagli saranno caricati automaticamente.",
+      "ru": "Вставь общедоступную ссылку на видео. Мы определим платформу и автоматически загрузим данные."
+    },
+    "Service": {
+      "fr": "Plateforme",
+      "nl": "Platform",
+      "es": "Plataforma",
+      "pt": "Plataforma",
+      "it": "Piattaforma",
+      "ru": "Платформа"
+    },
+    "Provider": {
+      "fr": "Plateforme",
+      "nl": "Aanbieder",
+      "es": "Plataforma",
+      "pt": "Plataforma",
+      "it": "Piattaforma",
+      "ru": "Платформа"
+    },
+    "Automatic detection": {
+      "fr": "Détection automatique",
+      "nl": "Automatisch herkennen",
+      "es": "Detección automática",
+      "pt": "Deteção automática",
+      "pt_pt": "Detecção automática",
+      "pt_ao": "Detecção automática",
+      "pt_br": "Detecção automática",
+      "it": "Riconoscimento automatico",
+      "ru": "Определять автоматически"
+    },
+    "Video URL": {
+      "fr": "Lien vidéo",
+      "nl": "Videolink",
+      "es": "Enlace del video",
+      "es_es": "Enlace del vídeo",
+      "pt": "Link do vídeo",
+      "it": "Link del video",
+      "ru": "Ссылка на видео"
+    },
+    "Fetch details": {
+      "fr": "Charger les détails",
+      "nl": "Gegevens ophalen",
+      "es": "Cargar detalles",
+      "pt": "Obter detalhes",
+      "it": "Carica i dettagli",
+      "ru": "Загрузить данные"
+    },
+    "Fetching...": {
+      "fr": "Chargement des détails…",
+      "nl": "Gegevens worden opgehaald…",
+      "es": "Cargando detalles…",
+      "pt": "A obter detalhes…",
+      "pt_br": "Carregando detalhes…",
+      "it": "Caricamento dei dettagli…",
+      "ru": "Загружаем данные…"
+    },
+    "Provider detected automatically": {
+      "fr": "Plateforme reconnue automatiquement",
+      "nl": "Aanbieder automatisch herkend",
+      "es": "Plataforma detectada automáticamente",
+      "pt": "Plataforma identificada automaticamente",
+      "it": "Piattaforma riconosciuta automaticamente",
+      "ru": "Платформа определена автоматически"
+    },
+    "Selected provider": {
+      "fr": "Plateforme sélectionnée",
+      "nl": "Gekozen aanbieder",
+      "es": "Plataforma seleccionada",
+      "pt": "Plataforma selecionada",
+      "pt_pt": "Plataforma seleccionada",
+      "pt_ao": "Plataforma seleccionada",
+      "it": "Piattaforma selezionata",
+      "ru": "Выбранная платформа"
+    },
+    "Subtitles": {
+      "fr": "Sous-titres",
+      "nl": "Ondertitels",
+      "es": "Subtítulos",
+      "pt": "Legendas",
+      "it": "Sottotitoli",
+      "ru": "Субтитры"
+    },
+    "Chapters": {
+      "fr": "Chapitres",
+      "nl": "Hoofdstukken",
+      "es": "Capítulos",
+      "pt": "Capítulos",
+      "it": "Capitoli",
+      "ru": "Главы"
+    },
+    "Subtitle languages found: {count}": {
+      "fr": "Langues de sous-titres trouvées : {count}",
+      "nl": "Gevonden ondertiteltalen: {count}",
+      "es": "Idiomas de subtítulos encontrados: {count}",
+      "pt": "Idiomas de legendas encontrados: {count}",
+      "it": "Lingue dei sottotitoli trovate: {count}",
+      "ru": "Найдено языков субтитров: {count}"
+    },
+    "Chapters found: {count}": {
+      "fr": "Chapitres trouvés : {count}",
+      "nl": "Gevonden hoofdstukken: {count}",
+      "es": "Capítulos encontrados: {count}",
+      "pt": "Capítulos encontrados: {count}",
+      "it": "Capitoli trovati: {count}",
+      "ru": "Найдено глав: {count}"
+    },
+    "None found": {
+      "fr": "Aucun résultat",
+      "nl": "Niets gevonden",
+      "es": "No se encontraron resultados",
+      "pt": "Nenhum resultado",
+      "it": "Nessun risultato",
+      "ru": "Ничего не найдено"
+    },
+    "Available subtitles and a transcript will be imported.": {
+      "fr": "Les sous-titres disponibles et une transcription seront importés.",
+      "nl": "Beschikbare ondertitels en een transcript worden geïmporteerd.",
+      "es": "Se importarán los subtítulos disponibles y una transcripción.",
+      "pt": "As legendas disponíveis e uma transcrição serão importadas.",
+      "it": "Verranno importati i sottotitoli disponibili e una trascrizione.",
+      "ru": "Доступные субтитры и текстовая расшифровка будут импортированы."
+    },
+    "No available subtitle tracks found.": {
+      "fr": "Aucune piste de sous-titres disponible n'a été trouvée.",
+      "nl": "Er zijn geen beschikbare ondertitels gevonden.",
+      "es": "No se encontraron pistas de subtítulos disponibles.",
+      "pt": "Não foram encontradas faixas de legendas disponíveis.",
+      "it": "Non sono state trovate tracce di sottotitoli disponibili.",
+      "ru": "Доступные дорожки субтитров не найдены."
+    },
+    "Review or disable them before publishing.": {
+      "fr": "Vérifie les chapitres avant de publier. Tu peux aussi les désactiver.",
+      "nl": "Controleer de hoofdstukken voordat je publiceert. Je kunt ze ook uitschakelen.",
+      "es": "Revisa los capítulos antes de publicar. También puedes desactivarlos.",
+      "pt": "Revê os capítulos antes de publicares. Também os podes desativar.",
+      "pt_br": "Revise os capítulos antes de publicar. Você também pode desativá-los.",
+      "it": "Controlla i capitoli prima di pubblicare. Puoi anche disattivarli.",
+      "ru": "Проверь главы перед публикацией. Их также можно отключить.",
+      "pt_pt": "Revê os capítulos antes de publicares. Também os podes desactivar.",
+      "pt_ao": "Revê os capítulos antes de publicares. Também os podes desactivar."
+    },
+    "You can add chapters manually in Review.": {
+      "fr": "À l'étape « Vérifier », tu peux ajouter des chapitres toi-même.",
+      "nl": "Bij de stap ‘Controleren’ kun je zelf hoofdstukken toevoegen.",
+      "es": "En el paso «Revisar» puedes añadir capítulos manualmente.",
+      "pt": "No passo «Rever», podes adicionar capítulos manualmente.",
+      "pt_br": "Na etapa «Revisar», você pode adicionar capítulos manualmente.",
+      "it": "Nel passaggio «Controlla» puoi aggiungere i capitoli a mano.",
+      "ru": "На шаге проверки можно добавить главы вручную."
+    },
+    "Imports video details, available subtitles and chapters from YouTube.": {
+      "fr": "Les détails de la vidéo, les sous-titres disponibles et les chapitres sont importés depuis YouTube.",
+      "nl": "Videogegevens, beschikbare ondertitels en hoofdstukken worden van YouTube overgenomen.",
+      "es": "Se importan los detalles, los subtítulos disponibles y los capítulos del video de YouTube.",
+      "pt": "Os detalhes do vídeo, as legendas disponíveis e os capítulos são importados do YouTube.",
+      "it": "I dettagli del video, i sottotitoli disponibili e i capitoli vengono importati da YouTube.",
+      "ru": "Данные видео, доступные субтитры и главы импортируются с YouTube."
+    },
+    "Notification": {
+      "de": "Benachrichtigung",
+      "en": "Notification",
+      "fr": "Notification",
+      "nl": "Melding",
+      "es": "Notificación",
+      "pt": "Notificação",
+      "it": "Notifica",
+      "ru": "Уведомление"
+    },
+    "Review": {
+      "ru": "Проверить"
+    }
+  }
+}

@@ -75,7 +75,7 @@ class PlaybackSessionService
             return $base;
         }
 
-        $caption = $this->caption($video, $client);
+        $captions = $this->captions($video, $client);
         $advertising = ['enabled' => false, 'resolve_url' => null, 'ads' => []];
         if ($media['provider'] === 'native' && $video->monetization_enabled && ! VideoSales::isPaid($video)) {
             $adSettings = PlayerAdSettings::publicSettings();
@@ -93,7 +93,7 @@ class PlaybackSessionService
 
         return [
             ...$base,
-            'captions' => $caption ? [$caption] : [],
+            'captions' => $captions,
             'audio_tracks' => [[
                 'id' => 'default',
                 'language' => $video->relationLoaded('language') ? $video->language?->code : null,
@@ -223,7 +223,7 @@ class PlaybackSessionService
         }
 
         $providerId = MediaSourceMetadata::providerIdForVideo($video, $provider);
-        if (! in_array($provider, ['youtube', 'vimeo', 'dailymotion', 'twitch'], true) || ! $providerId) {
+        if (! MediaSourceMetadata::isExternalProvider($provider) || ! $providerId) {
             return [];
         }
 
@@ -252,35 +252,12 @@ class PlaybackSessionService
         ]];
     }
 
-    private function caption(Video $video, ClientContext $client): ?array
+    private function captions(Video $video, ClientContext $client): array
     {
-        $url = VideoSales::captionsUrl($video);
-        if (! $url) {
-            return null;
-        }
-
-        $format = match (strtolower(pathinfo((string) $video->captions_path, PATHINFO_EXTENSION))) {
-            'vtt' => 'webvtt',
-            'srt' => 'srt',
-            default => null,
-        };
-        if ($format === null) {
-            return null;
-        }
-
-        if ($client->capabilities->subtitleFormats !== [] && ! $client->capabilities->supportsSubtitleFormat($format)) {
-            return null;
-        }
-
-        return [
-            'id' => 'default',
-            'url' => $url,
-            'format' => $format,
-            'mime_type' => $this->subtitleMime($format),
-            'language' => $video->caption_metadata['language'] ?? ($video->relationLoaded('language') ? $video->language?->code : null),
-            'label' => $video->caption_metadata['label'] ?? ($video->relationLoaded('language') ? $video->language?->name : 'Captions'),
-            'default' => (bool) ($video->caption_metadata['default'] ?? false),
-        ];
+        return array_values(array_map(fn (array $track): array => [...$track, 'mime_type' => $this->subtitleMime($track['format'])],
+            array_filter(\App\Support\VideoCaptions::forResource($video), static fn (array $track): bool =>
+                in_array($track['format'], ['webvtt', 'srt'], true)
+                && ($client->capabilities->subtitleFormats === [] || $client->capabilities->supportsSubtitleFormat($track['format'])))));
     }
 
     private function signedExpiration(?string $url): mixed

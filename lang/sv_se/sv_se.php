@@ -82,83 +82,83 @@ return array (
     ),
     'user' => 
     array (
-      0 => 'user',
-      1 => 'users',
+      'one' => 'användare',
+      'other' => 'användare',
     ),
     'users' => 
     array (
-      0 => 'user',
-      1 => 'users',
+      'one' => 'användare',
+      'other' => 'användare',
     ),
     'video' => 
     array (
-      0 => 'video',
-      1 => 'videos',
+      'one' => 'video',
+      'other' => 'videor',
     ),
     'videos' => 
     array (
-      0 => 'video',
-      1 => 'videos',
+      'one' => 'video',
+      'other' => 'videor',
     ),
     'comment' => 
     array (
-      0 => 'comment',
-      1 => 'comments',
+      'one' => 'kommentar',
+      'other' => 'kommentarer',
     ),
     'comments' => 
     array (
-      0 => 'comment',
-      1 => 'comments',
+      'one' => 'kommentar',
+      'other' => 'kommentarer',
     ),
     'subscriber' => 
     array (
-      0 => 'subscriber',
-      1 => 'subscribers',
+      'one' => 'prenumerant',
+      'other' => 'prenumeranter',
     ),
     'subscribers' => 
     array (
-      0 => 'subscriber',
-      1 => 'subscribers',
+      'one' => 'prenumerant',
+      'other' => 'prenumeranter',
     ),
     'view' => 
     array (
-      0 => 'view',
-      1 => 'views',
+      'one' => 'visning',
+      'other' => 'visningar',
     ),
     'views' => 
     array (
-      0 => 'view',
-      1 => 'views',
+      'one' => 'visning',
+      'other' => 'visningar',
     ),
     'like' => 
     array (
-      0 => 'like',
-      1 => 'likes',
+      'one' => 'gilla-markering',
+      'other' => 'gilla-markeringar',
     ),
     'likes' => 
     array (
-      0 => 'like',
-      1 => 'likes',
+      'one' => 'gilla-markering',
+      'other' => 'gilla-markeringar',
     ),
     'reply' => 
     array (
-      0 => 'reply',
-      1 => 'replies',
+      'one' => 'svar',
+      'other' => 'svar',
     ),
     'replies' => 
     array (
-      0 => 'reply',
-      1 => 'replies',
+      'one' => 'svar',
+      'other' => 'svar',
     ),
     'playlist' => 
     array (
-      0 => 'playlist',
-      1 => 'playlists',
+      'one' => 'spellista',
+      'other' => 'spellistor',
     ),
     'playlists' => 
     array (
-      0 => 'playlist',
-      1 => 'playlists',
+      'one' => 'spellista',
+      'other' => 'spellistor',
     ),
   ),
   '__patterns' => 
@@ -169,6 +169,30 @@ return array (
     'unread' => '{count} unread',
     'saved_videos' => '{count} saved videos',
     'published' => '{count} published',
+    'count_user' => 'Användare: {count}',
+    'count_user_one' => '{count} användare',
+    'count_user_other' => '{count} användare',
+    'count_video' => 'Videor: {count}',
+    'count_video_one' => '{count} video',
+    'count_video_other' => '{count} videor',
+    'count_comment' => 'Kommentarer: {count}',
+    'count_comment_one' => '{count} kommentar',
+    'count_comment_other' => '{count} kommentarer',
+    'count_subscriber' => 'Prenumeranter: {count}',
+    'count_subscriber_one' => '{count} prenumerant',
+    'count_subscriber_other' => '{count} prenumeranter',
+    'count_view' => 'Visningar: {count}',
+    'count_view_one' => '{count} visning',
+    'count_view_other' => '{count} visningar',
+    'count_like' => 'Gilla-markeringar: {count}',
+    'count_like_one' => '{count} gilla-markering',
+    'count_like_other' => '{count} gilla-markeringar',
+    'count_reply' => 'Svar: {count}',
+    'count_reply_one' => '{count} svar',
+    'count_reply_other' => '{count} svar',
+    'count_playlist' => 'Spellistor: {count}',
+    'count_playlist_one' => '{count} spellista',
+    'count_playlist_other' => '{count} spellistor',
   ),
   'Overview' => 'Översikt',
   'Home' => 'Hem',
@@ -186,7 +210,7 @@ return array (
   'Settings' => 'Inställningar',
   'Playlists' => 'Spellistor',
   'Show more' => 'Visa mer',
-  'Storage' => 'Förvaring',
+  'Storage' => 'Lagring',
   'Pro Plan' => 'Pro Plan',
   'Manage plan' => 'Hantera plan',
   'Search videos, creators, playlists...' => 'Sök efter videor, kreatörer, spellistor...',
@@ -257,8 +281,8 @@ return array (
   'Anyone can search for and watch this video' => 'Vem som helst kan söka efter och titta på den här videon',
   'Anyone with the link can watch' => 'Alla som har länken kan titta',
   'Anyone with the link can watch this video' => 'Alla som har länken kan se den här videon',
-  'Only you and people you choose' => 'Bara du och människor du väljer',
-  'Only you and people you choose can watch' => 'Bara du och personer du väljer kan titta',
+  'Only you and people you choose' => 'Bara du och webbplatsens administratörer kan se den här videon.',
+  'Only you and people you choose can watch' => 'Bara du och webbplatsens administratörer kan se den här videon.',
   'Thumbnail preview' => 'Miniatyr förhandsgranskning',
   'No thumbnail selected.' => 'Ingen miniatyr har valts.',
   'More options' => 'Fler alternativ',
@@ -410,11 +434,11 @@ return array (
   'Like comment' => 'Gilla kommentar',
   'Comment options' => 'Kommentarsalternativ',
   'Copy Link' => 'Kopiera länk',
-  'Pin Comment' => 'Pinkommentar',
+  'Pin Comment' => 'Fäst kommentar',
   'Unpin Comment' => 'Lossa kommentar',
-  'Mute User' => 'Stäng av användaren',
+  'Mute User' => 'Tysta användare',
   'Reported' => 'Anmäld',
-  'Report Comment' => 'Rapportera kommentar',
+  'Report Comment' => 'Anmäl kommentar',
   'Delete Comment' => 'Ta bort kommentar',
   'Pinned' => 'Fäst',
   'No comments yet. Be the first to comment.' => 'Inga kommentarer än. Var den första att kommentera.',
@@ -563,7 +587,7 @@ return array (
   'Public profile' => 'Offentlig profil',
   'Show subscriptions' => 'Visa prenumerationer',
   'Default quality' => 'Standardkvalitet',
-  'Captions' => 'Bildtexter',
+  'Captions' => 'Undertexter',
   'Update password' => 'Uppdatera lösenord',
   'Current password' => 'Aktuellt lösenord',
   'New password' => 'Nytt lösenord',
@@ -664,7 +688,7 @@ return array (
   'Add an about section so viewers know what your channel is about.' => 'Lägg till en om-sektion så att tittarna vet vad din kanal handlar om.',
   'This channel has not added an about section yet.' => 'Den här kanalen har inte lagt till en om-sektion än.',
   'Admin' => 'Admin',
-  'Dashboard' => 'Instrumentbräda',
+  'Dashboard' => 'Översikt',
   'Users' => 'Användare',
   'Reports' => 'Rapporter',
   'Support' => 'Support',
@@ -761,7 +785,7 @@ return array (
   'Verify selected' => 'Verifiera valt',
   'Suspend selected' => 'Stäng av valt',
   'Delete selected' => 'Ta bort markerade',
-  'Clear selection' => 'Rensa val',
+  'Clear selection' => 'Rensa markering',
   'Select all visible users' => 'Välj alla synliga användare',
   'Select row' => 'Välj rad',
   'Open actions' => 'Öppna åtgärder',
@@ -807,7 +831,7 @@ return array (
   'Watch Time (hours)' => 'Visningstid (timmar)',
   'Sessions' => 'Sessioner',
   'Traffic Sources' => 'Trafikkällor',
-  'Device Breakdown' => 'Enhetsuppdelning',
+  'Device Breakdown' => 'Fördelning per enhet',
   'Top Performing Categories' => 'Topppresterande kategorier',
   'Top Traffic Sources' => 'De bästa trafikkällorna',
   'Audience Devices' => 'Målgruppsenheter',
@@ -1491,7 +1515,7 @@ return array (
   'Import summary' => 'Importöversikt',
   'Source URL' => 'Källwebbadress',
   'Video imported' => 'Video importerad',
-  'Your video was imported and processing has started.' => 'Din video importerades och bearbetningen har påbörjats.',
+  'Your video was imported and processing has started.' => 'Din video har importerats.',
   'Import Video' => 'Importera video',
   'Import a public video URL, customize its details, and publish it through the normal processing pipeline.' => 'Importera en offentlig video-URL, anpassa dess detaljer och publicera den genom den normala bearbetningspipelinen.',
   'Video Import' => 'Videoimport',
@@ -1790,7 +1814,7 @@ return array (
   'View users' => 'View users',
   'Login security' => 'Login security',
   'Find creator' => 'Find creator',
-  '· Shorts require 60s max and vertical portrait video' => '· Shorts require 60s max and vertical portrait video',
+  '· Shorts require 60s max and vertical portrait video' => 'Shorts måste ha stående format och vara högst 60 sekunder långa.',
   '% of uploaded videos' => '% of uploaded Videor',
   '% watched' => '% tittade',
   '+12% vs yesterday' => '+12% vs yesterday',
@@ -2455,9 +2479,9 @@ return array (
   'short was uploaded' => 'short was uploaded',
   'Shortest' => 'Shortest',
   'Shorts discovered' => 'Shorts discovered',
-  'Shorts must be 60 seconds or less.' => 'Shorts must be 60 seconds or less.',
+  'Shorts must be 60 seconds or less.' => 'Shorts får vara högst 60 sekunder långa.',
   'Shorts must be 60 seconds or less. Vertical 9:16 is recommended.' => 'Shorts must be 60 seconds or less. Vertical 9: 16 is recommended.',
-  'Shorts must use a vertical portrait aspect ratio.' => 'Shorts must use a vertical portrait aspect ratio.',
+  'Shorts must use a vertical portrait aspect ratio.' => 'Shorts måste ha stående format.',
   'Shorts stats' => 'Shorts Statistik',
   'Show less' => 'Show less',
   'Show more ⌄' => 'Show more ⌄',
@@ -2770,10 +2794,10 @@ return array (
   'Password looks good.' => 'Password looks good.',
   'Password needs work.' => 'Password needs work.',
   'Add at least 8 characters.' => 'Add at least 8 characters.',
-  'Add a letter.' => 'Add a letter.',
-  'Add a number.' => 'Add a number.',
-  'Add an uppercase letter.' => 'Add an uppercase letter.',
-  'Add a lowercase letter.' => 'Add a lowercase letter.',
+  'Add a letter.' => 'Lägg till en latinsk bokstav (A–Z eller a–z).',
+  'Add a number.' => 'Lägg till en siffra (0–9).',
+  'Add an uppercase letter.' => 'Lägg till en stor latinsk bokstav (A–Z).',
+  'Add a lowercase letter.' => 'Lägg till en liten latinsk bokstav (a–z).',
   'Add a symbol.' => 'Add a symbol.',
   'Use a longer password for this strength level.' => 'Use a longer password for this strength level.',
   'Captcha image' => 'Captcha image',
@@ -3105,7 +3129,7 @@ return array (
   'Log in with Apple' => 'Logga in med Apple',
   'Sign up with Apple' => 'Registrera dig hos Apple',
   'or' => 'eller',
-  'We never share your data with third parties.' => 'Vi delar aldrig dina uppgifter med tredje part.',
+  'We never share your data with third parties.' => 'Läs i vår integritetspolicy hur vi hanterar dina uppgifter.',
   'Account settings' => 'Kontoinställningar',
   'Processing...' => 'Bearbetar...',
   'Submitting request...' => 'Skickar begäran...',
@@ -3257,7 +3281,7 @@ return array (
   'DVR' => 'DVR',
   'Capture Card' => 'Fånga kort',
   'High' => 'Hög',
-  'Stream Health' => 'Stream Hälsa',
+  'Stream Health' => 'Strömstatus',
   'Low (1.2s)' => 'Låg (1,2 s)',
   'Deep into the dragon’s lair! Epic boss battles, lore hunting, and community challenges. Join the adventure!' => 'Djupt in i drakens lya! Episka bossstrider, lore-jakt och samhällsutmaningar. Följ med på äventyret!',
   'Ask your audience' => 'Fråga din publik',
@@ -4187,7 +4211,7 @@ return array (
   'Ad impression already completed.' => 'Annonsvisningen har redan slutförts.',
   'Ad impression completed.' => 'Annonsvisningen slutförd.',
   'Ad updated.' => 'Annonsen uppdaterad.',
-  'Advanced generated LiveKit options' => 'Avancerade genererade ZXTERM1ZX-alternativ',
+  'Advanced generated LiveKit options' => 'Avancerade genererade LiveKit-alternativ',
   'Apply configuration' => 'Tillämpa konfiguration',
   'Automatic' => 'Automatisk',
   'A valid phone number is required when using phone delivery.' => 'Ett giltigt telefonnummer krävs när du använder telefonleverans.',
@@ -4215,8 +4239,8 @@ return array (
   'Detected issues' => 'Upptäckta problem',
   'Device session not found.' => 'Enhetssessionen hittades inte.',
   'Device signed out successfully.' => 'Enheten loggades ut.',
-  'Docker Configuration' => 'ZXTERM3ZX-konfiguration',
-  'Docker container file paths' => 'ZXTERM3ZX containerfilsökvägar',
+  'Docker Configuration' => 'Docker-konfiguration',
+  'Docker container file paths' => 'Docker containerfilsökvägar',
   'Do not collapse settings blocks' => 'Dölj inte inställningsblock',
   'during this stream' => 'under denna ström',
   'Enabled contributions will appear here.' => 'Aktiverade bidrag visas här.',
@@ -4239,11 +4263,11 @@ return array (
   'Live chat message deleted.' => 'Livechattmeddelande raderat.',
   'Live control panels' => 'Live kontrollpaneler',
   'Live Control Room' => 'Live kontrollrum',
-  'LiveKit and Docker logs' => 'ZXTERM1ZX och ZXTERM3ZX loggar',
-  'LiveKit did not return a connection result.' => 'ZXTERM1ZX returnerade inget anslutningsresultat.',
-  'LiveKit Docker' => 'ZXTERM1ZX ZXTERM3ZX',
-  'LiveKit signaling and authenticated API connection succeeded.' => 'ZXTERM1ZX-signalering och autentiserad API-anslutning lyckades.',
-  'LiveKit SSL certificates' => 'ZXTERM1ZX SSL-certifikat',
+  'LiveKit and Docker logs' => 'LiveKit och Docker loggar',
+  'LiveKit did not return a connection result.' => 'LiveKit returnerade inget anslutningsresultat.',
+  'LiveKit Docker' => 'LiveKit Docker',
+  'LiveKit signaling and authenticated API connection succeeded.' => 'LiveKit-signalering och autentiserad API-anslutning lyckades.',
+  'LiveKit SSL certificates' => 'LiveKit SSL-certifikat',
   'Live polls' => 'Direktsända omröstningar',
   'Live stream' => 'Livestream',
   'Live stream ended.' => 'Livestreamen avslutades.',
@@ -4276,19 +4300,19 @@ return array (
   'Participant controls' => 'Deltagarkontroller',
   'Participant role' => 'Deltagarroll',
   'Participants' => 'Deltagare',
-  'Payment card numbers are handled by the configured payment provider and are never stored in your PlayHub profile.' => 'Betalkortsnummer hanteras av den konfigurerade betalningsleverantören och lagras aldrig i din ZXTERM0ZX-profil.',
+  'Payment card numbers are handled by the configured payment provider and are never stored in your PlayHub profile.' => 'Betalkortsnummer hanteras av den konfigurerade betalningsleverantören och lagras aldrig i din PlayHub-profil.',
   'Payment history' => 'Betalningshistorik',
   'Peak Viewers' => 'Peak Viewers',
-  'PlayHub is installed' => 'ZXTERM0ZX är installerad',
-  'PlayHub recording' => 'ZXTERM0ZX-inspelning',
-  'Please enable JavaScript to use PlayHub.' => 'Aktivera ZXTERM4ZX för att använda ZXTERM0ZX.',
+  'PlayHub is installed' => 'PlayHub är installerad',
+  'PlayHub recording' => 'PlayHub-inspelning',
+  'Please enable JavaScript to use PlayHub.' => 'Aktivera JavaScript för att använda PlayHub.',
   'Poll created.' => 'Omröstning skapad.',
   'Poll deleted.' => 'Omröstning raderad.',
   'Poll updated.' => 'Omröstningen uppdaterad.',
-  'Preparing RTMP URL' => 'Förbereder ZXTERM2ZX URL',
+  'Preparing RTMP URL' => 'Förbereder RTMP URL',
   'Preparing stream key' => 'Förbereder strömnyckel',
   'Price' => 'Pris',
-  'Project-local LiveKit file paths' => 'Projektlokala ZXTERM1ZX-filsökvägar',
+  'Project-local LiveKit file paths' => 'Projektlokala LiveKit-filsökvägar',
   'Pull image' => 'Dra bild',
   'Quality' => 'Kvalitet',
   'Question' => 'Fråga',
@@ -4305,8 +4329,8 @@ return array (
   'Response' => 'Svar',
   'Restart' => 'Starta om',
   'Revenue & Tips' => 'Intäkter och tips',
-  'RTMP credentials are ready.' => 'ZXTERM2ZX-uppgifterna är klara.',
-  'RTMP ingress' => 'ZXTERM2ZX ingång',
+  'RTMP credentials are ready.' => 'RTMP-uppgifterna är klara.',
+  'RTMP ingress' => 'RTMP ingång',
   'Schedule must be in the future.' => 'Schema måste ligga i framtiden.',
   'Search or enter your country' => 'Sök eller ange ditt land',
   'Select an option' => 'Välj ett alternativ',
@@ -4331,7 +4355,7 @@ return array (
   'The default quality must be enabled as an upload rendition.' => 'Standardkvaliteten måste vara aktiverad som en uppladdningsåtergivning.',
   'The end date must be later than the start date.' => 'Slutdatumet måste vara senare än startdatumet.',
   'The invited user must sign in with that account before opening the link.' => 'Den inbjudna användaren måste logga in med det kontot innan du öppnar länken.',
-  'The logo must be a safe SVG file.' => 'Logotypen måste vara en säker ZXTERM5ZX-fil.',
+  'The logo must be a safe SVG file.' => 'Logotypen måste vara en säker SVG-fil.',
   'The new password must be different from the current one.' => 'Det nya lösenordet måste skilja sig från det nuvarande.',
   'The provided credentials are incorrect.' => 'De angivna användaruppgifterna är felaktiga.',
   'The two-factor authentication code is invalid.' => 'Tvåfaktorsautentiseringskoden är ogiltig.',
@@ -4360,7 +4384,7 @@ return array (
   'View more' => 'Visa mer',
   'Visible live chat messages will appear here after the replay is ready.' => 'Synliga livechattmeddelanden kommer att visas här när reprisen är klar.',
   'Vote recorded.' => 'Röst registrerad.',
-  'Waiting for RTMP video' => 'Väntar på ZXTERM2ZX-video',
+  'Waiting for RTMP video' => 'Väntar på RTMP-video',
   'Your ad markup' => 'Din annonsuppmärkning',
   'Your participant video will appear here.' => 'Din deltagarvideo kommer att visas här.',
   'Also permanently delete all videos uploaded by these users' => 'Radera också permanent alla videor som laddats upp av dessa användare',
@@ -4450,4 +4474,119 @@ return array (
   'Language not found.' => 'Language not found.',
   'Language directory not found.' => 'Language directory not found.',
   'The selected language directory is read-only. Update its server permissions before editing.' => 'The selected language directory is read-only. Update its server permissions before editing.',
+  'Find out how we handle your data in our privacy policy.' => 'Läs i vår integritetspolicy hur vi hanterar dina uppgifter.',
+  'Shorts must be 180 seconds or less.' => 'Shorts får vara högst 60 sekunder långa.',
+  'Shorts must be square or vertical.' => 'Shorts måste ha stående format.',
+  'Shorts must be 60 seconds or less and vertical.' => 'Shorts måste ha stående format och vara högst 60 sekunder långa.',
+  'Shorts must be vertical videos of at most 60 seconds.' => 'Shorts måste ha stående format och vara högst 60 sekunder långa.',
+  'Shorts must be 180 seconds or less and square or vertical.' => 'Shorts måste ha stående format och vara högst 60 sekunder långa.',
+  'Shorts must be square or vertical videos of at most 180 seconds.' => 'Shorts måste ha stående format och vara högst 60 sekunder långa.',
+  '· Shorts require 60s max and vertical video' => 'Shorts måste ha stående format och vara högst 60 sekunder långa.',
+  '· Shorts require 180s max and square or vertical video' => 'Shorts måste ha stående format och vara högst 60 sekunder långa.',
+  'This video will be published as a Short because it is at most 60 seconds and vertical.' => 'Den här videon publiceras som en Short eftersom den har stående format och är högst 60 sekunder lång.',
+  'This video will be published as a Short because it is at most 180 seconds and square or vertical.' => 'Den här videon publiceras som en Short eftersom den har stående format och är högst 60 sekunder lång.',
+  'No shorts uploaded yet. Shorts appear here after a vertical video of at most 60 seconds is imported.' => 'Inga Shorts än. Importerade videor med stående format på högst 60 sekunder visas här.',
+  'No shorts uploaded yet. Shorts appear here after a square or vertical video of at most 180 seconds is imported.' => 'Inga Shorts än. Importerade videor med stående format på högst 60 sekunder visas här.',
+  'Drag and drop your short file here' => 'Dra din Short-videofil hit',
+  'Video: {seconds}s · {width}×{height}. Shorts must be 60 seconds or less and vertical.' => 'Video: {seconds}s · {width}×{height}. Shorts måste ha stående format och vara högst 60 sekunder långa.',
+  'Chapter {number} name' => 'Namn på kapitel {number}',
+  'A video can have up to {count} chapters.' => 'En video kan ha upp till {count} kapitel.',
+  'Chapter {number} has an invalid timestamp.' => 'Kapitel {number} har en ogiltig tidskod.',
+  'The first chapter must start at 0:00.' => 'Det första kapitlet måste börja vid 0:00.',
+  'Chapter timestamps must be in order and at least {seconds} seconds apart.' => 'Tidskoderna måste vara i stigande ordning med minst {seconds} s mellan dem.',
+  'Chapter {number} starts after the video ends.' => 'Kapitel {number} måste börja innan videon slutar.',
+  'Add a name for chapter {number} or turn off Upload with chapters.' => 'Ge kapitel {number} ett namn eller stäng av ”Ladda upp med kapitel”.',
+  'The name for chapter {number} must be 160 characters or fewer.' => 'Namnet på kapitel {number} får vara högst 160 tecken långt.',
+  'Add at least two chapters or turn off Upload with chapters.' => 'Lägg till minst två kapitel eller stäng av ”Ladda upp med kapitel”.',
+  'Upload with chapters' => 'Ladda upp med kapitel',
+  'Your video was imported.' => 'Din video har importerats.',
+  'View posts tagged {tag}' => 'Visa inlägg med taggen {tag}',
+  'View {name} channel' => 'Öppna kanalen för {name}',
+  'Chapter {number} start time' => 'Starttid för kapitel {number}',
+  'Remove chapter {number}' => 'Ta bort kapitel {number}',
+  'Transcript' => 'Transkription',
+  'Loading transcript…' => 'Hämtar transkription…',
+  'The transcript could not be loaded.' => 'Transkriptionen kunde inte hämtas.',
+  'Transcript text' => 'Transkriptionens text',
+  'Playlist tip' => 'Tips för din spellista',
+  'Send a tip to {name}' => 'Stöd {name}',
+  'Support the creator of “{title}”.' => 'Stöd skaparen av ”{title}”.',
+  'Tip sent to {name}.' => 'Ditt bidrag har skickats till {name}.',
+  'Support {name} during this live stream.' => 'Stöd {name} under den här livesändningen.',
+  'Send Super Chat' => 'Skicka Super Chat',
+  'Send tip' => 'Skicka bidrag',
+  'Your {SITENAME} verification code' => 'Din verifieringskod för {SITENAME}',
+  'Your {SITENAME} verification code is: {VERIFICATION_CODE}
+
+This code expires in {EXPIRY_MINUTES} minutes.' => 'Din verifieringskod för {SITENAME}: {VERIFICATION_CODE}
+
+Koden gäller i {EXPIRY_MINUTES} min.',
+  'Reset your {SITENAME} password' => 'Återställ ditt lösenord för {SITENAME}',
+  'Hello {USERNAME},
+
+Your {SITENAME} password reset code is: {RESET_CODE}
+
+This code expires in {EXPIRY_MINUTES} minutes.' => 'Hej {USERNAME},
+
+Din kod för att återställa lösenordet för {SITENAME}: {RESET_CODE}
+
+Koden gäller i {EXPIRY_MINUTES} min.',
+  'You have been invited to {SITENAME}' => 'Du är inbjuden till {SITENAME}',
+  'Hello {USERNAME},
+
+You have been invited to {SITENAME} as {ROLE}.
+
+Login email: {USER_EMAIL}
+Temporary password: {TEMPORARY_PASSWORD}
+Login: {LOGIN_URL}
+
+Please sign in and update your password.' => 'Hej {USERNAME},
+
+Du är inbjuden till {SITENAME}. Din roll: {ROLE}.
+
+E-postadress för inloggning: {USER_EMAIL}
+Tillfälligt lösenord: {TEMPORARY_PASSWORD}
+Logga in: {LOGIN_URL}
+
+Logga in och ändra ditt lösenord.',
+  'Your {SITENAME} account has been restricted' => 'Ditt konto på {SITENAME} har begränsats',
+  'Hello {USERNAME},
+
+Your {SITENAME} account has been restricted until {BAN_EXPIRES_AT}.
+
+Restrictions:
+{RESTRICTIONS}
+
+If you believe this is a mistake, contact {SUPPORT_EMAIL}.' => 'Hej {USERNAME},
+
+Ditt konto på {SITENAME} har begränsningar fram till {BAN_EXPIRES_AT}.
+
+Begränsningar:
+{RESTRICTIONS}
+
+Tror du att det är ett misstag? Kontakta {SUPPORT_EMAIL}.',
+  'You are now a {SITENAME} moderator' => 'Du är nu moderator på {SITENAME}',
+  'Hello {USERNAME},
+
+You have been assigned the Moderator role on {SITENAME}. You can now access the moderation tools available to your role.
+
+Moderation dashboard: {MODERATION_URL}' => 'Hej {USERNAME},
+
+Du har fått moderatorrollen på {SITENAME}. Nu kan du använda de modereringsverktyg som hör till din roll.
+
+Modereringspanel: {MODERATION_URL}',
+  'You are moderating "{STREAM_TITLE}" on {SITENAME}' => 'Du modererar ”{STREAM_TITLE}” på {SITENAME}',
+  'Hello {USERNAME},
+
+You have been assigned as a moderator for the live stream "{STREAM_TITLE}". Open the stream to access your moderation controls.
+
+Open stream: {STREAM_URL}' => 'Hej {USERNAME},
+
+Du har utsetts till moderator för livesändningen ”{STREAM_TITLE}”. Öppna sändningen för att använda dina modereringsverktyg.
+
+Öppna sändningen: {STREAM_URL}',
+  'Notification' => 'Avisering',
+  'This email was sent by {site}.' => 'Det här mejlet skickades av {site}.',
+  'Password strength must be at least {level}/10.' => 'Ditt lösenord måste nå minst {level}/10.',
+  'Code expires in {time}' => 'Din kod går ut om {time}',
 );

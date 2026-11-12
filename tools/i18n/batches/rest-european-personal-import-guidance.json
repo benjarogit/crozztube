@@ -1,0 +1,77 @@
+{
+  "context": "Complete upload/import and Shorts player accessibility instructions, seven families. Current English values override historical processing-queue keys: external imports fetch metadata and use provider playback. Uploaded local files still process. Mobile and desktop Shorts gestures remain distinct; Shorts product name is never clothing. Singular personal actions, no polite plurals.",
+  "messages": {
+    "Choose a local video file or import a public video from an enabled provider.": {
+      "ru": "Выбери видеофайл на своём устройстве или импортируй публичное видео из доступного сервиса.",
+      "uk": "Вибери відеофайл на своєму пристрої або імпортуй публічне відео з доступного сервісу.",
+      "sk": "Vyber videosúbor zo svojho zariadenia alebo importuj verejné video z dostupnej služby.",
+      "bg": "Избери видеофайл от устройството си или импортирай публично видео от налична услуга.",
+      "el": "Διάλεξε αρχείο βίντεο από τη συσκευή σου ή εισήγαγε ένα δημόσιο βίντεο από διαθέσιμη υπηρεσία.",
+      "ro": "Alege un fișier video de pe dispozitivul tău sau importă un videoclip public de la un serviciu disponibil.",
+      "hu": "Válassz videófájlt a készülékedről, vagy importálj nyilvános videót egy elérhető szolgáltatótól."
+    },
+    "Select an enabled service and paste a public video URL. PlayHub will import it into the normal processing queue.": {
+      "ru": "Выбери доступный сервис и вставь ссылку на публичное видео для импорта.",
+      "uk": "Вибери доступний сервіс і встав посилання на публічне відео для імпорту.",
+      "sk": "Vyber dostupnú službu a vlož odkaz na verejné video, ktoré chceš importovať.",
+      "bg": "Избери налична услуга и постави връзка към публичното видео, което искаш да импортираш.",
+      "el": "Διάλεξε διαθέσιμη υπηρεσία και επικόλλησε σύνδεσμο δημόσιου βίντεο για εισαγωγή.",
+      "ro": "Alege un serviciu disponibil și lipește linkul unui videoclip public pentru a-l importa.",
+      "hu": "Válassz egy elérhető szolgáltatót, és illeszd be az importálni kívánt nyilvános videó linkjét."
+    },
+    "Select an enabled service and paste a public video URL. PlayHub will fetch the details and play it from the original provider.": {
+      "ru": "Выбери доступный сервис и вставь ссылку на публичное видео. PlayHub загрузит сведения о нём, а само видео будет воспроизводиться из исходного сервиса.",
+      "uk": "Вибери доступний сервіс і встав посилання на публічне відео. PlayHub завантажить відомості про нього, а саме відео відтворюватиметься з початкового сервісу.",
+      "sk": "Vyber dostupnú službu a vlož odkaz na verejné video. PlayHub načíta jeho údaje a video sa bude prehrávať z pôvodnej služby.",
+      "bg": "Избери налична услуга и постави връзка към публично видео. PlayHub ще зареди данните, а видеото ще се възпроизвежда от оригиналната услуга.",
+      "el": "Διάλεξε διαθέσιμη υπηρεσία και επικόλλησε σύνδεσμο δημόσιου βίντεο. Το PlayHub θα φορτώσει τα στοιχεία του και θα το αναπαράγει από την αρχική υπηρεσία.",
+      "ro": "Alege un serviciu disponibil și lipește linkul unui videoclip public. PlayHub îi va prelua detaliile, iar videoclipul va fi redat de la serviciul original.",
+      "hu": "Válassz egy elérhető szolgáltatót, és illeszd be egy nyilvános videó linkjét. A PlayHub betölti az adatokat, a videót pedig az eredeti szolgáltatótól játssza le."
+    },
+    "Please enable JavaScript to use PlayHub.": {
+      "ru": "Включи JavaScript, чтобы пользоваться PlayHub.",
+      "uk": "Увімкни JavaScript, щоб користуватися PlayHub.",
+      "sk": "Zapni JavaScript, aby si mohol používať PlayHub.",
+      "bg": "Включи JavaScript, за да използваш PlayHub.",
+      "el": "Ενεργοποίησε το JavaScript για να χρησιμοποιήσεις το PlayHub.",
+      "ro": "Activează JavaScript ca să folosești PlayHub.",
+      "hu": "A PlayHub használatához engedélyezd a JavaScriptet."
+    },
+    "Go to Upload, choose your video file, add required details, select category and language, add a thumbnail, then publish. Large files upload in chunks.": {
+      "ru": "Открой раздел загрузки, выбери видеофайл и заполни обязательные поля. Выбери категорию и язык, добавь обложку и опубликуй видео. Большие файлы загружаются по частям.",
+      "uk": "Відкрий розділ завантаження, вибери відеофайл і заповни обов’язкові поля. Вибери категорію й мову, додай обкладинку та опублікуй відео. Великі файли завантажуються частинами.",
+      "sk": "Otvor nahrávanie, vyber videosúbor a vyplň povinné údaje. Vyber kategóriu a jazyk, pridaj miniatúru a video zverejni. Veľké súbory sa nahrávajú po častiach.",
+      "bg": "Отвори раздела за качване, избери видеофайл и попълни задължителните данни. Избери категория и език, добави миниатюра и публикувай. Големите файлове се качват на части.",
+      "el": "Άνοιξε τη μεταφόρτωση, διάλεξε αρχείο βίντεο και συμπλήρωσε τα απαραίτητα στοιχεία. Διάλεξε κατηγορία και γλώσσα, πρόσθεσε μικρογραφία και δημοσίευσέ το. Τα μεγάλα αρχεία ανεβαίνουν σε τμήματα.",
+      "ro": "Deschide pagina de încărcare, alege fișierul video și completează câmpurile obligatorii. Alege categoria și limba, adaugă o miniatură și publică. Fișierele mari se încarcă în părți.",
+      "hu": "Nyisd meg a feltöltést, válaszd ki a videófájlt, és add meg a kötelező adatokat. Válassz kategóriát és nyelvet, adj hozzá bélyegképet, majd tedd közzé. A nagy fájlok részenként töltődnek fel."
+    },
+    "Select one or more video files, enter required details, choose category and language, add a thumbnail, choose visibility, and publish. Large files are uploaded in chunks before the server starts processing.": {
+      "ru": "Выбери один или несколько видеофайлов и заполни обязательные поля. Укажи категорию, язык, обложку и видимость, затем опубликуй видео. Большие файлы загружаются по частям до начала обработки.",
+      "uk": "Вибери один або кілька відеофайлів і заповни обов’язкові поля. Укажи категорію, мову, обкладинку й видимість, а потім опублікуй відео. Великі файли завантажуються частинами до початку обробки.",
+      "sk": "Vyber jeden alebo viac videosúborov a vyplň povinné údaje. Nastav kategóriu, jazyk, miniatúru a viditeľnosť, potom videá zverejni. Veľké súbory sa pred spracovaním nahrajú po častiach.",
+      "bg": "Избери един или повече видеофайлове и попълни задължителните данни. Задай категория, език, миниатюра и видимост, след което публикувай. Големите файлове се качват на части преди началото на обработката.",
+      "el": "Διάλεξε ένα ή περισσότερα αρχεία βίντεο και συμπλήρωσε τα απαραίτητα στοιχεία. Όρισε κατηγορία, γλώσσα, μικρογραφία και ορατότητα, μετά δημοσίευσέ τα. Τα μεγάλα αρχεία ανεβαίνουν σε τμήματα πριν ξεκινήσει η επεξεργασία.",
+      "ro": "Alege unul sau mai multe fișiere video și completează câmpurile obligatorii. Selectează categoria, limba, miniatura și vizibilitatea, apoi publică. Fișierele mari se încarcă în părți înainte de procesare.",
+      "hu": "Válassz egy vagy több videófájlt, és add meg a kötelező adatokat. Állítsd be a kategóriát, a nyelvet, a bélyegképet és a láthatóságot, majd tedd közzé. A nagy fájlok a feldolgozás előtt részenként töltődnek fel."
+    },
+    "Short video player. Click or tap once to mute or unmute. Press and hold to pause. Swipe, scroll, or use arrows to change Shorts.": {
+      "ru": "Плеер Shorts. Нажми один раз, чтобы включить или выключить звук. Нажми и удерживай, чтобы приостановить видео. Переключай Shorts свайпом, прокруткой или стрелками.",
+      "uk": "Програвач Shorts. Натисни один раз, щоб увімкнути або вимкнути звук. Натисни й утримуй, щоб призупинити відео. Перемикай Shorts гортанням, прокручуванням або стрілками.",
+      "sk": "Prehrávač Shorts. Kliknutím alebo ťuknutím zapni či vypni zvuk. Podržaním video pozastavíš. Ďalšie Shorts otvor potiahnutím, posúvaním alebo šípkami.",
+      "bg": "Плейър за Shorts. Щракни или докосни веднъж, за да включиш или изключиш звука. Натисни и задръж за пауза. Смени Shorts с плъзгане, превъртане или стрелките.",
+      "el": "Πρόγραμμα αναπαραγωγής Shorts. Κάνε κλικ ή πάτησε μία φορά για σίγαση ή ενεργοποίηση ήχου. Κράτησε πατημένο για παύση. Άλλαξε Shorts με σύρσιμο, κύλιση ή τα βέλη.",
+      "ro": "Player Shorts. Apasă sau atinge o dată pentru a opri ori porni sunetul. Ține apăsat pentru pauză. Schimbă Shorts prin glisare, derulare sau cu săgețile.",
+      "hu": "Shorts-lejátszó. Kattints vagy koppints egyszer a hang ki- vagy bekapcsolásához. Tartsd lenyomva a szüneteltetéshez. Lapozz, görgess vagy használd a nyilakat a Shorts-videók váltásához."
+    },
+    "Short video player. Click or tap once to mute or unmute. Press and hold to pause. Use the navigation arrows to change Shorts.": {
+      "ru": "Плеер Shorts. Нажми один раз, чтобы включить или выключить звук. Нажми и удерживай, чтобы приостановить видео. Переключай Shorts стрелками навигации.",
+      "uk": "Програвач Shorts. Натисни один раз, щоб увімкнути або вимкнути звук. Натисни й утримуй, щоб призупинити відео. Перемикай Shorts стрілками навігації.",
+      "sk": "Prehrávač Shorts. Kliknutím alebo ťuknutím zapni či vypni zvuk. Podržaním video pozastavíš. Ďalšie Shorts otvor navigačnými šípkami.",
+      "bg": "Плейър за Shorts. Щракни или докосни веднъж, за да включиш или изключиш звука. Натисни и задръж за пауза. Смени Shorts със стрелките за навигация.",
+      "el": "Πρόγραμμα αναπαραγωγής Shorts. Κάνε κλικ ή πάτησε μία φορά για σίγαση ή ενεργοποίηση ήχου. Κράτησε πατημένο για παύση. Άλλαξε Shorts με τα βέλη πλοήγησης.",
+      "ro": "Player Shorts. Apasă sau atinge o dată pentru a opri ori porni sunetul. Ține apăsat pentru pauză. Schimbă Shorts cu săgețile de navigare.",
+      "hu": "Shorts-lejátszó. Kattints vagy koppints egyszer a hang ki- vagy bekapcsolásához. Tartsd lenyomva a szüneteltetéshez. Használd a navigációs nyilakat a Shorts-videók váltásához."
+    }
+  }
+}

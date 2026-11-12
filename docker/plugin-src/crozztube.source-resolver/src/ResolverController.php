@@ -161,36 +161,14 @@ class ResolverController extends Controller
             return response()->json(['ok' => false, 'message' => 'No composite HLS source.'], 404);
         }
 
-        $audioQuery = urlencode($row->audio_url);
         $base = rtrim(url('api/source-resolver'), '/').'/playlist?url=';
         // Pass the video id along so a failing CDN URL can trigger a refresh.
         $suffix = '&video_id='.$videoId;
 
-        $lines = ['#EXTM3U', '#EXT-X-VERSION:6'];
-        $lines[] = sprintf(
-            '#EXT-X-MEDIA:TYPE=AUDIO,GROUP-ID="audio",NAME="Audio",DEFAULT=YES,AUTOSELECT=YES,CODECS="mp4a.40.2",URI="%s"',
-            $base.$audioQuery.$suffix
-        );
+        $tracks = $row->audio_tracks ?: [['language' => 'und', 'label' => 'Audio', 'codecs' => 'mp4a.40.2', 'url' => $row->audio_url]];
+        $master = \CrzSourceResolver\Support\AudioTracks::master($row->variants, $tracks, $base, $suffix);
 
-        foreach ($row->variants as $variant) {
-            if (! is_array($variant) || ! isset($variant['url'])) {
-                continue;
-            }
-
-            $codes = (string) ($variant['codecs'] ?? '');
-            $resolution = (int) ($variant['width'] ?? 0) > 0 && (int) ($variant['height'] ?? 0) > 0
-                ? sprintf(',RESOLUTION=%dx%d', (int) $variant['width'], (int) $variant['height'])
-                : '';
-            $lines[] = sprintf(
-                '#EXT-X-STREAM-INF:BANDWIDTH=%d%s,CODECS="%s,mp4a.40.2",AUDIO="audio"',
-                (int) ($variant['bandwidth'] ?? 0) ?: 2000000,
-                $resolution,
-                $codes !== '' ? $codes : 'avc1.640029'
-            );
-            $lines[] = $base.urlencode((string) $variant['url']).$suffix;
-        }
-
-        return response(implode("\n", $lines)."\n", 200, [
+        return response($master, 200, [
             'Content-Type' => 'application/vnd.apple.mpegurl',
             'Access-Control-Allow-Origin' => '*',
             'Cache-Control' => 'no-store',
@@ -389,12 +367,15 @@ class ResolverController extends Controller
         $refreshing = $row->state === 'refreshing'
             && ($row->refresh_started_at === null
                 || $row->refresh_started_at->gt(now()->subSeconds(BaseSourceJob::LOCK_TTL - 60)));
+        // Match VideoSources: pre-audio-metadata records must be renewed before
+        // native playback can use them, even while their old URL has time left.
+        $fresh = $row->isFresh() && $row->audio_tracks !== null;
 
         return $base + [
             'state' => $row->state,
             'kind' => $row->kind,
             'has_direct' => $row->hasDirectSource(),
-            'fresh' => $row->isFresh(),
+            'fresh' => $fresh,
             'refreshing' => $refreshing,
             'error_category' => $row->error_category,
             'auto_refresh_allowed' => ! in_array($row->error_category, ['permanent', 'unknown_exhausted'], true),
@@ -402,7 +383,7 @@ class ResolverController extends Controller
             'downloadable' => $row->hasDirectSource() && is_string($row->download_url) && $row->download_url !== '',
             'expires_at' => optional($row->expires_at)->toIso8601String(),
             'expires_in' => $row->expires_at ? (int) max(0, now()->diffInSeconds($row->expires_at, false)) : null,
-            'can_refresh' => ! $row->isFresh() || ($row->expires_at?->isPast() ?? false),
+            'can_refresh' => ! $fresh,
             'retry_after' => $refreshing ? 2 : 5,
             'refresh_started_at' => optional($row->refresh_started_at)->toIso8601String(),
         ];

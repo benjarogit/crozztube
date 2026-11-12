@@ -1,0 +1,27 @@
+{
+  "context": "Imported external playback: saved import, without promising encoding/processing. Both current and legacy English message keys use the corrected reference meaning; local uploaded-video processing messages are unchanged.",
+  "messages": {
+    "Your video was imported and processing has started.": {
+      "fr": "Ta vidéo a été importée.",
+      "es": "Se ha importado tu video.",
+      "es_es": "Se ha importado tu vídeo.",
+      "pt": "O teu vídeo foi importado.",
+      "pt_br": "Seu vídeo foi importado.",
+      "it": "Il tuo video è stato importato.",
+      "ca": "S’ha importat el teu vídeo.",
+      "gl": "Importouse o teu vídeo.",
+      "eo": "Via filmeto estis importita."
+    },
+    "Your video was imported.": {
+      "fr": "Ta vidéo a été importée.",
+      "es": "Se ha importado tu video.",
+      "es_es": "Se ha importado tu vídeo.",
+      "pt": "O teu vídeo foi importado.",
+      "pt_br": "Seu vídeo foi importado.",
+      "it": "Il tuo video è stato importato.",
+      "ca": "S’ha importat el teu vídeo.",
+      "gl": "Importouse o teu vídeo.",
+      "eo": "Via filmeto estis importita."
+    }
+  }
+}

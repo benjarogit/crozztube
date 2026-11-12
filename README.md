@@ -6,9 +6,9 @@ Lokale Streaming-Plattform auf Basis von **PlayHub 0.9.13** (Laravel 13 · React
 
 | | |
 |---|---|
-| 🌐 Website | https://crozztube.local:8443 (self-signed Zertifikat → Browser-Ausnahme akzeptieren) |
+| 🌐 Website | https://crozztube.local:8443 (lokal vertrauenswürdiges HTTPS mit mkcert) |
 | 🛠 Admin-Panel | https://crozztube.local:8443/admin |
-| 👤 Login | `benny` / `meZVRW0bYEbpHsJc` |
+| 👤 Login | `benny` / `lokal hinterlegt; nicht versionieren` |
 | 📚 **Wiki** | **`Wiki/index.html` öffnen** — Zugänge, Umgebung, Konfiguration mit Begründungen |
 | 🐳 Stack | `docker/README.md` · Compose: `docker/compose.yml` (Projekt `crozztube-local`) |
 
@@ -25,3 +25,11 @@ Lokale Streaming-Plattform auf Basis von **PlayHub 0.9.13** (Laravel 13 · React
 - `docker/compose.yml` + `docker/README.md` — Umgebung
 - `storage/app/playhub-*.json` — zentrale App-Settings (Import, Features, Live)
 - `plugins/` — hier lebt später `crozztube.source-resolver`
+
+## Vertrauenswürdiges lokales HTTPS
+
+Führe `bash tools/dev/setup-local-https.sh` im Projektverzeichnis als normaler Entwicklungsnutzer aus. Das Skript verwendet die vorhandene, im System vertrauenswürdige mkcert-CA. Auf einem neuen Rechner musst du mkcert zuerst installieren und einmal `mkcert -install` als dein normaler Nutzer ausführen. Der private CA-Schlüssel bleibt im von `mkcert -CAROOT` angezeigten Nutzerverzeichnis und wird weder ins Projekt noch in Container kopiert.
+
+Das Setup prüft Zertifikatskette, Hostnamen, Gültigkeit und Schlüsselpaar, sichert bisherige Dateien unter dem von Git ausgeschlossenen `docker/certs/` und ersetzt nur die bestehenden Serverzertifikatspfade. Bei laufenden Uploads bricht es ab. Nur der Webcontainer wird bei Bedarf neu erzeugt; Datenbank und Worker laufen weiter. Schlägt die Prüfung nach einem Zertifikatswechsel fehl, werden die gesicherten Dateien wiederhergestellt. Ein erneuter Aufruf bei gültiger Konfiguration ändert nichts. Browserentwürfe werden nicht neu geladen.
+
+Prüfe die Verbindung regulär mit `curl --fail https://crozztube.local:8443/`. Der fokussierte Browsercheck `node tools/test/ui/strict-https.mjs` verwendet Chromium und Firefox mit aktivierter Zertifikatsprüfung. Eine Warnseite muss durch die Vertrauenskette behoben werden; Zertifikatsausnahmen gehören nicht zum Setup. Weitere lokale Browserprofile müssen der gleichen öffentlichen Entwicklungs-CA vertrauen.

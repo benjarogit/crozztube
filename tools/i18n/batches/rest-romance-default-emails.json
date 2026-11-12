@@ -1,0 +1,142 @@
+{
+  "context": "All six built-in email subjects and complete bodies editorially reviewed for24 safe Romance/Esperanto packs: personal address, gender-neutral invitations/role assignment, literal names/roles/stream titles preserved. Verification expiry uses invariant min unit for1/other values. FR-CA courriel, AR/UY voseo, PT tu/BR você and pre-AO90 directos preserved. Only project defaults; operator overrides unchanged.",
+  "messages": {
+    "Your {SITENAME} verification code": {
+      "fr": "Ton code de vérification {SITENAME}",
+      "es": "Tu código de verificación de {SITENAME}",
+      "pt": "O teu código de verificação de {SITENAME}",
+      "it": "Il tuo codice di verifica di {SITENAME}",
+      "ca": "El teu codi de verificació de {SITENAME}",
+      "gl": "O teu código de verificación de {SITENAME}",
+      "eo": "Via konfirmkodo de {SITENAME}",
+      "pt_br": "Seu código de verificação de {SITENAME}"
+    },
+    "Your {SITENAME} verification code is: {VERIFICATION_CODE}\n\nThis code expires in {EXPIRY_MINUTES} minutes.": {
+      "fr": "Ton code de vérification {SITENAME} : {VERIFICATION_CODE}\n\nDurée de validité de ce code : {EXPIRY_MINUTES} min.",
+      "es": "Tu código de verificación de {SITENAME}: {VERIFICATION_CODE}\n\nEste código caduca en {EXPIRY_MINUTES} min.",
+      "pt": "O teu código de verificação de {SITENAME}: {VERIFICATION_CODE}\n\nEste código expira dentro de {EXPIRY_MINUTES} min.",
+      "it": "Il tuo codice di verifica di {SITENAME}: {VERIFICATION_CODE}\n\nQuesto codice scade tra {EXPIRY_MINUTES} min.",
+      "ca": "El teu codi de verificació de {SITENAME}: {VERIFICATION_CODE}\n\nAquest codi caduca d’aquí a {EXPIRY_MINUTES} min.",
+      "gl": "O teu código de verificación de {SITENAME}: {VERIFICATION_CODE}\n\nEste código caduca en {EXPIRY_MINUTES} min.",
+      "eo": "Via konfirmkodo de {SITENAME}: {VERIFICATION_CODE}\n\nĈi tiu kodo eksvalidiĝos post {EXPIRY_MINUTES} min.",
+      "pt_br": "Seu código de verificação de {SITENAME}: {VERIFICATION_CODE}\n\nEste código expira em {EXPIRY_MINUTES} min."
+    },
+    "Reset your {SITENAME} password": {
+      "fr": "Réinitialise ton mot de passe {SITENAME}",
+      "es": "Restablece tu contraseña de {SITENAME}",
+      "pt": "Repõe a tua palavra-passe de {SITENAME}",
+      "it": "Reimposta la tua password di {SITENAME}",
+      "ca": "Restableix la teva contrasenya de {SITENAME}",
+      "gl": "Restablece o teu contrasinal de {SITENAME}",
+      "eo": "Reagordu vian pasvorton de {SITENAME}",
+      "pt_br": "Redefina sua senha de {SITENAME}",
+      "es_ar": "Restablecé tu contraseña de {SITENAME}",
+      "es_uy": "Restablecé tu contraseña de {SITENAME}"
+    },
+    "Hello {USERNAME},\n\nYour {SITENAME} password reset code is: {RESET_CODE}\n\nThis code expires in {EXPIRY_MINUTES} minutes.": {
+      "fr": "Salut {USERNAME},\n\nTon code pour réinitialiser ton mot de passe {SITENAME} : {RESET_CODE}\n\nDurée de validité de ce code : {EXPIRY_MINUTES} min.",
+      "es": "Hola {USERNAME}:\n\nTu código para restablecer la contraseña de {SITENAME}: {RESET_CODE}\n\nEste código caduca en {EXPIRY_MINUTES} min.",
+      "pt": "Olá {USERNAME},\n\nO teu código para repor a palavra-passe de {SITENAME}: {RESET_CODE}\n\nEste código expira dentro de {EXPIRY_MINUTES} min.",
+      "it": "Ciao {USERNAME},\n\nIl tuo codice per reimpostare la password di {SITENAME}: {RESET_CODE}\n\nQuesto codice scade tra {EXPIRY_MINUTES} min.",
+      "ca": "Hola {USERNAME},\n\nEl teu codi per restablir la contrasenya de {SITENAME}: {RESET_CODE}\n\nAquest codi caduca d’aquí a {EXPIRY_MINUTES} min.",
+      "gl": "Ola {USERNAME}:\n\nO teu código para restablecer o contrasinal de {SITENAME}: {RESET_CODE}\n\nEste código caduca en {EXPIRY_MINUTES} min.",
+      "eo": "Saluton {USERNAME},\n\nVia kodo por reagordi la pasvorton de {SITENAME}: {RESET_CODE}\n\nĈi tiu kodo eksvalidiĝos post {EXPIRY_MINUTES} min.",
+      "pt_br": "Olá {USERNAME},\n\nSeu código para redefinir a senha de {SITENAME}: {RESET_CODE}\n\nEste código expira em {EXPIRY_MINUTES} min."
+    },
+    "You have been invited to {SITENAME}": {
+      "fr": "Une invitation à rejoindre {SITENAME} pour toi",
+      "es": "Tienes una invitación a {SITENAME}",
+      "pt": "Tens um convite para {SITENAME}",
+      "it": "Hai un invito per {SITENAME}",
+      "ca": "Tens una invitació a {SITENAME}",
+      "gl": "Tes unha invitación a {SITENAME}",
+      "eo": "Vi ricevis inviton al {SITENAME}",
+      "pt_br": "Você recebeu um convite para {SITENAME}",
+      "es_ar": "Tenés una invitación a {SITENAME}",
+      "es_uy": "Tenés una invitación a {SITENAME}"
+    },
+    "Hello {USERNAME},\n\nYou have been invited to {SITENAME} as {ROLE}.\n\nLogin email: {USER_EMAIL}\nTemporary password: {TEMPORARY_PASSWORD}\nLogin: {LOGIN_URL}\n\nPlease sign in and update your password.": {
+      "fr": "Salut {USERNAME},\n\nTu as reçu une invitation à rejoindre {SITENAME} avec le rôle {ROLE}.\n\nEmail de connexion : {USER_EMAIL}\nMot de passe temporaire : {TEMPORARY_PASSWORD}\nConnexion : {LOGIN_URL}\n\nConnecte-toi et change ton mot de passe.",
+      "es": "Hola {USERNAME}:\n\nTienes una invitación a {SITENAME} con el rol {ROLE}.\n\nCorreo de acceso: {USER_EMAIL}\nContraseña temporal: {TEMPORARY_PASSWORD}\nInicio de sesión: {LOGIN_URL}\n\nInicia sesión y cambia tu contraseña.",
+      "pt": "Olá {USERNAME},\n\nRecebeste um convite para {SITENAME} com a função {ROLE}.\n\nEmail de acesso: {USER_EMAIL}\nPalavra-passe temporária: {TEMPORARY_PASSWORD}\nInício de sessão: {LOGIN_URL}\n\nInicia sessão e altera a tua palavra-passe.",
+      "it": "Ciao {USERNAME},\n\nHai ricevuto un invito a {SITENAME} con il ruolo {ROLE}.\n\nEmail di accesso: {USER_EMAIL}\nPassword temporanea: {TEMPORARY_PASSWORD}\nAccesso: {LOGIN_URL}\n\nAccedi e cambia la tua password.",
+      "ca": "Hola {USERNAME},\n\nHas rebut una invitació a {SITENAME} amb el rol {ROLE}.\n\nCorreu d’accés: {USER_EMAIL}\nContrasenya temporal: {TEMPORARY_PASSWORD}\nInici de sessió: {LOGIN_URL}\n\nInicia la sessió i canvia la contrasenya.",
+      "gl": "Ola {USERNAME}:\n\nTes unha invitación a {SITENAME} co rol {ROLE}.\n\nCorreo de acceso: {USER_EMAIL}\nContrasinal temporal: {TEMPORARY_PASSWORD}\nInicio de sesión: {LOGIN_URL}\n\nInicia sesión e cambia o teu contrasinal.",
+      "eo": "Saluton {USERNAME},\n\nVi ricevis inviton al {SITENAME} kun la rolo {ROLE}.\n\nEnsaluta retpoŝtadreso: {USER_EMAIL}\nProvizora pasvorto: {TEMPORARY_PASSWORD}\nEnsaluto: {LOGIN_URL}\n\nEnsalutu kaj ŝanĝu vian pasvorton.",
+      "pt_br": "Olá {USERNAME},\n\nVocê recebeu um convite para {SITENAME} com a função {ROLE}.\n\nEmail de acesso: {USER_EMAIL}\nSenha temporária: {TEMPORARY_PASSWORD}\nAcesso: {LOGIN_URL}\n\nEntre na conta e altere sua senha.",
+      "fr_ca": "Salut {USERNAME},\n\nTu as reçu une invitation à rejoindre {SITENAME} avec le rôle {ROLE}.\n\nCourriel de connexion : {USER_EMAIL}\nMot de passe temporaire : {TEMPORARY_PASSWORD}\nConnexion : {LOGIN_URL}\n\nConnecte-toi et change ton mot de passe.",
+      "es_ar": "Hola {USERNAME}:\n\nTenés una invitación a {SITENAME} con el rol {ROLE}.\n\nCorreo de acceso: {USER_EMAIL}\nContraseña temporal: {TEMPORARY_PASSWORD}\nInicio de sesión: {LOGIN_URL}\n\nIniciá sesión y cambiá tu contraseña.",
+      "es_uy": "Hola {USERNAME}:\n\nTenés una invitación a {SITENAME} con el rol {ROLE}.\n\nCorreo de acceso: {USER_EMAIL}\nContraseña temporal: {TEMPORARY_PASSWORD}\nInicio de sesión: {LOGIN_URL}\n\nIniciá sesión y cambiá tu contraseña."
+    },
+    "Your {SITENAME} account has been restricted": {
+      "fr": "Ton compte {SITENAME} fait l’objet de restrictions",
+      "es": "Tu cuenta de {SITENAME} tiene restricciones",
+      "pt": "A tua conta de {SITENAME} tem restrições",
+      "it": "Il tuo account di {SITENAME} ha delle limitazioni",
+      "ca": "El teu compte de {SITENAME} té restriccions",
+      "gl": "A túa conta de {SITENAME} ten restricións",
+      "eo": "Via konto de {SITENAME} estas limigita",
+      "pt_br": "Sua conta de {SITENAME} tem restrições"
+    },
+    "Hello {USERNAME},\n\nYour {SITENAME} account has been restricted until {BAN_EXPIRES_AT}.\n\nRestrictions:\n{RESTRICTIONS}\n\nIf you believe this is a mistake, contact {SUPPORT_EMAIL}.": {
+      "fr": "Salut {USERNAME},\n\nTon compte {SITENAME} fait l’objet de restrictions jusqu’au {BAN_EXPIRES_AT}.\n\nRestrictions :\n{RESTRICTIONS}\n\nSi tu penses qu’il s’agit d’une erreur, contacte {SUPPORT_EMAIL}.",
+      "es": "Hola {USERNAME}:\n\nTu cuenta de {SITENAME} tiene restricciones hasta {BAN_EXPIRES_AT}.\n\nRestricciones:\n{RESTRICTIONS}\n\nSi crees que es un error, contacta con {SUPPORT_EMAIL}.",
+      "pt": "Olá {USERNAME},\n\nA tua conta de {SITENAME} tem restrições até {BAN_EXPIRES_AT}.\n\nRestrições:\n{RESTRICTIONS}\n\nSe achas que se trata de um erro, contacta {SUPPORT_EMAIL}.",
+      "it": "Ciao {USERNAME},\n\nIl tuo account di {SITENAME} ha delle limitazioni fino a {BAN_EXPIRES_AT}.\n\nLimitazioni:\n{RESTRICTIONS}\n\nSe pensi che sia un errore, contatta {SUPPORT_EMAIL}.",
+      "ca": "Hola {USERNAME},\n\nEl teu compte de {SITENAME} té restriccions fins a {BAN_EXPIRES_AT}.\n\nRestriccions:\n{RESTRICTIONS}\n\nSi creus que és un error, contacta amb {SUPPORT_EMAIL}.",
+      "gl": "Ola {USERNAME}:\n\nA túa conta de {SITENAME} ten restricións ata {BAN_EXPIRES_AT}.\n\nRestricións:\n{RESTRICTIONS}\n\nSe cres que é un erro, contacta con {SUPPORT_EMAIL}.",
+      "eo": "Saluton {USERNAME},\n\nVia konto de {SITENAME} estas limigita ĝis {BAN_EXPIRES_AT}.\n\nLimigoj:\n{RESTRICTIONS}\n\nSe vi opinias, ke tio estas eraro, kontaktu {SUPPORT_EMAIL}.",
+      "pt_br": "Olá {USERNAME},\n\nSua conta de {SITENAME} tem restrições até {BAN_EXPIRES_AT}.\n\nRestrições:\n{RESTRICTIONS}\n\nSe você acha que isso é um erro, fale com {SUPPORT_EMAIL}.",
+      "es_ar": "Hola {USERNAME}:\n\nTu cuenta de {SITENAME} tiene restricciones hasta {BAN_EXPIRES_AT}.\n\nRestricciones:\n{RESTRICTIONS}\n\nSi creés que es un error, contactá con {SUPPORT_EMAIL}.",
+      "es_uy": "Hola {USERNAME}:\n\nTu cuenta de {SITENAME} tiene restricciones hasta {BAN_EXPIRES_AT}.\n\nRestricciones:\n{RESTRICTIONS}\n\nSi creés que es un error, contactá con {SUPPORT_EMAIL}."
+    },
+    "You are now a {SITENAME} moderator": {
+      "fr": "Tu peux maintenant modérer {SITENAME}",
+      "es": "Ya puedes moderar {SITENAME}",
+      "pt": "Já podes moderar {SITENAME}",
+      "it": "Ora puoi moderare {SITENAME}",
+      "ca": "Ja pots moderar {SITENAME}",
+      "gl": "Xa podes moderar {SITENAME}",
+      "eo": "Vi nun povas kontroli enhavon en {SITENAME}",
+      "pt_br": "Você já pode moderar {SITENAME}",
+      "es_ar": "Ya podés moderar {SITENAME}",
+      "es_uy": "Ya podés moderar {SITENAME}"
+    },
+    "Hello {USERNAME},\n\nYou have been assigned the Moderator role on {SITENAME}. You can now access the moderation tools available to your role.\n\nModeration dashboard: {MODERATION_URL}": {
+      "fr": "Salut {USERNAME},\n\nLe rôle de modération de {SITENAME} t’a été attribué. Tu peux maintenant utiliser les outils de modération prévus pour ce rôle.\n\nTableau de modération : {MODERATION_URL}",
+      "es": "Hola {USERNAME}:\n\nSe te ha asignado el rol de moderación en {SITENAME}. Ya puedes usar las herramientas de moderación disponibles para tu rol.\n\nPanel de moderación: {MODERATION_URL}",
+      "pt": "Olá {USERNAME},\n\nFoi-te atribuída a função de moderação em {SITENAME}. Já podes usar as ferramentas de moderação disponíveis para a tua função.\n\nPainel de moderação: {MODERATION_URL}",
+      "it": "Ciao {USERNAME},\n\nTi è stato assegnato il ruolo di moderazione su {SITENAME}. Ora puoi usare gli strumenti di moderazione disponibili per il tuo ruolo.\n\nPannello di moderazione: {MODERATION_URL}",
+      "ca": "Hola {USERNAME},\n\nT’han assignat el rol de moderació a {SITENAME}. Ja pots fer servir les eines de moderació disponibles per al teu rol.\n\nTauler de moderació: {MODERATION_URL}",
+      "gl": "Ola {USERNAME}:\n\nAsignóuseche o rol de moderación en {SITENAME}. Xa podes usar as ferramentas de moderación dispoñibles para o teu rol.\n\nPanel de moderación: {MODERATION_URL}",
+      "eo": "Saluton {USERNAME},\n\nVi ricevis la rolon de enhavkontrolanto en {SITENAME}. Vi nun povas uzi la enhavkontrolajn ilojn disponeblajn por via rolo.\n\nPanelo por kontrolado de enhavo: {MODERATION_URL}",
+      "pt_br": "Olá {USERNAME},\n\nVocê recebeu a função de moderação em {SITENAME}. Já pode usar as ferramentas de moderação disponíveis para sua função.\n\nPainel de moderação: {MODERATION_URL}",
+      "es_ar": "Hola {USERNAME}:\n\nSe te asignó el rol de moderación en {SITENAME}. Ya podés usar las herramientas de moderación disponibles para tu rol.\n\nPanel de moderación: {MODERATION_URL}",
+      "es_uy": "Hola {USERNAME}:\n\nSe te asignó el rol de moderación en {SITENAME}. Ya podés usar las herramientas de moderación disponibles para tu rol.\n\nPanel de moderación: {MODERATION_URL}"
+    },
+    "You are moderating \"{STREAM_TITLE}\" on {SITENAME}": {
+      "fr": "Tu modères « {STREAM_TITLE} » sur {SITENAME}",
+      "es": "Moderas «{STREAM_TITLE}» en {SITENAME}",
+      "pt": "Vais moderar «{STREAM_TITLE}» em {SITENAME}",
+      "it": "Moderi «{STREAM_TITLE}» su {SITENAME}",
+      "ca": "Moderes «{STREAM_TITLE}» a {SITENAME}",
+      "gl": "Moderas «{STREAM_TITLE}» en {SITENAME}",
+      "eo": "Vi kontrolas enhavon de «{STREAM_TITLE}» en {SITENAME}",
+      "pt_br": "Você modera «{STREAM_TITLE}» em {SITENAME}"
+    },
+    "Hello {USERNAME},\n\nYou have been assigned as a moderator for the live stream \"{STREAM_TITLE}\". Open the stream to access your moderation controls.\n\nOpen stream: {STREAM_URL}": {
+      "fr": "Salut {USERNAME},\n\nLa modération du direct « {STREAM_TITLE} » t’a été confiée. Ouvre le direct pour accéder aux outils de modération.\n\nOuvrir le direct : {STREAM_URL}",
+      "es": "Hola {USERNAME}:\n\nSe te ha asignado la moderación del directo «{STREAM_TITLE}». Abre el directo para usar los controles de moderación.\n\nAbrir directo: {STREAM_URL}",
+      "pt": "Olá {USERNAME},\n\nFoi-te atribuída a moderação da transmissão em direto «{STREAM_TITLE}». Abre a transmissão para acederes aos controlos de moderação.\n\nAbrir transmissão: {STREAM_URL}",
+      "it": "Ciao {USERNAME},\n\nTi è stata affidata la moderazione della diretta «{STREAM_TITLE}». Apri la diretta per accedere ai controlli di moderazione.\n\nApri la diretta: {STREAM_URL}",
+      "ca": "Hola {USERNAME},\n\nT’han assignat la moderació del directe «{STREAM_TITLE}». Obre el directe per accedir als controls de moderació.\n\nObre el directe: {STREAM_URL}",
+      "gl": "Ola {USERNAME}:\n\nAsignóuseche a moderación do directo «{STREAM_TITLE}». Abre o directo para acceder aos controis de moderación.\n\nAbrir directo: {STREAM_URL}",
+      "eo": "Saluton {USERNAME},\n\nVi ricevis la taskon kontroli enhavon de la rekta elsendo «{STREAM_TITLE}». Malfermu la elsendon por aliri la enhavkontrolajn ilojn.\n\nMalfermu la elsendon: {STREAM_URL}",
+      "pt_br": "Olá {USERNAME},\n\nVocê recebeu a função de moderação da transmissão ao vivo «{STREAM_TITLE}». Abra a transmissão para acessar os controles de moderação.\n\nAbrir transmissão: {STREAM_URL}",
+      "pt_pt": "Olá {USERNAME},\n\nFoi-te atribuída a moderação da transmissão em directo «{STREAM_TITLE}». Abre a transmissão para acederes aos controlos de moderação.\n\nAbrir transmissão: {STREAM_URL}",
+      "pt_ao": "Olá {USERNAME},\n\nFoi-te atribuída a moderação da transmissão em directo «{STREAM_TITLE}». Abre a transmissão para acederes aos controlos de moderação.\n\nAbrir transmissão: {STREAM_URL}",
+      "es_ar": "Hola {USERNAME}:\n\nSe te asignó la moderación del directo «{STREAM_TITLE}». Abrí el directo para usar los controles de moderación.\n\nAbrir directo: {STREAM_URL}",
+      "es_uy": "Hola {USERNAME}:\n\nSe te asignó la moderación del directo «{STREAM_TITLE}». Abrí el directo para usar los controles de moderación.\n\nAbrir directo: {STREAM_URL}"
+    }
+  }
+}

@@ -1,0 +1,724 @@
+{
+  "context": "Editorial review in navigation, player captions/theme, upload wizard, moderation and empty states. Shorts retained as the video format; Device Breakdown is a distribution. Actual UI actions use personal address or concise infinitives. Regional Spanish video spelling and Portuguese pre/post-AO90 retained; no user/example names rewritten.",
+  "messages": {
+    "Home": {
+      "fr": "Accueil",
+      "es": "Inicio",
+      "pt": "Início",
+      "pt_br": "Início",
+      "it": "Home",
+      "ca": "Inici",
+      "gl": "Inicio",
+      "eo": "Hejmpaĝo"
+    },
+    "Explore": {
+      "fr": "Explorer",
+      "es": "Explorar",
+      "pt": "Explorar",
+      "pt_br": "Explorar",
+      "it": "Esplora",
+      "ca": "Explora",
+      "gl": "Explora",
+      "eo": "Esploru"
+    },
+    "Trending": {
+      "fr": "Tendances",
+      "es": "Tendencias",
+      "pt": "Tendências",
+      "pt_br": "Em alta",
+      "it": "Di tendenza",
+      "ca": "Tendències",
+      "gl": "Tendencias",
+      "eo": "Tendencoj"
+    },
+    "Shorts": {
+      "fr": "Shorts",
+      "es": "Shorts",
+      "pt": "Shorts",
+      "pt_br": "Shorts",
+      "it": "Shorts",
+      "ca": "Shorts",
+      "gl": "Shorts",
+      "eo": "Shorts"
+    },
+    "Creator Studio": {
+      "fr": "Studio de création",
+      "es": "Estudio de creación",
+      "pt": "Estúdio de criação",
+      "pt_br": "Estúdio de criação",
+      "it": "Studio per creator",
+      "ca": "Estudi de creació",
+      "gl": "Estudio de creación",
+      "eo": "Studio por kreintoj"
+    },
+    "Creator": {
+      "fr": "Créateur",
+      "es": "Creador",
+      "pt": "Criador",
+      "pt_br": "Criador",
+      "it": "Creator",
+      "ca": "Creador",
+      "gl": "Creador",
+      "eo": "Kreinto"
+    },
+    "Creators": {
+      "fr": "Créateurs",
+      "es": "Creadores",
+      "pt": "Criadores",
+      "pt_br": "Criadores",
+      "it": "Creator",
+      "ca": "Creadors",
+      "gl": "Creadores",
+      "eo": "Kreintoj"
+    },
+    "Playlist": {
+      "fr": "Playlist",
+      "es": "Lista de reproducción",
+      "pt": "Lista de reprodução",
+      "pt_br": "Playlist",
+      "it": "Playlist",
+      "ca": "Llista de reproducció",
+      "gl": "Lista de reprodución",
+      "eo": "Ludlisto"
+    },
+    "Playlists": {
+      "fr": "Playlists",
+      "es": "Listas de reproducción",
+      "pt": "Listas de reprodução",
+      "pt_br": "Playlists",
+      "it": "Playlist",
+      "ca": "Llistes de reproducció",
+      "gl": "Listas de reprodución",
+      "eo": "Ludlistoj"
+    },
+    "Upload": {
+      "fr": "Mettre en ligne",
+      "es": "Subir",
+      "pt": "Carregar",
+      "pt_br": "Enviar",
+      "it": "Carica",
+      "ca": "Puja",
+      "gl": "Subir",
+      "eo": "Alŝuti"
+    },
+    "Upload video": {
+      "fr": "Mettre une vidéo en ligne",
+      "es": "Subir un video",
+      "pt": "Carregar vídeo",
+      "pt_br": "Enviar vídeo",
+      "it": "Carica un video",
+      "ca": "Puja un vídeo",
+      "gl": "Subir un vídeo",
+      "eo": "Alŝuti filmeton",
+      "es_es": "Subir un vídeo"
+    },
+    "Upload Video": {
+      "fr": "Mettre une vidéo en ligne",
+      "es": "Subir un video",
+      "pt": "Carregar vídeo",
+      "pt_br": "Enviar vídeo",
+      "it": "Carica un video",
+      "ca": "Puja un vídeo",
+      "gl": "Subir un vídeo",
+      "eo": "Alŝuti filmeton",
+      "es_es": "Subir un vídeo"
+    },
+    "Upload thumbnail": {
+      "fr": "Ajouter une miniature",
+      "es": "Subir miniatura",
+      "pt": "Carregar miniatura",
+      "pt_br": "Enviar miniatura",
+      "it": "Carica una miniatura",
+      "ca": "Puja una miniatura",
+      "gl": "Subir miniatura",
+      "eo": "Alŝuti bildeton"
+    },
+    "Upload file": {
+      "fr": "Choisir un fichier",
+      "es": "Elegir archivo",
+      "pt": "Escolher ficheiro",
+      "pt_br": "Escolher arquivo",
+      "it": "Scegli un file",
+      "ca": "Tria un fitxer",
+      "gl": "Escoller ficheiro",
+      "eo": "Elekti dosieron"
+    },
+    "Upload steps": {
+      "fr": "Étapes de mise en ligne",
+      "es": "Pasos para subir el video",
+      "pt": "Passos do carregamento",
+      "pt_br": "Etapas do envio",
+      "it": "Passaggi del caricamento",
+      "ca": "Passos de la pujada",
+      "gl": "Pasos da subida",
+      "eo": "Paŝoj de alŝuto"
+    },
+    "Select files": {
+      "fr": "Choisir des fichiers",
+      "es": "Elegir archivos",
+      "pt": "Escolher ficheiros",
+      "pt_br": "Escolher arquivos",
+      "it": "Scegli i file",
+      "ca": "Tria fitxers",
+      "gl": "Escoller ficheiros",
+      "eo": "Elekti dosierojn"
+    },
+    "Select Files": {
+      "fr": "Choisir des fichiers",
+      "es": "Elegir archivos",
+      "pt": "Escolher ficheiros",
+      "pt_br": "Escolher arquivos",
+      "it": "Scegli i file",
+      "ca": "Tria fitxers",
+      "gl": "Escoller ficheiros",
+      "eo": "Elekti dosierojn"
+    },
+    "Review": {
+      "fr": "Vérifier",
+      "es": "Revisar",
+      "pt": "Rever",
+      "pt_br": "Revisar",
+      "it": "Controlla",
+      "ca": "Revisa",
+      "gl": "Revisar",
+      "eo": "Kontroli"
+    },
+    "Complete": {
+      "fr": "Terminé",
+      "es": "Completado",
+      "pt": "Concluído",
+      "pt_br": "Concluído",
+      "it": "Completato",
+      "ca": "Completat",
+      "gl": "Completado",
+      "eo": "Finite"
+    },
+    "Upload complete": {
+      "fr": "Mise en ligne terminée",
+      "es": "Carga completada",
+      "pt": "Carregamento concluído",
+      "pt_br": "Envio concluído",
+      "it": "Caricamento completato",
+      "ca": "Pujada completada",
+      "gl": "Subida completada",
+      "eo": "Alŝuto finita"
+    },
+    "Captions": {
+      "fr": "Sous-titres",
+      "es": "Subtítulos",
+      "pt": "Legendas",
+      "pt_br": "Legendas",
+      "it": "Sottotitoli",
+      "ca": "Subtítols",
+      "gl": "Subtítulos",
+      "eo": "Subtitoloj"
+    },
+    "Subtitles / Captions": {
+      "fr": "Sous-titres",
+      "es": "Subtítulos",
+      "pt": "Legendas",
+      "pt_br": "Legendas",
+      "it": "Sottotitoli",
+      "ca": "Subtítols",
+      "gl": "Subtítulos",
+      "eo": "Subtitoloj"
+    },
+    "Caption Styles": {
+      "fr": "Style des sous-titres",
+      "es": "Estilo de los subtítulos",
+      "pt": "Estilo das legendas",
+      "pt_br": "Estilo das legendas",
+      "it": "Stile dei sottotitoli",
+      "ca": "Estil dels subtítols",
+      "gl": "Estilo dos subtítulos",
+      "eo": "Stilo de subtitoloj"
+    },
+    "Captions look like this": {
+      "fr": "Les sous-titres ressemblent à ceci",
+      "es": "Así se ven los subtítulos",
+      "pt": "As legendas aparecem assim",
+      "pt_br": "As legendas aparecem assim",
+      "it": "I sottotitoli appaiono così",
+      "ca": "Els subtítols es veuen així",
+      "gl": "Así se ven os subtítulos",
+      "eo": "Jen kiel aspektas subtitoloj"
+    },
+    "Light": {
+      "fr": "Clair",
+      "es": "Claro",
+      "pt": "Claro",
+      "pt_br": "Claro",
+      "it": "Chiaro",
+      "ca": "Clar",
+      "gl": "Claro",
+      "eo": "Hela"
+    },
+    "Dark": {
+      "fr": "Sombre",
+      "es": "Oscuro",
+      "pt": "Escuro",
+      "pt_br": "Escuro",
+      "it": "Scuro",
+      "ca": "Fosc",
+      "gl": "Escuro",
+      "eo": "Malhela"
+    },
+    "Dashboard": {
+      "fr": "Tableau de bord",
+      "es": "Panel de control",
+      "pt": "Painel de controlo",
+      "pt_br": "Painel",
+      "it": "Pannello di controllo",
+      "ca": "Tauler de control",
+      "gl": "Panel de control",
+      "eo": "Panelo",
+      "pt_pt_ao90": "Painel de controlo"
+    },
+    "Reports": {
+      "fr": "Signalements",
+      "es": "Denuncias",
+      "pt": "Denúncias",
+      "pt_br": "Denúncias",
+      "it": "Segnalazioni",
+      "ca": "Denúncies",
+      "gl": "Denuncias",
+      "eo": "Denuncoj"
+    },
+    "Device Breakdown": {
+      "fr": "Répartition des appareils",
+      "es": "Distribución de dispositivos",
+      "pt": "Distribuição por dispositivo",
+      "pt_br": "Distribuição por dispositivo",
+      "it": "Dispositivi utilizzati",
+      "ca": "Distribució dels dispositius",
+      "gl": "Distribución dos dispositivos",
+      "eo": "Distribuo de aparatoj"
+    },
+    "Stream Health": {
+      "fr": "État de la diffusion",
+      "es": "Estado de la transmisión",
+      "pt": "Estado da transmissão",
+      "pt_br": "Estado da transmissão",
+      "it": "Stato della diretta",
+      "ca": "Estat de la transmissió",
+      "gl": "Estado da transmisión",
+      "eo": "Stato de la elsendo"
+    },
+    "Stream Health Overview": {
+      "fr": "État des diffusions",
+      "es": "Estado de las transmisiones",
+      "pt": "Estado das transmissões",
+      "pt_br": "Estado das transmissões",
+      "it": "Stato delle dirette",
+      "ca": "Estat de les transmissions",
+      "gl": "Estado das transmisións",
+      "eo": "Stato de la elsendoj"
+    },
+    "Watch Later": {
+      "fr": "À regarder plus tard",
+      "es": "Ver más tarde",
+      "pt": "Ver mais tarde",
+      "pt_br": "Assistir mais tarde",
+      "it": "Guarda più tardi",
+      "ca": "Mira més tard",
+      "gl": "Ver máis tarde",
+      "eo": "Spekti poste"
+    },
+    "Watch later": {
+      "fr": "À regarder plus tard",
+      "es": "Ver más tarde",
+      "pt": "Ver mais tarde",
+      "pt_br": "Assistir mais tarde",
+      "it": "Guarda più tardi",
+      "ca": "Mira més tard",
+      "gl": "Ver máis tarde",
+      "eo": "Spekti poste"
+    },
+    "Watch now": {
+      "fr": "Regarder",
+      "es": "Ver ahora",
+      "pt": "Ver agora",
+      "pt_br": "Assistir agora",
+      "it": "Guarda ora",
+      "ca": "Mira ara",
+      "gl": "Ver agora",
+      "eo": "Spekti nun"
+    },
+    "Watch Now": {
+      "fr": "Regarder",
+      "es": "Ver ahora",
+      "pt": "Ver agora",
+      "pt_br": "Assistir agora",
+      "it": "Guarda ora",
+      "ca": "Mira ara",
+      "gl": "Ver agora",
+      "eo": "Spekti nun"
+    },
+    "Go Live": {
+      "fr": "Lancer un live",
+      "es": "Iniciar transmisión",
+      "pt": "Iniciar direto",
+      "pt_br": "Iniciar live",
+      "it": "Avvia una diretta",
+      "ca": "Inicia una transmissió",
+      "gl": "Iniciar unha transmisión",
+      "eo": "Komenci rektan elsendon"
+    },
+    "Save": {
+      "fr": "Enregistrer",
+      "es": "Guardar",
+      "pt": "Guardar",
+      "pt_br": "Salvar",
+      "it": "Salva",
+      "ca": "Desa",
+      "gl": "Gardar",
+      "eo": "Konservi"
+    },
+    "Saving...": {
+      "fr": "Enregistrement…",
+      "es": "Guardando…",
+      "pt": "A guardar…",
+      "pt_br": "Salvando…",
+      "it": "Salvataggio…",
+      "ca": "S’està desant…",
+      "gl": "Gardando…",
+      "eo": "Konservante…"
+    },
+    "Saved": {
+      "fr": "Enregistré",
+      "es": "Guardado",
+      "pt": "Guardado",
+      "pt_br": "Salvo",
+      "it": "Salvato",
+      "ca": "Desat",
+      "gl": "Gardado",
+      "eo": "Konservita"
+    },
+    "Save Changes": {
+      "fr": "Enregistrer les modifications",
+      "es": "Guardar cambios",
+      "pt": "Guardar alterações",
+      "pt_br": "Salvar alterações",
+      "it": "Salva le modifiche",
+      "ca": "Desa els canvis",
+      "gl": "Gardar cambios",
+      "eo": "Konservi ŝanĝojn"
+    },
+    "Discard": {
+      "fr": "Abandonner",
+      "es": "Descartar",
+      "pt": "Descartar",
+      "pt_br": "Descartar",
+      "it": "Scarta",
+      "ca": "Descarta",
+      "gl": "Descartar",
+      "eo": "Forĵeti"
+    },
+    "Clear selection": {
+      "fr": "Annuler la sélection",
+      "es": "Quitar selección",
+      "pt": "Limpar selecção",
+      "pt_br": "Limpar seleção",
+      "it": "Annulla selezione",
+      "ca": "Desfés la selecció",
+      "gl": "Limpar selección",
+      "eo": "Nuligi elekton",
+      "pt_pt_ao90": "Limpar seleção"
+    },
+    "Open actions": {
+      "fr": "Ouvrir les actions",
+      "es": "Abrir acciones",
+      "pt": "Abrir acções",
+      "pt_br": "Abrir ações",
+      "it": "Apri azioni",
+      "ca": "Obre les accions",
+      "gl": "Abrir accións",
+      "eo": "Malfermi agojn",
+      "pt_pt_ao90": "Abrir ações"
+    },
+    "Copy Link": {
+      "fr": "Copier le lien",
+      "es": "Copiar enlace",
+      "pt": "Copiar ligação",
+      "pt_br": "Copiar link",
+      "it": "Copia il link",
+      "ca": "Copia l’enllaç",
+      "gl": "Copiar ligazón",
+      "eo": "Kopii ligilon"
+    },
+    "Pin Comment": {
+      "fr": "Épingler le commentaire",
+      "es": "Fijar comentario",
+      "pt": "Fixar comentário",
+      "pt_br": "Fixar comentário",
+      "it": "Fissa il commento",
+      "ca": "Fixa el comentari",
+      "gl": "Fixar comentario",
+      "eo": "Alpingli komenton"
+    },
+    "Unpin Comment": {
+      "fr": "Désépingler le commentaire",
+      "es": "Desfijar comentario",
+      "pt": "Desafixar comentário",
+      "pt_br": "Desafixar comentário",
+      "it": "Rimuovi il commento dai fissati",
+      "ca": "Desfixa el comentari",
+      "gl": "Desafixar comentario",
+      "eo": "Malalpingli komenton"
+    },
+    "Delete Comment": {
+      "fr": "Supprimer le commentaire",
+      "es": "Eliminar comentario",
+      "pt": "Eliminar comentário",
+      "pt_br": "Excluir comentário",
+      "it": "Elimina il commento",
+      "ca": "Suprimeix el comentari",
+      "gl": "Eliminar comentario",
+      "eo": "Forigi komenton"
+    },
+    "Report Comment": {
+      "fr": "Signaler le commentaire",
+      "es": "Denunciar comentario",
+      "pt": "Denunciar comentário",
+      "pt_br": "Denunciar comentário",
+      "it": "Segnala il commento",
+      "ca": "Denuncia el comentari",
+      "gl": "Denunciar comentario",
+      "eo": "Denunci komenton"
+    },
+    "Mute User": {
+      "fr": "Masquer les notifications de cette personne",
+      "es": "Silenciar usuario",
+      "pt": "Silenciar utilizador",
+      "pt_br": "Silenciar usuário",
+      "it": "Silenzia utente",
+      "ca": "Silencia l’usuari",
+      "gl": "Silenciar usuario",
+      "eo": "Silentigi uzanton"
+    },
+    "Profile / Account": {
+      "fr": "Profil et compte",
+      "es": "Perfil y cuenta",
+      "pt": "Perfil e conta",
+      "pt_br": "Perfil e conta",
+      "it": "Profilo e account",
+      "ca": "Perfil i compte",
+      "gl": "Perfil e conta",
+      "eo": "Profilo kaj konto"
+    },
+    "Account": {
+      "fr": "Compte",
+      "es": "Cuenta",
+      "pt": "Conta",
+      "pt_br": "Conta",
+      "it": "Account",
+      "ca": "Compte",
+      "gl": "Conta",
+      "eo": "Konto"
+    },
+    "All Reports": {
+      "fr": "Tous les signalements",
+      "es": "Todas las denuncias",
+      "pt": "Todas as denúncias",
+      "pt_br": "Todas as denúncias",
+      "it": "Tutte le segnalazioni",
+      "ca": "Totes les denúncies",
+      "gl": "Todas as denuncias",
+      "eo": "Ĉiuj denuncoj"
+    },
+    "Review Reports": {
+      "fr": "Examiner les signalements",
+      "es": "Revisar denuncias",
+      "pt": "Rever denúncias",
+      "pt_br": "Revisar denúncias",
+      "it": "Controlla le segnalazioni",
+      "ca": "Revisa les denúncies",
+      "gl": "Revisar denuncias",
+      "eo": "Kontroli denuncojn"
+    },
+    "No records found.": {
+      "fr": "Aucun résultat.",
+      "es": "No se encontraron registros.",
+      "pt": "Não foram encontrados registos.",
+      "pt_br": "Nenhum registro encontrado.",
+      "it": "Nessun risultato.",
+      "ca": "No s’ha trobat cap registre.",
+      "gl": "Non se atoparon rexistros.",
+      "eo": "Neniuj registroj trovitaj."
+    },
+    "No trending videos yet.": {
+      "fr": "Pas encore de vidéos tendance.",
+      "es": "Todavía no hay videos en tendencia.",
+      "pt": "Ainda não há vídeos em destaque.",
+      "pt_br": "Ainda não há vídeos em alta.",
+      "it": "Non ci sono ancora video di tendenza.",
+      "ca": "Encara no hi ha vídeos en tendència.",
+      "gl": "Aínda non hai vídeos en tendencia.",
+      "eo": "Ankoraŭ neniuj tendencaj filmetoj.",
+      "es_es": "Todavía no hay vídeos en tendencia."
+    },
+    "No comments yet. Be the first to comment.": {
+      "fr": "Pas encore de commentaires. Lance la discussion !",
+      "es": "Todavía no hay comentarios. ¡Inicia la conversación!",
+      "pt": "Ainda não há comentários. Começa a conversa!",
+      "pt_br": "Ainda não há comentários. Comece a conversa!",
+      "it": "Ancora nessun commento. Inizia tu la conversazione!",
+      "ca": "Encara no hi ha comentaris. Comença la conversa!",
+      "gl": "Aínda non hai comentarios. Comeza a conversa!",
+      "eo": "Ankoraŭ neniuj komentoj. Komencu la konversacion!"
+    },
+    "No messages found": {
+      "fr": "Aucun message trouvé",
+      "es": "No se encontraron mensajes",
+      "pt": "Não foram encontradas mensagens",
+      "pt_br": "Nenhuma mensagem encontrada",
+      "it": "Nessun messaggio trovato",
+      "ca": "No s’ha trobat cap missatge",
+      "gl": "Non se atoparon mensaxes",
+      "eo": "Neniuj mesaĝoj trovitaj"
+    },
+    "No notifications yet.": {
+      "fr": "Pas encore de notifications.",
+      "es": "Todavía no hay notificaciones.",
+      "pt": "Ainda não há notificações.",
+      "pt_br": "Ainda não há notificações.",
+      "it": "Non ci sono ancora notifiche.",
+      "ca": "Encara no hi ha notificacions.",
+      "gl": "Aínda non hai notificacións.",
+      "eo": "Ankoraŭ neniuj sciigoj."
+    },
+    "No creators found.": {
+      "fr": "Aucun créateur trouvé.",
+      "es": "No se encontraron creadores.",
+      "pt": "Não foram encontrados criadores.",
+      "pt_br": "Nenhum criador encontrado.",
+      "it": "Nessun creator trovato.",
+      "ca": "No s’ha trobat cap creador.",
+      "gl": "Non se atoparon creadores.",
+      "eo": "Neniuj kreintoj trovitaj."
+    },
+    "Enter video title": {
+      "fr": "Donne un titre à ta vidéo",
+      "es": "Ponle un título a tu video",
+      "pt": "Dá um título ao teu vídeo",
+      "pt_br": "Dê um título ao seu vídeo",
+      "it": "Dai un titolo al tuo video",
+      "ca": "Posa un títol al teu vídeo",
+      "gl": "Ponlle un título ao teu vídeo",
+      "eo": "Donu titolon al via filmeto",
+      "es_es": "Ponle un título a tu vídeo"
+    },
+    "Enter video description": {
+      "fr": "Décris ta vidéo",
+      "es": "Describe tu video",
+      "pt": "Descreve o teu vídeo",
+      "pt_br": "Descreva seu vídeo",
+      "it": "Descrivi il tuo video",
+      "ca": "Descriu el teu vídeo",
+      "gl": "Describe o teu vídeo",
+      "eo": "Priskribu vian filmeton",
+      "es_es": "Describe tu vídeo"
+    },
+    "Add tags separated by commas": {
+      "fr": "Ajoute des tags séparés par des virgules",
+      "es": "Añade etiquetas separadas por comas",
+      "pt": "Adiciona etiquetas separadas por vírgulas",
+      "pt_br": "Adicione tags separadas por vírgulas",
+      "it": "Aggiungi tag separati da virgole",
+      "ca": "Afegeix etiquetes separades per comes",
+      "gl": "Engade etiquetas separadas por comas",
+      "eo": "Aldonu etikedojn apartigitajn per komoj"
+    },
+    "Select a video to preview it.": {
+      "fr": "Choisis une vidéo pour l’aperçu.",
+      "es": "Elige un video para ver la vista previa.",
+      "pt": "Escolhe um vídeo para a pré-visualização.",
+      "pt_br": "Escolha um vídeo para a prévia.",
+      "it": "Scegli un video per l’anteprima.",
+      "ca": "Tria un vídeo per veure’n la previsualització.",
+      "gl": "Escolle un vídeo para a vista previa.",
+      "eo": "Elektu filmeton por antaŭrigardi ĝin.",
+      "es_es": "Elige un vídeo para ver la vista previa."
+    },
+    "Add title, description, category and language": {
+      "fr": "Ajoute un titre, une description, une catégorie et une langue",
+      "es": "Añade título, descripción, categoría e idioma",
+      "pt": "Adiciona título, descrição, categoria e idioma",
+      "pt_br": "Adicione título, descrição, categoria e idioma",
+      "it": "Aggiungi titolo, descrizione, categoria e lingua",
+      "ca": "Afegeix títol, descripció, categoria i llengua",
+      "gl": "Engade título, descrición, categoría e idioma",
+      "eo": "Aldonu titolon, priskribon, kategorion kaj lingvon"
+    },
+    "Upload a thumbnail image": {
+      "fr": "Ajoute une miniature",
+      "es": "Sube una miniatura",
+      "pt": "Carrega uma miniatura",
+      "pt_br": "Envie uma miniatura",
+      "it": "Carica una miniatura",
+      "ca": "Puja una miniatura",
+      "gl": "Sube unha miniatura",
+      "eo": "Alŝutu bildeton"
+    },
+    "Use a clear and engaging title": {
+      "fr": "Choisis un titre clair qui donne envie",
+      "es": "Usa un título claro y atractivo",
+      "pt": "Usa um título claro e apelativo",
+      "pt_br": "Use um título claro e interessante",
+      "it": "Scegli un titolo chiaro e interessante",
+      "ca": "Tria un títol clar i atractiu",
+      "gl": "Usa un título claro e atractivo",
+      "eo": "Elektu klaran kaj allogan titolon"
+    },
+    "Add a custom thumbnail": {
+      "fr": "Ajoute ta propre miniature",
+      "es": "Añade una miniatura propia",
+      "pt": "Adiciona uma miniatura própria",
+      "pt_br": "Adicione uma miniatura personalizada",
+      "it": "Aggiungi una miniatura personalizzata",
+      "ca": "Afegeix una miniatura pròpia",
+      "gl": "Engade unha miniatura propia",
+      "eo": "Aldonu propran bildeton"
+    },
+    "Write a detailed description": {
+      "fr": "Rédige une description détaillée",
+      "es": "Escribe una descripción detallada",
+      "pt": "Escreve uma descrição detalhada",
+      "pt_br": "Escreva uma descrição detalhada",
+      "it": "Scrivi una descrizione dettagliata",
+      "ca": "Escriu una descripció detallada",
+      "gl": "Escribe unha descrición detallada",
+      "eo": "Verku detalan priskribon"
+    },
+    "Choose the right category": {
+      "fr": "Choisis la catégorie adaptée",
+      "es": "Elige la categoría adecuada",
+      "pt": "Escolhe a categoria certa",
+      "pt_br": "Escolha a categoria certa",
+      "it": "Scegli la categoria adatta",
+      "ca": "Tria la categoria adequada",
+      "gl": "Escolle a categoría axeitada",
+      "eo": "Elektu la taŭgan kategorion"
+    },
+    "Automatic (original language)": {
+      "fr": "Automatique (langue d’origine)",
+      "es": "Automático (idioma original)",
+      "pt": "Automático (idioma original)",
+      "pt_br": "Automático (idioma original)",
+      "it": "Automatico (lingua originale)",
+      "ca": "Automàtic (llengua original)",
+      "gl": "Automático (idioma orixinal)",
+      "eo": "Aŭtomata (originala lingvo)"
+    },
+    "Only people with the link can watch": {
+      "fr": "Seules les personnes qui ont le lien peuvent regarder",
+      "es": "Solo pueden verlo quienes tengan el enlace",
+      "pt": "Só quem tem a ligação pode ver",
+      "pt_br": "Só quem tem o link pode assistir",
+      "it": "Può guardare solo chi ha il link",
+      "ca": "Només el pot veure qui tingui l’enllaç",
+      "gl": "Só o pode ver quen teña a ligazón",
+      "eo": "Nur homoj kun la ligilo povas spekti"
+    }
+  }
+}

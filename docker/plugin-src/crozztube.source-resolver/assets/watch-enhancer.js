@@ -47,6 +47,23 @@
     if (window.__CRZ_DEBUG__) console.debug('[crz]', ...args);
   };
 
+  function httpUrl(value) {
+    try {
+      const url = new URL(value);
+      return ['https:', 'http:'].includes(url.protocol) ? url.href : '';
+    } catch { return ''; }
+  }
+
+  function embedPermissions() {
+    try {
+      const policy = document.permissionsPolicy || document.featurePolicy;
+      const supported = typeof policy?.features === 'function' ? policy.features() : [];
+      if (!Array.isArray(supported)) return '';
+      return ['autoplay', 'clipboard-write', 'encrypted-media', 'picture-in-picture', 'fullscreen', 'web-share']
+        .filter(feature => supported.includes(feature)).join('; ');
+    } catch { return ''; }
+  }
+
   function currentSlug() {
     const match = window.location.pathname.match(/^\/watch\/([^/?#]+)/);
     return match ? decodeURIComponent(match[1]) : null;
@@ -124,8 +141,7 @@
         state.missing = result.missing === true;
         state.failedAt = 0;
         state.statusAt = Date.now();
-        if (result.status?.fresh) state.sawRefreshing = false;
-        if (result.status?.refreshing) state.sawRefreshing = true;
+        if (result.status && !result.status.fresh && result.status.state !== 'error') state.sawRefreshing = true;
       }
       return result;
     } catch (error) {
@@ -188,7 +204,7 @@
     const bar = actionBar();
     if (!bar) return;
 
-    if (!mirror || !mirror.mode) {
+    if (!mirror || !mirror.mode || !httpUrl(mirror.mode === 'link' ? mirror.external_url : mirror.embed_url)) {
       removeButton();
       return;
     }
@@ -205,7 +221,7 @@
     if (mirror.mode === 'link') {
       const link = document.createElement('a');
       link.className = 'action-pill crz-mirror-link';
-      link.href = mirror.external_url || '#';
+      link.href = httpUrl(mirror.external_url);
       link.target = '_blank';
       link.rel = 'noopener noreferrer';
       link.title = `Open the original on ${mirror.label || mirror.provider}`;
@@ -246,6 +262,7 @@
   }
 
   function openLayer(embedUrl) {
+    embedUrl = httpUrl(embedUrl);
     const stage = playerStage();
     if (!stage || !embedUrl) return;
 
@@ -266,7 +283,8 @@
       const frame = document.createElement('iframe');
       frame.src = embedUrl;
       frame.title = 'Original source';
-      frame.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen';
+      const permissions = embedPermissions();
+      if (permissions) frame.allow = permissions;
       frame.allowFullscreen = true;
       frame.referrerPolicy = 'strict-origin-when-cross-origin';
       layer.appendChild(frame);
@@ -388,14 +406,14 @@
     }
 
     if (status.state === 'stale' && status.has_direct) {
-      showBanner({ tone: 'refreshing', text: 'The direct source expired. Renewing it…' });
+      showBanner({ tone: 'refreshing', text: 'Renewing the direct source…' });
       return;
     }
 
-    // state can still be "fresh" while expires_at already passed: the URL is
-    // no longer usable even though the resolver has not touched the row yet.
+    // The stored deadline may be an internal recheck interval rather than a
+    // confirmed CDN expiry. Request renewal without claiming the URL expired.
     if (status.has_direct && status.state !== 'error') {
-      showBanner({ tone: 'refreshing', text: 'The direct source expired. Renewing it…' });
+      showBanner({ tone: 'refreshing', text: 'Renewing the direct source…' });
       return;
     }
 
@@ -422,7 +440,7 @@
     }
 
     if (status.state === 'unknown' || status.state === 'pending') {
-      showBanner({ tone: 'refreshing', text: 'Preparing the direct source…' });
+      showBanner({ tone: 'refreshing', text: 'Preparing the direct source…', actions });
       return;
     }
 
@@ -546,6 +564,10 @@
       restoreResume(slug);
     }
 
+    // Wait for the video response to mount its player/placeholder before testing
+    // whether a fresh source needs to replace an earlier pending response.
+    if (!playerStage() || !actionBar()) return;
+
     // Keep the player state consistent if React re-rendered the stage.
     if (state.wantMirror && state.status?.mirror?.mode === 'iframe' && !document.querySelector('.crz-mirror-layer')) {
       openLayer(state.status.mirror.embed_url);
@@ -570,7 +592,17 @@
       }
       syncButtonState();
 
-      if (state.status?.fresh) clearReloads(slug);
+      if (state.status?.fresh) {
+        // Resolution may finish between the video response and the first status
+        // request. There is then no observed "refreshing" transition to reload.
+        const stage = playerStage();
+        if (stage?.querySelector('.demo-player, .watch-embed-player')) {
+          state.sawRefreshing = true;
+          reloadForFreshSource();
+        } else {
+          clearReloads(slug);
+        }
+      }
       if (state.status?.has_direct && !state.status.fresh && !state.status.refreshing) {
         requestRefresh();
       }

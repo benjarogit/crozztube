@@ -82,83 +82,83 @@ return array (
     ),
     'user' => 
     array (
-      0 => 'user',
-      1 => 'users',
+      'one' => 'käyttäjä',
+      'other' => 'käyttäjää',
     ),
     'users' => 
     array (
-      0 => 'user',
-      1 => 'users',
+      'one' => 'käyttäjä',
+      'other' => 'käyttäjää',
     ),
     'video' => 
     array (
-      0 => 'video',
-      1 => 'videos',
+      'one' => 'video',
+      'other' => 'videota',
     ),
     'videos' => 
     array (
-      0 => 'video',
-      1 => 'videos',
+      'one' => 'video',
+      'other' => 'videota',
     ),
     'comment' => 
     array (
-      0 => 'comment',
-      1 => 'comments',
+      'one' => 'kommentti',
+      'other' => 'kommenttia',
     ),
     'comments' => 
     array (
-      0 => 'comment',
-      1 => 'comments',
+      'one' => 'kommentti',
+      'other' => 'kommenttia',
     ),
     'subscriber' => 
     array (
-      0 => 'subscriber',
-      1 => 'subscribers',
+      'one' => 'tilaaja',
+      'other' => 'tilaajaa',
     ),
     'subscribers' => 
     array (
-      0 => 'subscriber',
-      1 => 'subscribers',
+      'one' => 'tilaaja',
+      'other' => 'tilaajaa',
     ),
     'view' => 
     array (
-      0 => 'view',
-      1 => 'views',
+      'one' => 'katselukerta',
+      'other' => 'katselukertaa',
     ),
     'views' => 
     array (
-      0 => 'view',
-      1 => 'views',
+      'one' => 'katselukerta',
+      'other' => 'katselukertaa',
     ),
     'like' => 
     array (
-      0 => 'like',
-      1 => 'likes',
+      'one' => 'tykkäys',
+      'other' => 'tykkäystä',
     ),
     'likes' => 
     array (
-      0 => 'like',
-      1 => 'likes',
+      'one' => 'tykkäys',
+      'other' => 'tykkäystä',
     ),
     'reply' => 
     array (
-      0 => 'reply',
-      1 => 'replies',
+      'one' => 'vastaus',
+      'other' => 'vastausta',
     ),
     'replies' => 
     array (
-      0 => 'reply',
-      1 => 'replies',
+      'one' => 'vastaus',
+      'other' => 'vastausta',
     ),
     'playlist' => 
     array (
-      0 => 'playlist',
-      1 => 'playlists',
+      'one' => 'soittolista',
+      'other' => 'soittolistaa',
     ),
     'playlists' => 
     array (
-      0 => 'playlist',
-      1 => 'playlists',
+      'one' => 'soittolista',
+      'other' => 'soittolistaa',
     ),
   ),
   '__patterns' => 
@@ -169,15 +169,39 @@ return array (
     'unread' => '{count} unread',
     'saved_videos' => '{count} saved videos',
     'published' => '{count} published',
+    'count_user' => 'Käyttäjät: {count}',
+    'count_user_one' => '{count} käyttäjä',
+    'count_user_other' => '{count} käyttäjää',
+    'count_video' => 'Videot: {count}',
+    'count_video_one' => '{count} video',
+    'count_video_other' => '{count} videota',
+    'count_comment' => 'Kommentit: {count}',
+    'count_comment_one' => '{count} kommentti',
+    'count_comment_other' => '{count} kommenttia',
+    'count_subscriber' => 'Tilaajat: {count}',
+    'count_subscriber_one' => '{count} tilaaja',
+    'count_subscriber_other' => '{count} tilaajaa',
+    'count_view' => 'Katselukerrat: {count}',
+    'count_view_one' => '{count} katselukerta',
+    'count_view_other' => '{count} katselukertaa',
+    'count_like' => 'Tykkäykset: {count}',
+    'count_like_one' => '{count} tykkäys',
+    'count_like_other' => '{count} tykkäystä',
+    'count_reply' => 'Vastaukset: {count}',
+    'count_reply_one' => '{count} vastaus',
+    'count_reply_other' => '{count} vastausta',
+    'count_playlist' => 'Soittolistat: {count}',
+    'count_playlist_one' => '{count} soittolista',
+    'count_playlist_other' => '{count} soittolistaa',
   ),
   'Overview' => 'Yleiskatsaus',
-  'Home' => 'Kotiin',
+  'Home' => 'Etusivu',
   'Explore' => 'Tutki',
   'Trending' => 'Trendaavat',
   'Subscriptions' => 'Tilaukset',
   'Watch Later' => 'Katso myöhemmin',
   'Live & Create' => 'Live & Luo',
-  'Live' => 'Livenä',
+  'Live' => 'Suorana',
   'Upload' => 'Lataa',
   'Creator Studio' => 'Creator Studio',
   'Content' => 'Sisältö',
@@ -186,7 +210,7 @@ return array (
   'Settings' => 'Asetukset',
   'Playlists' => 'Soittolistat',
   'Show more' => 'Näytä lisää',
-  'Storage' => 'Varastointi',
+  'Storage' => 'Tallennustila',
   'Pro Plan' => 'Pro Plan',
   'Manage plan' => 'Hallinnoi suunnitelmaa',
   'Search videos, creators, playlists...' => 'Hae videoita, sisällöntuottajia, soittolistoja...',
@@ -257,8 +281,8 @@ return array (
   'Anyone can search for and watch this video' => 'Kuka tahansa voi etsiä ja katsoa tämän videon',
   'Anyone with the link can watch' => 'Kaikki linkin saaneet voivat katsoa',
   'Anyone with the link can watch this video' => 'Kaikki linkin saaneet voivat katsoa tämän videon',
-  'Only you and people you choose' => 'Vain sinä ja valitsemasi ihmiset',
-  'Only you and people you choose can watch' => 'Vain sinä ja valitsemasi ihmiset voitte katsoa',
+  'Only you and people you choose' => 'Video näkyy vain sinulle ja sivuston ylläpitäjille.',
+  'Only you and people you choose can watch' => 'Video näkyy vain sinulle ja sivuston ylläpitäjille.',
   'Thumbnail preview' => 'Pikkukuvan esikatselu',
   'No thumbnail selected.' => 'Pikkukuvaa ei ole valittu.',
   'More options' => 'Lisää vaihtoehtoja',
@@ -343,7 +367,7 @@ return array (
   'Search result types' => 'Hakutulostyypit',
   'Videos' => 'Videot',
   'Channels' => 'Kanavat',
-  'Shorts' => 'Shortsit',
+  'Shorts' => 'Shorts',
   'Community' => 'yhteisössä',
   'See all' => 'Katso kaikki',
   'Search filters' => 'Hakusuodattimet',
@@ -411,10 +435,10 @@ return array (
   'Comment options' => 'Kommenttivaihtoehdot',
   'Copy Link' => 'Kopioi linkki',
   'Pin Comment' => 'Kiinnitä kommentti',
-  'Unpin Comment' => 'Irrota kommentin kiinnitys',
+  'Unpin Comment' => 'Irrota kommentti',
   'Mute User' => 'Mykistä käyttäjä',
   'Reported' => 'Ilmoitettu',
-  'Report Comment' => 'Ilmoita kommentti',
+  'Report Comment' => 'Ilmoita kommentista',
   'Delete Comment' => 'Poista kommentti',
   'Pinned' => 'Kiinnitetty',
   'No comments yet. Be the first to comment.' => 'Ei vielä kommentteja. Ole ensimmäinen kommentoija.',
@@ -563,7 +587,7 @@ return array (
   'Public profile' => 'Julkinen profiili',
   'Show subscriptions' => 'Näytä tilaukset',
   'Default quality' => 'Oletuslaatu',
-  'Captions' => 'Kuvatekstit',
+  'Captions' => 'Tekstitykset',
   'Update password' => 'Päivitä salasana',
   'Current password' => 'Nykyinen salasana',
   'New password' => 'Uusi salasana',
@@ -664,7 +688,7 @@ return array (
   'Add an about section so viewers know what your channel is about.' => 'Lisää Tietoja-osio, jotta katsojat tietävät, mistä kanavallasi on kyse.',
   'This channel has not added an about section yet.' => 'Tämä kanava ei ole vielä lisännyt aiheesta -osiota.',
   'Admin' => 'Admin',
-  'Dashboard' => 'Kojelauta',
+  'Dashboard' => 'Yleiskatsaus',
   'Users' => 'Käyttäjät',
   'Reports' => 'Raportit',
   'Support' => 'Tuki',
@@ -761,7 +785,7 @@ return array (
   'Verify selected' => 'Vahvista valitut',
   'Suspend selected' => 'Keskeytä valittu',
   'Delete selected' => 'Poista valitut',
-  'Clear selection' => 'Tyhjennä valinta',
+  'Clear selection' => 'Poista valinta',
   'Select all visible users' => 'Valitse kaikki näkyvät käyttäjät',
   'Select row' => 'Valitse rivi',
   'Open actions' => 'Avoimet toiminnot',
@@ -807,7 +831,7 @@ return array (
   'Watch Time (hours)' => 'Katseluaika (tuntia)',
   'Sessions' => 'Istunnot',
   'Traffic Sources' => 'Liikenteen lähteet',
-  'Device Breakdown' => 'Laitteen erittely',
+  'Device Breakdown' => 'Jakauma laitteen mukaan',
   'Top Performing Categories' => 'Parhaiten suoriutuvat luokat',
   'Top Traffic Sources' => 'Suosituimmat liikenteen lähteet',
   'Audience Devices' => 'Yleisölaitteet',
@@ -1491,7 +1515,7 @@ return array (
   'Import summary' => 'Tuo yhteenveto',
   'Source URL' => 'Lähteen URL-osoite',
   'Video imported' => 'Video tuotu',
-  'Your video was imported and processing has started.' => 'Videosi tuotiin ja käsittely on alkanut.',
+  'Your video was imported and processing has started.' => 'Videosi on tuotu.',
   'Import Video' => 'Tuo video',
   'Import a public video URL, customize its details, and publish it through the normal processing pipeline.' => 'Tuo julkinen videon URL-osoite, mukauta sen tietoja ja julkaise se normaalin käsittelyprosessin kautta.',
   'Video Import' => 'Videon tuonti',
@@ -1790,7 +1814,7 @@ return array (
   'View users' => 'View users',
   'Login security' => 'Login security',
   'Find creator' => 'Find creator',
-  '· Shorts require 60s max and vertical portrait video' => '· Shortsit require 60s max and vertical portrait video',
+  '· Shorts require 60s max and vertical portrait video' => 'Shorts-videoiden pitää olla pystysuuntaisia ja kestää enintään 60 sekuntia.',
   '% of uploaded videos' => '% of uploaded Videot',
   '% watched' => '% katseli',
   '+12% vs yesterday' => '+12% vs yesterday',
@@ -2455,9 +2479,9 @@ return array (
   'short was uploaded' => 'short was uploaded',
   'Shortest' => 'Shortest',
   'Shorts discovered' => 'Shortsit discovered',
-  'Shorts must be 60 seconds or less.' => 'Shortsit must be 60 seconds or less.',
+  'Shorts must be 60 seconds or less.' => 'Shorts-videot saavat kestää enintään 60 sekuntia.',
   'Shorts must be 60 seconds or less. Vertical 9:16 is recommended.' => 'Shortsit must be 60 seconds or less. Vertical 9: 16 is recommended.',
-  'Shorts must use a vertical portrait aspect ratio.' => 'Shortsit must use a vertical portrait aspect ratio.',
+  'Shorts must use a vertical portrait aspect ratio.' => 'Shorts-videoiden pitää olla pystysuuntaisia.',
   'Shorts stats' => 'Shortsit Tilastot',
   'Show less' => 'Show less',
   'Show more ⌄' => 'Show more ⌄',
@@ -2770,10 +2794,10 @@ return array (
   'Password looks good.' => 'Password looks good.',
   'Password needs work.' => 'Password needs work.',
   'Add at least 8 characters.' => 'Add at least 8 characters.',
-  'Add a letter.' => 'Add a letter.',
-  'Add a number.' => 'Add a number.',
-  'Add an uppercase letter.' => 'Add an uppercase letter.',
-  'Add a lowercase letter.' => 'Add a lowercase letter.',
+  'Add a letter.' => 'Lisää latinalainen kirjain (A–Z tai a–z).',
+  'Add a number.' => 'Lisää numero väliltä 0–9.',
+  'Add an uppercase letter.' => 'Lisää iso latinalainen kirjain (A–Z).',
+  'Add a lowercase letter.' => 'Lisää pieni latinalainen kirjain (a–z).',
   'Add a symbol.' => 'Add a symbol.',
   'Use a longer password for this strength level.' => 'Use a longer password for this strength level.',
   'Captcha image' => 'Captcha image',
@@ -3105,7 +3129,7 @@ return array (
   'Log in with Apple' => 'Kirjaudu sisään Applella',
   'Sign up with Apple' => 'Rekisteröidy Applen kanssa',
   'or' => 'tai',
-  'We never share your data with third parties.' => 'Emme koskaan jaa tietojasi kolmansille osapuolille.',
+  'We never share your data with third parties.' => 'Tietosuojakäytännöstämme näet, miten käsittelemme tietojasi.',
   'Account settings' => 'Tilin asetukset',
   'Processing...' => 'Käsitellään...',
   'Submitting request...' => 'Lähetetään pyyntöä...',
@@ -3257,7 +3281,7 @@ return array (
   'DVR' => 'DVR',
   'Capture Card' => 'Capture Card',
   'High' => 'Korkea',
-  'Stream Health' => 'Stream Health',
+  'Stream Health' => 'Lähetyksen tila',
   'Low (1.2s)' => 'Matala (1,2 s)',
   'Deep into the dragon’s lair! Epic boss battles, lore hunting, and community challenges. Join the adventure!' => 'Syvälle lohikäärmeen luokse! Eeppisiä pomotaisteluja, metsästystä ja yhteisön haasteita. Liity seikkailuun!',
   'Ask your audience' => 'Kysy yleisöltäsi',
@@ -4187,7 +4211,7 @@ return array (
   'Ad impression already completed.' => 'Mainoksen näyttökerta on jo suoritettu.',
   'Ad impression completed.' => 'Mainoksen näyttökerta valmis.',
   'Ad updated.' => 'Mainos päivitetty.',
-  'Advanced generated LiveKit options' => 'Kehittyneet ZXTERM1ZX-asetukset',
+  'Advanced generated LiveKit options' => 'Kehittyneet LiveKit-asetukset',
   'Apply configuration' => 'Käytä määritystä',
   'Automatic' => 'Automaattinen',
   'A valid phone number is required when using phone delivery.' => 'Puhelintoimitusta käytettäessä vaaditaan voimassa oleva puhelinnumero.',
@@ -4215,8 +4239,8 @@ return array (
   'Detected issues' => 'Havaittuja ongelmia',
   'Device session not found.' => 'Laitteen istuntoa ei löydy.',
   'Device signed out successfully.' => 'Laite kirjautui ulos onnistuneesti.',
-  'Docker Configuration' => 'ZXTERM3ZX-kokoonpano',
-  'Docker container file paths' => 'ZXTERM3ZX säilön tiedostopolut',
+  'Docker Configuration' => 'Docker-kokoonpano',
+  'Docker container file paths' => 'Docker säilön tiedostopolut',
   'Do not collapse settings blocks' => 'Älä tiivistä asetuslohkoja',
   'during this stream' => 'tämän virran aikana',
   'Enabled contributions will appear here.' => 'Käytössä olevat tekstitykset näkyvät täällä.',
@@ -4239,11 +4263,11 @@ return array (
   'Live chat message deleted.' => 'Live-chat-viesti poistettu.',
   'Live control panels' => 'Live-ohjauspaneelit',
   'Live Control Room' => 'Live-tapahtumien hallintahuone',
-  'LiveKit and Docker logs' => 'ZXTERM1ZX ja ZXTERM3ZX tukit',
-  'LiveKit did not return a connection result.' => 'ZXTERM1ZX ei palauttanut yhteystulosta.',
-  'LiveKit Docker' => 'ZXTERM1ZX ZXTERM3ZX',
-  'LiveKit signaling and authenticated API connection succeeded.' => 'ZXTERM1ZX-signalointi ja todennettu API-yhteys onnistuivat.',
-  'LiveKit SSL certificates' => 'ZXTERM1ZX SSL-sertifikaatit',
+  'LiveKit and Docker logs' => 'LiveKit ja Docker tukit',
+  'LiveKit did not return a connection result.' => 'LiveKit ei palauttanut yhteystulosta.',
+  'LiveKit Docker' => 'LiveKit Docker',
+  'LiveKit signaling and authenticated API connection succeeded.' => 'LiveKit-signalointi ja todennettu API-yhteys onnistuivat.',
+  'LiveKit SSL certificates' => 'LiveKit SSL-sertifikaatit',
   'Live polls' => 'Live-äänestykset',
   'Live stream' => 'Suora lähetys',
   'Live stream ended.' => 'Suora lähetys päättyi.',
@@ -4276,19 +4300,19 @@ return array (
   'Participant controls' => 'Osallistujan hallintalaitteet',
   'Participant role' => 'Osallistujan rooli',
   'Participants' => 'Osallistujat',
-  'Payment card numbers are handled by the configured payment provider and are never stored in your PlayHub profile.' => 'Määritetty maksupalveluntarjoaja käsittelee maksukorttien numeroita, eikä niitä koskaan tallenneta ZXTERM0ZX-profiiliisi.',
+  'Payment card numbers are handled by the configured payment provider and are never stored in your PlayHub profile.' => 'Määritetty maksupalveluntarjoaja käsittelee maksukorttien numeroita, eikä niitä koskaan tallenneta PlayHub-profiiliisi.',
   'Payment history' => 'Maksuhistoria',
   'Peak Viewers' => 'Peak Katsojat',
-  'PlayHub is installed' => 'ZXTERM0ZX on asennettu',
-  'PlayHub recording' => 'ZXTERM0ZX tallennus',
-  'Please enable JavaScript to use PlayHub.' => 'Ota ZXTERM4ZX käyttöön ZXTERM0ZX:n käyttöä varten.',
+  'PlayHub is installed' => 'PlayHub on asennettu',
+  'PlayHub recording' => 'PlayHub tallennus',
+  'Please enable JavaScript to use PlayHub.' => 'Ota JavaScript käyttöön PlayHub:n käyttöä varten.',
   'Poll created.' => 'Kysely luotu.',
   'Poll deleted.' => 'Kysely poistettu.',
   'Poll updated.' => 'Äänestys päivitetty.',
-  'Preparing RTMP URL' => 'Valmistellaan ZXTERM2ZX URL-osoitetta',
+  'Preparing RTMP URL' => 'Valmistellaan RTMP URL-osoitetta',
   'Preparing stream key' => 'Valmistellaan suoratoistoavainta',
   'Price' => 'Hinta',
-  'Project-local LiveKit file paths' => 'Projektin paikalliset ZXTERM1ZX-tiedostopolut',
+  'Project-local LiveKit file paths' => 'Projektin paikalliset LiveKit-tiedostopolut',
   'Pull image' => 'Vedä kuva',
   'Quality' => 'Laatu',
   'Question' => 'Kysymys',
@@ -4305,8 +4329,8 @@ return array (
   'Response' => 'Vastaus',
   'Restart' => 'Käynnistä uudelleen',
   'Revenue & Tips' => 'Tulot ja vinkit',
-  'RTMP credentials are ready.' => 'ZXTERM2ZX-kirjautumistiedot ovat valmiit.',
-  'RTMP ingress' => 'ZXTERM2ZX sisääntulo',
+  'RTMP credentials are ready.' => 'RTMP-kirjautumistiedot ovat valmiit.',
+  'RTMP ingress' => 'RTMP sisääntulo',
   'Schedule must be in the future.' => 'Aikataulun on oltava tulevaisuudessa.',
   'Search or enter your country' => 'Hae tai anna maasi',
   'Select an option' => 'Valitse vaihtoehto',
@@ -4331,7 +4355,7 @@ return array (
   'The default quality must be enabled as an upload rendition.' => 'Oletuslaatu on otettava käyttöön lähetyksenä.',
   'The end date must be later than the start date.' => 'Päättymispäivän on oltava aloituspäivää myöhempi.',
   'The invited user must sign in with that account before opening the link.' => 'Kutsutun käyttäjän on kirjauduttava sisään kyseisellä tilillä ennen linkin avaamista.',
-  'The logo must be a safe SVG file.' => 'Logon on oltava turvallinen ZXTERM5ZX-tiedosto.',
+  'The logo must be a safe SVG file.' => 'Logon on oltava turvallinen SVG-tiedosto.',
   'The new password must be different from the current one.' => 'Uuden salasanan on oltava erilainen kuin nykyinen.',
   'The provided credentials are incorrect.' => 'Annetut tunnistetiedot ovat virheellisiä.',
   'The two-factor authentication code is invalid.' => 'Kaksivaiheinen todennuskoodi on virheellinen.',
@@ -4360,7 +4384,7 @@ return array (
   'View more' => 'Katso lisää',
   'Visible live chat messages will appear here after the replay is ready.' => 'Näkyvät live-chat-viestit näkyvät täällä, kun uusinta on valmis.',
   'Vote recorded.' => 'Äänestys tallennettu.',
-  'Waiting for RTMP video' => 'Odotetaan ZXTERM2ZX-videota',
+  'Waiting for RTMP video' => 'Odotetaan RTMP-videota',
   'Your ad markup' => 'Mainoksesi merkintä',
   'Your participant video will appear here.' => 'Osallistujavideosi näkyy täällä.',
   'Also permanently delete all videos uploaded by these users' => 'Poista myös pysyvästi kaikki näiden käyttäjien lataamat videot',
@@ -4450,4 +4474,119 @@ return array (
   'Language not found.' => 'Language not found.',
   'Language directory not found.' => 'Language directory not found.',
   'The selected language directory is read-only. Update its server permissions before editing.' => 'The selected language directory is read-only. Update its server permissions before editing.',
+  'Find out how we handle your data in our privacy policy.' => 'Tietosuojakäytännöstämme näet, miten käsittelemme tietojasi.',
+  'Shorts must be 180 seconds or less.' => 'Shorts-videot saavat kestää enintään 60 sekuntia.',
+  'Shorts must be square or vertical.' => 'Shorts-videoiden pitää olla pystysuuntaisia.',
+  'Shorts must be 60 seconds or less and vertical.' => 'Shorts-videoiden pitää olla pystysuuntaisia ja kestää enintään 60 sekuntia.',
+  'Shorts must be vertical videos of at most 60 seconds.' => 'Shorts-videoiden pitää olla pystysuuntaisia ja kestää enintään 60 sekuntia.',
+  'Shorts must be 180 seconds or less and square or vertical.' => 'Shorts-videoiden pitää olla pystysuuntaisia ja kestää enintään 60 sekuntia.',
+  'Shorts must be square or vertical videos of at most 180 seconds.' => 'Shorts-videoiden pitää olla pystysuuntaisia ja kestää enintään 60 sekuntia.',
+  '· Shorts require 60s max and vertical video' => 'Shorts-videoiden pitää olla pystysuuntaisia ja kestää enintään 60 sekuntia.',
+  '· Shorts require 180s max and square or vertical video' => 'Shorts-videoiden pitää olla pystysuuntaisia ja kestää enintään 60 sekuntia.',
+  'This video will be published as a Short because it is at most 60 seconds and vertical.' => 'Tämä video julkaistaan Shorts-videona, koska se on pystysuuntainen ja kestää enintään 60 sekuntia.',
+  'This video will be published as a Short because it is at most 180 seconds and square or vertical.' => 'Tämä video julkaistaan Shorts-videona, koska se on pystysuuntainen ja kestää enintään 60 sekuntia.',
+  'No shorts uploaded yet. Shorts appear here after a vertical video of at most 60 seconds is imported.' => 'Ei vielä Shorts-videoita. Tässä näkyvät tuodut pystysuuntaiset videot, jotka kestävät enintään 60 sekuntia.',
+  'No shorts uploaded yet. Shorts appear here after a square or vertical video of at most 180 seconds is imported.' => 'Ei vielä Shorts-videoita. Tässä näkyvät tuodut pystysuuntaiset videot, jotka kestävät enintään 60 sekuntia.',
+  'Drag and drop your short file here' => 'Vedä Shorts-videotiedostosi tähän',
+  'Video: {seconds}s · {width}×{height}. Shorts must be 60 seconds or less and vertical.' => 'Video: {seconds}s · {width}×{height}. Shorts-videoiden pitää olla pystysuuntaisia ja kestää enintään 60 sekuntia.',
+  'Chapter {number} name' => 'Luvun {number} nimi',
+  'A video can have up to {count} chapters.' => 'Videossa voi olla enintään {count} lukua.',
+  'Chapter {number} has an invalid timestamp.' => 'Luvun {number} aikaleima ei kelpaa.',
+  'The first chapter must start at 0:00.' => 'Ensimmäisen luvun pitää alkaa kohdasta 0:00.',
+  'Chapter timestamps must be in order and at least {seconds} seconds apart.' => 'Aikaleimojen pitää olla kasvavassa järjestyksessä. Niiden välissä pitää olla vähintään {seconds} s.',
+  'Chapter {number} starts after the video ends.' => 'Luvun {number} pitää alkaa ennen videon loppua.',
+  'Add a name for chapter {number} or turn off Upload with chapters.' => 'Anna luvulle {number} nimi tai poista ”Lataa lukujen kanssa” käytöstä.',
+  'The name for chapter {number} must be 160 characters or fewer.' => 'Luvun {number} nimi saa olla enintään 160 merkkiä pitkä.',
+  'Add at least two chapters or turn off Upload with chapters.' => 'Lisää vähintään kaksi lukua tai poista ”Lataa lukujen kanssa” käytöstä.',
+  'Upload with chapters' => 'Lataa lukujen kanssa',
+  'Your video was imported.' => 'Videosi on tuotu.',
+  'View posts tagged {tag}' => 'Näytä julkaisut tunnisteella {tag}',
+  'View {name} channel' => 'Avaa käyttäjän {name} kanava',
+  'Chapter {number} start time' => 'Luvun {number} alkamisaika',
+  'Remove chapter {number}' => 'Poista luku {number}',
+  'Transcript' => 'Litterointi',
+  'Loading transcript…' => 'Ladataan litterointia…',
+  'The transcript could not be loaded.' => 'Litterointia ei voitu ladata.',
+  'Transcript text' => 'Litteroinnin teksti',
+  'Playlist tip' => 'Vinkki soittolistaasi',
+  'Send a tip to {name}' => 'Tue käyttäjää {name}',
+  'Support the creator of “{title}”.' => 'Tue videon ”{title}” tekijää.',
+  'Tip sent to {name}.' => 'Tukesi on lähetetty käyttäjälle {name}.',
+  'Support {name} during this live stream.' => 'Tue käyttäjää {name} tämän suoran lähetyksen aikana.',
+  'Send Super Chat' => 'Lähetä Super Chat',
+  'Send tip' => 'Lähetä tukea',
+  'Your {SITENAME} verification code' => 'Vahvistuskoodisi sivustolle {SITENAME}',
+  'Your {SITENAME} verification code is: {VERIFICATION_CODE}
+
+This code expires in {EXPIRY_MINUTES} minutes.' => 'Vahvistuskoodisi sivustolle {SITENAME}: {VERIFICATION_CODE}
+
+Koodi on voimassa {EXPIRY_MINUTES} min.',
+  'Reset your {SITENAME} password' => 'Vaihda salasanasi sivustolla {SITENAME}',
+  'Hello {USERNAME},
+
+Your {SITENAME} password reset code is: {RESET_CODE}
+
+This code expires in {EXPIRY_MINUTES} minutes.' => 'Hei {USERNAME},
+
+Koodisi salasanan vaihtamiseen sivustolla {SITENAME}: {RESET_CODE}
+
+Koodi on voimassa {EXPIRY_MINUTES} min.',
+  'You have been invited to {SITENAME}' => 'Sinut on kutsuttu sivustolle {SITENAME}',
+  'Hello {USERNAME},
+
+You have been invited to {SITENAME} as {ROLE}.
+
+Login email: {USER_EMAIL}
+Temporary password: {TEMPORARY_PASSWORD}
+Login: {LOGIN_URL}
+
+Please sign in and update your password.' => 'Hei {USERNAME},
+
+Sinut on kutsuttu sivustolle {SITENAME}. Roolisi: {ROLE}.
+
+Kirjautumisen sähköpostiosoite: {USER_EMAIL}
+Väliaikainen salasana: {TEMPORARY_PASSWORD}
+Kirjaudu sisään: {LOGIN_URL}
+
+Kirjaudu sisään ja vaihda salasanasi.',
+  'Your {SITENAME} account has been restricted' => 'Tiliäsi sivustolla {SITENAME} on rajoitettu',
+  'Hello {USERNAME},
+
+Your {SITENAME} account has been restricted until {BAN_EXPIRES_AT}.
+
+Restrictions:
+{RESTRICTIONS}
+
+If you believe this is a mistake, contact {SUPPORT_EMAIL}.' => 'Hei {USERNAME},
+
+Tiliäsi sivustolla {SITENAME} on rajoitettu ajankohtaan {BAN_EXPIRES_AT} asti.
+
+Rajoitukset:
+{RESTRICTIONS}
+
+Onko kyseessä mielestäsi virhe? Ota yhteyttä osoitteeseen {SUPPORT_EMAIL}.',
+  'You are now a {SITENAME} moderator' => 'Olet nyt moderaattori sivustolla {SITENAME}',
+  'Hello {USERNAME},
+
+You have been assigned the Moderator role on {SITENAME}. You can now access the moderation tools available to your role.
+
+Moderation dashboard: {MODERATION_URL}' => 'Hei {USERNAME},
+
+Olet saanut moderaattorin roolin sivustolla {SITENAME}. Voit nyt käyttää rooliisi kuuluvia moderointityökaluja.
+
+Moderointinäkymä: {MODERATION_URL}',
+  'You are moderating "{STREAM_TITLE}" on {SITENAME}' => 'Moderoit lähetystä ”{STREAM_TITLE}” sivustolla {SITENAME}',
+  'Hello {USERNAME},
+
+You have been assigned as a moderator for the live stream "{STREAM_TITLE}". Open the stream to access your moderation controls.
+
+Open stream: {STREAM_URL}' => 'Hei {USERNAME},
+
+Sinut on valittu moderaattoriksi suoraan lähetykseen ”{STREAM_TITLE}”. Avaa lähetys käyttääksesi moderointityökaluja.
+
+Avaa lähetys: {STREAM_URL}',
+  'Notification' => 'Ilmoitus',
+  'This email was sent by {site}.' => 'Tämän sähköpostin lähetti {site}.',
+  'Password strength must be at least {level}/10.' => 'Salasanasi vahvuuden on oltava vähintään {level}/10.',
+  'Code expires in {time}' => 'Koodisi vanhenee {time} kuluttua',
 );

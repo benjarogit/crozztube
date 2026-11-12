@@ -1,0 +1,605 @@
+{
+  "context": "English editorial reference: main navigation, upload workflow, account registration, authentication preview, discovery, messaging and notification controls; technical formats and brands retained.",
+  "messages": {
+    "Overview": {
+      "en": "Overview"
+    },
+    "Home": {
+      "en": "Home"
+    },
+    "Explore": {
+      "en": "Explore"
+    },
+    "Trending": {
+      "en": "Trending"
+    },
+    "Subscriptions": {
+      "en": "Subscriptions"
+    },
+    "Watch Later": {
+      "en": "Watch Later"
+    },
+    "Live & Create": {
+      "en": "Live & Create"
+    },
+    "Live": {
+      "en": "Live"
+    },
+    "Upload": {
+      "en": "Upload"
+    },
+    "Creator Studio": {
+      "en": "Creator Studio"
+    },
+    "Content": {
+      "en": "Content"
+    },
+    "Analytics": {
+      "en": "Analytics"
+    },
+    "Admin Dashboard": {
+      "en": "Admin Dashboard"
+    },
+    "Settings": {
+      "en": "Settings"
+    },
+    "Playlists": {
+      "en": "Playlists"
+    },
+    "Show more": {
+      "en": "Show more"
+    },
+    "Storage": {
+      "en": "Storage"
+    },
+    "Pro Plan": {
+      "en": "Pro Plan"
+    },
+    "Manage plan": {
+      "en": "Manage plan"
+    },
+    "Search videos, creators, playlists...": {
+      "en": "Search videos, creators, playlists..."
+    },
+    "Search videos...": {
+      "en": "Search videos..."
+    },
+    "Search messages...": {
+      "en": "Search messages..."
+    },
+    "Search content...": {
+      "en": "Search content..."
+    },
+    "Search roles...": {
+      "en": "Search roles..."
+    },
+    "Search reports...": {
+      "en": "Search reports..."
+    },
+    "Search by name, email, or username...": {
+      "en": "Search by name, email, or username..."
+    },
+    "Search by name, handle, or email...": {
+      "en": "Search by name, handle, or email..."
+    },
+    "Search by title, creator, or description...": {
+      "en": "Search by title, creator, or description..."
+    },
+    "Search by stream title or streamer...": {
+      "en": "Search by stream title or streamer..."
+    },
+    "Search tickets by ID, subject, or user...": {
+      "en": "Search tickets by ID, subject, or user..."
+    },
+    "Upload video": {
+      "en": "Upload video"
+    },
+    "Upload Video": {
+      "en": "Upload Video"
+    },
+    "Upload file": {
+      "en": "Upload file"
+    },
+    "Upload thumbnail": {
+      "en": "Upload thumbnail"
+    },
+    "Upload from cloud": {
+      "en": "Upload from cloud"
+    },
+    "Select files": {
+      "en": "Select files"
+    },
+    "Select Files": {
+      "en": "Select Files"
+    },
+    "Select a video to preview it.": {
+      "en": "Select a video to preview it."
+    },
+    "Select a thumbnail image": {
+      "en": "Select a thumbnail image"
+    },
+    "Choose image": {
+      "en": "Choose image"
+    },
+    "Drag and drop your video file here": {
+      "en": "Drag and drop your video file here"
+    },
+    "MP4, MOV, AVI, MKV, WEBM": {
+      "en": "MP4, MOV, AVI, MKV, WEBM"
+    },
+    "MP4, MOV, AVI, WEBM up to 10 GB": {
+      "en": "MP4, MOV, AVI, WEBM up to 10 GB"
+    },
+    "Recommended: 1080p or higher": {
+      "en": "Recommended: 1080p or higher"
+    },
+    "Upload queue": {
+      "en": "Upload queue"
+    },
+    "No current uploads.": {
+      "en": "No current uploads."
+    },
+    "Queued": {
+      "en": "Queued"
+    },
+    "Uploading...": {
+      "en": "Uploading..."
+    },
+    "Preparing processing...": {
+      "en": "Preparing processing..."
+    },
+    "Processing video...": {
+      "en": "Processing video..."
+    },
+    "Upload failed": {
+      "en": "Upload failed"
+    },
+    "Ready to upload": {
+      "en": "Ready to upload"
+    },
+    "Upload steps": {
+      "en": "Upload steps"
+    },
+    "Details": {
+      "en": "Details"
+    },
+    "Add title, description, tags and more": {
+      "en": "Add title, description, tags and more"
+    },
+    "Thumbnail": {
+      "en": "Thumbnail"
+    },
+    "Create a compelling thumbnail": {
+      "en": "Create a compelling thumbnail"
+    },
+    "Choose who can watch your video": {
+      "en": "Choose who can watch your video"
+    },
+    "Review": {
+      "en": "Review"
+    },
+    "Review your video settings": {
+      "en": "Review your video settings"
+    },
+    "Publish": {
+      "en": "Publish"
+    },
+    "Publish and share your video": {
+      "en": "Publish and share your video"
+    },
+    "Video details": {
+      "en": "Video details"
+    },
+    "Title": {
+      "en": "Title"
+    },
+    "Description": {
+      "en": "Description"
+    },
+    "Tags": {
+      "en": "Tags"
+    },
+    "Category": {
+      "en": "Category"
+    },
+    "Playlist": {
+      "en": "Playlist"
+    },
+    "Language": {
+      "en": "Language"
+    },
+    "Schedule": {
+      "en": "Schedule"
+    },
+    "Monetization": {
+      "en": "Monetization"
+    },
+    "Audience": {
+      "en": "Audience"
+    },
+    "Subtitles / Captions": {
+      "en": "Subtitles / Captions"
+    },
+    "Enter video title": {
+      "en": "Enter video title"
+    },
+    "Enter video description": {
+      "en": "Enter video description"
+    },
+    "Add tags separated by commas": {
+      "en": "Add tags separated by commas"
+    },
+    "Add up to 10 tags": {
+      "en": "Add up to 10 tags"
+    },
+    "No playlist selected": {
+      "en": "No playlist selected"
+    },
+    "No file selected": {
+      "en": "No file selected"
+    },
+    "JPG, PNG up to 5MB": {
+      "en": "JPG, PNG up to 5MB"
+    },
+    "SRT, VTT up to 5MB": {
+      "en": "SRT, VTT up to 5MB"
+    },
+    "Yes, it's made for kids": {
+      "en": "Yes, it's made for kids"
+    },
+    "Monetize this video": {
+      "en": "Monetize this video"
+    },
+    "Anyone can watch this video": {
+      "en": "Anyone can watch this video"
+    },
+    "Anyone can search for and watch this video": {
+      "en": "Anyone can search for and watch this video"
+    },
+    "Anyone with the link can watch": {
+      "en": "Anyone with the link can watch"
+    },
+    "Anyone with the link can watch this video": {
+      "en": "Anyone with the link can watch this video"
+    },
+    "Only you and people you choose": {
+      "en": "Only you and people you choose"
+    },
+    "Only you and people you choose can watch": {
+      "en": "Only you and people you choose can watch"
+    },
+    "Thumbnail preview": {
+      "en": "Thumbnail preview"
+    },
+    "No thumbnail selected.": {
+      "en": "No thumbnail selected."
+    },
+    "More options": {
+      "en": "More options"
+    },
+    "Previous thumbnails": {
+      "en": "Previous thumbnails"
+    },
+    "Next thumbnails": {
+      "en": "Next thumbnails"
+    },
+    "Creating thumbnails from video frames...": {
+      "en": "Creating thumbnails from video frames..."
+    },
+    "Select a video to create frame thumbnails.": {
+      "en": "Select a video to create frame thumbnails."
+    },
+    "Upload summary": {
+      "en": "Upload summary"
+    },
+    "Video file": {
+      "en": "Video file"
+    },
+    "File size": {
+      "en": "File size"
+    },
+    "File type": {
+      "en": "File type"
+    },
+    "Last modified": {
+      "en": "Last modified"
+    },
+    "Video uploaded": {
+      "en": "Video uploaded"
+    },
+    "Your video was uploaded and processing has started.": {
+      "en": "Your video was uploaded and processing has started."
+    },
+    "View on PlayHub": {
+      "en": "View on PlayHub"
+    },
+    "Go to Dashboard": {
+      "en": "Go to Dashboard"
+    },
+    "Loading video": {
+      "en": "Loading video"
+    },
+    "Preparing preview and thumbnails...": {
+      "en": "Preparing preview and thumbnails..."
+    },
+    "Tips for better reach": {
+      "en": "Tips for better reach"
+    },
+    "Use a clear and engaging title": {
+      "en": "Use a clear and engaging title"
+    },
+    "Add a custom thumbnail": {
+      "en": "Add a custom thumbnail"
+    },
+    "Write a detailed description": {
+      "en": "Write a detailed description"
+    },
+    "Choose the right category": {
+      "en": "Choose the right category"
+    },
+    "Learn more": {
+      "en": "Learn more"
+    },
+    "Video preview": {
+      "en": "Video preview"
+    },
+    "All changes saved": {
+      "en": "All changes saved"
+    },
+    "Preview": {
+      "en": "Preview"
+    },
+    "Discard": {
+      "en": "Discard"
+    },
+    "Save Draft": {
+      "en": "Save Draft"
+    },
+    "Next": {
+      "en": "Next"
+    },
+    "Back": {
+      "en": "Back"
+    },
+    "Edit": {
+      "en": "Edit"
+    },
+    "Save": {
+      "en": "Save"
+    },
+    "Saving...": {
+      "en": "Saving..."
+    },
+    "Saving": {
+      "en": "Saving"
+    },
+    "Saved": {
+      "en": "Saved"
+    },
+    "Save for later": {
+      "en": "Save for later"
+    },
+    "Save Changes": {
+      "en": "Save Changes"
+    },
+    "Cancel": {
+      "en": "Cancel"
+    },
+    "Login": {
+      "en": "Login"
+    },
+    "Logout": {
+      "en": "Logout"
+    },
+    "Create account": {
+      "en": "Create account"
+    },
+    "Create an account": {
+      "en": "Create an account"
+    },
+    "Already have an account?": {
+      "en": "Already have an account?"
+    },
+    "Welcome back": {
+      "en": "Welcome back"
+    },
+    "Create your channel": {
+      "en": "Create your channel"
+    },
+    "Email": {
+      "en": "Email"
+    },
+    "Password": {
+      "en": "Password"
+    },
+    "Confirm password": {
+      "en": "Confirm password"
+    },
+    "Two-factor code": {
+      "en": "Two-factor code"
+    },
+    "6-digit code from email/phone": {
+      "en": "6-digit code from email/phone"
+    },
+    "Logging in...": {
+      "en": "Logging in..."
+    },
+    "Creating...": {
+      "en": "Creating..."
+    },
+    "Name": {
+      "en": "Name"
+    },
+    "Video CMS & Streaming Platform UI Kit": {
+      "en": "Your videos. Your community."
+    },
+    "Clean light and true black dark layouts for creators, communities and streaming products.": {
+      "en": "Share your videos, discover new Creators and find your community."
+    },
+    "Scalable design system": {
+      "en": "Share what you love"
+    },
+    "Light & dark themes": {
+      "en": "Discover something new"
+    },
+    "Accessible components": {
+      "en": "Find people who share your interests"
+    },
+    "Built for creator workflows": {
+      "en": "Create at your own pace"
+    },
+    "Log in to upload, comment, subscribe and manage your creator studio.": {
+      "en": "Log in to upload, comment, subscribe and manage your creator studio."
+    },
+    "Start your PlayHub creator account with working registration and API authentication.": {
+      "en": "Create your PlayHub creator account."
+    },
+    "Featured Documentary": {
+      "en": "Featured Documentary"
+    },
+    "Watch now": {
+      "en": "Watch now"
+    },
+    "Trending now": {
+      "en": "Trending now"
+    },
+    "Continue watching": {
+      "en": "Continue watching"
+    },
+    "Recommended creators": {
+      "en": "Recommended creators"
+    },
+    "Trending videos": {
+      "en": "Trending videos"
+    },
+    "Browse by Category": {
+      "en": "Browse by Category"
+    },
+    "No creators available yet.": {
+      "en": "No creators available yet."
+    },
+    "No videos found for this category.": {
+      "en": "No videos found for this category."
+    },
+    "No trending videos yet.": {
+      "en": "No trending videos yet."
+    },
+    "Loading videos...": {
+      "en": "Loading videos..."
+    },
+    "Watch the latest cinematic stories from creators on PlayHub.": {
+      "en": "Watch the latest cinematic stories from creators on PlayHub."
+    },
+    "Creator": {
+      "en": "Creator"
+    },
+    "Subscribe": {
+      "en": "Subscribe"
+    },
+    "Unsubscribe": {
+      "en": "Unsubscribe"
+    },
+    "Your channel": {
+      "en": "Your channel"
+    },
+    "Subscription failed.": {
+      "en": "Subscription failed."
+    },
+    "subscribers": {
+      "en": "subscribers"
+    },
+    "views": {
+      "en": "views"
+    },
+    "watched": {
+      "en": "watched"
+    },
+    "Search result types": {
+      "en": "Search result types"
+    },
+    "Videos": {
+      "en": "Videos"
+    },
+    "Channels": {
+      "en": "Channels"
+    },
+    "Shorts": {
+      "en": "Shorts"
+    },
+    "Community": {
+      "en": "Community"
+    },
+    "See all": {
+      "en": "See all"
+    },
+    "Search filters": {
+      "en": "Search filters"
+    },
+    "Clear all": {
+      "en": "Clear all"
+    },
+    "Related searches": {
+      "en": "Related searches"
+    },
+    "Messages": {
+      "en": "Messages"
+    },
+    "New message": {
+      "en": "New message"
+    },
+    "Primary": {
+      "en": "Primary"
+    },
+    "Requests": {
+      "en": "Requests"
+    },
+    "Mentions": {
+      "en": "Mentions"
+    },
+    "No messages found": {
+      "en": "No messages found"
+    },
+    "Try another search or switch tabs.": {
+      "en": "Try another search or switch tabs."
+    },
+    "View all messages": {
+      "en": "View all messages"
+    },
+    "Manage creator conversations, requests, and mentions.": {
+      "en": "Manage creator conversations, requests, and mentions."
+    },
+    "Notifications": {
+      "en": "Notifications"
+    },
+    "Open notifications": {
+      "en": "Open notifications"
+    },
+    "Open messages": {
+      "en": "Open messages"
+    },
+    "Open account menu": {
+      "en": "Open account menu"
+    },
+    "Open profile menu": {
+      "en": "Open profile menu"
+    },
+    "Mark all as read": {
+      "en": "Mark all as read"
+    },
+    "Loading notifications...": {
+      "en": "Loading notifications..."
+    },
+    "No notifications yet.": {
+      "en": "No notifications yet."
+    },
+    "New": {
+      "en": "New"
+    },
+    "Earlier": {
+      "en": "Earlier"
+    },
+    "unread": {
+      "en": "unread"
+    }
+  }
+}

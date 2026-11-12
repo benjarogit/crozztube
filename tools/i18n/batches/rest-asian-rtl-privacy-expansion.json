@@ -1,0 +1,27 @@
+{
+  "context": "Editorial personal login privacy-policy reference in Azerbaijani, Uzbek, Armenian, Georgian, Gujarati, Punjabi/Gurmukhi, Swahili, Filipino and Cebuano; neutral how-data-is-handled meaning, no absolute third-party claim. Deprecated key carries same approved meaning for older bundles.",
+  "messages": {
+    "Find out how we handle your data in our privacy policy.": {
+      "az": "Məlumatlarını necə emal etdiyimizi məxfilik siyasətimizdən öyrənə bilərsən.",
+      "uz_uz": "Maʼlumotlaring bilan qanday ishlashimizni maxfiylik siyosatimizdan bilib olishing mumkin.",
+      "hy": "Թե ինչպես ենք մշակում քո տվյալները, կարող ես կարդալ մեր գաղտնիության քաղաքականությունում։",
+      "ka_ge": "როგორ ვამუშავებთ შენს მონაცემებს, ჩვენს კონფიდენციალურობის პოლიტიკაში გაიგებ.",
+      "gu": "અમે તારા ડેટાને કેવી રીતે સંભાળીએ છીએ, તે અમારી ગોપનીયતા નીતિમાં વાંચ.",
+      "pa_in": "ਸਾਡੀ ਗੋਪਨੀਯਤਾ ਨੀਤੀ ਵਿੱਚ ਪੜ੍ਹ ਕਿ ਅਸੀਂ ਤੇਰੇ ਡਾਟੇ ਨੂੰ ਕਿਵੇਂ ਸੰਭਾਲਦੇ ਹਾਂ।",
+      "sw": "Soma sera yetu ya faragha uone jinsi tunavyoshughulikia taarifa zako.",
+      "tl": "Alamin sa aming patakaran sa pagkapribado kung paano namin pinangangasiwaan ang data mo.",
+      "ceb": "Basaha ang among palisiya sa pagkapribado aron mahibalo ka kon giunsa namo pagdumala ang imong datos."
+    },
+    "We never share your data with third parties.": {
+      "az": "Məlumatlarını necə emal etdiyimizi məxfilik siyasətimizdən öyrənə bilərsən.",
+      "uz_uz": "Maʼlumotlaring bilan qanday ishlashimizni maxfiylik siyosatimizdan bilib olishing mumkin.",
+      "hy": "Թե ինչպես ենք մշակում քո տվյալները, կարող ես կարդալ մեր գաղտնիության քաղաքականությունում։",
+      "ka_ge": "როგორ ვამუშავებთ შენს მონაცემებს, ჩვენს კონფიდენციალურობის პოლიტიკაში გაიგებ.",
+      "gu": "અમે તારા ડેટાને કેવી રીતે સંભાળીએ છીએ, તે અમારી ગોપનીયતા નીતિમાં વાંચ.",
+      "pa_in": "ਸਾਡੀ ਗੋਪਨੀਯਤਾ ਨੀਤੀ ਵਿੱਚ ਪੜ੍ਹ ਕਿ ਅਸੀਂ ਤੇਰੇ ਡਾਟੇ ਨੂੰ ਕਿਵੇਂ ਸੰਭਾਲਦੇ ਹਾਂ।",
+      "sw": "Soma sera yetu ya faragha uone jinsi tunavyoshughulikia taarifa zako.",
+      "tl": "Alamin sa aming patakaran sa pagkapribado kung paano namin pinangangasiwaan ang data mo.",
+      "ceb": "Basaha ang among palisiya sa pagkapribado aron mahibalo ka kon giunsa namo pagdumala ang imong datos."
+    }
+  }
+}

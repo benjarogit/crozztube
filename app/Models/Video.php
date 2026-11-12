@@ -88,6 +88,11 @@ class Video extends Model
 
     protected static function booted(): void
     {
+        static::saving(function (Video $video): void {
+            if ($video->isDirty(['source_type', 'import_provider', 'import_url', 'video_path']) || ! $video->exists) {
+                $video->forceFill(\App\Support\VideoImportIdentity::forVideo($video));
+            }
+        });
         static::deleting(function (Video $video): void {
             Like::query()
                 ->where(function (Builder $query) use ($video): void {
@@ -133,18 +138,16 @@ class Video extends Model
     public function scopeStandardVideos(Builder $query): Builder
     {
         return $query->where('source_type', '!=', 'live_replay')->where(function (Builder $q): void {
-            $q->whereNull('duration_seconds')->orWhere('duration_seconds', '<=', 0)->orWhere('duration_seconds', '>', 180)
+            $q->whereNull('duration_seconds')->orWhere('duration_seconds', '<=', 0)->orWhere('duration_seconds', '>', \App\Support\ShortVideos::MAX_SECONDS)
                 ->orWhereNull('video_width')->orWhere('video_width', '<=', 0)->orWhereNull('video_height')->orWhere('video_height', '<=', 0)
-                ->orWhereColumn('video_height', '<', 'video_width');
+                ->orWhereColumn('video_height', '<=', 'video_width');
         });
     }
 
     public static function isShortContent(?string $sourceType, mixed $durationSeconds, mixed $explicitIsShort = null, bool $saleEnabled = false, mixed $width = null, mixed $height = null): bool
     {
-        if ($width === null && $height === null) {
-            // Compatibility for raw admin queries. This flag is derived when metadata is saved.
-            return $sourceType !== 'live_replay' && (int) $durationSeconds > 0 && (int) $durationSeconds <= 180 && (bool) $explicitIsShort;
-        }
+        // A historical flag cannot prove the current duration/orientation rule.
+        // Callers keep their legacy arguments but must provide real dimensions.
         return \App\Support\ShortVideos::qualifies($durationSeconds, $width, $height, $sourceType);
     }
 

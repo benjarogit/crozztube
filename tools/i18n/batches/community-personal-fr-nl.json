@@ -1,0 +1,528 @@
+{
+  "context": "Editorial rewrite of complete French and Dutch direct-address messages: authentication, channel, video upload, subscriptions, Playlists, help, wallet and live setup. Reviewed legal/account-security meaning retained. Demo names and user content excluded.",
+  "messages": {
+    "Drag and drop your video file here": {
+      "fr": "Glisse ta vidéo ici",
+      "nl": "Sleep je videobestand hierheen"
+    },
+    "Choose who can watch your video": {
+      "fr": "Choisis qui peut regarder ta vidéo",
+      "nl": "Kies wie je video kan bekijken"
+    },
+    "Review your video settings": {
+      "fr": "Vérifie les réglages de ta vidéo",
+      "nl": "Controleer je video-instellingen"
+    },
+    "Publish and share your video": {
+      "fr": "Publie et partage ta vidéo",
+      "nl": "Publiceer en deel je video"
+    },
+    "Only you and people you choose": {
+      "fr": "Toi et les personnes de ton choix",
+      "nl": "Alleen jij en de mensen die je kiest"
+    },
+    "Only you and people you choose can watch": {
+      "fr": "Seuls toi et les personnes de ton choix pouvez regarder cette vidéo",
+      "nl": "Alleen jij en de mensen die je kiest kunnen deze video bekijken"
+    },
+    "Your video was uploaded and processing has started.": {
+      "fr": "Ta vidéo a été mise en ligne. Le traitement a commencé.",
+      "nl": "Je video is geüpload. De verwerking is gestart."
+    },
+    "Already have an account?": {
+      "fr": "Tu as déjà un compte ?",
+      "nl": "Heb je al een account?"
+    },
+    "Create your channel": {
+      "fr": "Crée ta chaîne",
+      "nl": "Maak je kanaal"
+    },
+    "Log in to upload, comment, subscribe and manage your creator studio.": {
+      "fr": "Connecte-toi pour publier des vidéos, commenter, t’abonner et gérer ton Creator Studio.",
+      "nl": "Log in om video’s te uploaden, reacties te plaatsen, je te abonneren en je Creator Studio te beheren."
+    },
+    "Start your PlayHub creator account with working registration and API authentication.": {
+      "fr": "Crée ton compte PlayHub et rejoins la communauté.",
+      "nl": "Maak je PlayHub-account en doe mee met de community."
+    },
+    "Subscribe": {
+      "fr": "S’abonner",
+      "nl": "Abonneren"
+    },
+    "Your channel": {
+      "fr": "Ta chaîne",
+      "nl": "Je kanaal"
+    },
+    "You can attach up to 4 images.": {
+      "fr": "Tu peux joindre jusqu’à 4 images.",
+      "nl": "Je kunt maximaal 4 afbeeldingen toevoegen."
+    },
+    "Login to comment": {
+      "fr": "Connecte-toi pour commenter",
+      "nl": "Log in om te reageren"
+    },
+    "Grow your channel": {
+      "fr": "Développe ta chaîne",
+      "nl": "Laat je kanaal groeien"
+    },
+    "See the latest from channels you follow.": {
+      "fr": "Retrouve les nouveautés des chaînes que tu suis.",
+      "nl": "Bekijk het nieuwste van de kanalen die je volgt."
+    },
+    "Log in to view your subscriptions.": {
+      "fr": "Connecte-toi pour retrouver tes abonnements.",
+      "nl": "Log in om je abonnementen te bekijken."
+    },
+    "No videos from subscribed channels yet.": {
+      "fr": "Les chaînes que tu suis n’ont pas encore de vidéos.",
+      "nl": "De kanalen waarop je geabonneerd bent hebben nog geen video’s."
+    },
+    "Popular from your subscriptions": {
+      "fr": "Les vidéos populaires de tes abonnements",
+      "nl": "Populair bij je abonnementen"
+    },
+    "Your subscriptions": {
+      "fr": "Tes abonnements",
+      "nl": "Je abonnementen"
+    },
+    "Subscribe to channels to see activity.": {
+      "fr": "Abonne-toi à des chaînes pour suivre leur activité.",
+      "nl": "Abonneer je op kanalen om hun activiteit te zien."
+    },
+    "Channels you watch most": {
+      "fr": "Les chaînes que tu regardes le plus",
+      "nl": "Je meest bekeken kanalen"
+    },
+    "Based on your subscribed channels.": {
+      "fr": "D’après les chaînes que tu suis.",
+      "nl": "Op basis van de kanalen waarop je geabonneerd bent."
+    },
+    "Videos you saved to watch when you have time.": {
+      "fr": "Les vidéos que tu as gardées pour les regarder plus tard.",
+      "nl": "Video’s die je hebt bewaard om later te bekijken."
+    },
+    "Log in to view your Watch Later videos.": {
+      "fr": "Connecte-toi pour retrouver tes vidéos à regarder plus tard.",
+      "nl": "Log in om je video’s voor Later bekijken te zien."
+    },
+    "Continue from where you left off": {
+      "fr": "Reprends là où tu en étais",
+      "nl": "Ga verder waar je was gebleven"
+    },
+    "Save videos to build your Watch Later list.": {
+      "fr": "Enregistre des vidéos pour les retrouver dans « À regarder plus tard ».",
+      "nl": "Sla video’s op om je lijst Later bekijken te vullen."
+    },
+    "From your saved channels": {
+      "fr": "Depuis tes chaînes enregistrées",
+      "nl": "Van je opgeslagen kanalen"
+    },
+    "Playback debug info copied. Paste it into your support request.": {
+      "fr": "Les informations de diagnostic de lecture ont été copiées. Colle-les dans ta demande d’aide.",
+      "nl": "De afspeeldiagnose is gekopieerd. Plak deze in je hulpverzoek."
+    },
+    "Your channel is not ready yet.": {
+      "fr": "Ta chaîne n’est pas encore prête.",
+      "nl": "Je kanaal is nog niet klaar."
+    },
+    "Your display name": {
+      "fr": "Ton nom affiché",
+      "nl": "Je weergavenaam"
+    },
+    "Tell viewers what your channel is about.": {
+      "fr": "Présente ta chaîne aux personnes qui la découvrent.",
+      "nl": "Vertel kijkers waar je kanaal over gaat."
+    },
+    "Please fill all password fields.": {
+      "fr": "Remplis tous les champs de mot de passe.",
+      "nl": "Vul alle wachtwoordvelden in."
+    },
+    "Please enter a 6-digit verification code.": {
+      "fr": "Saisis le code de vérification à 6 chiffres.",
+      "nl": "Voer de verificatiecode van 6 cijfers in."
+    },
+    "Use playlists and series to keep your content easy to find and watch.": {
+      "fr": "Organise tes vidéos en Playlists et en séries pour les rendre plus faciles à trouver et à regarder.",
+      "nl": "Orden je video’s in Playlists en series zodat ze makkelijker te vinden en te bekijken zijn."
+    },
+    "Tell viewers about your channel...": {
+      "fr": "Présente ta chaîne…",
+      "nl": "Vertel iets over je kanaal…"
+    },
+    "Add an about section so viewers know what your channel is about.": {
+      "fr": "Ajoute une description pour faire découvrir ta chaîne.",
+      "nl": "Voeg een beschrijving toe zodat kijkers weten waar je kanaal over gaat."
+    },
+    "Sign in with an admin account to view this page.": {
+      "fr": "Connecte-toi avec un compte administrateur pour ouvrir cette page.",
+      "nl": "Log in met een beheerdersaccount om deze pagina te openen."
+    },
+    "Are you sure you want to continue?": {
+      "fr": "Tu veux continuer ?",
+      "nl": "Wil je doorgaan?"
+    },
+    "Create an account, open Creator Studio, complete your channel profile, then upload or organize videos from your dashboard.": {
+      "fr": "Crée un compte, ouvre le Creator Studio et complète le profil de ta chaîne. Tu pourras ensuite publier et organiser tes vidéos.",
+      "nl": "Maak een account, open Creator Studio en vul je kanaalprofiel in. Daarna kun je video’s uploaden en ordenen."
+    },
+    "Go to Upload, choose your video file, add required details, select category and language, add a thumbnail, then publish. Large files upload in chunks.": {
+      "fr": "Ouvre la page de mise en ligne, choisis ton fichier vidéo et ajoute les informations requises. Sélectionne une catégorie et une langue, ajoute une miniature et publie ta vidéo. Les gros fichiers sont envoyés en plusieurs parties.",
+      "nl": "Open Uploaden, kies je videobestand en vul de verplichte gegevens in. Kies een categorie en taal, voeg een miniatuur toe en publiceer je video. Grote bestanden worden in delen geüpload."
+    },
+    "Have a question, feedback, partnership idea, or support request? Send it through the backend form and admins will see it in the Support dashboard.": {
+      "fr": "Une question, une suggestion ou une idée de partenariat ? Envoie ton message avec le formulaire. L’équipe le retrouvera dans les demandes d’aide.",
+      "nl": "Heb je een vraag, feedback of een idee voor samenwerking? Stuur je bericht via het formulier. Het team ontvangt het bij de hulpverzoeken."
+    },
+    "How can we help you?": {
+      "fr": "Comment peut-on t’aider ?",
+      "nl": "Waar kunnen we je mee helpen?"
+    },
+    "How can we help?": {
+      "fr": "Comment peut-on t’aider ?",
+      "nl": "Waar kunnen we je mee helpen?"
+    },
+    "How to upload your first video": {
+      "fr": "Comment publier ta première vidéo",
+      "nl": "Je eerste video uploaden"
+    },
+    "Manage language, theme, security, and notification settings from your account.": {
+      "fr": "Gère la langue, le thème, la sécurité et les notifications depuis ton compte.",
+      "nl": "Beheer taal, thema, beveiliging en meldingen vanuit je account."
+    },
+    "Sign in for account support": {
+      "fr": "Connecte-toi pour obtenir de l’aide avec ton compte",
+      "nl": "Log in voor hulp met je account"
+    },
+    "Still can’t find an answer?": {
+      "fr": "Tu n’as pas trouvé de réponse ?",
+      "nl": "Nog geen antwoord gevonden?"
+    },
+    "Tell us more about your question or request...": {
+      "fr": "Parle-nous de ta question ou de ta demande…",
+      "nl": "Vertel ons meer over je vraag of verzoek…"
+    },
+    "Upload, watch, subscribe, moderate, and build with live PlayHub data.": {
+      "fr": "Publie des vidéos, regarde, abonne-toi et participe à la communauté PlayHub.",
+      "nl": "Upload, kijk, abonneer je en doe mee met de PlayHub-community."
+    },
+    "We’re here to help.": {
+      "fr": "On est là pour t’aider.",
+      "nl": "We helpen je graag."
+    },
+    "You are browsing as a guest. Sign in to access account-specific tools.": {
+      "fr": "Tu visites le site sans être connecté. Connecte-toi pour accéder aux outils de ton compte.",
+      "nl": "Je bekijkt de site als gast. Log in om de functies van je account te gebruiken."
+    },
+    "You receive a response by email.": {
+      "fr": "Tu recevras une réponse par e-mail.",
+      "nl": "Je krijgt een reactie per e-mail."
+    },
+    "You’re in control": {
+      "fr": "C’est toi qui choisis",
+      "nl": "Jij bepaalt"
+    },
+    "Your choices": {
+      "fr": "Tes choix",
+      "nl": "Jouw keuzes"
+    },
+    "Your message is saved directly in the website backend and appears in the admin dashboard under Support.": {
+      "fr": "Ton message est enregistré sur le site et transmis à l’équipe dans la rubrique d’aide.",
+      "nl": "Je bericht wordt op de website opgeslagen en komt bij het team terecht onder Ondersteuning."
+    },
+    "Your support": {
+      "fr": "Ton soutien",
+      "nl": "Jouw steun"
+    },
+    "Organize your videos into a playlist": {
+      "fr": "Organise tes vidéos dans une Playlist",
+      "nl": "Orden je video’s in een Playlist"
+    },
+    "This color will represent your playlist": {
+      "fr": "Cette couleur servira à identifier ta Playlist",
+      "nl": "Met deze kleur herken je je Playlist"
+    },
+    "Only you can view this playlist": {
+      "fr": "Cette Playlist est visible uniquement par toi",
+      "nl": "Alleen jij kunt deze Playlist bekijken"
+    },
+    "Use playlists to organize your content and make it easier for your audience to discover more videos.": {
+      "fr": "Organise tes vidéos en Playlists pour aider ton public à en découvrir davantage.",
+      "nl": "Gebruik Playlists om je video’s te ordenen en je kijkers meer te laten ontdekken."
+    },
+    "Your playlists": {
+      "fr": "Tes Playlists",
+      "nl": "Je Playlists"
+    },
+    "Create your first playlist to organize videos from your channel and saved library.": {
+      "fr": "Crée ta première Playlist pour organiser les vidéos de ta chaîne et de ta bibliothèque.",
+      "nl": "Maak je eerste Playlist om video’s van je kanaal en uit je bibliotheek te ordenen."
+    },
+    "This playlist belongs to your PlayHub account.": {
+      "fr": "Cette Playlist est liée à ton compte PlayHub.",
+      "nl": "Deze Playlist hoort bij je PlayHub-account."
+    },
+    "Explore tools and tips to grow faster, improve your channel, and reach more viewers.": {
+      "fr": "Découvre des outils et des conseils pour développer ta chaîne et toucher plus de monde.",
+      "nl": "Ontdek tools en tips om je kanaal te laten groeien, te verbeteren en meer kijkers te bereiken."
+    },
+    "Based on your channel data": {
+      "fr": "D’après les données de ta chaîne",
+      "nl": "Op basis van je kanaalgegevens"
+    },
+    "Upload your first video and give viewers a clear reason to subscribe.": {
+      "fr": "Publie ta première vidéo et donne envie de s’abonner à ta chaîne.",
+      "nl": "Upload je eerste video en laat kijkers zien waarom ze zich op je kanaal kunnen abonneren."
+    },
+    "Create short vertical videos to reach viewers who have not found your channel yet.": {
+      "fr": "Crée de courtes vidéos verticales pour faire découvrir ta chaîne à de nouvelles personnes.",
+      "nl": "Maak korte verticale video’s om kijkers te bereiken die je kanaal nog niet kennen."
+    },
+    "Ask a question in your next upload and reply quickly when comments arrive.": {
+      "fr": "Pose une question dans ta prochaine vidéo et prends le temps de répondre aux commentaires.",
+      "nl": "Stel een vraag in je volgende video en reageer snel op de reacties."
+    },
+    "Update your bio, channel details, and public creator presence.": {
+      "fr": "Mets à jour ta bio et les informations publiques de ta chaîne.",
+      "nl": "Werk je bio, kanaalgegevens en openbare Creator-profiel bij."
+    },
+    "Update thumbnails and titles after you have enough impressions to compare.": {
+      "fr": "Ajuste les miniatures et les titres quand tu as assez d’impressions pour comparer les résultats.",
+      "nl": "Pas miniaturen en titels aan zodra je genoeg vertoningen hebt om de resultaten te vergelijken."
+    },
+    "Your video was imported and processing has started.": {
+      "fr": "Ta vidéo a été importée. Le traitement a commencé.",
+      "nl": "Je video is geïmporteerd. De verwerking is gestart."
+    },
+    "Subscribe for": {
+      "fr": "S’abonner pour",
+      "nl": "Abonneren voor"
+    },
+    "Subscribe with Stripe": {
+      "fr": "S’abonner avec Stripe",
+      "nl": "Abonneren met Stripe"
+    },
+    "Subscribe with PayPal": {
+      "fr": "S’abonner avec PayPal",
+      "nl": "Abonneren met PayPal"
+    },
+    "Log in with Google": {
+      "fr": "Se connecter avec Google",
+      "nl": "Inloggen met Google"
+    },
+    "Sign up with Google": {
+      "fr": "Créer un compte avec Google",
+      "nl": "Registreren met Google"
+    },
+    "Unable to read your Google account details.": {
+      "fr": "Les informations de ton compte Google n’ont pas pu être récupérées.",
+      "nl": "De gegevens van je Google-account konden niet worden opgehaald."
+    },
+    "Log in with Facebook": {
+      "fr": "Se connecter avec Facebook",
+      "nl": "Inloggen met Facebook"
+    },
+    "Sign up with Facebook": {
+      "fr": "Créer un compte avec Facebook",
+      "nl": "Registreren met Facebook"
+    },
+    "Unable to read your Facebook account details.": {
+      "fr": "Les informations de ton compte Facebook n’ont pas pu être récupérées.",
+      "nl": "De gegevens van je Facebook-account konden niet worden opgehaald."
+    },
+    "Log in with Apple": {
+      "fr": "Se connecter avec Apple",
+      "nl": "Inloggen met Apple"
+    },
+    "Sign up with Apple": {
+      "fr": "Créer un compte avec Apple",
+      "nl": "Registreren met Apple"
+    },
+    "Manage your available balance, top-ups, and withdrawals.": {
+      "fr": "Gère ton solde disponible, tes recharges et tes retraits.",
+      "nl": "Beheer je beschikbare saldo, opwaarderingen en opnames."
+    },
+    "Top-ups and withdrawal requests from your wallet.": {
+      "fr": "Les recharges et les demandes de retrait de ton portefeuille.",
+      "nl": "Opwaarderingen en opnameverzoeken uit je portemonnee."
+    },
+    "Set up your stream and go live with your community.": {
+      "fr": "Prépare ton live et retrouve ta communauté en direct.",
+      "nl": "Stel je livestream in en ga live met je community."
+    },
+    "Ask your audience": {
+      "fr": "Pose une question à ton public",
+      "nl": "Stel je publiek een vraag"
+    },
+    "Run ads during your stream": {
+      "fr": "Diffuse des publicités pendant ton live",
+      "nl": "Toon advertenties tijdens je livestream"
+    },
+    "You're all set! Start your stream and engage with your audience.": {
+      "fr": "Tout est prêt ! Lance ton live et retrouve ton public.",
+      "nl": "Alles staat klaar! Start je livestream en praat met je publiek."
+    },
+    "Short video player. Click or tap once to mute or unmute. Press and hold to pause. Swipe, scroll, or use arrows to change Shorts.": {
+      "fr": "Lecteur de Shorts. Clique ou touche une fois pour couper ou réactiver le son. Garde le doigt ou le bouton appuyé pour mettre en pause. Balaie, fais défiler ou utilise les flèches pour changer de Short.",
+      "nl": "Shorts-speler. Klik of tik eenmaal om het geluid aan of uit te zetten. Houd ingedrukt om te pauzeren. Veeg, scrol of gebruik de pijltjes om naar een andere Short te gaan."
+    },
+    "Sign in": {
+      "fr": "Se connecter",
+      "nl": "Inloggen"
+    },
+    "Sign in to like, comment, save posts, and publish community updates from your channel.": {
+      "fr": "Connecte-toi pour aimer, commenter, enregistrer des publications et partager les nouvelles de ta chaîne avec la communauté.",
+      "nl": "Log in om likes te geven, te reageren, berichten op te slaan en nieuws van je kanaal met de community te delen."
+    },
+    "Your Reminders": {
+      "fr": "Tes rappels",
+      "nl": "Je herinneringen"
+    },
+    "Choose a public video to feature at the top of your channel profile.": {
+      "fr": "Choisis une vidéo publique à mettre en avant sur ton profil de chaîne.",
+      "nl": "Kies een openbare video om bovenaan je kanaalprofiel te tonen."
+    },
+    "Allow camera and microphone access to prepare your preview.": {
+      "fr": "Autorise l’accès à la caméra et au micro pour préparer ton aperçu.",
+      "nl": "Geef toegang tot je camera en microfoon om je voorbeeld te starten."
+    },
+    "Ask your audience a question": {
+      "fr": "Pose une question à ton public",
+      "nl": "Stel je publiek een vraag"
+    },
+    "Your studio settings can be prepared now. Public broadcasting will be enabled with the media engine.": {
+      "fr": "Tu peux déjà préparer ton studio. La diffusion publique sera disponible avec l’activation du moteur multimédia.",
+      "nl": "Je kunt je studio alvast instellen. Openbaar uitzenden wordt mogelijk zodra de media-engine is ingeschakeld."
+    },
+    "You are live": {
+      "fr": "Tu es en direct",
+      "nl": "Je bent live"
+    },
+    "Your camera and microphone are publishing through LiveKit.": {
+      "fr": "Ta caméra et ton micro diffusent via LiveKit.",
+      "nl": "Je camera en microfoon zenden uit via LiveKit."
+    },
+    "Sign in to join live chat": {
+      "fr": "Connecte-toi pour participer au chat en direct",
+      "nl": "Log in om mee te praten in de livechat"
+    },
+    "Sign in to watch this live stream.": {
+      "fr": "Connecte-toi pour regarder ce live.",
+      "nl": "Log in om deze livestream te bekijken."
+    },
+    "Membership payments recorded for your account.": {
+      "fr": "Les paiements d’adhésion enregistrés pour ton compte.",
+      "nl": "Lidmaatschapsbetalingen voor je account."
+    },
+    "Payment card numbers are handled by the configured payment provider and are never stored in your PlayHub profile.": {
+      "fr": "Les numéros de carte sont traités par le prestataire de paiement configuré. Ils ne sont jamais enregistrés dans ton profil PlayHub.",
+      "nl": "Kaartnummers worden verwerkt door de ingestelde betaalprovider en worden nooit in je PlayHub-profiel opgeslagen."
+    },
+    "Please enable JavaScript to use PlayHub.": {
+      "fr": "Active JavaScript pour utiliser PlayHub.",
+      "nl": "Schakel JavaScript in om PlayHub te gebruiken."
+    },
+    "Search or enter your country": {
+      "fr": "Cherche ou saisis ton pays",
+      "nl": "Zoek of voer je land in"
+    },
+    "This account has been suspended. Contact support if you believe this is a mistake.": {
+      "fr": "Ce compte a été suspendu. Contacte l’équipe d’aide si tu penses qu’il s’agit d’une erreur.",
+      "nl": "Dit account is geschorst. Neem contact op met het team als je denkt dat dit een vergissing is."
+    },
+    "Use logout to sign out from the current device.": {
+      "fr": "Utilise « Se déconnecter » pour fermer ta session sur cet appareil.",
+      "nl": "Gebruik Uitloggen om je op dit apparaat af te melden."
+    },
+    "Your ad markup": {
+      "fr": "Le code de ta publicité",
+      "nl": "Je advertentiecode"
+    },
+    "Your participant video will appear here.": {
+      "fr": "Ta vidéo en tant que participant apparaîtra ici.",
+      "nl": "Hier verschijnt je video als deelnemer."
+    },
+    "Loading your videos...": {
+      "fr": "Chargement de tes vidéos…",
+      "nl": "Je video’s worden geladen…"
+    },
+    "No videos match your search.": {
+      "fr": "Aucune vidéo ne correspond à ta recherche.",
+      "nl": "Er zijn geen video’s gevonden voor je zoekopdracht."
+    },
+    "Unblock this user before sending a message.": {
+      "nl": "Deblokkeer deze gebruiker om een bericht te sturen."
+    },
+    "Sign out": {
+      "fr": "Se déconnecter",
+      "nl": "Uitloggen"
+    },
+    "Enter one or more user emails to mark as verified.": {
+      "nl": "Voer de e-mailadressen in van de gebruikers die je als geverifieerd wilt markeren."
+    },
+    "Select at least one user before running a bulk action.": {
+      "nl": "Selecteer minstens één gebruiker voordat je een groepsactie uitvoert."
+    },
+    "Find answers, get support, and learn how to use PlayHub’s upload, account, creator, and admin features.": {
+      "nl": "Vind antwoorden en hulp bij uploaden, je account, Creator-functies en beheer in PlayHub."
+    },
+    "Open with the result, conflict, or visual payoff before adding context.": {
+      "nl": "Begin met het resultaat, conflict of opvallende beeld en geef daarna de achtergrond."
+    },
+    "Use the exact words viewers would type, then keep the promise in the video.": {
+      "nl": "Gebruik de woorden waarop kijkers zoeken en maak die belofte waar in je video."
+    },
+    "Choose the category to apply to content matching the current filters.": {
+      "nl": "Kies de categorie voor de inhoud die aan de huidige filters voldoet."
+    },
+    "Email delivery is not configured. Configure MAIL_* settings before sending creator announcements.": {
+      "nl": "E-mail is nog niet ingesteld. Configureer de MAIL_*-instellingen voordat je aankondigingen naar Creators verstuurt."
+    },
+    "Join Membership": {
+      "nl": "Lid worden"
+    },
+    "Complete the pre-flight checklist before starting.": {
+      "nl": "Rond de startcontrole af voordat je begint."
+    },
+    "Start the camera preview and allow camera and microphone access before broadcasting.": {
+      "nl": "Start je cameravoorbeeld en geef toegang tot je camera en microfoon voordat je gaat uitzenden."
+    },
+    "Start the live stream before activating its media source.": {
+      "nl": "Start de livestream voordat je de mediabron activeert."
+    },
+    "Add a goal title and amount before scheduling.": {
+      "nl": "Vul een titel en bedrag voor je doel in voordat je het inplant."
+    },
+    "Add a stream title before scheduling.": {
+      "nl": "Geef je livestream een titel voordat je deze inplant."
+    },
+    "Add at least one invited viewer before scheduling.": {
+      "nl": "Voeg minstens één uitgenodigde kijker toe voordat je de livestream inplant."
+    },
+    "A valid phone number is required when using phone delivery.": {
+      "nl": "Vul een geldig telefoonnummer in om verificatiecodes op je telefoon te ontvangen."
+    },
+    "Complete the required stream settings before scheduling.": {
+      "nl": "Vul de verplichte streaminstellingen in voordat je de livestream inplant."
+    },
+    "Sign in and use Settings for account, profile, password, notification, privacy, and creator preferences. Creator upload and content issues should include the video title, channel, browser, and any processing error shown on the upload page.": {
+      "fr": "Connecte-toi et ouvre les paramètres pour gérer ton compte, ton profil, ton mot de passe, les notifications, la confidentialité et tes préférences de Creator. Pour un problème de vidéo ou de mise en ligne, indique le titre, la chaîne, ton navigateur et l’erreur affichée sur la page de mise en ligne.",
+      "nl": "Log in en open Instellingen voor je account, profiel, wachtwoord, meldingen, privacy en Creator-voorkeuren. Noem bij upload- of videoproblemen de videotitel, je kanaal, je browser en de foutmelding op de uploadpagina."
+    },
+    "Use Settings to update your profile, security, password, two-factor delivery, devices, preferences, and notification options. If you cannot access your account, use the login flow and provide the account email to the site administrator.": {
+      "fr": "Ouvre les paramètres pour gérer ton profil, la sécurité, ton mot de passe, les codes de vérification, tes appareils, tes préférences et les notifications. Si tu ne peux pas te connecter, utilise l’aide à la connexion et indique à l’administration l’adresse e-mail de ton compte.",
+      "nl": "Open Instellingen om je profiel, beveiliging, wachtwoord, verificatiecodes, apparaten, voorkeuren en meldingen te beheren. Kun je niet inloggen? Gebruik de hulp bij het inloggen en geef de beheerder het e-mailadres van je account."
+    },
+    "You are responsible for your account credentials, profile activity, uploaded content, comments, messages, and any creator or admin actions performed from your account. Use strong passwords and keep two-factor delivery methods current.": {
+      "fr": "Tu es responsable de tes identifiants, des activités de ton profil, des contenus que tu mets en ligne, de tes commentaires, de tes messages et de toute action de Creator ou d’administration effectuée depuis ton compte. Utilise des mots de passe solides et garde à jour les moyens de réception de tes codes de vérification.",
+      "nl": "Je bent verantwoordelijk voor je inloggegevens, profielactiviteiten, uploads, reacties, berichten en alle Creator- of beheeracties via je account. Gebruik sterke wachtwoorden en houd de ontvangstmethoden voor je verificatiecodes actueel."
+    },
+    "You can clear browser cookies and local storage in your browser settings. Clearing essential storage may sign you out, reset language/theme preferences, remove local playback state, and require you to log in again.": {
+      "fr": "Tu peux supprimer les cookies et les données locales dans les paramètres de ton navigateur. La suppression des données essentielles peut fermer ta session, réinitialiser la langue et le thème, effacer l’état de lecture local et te demander de te reconnecter.",
+      "nl": "Je kunt cookies en lokale gegevens wissen in je browserinstellingen. Als je noodzakelijke gegevens wist, kun je worden uitgelogd. Je taal- en themavoorkeuren en lokale afspeelstatus kunnen worden gewist en je moet mogelijk opnieuw inloggen."
+    },
+    "We never share your data with third parties.": {
+      "fr": "Pour savoir comment nous traitons tes données, consulte notre politique de confidentialité.",
+      "nl": "In ons privacybeleid lees je hoe we met je gegevens omgaan."
+    }
+  }
+}

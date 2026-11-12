@@ -1,10 +1,16 @@
 {
-  "_prod-B2pwJTCO.js": {
-    "file": "assets/prod-B2pwJTCO.js",
+  "__vite-browser-external": {
+    "file": "assets/__vite-browser-external-BIHI7g3E.js",
+    "name": "__vite-browser-external",
+    "src": "__vite-browser-external",
+    "isDynamicEntry": true
+  },
+  "_prod-B68_iQOz.js": {
+    "file": "assets/prod-B68_iQOz.js",
     "name": "prod",
     "isDynamicEntry": true,
     "imports": [
-      "_video-D8n0Mpwg.js"
+      "_video-EO2hkl4B.js"
     ],
     "dynamicImports": [
       "node_modules/media-captions/dist/prod/srt-parser.js",
@@ -12,56 +18,56 @@
       "node_modules/media-captions/dist/prod/errors.js"
     ]
   },
-  "_video-D8n0Mpwg.js": {
-    "file": "assets/video-D8n0Mpwg.js",
+  "_video-DNCoRhji.css": {
+    "file": "assets/video-DNCoRhji.css",
+    "src": "_video-DNCoRhji.css"
+  },
+  "_video-EO2hkl4B.js": {
+    "file": "assets/video-EO2hkl4B.js",
     "name": "video",
     "dynamicImports": [
-      "_prod-B2pwJTCO.js",
-      "_prod-B2pwJTCO.js",
+      "_prod-B68_iQOz.js",
+      "_prod-B68_iQOz.js",
       "node_modules/@vidstack/react/prod/chunks/vidstack-CHcsWfRV.js",
       "node_modules/@vidstack/react/prod/chunks/vidstack-DiaLSJYx.js",
       "node_modules/@vidstack/react/prod/chunks/vidstack-GkTzay8D.js",
       "node_modules/@vidstack/react/prod/chunks/vidstack-C0fPJIzs.js",
       "node_modules/@vidstack/react/prod/chunks/vidstack-BmcqUMKx.js",
       "node_modules/@vidstack/react/prod/chunks/vidstack-Dy74GavT.js",
-      "_vidstack-Di0HObvT-BJ3Z0Bpn.js",
-      "_prod-B2pwJTCO.js",
-      "_prod-B2pwJTCO.js"
+      "_vidstack-Di0HObvT-CowJNWJL.js",
+      "_prod-B68_iQOz.js",
+      "_prod-B68_iQOz.js"
     ],
     "css": [
       "assets/video-DNCoRhji.css"
     ]
   },
-  "_video-DNCoRhji.css": {
-    "file": "assets/video-DNCoRhji.css",
-    "src": "_video-DNCoRhji.css"
-  },
-  "_vidstack-CQuJTPFJ-CvMLqTR6.js": {
-    "file": "assets/vidstack-CQuJTPFJ-CvMLqTR6.js",
+  "_vidstack-CQuJTPFJ-xfp7wye_.js": {
+    "file": "assets/vidstack-CQuJTPFJ-xfp7wye_.js",
     "name": "vidstack-CQuJTPFJ",
     "imports": [
-      "_video-D8n0Mpwg.js"
+      "_video-EO2hkl4B.js"
     ]
   },
-  "_vidstack-Di0HObvT-BJ3Z0Bpn.js": {
-    "file": "assets/vidstack-Di0HObvT-BJ3Z0Bpn.js",
+  "_vidstack-Di0HObvT-CowJNWJL.js": {
+    "file": "assets/vidstack-Di0HObvT-CowJNWJL.js",
     "name": "vidstack-Di0HObvT",
     "isDynamicEntry": true,
     "imports": [
-      "_video-D8n0Mpwg.js"
+      "_video-EO2hkl4B.js"
     ],
     "dynamicImports": [
       "node_modules/@vidstack/react/prod/chunks/vidstack-D2vrrUMs.js"
     ]
   },
   "node_modules/@vidstack/react/prod/chunks/vidstack-BmcqUMKx.js": {
-    "file": "assets/vidstack-BmcqUMKx-DOg3VTCq.js",
+    "file": "assets/vidstack-BmcqUMKx-CT1D3OcN.js",
     "name": "vidstack-BmcqUMKx",
     "src": "node_modules/@vidstack/react/prod/chunks/vidstack-BmcqUMKx.js",
     "isDynamicEntry": true,
     "imports": [
-      "_video-D8n0Mpwg.js",
-      "_vidstack-CQuJTPFJ-CvMLqTR6.js",
+      "_video-EO2hkl4B.js",
+      "_vidstack-CQuJTPFJ-xfp7wye_.js",
       "node_modules/@vidstack/react/prod/chunks/vidstack-Dy74GavT.js"
     ]
   },
@@ -72,31 +78,31 @@
     "isDynamicEntry": true
   },
   "node_modules/@vidstack/react/prod/chunks/vidstack-CHcsWfRV.js": {
-    "file": "assets/vidstack-CHcsWfRV-D9O-SBfW.js",
+    "file": "assets/vidstack-CHcsWfRV-Bspc85hm.js",
     "name": "vidstack-CHcsWfRV",
     "src": "node_modules/@vidstack/react/prod/chunks/vidstack-CHcsWfRV.js",
     "isDynamicEntry": true,
     "imports": [
-      "_video-D8n0Mpwg.js"
+      "_video-EO2hkl4B.js"
     ]
   },
   "node_modules/@vidstack/react/prod/chunks/vidstack-D2vrrUMs.js": {
-    "file": "assets/vidstack-D2vrrUMs-DNQIUHCu.js",
+    "file": "assets/vidstack-D2vrrUMs-D4bmz67K.js",
     "name": "vidstack-D2vrrUMs",
     "src": "node_modules/@vidstack/react/prod/chunks/vidstack-D2vrrUMs.js",
     "isDynamicEntry": true,
     "imports": [
-      "_video-D8n0Mpwg.js",
-      "_vidstack-Di0HObvT-BJ3Z0Bpn.js"
+      "_video-EO2hkl4B.js",
+      "_vidstack-Di0HObvT-CowJNWJL.js"
     ]
   },
   "node_modules/@vidstack/react/prod/chunks/vidstack-DiaLSJYx.js": {
-    "file": "assets/vidstack-DiaLSJYx-NeenpfRX.js",
+    "file": "assets/vidstack-DiaLSJYx-D5GI8Q57.js",
     "name": "vidstack-DiaLSJYx",
     "src": "node_modules/@vidstack/react/prod/chunks/vidstack-DiaLSJYx.js",
     "isDynamicEntry": true,
     "imports": [
-      "_video-D8n0Mpwg.js"
+      "_video-EO2hkl4B.js"
     ]
   },
   "node_modules/@vidstack/react/prod/chunks/vidstack-Dy74GavT.js": {
@@ -106,13 +112,13 @@
     "isDynamicEntry": true
   },
   "node_modules/@vidstack/react/prod/chunks/vidstack-GkTzay8D.js": {
-    "file": "assets/vidstack-GkTzay8D-DJpyAMHM.js",
+    "file": "assets/vidstack-GkTzay8D-DLteVjUI.js",
     "name": "vidstack-GkTzay8D",
     "src": "node_modules/@vidstack/react/prod/chunks/vidstack-GkTzay8D.js",
     "isDynamicEntry": true,
     "imports": [
-      "_video-D8n0Mpwg.js",
-      "_vidstack-CQuJTPFJ-CvMLqTR6.js",
+      "_video-EO2hkl4B.js",
+      "_vidstack-CQuJTPFJ-xfp7wye_.js",
       "node_modules/@vidstack/react/prod/chunks/vidstack-C0fPJIzs.js"
     ]
   },
@@ -123,45 +129,57 @@
     "isDynamicEntry": true
   },
   "node_modules/media-captions/dist/prod/errors.js": {
-    "file": "assets/errors-iwcNC_HG.js",
+    "file": "assets/errors-BzEnMneV.js",
     "name": "errors",
     "src": "node_modules/media-captions/dist/prod/errors.js",
     "isDynamicEntry": true,
     "imports": [
-      "_prod-B2pwJTCO.js",
-      "_video-D8n0Mpwg.js"
+      "_prod-B68_iQOz.js",
+      "_video-EO2hkl4B.js"
     ]
   },
   "node_modules/media-captions/dist/prod/srt-parser.js": {
-    "file": "assets/srt-parser-Cb8bZVRe.js",
+    "file": "assets/srt-parser-Uhwn2-Pt.js",
     "name": "srt-parser",
     "src": "node_modules/media-captions/dist/prod/srt-parser.js",
     "isDynamicEntry": true,
     "imports": [
-      "_prod-B2pwJTCO.js",
-      "_video-D8n0Mpwg.js"
+      "_prod-B68_iQOz.js",
+      "_video-EO2hkl4B.js"
     ]
   },
   "node_modules/media-captions/dist/prod/ssa-parser.js": {
-    "file": "assets/ssa-parser-DQKqmuOp.js",
+    "file": "assets/ssa-parser-BRzbmQZu.js",
     "name": "ssa-parser",
     "src": "node_modules/media-captions/dist/prod/ssa-parser.js",
     "isDynamicEntry": true,
     "imports": [
-      "_video-D8n0Mpwg.js",
-      "_prod-B2pwJTCO.js"
+      "_video-EO2hkl4B.js",
+      "_prod-B68_iQOz.js"
     ],
     "dynamicImports": [
       "node_modules/media-captions/dist/prod/errors.js"
     ]
   },
+  "resources/js/clips/clipEncoder.js": {
+    "file": "assets/clipEncoder-b7MnYlTq.js",
+    "name": "clipEncoder",
+    "src": "resources/js/clips/clipEncoder.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "_video-EO2hkl4B.js"
+    ],
+    "dynamicImports": [
+      "__vite-browser-external"
+    ]
+  },
   "resources/js/embed-player.jsx": {
-    "file": "assets/embed-player-Bbp4Lski.js",
+    "file": "assets/embed-player-ZohfnsIE.js",
     "name": "embed-player",
     "src": "resources/js/embed-player.jsx",
     "isEntry": true,
     "imports": [
-      "_video-D8n0Mpwg.js"
+      "_video-EO2hkl4B.js"
     ],
     "css": [
       "assets/embed-player-DszQxaZu.css"
@@ -177,18 +195,19 @@
     ]
   },
   "resources/js/main.jsx": {
-    "file": "assets/main-ClxwCmFW.js",
+    "file": "assets/main-3sfsOpxz.js",
     "name": "main",
     "src": "resources/js/main.jsx",
     "isEntry": true,
     "imports": [
-      "_video-D8n0Mpwg.js"
+      "_video-EO2hkl4B.js"
     ],
     "dynamicImports": [
+      "resources/js/clips/clipEncoder.js",
       "node_modules/livekit-client/dist/livekit-client.esm.mjs"
     ],
     "css": [
-      "assets/main-BUc3ZfvG.css"
+      "assets/main-CA0qmAoV.css"
     ]
   }
 }

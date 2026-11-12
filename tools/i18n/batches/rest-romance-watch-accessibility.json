@@ -1,0 +1,57 @@
+{
+  "context": "Four confirmed whole keys on actual home navigation/video actions/watch-later controls; prevent mixed-language token fallback. Native personal actions, video spelling and Portuguese watch-later label variants preserved.",
+  "messages": {
+    "Go to home": {
+      "fr": "Revenir à l’accueil",
+      "es": "Volver al inicio",
+      "pt": "Ir para o início",
+      "it": "Vai alla home",
+      "ca": "Ves a l’inici",
+      "gl": "Ir ao inicio",
+      "eo": "Iru al la hejmpaĝo"
+    },
+    "Video actions": {
+      "fr": "Actions de la vidéo",
+      "es": "Acciones del vídeo",
+      "pt": "Ações do vídeo",
+      "it": "Azioni del video",
+      "ca": "Accions del vídeo",
+      "gl": "Accións do vídeo",
+      "eo": "Agoj por la filmeto",
+      "pt_pt": "Acções do vídeo",
+      "pt_ao": "Acções do vídeo",
+      "es_ar": "Acciones del video",
+      "es_cl": "Acciones del video",
+      "es_co": "Acciones del video",
+      "es_cr": "Acciones del video",
+      "es_do": "Acciones del video",
+      "es_ec": "Acciones del video",
+      "es_gt": "Acciones del video",
+      "es_mx": "Acciones del video",
+      "es_pe": "Acciones del video",
+      "es_pr": "Acciones del video",
+      "es_uy": "Acciones del video",
+      "es_ve": "Acciones del video"
+    },
+    "Add to Watch later": {
+      "fr": "Ajouter à « À regarder plus tard »",
+      "es": "Añadir a « Ver más tarde »",
+      "pt": "Adicionar a « Ver mais tarde »",
+      "it": "Aggiungi a « Guarda più tardi »",
+      "ca": "Afegeix a « Mira més tard »",
+      "gl": "Engadir a « Ver máis tarde »",
+      "eo": "Aldonu al « Spekti poste »",
+      "pt_br": "Adicionar a « Assistir mais tarde »"
+    },
+    "Remove from Watch later": {
+      "fr": "Retirer de « À regarder plus tard »",
+      "es": "Quitar de « Ver más tarde »",
+      "pt": "Remover de « Ver mais tarde »",
+      "it": "Rimuovi da « Guarda più tardi »",
+      "ca": "Treu de « Mira més tard »",
+      "gl": "Quitar de « Ver máis tarde »",
+      "eo": "Forigu el « Spekti poste »",
+      "pt_br": "Remover de « Assistir mais tarde »"
+    }
+  }
+}

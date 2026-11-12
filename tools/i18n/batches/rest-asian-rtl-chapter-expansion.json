@@ -1,0 +1,86 @@
+{
+  "context": "Editorial complete chapter validation plus accessible chapter-name and include-chapters checkbox in Hebrew, Iranian Persian, Afghan Dari, Hindi, Bangladeshi Bengali, Thai and Vietnamese. Named count/number/seconds retained, exact first0:00 and160-character limit preserved. Checkbox label agrees with missing-name instruction; personal commands, regional scripts; shared neutral Persian/Dari timing wording read separately. Does not alter imported chapter content or timing.",
+  "messages": {
+    "A video can have up to {count} chapters.": {
+      "he_il": "מספר הפרקים המרבי בסרטון: {count}.",
+      "fa_ir": "هر ویدیو می‌تواند تا {count} فصل داشته باشد.",
+      "fa_af": "هر ویدیو می‌تواند تا {count} فصل داشته باشد.",
+      "hi_in": "एक वीडियो में ज़्यादा से ज़्यादा {count} अध्याय हो सकते हैं।",
+      "bn_bd": "একটি ভিডিওতে সর্বোচ্চ {count}টি অধ্যায় থাকতে পারে।",
+      "th": "วิดีโอมีได้สูงสุด {count} บท",
+      "vi": "Một video có thể có tối đa {count} chương."
+    },
+    "Chapter {number} has an invalid timestamp.": {
+      "he_il": "חותמת הזמן של פרק {number} לא תקינה.",
+      "fa_ir": "زمان فصل {number} معتبر نیست.",
+      "fa_af": "زمان فصل {number} معتبر نیست.",
+      "hi_in": "अध्याय {number} का समय सही नहीं है।",
+      "bn_bd": "অধ্যায় {number}-এর সময় সঠিক নয়।",
+      "th": "เวลาของบทที่ {number} ไม่ถูกต้อง",
+      "vi": "Mốc thời gian của chương {number} không hợp lệ."
+    },
+    "The first chapter must start at 0:00.": {
+      "he_il": "הפרק הראשון חייב להתחיל ב־0:00.",
+      "fa_ir": "فصل اول باید از 0:00 شروع شود.",
+      "fa_af": "فصل اول باید از 0:00 شروع شود.",
+      "hi_in": "पहला अध्याय 0:00 से शुरू होना चाहिए।",
+      "bn_bd": "প্রথম অধ্যায় 0:00 থেকে শুরু হতে হবে।",
+      "th": "บทแรกต้องเริ่มที่ 0:00",
+      "vi": "Chương đầu tiên phải bắt đầu từ 0:00."
+    },
+    "Chapter timestamps must be in order and at least {seconds} seconds apart.": {
+      "he_il": "זמני הפרקים חייבים להיות לפי הסדר, עם הפרש של {seconds} שניות לפחות.",
+      "fa_ir": "زمان فصل‌ها باید به‌ترتیب باشد و دست‌کم {seconds} ثانیه با هم فاصله داشته باشند.",
+      "fa_af": "زمان فصل‌ها باید به‌ترتیب باشد و دست‌کم {seconds} ثانیه با هم فاصله داشته باشند.",
+      "hi_in": "अध्यायों के समय क्रम में होने चाहिए और उनके बीच कम से कम {seconds} सेकंड का अंतर होना चाहिए।",
+      "bn_bd": "অধ্যায়ের সময়গুলো ক্রমানুসারে থাকতে হবে এবং অন্তত {seconds} সেকেন্ড ব্যবধান থাকতে হবে।",
+      "th": "เวลาของบทต้องเรียงตามลำดับและห่างกันอย่างน้อย {seconds} วินาที",
+      "vi": "Mốc thời gian của các chương phải theo thứ tự và cách nhau ít nhất {seconds} giây."
+    },
+    "Chapter {number} starts after the video ends.": {
+      "he_il": "פרק {number} חייב להתחיל לפני סוף הסרטון.",
+      "fa_ir": "فصل {number} باید قبل از پایان ویدیو شروع شود.",
+      "fa_af": "فصل {number} باید قبل از پایان ویدیو شروع شود.",
+      "hi_in": "अध्याय {number} वीडियो खत्म होने से पहले शुरू होना चाहिए।",
+      "bn_bd": "অধ্যায় {number} ভিডিও শেষ হওয়ার আগে শুরু হতে হবে।",
+      "th": "บทที่ {number} ต้องเริ่มก่อนวิดีโอจบ",
+      "vi": "Chương {number} phải bắt đầu trước khi video kết thúc."
+    },
+    "Add a name for chapter {number} or turn off Upload with chapters.": {
+      "he_il": "הוסף שם לפרק {number} או בטל את האפשרות לכלול פרקים.",
+      "fa_ir": "برای فصل {number} یک نام بنویس یا گزینهٔ «همراه با فصل‌ها» را خاموش کن.",
+      "fa_af": "برای فصل {number} یک نام بنویس یا گزینهٔ «همراه با فصل‌ها» را خاموش کن.",
+      "hi_in": "अध्याय {number} का नाम लिखो या अध्याय शामिल करो वाला विकल्प बंद कर दो।",
+      "bn_bd": "অধ্যায় {number}-এর নাম দাও বা অধ্যায় যুক্ত করো বিকল্পটি বন্ধ করো।",
+      "th": "ตั้งชื่อบทที่ {number} หรือปิดตัวเลือกรวมบท",
+      "vi": "Đặt tên cho chương {number} hoặc tắt tùy chọn Kèm chương."
+    },
+    "The name for chapter {number} must be 160 characters or fewer.": {
+      "he_il": "שם פרק {number} יכול להכיל עד 160 תווים.",
+      "fa_ir": "نام فصل {number} باید حداکثر 160 نویسه داشته باشد.",
+      "fa_af": "نام فصل {number} باید حداکثر 160 نویسه داشته باشد.",
+      "hi_in": "अध्याय {number} का नाम 160 अक्षरों से ज़्यादा नहीं हो सकता।",
+      "bn_bd": "অধ্যায় {number}-এর নাম 160 অক্ষরের মধ্যে হতে হবে।",
+      "th": "ชื่อบทที่ {number} ต้องไม่เกิน 160 อักขระ",
+      "vi": "Tên chương {number} phải có tối đa 160 ký tự."
+    },
+    "Chapter {number} name": {
+      "he_il": "שם פרק {number}",
+      "fa_ir": "نام فصل {number}",
+      "fa_af": "نام فصل {number}",
+      "hi_in": "अध्याय {number} का नाम",
+      "bn_bd": "অধ্যায় {number}-এর নাম",
+      "th": "ชื่อบทที่ {number}",
+      "vi": "Tên chương {number}"
+    },
+    "Upload with chapters": {
+      "he_il": "לכלול פרקים",
+      "fa_ir": "همراه با فصل‌ها",
+      "fa_af": "همراه با فصل‌ها",
+      "hi_in": "अध्याय शामिल करो",
+      "bn_bd": "অধ্যায় যুক্ত করো",
+      "th": "รวมบท",
+      "vi": "Kèm chương"
+    }
+  }
+}

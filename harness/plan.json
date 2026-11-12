@@ -1,0 +1,512 @@
+{
+  "schemaVersion": 1,
+  "branch": "codex/viewer-community-features",
+  "remote": "origin",
+  "baselineCommit": "d147e6a",
+  "steps": [
+    {
+      "id": 1,
+      "title": "Ausgangsstand und Harness",
+      "checks": [
+        "harness-tests",
+        "staged-safety",
+        "baseline-preserved"
+      ],
+      "acceptance": [
+        "Vorhandener Stand geprüft, gesichert und gepusht",
+        "Schrittwechsel und Abschluss an Prüfungen und Push gebunden",
+        "Echte Codex-Hooks geladen, vertraut und im Runtime-Negativtest wirksam"
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Oracle-Zwischenspeicher, Warteschlange und Odysee-Übernahme",
+      "checks": [
+        "step-02-integration"
+      ],
+      "acceptance": [
+        "Privater Oracle-Always-Free-Zwischenspeicher mit Reservierungen, Nutzungsgrenzen und FIFO-Warteschlange; begrenzte Uploadrechte ohne Kontoschlüssel im Browser",
+        "Browser-Upload ohne Videotransport durch CrozzTube; Limits und Verhalten nach der Oracle-Testphase geprüft",
+        "Live-Test: Odysee importiert signierte URL, wird abspielbar, wechselt Sichtbarkeit; Zwischenkopien werden gelöscht",
+        "Ausfälle, Konkurrenz und Bereinigung geprüft",
+        "Imagehoster, Oracle und Odysee unter Speicher & CDN administrierbar; verschlüsselte Zugangsdaten, schreibgeschützte Geheimnisse, Einrichtungshilfen und begrenzte Verbindungstests geprüft",
+        "Odysee-Bestätigung und erreichbare Wiedergabe abwarten; Besitzer sieht Wartestatus, erhält einmalige Verfügbarkeitsbenachrichtigung und kann abbrechen; keine zeitgesteuerte Löschung angenommener Uploads"
+      ],
+      "checkpointChecks": [
+        "harness-tests",
+        "oracle-staging-config",
+        "oracle-staging-store",
+        "odysee-publishing-config",
+        "odysee-publishing-setup",
+        "odysee-url-import",
+        "odysee-publisher",
+        "clip-transfer-queue",
+        "media-provider-settings",
+        "media-provider-api",
+        "media-provider-image-regressions",
+        "media-provider-copy",
+        "media-provider-browser",
+        "account-menu-scroll",
+        "navigation-regressions",
+        "provider-source-regressions",
+        "source-refresh-banner",
+        "clip-confirmation",
+        "clip-playback-readiness",
+        "clip-workflow-copy",
+        "clip-confirmation-browser",
+        "clip-gateway",
+        "action-copy",
+        "action-consistency-browser",
+        "watch-menu-regressions",
+        "staged-safety"
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Vollständige Clipfunktion",
+      "checks": [
+        "step-03-clips"
+      ],
+      "acceptance": [
+        "Browser erzeugt MP4 H.264/AAC, 5–60 Sekunden, maximal 720p",
+        "Private und öffentliche Clips, Originalzuordnung und Sammlungen",
+        "Ungeeignete Quellen bieten Zeitmarke statt manuellen Upload",
+        "Warten, Abbruch, Retry, Sichtbarkeit, Wiedergabe und Löschen vollständig geprüft"
+      ],
+      "checkpointChecks": [
+        "harness-tests",
+        "clip-encoder-unit",
+        "clip-browser-format",
+        "clip-api",
+        "clip-composer-ui",
+        "clip-collections",
+        "clip-management-ui",
+        "staged-safety"
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Zeitmarken, Teilen, Stimmen und Bereinigung",
+      "checks": [
+        "step-04-time-marks"
+      ],
+      "checkpointChecks": [
+        "clip-encoder-unit",
+        "clip-browser-format",
+        "clip-composer-ui",
+        "action-consistency-browser",
+        "staged-safety"
+      ],
+      "acceptance": [
+        "Private Notizen und bewusst veröffentlichte Zeitmarken",
+        "Teilen und Zeitsprung ohne private Notizen offenzulegen",
+        "Eine veränderbare Stimme je Nutzer; Eigenbewertungen ausgeschlossen",
+        "Einblendungen, Ranking sowie 7/180/30-Tage-Regeln mit kontrollierter Uhr geprüft"
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Durchsuchbares Transkript",
+      "checks": [
+        "step-05-transcript"
+      ],
+      "acceptance": [
+        "Suche, Sprachwechsel und Zeitsprünge aus echten zeitlichen Cues",
+        "Reiner Text bleibt ohne erfundene Zeitpunkte lesbar",
+        "Fehlerzustände und unverändert laufender Player geprüft"
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Weiterschauen verwalten",
+      "checks": [
+        "step-06-progress"
+      ],
+      "acceptance": [
+        "Entfernen bewahrt Verlauf; angesehen und neu beginnen funktionieren",
+        "Alte Hintergrundmeldungen machen Entfernen nicht rückgängig",
+        "Web und API folgen denselben nebenläufig geprüften Regeln"
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Gemeinsame Playlists",
+      "checks": [
+        "step-07-playlists"
+      ],
+      "acceptance": [
+        "Einladen und Rechte entziehen",
+        "Mitwirkende verwalten eigene Einträge, Besitzer alle Einträge und Reihenfolge",
+        "Optionale Abstimmung verändert manuelle Reihenfolge nicht",
+        "Konkurrenz und Berechtigungen geprüft"
+      ]
+    },
+    {
+      "id": 8,
+      "title": "Serien und Staffeln",
+      "checks": [
+        "step-08-series"
+      ],
+      "acceptance": [
+        "Serienstruktur erweitert bestehende Playlists",
+        "Folgeninformationen bleiben im Serienkontext",
+        "Nächste Folge wahrt Zugang, Autoplay und Vorrang der persönlichen Queue"
+      ]
+    },
+    {
+      "id": 9,
+      "title": "Einschlaftimer",
+      "checks": [
+        "step-09-sleep-timer"
+      ],
+      "acceptance": [
+        "15/30/60 Minuten und Videoende",
+        "Timer gilt in Watch und Miniplayer; Ablauf unterdrückt Autoplay",
+        "Unsteuerbare Embeds erhalten keine funktionslose Option"
+      ]
+    },
+    {
+      "id": 10,
+      "title": "Persönliches Untertitel-Design",
+      "checks": [
+        "step-10-caption-style"
+      ],
+      "acceptance": [
+        "Größe, Hintergrund und Kontrast speichern",
+        "Gast, Konto, Vollbild und Miniplayer geprüft",
+        "Provider-Embeds behalten tatsächlich verfügbare Möglichkeiten"
+      ]
+    },
+    {
+      "id": 11,
+      "title": "Empfehlungen erklären und steuern",
+      "checks": [
+        "step-11-recommendations"
+      ],
+      "acceptance": [
+        "Gründe beruhen auf echten Signalen",
+        "Video- und Kanalausschlüsse wirken",
+        "Personalisierung abschalten bewahrt Verlauf und Abos"
+      ]
+    },
+    {
+      "id": 12,
+      "title": "Bewusste Live-Weiterleitungen",
+      "checks": [
+        "step-12-live-redirect"
+      ],
+      "acceptance": [
+        "Nur berechtigte Creator empfehlen erreichbare Live-Ziele",
+        "Zuschauer wechseln bewusst; Empfang ist abschaltbar",
+        "Zugriff, Moderation, Blockierung und beendete Ziele geprüft"
+      ]
+    }
+  ],
+  "checks": {
+    "step-03-clips": {
+      "argv": [
+        "bash",
+        "tools/test/step-03-clips.sh"
+      ],
+      "timeoutMs": 480000
+    },
+    "step-02-integration": {
+      "argv": [
+        "node",
+        "tools/test/ui/clip-workflow-live-observe.mjs",
+        "--run",
+        "--id=5e06399e-041d-4f31-a198-a6dcd4e7af8f"
+      ],
+      "timeoutMs": 120000
+    },
+    "clip-encoder-unit": {
+      "argv": [
+        "node",
+        "--test",
+        "--test-reporter=spec",
+        "tools/test/clip-encoder.test.mjs"
+      ],
+      "timeoutMs": 30000
+    },
+    "clip-browser-format": {
+      "argv": [
+        "node",
+        "tools/test/clip-browser-format.mjs"
+      ],
+      "timeoutMs": 60000
+    },
+    "clip-api": {
+      "argv": [
+        "php",
+        "tools/test/php/clip-api-checks.php"
+      ],
+      "timeoutMs": 30000
+    },
+    "clip-composer-ui": {
+      "argv": [
+        "node",
+        "tools/test/ui/clip-composer.mjs"
+      ],
+      "timeoutMs": 120000
+    },
+    "clip-collections": {
+      "argv": [
+        "docker",
+        "exec",
+        "crozztube-web",
+        "php",
+        "tools/test/php/clip-collection-checks.php"
+      ],
+      "timeoutMs": 60000
+    },
+    "clip-management-ui": {
+      "argv": [
+        "node",
+        "tools/test/ui/clip-management.mjs"
+      ],
+      "timeoutMs": 120000
+    },
+    "harness-tests": {
+      "argv": [
+        "node",
+        "--test",
+        "--test-reporter=spec",
+        "tools/test/harness.test.mjs"
+      ],
+      "timeoutMs": 180000
+    },
+    "staged-safety": {
+      "argv": [
+        "node",
+        "tools/harness/static-check.mjs"
+      ],
+      "timeoutMs": 180000
+    },
+    "baseline-preserved": {
+      "argv": [
+        "node",
+        "tools/harness/cli.mjs",
+        "baseline-check"
+      ],
+      "timeoutMs": 30000
+    },
+    "media-provider-image-regressions": {
+      "argv": [
+        "node",
+        "tools/test/media-provider-image-regressions.mjs"
+      ],
+      "timeoutMs": 390000
+    },
+    "media-provider-api": {
+      "argv": [
+        "php",
+        "tools/test/php/media-provider-api-checks.php"
+      ],
+      "timeoutMs": 30000
+    },
+    "media-provider-settings": {
+      "argv": [
+        "php",
+        "tools/test/php/media-provider-settings-checks.php"
+      ],
+      "timeoutMs": 30000
+    },
+    "odysee-publishing-setup": {
+      "argv": [
+        "php",
+        "tools/test/php/clip-publishing-setup-checks.php"
+      ],
+      "timeoutMs": 30000
+    },
+    "odysee-publishing-config": {
+      "argv": [
+        "php",
+        "tools/test/php/clip-publishing-config-checks.php"
+      ],
+      "timeoutMs": 30000
+    },
+    "oracle-staging-store": {
+      "argv": [
+        "php",
+        "tools/test/php/clip-staging-store-checks.php"
+      ],
+      "timeoutMs": 30000
+    },
+    "oracle-staging-config": {
+      "argv": [
+        "php",
+        "tools/test/php/clip-staging-config-checks.php"
+      ],
+      "timeoutMs": 30000
+    },
+    "media-provider-copy": {
+      "argv": [
+        "php",
+        "tools/test/php/media-provider-copy-checks.php"
+      ],
+      "timeoutMs": 30000
+    },
+    "media-provider-browser": {
+      "argv": [
+        "node",
+        "tools/test/ui/media-providers.mjs"
+      ],
+      "timeoutMs": 240000
+    },
+    "account-menu-scroll": {
+      "argv": [
+        "node",
+        "tools/test/ui/account-menu-scroll.mjs"
+      ],
+      "timeoutMs": 240000
+    },
+    "navigation-regressions": {
+      "argv": [
+        "node",
+        "tools/test/ui/node_modules/playwright/cli.js",
+        "test",
+        "--config",
+        "tools/test/ui/playwright.config.ts",
+        "responsive-interactions.spec.ts",
+        "--project=chromium",
+        "--workers=1",
+        "--grep",
+        "navigation has one consistent breakpoint|opening scrolled navigation|navigation stays aligned"
+      ],
+      "timeoutMs": 240000
+    },
+    "provider-source-regressions": {
+      "argv": [
+        "node",
+        "tools/test/provider-source-regressions.mjs"
+      ],
+      "timeoutMs": 390000
+    },
+    "source-refresh-banner": {
+      "argv": [
+        "node",
+        "tools/test/ui/source-refresh-banner.mjs"
+      ],
+      "timeoutMs": 120000
+    },
+    "odysee-url-import": {
+      "argv": [
+        "php",
+        "tools/test/php/clip-publishing-import-checks.php"
+      ],
+      "timeoutMs": 30000
+    },
+    "odysee-publisher": {
+      "argv": [
+        "php",
+        "tools/test/php/clip-publisher-checks.php"
+      ],
+      "timeoutMs": 30000
+    },
+    "clip-transfer-queue": {
+      "argv": [
+        "node",
+        "tools/test/clip-transfer-queue.mjs"
+      ],
+      "timeoutMs": 150000
+    },
+    "clip-confirmation": {
+      "argv": [
+        "node",
+        "tools/test/clip-confirmation.mjs"
+      ],
+      "timeoutMs": 150000
+    },
+    "clip-playback-readiness": {
+      "argv": [
+        "php",
+        "tools/test/php/clip-readiness-checks.php"
+      ],
+      "timeoutMs": 30000
+    },
+    "clip-workflow-copy": {
+      "argv": [
+        "php",
+        "tools/test/php/clip-workflow-copy-checks.php"
+      ],
+      "timeoutMs": 30000
+    },
+    "clip-confirmation-browser": {
+      "argv": [
+        "node",
+        "tools/test/ui/clip-confirmation.mjs"
+      ],
+      "timeoutMs": 240000
+    },
+    "clip-gateway": {
+      "argv": [
+        "php",
+        "tools/test/php/clip-gateway-checks.php"
+      ],
+      "timeoutMs": 30000
+    },
+    "action-copy": {
+      "argv": [
+        "php",
+        "tools/test/php/action-copy-checks.php"
+      ],
+      "timeoutMs": 30000
+    },
+    "action-consistency-browser": {
+      "argv": [
+        "node",
+        "tools/test/ui/action-consistency.mjs"
+      ],
+      "timeoutMs": 240000
+    },
+    "watch-menu-regressions": {
+      "argv": [
+        "node",
+        "tools/test/ui/node_modules/playwright/cli.js",
+        "test",
+        "--config",
+        "tools/test/ui/playwright.config.ts",
+        "watch-menu.spec.ts",
+        "--project=chromium",
+        "--workers=1"
+      ],
+      "timeoutMs": 180000
+    }
+  },
+  "defaults": {
+    "activeClipsGlobal": 3,
+    "activeClipsPerAccount": 1,
+    "activePerUser": 1,
+    "waitingPerUser": 1,
+    "newUploadsPerDay": 5,
+    "newUploadsPerMonth": 150,
+    "maxClipBytes": 67108864,
+    "reservedAndStoredBytesPerAccount": 1000000000,
+    "stagingCleanupHours": 24,
+    "clipSeconds": [
+      5,
+      60
+    ],
+    "maxClipResolution": "720p",
+    "timeMarkCleanup": {
+      "negativeMinAgeDays": 7,
+      "negativeMinVoters": 25,
+      "negativeDislikeRatio": 0.8,
+      "neglectedMinAgeDays": 180,
+      "neglectedLikesBelow": 3,
+      "neglectedMinImpressions": 100,
+      "impressionSeconds": 2,
+      "hiddenGraceDays": 30
+    },
+    "stagingProvider": "oci",
+    "stagingAccounts": 1
+  },
+  "deferred": [
+    "Videoabende",
+    "Premieren",
+    "Kanalpunkte",
+    "vollständige Sprachabnahme",
+    "RTL-Entfernung",
+    "weitere Creator-Studio-Arbeiten"
+  ]
+}

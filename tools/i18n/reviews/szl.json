@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "locale": "szl",
+  "messages": {
+    "1bb2e6e6ee648113c7f33859f600b00f73b4952ce6f68d00ee59b6cff4876a5e": {
+      "source_hash": "29c34e6125c7ee1479b24b1259ed403512440a832083de13d397c5170fcbbb62",
+      "translation_hash": "8c098ac1a871373dc9ca7bf67f455fc915bd95b32fb1aa48246c27e6769a41a9",
+      "status": "editorial",
+      "contexts": [
+        "Import completion state aligned with corrected English reference and actual external playback: confirms import only, never claims a new encoding/processing job was started. Personal singular wording and regional scripts retained."
+      ],
+      "reviewed_at": "2026-11-06T10:56:29+00:00"
+    },
+    "29c34e6125c7ee1479b24b1259ed403512440a832083de13d397c5170fcbbb62": {
+      "source_hash": "29c34e6125c7ee1479b24b1259ed403512440a832083de13d397c5170fcbbb62",
+      "translation_hash": "8c098ac1a871373dc9ca7bf67f455fc915bd95b32fb1aa48246c27e6769a41a9",
+      "status": "editorial",
+      "contexts": [
+        "Import completion state aligned with corrected English reference and actual external playback: confirms import only, never claims a new encoding/processing job was started. Personal singular wording and regional scripts retained."
+      ],
+      "reviewed_at": "2026-11-06T10:56:29+00:00"
+    },
+    "3c784a16cf27568e948bbdffd5d250bb35e98454112f9196c59f7636666699f7": {
+      "source_hash": "3c784a16cf27568e948bbdffd5d250bb35e98454112f9196c59f7636666699f7",
+      "translation_hash": "3c784a16cf27568e948bbdffd5d250bb35e98454112f9196c59f7636666699f7",
+      "status": "verified",
+      "contexts": [
+        "Editorial source-context pass: navigation, video Shorts product name (not clothing), upload Review/check action, stream status, storage quota, video captions, administrator device-distribution chart, dashboard and selection actions. Regional scripts retained; simple player terminology cross-checked in Mozilla localization sources. Sparse entries only where confidently reviewed; no claim of whole-pack acceptance.",
+        "Upload at 390px: actual navigation, review step, private-access wording and applicable personal form prompts; user input stays literal; no overflow/runtime errors/application writes"
+      ],
+      "reviewed_at": "2026-11-06T10:16:46+00:00",
+      "verified_at": "2026-11-06T11:12:23.289Z"
+    },
+    "43bf6af8e2d9b895620783088525d4a4f20e3ea34508cea6e8171fb6c0abff21": {
+      "source_hash": "43bf6af8e2d9b895620783088525d4a4f20e3ea34508cea6e8171fb6c0abff21",
+      "translation_hash": "153bd965e4764a79d064810c1db5c1fb0d71495fca3be2559feefb76c66baca0",
+      "status": "editorial",
+      "contexts": [
+        "Editorial source-context pass: navigation, video Shorts product name (not clothing), upload Review/check action, stream status, storage quota, video captions, administrator device-distribution chart, dashboard and selection actions. Regional scripts retained; simple player terminology cross-checked in Mozilla localization sources. Sparse entries only where confidently reviewed; no claim of whole-pack acceptance."
+      ],
+      "reviewed_at": "2026-11-06T10:16:46+00:00"
+    }
+  }
+}

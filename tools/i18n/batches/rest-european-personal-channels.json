@@ -1,0 +1,284 @@
+{
+  "context": "Whole-message community/account pass: personal subscription/Watch Later/Playlist states, contact form, wallet and studio guidance, social login and actual provider-account errors. No polite plural verbs or false under-control meaning; source factory jargon removed. Saved administrator text and sample comments untouched.",
+  "messages": {
+    "Your subscriptions": {
+      "ru": "Твои подписки",
+      "uk": "Твої підписки",
+      "sk": "Tvoje odbery",
+      "bg": "Твоите абонаменти",
+      "el": "Οι εγγραφές σου",
+      "ro": "Abonamentele tale",
+      "hu": "A feliratkozásaid"
+    },
+    "Your display name": {
+      "ru": "Твоё отображаемое имя",
+      "uk": "Твоє відображуване ім’я",
+      "sk": "Tvoje zobrazované meno",
+      "bg": "Твоето показвано име",
+      "el": "Το όνομα που εμφανίζεις",
+      "ro": "Numele tău afișat",
+      "hu": "A megjelenített neved"
+    },
+    "Your choices": {
+      "ru": "Твой выбор",
+      "uk": "Твій вибір",
+      "sk": "Tvoje možnosti",
+      "bg": "Твоят избор",
+      "el": "Οι επιλογές σου",
+      "ro": "Alegerile tale",
+      "hu": "A választásaid"
+    },
+    "Your playlists": {
+      "ru": "Твои плейлисты",
+      "uk": "Твої плейлисти",
+      "sk": "Tvoje playlisty",
+      "bg": "Твоите плейлисти",
+      "el": "Οι λίστες αναπαραγωγής σου",
+      "ro": "Listele tale de redare",
+      "hu": "A lejátszási listáid"
+    },
+    "Your Reminders": {
+      "ru": "Твои напоминания",
+      "uk": "Твої нагадування",
+      "sk": "Tvoje pripomienky",
+      "bg": "Твоите напомняния",
+      "el": "Οι υπενθυμίσεις σου",
+      "ro": "Mementourile tale",
+      "hu": "Az emlékeztetőid"
+    },
+    "Your ad markup": {
+      "ru": "Код твоей рекламы",
+      "uk": "Код твоєї реклами",
+      "sk": "Kód tvojej reklamy",
+      "bg": "Кодът на твоята реклама",
+      "el": "Ο κώδικας της διαφήμισής σου",
+      "ro": "Codul reclamei tale",
+      "hu": "A hirdetésed kódja"
+    },
+    "Your support": {
+      "ru": "Твоя поддержка",
+      "uk": "Твоя підтримка",
+      "sk": "Tvoja podpora",
+      "bg": "Твоята подкрепа",
+      "el": "Η υποστήριξή σου",
+      "ro": "Sprijinul tău",
+      "hu": "A támogatásod"
+    },
+    "No comments yet. Be the first to comment.": {
+      "ru": "Комментариев пока нет. Начни разговор.",
+      "uk": "Коментарів поки немає. Розпочни розмову.",
+      "sk": "Zatiaľ tu nie sú komentáre. Začni konverzáciu.",
+      "bg": "Все още няма коментари. Започни разговора.",
+      "el": "Δεν υπάρχουν ακόμη σχόλια. Ξεκίνα τη συζήτηση.",
+      "ro": "Încă nu sunt comentarii. Începe conversația.",
+      "hu": "Még nincsenek hozzászólások. Indítsd el a beszélgetést."
+    },
+    "You’re in control": {
+      "ru": "Выбор за тобой",
+      "uk": "Ти вирішуєш",
+      "sk": "Rozhoduješ ty",
+      "bg": "Ти решаваш",
+      "el": "Εσύ επιλέγεις",
+      "ro": "Tu decizi",
+      "hu": "Te döntesz"
+    },
+    "Only you can view this playlist": {
+      "ru": "Этот плейлист виден только тебе",
+      "uk": "Цей плейлист бачиш лише ти",
+      "sk": "Tento playlist vidíš iba ty",
+      "bg": "Този плейлист е видим само за теб",
+      "el": "Αυτή η λίστα είναι ορατή μόνο σε εσένα",
+      "ro": "Doar tu poți vedea această listă de redare",
+      "hu": "Ezt a lejátszási listát csak te láthatod"
+    },
+    "This color will represent your playlist": {
+      "ru": "Этот цвет поможет узнать твой плейлист",
+      "uk": "За цим кольором можна впізнати твій плейлист",
+      "sk": "Táto farba označí tvoj playlist",
+      "bg": "Този цвят ще обозначава плейлиста ти",
+      "el": "Αυτό το χρώμα θα ξεχωρίζει τη λίστα σου",
+      "ro": "Această culoare va identifica lista ta de redare",
+      "hu": "Ez a szín jelöli a lejátszási listádat"
+    },
+    "This playlist belongs to your PlayHub account.": {
+      "ru": "Этот плейлист связан с твоим аккаунтом PlayHub.",
+      "uk": "Цей плейлист пов’язаний із твоїм акаунтом PlayHub.",
+      "sk": "Tento playlist patrí k tvojmu účtu PlayHub.",
+      "bg": "Този плейлист е свързан с твоя акаунт в PlayHub.",
+      "el": "Αυτή η λίστα συνδέεται με τον λογαριασμό σου στο PlayHub.",
+      "ro": "Această listă de redare aparține contului tău PlayHub.",
+      "hu": "Ez a lejátszási lista a PlayHub-fiókodhoz tartozik."
+    },
+    "Popular from your subscriptions": {
+      "ru": "Популярное из твоих подписок",
+      "uk": "Популярне з твоїх підписок",
+      "sk": "Obľúbené z tvojich odberov",
+      "bg": "Популярно от твоите абонаменти",
+      "el": "Δημοφιλή από τις εγγραφές σου",
+      "ro": "Populare din abonamentele tale",
+      "hu": "Népszerű videók a feliratkozásaidból"
+    },
+    "Based on your subscribed channels.": {
+      "ru": "На основе твоих подписок.",
+      "uk": "На основі твоїх підписок.",
+      "sk": "Podľa kanálov, ktoré odoberáš.",
+      "bg": "Според абонаментите ти.",
+      "el": "Με βάση τα κανάλια στα οποία έχεις εγγραφεί.",
+      "ro": "Pe baza canalelor la care te-ai abonat.",
+      "hu": "Az általad követett csatornák alapján."
+    },
+    "Channels you watch most": {
+      "ru": "Каналы, которые ты смотришь чаще всего",
+      "uk": "Канали, які ти дивишся найчастіше",
+      "sk": "Kanály, ktoré sleduješ najčastejšie",
+      "bg": "Каналите, които гледаш най-често",
+      "el": "Τα κανάλια που βλέπεις πιο συχνά",
+      "ro": "Canalele pe care le urmărești cel mai des",
+      "hu": "A leggyakrabban nézett csatornáid"
+    },
+    "Videos you saved to watch when you have time.": {
+      "ru": "Видео, сохранённые тобой на потом.",
+      "uk": "Відео, збережені тобою для перегляду пізніше.",
+      "sk": "Videá uložené na neskôr.",
+      "bg": "Видеата, запазени за по-късно.",
+      "el": "Τα βίντεο που κράτησες για να τα δεις αργότερα.",
+      "ro": "Videoclipurile pe care le-ai salvat pentru mai târziu.",
+      "hu": "Videók, amelyeket későbbre mentettél."
+    },
+    "Continue from where you left off": {
+      "ru": "Продолжи просмотр с того же места",
+      "uk": "Продовж перегляд із того самого місця",
+      "sk": "Pokračuj v sledovaní od posledného miesta",
+      "bg": "Продължи оттам, докъдето стигна",
+      "el": "Συνέχισε από εκεί που έμεινες",
+      "ro": "Continuă de unde ai rămas",
+      "hu": "Folytasd onnan, ahol abbahagytad"
+    },
+    "See the latest from channels you follow.": {
+      "ru": "Смотри новые видео из своих подписок.",
+      "uk": "Дивись нові відео зі своїх підписок.",
+      "sk": "Pozri si novinky z kanálov, ktoré sleduješ.",
+      "bg": "Виж новостите от каналите, които следваш.",
+      "el": "Δες τα νέα από τα κανάλια που ακολουθείς.",
+      "ro": "Vezi noutățile de pe canalele pe care le urmărești.",
+      "hu": "Nézd meg az általad követett csatornák újdonságait."
+    },
+    "No videos from subscribed channels yet.": {
+      "ru": "На каналах из твоих подписок пока нет видео.",
+      "uk": "На каналах із твоїх підписок поки немає відео.",
+      "sk": "Z odoberaných kanálov tu zatiaľ nie sú videá.",
+      "bg": "Все още няма видеа от твоите абонаменти.",
+      "el": "Δεν υπάρχουν ακόμη βίντεο από τα κανάλια που ακολουθείς.",
+      "ro": "Încă nu sunt videoclipuri de pe canalele la care te-ai abonat.",
+      "hu": "Még nincsenek videók a csatornákról, amelyekre feliratkoztál."
+    },
+    "Have a question, feedback, partnership idea, or support request? Send it through the backend form and admins will see it in the Support dashboard.": {
+      "ru": "Есть вопрос, отзыв или идея для сотрудничества? Напиши команде через форму.",
+      "uk": "Маєш запитання, відгук чи ідею співпраці? Напиши команді через форму.",
+      "sk": "Máš otázku, spätnú väzbu alebo nápad na spoluprácu? Napíš tímu cez formulár.",
+      "bg": "Имаш въпрос, отзив или идея за партньорство? Пиши на екипа чрез формуляра.",
+      "el": "Έχεις ερώτηση, σχόλιο ή ιδέα συνεργασίας; Επικοινώνησε με την ομάδα μέσω της φόρμας.",
+      "ro": "Ai o întrebare, un comentariu sau o idee de colaborare? Scrie echipei prin formular.",
+      "hu": "Kérdésed, visszajelzésed vagy együttműködési ötleted van? Írj a csapatnak az űrlapon."
+    },
+    "Top-ups and withdrawal requests from your wallet.": {
+      "ru": "Пополнения и заявки на вывод из твоего кошелька.",
+      "uk": "Поповнення й заявки на виведення з твого гаманця.",
+      "sk": "Dobitia a žiadosti o výber z tvojej peňaženky.",
+      "bg": "Зареждания и заявки за теглене от твоя портфейл.",
+      "el": "Οι προσθήκες χρημάτων και οι αιτήσεις ανάληψης από το πορτοφόλι σου.",
+      "ro": "Alimentările și solicitările de retragere din portofelul tău.",
+      "hu": "A pénztárcád feltöltései és kifizetési kérelmei."
+    },
+    "Your studio settings can be prepared now. Public broadcasting will be enabled with the media engine.": {
+      "ru": "Свою студию можно настроить заранее. Публичные трансляции станут доступны после включения медиадвижка.",
+      "uk": "Свою студію можна налаштувати заздалегідь. Публічні трансляції стануть доступними після ввімкнення медіарушія.",
+      "sk": "Štúdio si môžeš pripraviť už teraz. Verejné vysielanie bude dostupné po zapnutí mediálneho jadra.",
+      "bg": "Можеш да подготвиш студиото си още сега. Публичното излъчване ще е достъпно след включване на медийния модул.",
+      "el": "Μπορείς να ετοιμάσεις το στούντιό σου από τώρα. Η δημόσια μετάδοση θα ενεργοποιηθεί μαζί με τη μηχανή πολυμέσων.",
+      "ro": "Îți poți pregăti studioul de acum. Transmisia publică va fi disponibilă după activarea motorului media.",
+      "hu": "A stúdiódat már most beállíthatod. A nyilvános közvetítés a médiamotor bekapcsolása után lesz elérhető."
+    },
+    "Sign in to like, comment, save posts, and publish community updates from your channel.": {
+      "ru": "Войди, чтобы ставить лайки, комментировать, сохранять публикации и делиться новостями своего канала.",
+      "uk": "Увійди, щоб вподобати, коментувати, зберігати дописи й ділитися новинами свого каналу.",
+      "sk": "Prihlás sa a označuj príspevky, komentuj, ukladaj ich a zdieľaj novinky zo svojho kanála.",
+      "bg": "Влез, за да харесваш, коментираш, запазваш публикации и споделяш новини от канала си.",
+      "el": "Συνδέσου για να πατάς «Μου αρέσει», να σχολιάζεις, να αποθηκεύεις αναρτήσεις και να μοιράζεσαι νέα από το κανάλι σου.",
+      "ro": "Intră în cont ca să apreciezi, să comentezi, să salvezi postări și să împărtășești noutăți de pe canalul tău.",
+      "hu": "Jelentkezz be, hogy kedvelhess, hozzászólhass, bejegyzéseket menthess és híreket oszthass meg a csatornádról."
+    },
+    "Log in with Google": {
+      "ru": "Войти через Google",
+      "uk": "Увійти через Google",
+      "sk": "Prihlásiť sa cez Google",
+      "bg": "Вход чрез Google",
+      "el": "Σύνδεση με Google",
+      "ro": "Autentificare cu Google",
+      "hu": "Bejelentkezés a Google-fiókkal"
+    },
+    "Sign up with Google": {
+      "ru": "Создать аккаунт через Google",
+      "uk": "Створити акаунт через Google",
+      "sk": "Vytvoriť účet cez Google",
+      "bg": "Регистрация чрез Google",
+      "el": "Εγγραφή με Google",
+      "ro": "Înregistrare cu Google",
+      "hu": "Regisztráció a Google-fiókkal"
+    },
+    "Unable to read your Google account details.": {
+      "ru": "Не удалось получить данные твоего аккаунта Google.",
+      "uk": "Не вдалося отримати дані твого акаунта Google.",
+      "sk": "Nepodarilo sa načítať údaje tvojho účtu Google.",
+      "bg": "Данните от твоя Google акаунт не бяха получени.",
+      "el": "Δεν ήταν δυνατή η ανάκτηση των στοιχείων του λογαριασμού σου στο Google.",
+      "ro": "Nu am putut prelua datele contului tău Google.",
+      "hu": "Nem sikerült lekérni a Google-fiókod adatait."
+    },
+    "Log in with Facebook": {
+      "ru": "Войти через Facebook",
+      "uk": "Увійти через Facebook",
+      "sk": "Prihlásiť sa cez Facebook",
+      "bg": "Вход чрез Facebook",
+      "el": "Σύνδεση με Facebook",
+      "ro": "Autentificare cu Facebook",
+      "hu": "Bejelentkezés a Facebook-fiókkal"
+    },
+    "Sign up with Facebook": {
+      "ru": "Создать аккаунт через Facebook",
+      "uk": "Створити акаунт через Facebook",
+      "sk": "Vytvoriť účet cez Facebook",
+      "bg": "Регистрация чрез Facebook",
+      "el": "Εγγραφή με Facebook",
+      "ro": "Înregistrare cu Facebook",
+      "hu": "Regisztráció a Facebook-fiókkal"
+    },
+    "Unable to read your Facebook account details.": {
+      "ru": "Не удалось получить данные твоего аккаунта Facebook.",
+      "uk": "Не вдалося отримати дані твого акаунта Facebook.",
+      "sk": "Nepodarilo sa načítať údaje tvojho účtu Facebook.",
+      "bg": "Данните от твоя Facebook акаунт не бяха получени.",
+      "el": "Δεν ήταν δυνατή η ανάκτηση των στοιχείων του λογαριασμού σου στο Facebook.",
+      "ro": "Nu am putut prelua datele contului tău Facebook.",
+      "hu": "Nem sikerült lekérni a Facebook-fiókod adatait."
+    },
+    "Log in with Apple": {
+      "ru": "Войти через Apple",
+      "uk": "Увійти через Apple",
+      "sk": "Prihlásiť sa cez Apple",
+      "bg": "Вход чрез Apple",
+      "el": "Σύνδεση με Apple",
+      "ro": "Autentificare cu Apple",
+      "hu": "Bejelentkezés az Apple-fiókkal"
+    },
+    "Sign up with Apple": {
+      "ru": "Создать аккаунт через Apple",
+      "uk": "Створити акаунт через Apple",
+      "sk": "Vytvoriť účet cez Apple",
+      "bg": "Регистрация чрез Apple",
+      "el": "Εγγραφή με Apple",
+      "ro": "Înregistrare cu Apple",
+      "hu": "Regisztráció az Apple-fiókkal"
+    }
+  }
+}

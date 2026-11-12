@@ -1,0 +1,773 @@
+{
+  "context": "English reference editorial pass: imported media/player ads, liked videos, storage and membership settings, payment/integration errors, account restrictions and moderation actions. IDs and provider names retained. Unresolved sentence fragments excluded for complete-message integration.",
+  "messages": {
+    "Saving provider video": {
+      "en": "Saving provider video"
+    },
+    "Fetched from provider": {
+      "en": "Fetched from provider"
+    },
+    "Fetch details to preview": {
+      "en": "Fetch details to preview"
+    },
+    "Provider thumbnails are saved as remote metadata.": {
+      "en": "Provider thumbnails are saved as remote metadata."
+    },
+    "External provider video": {
+      "en": "External provider video"
+    },
+    "Video import saved.": {
+      "en": "Video import saved."
+    },
+    "Could not read the provider video ID from this URL.": {
+      "en": "Could not read the provider video ID from this URL."
+    },
+    "Import a public video URL, fetch provider details, and publish it with external playback.": {
+      "en": "Import a public video URL, fetch provider details, and publish it with external playback."
+    },
+    "Paste a video import URL": {
+      "en": "Paste a video import URL"
+    },
+    "Remote import": {
+      "en": "Remote import"
+    },
+    "Ready to import": {
+      "en": "Ready to import"
+    },
+    "Unable to import video.": {
+      "en": "Unable to import video."
+    },
+    "YouTube Provider": {
+      "en": "YouTube Provider"
+    },
+    "Vimeo Provider": {
+      "en": "Vimeo Provider"
+    },
+    "Dailymotion Provider": {
+      "en": "Dailymotion Provider"
+    },
+    "Direct video URL Provider": {
+      "en": "Direct video URL Provider"
+    },
+    "Imported video": {
+      "en": "Imported video"
+    },
+    "Imported": {
+      "en": "Imported"
+    },
+    "Player Ads": {
+      "en": "Player Ads"
+    },
+    "Control the pre-roll ad shown before watch-page videos.": {
+      "en": "Control the pre-roll ad shown before watch-page videos."
+    },
+    "Pre-roll Ad": {
+      "en": "Pre-roll Ad"
+    },
+    "Ad Video URL": {
+      "en": "Ad Video URL"
+    },
+    "Click URL": {
+      "en": "Click URL"
+    },
+    "Ad Title": {
+      "en": "Ad Title"
+    },
+    "Skip After Seconds": {
+      "en": "Allow skipping after (seconds)"
+    },
+    "Save Player Ads": {
+      "en": "Save Player Ads"
+    },
+    "Player ad settings saved.": {
+      "en": "Player ad settings saved."
+    },
+    "Advertisement": {
+      "en": "Advertisement"
+    },
+    "Visit sponsor": {
+      "en": "Visit sponsor"
+    },
+    "Skip ad": {
+      "en": "Skip ad"
+    },
+    "Control VAST ad tags shown inside the watch-page player.": {
+      "en": "Control VAST ad tags shown inside the watch-page player."
+    },
+    "Control pre-roll VAST ad tags shown inside the watch-page player.": {
+      "en": "Control pre-roll VAST ad tags shown inside the watch-page player."
+    },
+    "Add VAST Ad": {
+      "en": "Add VAST Ad"
+    },
+    "Ad Enabled": {
+      "en": "Ad Enabled"
+    },
+    "Ad Name": {
+      "en": "Ad Name"
+    },
+    "VAST Tag URL": {
+      "en": "VAST Tag URL"
+    },
+    "Remove Ad": {
+      "en": "Remove Ad"
+    },
+    "Loading ad...": {
+      "en": "Loading ad..."
+    },
+    "Liked Videos": {
+      "en": "Liked Videos"
+    },
+    "Liked videos": {
+      "en": "Liked videos"
+    },
+    "Videos you liked across PlayHub.": {
+      "en": "Videos you liked across PlayHub."
+    },
+    "Recently Liked": {
+      "en": "Recently Liked"
+    },
+    "Most Viewed": {
+      "en": "Most Viewed"
+    },
+    "Log in to view your liked videos.": {
+      "en": "Log in to view your liked videos."
+    },
+    "Loading liked videos...": {
+      "en": "Loading liked videos..."
+    },
+    "No liked videos yet.": {
+      "en": "No liked videos yet."
+    },
+    "All liked videos": {
+      "en": "All liked videos"
+    },
+    "Like videos to save them here.": {
+      "en": "Like videos to save them here."
+    },
+    "Liked categories": {
+      "en": "Liked categories"
+    },
+    "No liked categories yet.": {
+      "en": "No liked categories yet."
+    },
+    "Liked videos summary": {
+      "en": "Liked videos summary"
+    },
+    "Total liked videos": {
+      "en": "Total liked videos"
+    },
+    "Creators you liked": {
+      "en": "Creators you liked"
+    },
+    "No liked creators yet.": {
+      "en": "No liked creators yet."
+    },
+    "Default User Storage (GB)": {
+      "en": "Default User Storage (GB)"
+    },
+    "Storage quota (GB)": {
+      "en": "Storage quota (GB)"
+    },
+    "Leave blank to use the default quota.": {
+      "en": "Leave blank to use the default quota."
+    },
+    "Use default": {
+      "en": "Use default"
+    },
+    "Manual": {
+      "en": "Manual"
+    },
+    "Not enough storage available for this upload.": {
+      "en": "Not enough storage available for this upload."
+    },
+    "Cloud storage": {
+      "en": "Cloud storage"
+    },
+    "remaining": {
+      "en": "remaining"
+    },
+    "Storage Total": {
+      "en": "Storage Total"
+    },
+    "Cloud Total Storage (GB)": {
+      "en": "Cloud Total Storage (GB)"
+    },
+    "Default Membership": {
+      "en": "Default Membership"
+    },
+    "Starter quota (GB)": {
+      "en": "Starter quota (GB)"
+    },
+    "Plus quota (GB)": {
+      "en": "Plus quota (GB)"
+    },
+    "Premium quota (GB)": {
+      "en": "Premium quota (GB)"
+    },
+    "Pro quota (GB)": {
+      "en": "Pro quota (GB)"
+    },
+    "VIP quota": {
+      "en": "VIP quota"
+    },
+    "Unlimited": {
+      "en": "Unlimited"
+    },
+    "Membership": {
+      "en": "Membership"
+    },
+    "Starter": {
+      "en": "Starter"
+    },
+    "Plus": {
+      "en": "Plus"
+    },
+    "Premium": {
+      "en": "Premium"
+    },
+    "Pro": {
+      "en": "Pro"
+    },
+    "VIP": {
+      "en": "VIP"
+    },
+    "Uses the membership default unless a manual quota is set.": {
+      "en": "Uses the membership default unless a manual quota is set."
+    },
+    "Configured cloud capacity": {
+      "en": "Configured cloud capacity"
+    },
+    "Server disk": {
+      "en": "Server disk"
+    },
+    "Not configured": {
+      "en": "Not configured"
+    },
+    "Manage Plan": {
+      "en": "Manage Plan"
+    },
+    "Choose the storage tier that fits your channel.": {
+      "en": "Choose the storage tier that fits your channel."
+    },
+    "Current plan": {
+      "en": "Current plan"
+    },
+    "Storage used": {
+      "en": "Storage used"
+    },
+    "Selected plan": {
+      "en": "Selected plan"
+    },
+    "Membership plans": {
+      "en": "Membership plans"
+    },
+    "Default": {
+      "en": "Default"
+    },
+    "More space": {
+      "en": "More space"
+    },
+    "Start publishing with core creator tools and standard storage.": {
+      "en": "Start publishing with core creator tools and standard storage."
+    },
+    "More storage for active channels with regular publishing schedules.": {
+      "en": "More storage for active channels with regular publishing schedules."
+    },
+    "Built for growing channels that need more room and sharper insights.": {
+      "en": "Built for growing channels that need more room and sharper insights."
+    },
+    "High-capacity storage for professional creators and media teams.": {
+      "en": "High-capacity storage for professional creators and media teams."
+    },
+    "Unlimited storage for top creators with the largest media libraries.": {
+      "en": "Unlimited storage for top creators with the largest media libraries."
+    },
+    "100 GB storage": {
+      "en": "100 GB storage"
+    },
+    "250 GB storage": {
+      "en": "250 GB storage"
+    },
+    "500 GB storage": {
+      "en": "500 GB storage"
+    },
+    "1 TB storage": {
+      "en": "1 TB storage"
+    },
+    "Unlimited storage": {
+      "en": "Unlimited storage"
+    },
+    "Video uploads": {
+      "en": "Video uploads"
+    },
+    "Basic analytics": {
+      "en": "Basic analytics"
+    },
+    "Community tools": {
+      "en": "Community tools"
+    },
+    "Priority uploads": {
+      "en": "Priority uploads"
+    },
+    "Creator analytics": {
+      "en": "Creator analytics"
+    },
+    "Playlist tools": {
+      "en": "Playlist tools"
+    },
+    "Advanced analytics": {
+      "en": "Advanced analytics"
+    },
+    "Growth tools": {
+      "en": "Growth tools"
+    },
+    "Priority processing": {
+      "en": "Priority processing"
+    },
+    "Pro analytics": {
+      "en": "Pro analytics"
+    },
+    "Custom branding": {
+      "en": "Custom branding"
+    },
+    "Content planning": {
+      "en": "Content planning"
+    },
+    "Highest priority": {
+      "en": "Highest priority"
+    },
+    "VIP support": {
+      "en": "VIP support"
+    },
+    "Full creator suite": {
+      "en": "Full creator suite"
+    },
+    "Plan active": {
+      "en": "Plan active"
+    },
+    "Confirm plan": {
+      "en": "Confirm plan"
+    },
+    "Unable to update plan.": {
+      "en": "Unable to update plan."
+    },
+    "Starter plan selected.": {
+      "en": "Starter plan selected."
+    },
+    "Plus plan selected.": {
+      "en": "Plus plan selected."
+    },
+    "Premium plan selected.": {
+      "en": "Premium plan selected."
+    },
+    "Pro plan selected.": {
+      "en": "Pro plan selected."
+    },
+    "VIP plan selected.": {
+      "en": "VIP plan selected."
+    },
+    "Select Starter": {
+      "en": "Select Starter"
+    },
+    "Select Plus": {
+      "en": "Select Plus"
+    },
+    "Select Premium": {
+      "en": "Select Premium"
+    },
+    "Select Pro": {
+      "en": "Select Pro"
+    },
+    "Select VIP": {
+      "en": "Select VIP"
+    },
+    "Starter price / month": {
+      "en": "Starter price / month"
+    },
+    "Plus price / month": {
+      "en": "Plus price / month"
+    },
+    "Premium price / month": {
+      "en": "Premium price / month"
+    },
+    "Pro price / month": {
+      "en": "Pro price / month"
+    },
+    "VIP price / month": {
+      "en": "VIP price / month"
+    },
+    "Payment is required before changing to this paid plan.": {
+      "en": "Payment is required before changing to this paid plan."
+    },
+    "Pay": {
+      "en": "Pay"
+    },
+    "Payment Currency": {
+      "en": "Payment Currency"
+    },
+    "Google Measurement ID": {
+      "en": "Google Measurement ID"
+    },
+    "Stripe Payments": {
+      "en": "Stripe Payments"
+    },
+    "Stripe Publishable Key": {
+      "en": "Stripe Publishable Key"
+    },
+    "Stripe Secret Key": {
+      "en": "Stripe Secret Key"
+    },
+    "PayPal Payments": {
+      "en": "PayPal Payments"
+    },
+    "PayPal Environment": {
+      "en": "PayPal Environment"
+    },
+    "PayPal Client ID": {
+      "en": "PayPal Client ID"
+    },
+    "PayPal Client Secret": {
+      "en": "PayPal Client Secret"
+    },
+    "Sandbox": {
+      "en": "Sandbox"
+    },
+    "SendGrid Email": {
+      "en": "SendGrid Email"
+    },
+    "SendGrid API Key": {
+      "en": "SendGrid API Key"
+    },
+    "SendGrid From Email": {
+      "en": "SendGrid From Email"
+    },
+    "SendGrid From Name": {
+      "en": "SendGrid From Name"
+    },
+    "Support notification email": {
+      "en": "Support notification email"
+    },
+    "Test SendGrid": {
+      "en": "Test SendGrid"
+    },
+    "Save Integrations": {
+      "en": "Save Integrations"
+    },
+    "Opening checkout...": {
+      "en": "Opening checkout..."
+    },
+    "Payment unavailable": {
+      "en": "Payment unavailable"
+    },
+    "Pay with Stripe": {
+      "en": "Pay with Stripe"
+    },
+    "Pay with PayPal": {
+      "en": "Pay with PayPal"
+    },
+    "Subscribe for": {
+      "en": "Subscribe for"
+    },
+    "Subscribe with Stripe": {
+      "en": "Subscribe with Stripe"
+    },
+    "Subscribe with PayPal": {
+      "en": "Subscribe with PayPal"
+    },
+    "Payment was cancelled.": {
+      "en": "Payment was cancelled."
+    },
+    "No payment provider is configured.": {
+      "en": "No payment provider is configured."
+    },
+    "Payment checkout could not be started.": {
+      "en": "Payment checkout could not be started."
+    },
+    "Payment could not be verified.": {
+      "en": "Payment could not be verified."
+    },
+    "Payment completed. Your plan has been updated.": {
+      "en": "Payment completed. Your plan has been updated."
+    },
+    "Stripe is not configured.": {
+      "en": "Stripe is not configured."
+    },
+    "PayPal is not configured.": {
+      "en": "PayPal is not configured."
+    },
+    "Stripe checkout is not a subscription.": {
+      "en": "Stripe checkout is not a subscription."
+    },
+    "Stripe subscription was not returned.": {
+      "en": "Stripe subscription was not returned."
+    },
+    "PayPal subscription could not be created.": {
+      "en": "PayPal subscription could not be created."
+    },
+    "PayPal subscription could not be verified.": {
+      "en": "PayPal subscription could not be verified."
+    },
+    "PayPal subscription is not active yet.": {
+      "en": "PayPal subscription is not active yet."
+    },
+    "PayPal product could not be created.": {
+      "en": "PayPal product could not be created."
+    },
+    "PayPal plan could not be created.": {
+      "en": "PayPal plan could not be created."
+    },
+    "PayPal plan ID was not returned.": {
+      "en": "PayPal plan ID was not returned."
+    },
+    "Payment is not required for this plan.": {
+      "en": "Payment is not required for this plan."
+    },
+    "This plan is already active.": {
+      "en": "This plan is already active."
+    },
+    "SendGrid is not configured.": {
+      "en": "SendGrid is not configured."
+    },
+    "Integration settings saved.": {
+      "en": "Integration settings saved."
+    },
+    "Integration test completed.": {
+      "en": "Integration test completed."
+    },
+    "Stripe and PayPal plans": {
+      "en": "Stripe and PayPal plans"
+    },
+    "paid transactions": {
+      "en": "paid transactions"
+    },
+    "Feature settings saved.": {
+      "en": "Feature settings saved."
+    },
+    "Live Streaming": {
+      "en": "Live Streaming"
+    },
+    "Enable or disable live streaming features on the public website.": {
+      "en": "Enable or disable live streaming features on the public website."
+    },
+    "Frontend status": {
+      "en": "Website availability"
+    },
+    "Visible to users": {
+      "en": "Visible to users"
+    },
+    "Hidden and blocked": {
+      "en": "Hidden and blocked"
+    },
+    "Save Live Streaming": {
+      "en": "Save Live Streaming"
+    },
+    "Live streaming is unavailable": {
+      "en": "Live streaming is unavailable"
+    },
+    "Live streaming is currently disabled by the site administrator.": {
+      "en": "Live streaming is currently disabled by the site administrator."
+    },
+    "Back to home": {
+      "en": "Back to home"
+    },
+    "Live streaming": {
+      "en": "Live streaming"
+    },
+    "Enable or disable live streaming on the public website": {
+      "en": "Enable or disable live streaming on the public website"
+    },
+    "Ban duration": {
+      "en": "Ban duration"
+    },
+    "Ban scope": {
+      "en": "Ban scope"
+    },
+    "1 day": {
+      "en": "1 day"
+    },
+    "1 week": {
+      "en": "1 week"
+    },
+    "2 weeks": {
+      "en": "2 weeks"
+    },
+    "1 month": {
+      "en": "1 month"
+    },
+    "Lock account": {
+      "en": "Lock account"
+    },
+    "Comments only": {
+      "en": "Comments only"
+    },
+    "Uploading videos": {
+      "en": "Uploading videos"
+    },
+    "Watching videos and shorts": {
+      "en": "Watching videos and shorts"
+    },
+    "Apply ban": {
+      "en": "Apply ban"
+    },
+    "Clear active bans": {
+      "en": "Clear active bans"
+    },
+    "Clear bans": {
+      "en": "Clear bans"
+    },
+    "User bans cleared.": {
+      "en": "User bans cleared."
+    },
+    "Your account is locked": {
+      "en": "Your account is locked"
+    },
+    "You cannot post comments": {
+      "en": "You cannot post comments"
+    },
+    "You cannot upload videos": {
+      "en": "You cannot upload videos"
+    },
+    "You cannot watch videos or shorts": {
+      "en": "You cannot watch videos or shorts"
+    },
+    "Email delivery is not configured. Configure email delivery before banning users.": {
+      "en": "Email delivery is not configured. Configure email delivery before banning users."
+    },
+    "User email address is missing.": {
+      "en": "User email address is missing."
+    },
+    "Account access locked": {
+      "en": "Account access locked"
+    },
+    "Commenting disabled": {
+      "en": "Commenting disabled"
+    },
+    "Video uploads disabled": {
+      "en": "Video uploads disabled"
+    },
+    "Video and Shorts playback disabled": {
+      "en": "Video and Shorts playback disabled"
+    },
+    "Your account has been restricted": {
+      "en": "Your account has been restricted"
+    },
+    "Restrictions:": {
+      "en": "Restrictions:"
+    },
+    "If you believe this is a mistake, please contact support.": {
+      "en": "If you believe this is a mistake, please contact support."
+    },
+    "Platform maintenance": {
+      "en": "Platform maintenance"
+    },
+    "We'll be back soon.": {
+      "en": "We'll be back soon."
+    },
+    "Search index": {
+      "en": "Search index"
+    },
+    "Admin search uses live database queries, so there is no separate search index to rebuild.": {
+      "en": "Admin search uses live database queries, so there is no separate search index to rebuild."
+    },
+    "System logs": {
+      "en": "System logs"
+    },
+    "Server logs are stored on the server filesystem and are not exposed through this admin API.": {
+      "en": "Server logs are stored on the server filesystem and are not exposed through this admin API."
+    },
+    "Backups": {
+      "en": "Backups"
+    },
+    "No backup schedule is configured for this deployment yet.": {
+      "en": "No backup schedule is configured for this deployment yet."
+    },
+    "Action unavailable": {
+      "en": "Action unavailable"
+    },
+    "This action does not have a backend workflow in this deployment yet.": {
+      "en": "This action is not available on this website yet."
+    },
+    "Video visibility updated.": {
+      "en": "Video visibility updated."
+    },
+    "Video deleted.": {
+      "en": "Video deleted."
+    },
+    "Reported video deleted.": {
+      "en": "Reported video deleted."
+    },
+    "Support message resolved.": {
+      "en": "Support message resolved."
+    },
+    "System maintenance action completed.": {
+      "en": "System maintenance action completed."
+    },
+    "View content": {
+      "en": "View content"
+    },
+    "Verify creator": {
+      "en": "Verify creator"
+    },
+    "Watch content": {
+      "en": "Watch content"
+    },
+    "Edit content": {
+      "en": "Edit content"
+    },
+    "Set public": {
+      "en": "Set public"
+    },
+    "Set unlisted": {
+      "en": "Set unlisted"
+    },
+    "Set private": {
+      "en": "Set private"
+    },
+    "View stream": {
+      "en": "View stream"
+    },
+    "Find reports": {
+      "en": "Find reports"
+    },
+    "Live settings": {
+      "en": "Live settings"
+    },
+    "Hide replay": {
+      "en": "Hide replay"
+    },
+    "Review item": {
+      "en": "Review item"
+    },
+    "Dismiss reports": {
+      "en": "Dismiss reports"
+    },
+    "Delete comment": {
+      "en": "Delete comment"
+    },
+    "Open ticket": {
+      "en": "Open ticket"
+    },
+    "Open reports": {
+      "en": "Open reports"
+    },
+    "Mark resolved": {
+      "en": "Mark resolved"
+    },
+    "Find user": {
+      "en": "Find user"
+    },
+    "Security settings": {
+      "en": "Security settings"
+    },
+    "View users": {
+      "en": "View users"
+    },
+    "Login security": {
+      "en": "Login security"
+    },
+    "Find creator": {
+      "en": "Find creator"
+    }
+  }
+}

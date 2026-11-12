@@ -1,0 +1,104 @@
+{
+  "context": "Editorial complete chapter validation and accessible field labels: named number/count/seconds placeholders, exact first timestamp0:00, ascending/minimum spacing, beyond-end/name/160-character cases. Include-chapters checkbox name matches the complete instruction, works for upload and URL import. Provider timing/content unchanged.",
+  "messages": {
+    "A video can have up to {count} chapters.": {
+      "ar": "الحد الأقصى لعدد الفصول في الفيديو: {count}.",
+      "ja": "動画には{count}個までチャプターを付けられるよ。",
+      "ko_kr": "동영상에는 챕터를 최대 {count}개까지 넣을 수 있어요.",
+      "zh_cn": "一个视频最多可以有 {count} 个章节。",
+      "zh_tw": "一部影片最多可以有 {count} 個章節。",
+      "zh_hk": "一部影片最多可以有 {count} 個章節。",
+      "tr_tr": "Bir videoda en fazla {count} bölüm olabilir.",
+      "id_id": "Satu video bisa memiliki hingga {count} bab.",
+      "ms_my": "Satu video boleh mempunyai sehingga {count} bab."
+    },
+    "Chapter {number} has an invalid timestamp.": {
+      "ar": "وقت الفصل {number} غير صالح.",
+      "ja": "チャプター{number}の開始時刻が正しくありません。",
+      "ko_kr": "챕터 {number}의 시간이 올바르지 않아요.",
+      "zh_cn": "章节 {number} 的时间无效。",
+      "zh_tw": "章節 {number} 的時間無效。",
+      "zh_hk": "章節 {number} 的時間無效。",
+      "tr_tr": "{number}. bölümün zaman damgası geçersiz.",
+      "id_id": "Waktu untuk bab {number} tidak valid.",
+      "ms_my": "Masa untuk bab {number} tidak sah."
+    },
+    "The first chapter must start at 0:00.": {
+      "ar": "يجب أن يبدأ الفصل الأول عند 0:00.",
+      "ja": "最初のチャプターは0:00から始めてね。",
+      "ko_kr": "첫 챕터는 0:00부터 시작해야 해요.",
+      "zh_cn": "第一个章节必须从 0:00 开始。",
+      "zh_tw": "第一個章節必須從 0:00 開始。",
+      "zh_hk": "第一個章節必須從 0:00 開始。",
+      "tr_tr": "İlk bölüm 0:00’da başlamalı.",
+      "id_id": "Bab pertama harus dimulai pada 0:00.",
+      "ms_my": "Bab pertama mesti bermula pada 0:00."
+    },
+    "Chapter timestamps must be in order and at least {seconds} seconds apart.": {
+      "ar": "يجب ترتيب أوقات الفصول تصاعديًا. الحد الأدنى للفاصل بينها بالثواني: {seconds}.",
+      "ja": "チャプターの開始時刻は早い順に並べて、{seconds}秒以上の間隔を空けてね。",
+      "ko_kr": "챕터 시간은 순서대로 입력하고 최소 {seconds}초 간격을 두어야 해요.",
+      "zh_cn": "章节时间必须按先后顺序排列，且至少间隔 {seconds} 秒。",
+      "zh_tw": "章節時間必須依先後順序排列，且至少間隔 {seconds} 秒。",
+      "zh_hk": "章節時間必須按先後次序排列，且至少相隔 {seconds} 秒。",
+      "tr_tr": "Bölüm zamanları sırayla ve en az {seconds} saniye aralıkla olmalı.",
+      "id_id": "Waktu bab harus berurutan dengan jarak minimal {seconds} detik.",
+      "ms_my": "Masa bab mesti mengikut turutan dengan jarak sekurang-kurangnya {seconds} saat."
+    },
+    "Chapter {number} starts after the video ends.": {
+      "ar": "يجب أن يبدأ الفصل {number} قبل نهاية الفيديو.",
+      "ja": "チャプター{number}は動画が終わる前に開始する必要があります。",
+      "ko_kr": "챕터 {number}는 동영상이 끝나기 전에 시작해야 해요.",
+      "zh_cn": "章节 {number} 必须在视频结束前开始。",
+      "zh_tw": "章節 {number} 必須在影片結束前開始。",
+      "zh_hk": "章節 {number} 必須在影片結束前開始。",
+      "tr_tr": "{number}. bölüm video bitmeden başlamalı.",
+      "id_id": "Bab {number} harus dimulai sebelum video berakhir.",
+      "ms_my": "Bab {number} mesti bermula sebelum video tamat."
+    },
+    "Add a name for chapter {number} or turn off Upload with chapters.": {
+      "ar": "أضف اسمًا للفصل {number} أو أوقف خيار «تضمين الفصول».",
+      "ja": "チャプター{number}の名前を入力するか、「チャプターを付ける」をオフにしてね。",
+      "ko_kr": "챕터 {number}의 이름을 입력하거나 챕터 포함을 꺼 주세요.",
+      "zh_cn": "请为章节 {number} 添加名称，或关闭“包含章节”。",
+      "zh_tw": "請為章節 {number} 加入名稱，或關閉「包含章節」。",
+      "zh_hk": "請為章節 {number} 加入名稱，或關閉「包含章節」。",
+      "tr_tr": "{number}. bölüme bir ad ver veya Bölümleri dahil et seçeneğini kapat.",
+      "id_id": "Beri nama bab {number} atau matikan Sertakan bab.",
+      "ms_my": "Beri nama untuk bab {number} atau matikan Sertakan bab."
+    },
+    "The name for chapter {number} must be 160 characters or fewer.": {
+      "ar": "يجب ألا يتجاوز اسم الفصل {number} عدد 160 حرفًا.",
+      "ja": "チャプター{number}の名前は160文字以内にしてね。",
+      "ko_kr": "챕터 {number}의 이름은 160자 이내로 입력해 주세요.",
+      "zh_cn": "章节 {number} 的名称不能超过 160 个字符。",
+      "zh_tw": "章節 {number} 的名稱不能超過 160 個字元。",
+      "zh_hk": "章節 {number} 的名稱不能超過 160 個字元。",
+      "tr_tr": "{number}. bölümün adı en fazla 160 karakter olabilir.",
+      "id_id": "Nama bab {number} tidak boleh lebih dari 160 karakter.",
+      "ms_my": "Nama bab {number} mestilah 160 aksara atau kurang."
+    },
+    "Chapter {number} name": {
+      "ar": "اسم الفصل {number}",
+      "ja": "チャプター{number}の名前",
+      "ko_kr": "챕터 {number} 이름",
+      "zh_cn": "章节 {number} 的名称",
+      "zh_tw": "章節 {number} 的名稱",
+      "zh_hk": "章節 {number} 的名稱",
+      "tr_tr": "{number}. bölümün adı",
+      "id_id": "Nama bab {number}",
+      "ms_my": "Nama bab {number}"
+    },
+    "Upload with chapters": {
+      "ar": "تضمين الفصول",
+      "ja": "チャプターを付ける",
+      "ko_kr": "챕터 포함",
+      "zh_cn": "包含章节",
+      "zh_tw": "包含章節",
+      "zh_hk": "包含章節",
+      "tr_tr": "Bölümleri dahil et",
+      "id_id": "Sertakan bab",
+      "ms_my": "Sertakan bab"
+    }
+  }
+}

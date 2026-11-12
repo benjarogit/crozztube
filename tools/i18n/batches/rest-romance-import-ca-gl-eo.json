@@ -1,0 +1,145 @@
+{
+  "context": "Editorial pass: complete Catalan, Galician and Esperanto authentication preview and URL import, automatic platform detection, loading state, subtitle/chapter counts and empty results. Source/creator metadata remains literal.",
+  "messages": {
+    "Video CMS & Streaming Platform UI Kit": {
+      "ca": "Els teus vídeos. La teva comunitat.",
+      "gl": "Os teus vídeos. A túa comunidade.",
+      "eo": "Viaj filmetoj. Via komunumo."
+    },
+    "Clean light and true black dark layouts for creators, communities and streaming products.": {
+      "ca": "Comparteix vídeos, descobreix nous creadors i troba la teva comunitat.",
+      "gl": "Comparte vídeos, descobre novos creadores e atopa a túa comunidade.",
+      "eo": "Kunhavigu filmetojn, malkovru novajn kreintojn kaj trovu vian komunumon."
+    },
+    "Scalable design system": {
+      "ca": "Comparteix el que t’agrada",
+      "gl": "Comparte o que che gusta",
+      "eo": "Kunhavigu tion, kion vi amas"
+    },
+    "Light & dark themes": {
+      "ca": "Descobreix coses noves",
+      "gl": "Descobre cousas novas",
+      "eo": "Malkovru ion novan"
+    },
+    "Accessible components": {
+      "ca": "Troba gent amb els teus interessos",
+      "gl": "Atopa xente cos teus intereses",
+      "eo": "Trovu homojn kun similaj interesoj"
+    },
+    "Built for creator workflows": {
+      "ca": "Crea al teu ritme",
+      "gl": "Crea ao teu ritmo",
+      "eo": "Kreu laŭ via propra ritmo"
+    },
+    "Import Video": {
+      "ca": "Importa un vídeo",
+      "gl": "Importar un vídeo",
+      "eo": "Importi filmeton"
+    },
+    "Import video from URL": {
+      "ca": "Importa un vídeo des d’un enllaç",
+      "gl": "Importar un vídeo desde unha ligazón",
+      "eo": "Importi filmeton per ligilo"
+    },
+    "Paste a public video URL to detect its provider and fetch the details automatically.": {
+      "ca": "Enganxa un enllaç públic a un vídeo. En detectarem la plataforma i en carregarem les dades automàticament.",
+      "gl": "Pega unha ligazón pública a un vídeo. Detectaremos a plataforma e cargaremos os datos automaticamente.",
+      "eo": "Algluu publikan ligilon al filmeto. Ni aŭtomate rekonos la platformon kaj ŝargos la detalojn."
+    },
+    "Service": {
+      "ca": "Plataforma",
+      "gl": "Plataforma",
+      "eo": "Platformo"
+    },
+    "Provider": {
+      "ca": "Plataforma",
+      "gl": "Plataforma",
+      "eo": "Platformo"
+    },
+    "Automatic detection": {
+      "ca": "Detecció automàtica",
+      "gl": "Detección automática",
+      "eo": "Aŭtomata rekono"
+    },
+    "Video URL": {
+      "ca": "Enllaç del vídeo",
+      "gl": "Ligazón do vídeo",
+      "eo": "Ligilo al filmeto"
+    },
+    "Fetch details": {
+      "ca": "Carrega les dades",
+      "gl": "Cargar os datos",
+      "eo": "Ŝargi detalojn"
+    },
+    "Fetching...": {
+      "ca": "S’estan carregant les dades…",
+      "gl": "Cargando os datos…",
+      "eo": "Ŝargante la detalojn…"
+    },
+    "Provider detected automatically": {
+      "ca": "Plataforma detectada automàticament",
+      "gl": "Plataforma detectada automaticamente",
+      "eo": "Platformo aŭtomate rekonita"
+    },
+    "Selected provider": {
+      "ca": "Plataforma seleccionada",
+      "gl": "Plataforma seleccionada",
+      "eo": "Elektita platformo"
+    },
+    "Subtitles": {
+      "ca": "Subtítols",
+      "gl": "Subtítulos",
+      "eo": "Subtitoloj"
+    },
+    "Chapters": {
+      "ca": "Capítols",
+      "gl": "Capítulos",
+      "eo": "Ĉapitroj"
+    },
+    "Subtitle languages found: {count}": {
+      "ca": "Llengües de subtítols trobades: {count}",
+      "gl": "Idiomas dos subtítulos atopados: {count}",
+      "eo": "Trovitaj subtitolaj lingvoj: {count}"
+    },
+    "Chapters found: {count}": {
+      "ca": "Capítols trobats: {count}",
+      "gl": "Capítulos atopados: {count}",
+      "eo": "Trovitaj ĉapitroj: {count}"
+    },
+    "None found": {
+      "ca": "Cap resultat",
+      "gl": "Ningún resultado",
+      "eo": "Nenio trovita"
+    },
+    "Available subtitles and a transcript will be imported.": {
+      "ca": "S’importaran els subtítols disponibles i una transcripció.",
+      "gl": "Importaranse os subtítulos dispoñibles e unha transcrición.",
+      "eo": "La disponeblaj subtitoloj kaj transskribo estos importitaj."
+    },
+    "No available subtitle tracks found.": {
+      "ca": "No s’ha trobat cap pista de subtítols disponible.",
+      "gl": "Non se atopou ningunha pista de subtítulos dispoñible.",
+      "eo": "Neniuj disponeblaj subtitolaj trakoj trovitaj."
+    },
+    "Review or disable them before publishing.": {
+      "ca": "Revisa els capítols abans de publicar. També els pots desactivar.",
+      "gl": "Revisa os capítulos antes de publicar. Tamén os podes desactivar.",
+      "eo": "Kontrolu la ĉapitrojn antaŭ publikigo. Vi ankaŭ povas malŝalti ilin."
+    },
+    "You can add chapters manually in Review.": {
+      "ca": "Al pas «Revisa» pots afegir capítols manualment.",
+      "gl": "No paso «Revisar» podes engadir capítulos manualmente.",
+      "eo": "En la paŝo «Kontroli» vi povas permane aldoni ĉapitrojn."
+    },
+    "Imports video details, available subtitles and chapters from YouTube.": {
+      "ca": "S’importen de YouTube les dades del vídeo, els subtítols disponibles i els capítols.",
+      "gl": "Impórtanse de YouTube os datos do vídeo, os subtítulos dispoñibles e os capítulos.",
+      "eo": "El YouTube estas importataj la detaloj de la filmeto, disponeblaj subtitoloj kaj ĉapitroj."
+    },
+    "Notification": {
+      "ca": "Notificació",
+      "gl": "Notificación",
+      "eo": "Sciigo"
+    }
+  }
+}

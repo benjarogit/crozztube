@@ -5,9 +5,11 @@
 # Environment & secrets
 /.env
 /.env.*.local
+/.clip-env-*
 /docker/certs/
 /storage/app/license.json
 /storage/app/private/
+/storage/app/backups/
 
 # Runtime state
 /storage/app/plugins/
@@ -29,6 +31,11 @@
 /tools/test/ui/test-results/
 /tools/test/ui/playwright-report/
 /tools/test/ui/node_modules/
+# Vite retains previous lazy chunks for open browser tabs. Only assets referenced
+# by build/manifest.json are deliberately added to a release/safety commit.
+/build/assets/*
+# Harness receipts, verification output and downloaded tools live in .git/.
+/harness/local/
 .phpunit.cache/
 .phpunit.result.cache
 *.log

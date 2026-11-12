@@ -287,3 +287,86 @@ test('touch navigation and a cancelled edge drag leave the next tap and filter s
     expect(session.writes).toEqual([]);
   } finally { await session.context.close(); }
 });
+
+test('opening scrolled navigation keeps the sticky header and drawer aligned', async ({ browser }) => {
+  const session = await layoutSession(browser, { authenticated: false, width: 924, height: 902 });
+  try {
+    const { page } = session;
+    await session.goto('/');
+    for (const width of [390, 860, 861, 924, 1279]) {
+      await page.setViewportSize({ width, height: 902 });
+      await page.evaluate(() => window.scrollTo(0, 54));
+      const trigger = page.locator('.topbar .menu-button');
+      const header = page.locator('.topbar');
+      const before = await page.evaluate(() => scrollY);
+      await trigger.click();
+      const drawer = page.locator('#website-sidebar');
+      await expect(drawer).toHaveAttribute('aria-modal', 'true');
+      await expectFocusedWithin(drawer);
+      await expectScrollLocked(page, true);
+      await expect.poll(() => header.evaluate(e => Math.abs(e.getBoundingClientRect().top))).toBeLessThan(1);
+      const bounds = await drawer.boundingBox();
+      expect(bounds!.y).toBeCloseTo((await header.boundingBox())!.height, 0);
+      expect(bounds!.y + bounds!.height).toBeLessThanOrEqual(903);
+      const backdrop = await page.locator('.sidebar-backdrop').boundingBox();
+      expect(backdrop!.y).toBeCloseTo(bounds!.y, 0);
+      const headerText = await page.locator('.sidebar-drawer-head').boundingBox();
+      expect(headerText!.y).toBeCloseTo(bounds!.y, 0);
+      await page.mouse.move(width - 30, 300);
+      await page.mouse.wheel(0, 300);
+      expect(await page.evaluate(() => scrollY)).toBe(before);
+      // The drawer can still scroll its own links and legal footer.
+      await drawer.locator('.side-scroll').evaluate(e => { e.scrollTop = e.scrollHeight; });
+      expect(await drawer.locator('.side-scroll').evaluate(e => e.scrollTop)).toBeGreaterThan(0);
+      expect((await page.locator('.sidebar-drawer-head').boundingBox())!.y).toBeCloseTo(bounds!.y, 0);
+      if (width === 924) await page.screenshot({ path: '/tmp/crozztube-navigation-924-fixed.png' });
+      await page.keyboard.press('Escape');
+      await expect(trigger).toBeFocused();
+      await expectScrollLocked(page, false);
+      expect(await page.evaluate(() => scrollY)).toBe(before);
+      await expectContained(page, `navigation after closing at ${width}`);
+    }
+    expect(session.errors).toEqual([]);
+    expect(session.writes).toEqual([]);
+  } finally { await session.context.close(); }
+});
+
+test('navigation stays aligned after profile tip/back and video comment jumps', async ({ browser }) => {
+  const video = applicationJson('/api/videos?type=video&per_page=1', false).data[0];
+  const session = await layoutSession(browser, { authenticated: false, width: 924, height: 902, transform: (path, payload) => {
+    // This navigation fixture has no playable media. Keep the independently
+    // loaded resolver plugin consistent with it, rather than refreshing a real
+    // imported video's expiring source in a read-only layout test.
+    if (path.startsWith('/api/source-resolver/status/')) return { ...payload, source: null };
+    return payload.video ? { ...payload, video: { ...payload.video, source_type: 'upload', import_provider: null, video_url: null, video_sources: [], embed_url: null, playback_pending: false } } : payload;
+  } });
+  try {
+    const { page } = session;
+    const openAndCheck = async (name: string) => {
+      await page.locator('.topbar .menu-button').click();
+      const drawer = page.locator('#website-sidebar');
+      await expect(drawer).toHaveAttribute('aria-modal', 'true');
+      await expect.poll(() => page.locator('.topbar').evaluate(e => Math.abs(e.getBoundingClientRect().top))).toBeLessThan(1);
+      expect((await drawer.boundingBox())!.y).toBeCloseTo((await page.locator('.topbar').boundingBox())!.height, 0);
+      await expectFocusedWithin(drawer);
+      await page.screenshot({ path: `/tmp/crozztube-navigation-after-${name}.png` });
+      await page.keyboard.press('Escape');
+    };
+    await session.goto(`/channel/${video.channel.slug}`);
+    await page.locator('.profile-tip-button').click();
+    await expect(page).toHaveURL(/\/login$/);
+    await page.goBack();
+    await expect(page).toHaveURL(new RegExp(`/channel/${video.channel.slug}$`));
+    await expect(page.locator('.profile-tip-button')).toBeVisible();
+    await openAndCheck('tip-back');
+
+    await session.goto(`/watch/${video.slug}`);
+    await page.locator('.watch-info').getByRole('button', { name: 'Comments', exact: true }).click();
+    await expect.poll(() => page.evaluate(() => scrollY)).toBeGreaterThan(100);
+    await openAndCheck('comments');
+    // Reopening once more must not accumulate a second offset or lock.
+    await openAndCheck('comments-reopened');
+    expect(session.errors).toEqual([]);
+    expect(session.writes).toEqual([]);
+  } finally { await session.context.close(); }
+});

@@ -1,0 +1,17 @@
+{
+  "context": "Actual player transcript heading and upload private visibility: VideoSales::canViewPrivate grants only owner/admin access; no person-picker exists. Text now describes current access instead of promising selected-person sharing.",
+  "messages": {
+    "Transcript": {
+      "en": "Transcript",
+      "de": "Transkript"
+    },
+    "Only you and people you choose": {
+      "en": "Only you and site admins can watch",
+      "de": "Nur du und das Adminteam können dieses Video ansehen"
+    },
+    "Only you and people you choose can watch": {
+      "en": "Only you and site admins can watch",
+      "de": "Nur du und das Adminteam können dieses Video ansehen"
+    }
+  }
+}

@@ -15,9 +15,6 @@ use App\Support\VideoImportSettings;
  */
 final class Mirror
 {
-    /** Providers whose official player can be embedded in an iframe. */
-    private const EMBEDDABLE = ['youtube', 'vimeo', 'dailymotion', 'twitch'];
-
     /**
      * @return array{provider:string,label:string,mode:string,embed_url:?string,external_url:?string}|null
      */
@@ -30,14 +27,14 @@ final class Mirror
         $provider = MediaSourceMetadata::originProvider($video);
         // The import URL is the source of truth. PlayHub's stored reference
         // (video_path) can point at an older/duplicate provider id.
-        $providerId = in_array($provider, self::EMBEDDABLE, true)
+        $providerId = MediaSourceMetadata::isExternalProvider($provider)
             ? (MediaSourceMetadata::providerId($provider, (string) $video->import_url)
                 ?? MediaSourceMetadata::providerIdForVideo($video, $provider))
             : null;
         $label = self::label($provider);
 
-        $embed = in_array($provider, self::EMBEDDABLE, true)
-            ? self::decorate($provider, MediaSourceMetadata::embedUrl($provider, $providerId, $host))
+        $embed = MediaSourceMetadata::isExternalProvider($provider)
+            ? self::decorate($provider, MediaSourceMetadata::embedUrl($provider, $providerId, $host, (string) $video->import_url))
             : null;
 
         // Validated provider URL (e.g. keeps Vimeo's unlisted hash).
@@ -47,6 +44,8 @@ final class Mirror
             $external = filter_var($candidate, FILTER_VALIDATE_URL) !== false ? $candidate : null;
         }
 
+        $embed = self::httpUrl($embed);
+        $external = self::httpUrl($external);
         if ($embed === null && $external === null) {
             return null;
         }
@@ -58,6 +57,13 @@ final class Mirror
             'embed_url' => $embed,
             'external_url' => $external,
         ];
+    }
+
+    private static function httpUrl(?string $url): ?string
+    {
+        return $url !== null && filter_var($url, FILTER_VALIDATE_URL) !== false
+            && in_array(strtolower((string) parse_url($url, PHP_URL_SCHEME)), ['http', 'https'], true)
+                ? $url : null;
     }
 
     private static function label(string $provider): string

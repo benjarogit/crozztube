@@ -1,0 +1,23 @@
+{
+  "context": "Editorial notification header and full sent-by wrapper sentence in seven regional languages; literal linked site unchanged.",
+  "messages": {
+    "Notification": {
+      "he_il": "התראה",
+      "fa_ir": "اعلان",
+      "fa_af": "اعلان",
+      "hi_in": "सूचना",
+      "bn_bd": "বিজ্ঞপ্তি",
+      "th": "การแจ้งเตือน",
+      "vi": "Thông báo"
+    },
+    "This email was sent by {site}.": {
+      "he_il": "הודעה זו נשלחה מ־{site}.",
+      "fa_ir": "این ایمیل از {site} فرستاده شده است.",
+      "fa_af": "این ایمیل از {site} فرستاده شده است.",
+      "hi_in": "यह ईमेल {site} ने भेजा है।",
+      "bn_bd": "এই ইমেইল {site} থেকে পাঠানো হয়েছে।",
+      "th": "อีเมลนี้ส่งมาจาก {site}",
+      "vi": "Email này được gửi từ {site}."
+    }
+  }
+}

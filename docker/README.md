@@ -6,9 +6,9 @@
 
 | Zugang | Wert |
 | --- | --- |
-| Website | https://crozztube.local:8443 (self-signed → Browser-Ausnahme akzeptieren) |
+| Website | https://crozztube.local:8443 (lokal vertrauenswürdiges HTTPS mit mkcert) |
 | Admin | https://crozztube.local:8443/admin |
-| Admin-Login | **benny** / **meZVRW0bYEbpHsJc** (benny@crozztube.local) |
+| Admin-Login | **benny** / **lokal hinterlegt; nicht versionieren** (benny@crozztube.local) |
 | phpMyAdmin | http://127.0.0.1:8083 |
 | MailHog | http://127.0.0.1:8026 (UI) / SMTP im Container-Netz `mailhog:1025` |
 | MySQL | 127.0.0.1:3308 — user `crozztube` / `crozztube-local-db`, DB `crozztube` (root: `crozztube-local-root`) |
@@ -52,6 +52,14 @@ tail -f "/mnt/intern-1tb/Projekte - Vibe Coding/crozztube/storage/logs/laravel.l
 - Quelle: `/mnt/intern-1tb/Neuer Ordner/Scripte - Mods - Systeme/playhub video cms/PlayHub web v0.9.13/Playhub-0.9.13.-full` (kopiert am 4.11.2026)
 - APP_ENV=production, MAIL_MAILER=log (Mails gehen ins Laravel-Log; echte Testmails via MailHog: Admin → SMTP host `mailhog`, port 1025)
 - APP_URL = https://crozztube.local:8443 (fix; Wizard-Reinstall blockiert durch storage/app/installed.lock)
-- Self-Signed-Zertifikat (825 Tage) für localhost / crozztube.local / 127.0.0.1 — Browser-Ausnahme nötig
+- Von der vorhandenen lokalen mkcert-CA signiertes Zertifikat für crozztube.local, localhost, 127.0.0.1 und ::1. Keine Browser-Ausnahme erforderlich.
 - **LiveKit/Live-Streaming noch NICHT eingerichtet** (bewusst zurückgestellt): Nachrüstung per `sudo livekit/install.sh` im App-Root; Web-Container hat bereits docker-CLI/Compose + gemounteten daemon-Socket
 - Kataloge: 6 Gifts importiert; Sticker nutzen KLIPY (API-Key im Admin konfigurierbar)
+
+## Vertrauenswürdiges lokales HTTPS
+
+Führe `bash tools/dev/setup-local-https.sh` im Projektverzeichnis als normaler Entwicklungsnutzer aus. Das Skript verwendet die vorhandene, im System vertrauenswürdige mkcert-CA. Auf einem neuen Rechner musst du mkcert zuerst installieren und einmal `mkcert -install` als dein normaler Nutzer ausführen. Der private CA-Schlüssel bleibt im von `mkcert -CAROOT` angezeigten Nutzerverzeichnis und wird weder ins Projekt noch in Container kopiert.
+
+Das Setup prüft Zertifikatskette, Hostnamen, Gültigkeit und Schlüsselpaar, sichert bisherige Dateien unter dem von Git ausgeschlossenen `docker/certs/` und ersetzt nur die bestehenden Serverzertifikatspfade. Bei laufenden Uploads bricht es ab. Nur der Webcontainer wird bei Bedarf neu erzeugt; Datenbank und Worker laufen weiter. Schlägt die Prüfung nach einem Zertifikatswechsel fehl, werden die gesicherten Dateien wiederhergestellt. Ein erneuter Aufruf bei gültiger Konfiguration ändert nichts. Browserentwürfe werden nicht neu geladen.
+
+Prüfe die Verbindung regulär mit `curl --fail https://crozztube.local:8443/`. Der fokussierte Browsercheck `node tools/test/ui/strict-https.mjs` verwendet Chromium und Firefox mit aktivierter Zertifikatsprüfung. Eine Warnseite muss durch die Vertrauenskette behoben werden; Zertifikatsausnahmen gehören nicht zum Setup. Weitere lokale Browserprofile müssen der gleichen öffentlichen Entwicklungs-CA vertrauen.

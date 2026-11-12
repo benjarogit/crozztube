@@ -1,0 +1,124 @@
+{
+  "context": "Whole watch-player actions read against actual controls and context menu. Theater mode is large-layout view, distinct from fullscreen; source URL/time/embed/diagnostic actions keep their functional meaning. Stats for nerds uses friendly understandable detailed-statistics label. Native personal singular, regional video spelling preserved.",
+  "messages": {
+    "Enter theater mode": {
+      "fr": "Activer le mode cinéma",
+      "es": "Activar modo cine",
+      "pt": "Ativar modo de cinema",
+      "it": "Attiva modalità cinema",
+      "ca": "Activa el mode cinema",
+      "gl": "Activar o modo cinema",
+      "eo": "Eniru kinreĝimon",
+      "pt_pt": "Activar modo de cinema",
+      "pt_ao": "Activar modo de cinema"
+    },
+    "Exit theater mode": {
+      "fr": "Quitter le mode cinéma",
+      "es": "Salir del modo cine",
+      "pt": "Sair do modo de cinema",
+      "it": "Esci dalla modalità cinema",
+      "ca": "Surt del mode cinema",
+      "gl": "Saír do modo cinema",
+      "eo": "Eliru kinreĝimon"
+    },
+    "Theater mode": {
+      "fr": "Mode cinéma",
+      "es": "Modo cine",
+      "pt": "Modo de cinema",
+      "it": "Modalità cinema",
+      "ca": "Mode cinema",
+      "gl": "Modo cinema",
+      "eo": "Kinreĝimo"
+    },
+    "Default view": {
+      "fr": "Vue par défaut",
+      "es": "Vista predeterminada",
+      "pt": "Vista predefinida",
+      "it": "Vista predefinita",
+      "ca": "Vista per defecte",
+      "gl": "Vista predeterminada",
+      "eo": "Defaŭlta vido",
+      "pt_br": "Visualização padrão"
+    },
+    "Miniplayer": {
+      "fr": "Mini-lecteur",
+      "es": "Minirreproductor",
+      "pt": "Minileitor",
+      "it": "Miniplayer",
+      "ca": "Minireproductor",
+      "gl": "Minirreprodutor",
+      "eo": "Miniludilo",
+      "pt_br": "Miniplayer"
+    },
+    "Copy video URL": {
+      "fr": "Copier le lien de la vidéo",
+      "es": "Copiar enlace del vídeo",
+      "pt": "Copiar ligação do vídeo",
+      "it": "Copia link del video",
+      "ca": "Copia l’enllaç del vídeo",
+      "gl": "Copiar a ligazón do vídeo",
+      "eo": "Kopiu la ligilon de la filmeto",
+      "pt_br": "Copiar link do vídeo",
+      "es_ar": "Copiar enlace del video",
+      "es_cl": "Copiar enlace del video",
+      "es_co": "Copiar enlace del video",
+      "es_cr": "Copiar enlace del video",
+      "es_do": "Copiar enlace del video",
+      "es_ec": "Copiar enlace del video",
+      "es_gt": "Copiar enlace del video",
+      "es_mx": "Copiar enlace del video",
+      "es_pe": "Copiar enlace del video",
+      "es_pr": "Copiar enlace del video",
+      "es_uy": "Copiar enlace del video",
+      "es_ve": "Copiar enlace del video"
+    },
+    "Copy video URL at current time": {
+      "fr": "Copier le lien à cet instant",
+      "es": "Copiar enlace del momento actual",
+      "pt": "Copiar ligação no instante atual",
+      "it": "Copia link con il punto attuale",
+      "ca": "Copia l’enllaç del moment actual",
+      "gl": "Copiar a ligazón do momento actual",
+      "eo": "Kopiu la ligilon ĉe la nuna ludpozicio",
+      "pt_pt": "Copiar ligação no instante actual",
+      "pt_ao": "Copiar ligação no instante actual",
+      "pt_br": "Copiar link no momento atual"
+    },
+    "Copy embed code": {
+      "fr": "Copier le code d’intégration",
+      "es": "Copiar código de inserción",
+      "pt": "Copiar código de incorporação",
+      "it": "Copia codice da incorporare",
+      "ca": "Copia el codi d’inserció",
+      "gl": "Copiar o código de inserción",
+      "eo": "Kopiu la enkorpigan kodon"
+    },
+    "Copy debug info": {
+      "fr": "Copier les informations de diagnostic",
+      "es": "Copiar información de diagnóstico",
+      "pt": "Copiar dados de diagnóstico",
+      "it": "Copia informazioni diagnostiche",
+      "ca": "Copia la informació de diagnòstic",
+      "gl": "Copiar a información de diagnóstico",
+      "eo": "Kopiu la diagnozajn informojn"
+    },
+    "Stats for nerds": {
+      "fr": "Statistiques détaillées",
+      "es": "Estadísticas detalladas",
+      "pt": "Estatísticas detalhadas",
+      "it": "Statistiche dettagliate",
+      "ca": "Estadístiques detallades",
+      "gl": "Estatísticas detalladas",
+      "eo": "Detalaj statistikoj"
+    },
+    "Close stats": {
+      "fr": "Fermer les statistiques",
+      "es": "Cerrar estadísticas",
+      "pt": "Fechar estatísticas",
+      "it": "Chiudi statistiche",
+      "ca": "Tanca les estadístiques",
+      "gl": "Pechar as estatísticas",
+      "eo": "Fermu la statistikojn"
+    }
+  }
+}

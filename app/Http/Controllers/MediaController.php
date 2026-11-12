@@ -41,6 +41,18 @@ class MediaController extends Controller
     public function captions(Request $request, Video $video): Response
     {
         $this->authorizeVideoMedia($request, $video, true);
+        if (! $video->captions_path) {
+            $index = filter_var($request->query('track', 0), FILTER_VALIDATE_INT, ['options' => ['min_range' => 0]]);
+            $track = $index !== false ? (\App\Support\VideoCaptions::stored($video)[$index] ?? null) : null;
+            abort_unless($track, 404);
+
+            $transcript = $request->boolean('transcript');
+
+            return new Response($transcript ? \App\Support\VideoCaptions::transcript($video, $index) : $track['content'], 200, [
+                ...$this->mediaHeaders(! VideoSales::requiresSignedMedia($video)),
+                'Content-Type' => $transcript ? 'text/plain; charset=UTF-8' : 'text/vtt; charset=UTF-8',
+            ]);
+        }
         abort_unless($video->captions_path, 404);
 
         return $this->stream($request, $video->captions_path, $this->mimeTypeForPath($video->captions_path) ?: 'text/vtt', false, ! VideoSales::requiresSignedMedia($video));
