@@ -124,6 +124,24 @@ try {
         await dialog.getByRole('button', { name: labels.pause, exact: true }).click();
         await expect(play).toBeVisible();
         checks += 2;
+        if (scenario.width === 1440) {
+          const selection = dialog.locator('.clip-composer-timeline-selection');
+          const selectionBox = await selection.boundingBox();
+          assert(selectionBox, 'The selected clip range must be draggable.');
+          const startBeforeDrag = Number(await dialog.getByLabel(labels.start).inputValue());
+          const endBeforeDrag = Number(await dialog.getByLabel(labels.end).inputValue());
+          await page.mouse.move(selectionBox.x + selectionBox.width / 2, selectionBox.y + selectionBox.height / 2);
+          await page.mouse.down();
+          await page.mouse.move(selectionBox.x + selectionBox.width / 2 + 36, selectionBox.y + selectionBox.height / 2, { steps: 4 });
+          await page.mouse.up();
+          const startAfterDrag = Number(await dialog.getByLabel(labels.start).inputValue());
+          const endAfterDrag = Number(await dialog.getByLabel(labels.end).inputValue());
+          assert(startAfterDrag > startBeforeDrag, 'Dragging the selected range right must move its start.');
+          assert.equal(endAfterDrag - startAfterDrag, endBeforeDrag - startBeforeDrag, 'Dragging the selected range must preserve its duration.');
+          await dialog.getByLabel(labels.end).fill(String(requestedStart + 30));
+          await dialog.getByLabel(labels.start).fill(String(requestedStart));
+          checks += 2;
+        }
         await dialog.getByRole('button', { name: '60 s' }).click();
         await expect(dialog.getByLabel(labels.end)).toHaveValue(String(requestedStart + 60));
         await dialog.getByLabel(labels.start).fill(String(requestedStart + 5));

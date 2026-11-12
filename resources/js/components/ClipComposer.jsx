@@ -58,6 +58,7 @@ export default function ClipComposer({
   const seekSchedulerRef = useRef(null);
   const phaseRef = useRef('idle');
   const formRef = useRef({ start: 0, end: 30 });
+  const rangeDragRef = useRef(null);
   const initialRange = useMemo(() => {
     const total = Math.max(0, Number(duration || video?.duration_seconds || 0));
     const requestedStart = Math.max(0, Math.floor(Number(currentTime || 0)));
@@ -249,6 +250,7 @@ export default function ClipComposer({
   useEffect(() => {
     if (!open) return undefined;
     setDetailOrigin((current) => {
+      if (rangeDragRef.current) return current;
       const span = Math.min(totalSeconds, clipDetailSeconds);
       const viewEnd = Math.min(totalSeconds, current + span);
       const pad = Math.min(12, Math.floor(span / 10));
@@ -280,6 +282,62 @@ export default function ClipComposer({
     const ratio = clamp((event.clientX - rect.left) / rect.width, 0, 1);
     const time = detailStart + ratio * detailWidth;
     seekSchedulerRef.current?.commit(placeClip(time - clipSeconds / 2));
+  };
+
+  const startRangeDrag = event => {
+    if (busy) return;
+    event.preventDefault();
+    event.stopPropagation();
+    const track = event.currentTarget.closest('.clip-composer-timeline-track');
+    const rect = track?.getBoundingClientRect();
+    if (!rect?.width) return;
+    event.currentTarget.setPointerCapture?.(event.pointerId);
+    rangeDragRef.current = {
+      pointerId: event.pointerId,
+      clientX: event.clientX,
+      start: Number(formRef.current.start),
+      end: Number(formRef.current.end),
+      secondsPerPixel: detailWidth / rect.width,
+      minimumStart: detailStart,
+      maximumStart: Math.min(detailEnd - clipSeconds, totalSeconds - clipSeconds),
+      currentStart: Number(formRef.current.start),
+    };
+    event.currentTarget.classList.add('is-dragging');
+  };
+
+  const moveRangeDrag = event => {
+    const drag = rangeDragRef.current;
+    if (!drag || drag.pointerId !== event.pointerId) return;
+    event.preventDefault();
+    const length = drag.end - drag.start;
+    const requestedStart = drag.start + ((event.clientX - drag.clientX) * drag.secondsPerPixel);
+    const start = clamp(Math.round(requestedStart), drag.minimumStart, drag.maximumStart);
+    drag.currentStart = start;
+    setForm(current => ({ ...current, start, end: start + length }));
+  };
+
+  const finishRangeDrag = event => {
+    const drag = rangeDragRef.current;
+    if (!drag || drag.pointerId !== event.pointerId) return;
+    rangeDragRef.current = null;
+    event.currentTarget.classList.remove('is-dragging');
+    event.currentTarget.releasePointerCapture?.(event.pointerId);
+    seekSchedulerRef.current?.commit(drag.currentStart);
+  };
+
+  const moveRangeWithKeyboard = event => {
+    if (!['ArrowLeft', 'ArrowRight'].includes(event.key) || busy) return;
+    event.preventDefault();
+    const length = Number(formRef.current.end) - Number(formRef.current.start);
+    const direction = event.key === 'ArrowRight' ? 1 : -1;
+    const step = event.shiftKey ? 5 : 1;
+    const start = clamp(
+      Number(formRef.current.start) + (direction * step),
+      detailStart,
+      Math.min(detailEnd - length, totalSeconds - length),
+    );
+    setForm(current => ({ ...current, start, end: start + length }));
+    seekSchedulerRef.current?.schedule(start);
   };
 
   const close = async () => {
@@ -463,7 +521,16 @@ export default function ClipComposer({
               </div>
               <div className="clip-composer-timeline" role="group" aria-label={t('Duration')}>
                 <div className="clip-composer-timeline-track" onPointerDown={onDetailPointerDown}>
-                  <i className="clip-composer-timeline-selection" />
+                  <button
+                    type="button"
+                    className="clip-composer-timeline-selection"
+                    aria-label={t('Clip')}
+                    onPointerDown={startRangeDrag}
+                    onPointerMove={moveRangeDrag}
+                    onPointerUp={finishRangeDrag}
+                    onPointerCancel={finishRangeDrag}
+                    onKeyDown={moveRangeWithKeyboard}
+                  />
                   {cursorInView && <i className="clip-composer-timeline-cursor" />}
                 </div>
                 <label className="sr-only" htmlFor="clip-start">{t('Start time in seconds')}</label>

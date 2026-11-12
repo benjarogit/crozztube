@@ -142,9 +142,16 @@
   inset-block: 0;
   inset-inline-start: var(--clip-start, 0%);
   width: calc(var(--clip-end, 100%) - var(--clip-start, 0%));
+  padding: 0;
+  border: 0;
   border-radius: inherit;
   background: var(--primary);
+  cursor: grab;
+  touch-action: none;
+  pointer-events: auto;
 }
+.clip-composer-timeline-selection.is-dragging { cursor: grabbing; }
+.clip-composer-timeline-selection:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
 .clip-composer-timeline-cursor {
   position: absolute;
   top: -4px;
