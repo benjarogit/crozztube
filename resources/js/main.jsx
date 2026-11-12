@@ -7282,6 +7282,9 @@ function PlaylistsPage({ navigate, auth, routeSearch = '' }) {
   const [openMenuId, setOpenMenuId] = useState(null);
   const [searchLoading, setSearchLoading] = useState(false);
   const [editingPlaylist, setEditingPlaylist] = useState(null);
+  const [inviteUsername, setInviteUsername] = useState('');
+  const [inviteRole, setInviteRole] = useState('editor');
+  const [membersBusy, setMembersBusy] = useState(false);
   const user = auth?.user;
   const channel = user?.channel || {};
   const colorFallbacks = ['#6c4cff', '#ec4899', '#f97316', '#22c55e', '#14b8a6', '#2563eb'];
@@ -7339,9 +7342,14 @@ function PlaylistsPage({ navigate, auth, routeSearch = '' }) {
   }, [selectedId, query, sort]);
 
   const selected = playlists.find((playlist) => String(playlist.id) === String(selectedId)) || (!selectedId ? playlists[0] : null) || null;
-  const isOwner = Boolean(user && Number(selected?.user_id) === Number(user.id));
+  const viewerRole = selected?.viewer_role || (user && Number(selected?.user_id) === Number(user.id) ? 'owner' : null);
+  const isOwner = viewerRole === 'owner';
+  const canManageVideos = viewerRole === 'owner' || viewerRole === 'editor';
+  const canVote = Boolean(viewerRole);
   const playlistChannel = selected?.channel || (isOwner ? channel : {});
   const playlistVideos = Array.isArray(selected?.videos) ? selected.videos : (selected?.video ? [selected.video] : []);
+  const playlistMembers = Array.isArray(selected?.members) ? selected.members : [];
+  const voteCounts = selected?.vote_counts || {};
   const allVideos = playlists.flatMap((playlist) => Array.isArray(playlist.videos) ? playlist.videos : []).filter((video, index, list) => video?.id && list.findIndex((item) => item.id === video.id) === index);
   const parseDuration = (value) => {
     if (Number.isFinite(Number(value))) return Number(value);
@@ -7410,15 +7418,95 @@ function PlaylistsPage({ navigate, auth, routeSearch = '' }) {
     setOpenMenuId(null);
   };
   const removeVideoFromPlaylist = async (video) => {
-    if (!selected?.id || !video?.slug) return;
+    if (!selected?.id || !video?.slug || !canManageVideos) return;
     setOpenMenuId(null);
     setNotice('');
     try {
-      const data = await api.request(`/playlists/${selected.id}/videos/${encodeURIComponent(video.slug)}`, { method: 'POST' });
+      const data = await api.request(`/playlists/${selected.id}/videos/${encodeURIComponent(video.slug)}`, {
+        method: 'POST',
+        body: JSON.stringify({ attached: false }),
+      });
       if (data.playlist) setPlaylists((current) => current.map((item) => String(item.id) === String(data.playlist.id) ? data.playlist : item));
       setNotice(data.message || 'Video removed from playlist.');
     } catch (error) {
       setNotice(error.message || 'Unable to update playlist.');
+    }
+  };
+  const refreshSelectedPlaylist = async () => {
+    if (!selectedId) return;
+    const data = await api.request(`/playlists/${selectedId}`);
+    if (data.playlist) {
+      setPlaylists((current) => current.some((item) => String(item.id) === String(data.playlist.id))
+        ? current.map((item) => String(item.id) === String(data.playlist.id) ? data.playlist : item)
+        : [data.playlist, ...current]);
+    }
+  };
+  const invitePlaylistMember = async (event) => {
+    event?.preventDefault();
+    if (!selected?.id || !inviteUsername.trim() || membersBusy) return;
+    setMembersBusy(true);
+    setNotice('');
+    try {
+      await api.request(`/playlists/${selected.id}/members`, {
+        method: 'POST',
+        body: JSON.stringify({ username: inviteUsername.trim(), role: inviteRole }),
+      });
+      setInviteUsername('');
+      await refreshSelectedPlaylist();
+      setNotice('Invitation sent.');
+    } catch (error) {
+      setNotice(error.message || 'Unable to invite member.');
+    } finally {
+      setMembersBusy(false);
+    }
+  };
+  const revokePlaylistMember = async (member) => {
+    if (!selected?.id || !member?.user_id || membersBusy) return;
+    setMembersBusy(true);
+    setNotice('');
+    try {
+      await api.request(`/playlists/${selected.id}/members/${member.user_id}`, { method: 'DELETE' });
+      await refreshSelectedPlaylist();
+      setNotice('Member removed.');
+    } catch (error) {
+      setNotice(error.message || 'Unable to remove member.');
+    } finally {
+      setMembersBusy(false);
+    }
+  };
+  const acceptPlaylistInvite = async () => {
+    if (!selected?.id || membersBusy) return;
+    setMembersBusy(true);
+    setNotice('');
+    try {
+      await api.request(`/playlists/${selected.id}/members/accept`, { method: 'POST' });
+      await refreshSelectedPlaylist();
+      setNotice('Invitation accepted.');
+    } catch (error) {
+      setNotice(error.message || 'Unable to accept invitation.');
+    } finally {
+      setMembersBusy(false);
+    }
+  };
+  const votePlaylistVideo = async (video) => {
+    if (!selected?.id || !video?.slug || !canVote) return;
+    setOpenMenuId(null);
+    setNotice('');
+    try {
+      const data = await api.request(`/playlists/${selected.id}/videos/${encodeURIComponent(video.slug)}/vote`, { method: 'POST' });
+      setPlaylists((current) => current.map((item) => {
+        if (String(item.id) !== String(selected.id)) return item;
+        return {
+          ...item,
+          vote_counts: {
+            ...(item.vote_counts || {}),
+            [video.id]: data.votes,
+          },
+        };
+      }));
+      setNotice('Vote saved. Playlist order stays as set by the owner.');
+    } catch (error) {
+      setNotice(error.message || 'Unable to save vote.');
     }
   };
   const sharePlaylist = async () => {
@@ -7510,11 +7598,26 @@ function PlaylistsPage({ navigate, auth, routeSearch = '' }) {
         <div className="playlist-toolbar"><label><Icon name="search" size={17}/><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search in this playlist..." />{query && <button type="button" className="search-clear-button" onClick={() => setQuery('')} aria-label="Clear search"><Icon name="close" size={14}/></button>}</label><div><button type="button" className={sort === 'latest' ? 'active' : ''} onClick={() => setSort('latest')}>Latest</button><button type="button" className={sort === 'oldest' ? 'active' : ''} onClick={() => setSort('oldest')}>Oldest</button><button type="button" className={sort === 'popular' ? 'active' : ''} onClick={() => setSort('popular')}>Popular</button></div></div>
         <div className="playlist-video-list-page">{searchLoading ? <div className="state-card">Searching playlist...</div> : filteredVideos.length ? filteredVideos.map((video, index) => {
           const menuId = video.id || video.slug || index;
-          return <div className="playlist-video-row-page" key={menuId} role="button" tabIndex={0} onClick={() => playVideo(video)} onKeyDown={(event) => { if (event.key === 'Enter') playVideo(video); }}><b>{index + 1}</b><Thumbnail video={video}/><span><strong data-i18n-skip={video.title ? '' : undefined}>{video.title || 'Untitled video'}</strong><small>{video.description || video.channel?.name || 'No description yet.'}</small></span><em>{video.channel?.name || playlistChannel.name || 'Creator'}</em><i>{formatNumber(video.views_count || video.views || 0)}</i><time>{video.published_at ? formatPlaylistTime(video.published_at) : 'Recently'}</time><div className="playlist-row-menu-shell" onClick={(event) => event.stopPropagation()}><button type="button" className={openMenuId === menuId ? 'more-button active' : 'more-button'} onClick={() => setOpenMenuId((current) => current === menuId ? null : menuId)} aria-label="More actions"><span>...</span></button>{openMenuId === menuId && <div className="playlist-row-action-menu" role="menu"><button type="button" onClick={() => playVideo(video)}><Icon name="play" size={17}/> Watch video</button><button type="button" onClick={() => copyPlaylistVideoLink(video)}><Icon name="link" size={17}/> Copy link</button><button type="button" onClick={() => video.channel?.slug && navigate(`/channel/${video.channel.slug}`)}><Icon name="users" size={17}/> View creator</button>{isOwner && <button type="button" onClick={() => removeVideoFromPlaylist(video)} className="danger"><Icon name="trash" size={17}/> Remove from playlist</button>}</div>}</div></div>;
+          return <div className="playlist-video-row-page" key={menuId} role="button" tabIndex={0} onClick={() => playVideo(video)} onKeyDown={(event) => { if (event.key === 'Enter') playVideo(video); }}><b>{index + 1}</b><Thumbnail video={video}/><span><strong data-i18n-skip={video.title ? '' : undefined}>{video.title || 'Untitled video'}</strong><small>{video.description || video.channel?.name || 'No description yet.'}</small></span><em>{video.channel?.name || playlistChannel.name || 'Creator'}</em><i>{formatNumber(video.views_count || video.views || 0)}</i><time>{video.published_at ? formatPlaylistTime(video.published_at) : 'Recently'}</time><div className="playlist-row-menu-shell" onClick={(event) => event.stopPropagation()}><button type="button" className={openMenuId === menuId ? 'more-button active' : 'more-button'} onClick={() => setOpenMenuId((current) => current === menuId ? null : menuId)} aria-label="More actions"><span>...</span></button>{openMenuId === menuId && <div className="playlist-row-action-menu" role="menu"><button type="button" onClick={() => playVideo(video)}><Icon name="play" size={17}/> Watch video</button><button type="button" onClick={() => copyPlaylistVideoLink(video)}><Icon name="link" size={17}/> Copy link</button><button type="button" onClick={() => video.channel?.slug && navigate(`/channel/${video.channel.slug}`)}><Icon name="users" size={17}/> View creator</button>{canManageVideos && <button type="button" onClick={() => removeVideoFromPlaylist(video)} className="danger"><Icon name="trash" size={17}/> Remove from playlist</button>}{canVote && <button type="button" onClick={() => votePlaylistVideo(video)}><Icon name="like" size={17}/> Vote ({voteCounts[video.id] || 0})</button>}</div>}</div></div>;
         }) : <div className="state-card">No videos match this playlist search.</div>}</div>
       </article>
       <aside className="playlist-side-stack">
         <article className="playlist-side-card"><h2>About this playlist</h2><p>{selected.description || 'No description has been added for this playlist yet.'}</p><ul><li><Icon name="globe" size={15}/>{selected.privacy || 'Public'}</li><li><Icon name="calendar" size={15}/>Created {selected.created_at ? new Date(selected.created_at).toLocaleDateString() : 'recently'}</li><li><Icon name="playlist" size={15}/>{playlistVideos.length} videos</li></ul></article>
+        <article className="playlist-side-card">
+          <h2>Shared access</h2>
+          {viewerRole === null && !selected?.pending_invite && user ? <p>Ask the owner for an invite to collaborate.</p> : null}
+          {selected?.pending_invite ? <button type="button" className="btn subtle compact" disabled={membersBusy} onClick={acceptPlaylistInvite}>Accept invite</button> : null}
+          {isOwner ? <form className="playlist-invite-form" onSubmit={invitePlaylistMember}>
+            <input value={inviteUsername} onChange={(event) => setInviteUsername(event.target.value)} placeholder="Username" aria-label="Invite username" />
+            <select value={inviteRole} onChange={(event) => setInviteRole(event.target.value)} aria-label="Invite role">
+              <option value="editor">Editor</option>
+              <option value="viewer">Viewer</option>
+            </select>
+            <button type="submit" className="btn subtle compact" disabled={membersBusy || !inviteUsername.trim()}>Invite</button>
+          </form> : null}
+          {playlistMembers.length ? <ul className="playlist-member-list">{playlistMembers.map((member) => <li key={member.user_id}><span>@{member.username} · {member.role}{member.accepted ? '' : ' · pending'}</span>{isOwner ? <button type="button" className="text-button" disabled={membersBusy} onClick={() => revokePlaylistMember(member)}>Remove</button> : null}</li>)}</ul> : <p>No collaborators yet.</p>}
+          <p className="rail-note">Votes never change the owner’s manual order.</p>
+        </article>
         <article className="playlist-side-card"><h2>Playlist stats</h2><div className="playlist-stat-list"><span>Videos <b>{playlistVideos.length}</b></span><span>Total duration <b>{durationText(totalDuration)}</b></span><span>Total views <b>{formatNumber(totalViews)}</b></span><span>Privacy <b>{selected.privacy || 'Public'}</b></span></div></article>
         <article className="playlist-side-card"><div className="playlist-side-head"><h2>Related playlists</h2><button type="button" onClick={() => playlistChannel.slug && navigate(`/channel/${playlistChannel.slug}/playlists`)} disabled={!playlistChannel.slug}>View all</button></div>{related.length ? related.map((playlist, index) => <button type="button" className="related-playlist-row" key={playlist.id} onClick={() => selectPlaylist(playlist)}><span style={{ '--playlist-color': playlist.color || colorFallbacks[index % colorFallbacks.length] }}><Icon name="playlist" size={18}/></span><strong>{playlist.title}<small>{playlist.videos_count || playlist.video_ids?.length || 0} videos</small></strong></button>) : <p>No related playlists yet.</p>}</article>
         <article className="playlist-owner-card"><Avatar label={playlistChannel.name || 'Creator'} image={ownerAvatarUrl}/><span><strong>{playlistChannel.name || 'Creator'}</strong><small>@{playlistChannel.slug || 'creator'}</small></span><button type="button" className="btn subtle compact" onClick={() => playlistChannel.slug && navigate(`/channel/${playlistChannel.slug}`)} disabled={!playlistChannel.slug}>View channel</button></article>

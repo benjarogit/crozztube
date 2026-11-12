@@ -15,6 +15,7 @@ use App\Http\Controllers\Api\SubscriptionController;
 use App\Http\Controllers\Api\SystemUpdateController;
 use App\Http\Controllers\Api\TimeMarkController;
 use App\Http\Controllers\Api\UploadSessionController;
+use App\Http\Controllers\Api\SharedPlaylistController;
 use App\Http\Controllers\Api\VideoBoostController;
 use App\Http\Controllers\Api\VideoController;
 use App\Http\Controllers\Api\WebsiteAdController;
@@ -45,6 +46,7 @@ use App\Updates\VersionRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\URL;
@@ -358,20 +360,23 @@ Route::get('/playlists/{playlist}', function (Request $request, Playlist $playli
     $token = $request->bearerToken();
     $user = $request->user() ?: ($token ? PersonalAccessToken::findToken($token)?->tokenable : null);
     $playlist->loadMissing('user');
-    abort_unless($user?->id === $playlist->user_id
-        || ($playlist->privacy === 'public' && $playlist->user?->hasPublicProfileEnabled()), 403);
+    $viewerRole = \App\Support\SharedPlaylists::role($user, $playlist);
+    $pendingInvite = \App\Support\SharedPlaylists::hasPendingInvite($user, $playlist);
+    $isMember = $viewerRole !== null || $pendingInvite;
+    abort_unless($isMember
+        || ($playlist->privacy === 'public' && $playlist->user?->hasPublicProfileEnabled())
+        || ($playlist->privacy === 'unlisted' && $playlist->user?->hasPublicProfileEnabled()), 403);
 
     $search = trim((string) $request->query('q', ''));
     $sort = (string) $request->query('sort', 'playlist');
-    $isOwner = $user?->id === $playlist->user_id;
 
     $playlist->load([
         'channel.user',
         'coverVideo' => fn ($query) => $query
-            ->when(! $isOwner, fn ($videoQuery) => $videoQuery->public())
+            ->when(! $isMember, fn ($videoQuery) => $videoQuery->public())
             ->with(['channel', 'user', 'category', 'language']),
         'videos' => fn ($query) => $query
-            ->when(! $isOwner, fn ($videoQuery) => $videoQuery->public())
+            ->when(! $isMember, fn ($videoQuery) => $videoQuery->public())
             ->when($search !== '', fn ($videoQuery) => $videoQuery->where(function ($inner) use ($search) {
                 $inner->where('title', 'like', '%'.$search.'%')
                     ->orWhere('description', 'like', '%'.$search.'%')
@@ -382,10 +387,18 @@ Route::get('/playlists/{playlist}', function (Request $request, Playlist $playli
             ->when($sort === 'oldest', fn ($videoQuery) => $videoQuery->oldest('published_at'))
             ->when($sort === 'latest', fn ($videoQuery) => $videoQuery->latest('published_at'))
             ->with(['channel.user', 'user', 'category', 'language']),
-    ])->loadCount(['videos' => fn ($query) => $query->when(! $isOwner, fn ($videoQuery) => $videoQuery->public())]);
+    ])->loadCount(['videos' => fn ($query) => $query->when(! $isMember, fn ($videoQuery) => $videoQuery->public())]);
+
+    $payload = (new PlaylistResource($playlist))->resolve($request);
+    $payload['viewer_role'] = $viewerRole;
+    $payload['pending_invite'] = $pendingInvite;
+    $payload['vote_counts'] = \App\Support\SharedPlaylists::voteCounts($playlist);
+    if ($viewerRole !== null || $pendingInvite) {
+        $payload['members'] = \App\Support\SharedPlaylists::members($playlist);
+    }
 
     return response()->json([
-        'playlist' => (new PlaylistResource($playlist))->resolve($request),
+        'playlist' => $payload,
     ]);
 });
 
@@ -1521,8 +1534,14 @@ Route::middleware(['auth:sanctum', \App\Http\Middleware\EnsureUgcSafety::class])
     Route::post('/community-posts/{communityPost}/bookmark', [CommunityPostController::class, 'bookmark']);
     Route::post('/community-posts/{communityPost}/comments', [CommunityPostController::class, 'storeComment']);
     Route::post('/community-posts/{communityPost}/vote', [CommunityPostController::class, 'vote']);
+    Route::get('/playlists/{playlist}/members', [SharedPlaylistController::class, 'members']);
+    Route::post('/playlists/{playlist}/members', [SharedPlaylistController::class, 'invite']);
+    Route::post('/playlists/{playlist}/members/accept', [SharedPlaylistController::class, 'accept']);
+    Route::delete('/playlists/{playlist}/members/{user}', [SharedPlaylistController::class, 'revoke']);
+    Route::put('/playlists/{playlist}/order', [SharedPlaylistController::class, 'reorder']);
+    Route::post('/playlists/{playlist}/videos/{video:slug}/vote', [SharedPlaylistController::class, 'vote']);
     Route::post('/playlists/{playlist}/videos/{video:slug}', function (Request $request, Playlist $playlist, Video $video) {
-        abort_unless($request->user()?->id === $playlist->user_id, 403);
+        abort_unless(Gate::forUser($request->user())->allows('manageVideos', $playlist), 403);
         abort_if($video->visibility === 'private' && $request->user()->id !== $video->user_id, 404);
 
         $data = $request->validate([
@@ -1532,16 +1551,10 @@ Route::middleware(['auth:sanctum', \App\Http\Middleware\EnsureUgcSafety::class])
         $attached = $data['attached'] ?? ! $exists;
 
         if ($attached && ! $exists) {
-            $playlist->videos()->attach($video->id, [
-                'sort_order' => ((int) DB::table('playlist_video')->where('playlist_id', $playlist->id)->max('sort_order')) + 1,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
+            \App\Support\SharedPlaylists::addVideo($request->user(), $playlist, $video);
         } elseif (! $attached && $exists) {
-            $playlist->videos()->detach($video->id);
+            \App\Support\SharedPlaylists::removeVideo($request->user(), $playlist, (int) $video->id);
         }
-
-        $playlist->touch();
 
         return response()->json([
             'attached' => (bool) $attached,

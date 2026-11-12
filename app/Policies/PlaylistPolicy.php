@@ -4,13 +4,16 @@ namespace App\Policies;
 
 use App\Models\Playlist;
 use App\Models\User;
+use App\Support\SharedPlaylists;
 
 class PlaylistPolicy
 {
     public function view(?User $user, Playlist $playlist): bool
     {
-        if (! \App\Support\UserBlocks::canSee($user, (int) $playlist->user_id)) return false;
-        if ($user && (int) $playlist->user_id === (int) $user->id) {
+        if (! \App\Support\UserBlocks::canSee($user, (int) $playlist->user_id)) {
+            return false;
+        }
+        if (SharedPlaylists::canView($user, $playlist)) {
             return true;
         }
 
@@ -22,7 +25,7 @@ class PlaylistPolicy
 
     public function update(User $user, Playlist $playlist): bool
     {
-        return (int) $playlist->user_id === (int) $user->id;
+        return SharedPlaylists::role($user, $playlist) === 'owner';
     }
 
     public function delete(User $user, Playlist $playlist): bool
@@ -30,8 +33,23 @@ class PlaylistPolicy
         return $this->update($user, $playlist);
     }
 
-    public function manageVideos(User $user, Playlist $playlist): bool
+    public function manageMembers(User $user, Playlist $playlist): bool
     {
         return $this->update($user, $playlist);
+    }
+
+    public function reorder(User $user, Playlist $playlist): bool
+    {
+        return $this->update($user, $playlist);
+    }
+
+    public function manageVideos(User $user, Playlist $playlist): bool
+    {
+        return in_array(SharedPlaylists::role($user, $playlist), ['owner', SharedPlaylists::ROLE_EDITOR], true);
+    }
+
+    public function vote(User $user, Playlist $playlist): bool
+    {
+        return SharedPlaylists::isMember($user, $playlist);
     }
 }

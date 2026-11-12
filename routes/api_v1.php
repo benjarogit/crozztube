@@ -338,6 +338,16 @@ Route::prefix('v1')
                     ->middleware('throttle:api-write')->name('playlists.update');
                 Route::delete('/playlists/{playlist}', [PlaylistController::class, 'destroy'])
                     ->middleware('throttle:api-write')->name('playlists.destroy');
+                Route::post('/playlists/{playlist}/members', [PlaylistController::class, 'invite'])
+                    ->middleware('throttle:api-write')->name('playlists.members.invite');
+                Route::post('/playlists/{playlist}/members/accept', [PlaylistController::class, 'accept'])
+                    ->middleware('throttle:api-write')->name('playlists.members.accept');
+                Route::delete('/playlists/{playlist}/members/{user}', [PlaylistController::class, 'revoke'])
+                    ->middleware('throttle:api-write')->name('playlists.members.revoke');
+                Route::put('/playlists/{playlist}/order', [PlaylistController::class, 'reorder'])
+                    ->middleware('throttle:api-write')->name('playlists.order');
+                Route::post('/playlists/{playlist}/videos/{video:slug}/vote', [PlaylistController::class, 'vote'])
+                    ->withoutScopedBindings()->middleware('throttle:api-write')->name('playlists.videos.vote');
                 Route::put('/playlists/{playlist}/videos/{video:slug}', [PlaylistController::class, 'addVideo'])
                     ->withoutScopedBindings()->middleware('throttle:api-write')->name('playlists.videos.store');
                 Route::delete('/playlists/{playlist}/videos/{video}', [PlaylistController::class, 'removeVideo'])

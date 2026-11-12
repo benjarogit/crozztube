@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "activeStep": 6,
+  "activeStep": 7,
   "steps": [
     {
       "id": 1,
@@ -78,7 +78,7 @@
     },
     {
       "id": 7,
-      "status": "pending"
+      "status": "active"
     },
     {
       "id": 8,

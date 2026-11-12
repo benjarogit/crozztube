@@ -217,6 +217,13 @@
       ],
       "timeoutMs": 120000
     },
+    "step-07-playlists": {
+      "argv": [
+        "bash",
+        "tools/test/step-07-playlists.sh"
+      ],
+      "timeoutMs": 120000
+    },
     "step-04-time-marks": {
       "argv": [
         "bash",

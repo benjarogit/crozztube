@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Models\Video;
 use App\Services\Api\V1\VideoAccessService;
 use App\Services\Api\V1\ViewerStateService;
+use App\Support\SharedPlaylists;
 use App\Support\Slugs;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -32,16 +33,16 @@ class PlaylistController extends Controller
             'page' => ['nullable', 'integer', 'min:1', 'max:10000'],
             'per_page' => ['nullable', 'integer', 'min:1', 'max:50'],
         ]);
-        $isOwner = (int) ($request->user()?->id ?? 0) === (int) $playlist->user_id;
+        $member = SharedPlaylists::isMember($request->user(), $playlist);
         $playlist->load([
             'channel.user',
-            'coverVideo' => fn ($query) => $isOwner
+            'coverVideo' => fn ($query) => $member
                 ? $access->constrainViewable($query, $request->user())
                 : $access->constrainPublic($query),
-        ])->loadCount(['videos' => fn ($query) => $isOwner
+        ])->loadCount(['videos' => fn ($query) => $member
             ? $access->constrainViewable($query, $request->user())
             : $access->constrainPublic($query)]);
-        $videos = ($isOwner
+        $videos = ($member
             ? $access->viewableQuery($request->user())
             : $access->publicQuery())->select('videos.*')
             ->join('playlist_video', 'playlist_video.video_id', '=', 'videos.id')
@@ -53,10 +54,14 @@ class PlaylistController extends Controller
                 ->orderByDesc('playlist_video.created_at')->orderByDesc('playlist_video.id'))
             ->paginate(min(max((int) $request->integer('per_page', 20), 1), 50));
         $states->hydrate($videos->getCollection(), $request->user());
+        $summary = (new PlaylistSummaryResource($playlist))->resolve($request);
+        $summary['viewer_role'] = SharedPlaylists::role($request->user(), $playlist);
+        $summary['vote_counts'] = SharedPlaylists::voteCounts($playlist);
 
         return response()->json([
-            'playlist' => (new PlaylistSummaryResource($playlist))->resolve($request),
+            'playlist' => $summary,
             'videos' => VideoCardResource::collection($videos->getCollection())->resolve($request),
+            'members' => $member ? SharedPlaylists::members($playlist) : [],
             'pagination' => [
                 'page' => $videos->currentPage(), 'per_page' => $videos->perPage(), 'total' => $videos->total(),
                 'last_page' => $videos->lastPage(), 'has_more' => $videos->hasMorePages(),
@@ -127,28 +132,13 @@ class PlaylistController extends Controller
         $this->assertAllowed('manageVideos', $playlist);
         $access->assertViewable($video, $request->user());
 
-        DB::transaction(function () use ($playlist, $video): void {
-            $lockedPlaylist = Playlist::query()->lockForUpdate()->findOrFail($playlist->id);
-            $maximum = (int) DB::table('playlist_video')->where('playlist_id', $lockedPlaylist->id)->max('sort_order');
-            $inserted = DB::table('playlist_video')->insertOrIgnore([
-                'playlist_id' => $lockedPlaylist->id,
-                'video_id' => $video->id,
-                'sort_order' => $maximum + 1,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
-            if ($inserted > 0) {
-                $lockedPlaylist->touch();
-            }
-        }, 3);
-
-        return response()->json(['playlist_id' => $playlist->id, 'video_id' => $video->id, 'included' => true]);
+        return response()->json(SharedPlaylists::addVideo($request->user(), $playlist, $video));
     }
 
     public function removeVideo(Request $request, Playlist $playlist, string $video): JsonResponse
     {
         $this->assertAllowed('manageVideos', $playlist);
-        // Resolve only a membership in this owned playlist. A missing slug and an
+        // Resolve only a membership in this playlist. A missing slug and an
         // unrelated private video must have the same idempotent response.
         $membership = DB::table('playlist_video')
             ->join('videos', 'videos.id', '=', 'playlist_video.video_id')
@@ -156,18 +146,57 @@ class PlaylistController extends Controller
             ->where('videos.slug', $video)
             ->select('playlist_video.video_id')
             ->first();
-        $removed = $membership
-            ? DB::table('playlist_video')->where('playlist_id', $playlist->id)->where('video_id', $membership->video_id)->delete()
-            : 0;
-        if ($removed > 0) {
-            $playlist->touch();
+        if (! $membership) {
+            return response()->json([
+                'playlist_id' => $playlist->id,
+                'video_id' => null,
+                'included' => false,
+            ]);
         }
 
-        return response()->json([
-            'playlist_id' => $playlist->id,
-            'video_id' => $membership ? (int) $membership->video_id : null,
-            'included' => false,
+        return response()->json(SharedPlaylists::removeVideo($request->user(), $playlist, (int) $membership->video_id));
+    }
+
+    public function invite(Request $request, Playlist $playlist): JsonResponse
+    {
+        $this->assertAllowed('manageMembers', $playlist);
+        $data = $request->validate([
+            'username' => ['required', 'string', 'max:80'],
+            'role' => ['required', Rule::in([SharedPlaylists::ROLE_EDITOR, SharedPlaylists::ROLE_VIEWER])],
         ]);
+        $invitee = User::query()->where('username', ltrim($data['username'], '@'))->firstOrFail();
+
+        return response()->json(SharedPlaylists::invite($request->user(), $playlist, $invitee, $data['role']), 201);
+    }
+
+    public function accept(Request $request, Playlist $playlist): JsonResponse
+    {
+        return response()->json(SharedPlaylists::accept($request->user(), $playlist));
+    }
+
+    public function revoke(Request $request, Playlist $playlist, User $user): JsonResponse
+    {
+        $this->assertAllowed('manageMembers', $playlist);
+
+        return response()->json(SharedPlaylists::revoke($request->user(), $playlist, $user));
+    }
+
+    public function reorder(Request $request, Playlist $playlist): JsonResponse
+    {
+        $this->assertAllowed('reorder', $playlist);
+        $data = $request->validate([
+            'video_ids' => ['required', 'array', 'min:1', 'max:1000'],
+            'video_ids.*' => ['required', 'integer', 'min:1', 'distinct'],
+        ]);
+
+        return response()->json(SharedPlaylists::reorder($request->user(), $playlist, $data['video_ids']));
+    }
+
+    public function vote(Request $request, Playlist $playlist, Video $video): JsonResponse
+    {
+        $this->assertAllowed('vote', $playlist);
+
+        return response()->json(SharedPlaylists::vote($request->user(), $playlist, (int) $video->id));
     }
 
     private function validated(Request $request, bool $partial = false): array
