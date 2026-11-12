@@ -1100,6 +1100,15 @@
             ],
             "reviewed_at": "2026-11-06T11:24:07+00:00"
         },
+        "06dafda7802b6be989948770b31c934bf86812482333e3d84d57855a7b6cd17e": {
+            "source_hash": "06dafda7802b6be989948770b31c934bf86812482333e3d84d57855a7b6cd17e",
+            "translation_hash": "06dafda7802b6be989948770b31c934bf86812482333e3d84d57855a7b6cd17e",
+            "status": "editorial",
+            "contexts": [
+                "Watch page time marks: a viewer saves a private note or a public mark at the current playback time, votes on someone else's public mark, and copies a timestamp link that never includes private note text."
+            ],
+            "reviewed_at": "2026-11-12T10:48:34+00:00"
+        },
         "072853e34da4dfc6bdba855b9af11a9723b9d32f329c49fc8292af85b87888da": {
             "source_hash": "072853e34da4dfc6bdba855b9af11a9723b9d32f329c49fc8292af85b87888da",
             "translation_hash": "072853e34da4dfc6bdba855b9af11a9723b9d32f329c49fc8292af85b87888da",
@@ -3125,6 +3134,15 @@
             ],
             "reviewed_at": "2026-11-06T11:17:02+00:00"
         },
+        "179573255f579356281ebdba8f167b5186e5bf3e159a719f1472be3c69ac7370": {
+            "source_hash": "179573255f579356281ebdba8f167b5186e5bf3e159a719f1472be3c69ac7370",
+            "translation_hash": "179573255f579356281ebdba8f167b5186e5bf3e159a719f1472be3c69ac7370",
+            "status": "editorial",
+            "contexts": [
+                "Watch page time marks: a viewer saves a private note or a public mark at the current playback time, votes on someone else's public mark, and copies a timestamp link that never includes private note text."
+            ],
+            "reviewed_at": "2026-11-12T10:48:34+00:00"
+        },
         "17be95e1a1884ebc8904a38b6a754f0bcbe59e3563e6e811b2a3f68b36cf1c76": {
             "source_hash": "17be95e1a1884ebc8904a38b6a754f0bcbe59e3563e6e811b2a3f68b36cf1c76",
             "translation_hash": "17be95e1a1884ebc8904a38b6a754f0bcbe59e3563e6e811b2a3f68b36cf1c76",
@@ -3799,6 +3817,15 @@
                 "English reference editorial pass for community/bookmarks, livestream setup/readiness, theme/design settings, support tickets, LiveKit/RTMP/WebRTC/TURN configuration, certificates, Docker status and scheduler administration. Technical parameters retained where administrators need them. Obsolete promises about future broadcasting replaced with present configuration requirements; names/examples/time quantities/fragments excluded."
             ],
             "reviewed_at": "2026-11-06T11:31:06+00:00"
+        },
+        "1c8ab584b920918720d881f27c84a325c2a72f12a808ee87acf03d352fdda53b": {
+            "source_hash": "1c8ab584b920918720d881f27c84a325c2a72f12a808ee87acf03d352fdda53b",
+            "translation_hash": "1c8ab584b920918720d881f27c84a325c2a72f12a808ee87acf03d352fdda53b",
+            "status": "editorial",
+            "contexts": [
+                "Watch page time marks: a viewer saves a private note or a public mark at the current playback time, votes on someone else's public mark, and copies a timestamp link that never includes private note text."
+            ],
+            "reviewed_at": "2026-11-12T10:48:34+00:00"
         },
         "1ca276604d43ff790c946a573ed68c897f1ac8b670f96ea49919f4d085de0290": {
             "source_hash": "1ca276604d43ff790c946a573ed68c897f1ac8b670f96ea49919f4d085de0290",
@@ -6745,6 +6772,15 @@
             ],
             "reviewed_at": "2026-11-06T11:32:46+00:00"
         },
+        "30ff78147a35dbd18fcd77bc4f820cf63a7fb4319bdbf2d49e713299716e3d1d": {
+            "source_hash": "30ff78147a35dbd18fcd77bc4f820cf63a7fb4319bdbf2d49e713299716e3d1d",
+            "translation_hash": "30ff78147a35dbd18fcd77bc4f820cf63a7fb4319bdbf2d49e713299716e3d1d",
+            "status": "editorial",
+            "contexts": [
+                "Watch page time marks: a viewer saves a private note or a public mark at the current playback time, votes on someone else's public mark, and copies a timestamp link that never includes private note text."
+            ],
+            "reviewed_at": "2026-11-12T10:48:34+00:00"
+        },
         "31276b53b330e5ec143a6c7d453037f03e848099b67b512144d891b2dd6a22fe": {
             "source_hash": "31276b53b330e5ec143a6c7d453037f03e848099b67b512144d891b2dd6a22fe",
             "translation_hash": "31276b53b330e5ec143a6c7d453037f03e848099b67b512144d891b2dd6a22fe",
@@ -7691,6 +7727,15 @@
                 "English reference editorial pass for community/bookmarks, livestream setup/readiness, theme/design settings, support tickets, LiveKit/RTMP/WebRTC/TURN configuration, certificates, Docker status and scheduler administration. Technical parameters retained where administrators need them. Obsolete promises about future broadcasting replaced with present configuration requirements; names/examples/time quantities/fragments excluded."
             ],
             "reviewed_at": "2026-11-06T11:31:06+00:00"
+        },
+        "37213458aa936ecc3fc911eedb5c72bcdfe8544e5c6176b345ac5b8ee1bbfe7e": {
+            "source_hash": "37213458aa936ecc3fc911eedb5c72bcdfe8544e5c6176b345ac5b8ee1bbfe7e",
+            "translation_hash": "37213458aa936ecc3fc911eedb5c72bcdfe8544e5c6176b345ac5b8ee1bbfe7e",
+            "status": "editorial",
+            "contexts": [
+                "Watch page time marks: a viewer saves a private note or a public mark at the current playback time, votes on someone else's public mark, and copies a timestamp link that never includes private note text."
+            ],
+            "reviewed_at": "2026-11-12T10:48:34+00:00"
         },
         "375b90c2d3d1ff7b272acaa51d0dcfa4c947f29a2cd8ddf5f766e58936400f17": {
             "source_hash": "375b90c2d3d1ff7b272acaa51d0dcfa4c947f29a2cd8ddf5f766e58936400f17",
@@ -9375,6 +9420,15 @@
             ],
             "reviewed_at": "2026-11-06T11:32:46+00:00"
         },
+        "44329fb8975cdf13ed1ac4701aeec84fdd223798251ce0c2017d622565caa701": {
+            "source_hash": "44329fb8975cdf13ed1ac4701aeec84fdd223798251ce0c2017d622565caa701",
+            "translation_hash": "44329fb8975cdf13ed1ac4701aeec84fdd223798251ce0c2017d622565caa701",
+            "status": "editorial",
+            "contexts": [
+                "Watch page time marks: a viewer saves a private note or a public mark at the current playback time, votes on someone else's public mark, and copies a timestamp link that never includes private note text."
+            ],
+            "reviewed_at": "2026-11-12T10:48:34+00:00"
+        },
         "445d184e79a5191360d5b019d3000fd0e0382d582f1319872da0f3594302c0a7": {
             "source_hash": "445d184e79a5191360d5b019d3000fd0e0382d582f1319872da0f3594302c0a7",
             "translation_hash": "445d184e79a5191360d5b019d3000fd0e0382d582f1319872da0f3594302c0a7",
@@ -10760,6 +10814,15 @@
                 "Editorial review of all built-in help/page definitions: personal English and German guidance; API identifiers retained for developer instructions; legal and refund meaning preserved; administrator overrides excluded."
             ],
             "reviewed_at": "2026-11-06T09:18:00+00:00"
+        },
+        "4e5c35b2df43f3017a4210e9f57bbf7496e5a75f41125e7db3035faa9c0a90a7": {
+            "source_hash": "4e5c35b2df43f3017a4210e9f57bbf7496e5a75f41125e7db3035faa9c0a90a7",
+            "translation_hash": "4e5c35b2df43f3017a4210e9f57bbf7496e5a75f41125e7db3035faa9c0a90a7",
+            "status": "editorial",
+            "contexts": [
+                "Watch page time marks: a viewer saves a private note or a public mark at the current playback time, votes on someone else's public mark, and copies a timestamp link that never includes private note text."
+            ],
+            "reviewed_at": "2026-11-12T10:48:34+00:00"
         },
         "4e659fc67be1d3b9d53d820a53fdb08c331879d7ae3481c9b831b0b31d2feaf5": {
             "source_hash": "54f7362a2fb215fec76fa767212040f7f069a427c514b74de87885c2cc868fdb",
@@ -15477,6 +15540,15 @@
             ],
             "reviewed_at": "2026-11-06T11:32:46+00:00"
         },
+        "6d67e4275ba81fdc0050f871269f61de77de0fddbb6941a8bc7c6d1f65758a89": {
+            "source_hash": "6d67e4275ba81fdc0050f871269f61de77de0fddbb6941a8bc7c6d1f65758a89",
+            "translation_hash": "6d67e4275ba81fdc0050f871269f61de77de0fddbb6941a8bc7c6d1f65758a89",
+            "status": "editorial",
+            "contexts": [
+                "Watch page time marks: a viewer saves a private note or a public mark at the current playback time, votes on someone else's public mark, and copies a timestamp link that never includes private note text."
+            ],
+            "reviewed_at": "2026-11-12T10:48:34+00:00"
+        },
         "6d7e546cce51b4574501450b0cbe769bc084cc2956ca4ce8abb65a32597504c1": {
             "source_hash": "6d7e546cce51b4574501450b0cbe769bc084cc2956ca4ce8abb65a32597504c1",
             "translation_hash": "6d7e546cce51b4574501450b0cbe769bc084cc2956ca4ce8abb65a32597504c1",
@@ -19893,6 +19965,15 @@
             ],
             "reviewed_at": "2026-11-06T11:17:02+00:00"
         },
+        "8b95b48431728780dee6f10dec71294d9a38bed70dbfb51a610b9fe121abbd83": {
+            "source_hash": "8b95b48431728780dee6f10dec71294d9a38bed70dbfb51a610b9fe121abbd83",
+            "translation_hash": "8b95b48431728780dee6f10dec71294d9a38bed70dbfb51a610b9fe121abbd83",
+            "status": "editorial",
+            "contexts": [
+                "Watch page time marks: a viewer saves a private note or a public mark at the current playback time, votes on someone else's public mark, and copies a timestamp link that never includes private note text."
+            ],
+            "reviewed_at": "2026-11-12T10:48:34+00:00"
+        },
         "8bba386efb23607f1b621ef5a02e50a9658b0b1e4661396d055c55913c8bf828": {
             "source_hash": "8bba386efb23607f1b621ef5a02e50a9658b0b1e4661396d055c55913c8bf828",
             "translation_hash": "8bba386efb23607f1b621ef5a02e50a9658b0b1e4661396d055c55913c8bf828",
@@ -21434,6 +21515,15 @@
             ],
             "reviewed_at": "2026-11-06T09:27:59+00:00"
         },
+        "969ae7dcfad6c6086a0d52bef9657d3906d454951e16b52ab2ab55ce55e259e3": {
+            "source_hash": "969ae7dcfad6c6086a0d52bef9657d3906d454951e16b52ab2ab55ce55e259e3",
+            "translation_hash": "969ae7dcfad6c6086a0d52bef9657d3906d454951e16b52ab2ab55ce55e259e3",
+            "status": "editorial",
+            "contexts": [
+                "Watch page time marks: a viewer saves a private note or a public mark at the current playback time, votes on someone else's public mark, and copies a timestamp link that never includes private note text."
+            ],
+            "reviewed_at": "2026-11-12T10:48:34+00:00"
+        },
         "969ccbd3cf6300ecd5c880459d81ae9027df7517563184a1b8b15282db230621": {
             "source_hash": "969ccbd3cf6300ecd5c880459d81ae9027df7517563184a1b8b15282db230621",
             "translation_hash": "969ccbd3cf6300ecd5c880459d81ae9027df7517563184a1b8b15282db230621",
@@ -22298,6 +22388,15 @@
             ],
             "reviewed_at": "2026-11-06T11:32:46+00:00"
         },
+        "9d3795067f716da8f0d2de816b583a1bf3b238d6da19414e2e4020f818944b37": {
+            "source_hash": "9d3795067f716da8f0d2de816b583a1bf3b238d6da19414e2e4020f818944b37",
+            "translation_hash": "9d3795067f716da8f0d2de816b583a1bf3b238d6da19414e2e4020f818944b37",
+            "status": "editorial",
+            "contexts": [
+                "Watch page time marks: a viewer saves a private note or a public mark at the current playback time, votes on someone else's public mark, and copies a timestamp link that never includes private note text."
+            ],
+            "reviewed_at": "2026-11-12T10:48:34+00:00"
+        },
         "9d4f7079fd6d033e05d5b9db3c95e2522a4167b9963a6bf690ab40f609300e96": {
             "source_hash": "3f5958752fbc4c6d87892678d933b08ef8c2d19363d9a3ccac8d8753002b1241",
             "translation_hash": "3f5958752fbc4c6d87892678d933b08ef8c2d19363d9a3ccac8d8753002b1241",
@@ -22639,6 +22738,15 @@
                 "English reference editorial pass: navigation, channel/profile actions, upload/import status, chat, community, moderation, live discovery, library, account controls and admin settings. Obsolete developer-facing upload wording and unsupported audience-size claims corrected; names, sample content, protocol identifiers and unresolved sentence fragments excluded."
             ],
             "reviewed_at": "2026-11-06T11:17:02+00:00"
+        },
+        "a014a11b0feba3c68a656abe067993523d5aed2e261d023ecaacf453b750e498": {
+            "source_hash": "a014a11b0feba3c68a656abe067993523d5aed2e261d023ecaacf453b750e498",
+            "translation_hash": "a014a11b0feba3c68a656abe067993523d5aed2e261d023ecaacf453b750e498",
+            "status": "editorial",
+            "contexts": [
+                "Watch page time marks: a viewer saves a private note or a public mark at the current playback time, votes on someone else's public mark, and copies a timestamp link that never includes private note text."
+            ],
+            "reviewed_at": "2026-11-12T10:48:34+00:00"
         },
         "a02077a984ce45f2086bb92729406e3d5a750a794bae5be4fd76f04a29149a1a": {
             "source_hash": "a02077a984ce45f2086bb92729406e3d5a750a794bae5be4fd76f04a29149a1a",
@@ -23665,6 +23773,15 @@
                 "English editorial reference for account recovery/verification, social sign-in, category/role/permission management, wallet/monetization, theme, mass import, user privacy/moderation, device sessions and livestream setup. Technical connection labels remain useful in admin/studio; procedural copy clarified. Proper names, UI style tokens and quantity fragments excluded."
             ],
             "reviewed_at": "2026-11-06T11:28:44+00:00"
+        },
+        "a667f429c2e94cdb417419b437a44982b9dbe1efa09bb2238346d0e754c079d9": {
+            "source_hash": "a667f429c2e94cdb417419b437a44982b9dbe1efa09bb2238346d0e754c079d9",
+            "translation_hash": "a667f429c2e94cdb417419b437a44982b9dbe1efa09bb2238346d0e754c079d9",
+            "status": "editorial",
+            "contexts": [
+                "Watch page time marks: a viewer saves a private note or a public mark at the current playback time, votes on someone else's public mark, and copies a timestamp link that never includes private note text."
+            ],
+            "reviewed_at": "2026-11-12T10:48:34+00:00"
         },
         "a668022aed26067debf017f10c180d4b9dd4e29b8c0b9b75b4ee115db5c0b78a": {
             "source_hash": "a668022aed26067debf017f10c180d4b9dd4e29b8c0b9b75b4ee115db5c0b78a",
@@ -29042,6 +29159,15 @@
             ],
             "reviewed_at": "2026-11-06T11:28:44+00:00"
         },
+        "cd5588db6fc6fb44dd76b006202f9efa2ba5d715272a1ae06fb3c805e6a25289": {
+            "source_hash": "cd5588db6fc6fb44dd76b006202f9efa2ba5d715272a1ae06fb3c805e6a25289",
+            "translation_hash": "cd5588db6fc6fb44dd76b006202f9efa2ba5d715272a1ae06fb3c805e6a25289",
+            "status": "editorial",
+            "contexts": [
+                "Watch page time marks: a viewer saves a private note or a public mark at the current playback time, votes on someone else's public mark, and copies a timestamp link that never includes private note text."
+            ],
+            "reviewed_at": "2026-11-12T10:48:34+00:00"
+        },
         "cd55f733e210a64a64c8eee9865df777504d05a9c5d3877fdebe73cdfc71e05d": {
             "source_hash": "cd55f733e210a64a64c8eee9865df777504d05a9c5d3877fdebe73cdfc71e05d",
             "translation_hash": "cd55f733e210a64a64c8eee9865df777504d05a9c5d3877fdebe73cdfc71e05d",
@@ -29329,6 +29455,15 @@
                 "English editorial reference for account recovery/verification, social sign-in, category/role/permission management, wallet/monetization, theme, mass import, user privacy/moderation, device sessions and livestream setup. Technical connection labels remain useful in admin/studio; procedural copy clarified. Proper names, UI style tokens and quantity fragments excluded."
             ],
             "reviewed_at": "2026-11-06T11:28:44+00:00"
+        },
+        "cf4f4ec92f30da174c80346cbd3929381f3a9990a3b64c8092eb3ace716686ff": {
+            "source_hash": "cf4f4ec92f30da174c80346cbd3929381f3a9990a3b64c8092eb3ace716686ff",
+            "translation_hash": "cf4f4ec92f30da174c80346cbd3929381f3a9990a3b64c8092eb3ace716686ff",
+            "status": "editorial",
+            "contexts": [
+                "Watch page time marks: a viewer saves a private note or a public mark at the current playback time, votes on someone else's public mark, and copies a timestamp link that never includes private note text."
+            ],
+            "reviewed_at": "2026-11-12T10:48:34+00:00"
         },
         "cf63a97b9f2336e3deb3b06a68171ee2b6722089fd5bd98cb648f61f51c751c4": {
             "source_hash": "cf63a97b9f2336e3deb3b06a68171ee2b6722089fd5bd98cb648f61f51c751c4",
@@ -29842,6 +29977,15 @@
                 "Whole count-message reference: namespaced noun-specific templates and named CLDR category overrides; word order and number placement belong to each language rather than concatenated count/noun fragments."
             ],
             "reviewed_at": "2026-11-06T10:25:42+00:00"
+        },
+        "d3383a33fa5b7f96a73e928dc522643f3c93c7c4e65bb4137980c41c1935f20f": {
+            "source_hash": "d3383a33fa5b7f96a73e928dc522643f3c93c7c4e65bb4137980c41c1935f20f",
+            "translation_hash": "d3383a33fa5b7f96a73e928dc522643f3c93c7c4e65bb4137980c41c1935f20f",
+            "status": "editorial",
+            "contexts": [
+                "Watch page time marks: a viewer saves a private note or a public mark at the current playback time, votes on someone else's public mark, and copies a timestamp link that never includes private note text."
+            ],
+            "reviewed_at": "2026-11-12T10:48:34+00:00"
         },
         "d33df7ec82362671fb43f742e28ea54d704ffc95703716ce74c6c67c109d670a": {
             "source_hash": "d33df7ec82362671fb43f742e28ea54d704ffc95703716ce74c6c67c109d670a",

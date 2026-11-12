@@ -128,6 +128,18 @@
 .watch-chapters li span { overflow-wrap: anywhere; }
 .watch-chapters li button:hover { background: var(--panel-2); }
 .watch-chapters :is(button, summary):focus-visible { outline: 2px solid var(--primary); outline-offset: -2px; }
+.watch-layout-shell .watch-time-marks { margin-top: 16px; padding: 16px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); }
+.watch-time-marks h2 { margin: 0 0 12px; font-size: 1rem; }
+.watch-time-marks form { display: grid; gap: 8px; }
+.watch-time-marks textarea { min-height: 72px; padding: 8px 12px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel-2); color: var(--text); resize: vertical; }
+.watch-time-marks :is(button, label, textarea):focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+.watch-time-marks [role="radiogroup"] { display: flex; flex-wrap: wrap; gap: 8px; }
+.watch-time-marks [role="radiogroup"] label { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; }
+.watch-time-marks ol { margin: 12px 0 0; padding: 0; list-style: none; }
+.watch-time-marks li { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding-block: 8px; border-top: 1px solid var(--line); }
+.watch-time-marks li > button:first-child { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 12px; flex: 1 1 220px; min-height: 44px; padding: 8px 4px; text-align: start; }
+.watch-time-marks time { font-variant-numeric: tabular-nums; font-weight: 650; }
+.watch-time-marks-error { color: var(--danger); }
 .watch-layout-shell .small-video-row { grid-template-columns: clamp(112px, 42%, 168px) minmax(0, 1fr); }
 .watch-layout-shell .small-video-details small { color: var(--muted); line-height: 1.5; }
 

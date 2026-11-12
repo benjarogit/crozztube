@@ -1,0 +1,21 @@
+{
+  "context": "Watch page time marks: a viewer saves a private note or a public mark at the current playback time, votes on someone else's public mark, and copies a timestamp link that never includes private note text.",
+  "messages": {
+    "Time marks": { "en": "Time marks", "de": "Zeitmarken" },
+    "Current time": { "en": "Current time", "de": "Aktuelle Zeit" },
+    "Time mark note": { "en": "Time mark note", "de": "Notiz" },
+    "Private note": { "en": "Private note", "de": "Private Notiz" },
+    "Public time mark": { "en": "Public time mark", "de": "Öffentliche Zeitmarke" },
+    "Save time mark": { "en": "Save time mark", "de": "Zeitmarke speichern" },
+    "Your private note was saved.": { "en": "Your private note was saved.", "de": "Deine private Notiz wurde gespeichert." },
+    "Your time mark was published.": { "en": "Your time mark was published.", "de": "Deine Zeitmarke wurde veröffentlicht." },
+    "The time mark could not be saved. Try again.": { "en": "The time mark could not be saved. Try again.", "de": "Die Zeitmarke konnte nicht gespeichert werden. Versuch es erneut." },
+    "Your vote could not be saved. Try again.": { "en": "Your vote could not be saved. Try again.", "de": "Deine Stimme konnte nicht gespeichert werden. Versuch es erneut." },
+    "Time link copied. Private notes stay hidden.": { "en": "Time link copied. Private notes stay hidden.", "de": "Zeitlink kopiert. Private Notizen bleiben verborgen." },
+    "Time marks could not be loaded. Try again.": { "en": "Time marks could not be loaded. Try again.", "de": "Zeitmarken konnten nicht geladen werden. Versuch es erneut." },
+    "Copy time link": { "en": "Copy time link", "de": "Zeitlink kopieren" },
+    "Vote": { "en": "Vote", "de": "Zustimmen" },
+    "No time marks yet.": { "en": "No time marks yet.", "de": "Noch keine Zeitmarken." },
+    "Time mark": { "en": "Time mark", "de": "Zeitmarke" }
+  }
+}

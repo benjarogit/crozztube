@@ -52,6 +52,7 @@ final class TimeMarks
     public static function visible(Video $video, ?User $viewer, CarbonImmutable $now): Collection
     {
         return VideoTimeMark::query()
+            ->withCount('votes')
             ->where('video_id', $video->id)
             ->where(function ($query) use ($viewer): void {
                 $query->where('visibility', 'public');
@@ -123,6 +124,7 @@ final class TimeMarks
             'body' => $mark->body,
             'visibility' => $mark->visibility,
             'owned' => $viewer !== null && (int) $viewer->id === (int) $mark->user_id,
+            'votes_count' => (int) ($mark->votes_count ?? 0),
         ];
     }
 
