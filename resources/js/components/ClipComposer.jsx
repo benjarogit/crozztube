@@ -1,6 +1,15 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useI18n } from '../i18n.jsx';
+import {
+  canMirrorMedia,
+  createPreviewFrameLoop,
+  createSeekScheduler,
+  paintMediaFrame,
+  restorePlayback,
+  seekMedia,
+  snapshotPlayback,
+} from '../clips/clipPreviewSession.js';
 import './ClipComposer.css';
 
 const fallbackCodes = new Set(['unsupported', 'invalid_source', 'source_unreadable', 'source_unavailable', 'source_timeout']);
@@ -37,8 +46,15 @@ export default function ClipComposer({
 }) {
   const { t } = useI18n();
   const dialogRef = useRef(null);
+  const canvasRef = useRef(null);
   const abortRef = useRef(null);
   const transferRef = useRef('');
+  const snapshotRef = useRef(null);
+  const previewPlayingRef = useRef(false);
+  const stopFrameLoopRef = useRef(null);
+  const seekSchedulerRef = useRef(null);
+  const phaseRef = useRef('idle');
+  const formRef = useRef({ start: 0, end: 30 });
   const initialRange = useMemo(() => {
     const total = Math.max(0, Number(duration || video?.duration_seconds || 0));
     const requestedStart = Math.max(0, Math.floor(Number(currentTime || 0)));
@@ -50,6 +66,9 @@ export default function ClipComposer({
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState('');
   const [fallback, setFallback] = useState(false);
+  const [previewReady, setPreviewReady] = useState(false);
+  const [previewPlaying, setPreviewPlaying] = useState(false);
+  const [previewCursor, setPreviewCursor] = useState(initialRange.start);
   const busy = phase !== 'idle';
   const totalSeconds = Math.max(5, Math.floor(Number(duration || video?.duration_seconds || form.end || 5)));
   const clipSeconds = Math.max(5, Math.min(60, Number(form.end) - Number(form.start)));
@@ -66,6 +85,51 @@ export default function ClipComposer({
     && Number(mountedMedia.duration) > 0
   );
 
+  formRef.current = form;
+  phaseRef.current = phase;
+  previewPlayingRef.current = previewPlaying;
+
+  const stopPreviewLoop = () => {
+    stopFrameLoopRef.current?.();
+    stopFrameLoopRef.current = null;
+  };
+
+  const paintPreview = (media = getMediaElement?.()) => {
+    const painted = paintMediaFrame(canvasRef.current, media);
+    if (painted) {
+      setPreviewReady(true);
+      setPreviewCursor(Number(media?.currentTime || formRef.current.start));
+    }
+    return painted;
+  };
+
+  const syncPreviewToStart = async (start = Number(formRef.current.start)) => {
+    const media = getMediaElement?.();
+    if (!media || !canMirrorMedia(media)) {
+      setPreviewReady(false);
+      return false;
+    }
+    media.pause();
+    const ok = await seekMedia(media, start);
+    paintPreview(media);
+    setPreviewCursor(start);
+    return ok;
+  };
+
+  const stopPreviewPlayback = async ({ resetToStart = true } = {}) => {
+    const media = getMediaElement?.();
+    previewPlayingRef.current = false;
+    setPreviewPlaying(false);
+    stopPreviewLoop();
+    if (!media) return;
+    try {
+      media.pause();
+    } catch {
+      // Ignore players that reject pause during dialog teardown.
+    }
+    if (resetToStart) await syncPreviewToStart(Number(formRef.current.start));
+  };
+
   useEffect(() => {
     if (!open) return undefined;
     setForm({ title: video?.title ? `${video.title} clip` : '', visibility: 'private', ...initialRange });
@@ -73,9 +137,29 @@ export default function ClipComposer({
     setProgress(0);
     setError('');
     setFallback(!eligibleSource);
+    setPreviewReady(false);
+    setPreviewPlaying(false);
+    setPreviewCursor(initialRange.start);
     transferRef.current = '';
+    const media = getMediaElement?.();
+    snapshotRef.current = snapshotPlayback(media);
+    onCaptureStateChange?.(true);
+    if (media) {
+      try {
+        media.pause();
+      } catch {
+        // Keep the dialog usable even if the player rejects pause.
+      }
+    }
+    seekSchedulerRef.current = createSeekScheduler(async (seconds) => {
+      if (previewPlayingRef.current || phaseRef.current !== 'idle') return;
+      await syncPreviewToStart(seconds);
+    });
+    window.requestAnimationFrame(() => {
+      syncPreviewToStart(initialRange.start);
+      dialogRef.current?.querySelector('input:not([type="range"])')?.focus();
+    });
     const previous = document.activeElement;
-    window.requestAnimationFrame(() => dialogRef.current?.querySelector('input')?.focus());
     const keydown = event => {
       if (event.key === 'Escape') {
         close();
@@ -97,6 +181,12 @@ export default function ClipComposer({
     document.addEventListener('keydown', keydown);
     return () => {
       document.removeEventListener('keydown', keydown);
+      seekSchedulerRef.current?.cancel();
+      seekSchedulerRef.current = null;
+      stopPreviewLoop();
+      const snapshot = snapshotRef.current;
+      snapshotRef.current = null;
+      restorePlayback(getMediaElement?.(), snapshot).finally(() => onCaptureStateChange?.(false));
       previous?.focus?.();
     };
   }, [open, video?.slug]);
@@ -108,6 +198,13 @@ export default function ClipComposer({
     }
   }, [api]);
 
+  useEffect(() => {
+    if (!open || busy || previewPlaying || fallback) return undefined;
+    seekSchedulerRef.current?.schedule(Number(form.start));
+    setPreviewCursor(Number(form.start));
+    return undefined;
+  }, [open, form.start, form.end, busy, previewPlaying, fallback]);
+
   const close = async () => {
     abortRef.current?.abort();
     const transferId = transferRef.current;
@@ -115,7 +212,51 @@ export default function ClipComposer({
     if (transferId) {
       api.request(`/clip-transfers/${transferId}/cancel`, { method: 'POST', body: '{}' }).catch(() => {});
     }
+    await stopPreviewPlayback({ resetToStart: false });
     onClose();
+  };
+
+  const togglePreviewPlayback = async () => {
+    if (busy || fallback) return;
+    const media = getMediaElement?.();
+    if (!media || !canMirrorMedia(media)) {
+      setPreviewReady(false);
+      return;
+    }
+    if (previewPlayingRef.current) {
+      await stopPreviewPlayback({ resetToStart: false });
+      paintPreview(media);
+      return;
+    }
+    const start = Number(formRef.current.start);
+    const end = Number(formRef.current.end);
+    media.pause();
+    const ok = await seekMedia(media, start);
+    if (!ok) {
+      setPreviewReady(false);
+      return;
+    }
+    paintPreview(media);
+    previewPlayingRef.current = true;
+    setPreviewPlaying(true);
+    stopPreviewLoop();
+    stopFrameLoopRef.current = createPreviewFrameLoop(media, () => {
+      const current = Number(media.currentTime || 0);
+      paintPreview(media);
+      if (current >= end - 0.05 || media.ended) {
+        media.pause();
+        previewPlayingRef.current = false;
+        setPreviewPlaying(false);
+        stopPreviewLoop();
+        seekMedia(media, end).then(() => paintPreview(media));
+        setPreviewCursor(end);
+      }
+    });
+    try {
+      await media.play();
+    } catch {
+      await stopPreviewPlayback({ resetToStart: true });
+    }
   };
 
   const create = async event => {
@@ -123,12 +264,12 @@ export default function ClipComposer({
     setError('');
     setFallback(false);
     setProgress(0);
+    await stopPreviewPlayback({ resetToStart: false });
     const controller = new AbortController();
     abortRef.current = controller;
     let clip;
     try {
       setPhase('encoding');
-      onCaptureStateChange?.(true);
       const { encodeClip } = await import('../clips/clipEncoder.js');
       clip = await encodeClip({
         sourceUrl,
@@ -190,10 +331,10 @@ export default function ClipComposer({
       if (fallbackCodes.has(failure?.code)) setFallback(true);
       setError('Your clip could not be created. Please try again.');
       setPhase('idle');
+      await syncPreviewToStart(Number(form.start));
     } finally {
       if (clip?.objectUrl) URL.revokeObjectURL(clip.objectUrl);
       abortRef.current = null;
-      onCaptureStateChange?.(false);
     }
   };
 
@@ -213,6 +354,22 @@ export default function ClipComposer({
           <p>{t('You can still share a link that starts at the current time.')}</p></div>
         <button type="button" className="btn primary" onClick={() => { onTimeLink(); onClose(); }}>{t('Copy time link')}</button>
       </div> : <form onSubmit={create}>
+        <div className="clip-composer-preview" data-ready={previewReady ? 'true' : 'false'}>
+          <div className="clip-composer-preview-frame">
+            <canvas ref={canvasRef} aria-hidden="true" />
+            {!previewReady && <div className="clip-composer-preview-empty" role="status">{t('Preview')}</div>}
+          </div>
+          <div className="clip-composer-preview-controls">
+            <button type="button" className="btn subtle" disabled={busy || !eligibleSource} onClick={togglePreviewPlayback} aria-pressed={previewPlaying}>
+              <Icon name={previewPlaying ? 'pause' : 'play'} size={16}/>
+              <span>{t(previewPlaying ? 'Pause' : 'Play')}</span>
+            </button>
+            <div className="clip-composer-preview-times" data-i18n-skip>
+              <strong>{formatTimestamp(previewCursor)}</strong>
+              <span>{formatTimestamp(form.start)} – {formatTimestamp(form.end)}</span>
+            </div>
+          </div>
+        </div>
         <label><span>{t('Clip title')}</span>
           <input data-i18n-skip value={form.title} maxLength={200} required disabled={busy} onChange={event => setForm(current => ({ ...current, title: event.target.value }))}/></label>
         <div className="clip-composer-timing">
@@ -227,7 +384,10 @@ export default function ClipComposer({
               onChange={event => {
                 const start = Number(event.target.value);
                 setForm(current => ({ ...current, start, end: start + clipSeconds }));
-              }}/>
+              }}
+              onPointerUp={event => seekSchedulerRef.current?.commit(Number(event.currentTarget.value))}
+              onKeyUp={event => seekSchedulerRef.current?.commit(Number(event.currentTarget.value))}
+            />
             <div className="clip-composer-slider-scale" data-i18n-skip><span>0:00</span><span>{formatTimestamp(maximumStart)}</span></div>
           </div>
           <div className="clip-composer-slider-field">
@@ -241,11 +401,17 @@ export default function ClipComposer({
               onChange={event => {
                 const seconds = Number(event.target.value);
                 setForm(current => ({ ...current, end: Number(current.start) + seconds }));
-              }}/>
+              }}
+              onPointerUp={() => seekSchedulerRef.current?.commit(Number(formRef.current.start))}
+              onKeyUp={() => seekSchedulerRef.current?.commit(Number(formRef.current.start))}
+            />
             <div className="clip-composer-duration-presets" aria-label={t('Duration')}>
               {[15, 30, 60].map(seconds => <button key={seconds} type="button" disabled={busy || seconds > maximumClipSeconds}
                 aria-pressed={clipSeconds === seconds}
-                onClick={() => setForm(current => ({ ...current, end: Number(current.start) + seconds }))}>
+                onClick={() => {
+                  setForm(current => ({ ...current, end: Number(current.start) + seconds }));
+                  seekSchedulerRef.current?.commit(Number(formRef.current.start));
+                }}>
                 <span data-i18n-skip>{seconds} s</span>
               </button>)}
             </div>

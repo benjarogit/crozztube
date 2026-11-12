@@ -78,6 +78,10 @@
   margin-inline-end: 0;
 }
 
+.watch-layout-shell .watch-creator-actions {
+  flex: 0 1 auto;
+}
+
 .watch-layout-shell .action-bar {
   margin-inline-start: auto;
 }

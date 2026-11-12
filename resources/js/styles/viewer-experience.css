@@ -108,8 +108,11 @@
 .watch-layout-shell .channel-identity strong { display: flex; align-items: center; gap: 6px; }
 .watch-layout-shell .channel-identity strong > span:first-child { overflow-wrap: anywhere; min-width: 0; }
 .watch-layout-shell .channel-identity .verified-badge { flex-shrink: 0; }
+.watch-layout-shell .watch-creator-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.watch-layout-shell .watch-support-button { min-height: 44px; gap: 8px; }
 .watch-layout-shell .action-bar { display: flex; flex-wrap: wrap; gap: 8px; flex: 1 1 100%; }
 .watch-layout-shell .action-pill { min-height: 44px; gap: 8px; flex: 0 1 auto; white-space: nowrap; }
+.watch-layout-shell .watch-comments-action { display: none; }
 .watch-layout-shell .video-detail-menu-shell { margin-inline-start: auto; }
 .watch-layout-shell .watch-sidebar > .section-title { display: flex; flex-wrap: wrap; flex-direction: row; justify-content: space-between; align-items: center; gap: 12px; }
 .watch-layout-shell .watch-sidebar h2 { font-size: 20px; letter-spacing: -.025em; }
@@ -140,8 +143,24 @@
   .video-card .more-button.active { opacity: 1; }
 }
 @media (max-width: 560px) {
-  .watch-layout-shell .action-bar > .action-pill { flex: 1 1 auto; justify-content: center; padding-inline: 10px; }
-  .watch-layout-shell .video-detail-menu-shell { margin-inline-start: 0; }
+  .watch-layout-shell .watch-toolbar { align-items: stretch; }
+  .watch-layout-shell .watch-creator-actions { width: 100%; }
+  .watch-layout-shell .watch-creator-actions > .btn { flex: 1 1 auto; }
+  .watch-layout-shell .action-bar {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    width: 100%;
+    margin-inline-start: 0;
+  }
+  .watch-layout-shell .watch-comments-action { display: inline-flex; }
+  .watch-layout-shell .action-bar > .action-pill,
+  .watch-layout-shell .video-detail-menu-shell > .action-pill {
+    width: 100%;
+    min-width: 0;
+    justify-content: center;
+    padding-inline: 8px;
+  }
+  .watch-layout-shell .video-detail-menu-shell { margin-inline-start: 0; display: grid; }
   .continue-card { padding: 12px; gap: 0 12px; }
   .creator-card > .btn { flex-grow: 1; }
 }

@@ -34,9 +34,9 @@ for (const [width, height, touch] of [[924, 902, false], [924, 420, false], [390
       await page.keyboard.press('Escape');
       await expect(menu).toHaveCount(0);
       await expect(trigger).toBeFocused();
-      // A click within the portal must reach its handler, rather than outside-dismiss first.
-      await trigger.click();
-      await menu.getByRole('menuitem', { name: 'Add to Playlist', exact: true }).click();
+      await expect(menu.getByRole('menuitem', { name: /^(Create a clip|Add to Playlist|Send tip)$/ })).toHaveCount(0);
+      await page.keyboard.press('Escape');
+      await page.getByRole('button', { name: 'Save', exact: true }).click();
       await expect(page).toHaveURL(/\/login$/);
       expect(session.errors).toEqual([]);
       expect(session.writes).toEqual([]);

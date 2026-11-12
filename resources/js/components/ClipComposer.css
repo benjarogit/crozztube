@@ -36,6 +36,52 @@
 .clip-composer-close:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
 
 .clip-composer form { display: grid; gap: 18px; padding: 24px; }
+.clip-composer-preview { display: grid; gap: 12px; }
+.clip-composer-preview-frame {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #0b1220;
+}
+.clip-composer-preview-frame canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #0b1220;
+}
+.clip-composer-preview-empty {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: color-mix(in srgb, #fff 72%, transparent);
+  font-weight: 700;
+  pointer-events: none;
+}
+.clip-composer-preview[data-ready="true"] .clip-composer-preview-empty { display: none; }
+.clip-composer-preview-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.clip-composer-preview-controls .btn {
+  min-height: 44px;
+  gap: 8px;
+}
+.clip-composer-preview-times {
+  display: grid;
+  justify-items: end;
+  gap: 2px;
+  min-width: 0;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.clip-composer-preview-times strong { color: var(--text); font-size: .95rem; }
 .clip-composer label { display: grid; gap: 8px; min-width: 0; font-weight: 650; }
 .clip-composer input:not([type="range"]),.clip-composer select { width: 100%; min-height: 46px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--panel-2); color: var(--text); font: inherit; }
 .clip-composer input:not([type="range"]):hover,.clip-composer select:hover { border-color: var(--line-strong); }
@@ -80,6 +126,14 @@
   .clip-composer { max-height: calc(100dvh - 24px); border-radius: 16px 16px 0 0; }
   .clip-composer > header,.clip-composer form,.clip-composer-fallback { padding: 20px 16px; }
   .clip-composer-timing { padding: 16px 12px; }
+  .clip-composer-preview-frame { max-height: min(36vh, 220px); }
+  .clip-composer-preview-controls { align-items: stretch; }
+  .clip-composer-preview-controls .btn { flex: 1 1 auto; justify-content: center; }
+  .clip-composer-preview-times { justify-items: start; }
   .clip-composer footer { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .clip-composer footer .btn { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .clip-composer-preview-frame canvas { image-rendering: auto; }
 }

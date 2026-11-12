@@ -51,6 +51,21 @@ try {
       await page.locator('.watch-vidstack-player').evaluate(n => { n.dataset.menuFixture = 'preserved'; });
       const draft = page.locator('.watch-comments-card .comment-composer-field > input').first();
       await draft.fill('Mein unveröffentlichter Kommentar');
+      const toolbar = page.locator('.watch-toolbar');
+      const clip = toolbar.getByRole('button', { name: language === 'en' ? 'Create a clip' : 'Clip erstellen', exact: true });
+      const save = toolbar.getByRole('button', { name: language === 'en' ? 'Save' : 'Speichern', exact: true });
+      await expect(clip).toBeVisible();
+      await expect(save).toBeVisible();
+      await expect(toolbar.getByRole('button', { name: language === 'en' ? 'Comments' : 'Kommentare', exact: true })).toHaveCount(width < 600 ? 1 : 0);
+      expect(await toolbar.locator('.action-bar > .action-pill').evaluateAll(nodes => nodes.filter(node => getComputedStyle(node).display !== 'none').map(node => node.getAttribute('aria-label')))).toEqual(
+        width < 600
+          ? (language === 'en'
+            ? ['Like video', 'Comments', 'Save', 'Share video', 'Create a clip']
+            : ['Video liken', 'Kommentare', 'Speichern', 'Video teilen', 'Clip erstellen'])
+          : (language === 'en'
+            ? ['Like video', 'Save', 'Share video', 'Create a clip']
+            : ['Video liken', 'Speichern', 'Video teilen', 'Clip erstellen'])
+      ); checks += 4;
       const more = page.getByRole('button', { name: language === 'en' ? 'Video actions' : 'Videoaktionen', exact: true });
       await more.scrollIntoViewIfNeeded(); await more.click();
       const menu = page.locator('body > .watch-detail-menu'); await expect(menu).toBeVisible();
@@ -61,7 +76,7 @@ try {
         return box.top + box.height / 2;
       }));
       expect(Math.max(...manageCenters) - Math.min(...manageCenters)).toBeLessThan(2); checks++;
-      await expect(menu.getByRole('menuitem', { name: /^(Share video|Video teilen|Copy Link|Link kopieren|.*Watch later.*|.*Später ansehen.*)$/i })).toHaveCount(0); checks += 3;
+      await expect(menu.getByRole('menuitem', { name: /^(Share video|Video teilen|Copy Link|Link kopieren|.*Watch later.*|.*Später ansehen.*|Create a clip|Clip erstellen|Add to Playlist|Zur Playlist hinzufügen|Send tip|Trinkgeld senden)$/i })).toHaveCount(0); checks += 3;
       await manage.focus(); await page.keyboard.press('ArrowRight');
       await expect(menu).toHaveAttribute('aria-label', language === 'en' ? 'Manage video' : 'Video verwalten');
       const back = menu.getByRole('menuitem', { name: language === 'en' ? 'Back' : 'Zurück', exact: true }); await expect(back).toBeFocused();
@@ -101,8 +116,11 @@ try {
       const { page, context } = session;
       await context.route('**/api/source-resolver/status/**', route => route.fulfill({ json: { source: { state: 'unavailable', has_direct: false, refreshing: false, fresh: false, auto_refresh_allowed: false, mirror: null } } }));
       await session.goto(`/watch/${video.slug}`);
+      await expect(page.getByRole('button', { name: 'Create a clip', exact: true })).toBeVisible();
+      await expect(page.getByRole('button', { name: 'Save', exact: true })).toBeVisible();
       await page.getByRole('button', { name: 'Video actions', exact: true }).click();
       const menu = page.locator('body > .watch-detail-menu');
+      await expect(menu.getByRole('menuitem', { name: /^(Create a clip|Add to Playlist|Send tip)$/ })).toHaveCount(0); checks++;
       await expect(menu.getByRole('menuitem', { name: 'Report video', exact: true })).toHaveCount(role === 'viewer' ? 1 : 0); checks++;
       if (role === 'admin') {
         await menu.getByRole('menuitem', { name: 'Manage video', exact: true }).click();
@@ -112,7 +130,8 @@ try {
         await expect(menu.getByRole('menuitem', { name: 'Manage video', exact: true })).toHaveCount(0);
         await expect(menu.getByRole('menuitem', { name: 'Delete video', exact: true })).toHaveCount(0); checks += 2;
         if (role === 'guest') {
-          await menu.getByRole('menuitem', { name: 'Add to Playlist', exact: true }).click();
+          await page.keyboard.press('Escape');
+          await page.getByRole('button', { name: 'Save', exact: true }).click();
           await expect(page).toHaveURL(/\/login$/); checks++;
         }
       }

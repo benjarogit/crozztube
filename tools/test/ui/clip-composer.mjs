@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { execFileSync } from 'node:child_process';
 import { mkdir } from 'node:fs/promises';
 import { chromium, expect } from '@playwright/test';
 import { applicationJson, expectContained, layoutSession } from './fixtures/readonly-layout.ts';
@@ -10,6 +11,30 @@ const browser = await chromium.launch({ headless: true });
 const artifacts = 'tools/test/.artifacts/clip-composer';
 await mkdir(artifacts, { recursive: true });
 let checks = 0;
+
+const mediaFile = `/tmp/crozztube-clip-preview-${process.pid}.mp4`;
+let media;
+try {
+  execFileSync('docker', ['exec', 'crozztube-web', 'ffmpeg', '-hide_banner', '-loglevel', 'error', '-f', 'lavfi', '-i', 'color=c=#1d4ed8:s=640x360:r=12', '-f', 'lavfi', '-i', 'sine=frequency=440:sample_rate=44100', '-t', '65', '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-shortest', '-movflags', '+faststart', '-y', mediaFile]);
+  media = execFileSync('docker', ['exec', 'crozztube-web', 'cat', mediaFile]);
+} finally {
+  execFileSync('docker', ['exec', 'crozztube-web', 'rm', '-f', mediaFile]);
+}
+
+const fulfillMedia = async route => {
+  const range = route.request().headers().range?.match(/bytes=(\d+)-(\d*)/);
+  const start = range ? Number(range[1]) : 0;
+  const end = range?.[2] ? Math.min(Number(range[2]), media.length - 1) : media.length - 1;
+  await route.fulfill({
+    status: range ? 206 : 200,
+    contentType: 'video/mp4',
+    headers: {
+      'Accept-Ranges': 'bytes',
+      ...(range ? { 'Content-Range': `bytes ${start}-${end}/${media.length}` } : {}),
+    },
+    body: media.subarray(start, end + 1),
+  });
+};
 
 try {
   for (const scenario of [
@@ -30,9 +55,10 @@ try {
             video: {
               ...payload.video,
               title: 'Originaltitel bleibt unverändert',
-              duration_seconds: 120,
+              duration_seconds: 65,
+              video_url: scenario.source ? '/fixtures/clip-preview.mp4' : null,
               video_sources: scenario.source
-                ? [{ src: 'https://fixture.invalid/source.mp4', type: 'video/mp4' }]
+                ? [{ src: '/fixtures/clip-preview.mp4', type: 'video/mp4' }]
                 : [{ src: 'https://fixture.invalid/source.m3u8', type: 'application/x-mpegURL' }],
             },
           };
@@ -42,14 +68,28 @@ try {
     });
 
     try {
-      const { page } = session;
+      const { page, context } = session;
+      const mediaRequests = [];
+      if (scenario.source) {
+        await context.route('**/fixtures/clip-preview.mp4', fulfillMedia);
+      }
+      page.on('request', request => {
+        if (request.resourceType() === 'media' || /\.(?:mp4|m3u8)(?:$|\?)/i.test(request.url())) {
+          mediaRequests.push(request.url());
+        }
+      });
       await session.goto(`/watch/${encodeURIComponent(original.slug)}`);
       await expect(page.locator('.watch-page')).toBeVisible();
-      const trigger = page.locator('.video-detail-menu-shell > button');
-      await trigger.click();
-      await page.getByRole('menuitem', {
+      if (scenario.source) {
+        const mediaElement = page.locator('.watch-vidstack-player video');
+        await expect(mediaElement).toBeVisible();
+        await expect.poll(() => mediaElement.evaluate(video => video.readyState)).toBeGreaterThan(1);
+      }
+      const trigger = page.getByRole('button', {
         name: scenario.language === 'en' ? 'Create a clip' : 'Clip erstellen',
-      }).click();
+        exact: true,
+      });
+      await trigger.click();
       const dialog = page.getByRole('dialog', {
         name: scenario.language === 'en' ? 'Create a clip' : 'Clip erstellen',
       });
@@ -58,16 +98,31 @@ try {
 
       if (scenario.source) {
         const labels = scenario.language === 'en'
-          ? { title: 'Clip title', start: 'Start time in seconds', duration: 'Duration', visibility: 'Visibility', create: 'Create a clip' }
-          : { title: 'Clip-Titel', start: 'Startzeit in Sekunden', duration: 'Dauer', visibility: 'Sichtbarkeit', create: 'Clip erstellen' };
+          ? { title: 'Clip title', start: 'Start time in seconds', duration: 'Duration', visibility: 'Visibility', create: 'Create a clip', play: 'Play', pause: 'Pause' }
+          : { title: 'Clip-Titel', start: 'Startzeit in Sekunden', duration: 'Dauer', visibility: 'Sichtbarkeit', create: 'Clip erstellen', play: 'Abspielen', pause: 'Pause' };
         await expect(dialog.getByLabel(labels.title)).toHaveValue('Originaltitel bleibt unverändert clip');
         await expect(dialog.getByLabel(labels.start)).toHaveValue('0');
         await expect(dialog.getByRole('slider', { name: labels.duration })).toHaveValue('30');
         await expect(dialog.getByLabel(labels.visibility)).toHaveValue('private');
+        await expect(dialog.locator('.clip-composer-preview canvas')).toBeVisible();
+        await expect.poll(async () => dialog.locator('.clip-composer-preview canvas').evaluate(canvas => {
+          if (!canvas.width || !canvas.height) return false;
+          const context2d = canvas.getContext('2d');
+          const sample = context2d.getImageData(Math.floor(canvas.width / 2), Math.floor(canvas.height / 2), 1, 1).data;
+          return sample[0] + sample[1] + sample[2] > 0;
+        })).toBe(true);
+        checks += 2;
+        const play = dialog.getByRole('button', { name: labels.play, exact: true });
+        await play.click();
+        await expect(dialog.getByRole('button', { name: labels.pause, exact: true })).toBeVisible();
+        await dialog.getByRole('button', { name: labels.pause, exact: true }).click();
+        await expect(play).toBeVisible();
+        checks += 2;
         await dialog.getByRole('button', { name: '60 s' }).click();
         await expect(dialog.getByRole('slider', { name: labels.duration })).toHaveValue('60');
-        await dialog.getByLabel(labels.start).fill('60');
-        await expect(dialog).toContainText('1:00 – 2:00');
+        await dialog.getByLabel(labels.start).fill('5');
+        await dialog.getByLabel(labels.start).dispatchEvent('pointerup');
+        await expect(dialog).toContainText('0:05 – 1:05');
         await expect(dialog.getByRole('button', { name: labels.create })).toBeVisible();
         const appearance = await dialog.evaluate(node => {
           const normalize = value => {
@@ -114,6 +169,7 @@ try {
       assert(session.writes.every(write => write.startsWith('POST /api/source-resolver/refresh/')),
         `Unexpected write attempt: ${session.writes.join(', ')}`);
       assert(!session.writes.some(write => write.includes('clip-transfer')), 'The read-only dialog test must not start a clip transfer.');
+      assert(!mediaRequests.some(url => /clip-transfer|upload/i.test(url)), 'Preview must not upload media.');
       assert.deepEqual(session.errors, []);
       assert.deepEqual(session.failedGets, []);
       checks += 5;
@@ -121,7 +177,7 @@ try {
       await session.context.close();
     }
   }
-  console.log(`${checks} clip composer browser checks passed. Timeline, duration presets, English/German, desktop/mobile, light/dark, time-link fallback, focus return, no writes or media.`);
+  console.log(`${checks} clip composer browser checks passed. Preview canvas, play/pause, timeline, English/German, desktop/mobile, light/dark, time-link fallback, focus return, no writes or uploads.`);
 } finally {
   await browser.close();
 }
