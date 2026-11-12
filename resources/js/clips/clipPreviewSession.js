@@ -65,8 +65,26 @@ export function canMirrorMedia(media) {
   );
 }
 
+export function waitForPresentedFrame(media, timeout = 180) {
+  return new Promise((resolve) => {
+    let settled = false;
+    const finish = () => {
+      if (settled) return;
+      settled = true;
+      window.clearTimeout(timer);
+      resolve();
+    };
+    const timer = window.setTimeout(finish, timeout);
+    if (media && typeof media.requestVideoFrameCallback === 'function') {
+      media.requestVideoFrameCallback(finish);
+      return;
+    }
+    window.requestAnimationFrame(finish);
+  });
+}
+
 export function paintMediaFrame(canvas, media) {
-  if (!canvas || !canMirrorMedia(media)) return false;
+  if (!canvas || !canMirrorMedia(media) || media.seeking || media.readyState < 2) return false;
   const width = Math.max(1, Number(media.videoWidth) || 16);
   const height = Math.max(1, Number(media.videoHeight) || 9);
   if (canvas.width !== width || canvas.height !== height) {
