@@ -3239,6 +3239,15 @@
             ],
             "reviewed_at": "2026-11-06T09:54:04+00:00"
         },
+        "398defcdc5732340bd6caf87bb417874ae800d5378c361b81ed3d33ef6bd5ccf": {
+            "source_hash": "398defcdc5732340bd6caf87bb417874ae800d5378c361b81ed3d33ef6bd5ccf",
+            "translation_hash": "cd247ec290e4c87b137430fa33f647d558a118d43ee968fb9f1dd6b4dac146a5",
+            "status": "editorial",
+            "contexts": [
+                "Watch page transcript. Search and language controls sit above the caption text. German uses the informal singular. Caption text and provider language labels stay untranslated."
+            ],
+            "reviewed_at": "2026-11-12T13:33:17+00:00"
+        },
         "39ba844dc549af266f4ab78fb24d6b8793ce80da55e4a679c36fb33c182ebe47": {
             "source_hash": "39ba844dc549af266f4ab78fb24d6b8793ce80da55e4a679c36fb33c182ebe47",
             "translation_hash": "7505c05d1c81326d7abca273d43f5f565b637fa8b8e39459c68bde2aa583675b",
@@ -4129,6 +4138,15 @@
                 "Editorial pass: account security, channel statistics, moderation navigation and administrator user actions; checked source context for captions, reports, totals and test-user creation."
             ],
             "reviewed_at": "2026-11-06T09:05:29+00:00"
+        },
+        "4be16bc89194b31792ce94eec6be1116fceded82ef9bd2177586da2582da0bdd": {
+            "source_hash": "4be16bc89194b31792ce94eec6be1116fceded82ef9bd2177586da2582da0bdd",
+            "translation_hash": "4fcb6049ac3d5b6510a95cc7a9767d91be453fe7663fb9f8b40502f6c4413c3c",
+            "status": "editorial",
+            "contexts": [
+                "Watch page transcript. Search and language controls sit above the caption text. German uses the informal singular. Caption text and provider language labels stay untranslated."
+            ],
+            "reviewed_at": "2026-11-12T13:33:17+00:00"
         },
         "4bf3f8ddd7bf23d20706d76ecfc9d888846fbf994efcce6dc8d07f4c8db54ee1": {
             "source_hash": "4bf3f8ddd7bf23d20706d76ecfc9d888846fbf994efcce6dc8d07f4c8db54ee1",
@@ -11236,6 +11254,15 @@
                 "Editorial pass: administrator selection, registration/date filters, moderation reports, analytics charts, support status, roles and system preferences. Device Breakdown is a distribution, not a device failure; reviewed Open as ticket status."
             ],
             "reviewed_at": "2026-11-06T09:27:57+00:00"
+        },
+        "c920f488a059bfb7b69aac86e03767bd597979baa57d68f0bc55055a4c7fb645": {
+            "source_hash": "c920f488a059bfb7b69aac86e03767bd597979baa57d68f0bc55055a4c7fb645",
+            "translation_hash": "1cff8fe23afccba09dd0396c3e221f1577dea79cec66636e410983e6cac1cd77",
+            "status": "editorial",
+            "contexts": [
+                "Watch page transcript. Search and language controls sit above the caption text. German uses the informal singular. Caption text and provider language labels stay untranslated."
+            ],
+            "reviewed_at": "2026-11-12T13:33:17+00:00"
         },
         "c93f5d52e83efbe7a75f974106bd03f67dfaaf20c72cb2f5084c715b31aa5368": {
             "source_hash": "c93f5d52e83efbe7a75f974106bd03f67dfaaf20c72cb2f5084c715b31aa5368",

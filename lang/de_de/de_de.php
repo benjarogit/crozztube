@@ -4923,4 +4923,7 @@ Anschließend erstellt die Verarbeitung die Videoauflösungen und bei Bedarf Vor
   'Week rank' => 'Woche',
   'Season rank' => 'Saison',
   'Set time mark' => 'Zeitmarke setzen',
+  'Search transcript' => 'Transkript durchsuchen',
+  'Transcript language' => 'Transkriptsprache',
+  'No transcript matches.' => 'Keine Treffer im Transkript.',
 );

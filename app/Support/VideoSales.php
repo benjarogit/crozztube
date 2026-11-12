@@ -82,7 +82,7 @@ class VideoSales
         ], fn ($value): bool => $value !== null));
     }
 
-    public static function captionsUrl(Video $video, ?DateTimeInterface $expiresAt = null, ?int $track = null, bool $transcript = false): ?string
+    public static function captionsUrl(Video $video, ?DateTimeInterface $expiresAt = null, ?int $track = null, bool $transcript = false, ?string $format = null): ?string
     {
         if (! $video->captions_path && VideoCaptions::stored($video) === []) {
             return null;
@@ -91,6 +91,7 @@ class VideoSales
         $parameters = ['video' => $video->id, 'v' => $video->mediaVersion()];
         if ($track !== null) $parameters['track'] = $track;
         if ($transcript) $parameters['transcript'] = 1;
+        if ($format !== null && $format !== '') $parameters['format'] = $format;
 
         if (! self::requiresSignedMedia($video)) {
             return route('media.video-captions', $parameters);

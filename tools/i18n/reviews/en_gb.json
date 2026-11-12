@@ -8022,6 +8022,15 @@
             ],
             "reviewed_at": "2026-11-06T11:17:02+00:00"
         },
+        "398defcdc5732340bd6caf87bb417874ae800d5378c361b81ed3d33ef6bd5ccf": {
+            "source_hash": "398defcdc5732340bd6caf87bb417874ae800d5378c361b81ed3d33ef6bd5ccf",
+            "translation_hash": "398defcdc5732340bd6caf87bb417874ae800d5378c361b81ed3d33ef6bd5ccf",
+            "status": "editorial",
+            "contexts": [
+                "Watch page transcript. Search and language controls sit above the caption text. German uses the informal singular. Caption text and provider language labels stay untranslated."
+            ],
+            "reviewed_at": "2026-11-12T13:33:18+00:00"
+        },
         "398fe30ed6a1c2ecbb87b4f58d9dbdac50a614860f20e2a5e4a6b24e878c1fa4": {
             "source_hash": "398fe30ed6a1c2ecbb87b4f58d9dbdac50a614860f20e2a5e4a6b24e878c1fa4",
             "translation_hash": "398fe30ed6a1c2ecbb87b4f58d9dbdac50a614860f20e2a5e4a6b24e878c1fa4",
@@ -10493,6 +10502,15 @@
                 "English editorial reference: community/channel states, error and recovery messages, notifications, upload progress, account registration/confirmation/captcha and password-strength feedback. Login preview defaults now describe the community instead of selling a UI kit. Author content, technical examples, unresolved fragments and unverifiable plan claims excluded."
             ],
             "reviewed_at": "2026-11-06T11:24:08+00:00"
+        },
+        "4be16bc89194b31792ce94eec6be1116fceded82ef9bd2177586da2582da0bdd": {
+            "source_hash": "4be16bc89194b31792ce94eec6be1116fceded82ef9bd2177586da2582da0bdd",
+            "translation_hash": "4be16bc89194b31792ce94eec6be1116fceded82ef9bd2177586da2582da0bdd",
+            "status": "editorial",
+            "contexts": [
+                "Watch page transcript. Search and language controls sit above the caption text. German uses the informal singular. Caption text and provider language labels stay untranslated."
+            ],
+            "reviewed_at": "2026-11-12T13:33:18+00:00"
         },
         "4bf3f8ddd7bf23d20706d76ecfc9d888846fbf994efcce6dc8d07f4c8db54ee1": {
             "source_hash": "4bf3f8ddd7bf23d20706d76ecfc9d888846fbf994efcce6dc8d07f4c8db54ee1",
@@ -28714,6 +28732,15 @@
                 "English reference editorial pass covering live chat, participant approval/privacy, gifts/tips, stickers, ads, stream recovery, replay, payment history, language administration, import/captions/chapters and standard emails. Existing current editorial/context-reviewed entries retained without downgrading their status. Sentence fragments and technical/sample identifiers excluded. Stream and advertising wording clarified without new security/payment guarantees."
             ],
             "reviewed_at": "2026-11-06T11:32:47+00:00"
+        },
+        "c920f488a059bfb7b69aac86e03767bd597979baa57d68f0bc55055a4c7fb645": {
+            "source_hash": "c920f488a059bfb7b69aac86e03767bd597979baa57d68f0bc55055a4c7fb645",
+            "translation_hash": "c920f488a059bfb7b69aac86e03767bd597979baa57d68f0bc55055a4c7fb645",
+            "status": "editorial",
+            "contexts": [
+                "Watch page transcript. Search and language controls sit above the caption text. German uses the informal singular. Caption text and provider language labels stay untranslated."
+            ],
+            "reviewed_at": "2026-11-12T13:33:18+00:00"
         },
         "c92dcc28618dada0e15f93bc82a637e03d46585713a2a4d1e4d2f040c97a2358": {
             "source_hash": "c92dcc28618dada0e15f93bc82a637e03d46585713a2a4d1e4d2f040c97a2358",

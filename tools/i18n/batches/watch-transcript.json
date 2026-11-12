@@ -1,0 +1,17 @@
+{
+  "context": "Watch page transcript. Search and language controls sit above the caption text. German uses the informal singular. Caption text and provider language labels stay untranslated.",
+  "messages": {
+    "Search transcript": {
+      "en": "Search transcript",
+      "de": "Transkript durchsuchen"
+    },
+    "Transcript language": {
+      "en": "Transcript language",
+      "de": "Transkriptsprache"
+    },
+    "No transcript matches.": {
+      "en": "No transcript matches.",
+      "de": "Keine Treffer im Transkript."
+    }
+  }
+}

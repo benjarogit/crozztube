@@ -4941,4 +4941,7 @@ The processing job encodes renditions, creates thumbnails when needed, stores ca
   'Week rank' => 'Week rank',
   'Season rank' => 'Season rank',
   'Set time mark' => 'Set time mark',
+  'Search transcript' => 'Search transcript',
+  'Transcript language' => 'Transcript language',
+  'No transcript matches.' => 'No transcript matches.',
 );

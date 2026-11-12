@@ -32,6 +32,7 @@ import './styles.css';
 import { detectImportProvider, resolveImportProvider } from './importProviders.js';
 import { formatChapterTimestamp as formatUploadChapterTimestamp, importChapterDraft } from './importChapters.js';
 import VideoTranscript from './components/VideoTranscript.jsx';
+import { seekWithoutStopping } from './components/transcript-document.js';
 import ImportMetadataSummary from './components/ImportMetadataSummary.jsx';
 import LocalizedCount from './components/LocalizedCount.jsx';
 import { continueWatchingState } from './viewerCards.js';
@@ -16864,6 +16865,7 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
       showWatchToast('Unable to seek this video.');
     }
   };
+  const seekTranscript = (seconds) => seekWithoutStopping(playerRef.current, seconds, playerPlaying);
   const handleContentTimeUpdate = () => {
     if (clipCaptureActiveRef.current) return;
     recordPlayback();
@@ -17073,7 +17075,7 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
         <div className={`description-card ${descriptionExpanded ? 'expanded' : ''}`}><p dir="auto" data-i18n-skip={watchDescription ? true : undefined}>{watchDescription ? <VideoDescriptionText text={watchDescription} onSeek={isPaidVideoLocked ? null : seekToDescriptionTime} /> : 'No description yet.'}</p>{watchDescription && <button className="text-button" onClick={() => setDescriptionExpanded((expanded) => !expanded)}>{descriptionExpanded ? 'Show less' : 'Show more'}</button>}</div>
         {!isPaidVideoLocked && videoChapters.length > 0 && <details className="watch-chapters"><summary data-i18n-skip>{t('Chapters')}</summary><ol>{videoChapters.map((chapter) => <li key={chapter.startTime}><button type="button" onClick={() => seekToDescriptionTime(chapter.startTime)}><time data-i18n-skip>{formatDurationSeconds(chapter.startTime) || '0:00'}</time><span data-i18n-skip dir="auto">{chapter.text}</span></button></li>)}</ol></details>}
         {!isPaidVideoLocked && <WatchTimeMarks slug={slug} auth={auth} navigate={navigate} currentSeconds={currentPlaybackSeconds} onSeek={seekToDescriptionTime} notify={notify} onOverlay={setTimeMarkOverlay} />}
-        {video.transcript_url && <VideoTranscript key={`${video.slug}-${video.transcript_url}`} url={video.transcript_url} />}
+        {(video.caption_tracks || []).some((track) => track.transcript_url) && <VideoTranscript key={`${video.slug}-${video.caption_tracks.map((track) => track.transcript_url).join('|')}`} tracks={video.caption_tracks} onSeek={isPaidVideoLocked ? null : seekTranscript} currentSeconds={currentPlaybackSeconds} />}
         {watchTags.length > 0 && <div className="watch-tag-list" aria-label="Tags">{watchTags.map((tag) => <button key={tag} type="button" className="watch-tag-chip" data-i18n-skip onClick={() => navigate(`/search?q=${encodeURIComponent(`#${tag}`)}`)}>#{tag}</button>)}</div>}
       </div>
 

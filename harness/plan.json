@@ -203,6 +203,13 @@
     }
   ],
   "checks": {
+    "step-05-transcript": {
+      "argv": [
+        "bash",
+        "tools/test/step-05-transcript.sh"
+      ],
+      "timeoutMs": 120000
+    },
     "step-04-time-marks": {
       "argv": [
         "bash",
