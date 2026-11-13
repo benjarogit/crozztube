@@ -46,7 +46,13 @@ try {
       await session.goto(`/watch/${video.slug}`);
       await expect.poll(()=>statusRequests).toBeGreaterThan(0);checks++;
       const player=page.locator('.watch-vidstack-player');await expect(player).toBeVisible();await player.evaluate(e=>e.dataset.qualityPlayer='preserved');
-      const draft=page.locator('.watch-comments-card .comment-composer-field > input').first();if(authenticated) await draft.fill('Unveröffentlichter Kommentar bleibt erhalten');
+      const draft=page.locator('.watch-comments-card .comment-composer-field > input').first();if(authenticated) {
+        await draft.fill('Unveröffentlichter Kommentar bleibt erhalten');
+        const fieldTheme = await draft.evaluate(e=>({background:getComputedStyle(e.parentElement).backgroundColor,expected:getComputedStyle(document.documentElement).getPropertyValue(document.documentElement.dataset.theme==='dark'?'--panel-2':'--panel').trim(),outline:getComputedStyle(e.parentElement).outlineStyle}));
+        const channels=fieldTheme.expected.replace('#','').match(/../g).map(x=>parseInt(x,16));
+        expect(fieldTheme.background).toBe('rgb('+channels.join(', ')+')');
+        expect(fieldTheme.outline).toBe('solid'); checks+=2;
+      }
       const marksSection=page.locator('.watch-time-marks');await expect(marksSection).toContainText('öffentliche Zeitmarke');
       if(role==='viewer') {
         const like=marksSection.getByRole('button',{name:'Like time mark',exact:true}),dislike=marksSection.getByRole('button',{name:'Dislike time mark',exact:true});

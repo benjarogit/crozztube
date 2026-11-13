@@ -195,7 +195,7 @@
     ]
   },
   "resources/js/main.jsx": {
-    "file": "assets/main-CHO-kwSu.js",
+    "file": "assets/main-Mt-vNDl_.js",
     "name": "main",
     "src": "resources/js/main.jsx",
     "isEntry": true,
@@ -207,7 +207,7 @@
       "node_modules/livekit-client/dist/livekit-client.esm.mjs"
     ],
     "css": [
-      "assets/main-B3CyOp54.css"
+      "assets/main-mzagQPna.css"
     ]
   }
 }
