@@ -4946,4 +4946,13 @@ The processing job encodes renditions, creates thumbnails when needed, stores ca
   'No transcript matches.' => 'No transcript matches.',
   'Mark as watched' => 'Mark as watched',
   'Watch from start' => 'Watch from start',
+  'Your time mark' => 'Your time mark',
+  'Video position' => 'Video position',
+  'Rate time mark' => 'Rate time mark',
+  'Like time mark' => 'Like time mark',
+  'Dislike time mark' => 'Dislike time mark',
+  'Only you can find this clip on CrozzTube. Anyone with its Odysee link can still watch it.' => 'Only you can find this clip on CrozzTube. Anyone with its Odysee link can still watch it.',
+  'Your clip becomes public once Odysee confirms it is ready.' => 'Your clip becomes public once Odysee confirms it is ready.',
+  'Like post' => 'Like post',
+  'Unlike post' => 'Unlike post',
 );

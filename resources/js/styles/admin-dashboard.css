@@ -52,7 +52,7 @@
   box-shadow:none!important
 }
 .admin-dashboard-shell :focus-visible {
-  outline:2px solid var(--ad-primary);
+  outline:2px solid var(--ad-text);
   outline-offset:3px
 }
 .admin-dashboard-shell[data-admin-theme="dark"] {
@@ -184,7 +184,7 @@
 }
 .admin-nav-item.active {
   background:linear-gradient(90deg,color-mix(in srgb,var(--ad-panel-2) 86%,var(--ad-primary)),var(--ad-panel-2));
-  color:var(--ad-primary)
+  color:var(--ad-text)
 }
 .admin-nav-item:not(.active) svg {
     color: #6f6f6f;
@@ -1682,7 +1682,7 @@
 }
 .admin-tabs button.active {
   border-color:var(--ad-primary);
-  color:var(--ad-primary)
+  color:var(--ad-text)
 }
 .admin-tabs span {
   height:21px;

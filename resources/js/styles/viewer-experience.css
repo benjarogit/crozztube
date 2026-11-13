@@ -142,20 +142,35 @@
 .watch-chapters li button:hover { background: var(--panel-2); }
 .watch-chapters :is(button, summary):focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
 .watch-layout-shell .watch-time-marks { margin-top: 16px; padding: 16px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); }
-.watch-time-marks-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+.watch-time-marks-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
 .watch-time-marks-head h2 { margin: 0; font-size: 16px; font-weight: 750; letter-spacing: -.02em; line-height: 1.3; }
 .watch-time-marks :is(button, label, textarea):focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 .watch-time-mark-dialog [role="radiogroup"] { display: flex; flex-wrap: wrap; gap: 8px; }
 .watch-time-mark-dialog [role="radiogroup"] label { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font-weight: 650; }
 .watch-time-mark-dialog textarea { width: 100%; min-height: 96px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--panel-2); color: var(--text); font: inherit; resize: vertical; }
 .watch-time-marks ol { margin: 12px 0 0; padding: 0; list-style: none; }
-.watch-time-marks li { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding-block: 8px; border-top: 1px solid var(--line); }
+.watch-time-marks li { display: flex; min-width: 0; flex-wrap: wrap; gap: 8px; align-items: center; padding-block: 8px; border-top: 1px solid var(--line); }
 .watch-time-marks li > button:first-child { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 12px; flex: 1 1 220px; min-height: 44px; padding: 8px 4px; text-align: start; }
+.watch-time-marks li > button:first-child span { overflow-wrap: anywhere; }
+.time-mark-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; width: 100%; }
+.time-mark-actions .text-button { display: inline-flex; gap: 8px; align-items: center; min-height: 44px; padding: 8px; font-weight: 650; }
+.time-mark-owner { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 12px; color: var(--muted); font-size: 13px; }
+.time-mark-counts, .time-mark-counts > span { display: inline-flex; align-items: center; gap: 8px; }
+.time-mark-counts > span:last-child svg { transform: rotate(180deg); }
+.time-mark-votes { display: inline-flex; gap: 4px; margin-inline-start: auto; }
+.time-mark-votes button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-width: 56px; min-height: 44px; border: 1px solid var(--line); border-radius: 10px; background: var(--panel); color: var(--text); }
+.time-mark-votes button:hover { background: var(--control-hover-bg); }
+.time-mark-votes button[aria-pressed="true"] { background: var(--control-selected-bg); border-color: var(--focus); }
+.time-mark-votes button:last-child svg { transform: rotate(180deg); }
+.watch-layout-shell .watch-creator-actions.is-own-channel { width: auto; align-self: center; }
+.watch-own-channel { color: var(--muted); font-size: 13px; }
+.watch-source-actions:empty { display: none; }
+.watch-source-actions .crz-mirror-slot { display: contents; }
 .watch-time-marks time { font-variant-numeric: tabular-nums; font-weight: 650; }
 .watch-time-marks-error { color: var(--danger); }
 .watch-time-mark-switch { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
 .watch-time-mark-switch button { height: 44px; min-height: 44px; padding: 0 16px; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); color: var(--text); font-size: 13px; font-weight: 800; }
-.watch-time-mark-switch button:hover { background: var(--panel-2); border-color: var(--line); color: var(--text); }
+.watch-time-mark-switch button:hover { background: var(--control-hover-bg); border-color: var(--line); color: var(--text); }
 .watch-time-mark-switch button[aria-selected="true"],
 .watch-time-mark-switch button[aria-selected="true"]:hover { background: var(--control-selected-bg); border-color: color-mix(in srgb, var(--primary) 70%, var(--surface-edge)); color: var(--text); }
 .video-player .watch-time-mark-cue { position: absolute; left: 16px; bottom: 76px; z-index: 4; display: flex; gap: 12px; max-width: min(520px, calc(100% - 32px)); margin: 0; padding: 8px 12px; border-radius: var(--radius); background: color-mix(in srgb, var(--panel) 88%, transparent); color: var(--text); pointer-events: none; }
@@ -178,6 +193,7 @@
   .watch-layout-shell .watch-creator-actions { width: 100%; }
   .watch-layout-shell .watch-creator-actions > .btn { flex: 1 1 auto; }
   .watch-layout-shell .action-bar {
+    --watch-more-size: 100%;
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     width: 100%;
@@ -324,7 +340,7 @@
 }
 .watch-layout-shell .watch-toolbar .btn svg,
 .watch-layout-shell .watch-toolbar .action-pill svg { width: 18px; height: 18px; flex: 0 0 18px; }
-.watch-layout-shell .watch-toolbar .action-pill.icon-only { width: 44px; padding: 0; }
+.watch-layout-shell .watch-toolbar .action-pill.icon-only { width: var(--watch-more-size, 44px); padding: 0; }
 .watch-layout-shell .watch-toolbar .btn:not(.primary):not(.is-selected),
 .watch-layout-shell .watch-toolbar .action-pill:not(.active):not(.is-active) {
   background: var(--panel);
@@ -333,7 +349,7 @@
 }
 .watch-layout-shell .watch-toolbar .btn:not(.primary):not(.is-selected):hover,
 .watch-layout-shell .watch-toolbar .action-pill:not(.active):not(.is-active):hover {
-  background: var(--panel-2);
+  background: var(--control-hover-bg);
   border-color: var(--line);
   color: var(--text);
 }
@@ -345,3 +361,5 @@
   border-color: color-mix(in srgb, var(--primary) 70%, var(--surface-edge));
   color: var(--text);
 }
+
+.playlist-error > div { display: flex; flex-wrap: wrap; gap: 8px; }

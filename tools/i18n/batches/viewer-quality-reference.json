@@ -1,0 +1,104 @@
+{
+  "context": "Viewer quality pass: time-mark voting and privacy context in actual Watch/Clip dialogs; shared community accessible action names. English and German references only; other language reviews remain open.",
+  "messages": {
+    "Your time mark": {
+      "de_at": "Deine Zeitmarke",
+      "de_ch": "Deine Zeitmarke",
+      "de_de": "Deine Zeitmarke",
+      "en": "Your time mark",
+      "en_au": "Your time mark",
+      "en_ca": "Your time mark",
+      "en_gb": "Your time mark",
+      "en_nz": "Your time mark",
+      "en_za": "Your time mark"
+    },
+    "Video position": {
+      "de_at": "Videoposition",
+      "de_ch": "Videoposition",
+      "de_de": "Videoposition",
+      "en": "Video position",
+      "en_au": "Video position",
+      "en_ca": "Video position",
+      "en_gb": "Video position",
+      "en_nz": "Video position",
+      "en_za": "Video position"
+    },
+    "Rate time mark": {
+      "de_at": "Zeitmarke bewerten",
+      "de_ch": "Zeitmarke bewerten",
+      "de_de": "Zeitmarke bewerten",
+      "en": "Rate time mark",
+      "en_au": "Rate time mark",
+      "en_ca": "Rate time mark",
+      "en_gb": "Rate time mark",
+      "en_nz": "Rate time mark",
+      "en_za": "Rate time mark"
+    },
+    "Like time mark": {
+      "de_at": "Zeitmarke gefällt mir",
+      "de_ch": "Zeitmarke gefällt mir",
+      "de_de": "Zeitmarke gefällt mir",
+      "en": "Like time mark",
+      "en_au": "Like time mark",
+      "en_ca": "Like time mark",
+      "en_gb": "Like time mark",
+      "en_nz": "Like time mark",
+      "en_za": "Like time mark"
+    },
+    "Dislike time mark": {
+      "de_at": "Zeitmarke gefällt mir nicht",
+      "de_ch": "Zeitmarke gefällt mir nicht",
+      "de_de": "Zeitmarke gefällt mir nicht",
+      "en": "Dislike time mark",
+      "en_au": "Dislike time mark",
+      "en_ca": "Dislike time mark",
+      "en_gb": "Dislike time mark",
+      "en_nz": "Dislike time mark",
+      "en_za": "Dislike time mark"
+    },
+    "Only you can find this clip on CrozzTube. Anyone with its Odysee link can still watch it.": {
+      "de_at": "Diesen Clip findest nur du auf CrozzTube. Wer den Odysee-Link hat, kann ihn trotzdem ansehen.",
+      "de_ch": "Diesen Clip findest nur du auf CrozzTube. Wer den Odysee-Link hat, kann ihn trotzdem ansehen.",
+      "de_de": "Diesen Clip findest nur du auf CrozzTube. Wer den Odysee-Link hat, kann ihn trotzdem ansehen.",
+      "en": "Only you can find this clip on CrozzTube. Anyone with its Odysee link can still watch it.",
+      "en_au": "Only you can find this clip on CrozzTube. Anyone with its Odysee link can still watch it.",
+      "en_ca": "Only you can find this clip on CrozzTube. Anyone with its Odysee link can still watch it.",
+      "en_gb": "Only you can find this clip on CrozzTube. Anyone with its Odysee link can still watch it.",
+      "en_nz": "Only you can find this clip on CrozzTube. Anyone with its Odysee link can still watch it.",
+      "en_za": "Only you can find this clip on CrozzTube. Anyone with its Odysee link can still watch it."
+    },
+    "Your clip becomes public once Odysee confirms it is ready.": {
+      "de_at": "Dein Clip wird öffentlich, sobald Odysee bestätigt, dass er bereit ist.",
+      "de_ch": "Dein Clip wird öffentlich, sobald Odysee bestätigt, dass er bereit ist.",
+      "de_de": "Dein Clip wird öffentlich, sobald Odysee bestätigt, dass er bereit ist.",
+      "en": "Your clip becomes public once Odysee confirms it is ready.",
+      "en_au": "Your clip becomes public once Odysee confirms it is ready.",
+      "en_ca": "Your clip becomes public once Odysee confirms it is ready.",
+      "en_gb": "Your clip becomes public once Odysee confirms it is ready.",
+      "en_nz": "Your clip becomes public once Odysee confirms it is ready.",
+      "en_za": "Your clip becomes public once Odysee confirms it is ready."
+    },
+    "Like post": {
+      "de_at": "Beitrag gefällt mir",
+      "de_ch": "Beitrag gefällt mir",
+      "de_de": "Beitrag gefällt mir",
+      "en": "Like post",
+      "en_au": "Like post",
+      "en_ca": "Like post",
+      "en_gb": "Like post",
+      "en_nz": "Like post",
+      "en_za": "Like post"
+    },
+    "Unlike post": {
+      "de_at": "Gefällt mir für diesen Beitrag zurücknehmen",
+      "de_ch": "Gefällt mir für diesen Beitrag zurücknehmen",
+      "de_de": "Gefällt mir für diesen Beitrag zurücknehmen",
+      "en": "Unlike post",
+      "en_au": "Unlike post",
+      "en_ca": "Unlike post",
+      "en_gb": "Unlike post",
+      "en_nz": "Unlike post",
+      "en_za": "Unlike post"
+    }
+  }
+}

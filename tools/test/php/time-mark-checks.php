@@ -52,6 +52,20 @@ try {
     $second = TimeMarks::vote($voter, $public);
     $check((int) $first->id === (int) $second->id, 'A viewer has one changeable vote.');
     $check(VideoTimeMarkVote::query()->where('video_time_mark_id', $public->id)->count() === 1, 'Repeat votes must not create a second row.');
+    $down = TimeMarks::vote($voter, $public, -1);
+    $check($down->id === $first->id, 'Changing direction updates the existing vote.');
+    $payload = TimeMarks::visible($video, $voter, $now)->firstWhere('id', $public->id);
+    $check($payload['viewer_vote'] === -1 && $payload['dislikes_count'] === 1 && $payload['likes_count'] === 0 && $payload['score'] === -1, 'Dislikes and the current viewer vote are explicit.');
+    $check(TimeMarks::vote($voter, $public, 0) === null, 'A vote can be removed.');
+    $check(VideoTimeMarkVote::where('video_time_mark_id', $public->id)->count() === 0, 'Removing the vote removes its row.');
+    foreach ([$private, $public] as $candidate) {
+        $rejected = false;
+        try { TimeMarks::vote($voter, $candidate, $candidate->isPublic() ? 5 : 1); } catch (ValidationException) { $rejected = true; }
+        $check($rejected, 'Private notes and invalid vote directions are rejected.');
+    }
+    $first = TimeMarks::vote($voter, $public, 1);
+    $payload = TimeMarks::visible($video, $owner, $now)->firstWhere('id', $public->id);
+    $check($payload['owned'] && $payload['viewer_vote'] === 0 && $payload['likes_count'] === 1, 'The owner sees counts without a self-vote.');
     $first->forceFill(['created_at' => $now->subDays(10), 'updated_at' => $now->subDays(10)])->save();
 
     $stale = VideoTimeMark::query()->create([
@@ -71,6 +85,14 @@ try {
     $seasonJson = json_encode(TimeMarks::ranked($video, 'season', $now), JSON_THROW_ON_ERROR);
     $check(str_contains($seasonJson, 'public mark') && ! str_contains($seasonJson, 'private note'), 'Ranking keeps public mark text and hides private notes.');
     $check(! collect(TimeMarks::ranked($video, 'week', $now))->pluck('id')->contains($stale->id), 'Stale public marks stay out of the weekly rank.');
+    $privateVideo = clone $video;
+    $privateVideo->visibility = 'private';
+    $request = Illuminate\Http\Request::create('/');
+    $request->setUserResolver(fn () => null);
+    $blocked = false;
+    try { app(App\Http\Controllers\Api\TimeMarkController::class)->index($request, $privateVideo); }
+    catch (Symfony\Component\HttpKernel\Exception\HttpException $error) { $blocked = $error->getStatusCode() === 404; }
+    $check($blocked, 'Time mark endpoints honor private video access.');
 } finally {
     DB::rollBack();
 }

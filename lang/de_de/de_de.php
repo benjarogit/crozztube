@@ -4928,4 +4928,13 @@ Anschließend erstellt die Verarbeitung die Videoauflösungen und bei Bedarf Vor
   'No transcript matches.' => 'Keine Treffer im Transkript.',
   'Mark as watched' => 'Als angesehen markieren',
   'Watch from start' => 'Von vorne ansehen',
+  'Your time mark' => 'Deine Zeitmarke',
+  'Video position' => 'Videoposition',
+  'Rate time mark' => 'Zeitmarke bewerten',
+  'Like time mark' => 'Zeitmarke gefällt mir',
+  'Dislike time mark' => 'Zeitmarke gefällt mir nicht',
+  'Only you can find this clip on CrozzTube. Anyone with its Odysee link can still watch it.' => 'Diesen Clip findest nur du auf CrozzTube. Wer den Odysee-Link hat, kann ihn trotzdem ansehen.',
+  'Your clip becomes public once Odysee confirms it is ready.' => 'Dein Clip wird öffentlich, sobald Odysee bestätigt, dass er bereit ist.',
+  'Like post' => 'Beitrag gefällt mir',
+  'Unlike post' => 'Gefällt mir für diesen Beitrag zurücknehmen',
 );

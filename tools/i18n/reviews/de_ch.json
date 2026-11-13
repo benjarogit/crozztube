@@ -137,6 +137,15 @@
             ],
             "reviewed_at": "2026-11-06T09:05:29+00:00"
         },
+        "0271a228724c3d32395720f815220c0ce8725948c8f7285f52719dff0104fd50": {
+            "source_hash": "0271a228724c3d32395720f815220c0ce8725948c8f7285f52719dff0104fd50",
+            "translation_hash": "6e5259610b23f951ee5ea998550474d7d01d05b7326379b225f509904d6d1f73",
+            "status": "editorial",
+            "contexts": [
+                "Viewer quality: Watch ratings, public/private copy, community action names."
+            ],
+            "reviewed_at": "2026-11-13T06:10:14+00:00"
+        },
         "027c6266590764e6faa0827638daf6539f47e7fddcfa2c06ed5d05d5266372eb": {
             "source_hash": "027c6266590764e6faa0827638daf6539f47e7fddcfa2c06ed5d05d5266372eb",
             "translation_hash": "8ef745ed52944437acdca5a5559f84ffcff48cb64673e5d154a82d48c2c33d3f",
@@ -685,6 +694,15 @@
                 "Whole German reference messages: confirmed broken mixed-language Creator/Playlist labels, footer, channel lists, private messages, playlist empty/loading/error states and API help. Canonical Creator and Playlist preserved; playback queue distinguished from a saved Playlist. Sample author descriptions/names excluded. Swiss ss and Austrian standard forms retained."
             ],
             "reviewed_at": "2026-11-06T11:36:42+00:00"
+        },
+        "0b310074a0422a97ec89a75eccfb95d706c23ea9ba9580393692f931dfdc3d7a": {
+            "source_hash": "0b310074a0422a97ec89a75eccfb95d706c23ea9ba9580393692f931dfdc3d7a",
+            "translation_hash": "bf3c00036ee6d625ad70721780c85892bc6403c978c4377eb18928aab88a8f49",
+            "status": "editorial",
+            "contexts": [
+                "Viewer quality: Watch ratings, public/private copy, community action names."
+            ],
+            "reviewed_at": "2026-11-13T06:10:14+00:00"
         },
         "0b5979965b1d80accf03ccf677e41ef9cc1e5fad3460038aeb5b9d88975d1ccb": {
             "source_hash": "0b5979965b1d80accf03ccf677e41ef9cc1e5fad3460038aeb5b9d88975d1ccb",
@@ -1271,6 +1289,15 @@
             ],
             "reviewed_at": "2026-11-06T11:21:04+00:00"
         },
+        "1713b87223e2655db7380d314e29ce050bbb83b57e5863f09492af6bf933e76f": {
+            "source_hash": "1713b87223e2655db7380d314e29ce050bbb83b57e5863f09492af6bf933e76f",
+            "translation_hash": "9e772df5aa1f237872bfc164f3f9daebe28f227742c33838b053337057c4b486",
+            "status": "editorial",
+            "contexts": [
+                "Viewer quality: Watch ratings, public/private copy, community action names."
+            ],
+            "reviewed_at": "2026-11-13T06:10:14+00:00"
+        },
         "17354598e8001c773ab5c6e31ea83a4a2da54195e862968af60d40edab8e5f75": {
             "source_hash": "17354598e8001c773ab5c6e31ea83a4a2da54195e862968af60d40edab8e5f75",
             "translation_hash": "579e4b67ad6eee81511d85f779c7419ab434f510477950e0886c75d21d4f990f",
@@ -1441,6 +1468,15 @@
                 "German whole-message rewrite of confirmed real UI mixed-language remnants in source inventory: search, library, account forms, communities, playlist selection, empty/loading/error states, Live discovery/admin ads. Current no longer mistaken for a live database, Live no longer a German imperative, clear-search correctly describes the action. Author sample text and unresolved dynamic fragments excluded; de-AT/de-CH regional spelling retained."
             ],
             "reviewed_at": "2026-11-06T12:18:04+00:00"
+        },
+        "1a67b3ff5197ee05297d47a89d02fd47bd76e7144e3628c004d02b0d0ee548d8": {
+            "source_hash": "1a67b3ff5197ee05297d47a89d02fd47bd76e7144e3628c004d02b0d0ee548d8",
+            "translation_hash": "0051627f05e08199ae4a7e4483019316c59abfc46754e4012735c3144cb16cbc",
+            "status": "editorial",
+            "contexts": [
+                "Viewer quality: Watch ratings, public/private copy, community action names."
+            ],
+            "reviewed_at": "2026-11-13T06:10:14+00:00"
         },
         "1aa7b0450795da316559ff7125be0683022459334b9199b8039f8a3f555d96bc": {
             "source_hash": "1aa7b0450795da316559ff7125be0683022459334b9199b8039f8a3f555d96bc",
@@ -5156,6 +5192,15 @@
             ],
             "reviewed_at": "2026-11-06T11:36:42+00:00"
         },
+        "5b4f046d018856ad0bf1c49b87c9accc0aa34f37a14296987635de894bd413a8": {
+            "source_hash": "5b4f046d018856ad0bf1c49b87c9accc0aa34f37a14296987635de894bd413a8",
+            "translation_hash": "c38d2193398f76afbff010ed93add8d3d961c7aefa14913d4341557030087637",
+            "status": "editorial",
+            "contexts": [
+                "Viewer quality: Watch ratings, public/private copy, community action names."
+            ],
+            "reviewed_at": "2026-11-13T06:10:14+00:00"
+        },
         "5b97d44a4dc9f6371af0eb289e2f857990d49f40f7d3c3b5f7a76a80582f57b5": {
             "source_hash": "5b97d44a4dc9f6371af0eb289e2f857990d49f40f7d3c3b5f7a76a80582f57b5",
             "translation_hash": "426e6f65d778349ce55f1b67295a73cb7b558e04ccde1b16aa458850586ca8ec",
@@ -5481,6 +5526,15 @@
                 "Whole German reference messages: confirmed broken mixed-language Creator/Playlist labels, footer, channel lists, private messages, playlist empty/loading/error states and API help. Canonical Creator and Playlist preserved; playback queue distinguished from a saved Playlist. Sample author descriptions/names excluded. Swiss ss and Austrian standard forms retained."
             ],
             "reviewed_at": "2026-11-06T11:36:42+00:00"
+        },
+        "61e8cc6332f95390cd6ed27f42c258d04921e4d7d9817af179217864edf1e809": {
+            "source_hash": "61e8cc6332f95390cd6ed27f42c258d04921e4d7d9817af179217864edf1e809",
+            "translation_hash": "0d3e305536984f0e0f323718b569461a25c17264ac60c6bbbbcbcafeb44da1dd",
+            "status": "editorial",
+            "contexts": [
+                "Viewer quality: Watch ratings, public/private copy, community action names."
+            ],
+            "reviewed_at": "2026-11-13T06:10:14+00:00"
         },
         "622ccbda6d1d586391b9bc2109ead2dc7a321f8bfe8bb1718de93c96bc0a545d": {
             "source_hash": "622ccbda6d1d586391b9bc2109ead2dc7a321f8bfe8bb1718de93c96bc0a545d",
@@ -6030,6 +6084,15 @@
                 "Whole German reference messages: confirmed broken mixed-language Creator/Playlist labels, footer, channel lists, private messages, playlist empty/loading/error states and API help. Canonical Creator and Playlist preserved; playback queue distinguished from a saved Playlist. Sample author descriptions/names excluded. Swiss ss and Austrian standard forms retained."
             ],
             "reviewed_at": "2026-11-06T11:36:42+00:00"
+        },
+        "6b51363be800dbd54985558020777674d35a6cef10e70529a57ad2fdaff347de": {
+            "source_hash": "6b51363be800dbd54985558020777674d35a6cef10e70529a57ad2fdaff347de",
+            "translation_hash": "ec03f4fda2035ff2bdd24b1b8f0d86cbdfdab0b6b7922044421ccad7a0520d76",
+            "status": "editorial",
+            "contexts": [
+                "Viewer quality: Watch ratings, public/private copy, community action names."
+            ],
+            "reviewed_at": "2026-11-13T06:10:14+00:00"
         },
         "6b73191a0a4b67420e61d51c9f207c35277eaf18fbbf5beb52a320a23fe09653": {
             "source_hash": "6b73191a0a4b67420e61d51c9f207c35277eaf18fbbf5beb52a320a23fe09653",
@@ -9546,6 +9609,15 @@
             ],
             "reviewed_at": "2026-11-06T09:18:00+00:00"
         },
+        "a90a08ab6d150ada22b7aa90b926120105c5a6ed2e99837b3ecb16a3faa8b574": {
+            "source_hash": "a90a08ab6d150ada22b7aa90b926120105c5a6ed2e99837b3ecb16a3faa8b574",
+            "translation_hash": "6938bdf42a444a0b3ab24e72fbcac9178533030dee174da3335c81d444fd37c4",
+            "status": "editorial",
+            "contexts": [
+                "Viewer quality: Watch ratings, public/private copy, community action names."
+            ],
+            "reviewed_at": "2026-11-13T06:10:14+00:00"
+        },
         "a99fc2459f90e6160b25fa337ffea952863a06774cf55b76041afbe6ae07399d": {
             "source_hash": "a99fc2459f90e6160b25fa337ffea952863a06774cf55b76041afbe6ae07399d",
             "translation_hash": "2d81265c2b19b3b0fd69df8eb4edde32cfa69c5a1c2d0508625292b66ff87d6b",
@@ -13056,6 +13128,15 @@
                 "Second complete German/Austrian/Swiss reading against corrected English reference: personal comments/library messages, test-account administration, support/reporting/analytics labels, live connection and ad placement settings. Existing translations remain semantically correct; this refreshes reference hashes after English wording changes. Runtime/context verification remains separate."
             ],
             "reviewed_at": "2026-11-06T12:27:03+00:00"
+        },
+        "e4ae9228396782482547de982b24e19e360a548b519aa6d4d6995155745e514e": {
+            "source_hash": "e4ae9228396782482547de982b24e19e360a548b519aa6d4d6995155745e514e",
+            "translation_hash": "c6bf0556bd494a15f1c422a80693f87d9406622d26901b117034dd98f6f3299c",
+            "status": "editorial",
+            "contexts": [
+                "Viewer quality: Watch ratings, public/private copy, community action names."
+            ],
+            "reviewed_at": "2026-11-13T06:10:14+00:00"
         },
         "e4e9319ad435f7caefd74df62eea4ad295fd3f120f8e887678402872d34712c5": {
             "source_hash": "9c5551f0b522f65f5c5d97dde140455f952d809b028373745e7ad116936b9ea3",

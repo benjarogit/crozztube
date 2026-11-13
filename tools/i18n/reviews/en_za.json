@@ -380,6 +380,15 @@
             ],
             "reviewed_at": "2026-11-06T10:57:45+00:00"
         },
+        "0271a228724c3d32395720f815220c0ce8725948c8f7285f52719dff0104fd50": {
+            "source_hash": "0271a228724c3d32395720f815220c0ce8725948c8f7285f52719dff0104fd50",
+            "translation_hash": "0271a228724c3d32395720f815220c0ce8725948c8f7285f52719dff0104fd50",
+            "status": "editorial",
+            "contexts": [
+                "Viewer quality: Watch ratings, public/private copy, community action names."
+            ],
+            "reviewed_at": "2026-11-13T06:10:15+00:00"
+        },
         "027c6266590764e6faa0827638daf6539f47e7fddcfa2c06ed5d05d5266372eb": {
             "source_hash": "027c6266590764e6faa0827638daf6539f47e7fddcfa2c06ed5d05d5266372eb",
             "translation_hash": "027c6266590764e6faa0827638daf6539f47e7fddcfa2c06ed5d05d5266372eb",
@@ -1612,6 +1621,15 @@
                 "English reference editorial pass: moderation/monetization, static category labels, public help/FAQ/contact/refund guidance, API/developer metadata. User-facing help avoids database/popup jargon; legal/refund conditions preserved. CSS, identifiers, sample statistics and sample creator title excluded from copy review."
             ],
             "reviewed_at": "2026-11-06T10:21:26+00:00"
+        },
+        "0b310074a0422a97ec89a75eccfb95d706c23ea9ba9580393692f931dfdc3d7a": {
+            "source_hash": "0b310074a0422a97ec89a75eccfb95d706c23ea9ba9580393692f931dfdc3d7a",
+            "translation_hash": "0b310074a0422a97ec89a75eccfb95d706c23ea9ba9580393692f931dfdc3d7a",
+            "status": "editorial",
+            "contexts": [
+                "Viewer quality: Watch ratings, public/private copy, community action names."
+            ],
+            "reviewed_at": "2026-11-13T06:10:15+00:00"
         },
         "0b5979965b1d80accf03ccf677e41ef9cc1e5fad3460038aeb5b9d88975d1ccb": {
             "source_hash": "0b5979965b1d80accf03ccf677e41ef9cc1e5fad3460038aeb5b9d88975d1ccb",
@@ -3062,6 +3080,15 @@
             ],
             "reviewed_at": "2026-11-06T11:32:47+00:00"
         },
+        "1713b87223e2655db7380d314e29ce050bbb83b57e5863f09492af6bf933e76f": {
+            "source_hash": "1713b87223e2655db7380d314e29ce050bbb83b57e5863f09492af6bf933e76f",
+            "translation_hash": "1713b87223e2655db7380d314e29ce050bbb83b57e5863f09492af6bf933e76f",
+            "status": "editorial",
+            "contexts": [
+                "Viewer quality: Watch ratings, public/private copy, community action names."
+            ],
+            "reviewed_at": "2026-11-13T06:10:15+00:00"
+        },
         "1733047928a2f87f2b8b96b30c571b5885cfb9abf9dd902dad41457a90e952e1": {
             "source_hash": "1733047928a2f87f2b8b96b30c571b5885cfb9abf9dd902dad41457a90e952e1",
             "translation_hash": "1733047928a2f87f2b8b96b30c571b5885cfb9abf9dd902dad41457a90e952e1",
@@ -3529,6 +3556,15 @@
                 "English reference editorial pass for community/bookmarks, livestream setup/readiness, theme/design settings, support tickets, LiveKit/RTMP/WebRTC/TURN configuration, certificates, Docker status and scheduler administration. Technical parameters retained where administrators need them. Obsolete promises about future broadcasting replaced with present configuration requirements; names/examples/time quantities/fragments excluded."
             ],
             "reviewed_at": "2026-11-06T11:31:07+00:00"
+        },
+        "1a67b3ff5197ee05297d47a89d02fd47bd76e7144e3628c004d02b0d0ee548d8": {
+            "source_hash": "1a67b3ff5197ee05297d47a89d02fd47bd76e7144e3628c004d02b0d0ee548d8",
+            "translation_hash": "1a67b3ff5197ee05297d47a89d02fd47bd76e7144e3628c004d02b0d0ee548d8",
+            "status": "editorial",
+            "contexts": [
+                "Viewer quality: Watch ratings, public/private copy, community action names."
+            ],
+            "reviewed_at": "2026-11-13T06:10:15+00:00"
         },
         "1a68212aa6dbe172660ebaedde54212c95f39ed5ae5442ce29d6c618277629d4": {
             "source_hash": "1a68212aa6dbe172660ebaedde54212c95f39ed5ae5442ce29d6c618277629d4",
@@ -12669,6 +12705,15 @@
             ],
             "reviewed_at": "2026-11-06T11:28:45+00:00"
         },
+        "5b4f046d018856ad0bf1c49b87c9accc0aa34f37a14296987635de894bd413a8": {
+            "source_hash": "5b4f046d018856ad0bf1c49b87c9accc0aa34f37a14296987635de894bd413a8",
+            "translation_hash": "5b4f046d018856ad0bf1c49b87c9accc0aa34f37a14296987635de894bd413a8",
+            "status": "editorial",
+            "contexts": [
+                "Viewer quality: Watch ratings, public/private copy, community action names."
+            ],
+            "reviewed_at": "2026-11-13T06:10:15+00:00"
+        },
         "5b59b3c87e780496078d71c53d39409ac6a7c61583f65cfdde282084231b0c22": {
             "source_hash": "5b59b3c87e780496078d71c53d39409ac6a7c61583f65cfdde282084231b0c22",
             "translation_hash": "5b59b3c87e780496078d71c53d39409ac6a7c61583f65cfdde282084231b0c22",
@@ -13604,6 +13649,15 @@
                 "English reference editorial pass: navigation, channel/profile actions, upload/import status, chat, community, moderation, live discovery, library, account controls and admin settings. Obsolete developer-facing upload wording and unsupported audience-size claims corrected; names, sample content, protocol identifiers and unresolved sentence fragments excluded."
             ],
             "reviewed_at": "2026-11-06T11:17:03+00:00"
+        },
+        "61e8cc6332f95390cd6ed27f42c258d04921e4d7d9817af179217864edf1e809": {
+            "source_hash": "61e8cc6332f95390cd6ed27f42c258d04921e4d7d9817af179217864edf1e809",
+            "translation_hash": "61e8cc6332f95390cd6ed27f42c258d04921e4d7d9817af179217864edf1e809",
+            "status": "editorial",
+            "contexts": [
+                "Viewer quality: Watch ratings, public/private copy, community action names."
+            ],
+            "reviewed_at": "2026-11-13T06:10:15+00:00"
         },
         "61e987f9b4dfc555e88fc11e089abf9d47d72e31a8a3067abcf42def0332b72a": {
             "source_hash": "61e987f9b4dfc555e88fc11e089abf9d47d72e31a8a3067abcf42def0332b72a",
@@ -15188,6 +15242,15 @@
                 "English editorial reference for account recovery/verification, social sign-in, category/role/permission management, wallet/monetization, theme, mass import, user privacy/moderation, device sessions and livestream setup. Technical connection labels remain useful in admin/studio; procedural copy clarified. Proper names, UI style tokens and quantity fragments excluded."
             ],
             "reviewed_at": "2026-11-06T11:28:45+00:00"
+        },
+        "6b51363be800dbd54985558020777674d35a6cef10e70529a57ad2fdaff347de": {
+            "source_hash": "6b51363be800dbd54985558020777674d35a6cef10e70529a57ad2fdaff347de",
+            "translation_hash": "6b51363be800dbd54985558020777674d35a6cef10e70529a57ad2fdaff347de",
+            "status": "editorial",
+            "contexts": [
+                "Viewer quality: Watch ratings, public/private copy, community action names."
+            ],
+            "reviewed_at": "2026-11-13T06:10:15+00:00"
         },
         "6b62bcc79bd73935ac67cd5a4c6e9bf9132dbab33a8cbd05946e7394334c311c": {
             "source_hash": "6b62bcc79bd73935ac67cd5a4c6e9bf9132dbab33a8cbd05946e7394334c311c",
@@ -24307,6 +24370,15 @@
             ],
             "reviewed_at": "2026-11-06T10:57:47+00:00"
         },
+        "a90a08ab6d150ada22b7aa90b926120105c5a6ed2e99837b3ecb16a3faa8b574": {
+            "source_hash": "a90a08ab6d150ada22b7aa90b926120105c5a6ed2e99837b3ecb16a3faa8b574",
+            "translation_hash": "a90a08ab6d150ada22b7aa90b926120105c5a6ed2e99837b3ecb16a3faa8b574",
+            "status": "editorial",
+            "contexts": [
+                "Viewer quality: Watch ratings, public/private copy, community action names."
+            ],
+            "reviewed_at": "2026-11-13T06:10:15+00:00"
+        },
         "a92ba57bb31ca0f1475ff30d303a987ea8fb2d12f0d4bcddf257190a63e786ff": {
             "source_hash": "605f74198f65457f01fed215114dc165659c99401f50c7d5a0479bc277c1cad2",
             "translation_hash": "605f74198f65457f01fed215114dc165659c99401f50c7d5a0479bc277c1cad2",
@@ -33010,6 +33082,15 @@
                 "English reference editorial pass for community/bookmarks, livestream setup/readiness, theme/design settings, support tickets, LiveKit/RTMP/WebRTC/TURN configuration, certificates, Docker status and scheduler administration. Technical parameters retained where administrators need them. Obsolete promises about future broadcasting replaced with present configuration requirements; names/examples/time quantities/fragments excluded."
             ],
             "reviewed_at": "2026-11-06T11:31:07+00:00"
+        },
+        "e4ae9228396782482547de982b24e19e360a548b519aa6d4d6995155745e514e": {
+            "source_hash": "e4ae9228396782482547de982b24e19e360a548b519aa6d4d6995155745e514e",
+            "translation_hash": "e4ae9228396782482547de982b24e19e360a548b519aa6d4d6995155745e514e",
+            "status": "editorial",
+            "contexts": [
+                "Viewer quality: Watch ratings, public/private copy, community action names."
+            ],
+            "reviewed_at": "2026-11-13T06:10:15+00:00"
         },
         "e4b445bdcf380d7c2c0c56c158b5d14574f6e4ed3f6396c74014a26effad4676": {
             "source_hash": "e4b445bdcf380d7c2c0c56c158b5d14574f6e4ed3f6396c74014a26effad4676",

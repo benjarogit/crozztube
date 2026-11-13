@@ -583,10 +583,11 @@ export default function ClipComposer({
         <label><span>{t('Clip title')}</span>
           <input data-i18n-skip value={form.title} maxLength={200} required disabled={busy} onChange={event => setForm(current => ({ ...current, title: event.target.value }))}/></label>
         <label><span>{t('Visibility')}</span>
-          <select value={form.visibility} disabled={busy} onChange={event => setForm(current => ({ ...current, visibility: event.target.value }))}>
+          <select aria-describedby="clip-visibility-help" value={form.visibility} disabled={busy} onChange={event => setForm(current => ({ ...current, visibility: event.target.value }))}>
             <option value="private">{t('Private')}</option>
             <option value="public">{t('Public')}</option>
           </select></label>
+        <p id="clip-visibility-help" className="clip-visibility-help">{t(form.visibility === 'private' ? 'Only you can find this clip on CrozzTube. Anyone with its Odysee link can still watch it.' : 'Your clip becomes public once Odysee confirms it is ready.')}</p>
         {busy && <div className="clip-composer-progress" role="status" aria-live="polite">
           <progress max="100" value={phase === 'encoding' ? progress : undefined}/>
           <span>{t(phase === 'encoding' ? 'Preparing clip in your browser… {progress}%'

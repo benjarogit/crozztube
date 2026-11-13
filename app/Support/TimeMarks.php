@@ -34,7 +34,7 @@ final class TimeMarks
         ]);
     }
 
-    public static function vote(User $user, VideoTimeMark $mark): VideoTimeMarkVote
+    public static function vote(User $user, VideoTimeMark $mark, int $value = 1): ?VideoTimeMarkVote
     {
         if ((int) $mark->user_id === (int) $user->id) {
             throw ValidationException::withMessages(['vote' => 'You cannot vote on your own time mark.']);
@@ -43,9 +43,17 @@ final class TimeMarks
             throw ValidationException::withMessages(['vote' => 'Private notes cannot be voted on.']);
         }
 
+        if (! in_array($value, [-1, 0, 1], true)) {
+            throw ValidationException::withMessages(['value' => 'Choose a valid vote.']);
+        }
+        if ($value === 0) {
+            VideoTimeMarkVote::query()->where('video_time_mark_id', $mark->id)->where('user_id', $user->id)->delete();
+            return null;
+        }
+
         return VideoTimeMarkVote::query()->updateOrCreate(
             ['video_time_mark_id' => $mark->id, 'user_id' => $user->id],
-            []
+            ['value' => $value]
         );
     }
 
@@ -53,6 +61,10 @@ final class TimeMarks
     {
         return VideoTimeMark::query()
             ->withCount('votes')
+            ->withCount(['votes as likes_count' => fn ($query) => $query->where('value', 1)])
+            ->withCount(['votes as dislikes_count' => fn ($query) => $query->where('value', -1)])
+            ->withSum('votes as score', 'value')
+            ->when($viewer, fn ($query) => $query->with(['votes' => fn ($vote) => $vote->where('user_id', $viewer->id)]))
             ->when($viewer, fn ($query) => $query->withExists([
                 'votes as voted' => fn ($vote) => $vote->where('user_id', $viewer->id),
             ]))
@@ -93,16 +105,19 @@ final class TimeMarks
 
         return self::overlay($video, $now)
             ->map(function (VideoTimeMark $mark) use ($since): array {
-                $votes = $mark->votes->filter(fn (VideoTimeMarkVote $vote): bool => $vote->created_at !== null && $vote->created_at->greaterThanOrEqualTo($since))->count();
+                $recent = $mark->votes->filter(fn (VideoTimeMarkVote $vote): bool => $vote->updated_at !== null && $vote->updated_at->greaterThanOrEqualTo($since));
+                $votes = $recent->sum('value');
 
                 return [
                     'id' => $mark->id,
                     'start_seconds' => $mark->start_seconds,
                     'body' => $mark->body,
                     'votes' => $votes,
+                    'likes_count' => $recent->where('value', 1)->count(),
+                    'dislikes_count' => $recent->where('value', -1)->count(),
                 ];
             })
-            ->sortByDesc('votes')
+            ->sortBy([['votes', 'desc'], ['likes_count', 'desc'], ['id', 'desc']])
             ->values();
     }
 
@@ -134,6 +149,10 @@ final class TimeMarks
             'owned' => $viewer !== null && (int) $viewer->id === (int) $mark->user_id,
             'votes_count' => (int) ($mark->votes_count ?? 0),
             'voted' => (bool) ($mark->voted ?? false),
+            'viewer_vote' => (int) ($viewer ? $mark->votes->firstWhere('user_id', $viewer->id)?->value : 0),
+            'likes_count' => (int) $mark->likes_count,
+            'dislikes_count' => (int) $mark->dislikes_count,
+            'score' => (int) $mark->score,
         ];
     }
 

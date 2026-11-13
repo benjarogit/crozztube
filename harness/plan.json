@@ -151,6 +151,13 @@
         "Serienstruktur erweitert bestehende Playlists",
         "Folgeninformationen bleiben im Serienkontext",
         "Nächste Folge wahrt Zugang, Autoplay und Vorrang der persönlichen Queue"
+      ],
+      "checkpointChecks": [
+        "harness-tests",
+        "viewer-ui-quality",
+        "time-mark-quality",
+        "viewer-quality-copy",
+        "staged-safety"
       ]
     },
     {
@@ -499,6 +506,27 @@
         "--workers=1"
       ],
       "timeoutMs": 180000
+    },
+    "viewer-ui-quality": {
+      "argv": [
+        "node",
+        "tools/test/ui/viewer-quality.mjs"
+      ],
+      "timeoutMs": 360000
+    },
+    "time-mark-quality": {
+      "argv": [
+        "bash",
+        "tools/test/step-04-time-marks.sh"
+      ],
+      "timeoutMs": 120000
+    },
+    "viewer-quality-copy": {
+      "argv": [
+        "php",
+        "tools/test/php/viewer-quality-copy-checks.php"
+      ],
+      "timeoutMs": 30000
     }
   },
   "defaults": {

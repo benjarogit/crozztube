@@ -184,7 +184,7 @@
   // -------------------------------------------------------------------- UI
 
   function actionBar() {
-    return document.querySelector('.watch-toolbar .action-bar');
+    return document.querySelector('.watch-source-actions') || (document.querySelector('.watch-toolbar[data-source-menu]') ? null : document.querySelector('.watch-toolbar .action-bar'));
   }
 
   function playerStage() {
@@ -202,7 +202,7 @@
   function renderButton(status) {
     const mirror = status?.mirror;
     const bar = actionBar();
-    if (!bar) return;
+    if (!bar) { removeButton(); return; }
 
     if (!mirror || !mirror.mode || !httpUrl(mirror.mode === 'link' ? mirror.external_url : mirror.embed_url)) {
       removeButton();
@@ -217,10 +217,12 @@
       bar.insertBefore(slot, anchor || null);
     }
     slot.innerHTML = '';
+    const inMenu = bar.classList.contains('watch-source-actions');
 
     if (mirror.mode === 'link') {
       const link = document.createElement('a');
-      link.className = 'action-pill crz-mirror-link';
+      link.className = `${inMenu ? 'video-detail-action-item' : 'action-pill'} crz-mirror-link`;
+      if (inMenu) link.setAttribute('role', 'menuitem');
       link.href = httpUrl(mirror.external_url);
       link.target = '_blank';
       link.rel = 'noopener noreferrer';
@@ -232,14 +234,17 @@
 
     const button = document.createElement('button');
     button.type = 'button';
-    button.className = 'action-pill crz-mirror-toggle';
-    button.setAttribute('aria-pressed', state.wantMirror ? 'true' : 'false');
+    button.className = `${inMenu ? 'video-detail-action-item' : 'action-pill'} crz-mirror-toggle`;
+    if (inMenu) button.setAttribute('role', 'menuitemcheckbox');
+    button.setAttribute(button.getAttribute('role') === 'menuitemcheckbox' ? 'aria-checked' : 'aria-pressed', state.wantMirror ? 'true' : 'false');
     button.classList.toggle('is-active', state.wantMirror);
     button.title = `Show the original source (${mirror.label || mirror.provider})`;
     button.innerHTML = `${mirrorIcon()}<span>Mirror</span>`;
     button.addEventListener('click', () => toggleMirror(!state.wantMirror));
     slot.appendChild(button);
   }
+
+  window.addEventListener('crozztube:watch-actions', () => renderButton(state.status));
 
   function syncButtonState() {
     const button = document.querySelector('.crz-mirror-toggle');
@@ -566,7 +571,7 @@
 
     // Wait for the video response to mount its player/placeholder before testing
     // whether a fresh source needs to replace an earlier pending response.
-    if (!playerStage() || !actionBar()) return;
+    if (!playerStage() || !document.querySelector('.watch-toolbar .action-bar')) return;
 
     // Keep the player state consistent if React re-rendered the stage.
     if (state.wantMirror && state.status?.mirror?.mode === 'iframe' && !document.querySelector('.crz-mirror-layer')) {

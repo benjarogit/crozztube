@@ -10,6 +10,7 @@ class VideoTimeMarkVote extends Model
     protected $fillable = [
         'video_time_mark_id',
         'user_id',
+        'value',
     ];
 
     public function mark(): BelongsTo
