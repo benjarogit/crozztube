@@ -1079,8 +1079,8 @@ class AuthController extends Controller
             'language' => trim((string) data_get($incoming, 'playback.language', data_get($current, 'playback.language', 'English'))),
         ];
         $settings['appearance'] = [
-            'themeMode' => data_get($incoming, 'appearance.themeMode', data_get($current, 'appearance.themeMode', 'light')),
-            'accent' => data_get($incoming, 'appearance.accent', data_get($current, 'appearance.accent', 'obsidianGold')),
+            'themeMode' => data_get($incoming, 'appearance.themeMode', data_get($current, 'appearance.themeMode', 'system')),
+            'accent' => data_get($incoming, 'appearance.accent', data_get($current, 'appearance.accent', 'platform')),
         ];
         $settings['membership'] = MediaStorage::normalizeMembership(data_get($incoming, 'membership', data_get($current, 'membership', MediaStorage::defaultMembership())));
 

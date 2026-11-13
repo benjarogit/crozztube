@@ -27,6 +27,41 @@ const ratio = (fg, bg) => {
   const a=lum(fg),b=lum(bg);return (Math.max(a,b)+.05)/(Math.min(a,b)+.05);
 };
 try {
+  // Fresh visitors follow the OS; old automatically written gold must not
+  // override the platform. An explicit device choice still wins after reload.
+  for (const initialDark of [false, true]) {
+    let savedAccent = null;
+    const session = await layoutSession(browser, { authenticated:true, dark:initialDark, strictHttps:true,
+      transform:(path,data)=>path.startsWith('/api/auth/me') ? {...data,user:{...data.user,settings:{...data.user.settings,appearance:{...data.user.settings?.appearance,accent:savedAccent}}}} : data });
+    const { page, context } = session;
+    await context.addInitScript(() => {
+      if (!sessionStorage.getItem('quality-theme-started')) {
+        localStorage.removeItem('playhub_theme_preference');
+        localStorage.removeItem('playhub_theme');
+        localStorage.setItem('playhub_accent','obsidianGold');
+        sessionStorage.setItem('quality-theme-started','true');
+      }
+    });
+    try {
+      await session.goto('/');
+      await expect(page.getByRole('button',{name:'Open account menu',exact:true})).toBeVisible();
+      await expect.poll(()=>page.evaluate(()=>document.documentElement.dataset.theme)).toBe(initialDark?'dark':'light'); checks++;
+      await expect.poll(()=>page.evaluate(()=>getComputedStyle(document.documentElement).getPropertyValue('--primary').trim())).toBe(initialDark?'#01579b':'#1a73b8'); checks++;
+      await page.emulateMedia({colorScheme:initialDark?'light':'dark'});
+      await expect.poll(()=>page.evaluate(()=>document.documentElement.dataset.theme)).toBe(initialDark?'light':'dark'); checks++;
+      await expect.poll(()=>page.evaluate(()=>getComputedStyle(document.documentElement).getPropertyValue('--primary').trim())).toBe(initialDark?'#1a73b8':'#01579b'); checks++;
+      await page.getByRole('button',{name:'Open account menu',exact:true}).click();
+      await page.locator('.topbar-account-appearance').getByRole('button',{name:'Light',exact:true}).click();
+      await page.emulateMedia({colorScheme:'dark'});
+      await expect.poll(()=>page.evaluate(()=>document.documentElement.dataset.theme)).toBe('light'); checks++;
+      await page.reload();
+      await expect.poll(()=>page.evaluate(()=>document.documentElement.dataset.theme)).toBe('light'); checks++;
+      savedAccent = 'obsidianGold';
+      await page.reload();
+      await expect.poll(()=>page.evaluate(()=>getComputedStyle(document.documentElement).getPropertyValue('--primary').trim())).toBe('#d4b477'); checks++;
+      assert(session.writes.length===0,'theme preview never writes account data');
+    } finally { await context.close(); }
+  }
   for (const dark of [false, true]) for (const role of ['guest','viewer','owner']) {
     const authenticated = role !== 'guest';
     const session = await layoutSession(browser, { authenticated, dark, width: 1440, strictHttps: true,
@@ -48,7 +83,7 @@ try {
       const player=page.locator('.watch-vidstack-player');await expect(player).toBeVisible();await player.evaluate(e=>e.dataset.qualityPlayer='preserved');
       const draft=page.locator('.watch-comments-card .comment-composer-field > input').first();if(authenticated) {
         await draft.fill('Unveröffentlichter Kommentar bleibt erhalten');
-        const fieldTheme = await draft.evaluate(e=>({background:getComputedStyle(e.parentElement).backgroundColor,expected:getComputedStyle(document.documentElement).getPropertyValue(document.documentElement.dataset.theme==='dark'?'--panel-2':'--panel').trim(),outline:getComputedStyle(e.parentElement).outlineStyle}));
+        const fieldTheme = await draft.evaluate(e=>({background:getComputedStyle(e.parentElement).backgroundColor,expected:getComputedStyle(document.documentElement).getPropertyValue('--input-bg').trim(),outline:getComputedStyle(e.parentElement).outlineStyle}));
         const channels=fieldTheme.expected.replace('#','').match(/../g).map(x=>parseInt(x,16));
         expect(fieldTheme.background).toBe('rgb('+channels.join(', ')+')');
         expect(fieldTheme.outline).toBe('solid'); checks+=2;
@@ -83,6 +118,23 @@ try {
         await page.setViewportSize({width:1440,height:900});await session.goto('/admin/roles-permissions');
         const tab=page.locator('.admin-tabs button.active').first();await expect(tab).toBeVisible();
         const colors=await tab.evaluate(e=>({fg:getComputedStyle(e).color,bg:getComputedStyle(e.closest('.admin-card')).backgroundColor}));assert(ratio(colors.fg,colors.bg)>=4.5,'admin tab text contrast');
+        await session.goto('/admin/system-settings?section=storage');
+        const field=page.locator('#setting-storage-controls input[type="number"]').first();await expect(field).toBeVisible();await field.focus();
+        const focus=await field.evaluate(e=>{const s=getComputedStyle(e.parentElement);return {outline:s.outlineColor,background:s.backgroundColor};});assert(ratio(focus.outline,focus.background)>=3,'admin field focus contrast');
+        await page.locator('#setting-storage-controls .adaptive-select__control').first().click();
+        const option=page.getByRole('option',{selected:true}).first();await expect(option).toBeVisible();
+        const optionPair=await option.evaluate(e=>({fg:getComputedStyle(e).color,bg:getComputedStyle(e).backgroundColor}));assert(ratio(optionPair.fg,optionPair.bg)>=4.5,'selected dropdown option contrast');
+        await page.keyboard.press('Escape');
+        await context.route('**/api/admin/storage-settings/test',r=>r.fulfill({json:{message:'Storage connection successful.'}}));
+        await page.locator('#setting-storage-controls').getByRole('button',{name:/test connection/i}).click();
+        const ok=page.getByRole('button',{name:'OK',exact:true});await expect(ok).toBeVisible();await expect(page.locator('.admin-alert-dialog')).toHaveCSS('opacity','1');
+        for(const hovered of [false,true]) {if(hovered)await ok.hover();const pair=await ok.evaluate(e=>({fg:getComputedStyle(e).color,bg:getComputedStyle(e).backgroundColor}));assert(ratio(pair.fg,pair.bg)>=4.5,'admin dialog action contrast');}
+        await page.screenshot({path:artifacts+'/admin-dialog-'+(dark?'dark':'light')+'.png'});
+        for(const width of [390,924,1440]) {await page.setViewportSize({width,height:900});await expectContained(page,'admin dialog '+width);checks++;}
+        await ok.click();
+        await session.goto('/settings');
+        const settingsField=page.locator('.settings-field input').first();await expect(settingsField).toBeVisible();await settingsField.focus();
+        const pair=await settingsField.evaluate(e=>({fg:getComputedStyle(e).color,bg:getComputedStyle(e).backgroundColor,outline:getComputedStyle(e).outlineColor}));assert(ratio(pair.fg,pair.bg)>=4.5,'account input text contrast');assert(ratio(pair.outline,pair.bg)>=3,'account input focus contrast');
         await session.goto('/'); const card = page.locator('.continue-card').first(); await expect(card).toBeVisible(); const cardSummary = card.locator('summary'); await cardSummary.click(); await expect(card.getByRole('button',{name:'Remove',exact:true})).toBeVisible(); await page.keyboard.press('Escape'); await expect(cardSummary).toBeFocused(); await expect(card.locator('details')).not.toHaveAttribute('open',''); checks+=4;
         await session.goto('/upload');await expect(page.getByRole('textbox',{name:/^Title/})).toBeVisible();await expect(page.getByRole('textbox',{name:/^Description/})).toBeVisible();checks+=2;
         await session.goto('/communities');await expect(page.locator('.communities-sort')).not.toHaveText(/Latest.*Latest/);await expect(page.locator('.community-post-actions button').first()).toHaveAccessibleName(/post/);checks+=2;

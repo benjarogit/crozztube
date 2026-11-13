@@ -104,7 +104,9 @@
         (function () {
             var website = @json($publicWebsiteSettings);
             var plugins = @json($publicPlugins);
-            var saved = localStorage.getItem('playhub_theme') || 'light';
+            var preference = website.defaultThemeMode || 'system';
+            try { preference = localStorage.getItem('playhub_theme_preference') || localStorage.getItem('playhub_theme') || preference; } catch (error) {}
+            var saved = preference === 'system' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : preference;
             var recoverAssets = function () {
                 var key = 'playhub_asset_recovery';
                 var now = Date.now();

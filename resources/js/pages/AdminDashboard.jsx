@@ -88,6 +88,7 @@ const storageMembershipOptions = [['starter', 'Starter'], ['plus', 'Plus'], ['pr
 const storageMembershipQuotaDefaults = { starter: 10, plus: 50, premium: 250, pro: 1024 };
 const storageMembershipPriceDefaults = { starter: 0, plus: 9, premium: 19, pro: 49, vip: 99 };
 const adminAccentPalettes = [
+  ['platform', { label: 'Default', primary: '#1a73b8', primary2: '#165f99', softLight: '#e2edf7' }],
   ['violet', { primary: '#635bff', primary2: '#4f46e5', softLight: '#ebe9ff' }],
   ['indigo', { primary: '#6366f1', primary2: '#4338ca', softLight: '#e0e7ff' }],
   ['blue', { primary: '#2f80ed', primary2: '#1d4ed8', softLight: '#e7f0ff' }],
@@ -2702,7 +2703,7 @@ function WebsiteConfigurationPage({ data = {}, api = null, onRefresh = null, ale
   const faviconUrl = form.faviconUrl || '';
   const authPreview = form.authPreview || {};
   const authPreviewFeatures = [authPreview.feature1, authPreview.feature2, authPreview.feature3, authPreview.feature4].map((value) => value || '').join('\n');
-  const defaultThemeMode = ['light', 'dark', 'system'].includes(form.defaultThemeMode) ? form.defaultThemeMode : 'light';
+  const defaultThemeMode = ['light', 'dark', 'system'].includes(form.defaultThemeMode) ? form.defaultThemeMode : 'system';
   const loadingDisplay = form.loadingDisplay === 'bar' ? 'bar' : 'instant';
   const defaultAccentKey = adminAccentPalettes.find(([, palette]) => String(form.defaultPrimaryColor || '').trim().toLowerCase() === palette.primary)?.[0] || '';
   const chooseDefaultAccent = (key) => {

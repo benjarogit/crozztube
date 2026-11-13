@@ -23,7 +23,7 @@
   flex-direction: column;
   overflow: hidden;
   border-inline-end: 1px solid var(--surface-edge, var(--line));
-  background: var(--panel);
+  background: var(--navigation);
   transform: translateX(0);
   visibility: visible;
   transition: transform 180ms ease-out, visibility 180ms;

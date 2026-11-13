@@ -36,7 +36,7 @@ import { seekWithoutStopping } from './components/transcript-document.js';
 import ImportMetadataSummary from './components/ImportMetadataSummary.jsx';
 import LocalizedCount from './components/LocalizedCount.jsx';
 import { continueWatchingState } from './viewerCards.js';
-import { accentInk } from './viewerAppearance.js';
+import { websiteAccent } from './viewerAppearance.js';
 import { watchMenuPosition } from './watchMenuPosition.js';
 import './styles/watch-layout.css';
 import './styles/settings-page.css';
@@ -833,13 +833,13 @@ function applySeoMetadata(metadata = {}) {
   }
 }
 
-function applyWebsiteConfiguration(website = {}, theme = 'light', user = null) {
+function applyWebsiteConfiguration(website = {}, theme = 'light', user = null, runtimeAccent = null) {
   if (typeof document === 'undefined') return;
   const root = document.documentElement;
   const config = website && typeof website === 'object' ? website : {};
   const design = config.design && typeof config.design === 'object' ? config.design : {};
-  const userAccent = user?.settings?.appearance?.accent;
-  const hasUserAccent = userAccent && ACCENT_PALETTES[userAccent];
+  const userAccent = runtimeAccent ?? user?.settings?.appearance?.accent;
+  const hasUserAccent = userAccent !== 'platform' && userAccent && ACCENT_PALETTES[userAccent];
   const themeKey = theme === 'dark' ? 'darkColors' : 'colors';
   const adminThemeKey = theme === 'dark' ? 'adminDarkColors' : 'adminColors';
   const colors = design[themeKey] && typeof design[themeKey] === 'object' ? design[themeKey] : {};
@@ -884,31 +884,15 @@ function applyWebsiteConfiguration(website = {}, theme = 'light', user = null) {
     if (value !== null && value !== undefined && value !== '') root.style.setProperty(`--website-admin-${cssVarName(key)}`, value);
   });
 
-  const defaultPrimary = config.defaultPrimaryColor || colors.primary || '#d4b477';
-  const defaultSecondary = config.defaultSecondaryColor || colors['primary-2'] || '#bb9e69';
-  const defaultPalette = Object.values(ACCENT_PALETTES).find((palette) => palette.primary.toLowerCase() === String(defaultPrimary).toLowerCase());
-  const userPalette = hasUserAccent ? ACCENT_PALETTES[userAccent] : null;
-  const defaultSoft = theme === 'dark'
-    ? (defaultPalette?.softDark || colors['primary-soft'] || 'rgba(212,180,119,.22)')
-    : (config.defaultPrimarySoftColor || defaultPalette?.softLight || colors['primary-soft'] || '#eadabb');
-  root.style.setProperty('--viewer-accent-ink', accentInk(userPalette?.primary || defaultPrimary));
-  root.style.setProperty('--website-admin-primary', userPalette?.primary || defaultPrimary);
-  root.style.setProperty('--website-admin-primary-ink', accentInk(userPalette?.primary || defaultPrimary));
-  root.style.setProperty('--website-admin-primary-2', userPalette?.primary2 || defaultSecondary);
-  root.style.setProperty('--website-admin-primary-soft', userPalette ? (theme === 'dark' ? userPalette.softDark : userPalette.softLight) : defaultSoft);
-
-  if (hasUserAccent) {
-    root.style.setProperty('--primary', userPalette.primary);
-    root.style.setProperty('--primary-2', userPalette.primary2);
-    root.style.setProperty('--primary-soft', theme === 'dark' ? userPalette.softDark : userPalette.softLight);
-  } else {
-    root.style.setProperty('--primary', defaultPrimary);
-    root.style.setProperty('--primary-2', defaultSecondary);
-    const softDefault = theme === 'dark'
-      ? (colors['primary-soft'] || 'rgba(212,180,119,.22)')
-      : (config.defaultPrimarySoftColor || colors['primary-soft'] || '#eadabb');
-    root.style.setProperty('--primary-soft', softDefault);
+  const palette = websiteAccent(config, theme, hasUserAccent ? ACCENT_PALETTES[userAccent] : null);
+  const adminPalette = websiteAccent({ ...config, design: { ...design, colors: adminColors, darkColors: adminColors } }, theme, hasUserAccent ? ACCENT_PALETTES[userAccent] : null);
+  for (const [key, value] of Object.entries({ primary: palette.primary, 'primary-2': palette.primary2, 'primary-soft': palette.soft, 'primary-ink': palette.ink, 'primary-hover-ink': palette.hoverInk })) {
+    root.style.setProperty('--' + key, value);
   }
+  for (const [key, value] of Object.entries({ primary: adminPalette.primary, 'primary-2': adminPalette.primary2, 'primary-soft': adminPalette.soft, 'primary-ink': adminPalette.ink, 'primary-hover-ink': adminPalette.hoverInk })) {
+    root.style.setProperty('--website-admin-' + key, value);
+  }
+  root.style.setProperty('--viewer-accent-ink', palette.ink);
 
   Object.entries(design.fontSizes || {}).forEach(([key, value]) => {
     if (value) root.style.setProperty(`--${cssVarName(key)}-font-size`, value);
@@ -1682,6 +1666,7 @@ function scrollPaginationContentIntoView(source) {
 }
 
 const ACCENT_PALETTES = Object.freeze({
+  platform: { label: 'Default', primary: '#1a73b8', primary2: '#165f99', softLight: '#e2edf7', softDark: '#1e3449' },
   violet: { label: 'Violet', primary: '#635bff', primary2: '#4f46e5', softLight: '#ebe9ff', softDark: 'rgba(107,99,255,.18)' },
   indigo: { label: 'Indigo', primary: '#6366f1', primary2: '#4338ca', softLight: '#e0e7ff', softDark: 'rgba(99,102,241,.18)' },
   blue: { label: 'Blue', primary: '#2f80ed', primary2: '#1d4ed8', softLight: '#e7f0ff', softDark: 'rgba(47,128,237,.18)' },
@@ -1707,7 +1692,7 @@ const normalizeThemePreference = (value) => {
   const normalized = String(value || '').trim().toLowerCase();
   if (['light', 'dark', 'system'].includes(normalized)) return normalized;
   if (['auto', 'device', 'browser', 'os'].includes(normalized)) return 'system';
-  return 'light';
+  return 'system';
 };
 const settingsThemePreferenceFrom = (appearance = {}, theme = null) => normalizeThemePreference(
   appearance.themeMode
@@ -1716,23 +1701,20 @@ const settingsThemePreferenceFrom = (appearance = {}, theme = null) => normalize
   ?? appearance.mode
   ?? theme?.preference
   ?? theme?.theme
-  ?? 'light'
+  ?? 'system'
 );
 const resolveThemePreference = (preference) => (preference === 'system' ? getSystemThemePreference() : preference);
 const getStoredThemePreference = () => localStorage.getItem('playhub_theme_preference') || localStorage.getItem('playhub_theme') || '';
-const normalizeAccentPreference = (value) => (value && ACCENT_PALETTES[value] ? value : 'obsidianGold');
-const defaultAccentPreferenceFromWebsite = (website = {}) => {
-  const design = website?.design && typeof website.design === 'object' ? website.design : {};
-  const colors = design.colors && typeof design.colors === 'object' ? design.colors : {};
-  const defaultPrimary = website?.defaultPrimaryColor || colors.primary || '#d4b477';
-  return Object.entries(ACCENT_PALETTES).find(([, palette]) => palette.primary.toLowerCase() === String(defaultPrimary).toLowerCase())?.[0] || 'obsidianGold';
-};
+const normalizeAccentPreference = (value) => (value && ACCENT_PALETTES[value] ? value : 'platform');
+const defaultAccentPreferenceFromWebsite = () => 'platform';
 
-function useTheme({ syncAccent = false, defaultPreference = 'light' } = {}) {
+function useTheme({ defaultPreference = 'system', savedAccent = null, accountId = null } = {}) {
   const hasStoredThemeRef = useRef(Boolean(getStoredThemePreference()));
   const [themePreference, setThemePreference] = useState(() => normalizeThemePreference(getStoredThemePreference() || defaultPreference));
   const [theme, setResolvedTheme] = useState(() => resolveThemePreference(themePreference));
-  const [accent, setAccent] = useState(() => normalizeAccentPreference(localStorage.getItem('playhub_accent')));
+  const [accent, setAccent] = useState(() => normalizeAccentPreference(savedAccent));
+
+  useEffect(() => { setAccent(normalizeAccentPreference(savedAccent)); }, [accountId, savedAccent]);
 
   useEffect(() => {
     if (!hasStoredThemeRef.current) setThemePreference(normalizeThemePreference(defaultPreference));
@@ -1755,16 +1737,10 @@ function useTheme({ syncAccent = false, defaultPreference = 'light' } = {}) {
     const root = document.documentElement;
     root.dataset.theme = theme;
 
-    if (syncAccent) {
-      const palette = ACCENT_PALETTES[accent] || ACCENT_PALETTES.obsidianGold;
-      root.style.setProperty('--primary', palette.primary);
-      root.style.setProperty('--primary-2', palette.primary2);
-      root.style.setProperty('--primary-soft', theme === 'dark' ? palette.softDark : palette.softLight);
-    }
     localStorage.setItem('playhub_theme', theme);
     localStorage.setItem('playhub_theme_preference', themePreference);
     localStorage.setItem('playhub_accent', accent);
-  }, [theme, themePreference, accent, syncAccent]);
+  }, [theme, themePreference, accent]);
 
   const setTheme = (nextPreference) => {
     hasStoredThemeRef.current = true;
@@ -1787,7 +1763,7 @@ function App() {
   const route = useRoute();
   const [user, setUser] = useState(null);
   const [platformWebsite, setPlatformWebsite] = useState(() => (typeof window !== 'undefined' && window.__PLAYHUB_WEBSITE__ ? window.__PLAYHUB_WEBSITE__ : null));
-  const theme = useTheme({ syncAccent: Boolean(user?.id), defaultPreference: platformWebsite?.defaultThemeMode || 'light' });
+  const theme = useTheme({ savedAccent: user?.settings?.appearance?.accent, accountId: user?.id, defaultPreference: user?.settings?.appearance?.themeMode || platformWebsite?.defaultThemeMode || 'system' });
   const [booting, setBooting] = useState(true);
   const [platformFeatures, setPlatformFeatures] = useState({ live_streaming: { enabled: true }, maintenance: { enabled: false, message: "We'll be back soon." } });
   const [platformAuth, setPlatformAuth] = useState({ registration: { enabled: true, phoneEnabled: false, usernameRequired: false, confirmationMethod: 'none', passwordStrengthEnabled: true, passwordStrengthLevel: 0, captchaEnabled: false, captchaProvider: 'simple', googleCaptchaSiteKey: '', codeDigits: 4, codeExpiresSeconds: 300, maxResends: 3 }, login: { email: true, username: true, phone: true }, social: { google: { enabled: false }, facebook: { enabled: false }, apple: { enabled: false } } });
@@ -1877,8 +1853,8 @@ function App() {
     document.documentElement.dataset.theme = activeWebsiteTheme;
   }, [activeWebsiteTheme]);
   useEffect(() => {
-    applyWebsiteConfiguration(platformWebsite || {}, activeWebsiteTheme, user);
-  }, [platformWebsite, activeWebsiteTheme, isAdminRoute, user?.id, user?.settings?.appearance?.accent]);
+    applyWebsiteConfiguration(platformWebsite || {}, activeWebsiteTheme, user, user?.id ? theme.accent : null);
+  }, [platformWebsite, activeWebsiteTheme, isAdminRoute, user?.id, user?.settings?.appearance?.accent, theme.accent]);
   useEffect(() => {
     const controller = new AbortController();
     const target = `${route.path}${route.search || ''}`;

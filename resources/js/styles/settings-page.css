@@ -342,9 +342,9 @@
 .settings-select-row select{
   width:100%;
   min-width:0;
-  border:1px solid var(--line);
+  border:1px solid var(--input-border);
   border-radius:12px;
-  background:var(--panel);
+  background:var(--input-bg);
   color:var(--text);
   outline:none;
   font-size:13px;
@@ -390,8 +390,10 @@
 .settings-field textarea:focus,
 .settings-social-input input:focus,
 .settings-select-row select:focus{
-  border-color:color-mix(in srgb,var(--primary) 60%,var(--line));
-  box-shadow:0 0 0 3px color-mix(in srgb,var(--primary) 14%,transparent)!important;
+  border-color:var(--focus);
+  outline:2px solid var(--focus);
+  outline-offset:0;
+  box-shadow:none!important;
 }
 
 .settings-prefix-field,
@@ -1791,15 +1793,12 @@
 
 :root[data-theme="dark"] .settings-card,
 :root[data-theme="dark"] .settings-section-nav,
-:root[data-theme="dark"] .settings-field input,
-:root[data-theme="dark"] .settings-field select,
-:root[data-theme="dark"] .settings-field textarea,
 :root[data-theme="dark"] .settings-social-input,
 :root[data-theme="dark"] .settings-prefix-field,
 :root[data-theme="dark"] .settings-channel-field,
 :root[data-theme="dark"] .settings-connect-icons button{
-  background:#050505;
-  border-color:#252525;
+  background:var(--panel);
+  border-color:var(--line);
 }
 
 :root[data-theme="dark"] .settings-card-title,
@@ -1814,13 +1813,13 @@
 :root[data-theme="dark"] .settings-prefix-field span,
 :root[data-theme="dark"] .settings-channel-field span,
 :root[data-theme="dark"] .settings-channel-field button{
-  border-color:#232323;
+  border-color:var(--line);
 }
 
 :root[data-theme="dark"] .settings-prefix-field span,
 :root[data-theme="dark"] .settings-channel-field span,
 :root[data-theme="dark"] .settings-segmented{
-  background:#0b0b0b;
+  background:var(--panel);
 }
 
 :root[data-theme="dark"] .plan-option-card.selected{
@@ -1830,7 +1829,7 @@
 :root[data-theme="dark"] .settings-avatar-picker .avatar,
 :root[data-theme="dark"] .settings-preview-profile .avatar,
 :root[data-theme="dark"] .settings-accent-list button{
-  border-color:#050505;
+  border-color:var(--line);
 }
 
 @media(max-width:1500px){

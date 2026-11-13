@@ -25,7 +25,8 @@ class GeneralSettings
             $stored['design']['radii'] = $radii;
             $stored['design']['radiusScaleVersion'] = 2;
         }
-        $settings = array_replace_recursive(self::defaults(), is_array($stored) ? $stored : []);
+        $stored = InterfacePalette::migrate(is_array($stored) ? $stored : []);
+        $settings = array_replace_recursive(self::defaults(), $stored);
         $settings['logoText'] = (string) ($settings['logoText'] ?? '');
         $settings['showLogoText'] = (bool) $settings['showLogoText'];
         $settings['logoSize'] = max(16, min(64, (int) ($settings['logoSize'] ?? 40)));
@@ -95,7 +96,7 @@ class GeneralSettings
             $settings['authPreview'][$key] = is_string($settings['authPreview'][$key] ?? null) ? $settings['authPreview'][$key] : '';
         }
         $settings['timezone'] = self::normalizeTimezone((string) ($settings['timezone'] ?? 'UTC'));
-        $settings['defaultThemeMode'] = in_array($settings['defaultThemeMode'] ?? 'light', ['light', 'dark', 'system'], true) ? $settings['defaultThemeMode'] : 'light';
+        $settings['defaultThemeMode'] = in_array($settings['defaultThemeMode'] ?? 'system', ['light', 'dark', 'system'], true) ? $settings['defaultThemeMode'] : 'system';
         $settings['loadingDisplay'] = ($settings['loadingDisplay'] ?? null) === 'bar' ? 'bar' : 'instant';
         $settings['disabledLanguages'] = self::normalizeDisabledLanguages($settings['disabledLanguages'] ?? []);
         $settings['defaultLanguage'] = self::normalizeLanguage((string) ($settings['defaultLanguage'] ?? config('app.locale', 'en')), $settings['disabledLanguages']);
@@ -250,10 +251,10 @@ class GeneralSettings
                 'feature3' => 'Accessible components',
                 'feature4' => 'Built for creator workflows',
             ],
-            'defaultPrimaryColor' => '#d4b477',
-            'defaultSecondaryColor' => '#bb9e69',
-            'defaultPrimarySoftColor' => '#eadabb',
-            'defaultThemeMode' => 'light',
+            'defaultPrimaryColor' => '#1a73b8',
+            'defaultSecondaryColor' => '#165f99',
+            'defaultPrimarySoftColor' => '#e2edf7',
+            'defaultThemeMode' => 'system',
             'loadingDisplay' => 'instant',
             'defaultLanguage' => config('app.locale', 'en'),
             'disabledLanguages' => [],
@@ -261,70 +262,11 @@ class GeneralSettings
             'fontImportUrl' => 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap',
             'showSidebarToggle' => true,
             'design' => [
-                'colors' => [
-                    'bg' => '#edf0f4',
-                    'panel' => '#fcfdff',
-                    'panel-2' => '#eaeced',
-                    'panel-3' => '#e8edf3',
-                    'text' => '#28384b',
-                    'muted' => '#586478',
-                    'soft' => '#586478',
-                    'line' => '#d1dae5',
-                    'line-strong' => '#d1dae5',
-                    'primary' => '#d4b477',
-                    'primary-2' => '#bb9e69',
-                    'primary-soft' => '#eadabb',
-                    'success' => '#22c55e',
-                    'danger' => '#e11d48',
-                    'warning' => '#f59e0b',
-                ],
-                'darkColors' => [
-                    'bg' => '#142237',
-                    'panel' => '#25354b',
-                    'panel-2' => '#262d34',
-                    'panel-3' => '#19293e',
-                    'text' => '#e0e6ed',
-                    'muted' => '#a0afc1',
-                    'soft' => '#959ea8',
-                    'line' => '#3b4d63',
-                    'line-strong' => '#3b4d63',
-                    'primary' => '#d4b477',
-                    'primary-2' => '#bb9e69',
-                    'primary-soft' => 'rgba(212,180,119,.22)',
-                    'success' => '#35d07f',
-                    'danger' => '#fb7185',
-                    'warning' => '#f59e0b',
-                ],
-                'adminColors' => [
-                    'bg' => '#edf0f4',
-                    'panel' => '#fcfdff',
-                    'panel-2' => '#eaeced',
-                    'panel-3' => '#e8edf3',
-                    'text' => '#28384b',
-                    'heading' => '#28384b',
-                    'muted' => '#586478',
-                    'soft' => '#586478',
-                    'border' => '#d1dae5',
-                    'border-strong' => '#d1dae5',
-                    'primary' => '#d4b477',
-                    'primary-2' => '#bb9e69',
-                    'primary-soft' => '#eadabb',
-                ],
-                'adminDarkColors' => [
-                    'bg' => '#142237',
-                    'panel' => '#25354b',
-                    'panel-2' => '#262d34',
-                    'panel-3' => '#19293e',
-                    'text' => '#e0e6ed',
-                    'heading' => '#e0e6ed',
-                    'muted' => '#a0afc1',
-                    'soft' => '#959ea8',
-                    'border' => '#3b4d63',
-                    'border-strong' => '#3b4d63',
-                    'primary' => '#d4b477',
-                    'primary-2' => '#bb9e69',
-                    'primary-soft' => 'rgba(212,180,119,.22)',
-                ],
+                'colorPaletteVersion' => InterfacePalette::VERSION,
+                'colors' => InterfacePalette::colors(),
+                'darkColors' => InterfacePalette::colors(true),
+                'adminColors' => InterfacePalette::colors(false, true),
+                'adminDarkColors' => InterfacePalette::colors(true, true),
                 'fontSizes' => [
                     'base' => '14px',
                     'button' => '13px',

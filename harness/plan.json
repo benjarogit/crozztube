@@ -154,6 +154,7 @@
       ],
       "checkpointChecks": [
         "harness-tests",
+        "interface-palette",
         "viewer-ui-quality",
         "time-mark-quality",
         "viewer-quality-copy",
@@ -525,6 +526,15 @@
       "argv": [
         "php",
         "tools/test/php/viewer-quality-copy-checks.php"
+      ],
+      "timeoutMs": 30000
+    },
+    "interface-palette": {
+      "argv": [
+        "node",
+        "--test",
+        "tools/test/interface-palette.test.mjs",
+        "tools/test/viewer-appearance.test.mjs"
       ],
       "timeoutMs": 30000
     }

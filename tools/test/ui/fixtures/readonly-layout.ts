@@ -91,8 +91,10 @@ export async function layoutSession(browser: Browser, options: LayoutOptions = {
     if (authenticated) localStorage.setItem('playhub_token', 'layout-fixture-in-memory-identity');
     else localStorage.removeItem('playhub_token');
     localStorage.setItem('playhub_autoplay_enabled', 'false');
-    localStorage.setItem('playhub_theme_preference', dark ? 'dark' : 'light');
-    localStorage.setItem('playhub_theme', dark ? 'dark' : 'light');
+    if (!localStorage.getItem('playhub_theme_preference')) {
+      localStorage.setItem('playhub_theme_preference', dark ? 'dark' : 'light');
+      localStorage.setItem('playhub_theme', dark ? 'dark' : 'light');
+    }
     localStorage.setItem('playhub_language', language);
   }, { authenticated, dark: options.dark === true, language });
 
