@@ -69,7 +69,7 @@ export function verifyChatdev(root) {
   fs.rmSync(receipt, { force: true });
   const before = digest(root), index = indexDigest(root);
   const checks = [
-    ['node', '--test', 'tools/test/harness.test.mjs', 'tools/test/chatdev.test.mjs', 'tools/test/chatdev-maintenance.test.mjs', 'tools/test/chatdev-pr.test.mjs'],
+    ['node', '--test', 'tools/test/harness.test.mjs', 'tools/test/chatdev.test.mjs', 'tools/test/chatdev-maintenance.test.mjs', 'tools/test/chatdev-pr.test.mjs', 'tools/test/chatdev-manager.test.mjs'],
     ['node', 'tools/harness/static-check.mjs'],
   ];
   for (const argv of checks) {

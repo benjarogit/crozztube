@@ -14,4 +14,4 @@ jobs:
         with:
           node-version: '22'
       - run: node tools/harness/setup.mjs
-      - run: node --test tools/test/harness.test.mjs tools/test/chatdev.test.mjs tools/test/chatdev-maintenance.test.mjs tools/test/chatdev-pr.test.mjs
+      - run: node --test tools/test/harness.test.mjs tools/test/chatdev.test.mjs tools/test/chatdev-maintenance.test.mjs tools/test/chatdev-pr.test.mjs tools/test/chatdev-manager.test.mjs

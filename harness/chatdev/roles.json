@@ -25,6 +25,31 @@
       ]
     },
     {
+      "id": "project-manager",
+      "responsibility": "Maintain the central coordination view of authorized work, priorities, dependencies, unresolved approvals and verified handoffs without advancing the harness.",
+      "inputs": [
+        "Authoritative harness plan and progress",
+        "Shared worktree-local task journal and role evidence",
+        "Head-bound PR audit snapshots and runtime prerequisites"
+      ],
+      "outputs": [
+        "Current-step coordination report",
+        "Dependency-ordered priorities and explicit blockers",
+        "Recommended next allowed action and role handoff"
+      ],
+      "quality": [
+        "Read current authoritative sources rather than copying step status",
+        "Preserve historical work and distinguish advisory review from harness acceptance",
+        "Detect unknown dependencies, cycles, stale reviews, pending CI and runtime gaps",
+        "Do not claim roles or client runtime execution without actual evidence"
+      ],
+      "handoff": [
+        "Resume the existing authorized current task when ready",
+        "Return blockers to the responsible role with required evidence",
+        "Ask for missing authorization; never begin a later step, grant a gate or merge a PR"
+      ]
+    },
+    {
       "id": "engineer",
       "responsibility": "Implement maintainable Laravel, PHP, React and integration changes within the approved scope.",
       "inputs": [

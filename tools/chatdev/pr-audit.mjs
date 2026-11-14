@@ -16,7 +16,7 @@ const api = (root, endpoint, paginate=false) => parse(run(root,'gh',['api',...(p
 const flat = pages => pages.flat();
 const comment = (item,kind) => ({id:`${kind}:${item.id}`,bodyHash:hash(item.body),hasBody:Boolean(item.body?.trim()),url:safeUrl(item.html_url),authorHash:hash(item.user?.login),commit:item.commit_id || null,createdAt:item.created_at || item.submitted_at,updatedAt:item.updated_at || item.submitted_at});
 const completenessKeys=['checks','statuses','reviews','issueComments','inlineComments','reviewThreads','headStable'];
-const roles=['orchestrator','engineer','analyst','qa','quality','architecture','security','performance','ux','assets','documentation','localization','repository','infrastructure'];
+const roles=['orchestrator','project-manager','engineer','analyst','qa','quality','architecture','security','performance','ux','assets','documentation','localization','repository','infrastructure'];
 
 /** Read-only GitHub snapshot. Raw comment bodies are hashed in memory and never persisted. */
 export function collect(root,pr) {

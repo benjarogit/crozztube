@@ -2,7 +2,7 @@
 
 This is a local orchestration aid, not a model runtime, hosted ChatDev service,
 or replacement harness. It uses Node builtins, versioned role definitions and
-worktree-private JSON. It does not call model APIs, launch fourteen agents,
+worktree-private JSON. It does not call model APIs, launch fifteen agents,
 execute test commands, grant permissions or publish code automatically.
 
 ## Entry points
@@ -167,3 +167,14 @@ The evaluator always requires current-head quality/QA/security/architecture
 passes, successful GitHub Actions contracts, complete comment triage and the
 mandatory real runtime prerequisite. Local evidence cannot waive that requirement.
 READY is advisory; it never merges or replaces harness approval.
+
+## Project Manager coordination
+
+The Project Manager is the fifteenth logical role, added to the original fourteen.
+Before dispatch and after PR reassessment, run project-manager through the shared
+CLI. It derives milestones from the authoritative harness and prioritizes local
+tasks and dependencies, flags blockers, and returns recommendations to the
+orchestrator. It never changes step acceptance, grants approvals, merges or
+pretends to control an unavailable Cursor/Codex process. Resume from the current
+active milestone after this validated tooling increment; do not restart completed
+steps or implement product changes on the tooling-only branch.

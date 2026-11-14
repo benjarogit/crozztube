@@ -20,7 +20,7 @@ export function authoritative(root) {
 export function roles(root) {
   const raw=json(path.join(root,'harness/chatdev/roles.json'));
   const list=Array.isArray(raw)?raw:raw.roles;
-  if(!Array.isArray(list)||list.length!==14||new Set(list.map(r=>r.id)).size!==14)throw Error('Exactly 14 unique roles are required');
+  if(!Array.isArray(list)||list.length!==15||new Set(list.map(r=>r.id)).size!==15)throw Error('Exactly 15 unique roles are required');
   for(const r of list){requireText(r.id,'role id');requireText(r.responsibility,'role responsibility');for(const k of ['inputs','outputs','quality','handoff']) { if(Array.isArray(r[k])) requireList(r[k],k);else requireText(r[k],k); }}
   return list;
 }
@@ -48,7 +48,7 @@ function locked(root,action){
 export function setup(root){authoritative(root);roles(root);return locked(root,file=>{if(fs.existsSync(file))return state(root);const value={schemaVersion:1,revision:0,tasks:[]};atomic(file,value);return value;});}
 export function showTask(root,id){validate(root);const task=state(root).tasks.find(t=>t.id===id);if(!task)throw Error('Unknown task');return {task,advisory:'Role review is not harness acceptance'};}
 export function suggestRoles(root,files){
-  requireList(files,'routing paths');const selected=new Set(['orchestrator','quality']);
+  requireList(files,'routing paths');const selected=new Set(['project-manager','orchestrator','quality']);
   for(const file of files){
     if(/\.(md|txt)$/.test(file))selected.add('documentation');
     else {selected.add('engineer');selected.add('qa');}

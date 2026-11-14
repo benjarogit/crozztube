@@ -119,3 +119,23 @@ stillschweigend aktiviert. Vorhandene Impeccable-Pflege bleibt getrennt.
 Nächste zulässige Arbeit: den integrierten Snapshot unabhängig prüfen, über den
 freigegebenen Werkzeugpfad sichern und einen reviewfähigen PR vorbereiten. Der
 aktive Feature-Schritt bleibt offen; weitere Produktfunktionen warten.
+
+## Projektmanager und Fortsetzung
+
+Der Projektmanager ergänzt die ursprünglichen 14 Rollen als 15. Rolle.
+Vor der Aufgabenverteilung läuft node tools/chatdev/cli.mjs project-manager;
+pr-audit reicht sein frisches Ergebnis direkt an die Koordination weiter.
+Der Bericht liest Meilensteine aus der führenden Harness und ordnet bestehende
+Aufgaben, Abhängigkeiten, Freigaben und Blocker. Der Orchestrator wertet ihn aus
+und übernimmt die nächste zulässige Aktion in das gemeinsame Arbeitsjournal.
+
+Der echte Projektmanager-Unteragent hat die CLI ausgeführt und seine Befunde
+an den Orchestrator zurückgegeben. Die alte beschreibende Abhängigkeit wurde
+mit der validierten Journalschnittstelle berichtigt; Schritt 8 ist als konkrete
+Fortsetzungsaufgabe vorhanden. Nichts setzt abgenommene Schritte zurück.
+Siehe harness/chatdev/step8-handoff.md für die fachlichen Anschlussstellen und
+die tatsächliche Veröffentlichungsgrenze des main-gebundenen Feature-Gates.
+
+Mehrdeutige gespeicherte PR-Berichte bleiben gesperrt; ein frischer Aufruf
+pr-audit PR_NUMMER BELEGDATEI übergibt den eindeutig gemeinten PR. Weder dieser
+Bericht noch eine Rollenbewertung erteilt Merge-, Deployment- oder Hook-Rechte.
