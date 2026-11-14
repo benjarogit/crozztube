@@ -129,10 +129,17 @@ sequence. Late next-episode responses are discarded after route, autoplay or
 queue changes. The miniplayer carries the context and uses the same fresh next
 resolver, preserving expansion back into the series and stopping at its end.
 
-New series strings have reviewed English and German regional reference entries.
-The remaining installed languages still need linguistic review of these new
-messages; the pre-existing complete language acceptance remains deferred. A
-structural catalog audit is not a claim of linguistic completeness.
+The eight new series messages and the reused video-loading error have editorially
+reviewed reference entries in `en`, `en_au`, `en_ca`, `en_gb`, `en_nz`, `en_za`,
+`de_de`, `de_at` and `de_ch`. The remaining 116 installed catalogs lack these
+messages and currently fall back to English; their translation and linguistic
+review remain open. The full controlled browser scenarios exercise `de_de`;
+an additional `en` owner smoke check covers series/season/episode labels and
+the next-episode label in both themes, including a 390px overflow check.
+English error paths, regional English variants, `de_at` and `de_ch` still need
+context checks. No message-level review records for the eight new series messages
+have been added to `tools/i18n/reviews/`. This is not complete language acceptance;
+a structural catalog audit does not establish linguistic completeness.
 
 ## Prüfungen und Grenzen
 
@@ -163,8 +170,16 @@ MySQL 8.0.46 database, then four concurrent-process pairs with 24 assertions.
 Distinct connections and `performance_schema.data_lock_waits` establish actual
 InnoDB lock waits before the controlling transaction is released. Cases cover
 stale edits, consistent metadata/revision reads, concurrent reorder and rollback.
-This is real isolated MySQL execution, not production or full HTTP token middleware
-coverage. Hosted CI currently uses the SQLite/browser path; local MySQL evidence
+This is real isolated MySQL execution, not production HTTP/MySQL coverage.
+The SQLite fixture additionally registers the actual legacy and v1 routes in a
+Laravel router and dispatches JSON requests through implicit bindings, Sanctum
+bearer authentication and project middleware. It checks access, token abilities,
+validation, stale revisions and the actual v1 error/response serialization.
+The routed fixture passed 160 assertions alongside the retained 69 SQLite
+checks; the controlled Chromium browser passed 124 assertions. This is
+in-process routed HTTP evidence; it does not bootstrap the production
+kernel, cookie/session/CSRF stack or a real web server. It never loads `.env`.
+Hosted CI currently uses the SQLite/browser path; local MySQL evidence
 must not be described as a hosted MySQL check.
 
 The explicit runner uses an already available `mysql:8.0.46` image, a temporary

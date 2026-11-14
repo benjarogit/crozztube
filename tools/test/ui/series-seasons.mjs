@@ -64,7 +64,7 @@ try{
     const trace={event:name,id:media.dataset.seriesNativeId,time:media.currentTime,duration:media.duration,path:location.pathname,trusted:event.isTrusted,surface:window.__seriesMediaSurface(media),src:media.currentSrc,root:media.getRootNode().constructor.name,seekable:media.seekable.length?media.seekable.end(media.seekable.length-1):null,buffered:media.buffered.length?media.buffered.end(media.buffered.length-1):null};
     window.__seriesMediaTrace.push(trace);if(name==='ended'&&event.isTrusted)window.__seriesNativeEnds.push(trace);
    },true);
-   localStorage.setItem('playhub_token','synthetic-fixture');localStorage.setItem('playhub_theme_preference',dark?'dark':'light');localStorage.setItem('playhub_language','de_de');localStorage.setItem('playhub_autoplay_enabled','false');
+   localStorage.setItem('playhub_token','synthetic-fixture');localStorage.setItem('playhub_theme_preference',dark?'dark':'light');localStorage.setItem('playhub_language',sessionStorage.getItem('series_reference_locale')||'de_de');localStorage.setItem('playhub_autoplay_enabled','false');
   }, {dark});
   const video=(id,slug,title)=>({id,slug,title,description:'Synthetischer Inhalt',source_type:'upload',video_url:origin+'/fixture/video.mp4?video='+slug,video_sources:[{src:origin+'/fixture/video.mp4?video='+slug,type:'video/mp4'}],status:'ready',visibility:'public',duration_seconds:4,views_count:0,channel:{id:1,user_id:1,name:'Fixture',slug:'fixture'},tags:[],sale:{is_paid:false,has_access:true}});
   const videos=[video(1,'first','Eine sehr lange erste Folge für schmale Ansichten und erhaltene Eingaben'),video(3,'third','Dritte Folge'),video(9,'manual','Manuelle Warteschlange')];
@@ -204,6 +204,16 @@ try{
     failSeriesGet=false;await failedRead.getByRole('button',{name:'Aktualisieren',exact:true}).click();await expect(failedRead.locator('.playlist-series-episode-list')).toBeVisible();checks++;
    }
 
+   if(owner){
+    await page.evaluate(()=>sessionStorage.setItem('series_reference_locale','en'));
+    await page.goto(origin+'/playlists?id=1');
+    const english=page.locator('.playlist-series-panel');await english.getByText('Series',{exact:true}).first().click();
+    await expect(english.getByLabel('Season',{exact:true}).first()).toBeVisible();
+    await expect(english.getByLabel('Episode',{exact:true}).first()).toBeVisible();
+    await page.setViewportSize({width:390,height:900});
+    await expect.poll(()=>page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);
+    await page.goto(origin+'/watch/first?list=1');await expect(page.locator('.watch-sidebar')).toContainText('Next episode');checks+=4;
+   }
    expect(errors).toEqual([]);checks++;
   }catch(error){console.error(JSON.stringify({fixture:{nextCalls,nextRequests,videoRequests},page:await page.evaluate(()=>({url:location.href,media:[...document.querySelectorAll('video')].map(e=>({src:e.src,currentSrc:e.currentSrc,ready:e.readyState,network:e.networkState,error:e.error?.code,paused:e.paused,time:e.currentTime,duration:e.duration,sourceElements:[...e.querySelectorAll('source')].map(s=>({src:s.src,type:s.type})),surface:window.__seriesMediaSurface(e),html:e.outerHTML.slice(0,900)})),ends:window.__seriesNativeEnds,trace:window.__seriesMediaTrace.slice(-40),queue:JSON.parse(localStorage.getItem('playhub_playback_queue_v1')||'[]'),title:document.querySelector('.watch-info h1')?.textContent}))}));await page.screenshot({path:'tools/test/.artifacts/series-seasons/failure.png',fullPage:true});console.error(JSON.stringify(await page.locator('body *').evaluateAll(es=>es.filter(e=>e.getBoundingClientRect().right>innerWidth+2&&e.getBoundingClientRect().width>0).slice(0,18).map(e=>({tag:e.tagName,cls:e.className,width:e.getBoundingClientRect().width,right:e.getBoundingClientRect().right})))));throw error;}finally{holdNext?.release();holdVideo?.release();await context.close();}
  }

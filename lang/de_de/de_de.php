@@ -4945,4 +4945,5 @@ Anschließend erstellt die Verarbeitung die Videoauflösungen und bei Bedarf Vor
   'Choose videos from this playlist.' => 'Wähle Videos aus dieser Playlist aus.',
   'Set both season and episode numbers, or leave both empty.' => 'Gib Staffel- und Folgennummer zusammen an oder lass beide Felder leer.',
   'An episode number can only appear once in each season.' => 'Eine Folgennummer darf pro Staffel nur einmal vorkommen.',
+  'Unable to load videos.' => 'Die Videos konnten nicht geladen werden. Versuch es erneut.',
 );

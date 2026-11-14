@@ -4931,4 +4931,5 @@ The processing job encodes renditions, creates thumbnails when needed, stores ca
   'Choose videos from this playlist.' => 'Choose videos from this playlist.',
   'Set both season and episode numbers, or leave both empty.' => 'Set both season and episode numbers, or leave both empty.',
   'An episode number can only appear once in each season.' => 'An episode number can only appear once in each season.',
+  'Unable to load videos.' => 'We couldn\'t load the videos. Try again.',
 );

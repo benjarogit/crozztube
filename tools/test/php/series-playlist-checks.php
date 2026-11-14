@@ -1,5 +1,7 @@
 <?php
 
+ini_set('zend.exception_ignore_args', '1');
+
 // A new isolated Laravel database. No application bootstrap, .env, account,
 // provider request, media bytes or running application database is accessed.
 require __DIR__.'/../../../vendor/autoload.php';
@@ -261,5 +263,145 @@ $check(! Schema::hasColumn('playlists','is_series') && ! Schema::hasColumn('play
 $check(DB::table('playlist_video')->count() === 11 && DB::table('videos')->count() === 10, 'Rollback preserves existing content');
 $migration->up();
 $check(! Playlist::findOrFail($playlist->id)->is_series, 'Reapply has safe defaults');
+
+if (! $mysql) {
+    // Real in-process HTTP requests through the project's registered routes,
+    // Laravel binding/exception pipeline, Sanctum bearer guard and middleware.
+    // This deliberately does not bootstrap the production kernel, session/CSRF
+    // stack or web server, and does not claim production HTTP/MySQL acceptance.
+    $httpChecks = 0;
+    $httpCheck = static function (bool $ok, string $message) use (&$httpChecks): void {
+        if (! $ok) throw new RuntimeException('HTTP fixture: '.$message);
+        $httpChecks++;
+    };
+    $app->useStoragePath(sys_get_temp_dir().'/crozztube-series-http-'.bin2hex(random_bytes(8)));
+    $app['config']->set('app.debug', false);
+    $app['config']->set('auth', ['defaults'=>['guard'=>'sanctum'], 'guards'=>['sanctum'=>['driver'=>'sanctum','provider'=>'users']], 'providers'=>['users'=>['driver'=>'eloquent','model'=>User::class]]]);
+    $app['config']->set('sanctum.guard', []); // Bearer-only fixture: no cookie/session fallback.
+    $app['config']->set('cache', ['default'=>'array','stores'=>['array'=>['driver'=>'array']]]);
+    Schema::create('personal_access_tokens', static function (Blueprint $t): void {
+        $t->id(); $t->string('tokenable_type'); $t->unsignedBigInteger('tokenable_id'); $t->string('name'); $t->string('token',64)->unique(); $t->text('abilities')->nullable(); $t->timestamp('last_used_at')->nullable(); $t->timestamp('expires_at')->nullable(); $t->timestamps();
+    });
+    Schema::create('native_device_sessions', static function (Blueprint $t): void {
+        $t->id(); $t->string('uuid'); $t->unsignedBigInteger('user_id'); $t->unsignedBigInteger('personal_access_token_id'); $t->timestamp('last_seen_at')->nullable(); $t->timestamp('expires_at'); $t->timestamp('refresh_expires_at')->nullable(); $t->timestamp('revoked_at')->nullable(); $t->string('ip_address')->nullable(); $t->timestamps();
+    });
+    $auth = new \Illuminate\Auth\AuthManager($app);
+    $auth->extend('sanctum', static fn ($container) => new \Illuminate\Auth\RequestGuard(new \Laravel\Sanctum\Guard($auth, null, 'users'), $container['request']));
+    $app->instance('auth', $auth);
+    $app->instance(\Illuminate\Contracts\Auth\Factory::class, $auth);
+    $app->instance('hash', new \Illuminate\Hashing\BcryptHasher);
+    Facade::clearResolvedInstance('auth');
+    (new \App\Providers\NativeAuthenticationServiceProvider($app))->boot($app->make(\App\Services\Auth\NativeAccountAccess::class));
+    $cache = new \Illuminate\Cache\Repository(new \Illuminate\Cache\ArrayStore);
+    $limiter = new \Illuminate\Cache\RateLimiter($cache);
+    // Exercise the real throttling implementation, but not production quotas:
+    // these named limits belong only to the isolated request fixture.
+    foreach (['api-v1','api-write'] as $limit) $limiter->for($limit, static fn () => \Illuminate\Cache\RateLimiting\Limit::perMinute(1000));
+    $app->instance(\Illuminate\Cache\RateLimiter::class, $limiter);
+    $router = new \Illuminate\Routing\Router($events, $app);
+    $app->instance('router', $router);
+    $app->instance(\Illuminate\Contracts\Routing\Registrar::class, $router);
+    $router->aliasMiddleware('auth', \Illuminate\Auth\Middleware\Authenticate::class);
+    $router->aliasMiddleware('throttle', \Illuminate\Routing\Middleware\ThrottleRequests::class);
+    $router->middlewareGroup('api', [\App\Http\Middleware\LocalizeResponseMessages::class, \App\Http\Middleware\RejectNativeTokensOutsideV1::class, \Illuminate\Routing\Middleware\SubstituteBindings::class]);
+    $router->middlewarePriority = [\Illuminate\Auth\Middleware\Authenticate::class, \Illuminate\Routing\Middleware\SubstituteBindings::class, \App\Http\Middleware\Api\V1\ResolveOptionalSanctum::class, \App\Http\Middleware\Api\V1\EnsureAccountActive::class, \App\Http\Middleware\TrackNativeDeviceSession::class, \App\Http\Middleware\Api\V1\RequireTokenAbility::class, \App\Http\Middleware\EnsureUgcSafety::class];
+    $app->instance(\Illuminate\Contracts\Debug\ExceptionHandler::class, new class($app) implements \Illuminate\Contracts\Debug\ExceptionHandler {
+        private \Illuminate\Foundation\Exceptions\Handler $fallback;
+        public function __construct($app) {
+            $this->fallback = new \Illuminate\Foundation\Exceptions\Handler($app);
+            $this->fallback->renderable(static fn (\Throwable $e, Request $request) => \App\Http\Middleware\Api\V1\ApiErrorRenderer::render($e,$request));
+        }
+        public function report(\Throwable $e) {} // No application logging or external reports.
+        public function shouldReport(\Throwable $e) { return false; }
+        public function render($request, \Throwable $e) { return $this->fallback->render($request,$e); }
+        public function renderForConsole($output, \Throwable $e) {}
+    });
+    \Illuminate\Support\Facades\Route::clearResolvedInstance('router');
+    $router->group(['prefix'=>'api','middleware'=>'api'], __DIR__.'/../../../routes/api.php');
+    $router->getRoutes()->refreshNameLookups();
+    $writeRoute = $router->getRoutes()->match(Request::create('/api/v1/playlists/1/series','PUT'));
+    $httpCheck(in_array(\App\Http\Middleware\Api\V1\RequireTokenAbility::class.':library:write',$writeRoute->gatherMiddleware(),true),'Actual registered v1 write route inherits library:write');
+    $httpSeries = Playlist::create(['user_id'=>1,'title'=>'Isolated routed HTTP series','privacy'=>'public']);
+    $httpSeries->videos()->attach([1=>['sort_order'=>0],2=>['sort_order'=>1]]);
+    $issue = static function (int $userId, array $abilities, bool $native = true, bool $expired = false): string {
+        $plain = bin2hex(random_bytes(32));
+        $id = DB::table('personal_access_tokens')->insertGetId(['tokenable_type'=>User::class,'tokenable_id'=>$userId,'name'=>$native?'playhub-native':'series-fixture','token'=>hash('sha256',$plain),'abilities'=>json_encode($abilities),'created_at'=>now(),'updated_at'=>now(),'expires_at'=>$expired?now()->subMinute():now()->addHour()]);
+        if ($native) DB::table('native_device_sessions')->insert(['uuid'=>(string) \Illuminate\Support\Str::uuid(),'user_id'=>$userId,'personal_access_token_id'=>$id,'last_seen_at'=>now(),'expires_at'=>now()->addHour(),'created_at'=>now(),'updated_at'=>now()]);
+        return $id.'|'.$plain;
+    };
+    $legacyOwner = $issue(1,['*'],false);
+    $nativeOwner = $issue(1,['library:write']);
+    $nativeEditor = $issue(2,['library:write']);
+    $accountOnlyOwner = $issue(1,['account:write']);
+    $readOnlyOwner = $issue(1,['account:read']);
+    $expired = $issue(1,['library:write'],true,true);
+    $app->instance(\Illuminate\Contracts\Auth\Access\Gate::class, new \Illuminate\Auth\Access\Gate($app, static fn () => app('request')->user()));
+    Gate::clearResolvedInstance('gate');
+    Gate::policy(Playlist::class, \App\Policies\PlaylistPolicy::class);
+    $dispatch = static function (string $method, string $uri, array $body = [], ?string $token = null) use ($app,$auth,$router): \Symfony\Component\HttpFoundation\Response {
+        $request = Request::create($uri,$method,[],[],[],['HTTP_ACCEPT'=>'application/json','CONTENT_TYPE'=>'application/json','HTTP_X_PLAYHUB_LANGUAGE'=>'en','HTTP_X_REQUEST_ID'=>'994d95ae-0d4a-4363-8238-83f0d2f60c6d'],json_encode($body));
+        if ($token !== null) $request->headers->set('Authorization','Bearer '.$token);
+        $app->instance('request',$request); $app->instance(Request::class,$request);
+        $auth->forgetGuards(); $request->setUserResolver(static fn () => $auth->guard('sanctum')->user());
+        return $router->dispatch($request);
+    };
+    $expectHttp = static function (string $method, string $uri, int $status, array $body = [], ?string $token = null) use ($dispatch,$httpCheck): array {
+        $response = $dispatch($method,$uri,$body,$token);
+        $httpCheck($response->getStatusCode()===$status,$method.' '.$uri.' expected '.$status.' got '.$response->getStatusCode().' '.substr($response->getContent(),0,400));
+        $httpCheck(str_contains((string) $response->headers->get('Content-Type'),'application/json'),'Actual JSON response content type');
+        if ($status===200) $httpCheck(str_contains((string) $response->headers->get('Cache-Control'),'no-store'),'Successful series responses remain no-store');
+        $data = json_decode($response->getContent(),true,512,JSON_THROW_ON_ERROR);
+        if (str_starts_with($uri,'/api/v1/')) {
+            $httpCheck($response->headers->get('X-PlayHub-API-Version')==='1','Real v1 middleware version header');
+            // Binding failures can precede AttachRequestId: the actual error
+            // renderer then generates a new ID. Assert propagation, not a fake
+            // promise that a client-provided ID survives every early rejection.
+            $id = $response->headers->get('X-Request-ID');
+            $httpCheck(\Illuminate\Support\Str::isUuid($id),'Actual request/error ID is a UUID');
+            $httpCheck(($status>=400?$data['error']['request_id']:$data['meta']['request_id'])===$id,'Actual JSON/header request ID agreement');
+            $httpCheck(isset($data[$status>=400?'error':'data']), 'Real v1 response envelope');
+            if ($status>=400) $httpCheck(($data['error']['status']??null)===$status,'Actual project error serialization');
+        }
+        return $data;
+    };
+    foreach (['/api','/api/v1'] as $prefix) {
+        $uri = $prefix.'/playlists/'.$httpSeries->id.'/series';
+        $expectHttp('GET',$uri,200);
+        $httpCheck(app('request')->route('playlist') instanceof Playlist,'Actual implicit Playlist binding');
+        $expectHttp('GET',$prefix.'/playlists/999999/series',404);
+        $expectHttp('GET',$uri.'/next',422);
+        $expectHttp('PUT',$uri,401,['expected_revision'=>SeriesPlaylists::revision($httpSeries),'is_series'=>true]);
+        $token = $prefix==='/api'?$legacyOwner:$nativeOwner;
+        $stale = SeriesPlaylists::revision($httpSeries);
+        $expectHttp('PUT',$uri,200,['expected_revision'=>$stale,'is_series'=>true,'episodes'=>[['video_id'=>1,'season_number'=>1,'episode_number'=>1,'episode_title'=>'HTTP '.$prefix]]],$token);
+        $expectHttp('PUT',$uri,409,['expected_revision'=>$stale,'is_series'=>false],$token);
+        $expectHttp('PUT',$uri,422,['expected_revision'=>SeriesPlaylists::revision($httpSeries),'episodes'=>[['video_id'=>99999,'season_number'=>1,'episode_number'=>5]]],$token);
+        $next = $expectHttp('GET',$uri.'/next?after=1',200);
+        $httpCheck(($prefix==='/api'?$next:$next['data'])['next_episode']['video_id']===2,'Actual next response serialization');
+    }
+    $v1 = '/api/v1/playlists/'.$httpSeries->id.'/series';
+    $body = ['expected_revision'=>SeriesPlaylists::revision($httpSeries),'is_series'=>false];
+    $deniedBefore = [SeriesPlaylists::revision($httpSeries),DB::table('playlist_video')->where('playlist_id',$httpSeries->id)->orderBy('id')->get()->toJson()];
+    $expectHttp('PUT',$v1,403,$body,$nativeEditor);
+    $expectHttp('PUT',$v1,403,$body,$readOnlyOwner);
+    $expectHttp('PUT',$v1,403,$body,$accountOnlyOwner);
+    $httpCheck($deniedBefore===[SeriesPlaylists::revision($httpSeries),DB::table('playlist_video')->where('playlist_id',$httpSeries->id)->orderBy('id')->get()->toJson()],'Denied policy and ability writes do not mutate series metadata or membership');
+    $expectHttp('GET',$v1,401,[],'invalid-isolated-token');
+    $expectHttp('GET',$v1,401,[],$expired);
+    $expectHttp('PUT',$v1,401,$body,$legacyOwner);
+    $expectHttp('GET','/api/playlists/'.$httpSeries->id.'/series',401,[],$nativeOwner);
+    DB::table('users')->where('id',1)->update(['settings'=>json_encode(['status'=>'suspended'])]);
+    $expectHttp('GET',$v1,401,[],$nativeOwner); // Actual native authentication callback rejects the account.
+    $expectHttp('GET',$v1,403,[],$legacyOwner); // Non-native token reaches actual EnsureAccountActive.
+    DB::table('users')->where('id',1)->update(['settings'=>null]);
+    $httpSeries->update(['privacy'=>'private']);
+    foreach (['/api','/api/v1'] as $prefix) {
+        $privateUri=$prefix.'/playlists/'.$httpSeries->id.'/series';
+        $expectHttp('GET',$privateUri,404);
+        $private=$expectHttp('GET',$privateUri,200,[],$prefix==='/api'?$legacyOwner:$nativeOwner);
+        $httpCheck(($prefix==='/api'?$private:$private['data'])['is_series']===true,'Private owner response is serialized after authorization');
+    }
+    echo 'Series HTTP/API router checks passed: '.$httpChecks.'; actual registered routes, bearer Sanctum, project middleware and JSON serialization; isolated SQLite only, no production kernel/server/cookie-session or HTTP/MySQL claim.'."\n";
+}
 echo 'Series playlist checks passed: '.$checks.'; isolated '.($mysql ? 'MySQL' : 'SQLite memory').", no app environment or media access.\n";
 if ($mysql) require __DIR__.'/series-seasons-checks.php';
