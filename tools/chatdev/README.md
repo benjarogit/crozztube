@@ -90,9 +90,28 @@ decision rationale belongs in `decisions.md`. Do not duplicate plan/progress.
 
 Codex reads the repository's `AGENTS.md`; add the small shared-core reference
 shown in the German integration document through the approved review path.
-Cursor has a minimal always-apply `.cursor/rules/chatdev.mdc` reference. There
-is no invented native Codex agent configuration, slash command, or hook API.
-The same CLI is the controlled sequential fallback in either environment.
+Cursor has a minimal always-apply `.cursor/rules/chatdev.mdc` reference. A rule
+does not register an invocable skill. The canonical native skill entry lives
+at `tools/chatdev/skill/SKILL.md` and delegates to the same core and CLI.
+
+Run `node tools/chatdev/cli.mjs install-skill` from this checkout to install its
+managed copy at `~/.agents/skills/chatdev/`. This user skill root is supported
+by local Codex and Cursor. In Codex, invoke `$chatdev`; in Cursor, `/chatdev`
+or attach the skill with `@`. Reopen the agent session if its picker is stale.
+There is no second orchestrator, native agent API or new hook registration.
+Other machines require their own installation; remote/cloud workers do not
+automatically receive this local user directory.
+
+The installer refuses foreign registrations, symlinks and edited managed files.
+Updates prepare a complete copy, serialize writers and roll back publication
+errors while preserving unrelated files. If the process is forcibly stopped,
+do not delete `chatdev.install-lock` blindly: confirm the writer has stopped,
+inspect its `previous` backup and prepared directory, restore `previous` to
+`chatdev` if the target is absent, then remove the abandoned lock and retry.
+Do not overwrite an existing target during manual recovery.
+The original main checkout cannot execute ChatDev until its implementation is
+integrated; the globally visible skill checks for those files and stops safely.
+See `harness/chatdev/skill-verification.md` for observed discovery and limits.
 
 Observed during inventory: `codex-cli 0.166.0` reports its version. The installed
 Cursor launcher produced GUI/Wayland warnings without a version. Neither fact
