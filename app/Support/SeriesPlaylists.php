@@ -14,12 +14,16 @@ use Illuminate\Validation\ValidationException;
 /** Episode metadata belongs to a playlist membership; sort_order is the only order. */
 final class SeriesPlaylists
 {
-    public static function revision(Playlist $playlist): string
+    public static function revision(Playlist $playlist, bool $currentRead = false): string
     {
-        $series = (bool) Playlist::query()->whereKey($playlist->id)->value('is_series');
-        $rows = DB::table('playlist_video')->where('playlist_id', $playlist->id)
-            ->orderBy('sort_order')->orderBy('id')
-            ->get(['video_id', 'sort_order', 'season_number', 'episode_number', 'episode_title']);
+        $seriesQuery = Playlist::query()->whereKey($playlist->id);
+        $rowsQuery = DB::table('playlist_video')->where('playlist_id', $playlist->id)->orderBy('sort_order')->orderBy('id');
+        // MySQL REPEATABLE READ may already have a snapshot from policy/scope
+        // queries before waiting for the playlist lock. Locking reads must use
+        // the latest committed fields, not that earlier consistent-read view.
+        if ($currentRead) { $seriesQuery->lockForUpdate(); $rowsQuery->lockForUpdate(); }
+        $series = (bool) $seriesQuery->value('is_series');
+        $rows = $rowsQuery->get(['video_id', 'sort_order', 'season_number', 'episode_number', 'episode_title']);
 
         return hash('sha256', json_encode([$series, $rows->toArray()], JSON_THROW_ON_ERROR));
     }
@@ -40,7 +44,7 @@ final class SeriesPlaylists
         return DB::transaction(function () use ($actor, $playlist, $data): array {
             $locked = Playlist::query()->lockForUpdate()->findOrFail($playlist->id);
             abort_unless((new PlaylistPolicy)->update($actor, $locked), 403);
-            abort_unless(hash_equals(self::revision($locked), $data['expected_revision']), 409, 'Playlist changed. Reload before saving.');
+            abort_unless(hash_equals(self::revision($locked, true), $data['expected_revision']), 409, 'Playlist changed. Reload before saving.');
             $rows = DB::table('playlist_video')->where('playlist_id', $locked->id)->lockForUpdate()->get()->keyBy('video_id');
             foreach ($data['episodes'] ?? [] as $episode) {
                 $row = $rows->get((int) $episode['video_id']);
@@ -90,7 +94,7 @@ final class SeriesPlaylists
             $manageable = $viewer && (new PlaylistPolicy)->update($viewer, $playlist);
             $episodes = [];
             if ($playlist->is_series || $manageable) {
-                $videos = $playlist->videos()->orderByPivot('id')->without('thumbnailMirrors')->with('user')->get();
+                $videos = $playlist->videos()->orderByPivot('id')->lockForUpdate()->without('thumbnailMirrors')->with('user')->get();
                 foreach ($videos as $video) {
                     $available = self::available($video, $viewer);
                     if (! $available && ! $manageable) continue;
@@ -108,7 +112,7 @@ final class SeriesPlaylists
             return [
                 'playlist_id' => (int) $playlist->id,
                 'is_series' => (bool) $playlist->is_series,
-                'series_revision' => $manageable ? self::revision($playlist) : null,
+                'series_revision' => $manageable ? self::revision($playlist, true) : null,
                 'can_manage_series' => (bool) $manageable,
                 'episodes' => $episodes,
                 'seasons' => array_values($seasons),

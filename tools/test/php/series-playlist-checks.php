@@ -1,6 +1,6 @@
 <?php
 
-// A new, in-memory Laravel database. No application bootstrap, .env, account,
+// A new isolated Laravel database. No application bootstrap, .env, account,
 // provider request, media bytes or running application database is accessed.
 require __DIR__.'/../../../vendor/autoload.php';
 
@@ -30,7 +30,18 @@ $app->instance('config', new Repository(['app' => ['locale' => 'en', 'timezone' 
 $events = new Dispatcher($app);
 $app->instance('events', $events);
 $capsule = new Capsule($app);
-$capsule->addConnection(['driver' => 'sqlite', 'database' => ':memory:', 'prefix' => '']);
+$mysql = getenv('SERIES_TEST_MYSQL') === '1';
+if ($mysql) {
+    $database = getenv('SERIES_TEST_DATABASE');
+    $marker = getenv('SERIES_TEST_ISOLATION_MARKER');
+    if (! preg_match('/^crozztube_series_test_[a-f0-9]{12}$/D', (string) $database) || ! preg_match('/^[a-f0-9]{32}$/D', (string) $marker)) {
+        throw new RuntimeException('Use the isolated --mysql runner; no application database is permitted.');
+    }
+    $capsule->addConnection(['driver' => 'mysql', 'host' => '127.0.0.1', 'port' => 3306, 'database' => $database,
+        'username' => 'root', 'password' => '', 'charset' => 'utf8mb4', 'collation' => 'utf8mb4_unicode_ci', 'prefix' => '', 'strict' => true]);
+} else {
+    $capsule->addConnection(['driver' => 'sqlite', 'database' => ':memory:', 'prefix' => '']);
+}
 $capsule->setEventDispatcher($events);
 $capsule->setAsGlobal();
 $capsule->bootEloquent();
@@ -42,6 +53,9 @@ $app->instance('auth', new class implements \Illuminate\Contracts\Auth\Factory {
     public function shouldUse($name) {}
 });
 Facade::setFacadeApplication($app);
+if ($mysql && ! hash_equals($marker, (string) DB::table('series_test_guard')->value('marker'))) {
+    throw new RuntimeException('Isolated database marker mismatch; refusing fixture creation.');
+}
 $app->instance(\Illuminate\Contracts\Routing\ResponseFactory::class, new class extends \Illuminate\Routing\ResponseFactory { public function __construct() {} });
 Request::macro('validate', function (array $rules): array { return app('validator')->make($this->all(),$rules)->validate(); });
 $request = Request::create('/api/playlists/1/series', 'GET');
@@ -247,4 +261,5 @@ $check(! Schema::hasColumn('playlists','is_series') && ! Schema::hasColumn('play
 $check(DB::table('playlist_video')->count() === 11 && DB::table('videos')->count() === 10, 'Rollback preserves existing content');
 $migration->up();
 $check(! Playlist::findOrFail($playlist->id)->is_series, 'Reapply has safe defaults');
-echo "Series playlist checks passed: {$checks}; isolated SQLite memory, no app environment or media access.\n";
+echo 'Series playlist checks passed: '.$checks.'; isolated '.($mysql ? 'MySQL' : 'SQLite memory').", no app environment or media access.\n";
+if ($mysql) require __DIR__.'/series-seasons-checks.php';

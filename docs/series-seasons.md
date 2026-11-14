@@ -99,6 +99,11 @@ metadata. There is no wraparound or invented recommendation at series end.
 - Metadata reads use the same playlist-first transaction lock, so episode fields
   and their revision cannot straddle an intervening write and silently overwrite
   it on a subsequent owner save.
+- Within those transactions, revision fields and episode rows use locking/current
+  reads. MySQL's default REPEATABLE READ can otherwise retain a snapshot created
+  by policy/scope queries before waiting for the playlist lock. The real parallel
+  test reproduced two successful competing edits before this correction; the
+  stale writer must now receive 409.
 - Number swaps clear numbering inside that transaction before applying the
   validated final assignments. The unique database index remains a backstop.
 - Shared-playlist reorder and both legacy/V1 full-playlist updates use the same
@@ -136,6 +141,9 @@ bash tools/test/step-08-series.sh
 node --test tools/test/series-seasons.test.mjs
 node tools/test/ui/series-seasons.mjs
 SERIES_BROWSER=firefox node tools/test/ui/series-seasons.mjs
+bash tools/test/step-08-series.sh --mysql
+# Require the isolated MySQL checks as part of this local source-bound gate:
+SERIES_TEST_MYSQL_REQUIRED=1 node tools/harness/cli.mjs series-verify
 ```
 
 The PHP suite builds a fresh Laravel/Capsule SQLite in-memory database without
@@ -150,8 +158,22 @@ tie-breaks, next-episode access and purchases, private/profile transitions, hidd
 revision protection and explicit-queue priority. It also executes the actual
 legacy transactional mutation block in the isolated fixture and injects a pivot
 write failure to test rollback. This is deterministic transaction/optimistic
-concurrency evidence, not a claim of parallel MySQL execution or full HTTP token
-middleware coverage.
+concurrency evidence. The explicit MySQL mode also runs these checks on a fresh
+MySQL 8.0.46 database, then four concurrent-process pairs with 24 assertions.
+Distinct connections and `performance_schema.data_lock_waits` establish actual
+InnoDB lock waits before the controlling transaction is released. Cases cover
+stale edits, consistent metadata/revision reads, concurrent reorder and rollback.
+This is real isolated MySQL execution, not production or full HTTP token middleware
+coverage. Hosted CI currently uses the SQLite/browser path; local MySQL evidence
+must not be described as a hosted MySQL check.
+
+The explicit runner uses an already available `mysql:8.0.46` image, a temporary
+memory-backed database, no published ports and a network namespace with no
+external network. PHP joins only that namespace with a read-only source mount.
+Random database names and an isolation marker are checked before fixture creation.
+Cleanup removes the test container on success/failure/interruption. No running
+application database, environment file, credentials or application container is
+used or migrated. Unknown arguments fail before starting tests.
 
 The Node suite checks queue/context selection. Browser checks use the real built
 UI with controlled API fixtures and a tiny synthetic native-video test fixture.
@@ -175,3 +197,48 @@ publication, approvals and next actions. Before claiming full acceptance, attach
 source-bound regression evidence, resolve independent findings, check the actual
 PR CI and perform any outstanding integration/operational checks. The original
 feature checkout and its unrelated `Archiv.zip` remain untouched by this worktree.
+
+## Coordination with GitHub quality PR #5 (reviewed 2026-11-14)
+
+Reviewed source: PR #5 at `70a4902768926b4292868537cffe988f5c385802`, against
+the published ChatDev PR #3 and series PR #4. This is an integration review,
+not an alternative authority for feature progress or a merge approval.
+
+- PR #5 adds two issue forms, a PR template, Dependabot configuration and setup
+  documentation. It adds no workflow and has no changed-path overlap with #3/#4.
+  Its templates preserve the authoritative harness, existing hooks and explicit
+  merge/deployment boundaries. No competing progress store is introduced.
+- Its three YAML files passed local parser/shape checks. No hosted check ran for
+  that PR head; an empty checks list is not a successful CI result. The existing
+  `contracts` workflow's path filter does not cover the five governance files.
+  Use that existing workflow if governance validation is integrated later; do
+  not create a second general PR gate or make a nonexistent check mandatory.
+- Dependabot currently covers only the root npm manifest, missing the separate
+  `/tools/test/ui` project that pins Playwright. Add that manifest location before
+  describing browser-dependency coverage as complete. GitHub supports multiple
+  manifest locations via `directories`; avoid duplicate overlapping update jobs.
+  The configured limit controls version-update PRs, not a total PR/billing cap;
+  security-update PRs have a separate limit. Source:
+  https://docs.github.com/en/code-security/reference/supply-chain-security/dependabot-options-reference
+- Dependency PRs must run checks relevant to their actual changed dependencies.
+  Current hosted series integration is conditional on `codex/series-seasons`;
+  green unconditional tooling contracts alone do not validate a future npm or
+  Composer upgrade. No scheduler, CodeQL, repository setting or paid service was
+  enabled by this review.
+- Read-only repository inspection confirmed default Actions token permission
+  `read`, no Actions approval of PR reviews, disabled automatic merge and an
+  available ancestry-preserving merge-commit option. The rulesets API returned
+  403 with a private-repository plan-upgrade requirement. No setting or plan was
+  changed; unavailable rulesets must not be described as enabled protection.
+
+The mandatory dependency is **#3 before #4**. Recommended later integration order
+is **#5 → #3 → #4**, once each PR's own corrections, checks and approvals are
+complete; #5 is independent and can otherwise be scheduled separately. Preserve
+#3's ancestry when integrating it, so #4 can subsequently target `main` without
+reintroducing tooling changes or rewriting a published branch. Reassess actual
+diff/CI after retargeting. No merge, rebase, release or branch retarget is performed
+by this plan. Cursor unavailability remains an explicit runtime blocker. Ordinary
+code, schema, isolated database and browser checks can proceed independently;
+the genuine cross-client run and explicit merge/production approvals cannot be
+substituted by fixtures or an agent's role label. Step 8 remains active; step 9
+must wait for the existing completion gate.
