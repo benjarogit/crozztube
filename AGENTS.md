@@ -48,3 +48,9 @@ The user's approved plan is implemented in order, one active step at a time.
 - Use bounded media traffic and one browser-test worker.
 - A project hook must be loaded by the active agent runtime and observed firing before runtime
   enforcement is claimed. Never bypass hook trust to satisfy this acceptance.
+
+## Shared engineering organization
+
+Read `harness/chatdev/CORE.md` and use the shared role definitions and local
+journal through `tools/chatdev/cli.mjs`. This adds no gate or permission and
+never supersedes the authoritative harness plan/progress or existing hooks.

@@ -1,0 +1,8 @@
+---
+description: Shared CrozzTube engineering organization and authoritative harness
+alwaysApply: true
+---
+
+Read `AGENTS.md` and `harness/chatdev/CORE.md` before working. Use the shared
+roles and the local task journal through `tools/chatdev/cli.mjs`. The existing
+harness remains authoritative; this rule grants no approvals or gate bypasses.
