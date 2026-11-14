@@ -5,6 +5,7 @@ import { spawnSync } from 'node:child_process';
 import { git, load, digest, indexDigest, assertStaged, localPath, localState, writeJson, setMode } from './workflow.mjs';
 
 const branch='codex/series-seasons', parent='codex/chatdev-integration';
+const approvedIntegrationHead='02455c7f647ccc34477fd4926dd349c4b6dd810e';
 const checkId='step-08-series', script='tools/test/step-08-series.sh';
 const regular=(root,file)=>{const p=path.join(root,file);if(!fs.existsSync(p))return false;const s=fs.lstatSync(p);return s.isFile()&&!s.isSymbolicLink();};
 const canonical=value=>JSON.stringify(value && typeof value==='object' ? Array.isArray(value)?value.map(v=>JSON.parse(canonical(v))):Object.fromEntries(Object.keys(value).sort().map(k=>[k,JSON.parse(canonical(value[k]))])) : value);
@@ -47,6 +48,24 @@ function assetNames(manifest){
   return result;
 }
 
+// The test anchor parameter is confined to this history inspector. Public
+// scope/verify/publication always use the fixed, explicitly approved head.
+export function seriesHistory(root,base,approvedHead=approvedIntegrationHead){
+  const commits=git(root,['rev-list',base+'..HEAD']).split('\n').filter(Boolean);
+  const merges=git(root,['rev-list','--merges',base+'..HEAD']).split('\n').filter(Boolean);
+  if(!merges.length)return commits;
+  if(merges.length!==1)throw Error('Merge commits are not allowed except the approved tooling integration.');
+  const merge=merges[0], parents=git(root,['show','-s','--format=%P',merge]).split(' ');
+  if(parents.length!==2||parents[0]!==approvedHead||parents[1]!==base)throw Error('Merge commits must integrate the published tooling parent into the exact approved feature head.');
+  let expected;
+  try{expected=git(root,['merge-tree','--write-tree',approvedHead,base]).split('\n')[0];}catch{throw Error('Approved tooling integration must be conflict-free; manual resolutions are not allowed.');}
+  if(git(root,['show','-s','--format=%T',merge])!==expected)throw Error('Approved tooling integration differs from the canonical merge tree.');
+  // Exclude only this validated merge. Old feature commits remain in the list,
+  // including changes reverted before integration; imported tooling ancestry
+  // is excluded by rev-list base..HEAD rather than a broad path exemption.
+  return commits.filter(commit=>commit!==merge);
+}
+
 export function seriesScope(root){
   const context=load(root);
   if(git(root,['branch','--show-current'])!==branch)throw Error('Use dedicated codex/series-seasons branch.');
@@ -54,13 +73,13 @@ export function seriesScope(root){
   if(context.plan.remote!=='origin'||context.plan.branch!=='main')throw Error('Unexpected authoritative branch or remote.');
   const base=git(root,['rev-parse',`origin/${parent}`]);
   git(root,['merge-base','--is-ancestor',base,'HEAD']);
-  if(git(root,['rev-list','--merges',base+'..HEAD']))throw Error('Merge commits are not allowed in the bounded series history.');
+  const commits=seriesHistory(root,base);
   if(fs.existsSync(path.resolve(root,git(root,['rev-parse','--git-path','MERGE_HEAD']))))throw Error('Pending merge is outside the series checkpoint.');
   const baseline=parse(git(root,['show',`${base}:harness/plan.json`]));
   validatePlan(context.plan,baseline);
   const changed=git(root,['diff','--name-only','-z',base,'--']).split('\0').filter(Boolean);
   const untracked=git(root,['ls-files','--others','--exclude-standard','-z']).split('\0').filter(Boolean);
-  const commits=git(root,['rev-list',base+'..HEAD']).split('\n').filter(Boolean), historical=[];
+  const historical=[];
   for(const commit of commits){
     historical.push(...git(root,['diff-tree','--no-commit-id','--name-only','-r','-z',commit]).split('\0').filter(Boolean));
     validatePlan(parse(git(root,['show',`${commit}:harness/plan.json`])),baseline);
