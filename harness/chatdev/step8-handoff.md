@@ -32,3 +32,17 @@ Runtime-Hook-Evidenz. Keine Annahme späterer Schritte und kein Main-Merge.
 Bis zur Freigabe dürfen Analyse/Testfälle und eine lokale prüfbare Umsetzung
 vorbereitet, jedoch keine Produktänderungen über den Werkzeugpfad veröffentlicht
 oder die bestehende main-Sperre umgangen werden.
+
+## Freigabe und tatsächliche Wiederaufnahme
+
+Der Nutzer hat den begrenzten Feature-PR-Pfad anschließend ausdrücklich
+freigegeben. Er ist als series-verify/series-checkpoint umgesetzt und separat
+negativ getestet. Die normalen Abschluss-/Hook-Anforderungen bleiben erhalten;
+dieser Pfad kann keinen Schritt abschließen oder späteren Schritt starten.
+
+Der Projektmanager wurde tatsächlich ausgeführt, seine Ergebnisse wurden
+übernommen und der eigene Checkout codex/series-seasons angelegt. Dort wird
+Schritt8 fortgesetzt. Der Backend-Entwickler implementiert den Playlist-Kontext
+und isolierte SQLite-/Controller-Prüfungen; die Oberfläche wird mit der
+bestehenden Watch-/Queue-Logik verbunden. Dieser Absatz ist keine Behauptung,
+dass die vollständige Feature-Abnahme oder ein Main-Merge erfolgt wäre.

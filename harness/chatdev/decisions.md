@@ -58,3 +58,15 @@ permission to change runtime.required to false. No main merge is authorized.
 
 Sources: original user integration acceptance; follow-up PR-orchestration audit
 request; actual installed command inventory and read-only Codex CLI probe.
+
+## CD-005 — Bounded step-8 feature publication (2026-11-14)
+
+The owner explicitly approved a separate feature-PR checkpoint path after PM
+validation. series-verify and series-checkpoint apply only to active step8 on
+codex/series-seasons, stacked on the freshly verified published
+codex/chatdev-integration parent. This allows independent series implementation
+without merging unaccepted tooling into main. Existing checkpoint checks remain
+mandatory. Only the real step-08-series check may be added to the plan; all
+existing requirements and progress are immutable. Release assets must be
+indexed; receipts bind all remote destinations. Completion/begin and main merges
+remain outside this path and retain the original requirements.

@@ -4,6 +4,7 @@ import path from 'node:path';
 import { repository, git, load, localState, setMode, published, verify, begin, publish, runtimeEvidence } from './workflow.mjs';
 import { verifyMaintenance, publishMaintenance } from './maintenance.mjs';
 import { verifyChatdev, publishChatdev } from './chatdev-maintenance.mjs';
+import { verifySeries, publishSeries } from './series-maintenance.mjs';
 
 const [command = 'status', ...args] = process.argv.slice(2);
 const option = key => args[args.indexOf(key) + 1] && args.includes(key) ? args[args.indexOf(key) + 1] : '';
@@ -14,6 +15,8 @@ try {
     console.log(JSON.stringify({ activeStep: context.step.id, title: context.step.title, status: published(root, context) ? 'complete' : context.record.status === 'accepted' ? 'awaiting-confirmed-publication' : context.record.status, mode: localState(root), runtimeHookVerified: runtimeEvidence(root), branch: git(root, ['branch', '--show-current']) }, null, 2));
   } else if (command === 'resume') setMode(root, 'implementing');
   else if (command === 'mode') setMode(root, args[0], option('--reason'));
+  else if (command === 'series-verify') verifySeries(root);
+  else if (command === 'series-checkpoint') publishSeries(root, option('--message'));
   else if (command === 'chatdev-verify') verifyChatdev(root);
   else if (command === 'chatdev-checkpoint') publishChatdev(root, option('--message'));
   else if (command === 'maintenance-verify') verifyMaintenance(root);

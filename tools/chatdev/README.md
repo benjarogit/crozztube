@@ -178,3 +178,13 @@ orchestrator. It never changes step acceptance, grants approvals, merges or
 pretends to control an unavailable Cursor/Codex process. Resume from the current
 active milestone after this validated tooling increment; do not restart completed
 steps or implement product changes on the tooling-only branch.
+
+## Approved series feature continuation
+
+The separate codex/series-seasons worktree continues active step8. It uses
+`node tools/harness/cli.mjs series-verify` and `series-checkpoint --message "..."`
+against the published tooling parent, with the original checkpoint checks.
+This bounded path cannot complete a step, start another, or merge main. Once
+configured, the actual step-08-series script is additionally mandatory. Product
+changes never use chatdev-checkpoint. Runtime acceptance and user merge approval
+remain separate. See harness/chatdev/step8-handoff.md.

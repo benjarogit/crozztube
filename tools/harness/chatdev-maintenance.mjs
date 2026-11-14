@@ -5,8 +5,8 @@ import { git, load, digest, indexDigest, assertStaged, localPath, localState, wr
 
 export const agentsAppend = '\n## Shared engineering organization\n\nRead `harness/chatdev/CORE.md` and use the shared role definitions and local\njournal through `tools/chatdev/cli.mjs`. This adds no gate or permission and\nnever supersedes the authoritative harness plan/progress or existing hooks.\n';
 export const readmeAppend = '\n## Approved ChatDev tooling integration\n\nThe isolated `codex/chatdev-integration` branch uses `chatdev-verify` and\n`chatdev-checkpoint --message "..."` for the narrowly approved orchestration\ntooling only. See `tools/chatdev/README.md`. Existing feature gates, hooks,\nplan/progress and Impeccable maintenance remain unchanged. No feature step is\naccepted or advanced and no main-branch merge is authorized by this path.\n';
-const integrationImport = "import { verifyChatdev, publishChatdev } from './chatdev-maintenance.mjs';\n";
-const integrationCommands = "  else if (command === 'chatdev-verify') verifyChatdev(root);\n  else if (command === 'chatdev-checkpoint') publishChatdev(root, option('--message'));\n";
+const integrationImport = "import { verifyChatdev, publishChatdev } from './chatdev-maintenance.mjs';\nimport { verifySeries, publishSeries } from './series-maintenance.mjs';\n";
+const integrationCommands = "  else if (command === 'series-verify') verifySeries(root);\n  else if (command === 'series-checkpoint') publishSeries(root, option('--message'));\n  else if (command === 'chatdev-verify') verifyChatdev(root);\n  else if (command === 'chatdev-checkpoint') publishChatdev(root, option('--message'));\n";
 export function integratedCli(base) {
   if (!base.includes("import { verifyMaintenance, publishMaintenance } from './maintenance.mjs';\n") || !base.includes("  else if (command === 'maintenance-verify')")) throw Error('Unexpected base CLI: inspect integration manually.');
   return base.replace("import { verifyMaintenance, publishMaintenance } from './maintenance.mjs';\n", "import { verifyMaintenance, publishMaintenance } from './maintenance.mjs';\n" + integrationImport)
@@ -27,7 +27,7 @@ export function chatdevScope(root) {
   if (fs.existsSync(merge)) throw Error('Finish or resolve the pending merge outside this tooling gate.');
   const allowed = file => /^(?:tools\/chatdev\/|harness\/chatdev\/)/.test(file)
     || /^tools\/test\/chatdev(?:-[a-z0-9-]+)?\.test\.mjs$/.test(file)
-    || ['docs/chatdev-integration.md','.cursor/rules/chatdev.mdc','.github/workflows/chatdev.yml','AGENTS.md','harness/README.md','tools/harness/chatdev-maintenance.mjs','tools/harness/cli.mjs'].includes(file);
+    || ['docs/chatdev-integration.md','.cursor/rules/chatdev.mdc','.github/workflows/chatdev.yml','AGENTS.md','harness/README.md','tools/harness/chatdev-maintenance.mjs','tools/harness/series-maintenance.mjs','tools/harness/cli.mjs'].includes(file);
   const changed = git(root, ['diff', '--name-only', '-z', base, '--']).split('\0').filter(Boolean);
   const untracked = git(root, ['ls-files', '--others', '--exclude-standard', '-z']).split('\0').filter(Boolean);
   const historical = [];
@@ -69,7 +69,7 @@ export function verifyChatdev(root) {
   fs.rmSync(receipt, { force: true });
   const before = digest(root), index = indexDigest(root);
   const checks = [
-    ['node', '--test', 'tools/test/harness.test.mjs', 'tools/test/chatdev.test.mjs', 'tools/test/chatdev-maintenance.test.mjs', 'tools/test/chatdev-pr.test.mjs', 'tools/test/chatdev-manager.test.mjs'],
+    ['node', '--test', 'tools/test/harness.test.mjs', 'tools/test/chatdev.test.mjs', 'tools/test/chatdev-maintenance.test.mjs', 'tools/test/chatdev-pr.test.mjs', 'tools/test/chatdev-manager.test.mjs', 'tools/test/chatdev-series.test.mjs'],
     ['node', 'tools/harness/static-check.mjs'],
   ];
   for (const argv of checks) {
