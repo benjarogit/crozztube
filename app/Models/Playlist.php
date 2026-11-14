@@ -20,7 +20,10 @@ class Playlist extends Model
         'privacy',
         'color',
         'cover_video_id',
+        'is_series',
     ];
+
+    protected $casts = ['is_series' => 'boolean'];
 
     public function user(): BelongsTo
     {
@@ -34,7 +37,7 @@ class Playlist extends Model
 
     public function videos(): BelongsToMany
     {
-        return $this->belongsToMany(Video::class)->withTimestamps()->withPivot('sort_order')->orderByPivot('sort_order');
+        return $this->belongsToMany(Video::class)->withTimestamps()->withPivot('sort_order', 'season_number', 'episode_number', 'episode_title')->orderByPivot('sort_order');
     }
 
     public function coverVideo(): BelongsTo

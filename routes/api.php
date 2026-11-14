@@ -356,6 +356,8 @@ Route::get('/playlists', function (Request $request) {
         'playlists' => PlaylistResource::collection($playlists)->resolve($request),
     ]);
 });
+Route::get('/playlists/{playlist}/series', [\App\Http\Controllers\Api\SeriesPlaylistController::class, 'show']);
+Route::get('/playlists/{playlist}/series/next', [\App\Http\Controllers\Api\SeriesPlaylistController::class, 'next']);
 Route::get('/playlists/{playlist}', function (Request $request, Playlist $playlist) {
     $token = $request->bearerToken();
     $user = $request->user() ?: ($token ? PersonalAccessToken::findToken($token)?->tokenable : null);
@@ -1534,6 +1536,7 @@ Route::middleware(['auth:sanctum', \App\Http\Middleware\EnsureUgcSafety::class])
     Route::post('/community-posts/{communityPost}/bookmark', [CommunityPostController::class, 'bookmark']);
     Route::post('/community-posts/{communityPost}/comments', [CommunityPostController::class, 'storeComment']);
     Route::post('/community-posts/{communityPost}/vote', [CommunityPostController::class, 'vote']);
+    Route::put('/playlists/{playlist}/series', [\App\Http\Controllers\Api\SeriesPlaylistController::class, 'update']);
     Route::get('/playlists/{playlist}/members', [SharedPlaylistController::class, 'members']);
     Route::post('/playlists/{playlist}/members', [SharedPlaylistController::class, 'invite']);
     Route::post('/playlists/{playlist}/members/accept', [SharedPlaylistController::class, 'accept']);
@@ -1767,30 +1770,39 @@ Route::middleware(['auth:sanctum', \App\Http\Middleware\EnsureUgcSafety::class])
             'video_ids.*' => ['integer'],
         ]);
 
-        $videoIds = DB::table('videos')
-            ->whereIn('id', $data['video_ids'] ?? $playlist->videos()->pluck('videos.id')->all())
-            ->where(function ($query) use ($request) {
-                $query->where('user_id', $request->user()->id)
-                    ->orWhere(function ($publicQuery) {
-                        $publicQuery->where('visibility', 'public')->where('status', 'ready');
-                    });
-            })
-            ->pluck('id')
-            ->values();
+        $playlist = DB::transaction(function () use ($request, $playlist, $data): Playlist {
+            $playlist = Playlist::query()->lockForUpdate()->findOrFail($playlist->id);
+            abort_unless(Gate::forUser($request->user())->allows('update', $playlist), 403);
 
-        $updates = [
-            'title' => trim($data['title']),
-            'description' => trim((string) ($data['description'] ?? '')) ?: null,
-            'privacy' => strtolower($data['privacy'] ?? 'public'),
-            'color' => $data['color'] ?? '#6c4cff',
-        ];
+            $requestedVideoIds = collect($data['video_ids'] ?? $playlist->videos()->pluck('videos.id')->all())
+                ->map(fn ($id) => (int) $id)->unique()->values();
+            $eligibleVideoIds = DB::table('videos')
+                ->whereIn('id', $requestedVideoIds)
+                ->where(function ($query) use ($request) {
+                    $query->where('user_id', $request->user()->id)
+                        ->orWhere(function ($publicQuery) {
+                            $publicQuery->where('visibility', 'public')->where('status', 'ready');
+                        });
+                })
+                ->pluck('id')->map(fn ($id) => (int) $id)->all();
+            $videoIds = $requestedVideoIds->filter(fn ($id) => in_array($id, $eligibleVideoIds, true))->values();
 
-        if (Schema::hasColumn('playlists', 'cover_video_id')) {
-            $updates['cover_video_id'] = $videoIds->contains((int) ($data['cover_video_id'] ?? 0)) ? (int) $data['cover_video_id'] : null;
-        }
+            $updates = [
+                'title' => trim($data['title']),
+                'description' => trim((string) ($data['description'] ?? '')) ?: null,
+                'privacy' => strtolower($data['privacy'] ?? 'public'),
+                'color' => $data['color'] ?? '#6c4cff',
+            ];
 
-        $playlist->update($updates);
-        $playlist->videos()->sync($videoIds->mapWithKeys(fn ($id, $index) => [$id => ['sort_order' => $index]])->all());
+            if (Schema::hasColumn('playlists', 'cover_video_id')) {
+                $updates['cover_video_id'] = $videoIds->contains((int) ($data['cover_video_id'] ?? 0)) ? (int) $data['cover_video_id'] : null;
+            }
+
+            $playlist->update($updates);
+            $playlist->videos()->sync($videoIds->mapWithKeys(fn ($id, $index) => [$id => ['sort_order' => $index]])->all());
+
+            return $playlist;
+        }, 3);
 
         return response()->json([
             'message' => 'Playlist updated.',

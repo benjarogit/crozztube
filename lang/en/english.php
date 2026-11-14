@@ -4955,4 +4955,12 @@ The processing job encodes renditions, creates thumbnails when needed, stores ca
   'Your clip becomes public once Odysee confirms it is ready.' => 'Your clip becomes public once Odysee confirms it is ready.',
   'Like post' => 'Like post',
   'Unlike post' => 'Unlike post',
+  'Series' => 'Series',
+  'Season' => 'Season',
+  'Episode' => 'Episode',
+  'Next episode' => 'Next episode',
+  'Playlist changed. Reload before saving.' => 'Playlist changed. Reload before saving.',
+  'Choose videos from this playlist.' => 'Choose videos from this playlist.',
+  'Set both season and episode numbers, or leave both empty.' => 'Set both season and episode numbers, or leave both empty.',
+  'An episode number can only appear once in each season.' => 'An episode number can only appear once in each season.',
 );

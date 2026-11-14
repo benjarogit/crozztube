@@ -189,6 +189,8 @@ Route::prefix('v1')
             Route::get('/mentions/{handle}', [ProfileController::class, 'resolveMention'])
                 ->where('handle', '[A-Za-z0-9_.-]{2,40}')
                 ->middleware('throttle:search')->name('mentions.resolve');
+            Route::get('/playlists/{playlist}/series', [\App\Http\Controllers\Api\SeriesPlaylistController::class, 'show']);
+            Route::get('/playlists/{playlist}/series/next', [\App\Http\Controllers\Api\SeriesPlaylistController::class, 'next']);
             Route::get('/playlists/{playlist}', [PlaylistController::class, 'show'])->name('playlists.show');
 
             Route::get('/search/suggestions', [SearchController::class, 'suggestions'])
@@ -334,6 +336,8 @@ Route::prefix('v1')
 
                 Route::post('/playlists', [PlaylistController::class, 'store'])
                     ->middleware('throttle:api-write')->name('playlists.store');
+                Route::put('/playlists/{playlist}/series', [\App\Http\Controllers\Api\SeriesPlaylistController::class, 'update'])
+                    ->middleware('throttle:api-write')->name('playlists.series.update');
                 Route::patch('/playlists/{playlist}', [PlaylistController::class, 'update'])
                     ->middleware('throttle:api-write')->name('playlists.update');
                 Route::delete('/playlists/{playlist}', [PlaylistController::class, 'destroy'])

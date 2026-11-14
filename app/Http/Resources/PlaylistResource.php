@@ -19,6 +19,7 @@ class PlaylistResource extends JsonResource
             'channel_id' => $this->channel_id,
             'title' => $this->title,
             'description' => $this->description,
+            'is_series' => (bool) $this->is_series,
             'privacy' => $this->privacy,
             'color' => $this->color,
             'cover_video_id' => $this->cover_video_id,
