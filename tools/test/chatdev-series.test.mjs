@@ -74,3 +74,23 @@ test('existing canonical English catalog is allowed but new or foreign catalogs 
   fixture(({root,write})=>{write('lang/en/english.php',"<?php return ['Existing'=>'Existing','Series'=>'Series'];\n");assert.equal(seriesScope(root).branch,'codex/series-seasons');});
   for(const file of ['lang/new/new.php','lang/en/foreign.php','lang/en/untracked.php'])fixture(({root,write})=>{write(file,'<?php // Unapproved catalog fixture\n');assert.throws(()=>seriesScope(root),/Outside approved series/);});
 });
+test('CI preserves unconditional tooling contracts and gates every series setup step by exact feature branch',()=>{
+  const workflow=fs.readFileSync(new URL('../../.github/workflows/chatdev.yml',import.meta.url),'utf8');
+  assert.match(workflow,/permissions:\n  contents: read\njobs:\n  contracts:/);
+  assert.match(workflow,/persist-credentials: false/);
+  assert(!/pull_request_target|continue-on-error|--ignore-platform-req|contents: write|secrets\./.test(workflow));
+  const steps=workflow.split(/(?=^      - )/m).slice(1);
+  const tooling=steps.find(s=>s.includes('node --test tools/test/harness.test.mjs'));
+  assert(tooling&&!tooling.includes('if:'));
+  const feature=steps.filter(s=>s.includes('name: Series '));assert.equal(feature.length,8);
+  for(const step of feature)assert.match(step,/^        if: github\.head_ref == 'codex\/series-seasons'$/m);
+  const actions=[...workflow.matchAll(/uses: ([^\s@]+)@([^\s]+)/g)];assert.equal(actions.length,3);for(const action of actions)assert.match(action[2],/^[a-f0-9]{40}$/);
+  assert.match(workflow,/shivammathur\/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962/);
+  assert.match(workflow,/php-version: '8\.5'/);assert.match(workflow,/extensions: iconv, pdo_sqlite/);
+});
+test('CI series job installs locked dependencies and executes the real composed runner',()=>{
+  const workflow=fs.readFileSync(new URL('../../.github/workflows/chatdev.yml',import.meta.url),'utf8');
+  for(const command of ['composer install --no-scripts --no-interaction --prefer-dist --no-progress','npm ci --ignore-scripts','npm ci --prefix tools/test/ui --ignore-scripts','node tools/test/ui/node_modules/playwright/cli.js install --with-deps chromium','sudo apt-get update && sudo apt-get install --yes --no-install-recommends ffmpeg','npm run build','bash tools/test/step-08-series.sh'])assert(workflow.includes('run: '+command));
+  for(const file of ['harness/plan.json','app/Support/SeriesPlaylists.php','app/Http/Controllers/Api/SeriesPlaylistController.php','routes/api.php','routes/api_v1.php','resources/js/main.jsx','resources/js/components/PlaylistSeries.jsx','resources/js/series-context.js','resources/js/styles/playlist-series.css','lang/*/*.php','build/manifest.json','tools/test/step-08-series.sh','tools/test/php/series-playlist-checks.php','tools/test/series-seasons.test.mjs','tools/test/ui/series-seasons.mjs'])assert(workflow.includes("- '"+file+"'"),'Missing series trigger path '+file);
+  assert(workflow.indexOf('run: npm run build')<workflow.indexOf('run: bash tools/test/step-08-series.sh'));
+});

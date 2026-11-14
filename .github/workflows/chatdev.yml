@@ -1,17 +1,98 @@
 name: ChatDev tooling contracts
 on:
   pull_request:
-    paths: ['tools/chatdev/**', 'harness/chatdev/**', 'tools/test/chatdev*.test.mjs', 'tools/harness/chatdev-maintenance.mjs', 'tools/harness/series-maintenance.mjs', 'tools/harness/cli.mjs', 'AGENTS.md', '.cursor/rules/chatdev.mdc', 'docs/chatdev-integration.md', '.github/workflows/chatdev.yml']
+    paths:
+      - 'tools/chatdev/**'
+      - 'harness/chatdev/**'
+      - 'tools/test/chatdev*.test.mjs'
+      - 'tools/harness/chatdev-maintenance.mjs'
+      - 'tools/harness/series-maintenance.mjs'
+      - 'tools/harness/cli.mjs'
+      - 'AGENTS.md'
+      - '.cursor/rules/chatdev.mdc'
+      - 'docs/chatdev-integration.md'
+      - '.github/workflows/chatdev.yml'
+      # Bounded step-8 surface; feature scope remains enforced by the harness.
+      - 'harness/plan.json'
+      - 'app/Support/SharedPlaylists.php'
+      - 'app/Support/SeriesPlaylists.php'
+      - 'app/Policies/PlaylistPolicy.php'
+      - 'app/Models/Playlist.php'
+      - 'app/Models/PlaylistSeason.php'
+      - 'app/Models/PlaylistEpisode.php'
+      - 'app/Models/PlaylistVideo.php'
+      - 'app/Http/Resources/PlaylistResource.php'
+      - 'app/Http/Resources/Api/V1/PlaylistSummaryResource.php'
+      - 'app/Http/Controllers/Api/V1/PlaylistController.php'
+      - 'app/Http/Controllers/Api/SharedPlaylistController.php'
+      - 'app/Http/Controllers/Api/SeriesPlaylistController.php'
+      - 'routes/api.php'
+      - 'routes/api_v1.php'
+      - 'database/migrations/*_create_playlist_seasons.php'
+      - 'database/migrations/*_create_playlist_episodes.php'
+      - 'database/migrations/*_add_series_structure_to_playlists.php'
+      - 'database/migrations/*_add_series_context_to_playlists.php'
+      - 'resources/js/main.jsx'
+      - 'resources/js/components/PlaylistSeries.jsx'
+      - 'resources/js/playlistSeries.js'
+      - 'resources/js/series-context.js'
+      - 'resources/js/styles/playlist-series.css'
+      - 'lang/*/*.php'
+      - 'build/manifest.json'
+      - 'build/assets/**'
+      - 'docs/series-seasons.md'
+      - 'tools/test/step-08-series.sh'
+      - 'tools/test/series-seasons.test.mjs'
+      - 'tools/test/php/series-seasons-checks.php'
+      - 'tools/test/php/series-playlist-checks.php'
+      - 'tools/test/ui/series-seasons.mjs'
+      - 'composer.json'
+      - 'composer.lock'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'tools/test/ui/package.json'
+      - 'tools/test/ui/package-lock.json'
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
   contracts:
     runs-on: ubuntu-latest
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: '22'
       - run: node tools/harness/setup.mjs
       - run: node --test tools/test/harness.test.mjs tools/test/chatdev.test.mjs tools/test/chatdev-maintenance.test.mjs tools/test/chatdev-pr.test.mjs tools/test/chatdev-manager.test.mjs tools/test/chatdev-series.test.mjs
+      - name: Series PHP runtime
+        if: github.head_ref == 'codex/series-seasons'
+        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0, v2 tag dereferenced to commit
+        with:
+          php-version: '8.5'
+          extensions: iconv, pdo_sqlite
+          coverage: none
+      - name: Series PHP dependencies
+        if: github.head_ref == 'codex/series-seasons'
+        run: composer install --no-scripts --no-interaction --prefer-dist --no-progress
+      - name: Series JavaScript dependencies
+        if: github.head_ref == 'codex/series-seasons'
+        run: npm ci --ignore-scripts
+      - name: Series browser test dependencies
+        if: github.head_ref == 'codex/series-seasons'
+        run: npm ci --prefix tools/test/ui --ignore-scripts
+      - name: Series Chromium runtime
+        if: github.head_ref == 'codex/series-seasons'
+        run: node tools/test/ui/node_modules/playwright/cli.js install --with-deps chromium
+      - name: Series bounded media fixture tooling
+        if: github.head_ref == 'codex/series-seasons'
+        run: sudo apt-get update && sudo apt-get install --yes --no-install-recommends ffmpeg
+      - name: Series production frontend build
+        if: github.head_ref == 'codex/series-seasons'
+        run: npm run build
+      - name: Series backend and browser regressions
+        if: github.head_ref == 'codex/series-seasons'
+        run: bash tools/test/step-08-series.sh
