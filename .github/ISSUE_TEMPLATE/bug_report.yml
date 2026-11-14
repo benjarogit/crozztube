@@ -1,0 +1,26 @@
+name: Fehlerbericht
+description: Reproduzierbaren Fehler melden, ohne private Inhalte oder Zugangsdaten
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Fehler und erwartetes Verhalten
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduktionsschritte
+      description: Plattform, Testdaten und konkreter Ablauf
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Umgebung
+      placeholder: CrozzTube-Commit, Laravel/PHP, Browser, Gerät
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Nachweis und Akzeptanzkriterien
+      description: Sanitized logs, Screenshots, Tests; keine Geheimnisse
