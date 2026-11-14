@@ -139,3 +139,28 @@ die tatsächliche Veröffentlichungsgrenze des main-gebundenen Feature-Gates.
 Mehrdeutige gespeicherte PR-Berichte bleiben gesperrt; ein frischer Aufruf
 pr-audit PR_NUMMER BELEGDATEI übergibt den eindeutig gemeinten PR. Weder dieser
 Bericht noch eine Rollenbewertung erteilt Merge-, Deployment- oder Hook-Rechte.
+
+## Nativer Skill-Einstieg
+
+Eine Projektregel und die CLI allein erzeugen keinen aufrufbaren Skill.
+Die gemeinsame Vorlage liegt nun in `tools/chatdev/skill/SKILL.md`.
+`node tools/chatdev/cli.mjs install-skill` installiert sie ausdrücklich unter
+`~/.agents/skills/chatdev/`; dieser lokale Benutzerpfad wird von Codex und
+Cursor unterstützt. Codex-Aufruf: `$chatdev`. Cursor-Aufruf: `/chatdev` oder
+per `@` anhängen. Bei veraltetem Picker eine neue Agent-Sitzung öffnen.
+
+Es gibt weiterhin nur die vorhandene ChatDev-Implementierung. Der Skill lädt
+den Kern aus dem aktuellen Checkout und prüft zuerst dessen Verfügbarkeit.
+Insbesondere enthält der ursprüngliche main-Checkout die noch nicht gemergte
+Implementierung nicht automatisch. Andere Rechner benötigen eine eigene
+Installation; ein lokaler Benutzer-Skill wird nicht automatisch auf Cloud- oder
+Remote-Worker übertragen. Vorhandene fremde Skills und lokale Anpassungen
+werden nicht überschrieben. Wiederholte Installation ist ohne Änderungen ein
+No-op; Hinweise zur sicheren Wiederherstellung stehen in der CLI-README.
+
+Nachgewiesen sind Codex-Katalogerkennung und ein echter schreibgeschützter
+Skill-Aufruf. In dessen Sandbox scheiterte allerdings `harness status` mit
+`spawnSync git EPERM`; Kontext und Projektmanager liefen. Der vollständige
+Cursor-Lauf sowie Cursor→Codex→Cursor bleiben offen. Die genaue Abgrenzung
+steht in `harness/chatdev/skill-verification.md`. Bestehende Gates und der
+aktuelle Featurefortschritt werden dadurch nicht geändert.

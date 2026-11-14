@@ -44,3 +44,61 @@ test('documented task example can be created using the live step',()=>withFixtur
  const example=JSON.parse(doc.match(/```json\n([\s\S]*?)\n```/)[1]);
  example.step=1;setup(root);createTask(root,example,0);assert.equal(state(root).tasks[0].id,example.id);
 }));
+
+test('shared native skill installs once, preserves unrelated files and refuses local edits',async()=>{
+ const {installSkill}=await import('../chatdev/install-skill.mjs');
+ const home=fs.mkdtempSync(path.join(os.tmpdir(),'chatdev-skill-'));
+ try{
+  const installed=installSkill({home});assert.equal(installed.status,'installed');
+  const skill=path.join(installed.path,'SKILL.md'),before=fs.readFileSync(skill,'utf8');
+  assert.match(before,/^---\nname: chatdev\ndescription: .+\n---/);
+  assert.match(before,/tools\/chatdev\/cli.mjs project-manager/);
+  fs.writeFileSync(path.join(installed.path,'personal-note.txt'),'keep');
+  assert.equal(installSkill({home}).status,'unchanged');
+  assert.equal(fs.readFileSync(path.join(installed.path,'personal-note.txt'),'utf8'),'keep');
+  fs.appendFileSync(skill,'\nUser edit\n');assert.throws(()=>installSkill({home}),/modified/);
+  assert.match(fs.readFileSync(skill,'utf8'),/User edit/);
+ }finally{fs.rmSync(home,{recursive:true,force:true});}
+});
+test('skill installer rejects unmanaged directories, alternate registrations and symlinks',async()=>{
+ const {installSkill}=await import('../chatdev/install-skill.mjs');
+ for(const kind of ['unmanaged','alternate','symlink','file']){
+  const home=fs.mkdtempSync(path.join(os.tmpdir(),'chatdev-skill-'));
+  try{
+   const target=path.join(home,'.agents/skills/chatdev');
+   if(kind==='alternate')fs.mkdirSync(path.join(home,'.cursor/skills/chatdev'),{recursive:true});
+   else {fs.mkdirSync(path.dirname(target),{recursive:true});if(kind==='symlink')fs.symlinkSync(home,target);else if(kind==='file')fs.writeFileSync(target,'keep');else fs.mkdirSync(target);}
+   assert.throws(()=>installSkill({home}),/Existing|Unsafe/);
+   if(kind==='file')assert.equal(fs.readFileSync(target,'utf8'),'keep');
+  }finally{fs.rmSync(home,{recursive:true,force:true});}
+ }
+});
+test('skill update is serialized and rolls back failed publication for a safe retry',async()=>{
+ const {installSkill}=await import('../chatdev/install-skill.mjs');
+ const home=fs.mkdtempSync(path.join(os.tmpdir(),'chatdev-skill-'));
+ const source=path.join(home,'source');fs.cpSync(new URL('../chatdev/skill/',import.meta.url),source,{recursive:true});
+ try{
+  const initial=installSkill({home,source}),skill=path.join(initial.path,'SKILL.md');
+  const original=fs.readFileSync(skill,'utf8');fs.writeFileSync(path.join(initial.path,'note'),'keep');
+  fs.appendFileSync(path.join(source,'SKILL.md'),'\nNew managed version\n');
+  const rename=fs.renameSync;
+  try{fs.renameSync=(from,to)=>{if(to===initial.path&&from.includes('prepared-'))throw Error('Simulated publication failure');return rename(from,to);};assert.throws(()=>installSkill({home,source}),/Simulated/);}finally{fs.renameSync=rename;}
+  assert.equal(fs.readFileSync(skill,'utf8'),original);assert.equal(fs.readFileSync(path.join(initial.path,'note'),'utf8'),'keep');
+  assert.equal(installSkill({home,source}).status,'updated');assert.match(fs.readFileSync(skill,'utf8'),/New managed version/);
+  assert.equal(installSkill({home,source}).status,'unchanged');
+  fs.mkdirSync(initial.path+'.install-lock');assert.throws(()=>installSkill({home,source}),/locked/);assert(fs.existsSync(initial.path+'.install-lock'));
+ }finally{fs.rmSync(home,{recursive:true,force:true});}
+});
+test('failed rollback preserves original backup even when another target exists',async()=>{
+ const {installSkill}=await import('../chatdev/install-skill.mjs');
+ const home=fs.mkdtempSync(path.join(os.tmpdir(),'chatdev-skill-'));
+ const source=path.join(home,'source');fs.cpSync(new URL('../chatdev/skill/',import.meta.url),source,{recursive:true});
+ try{
+  const initial=installSkill({home,source});fs.writeFileSync(path.join(initial.path,'user-note'),'original');
+  fs.appendFileSync(path.join(source,'SKILL.md'),'\nUpdate\n');
+  const rename=fs.renameSync;
+  try{fs.renameSync=(from,to)=>{if(to===initial.path){if(from.includes('prepared-')){fs.mkdirSync(to);fs.writeFileSync(path.join(to,'foreign'),'preserve');throw Error('Failed publication');}throw Error('Failed rollback');}return rename(from,to);};assert.throws(()=>installSkill({home,source}),/Failed rollback/);}finally{fs.renameSync=rename;}
+  const lock=initial.path+'.install-lock';assert.equal(fs.readFileSync(path.join(lock,'previous/user-note'),'utf8'),'original');
+  assert.equal(fs.readFileSync(path.join(initial.path,'foreign'),'utf8'),'preserve');assert.throws(()=>installSkill({home,source}),/locked/);
+ }finally{fs.rmSync(home,{recursive:true,force:true});}
+});

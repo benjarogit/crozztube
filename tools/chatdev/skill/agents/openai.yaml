@@ -1,0 +1,4 @@
+interface:
+  display_name: "ChatDev"
+  short_description: "Coordinate CrozzTube tasks, roles and PR reviews"
+  default_prompt: "Use $chatdev to inspect CrozzTube's current tasks and PR readiness."
