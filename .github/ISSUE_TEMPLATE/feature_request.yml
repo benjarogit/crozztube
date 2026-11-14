@@ -1,0 +1,26 @@
+name: Funktionswunsch
+description: Feature oder Verbesserung mit Bezug zum bestehenden Entwicklungsplan
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: Nutzerziel und Ausgangslage
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Gewünschtes Verhalten
+    validations:
+      required: true
+  - type: textarea
+    id: constraints
+    attributes:
+      label: Berechtigungen und Projektregeln
+      description: Upload-/Import-Regeln, Videotransport, Datenschutz, Hooks, betroffene Clients
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Akzeptanzkriterien und Testabdeckung
+    validations:
+      required: true
