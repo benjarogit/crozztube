@@ -19,6 +19,9 @@ export function chatdevScope(root) {
   if (plan.remote !== 'origin' || plan.branch !== 'main') throw Error('Unexpected plan branch or remote; no gate override permitted.');
   const base = git(root, ['rev-parse', 'origin/main']);
   git(root, ['merge-base', '--is-ancestor', base, 'HEAD']);
+  // diff-tree suppresses merge diffs by default. Keep this dedicated tooling
+  // history linear so merge-only product changes cannot evade the path audit.
+  if (git(root, ['rev-list', '--merges', base + '..HEAD'])) throw Error('Merge commits are not permitted in the ChatDev tooling history.');
   if (git(root, ['rev-parse', '--is-inside-work-tree']) !== 'true') throw Error('A Git worktree is required.');
   const merge = path.resolve(root, git(root, ['rev-parse', '--git-path', 'MERGE_HEAD']));
   if (fs.existsSync(merge)) throw Error('Finish or resolve the pending merge outside this tooling gate.');
@@ -66,7 +69,7 @@ export function verifyChatdev(root) {
   fs.rmSync(receipt, { force: true });
   const before = digest(root), index = indexDigest(root);
   const checks = [
-    ['node', '--test', 'tools/test/harness.test.mjs', 'tools/test/chatdev.test.mjs', 'tools/test/chatdev-maintenance.test.mjs'],
+    ['node', '--test', 'tools/test/harness.test.mjs', 'tools/test/chatdev.test.mjs', 'tools/test/chatdev-maintenance.test.mjs', 'tools/test/chatdev-pr.test.mjs'],
     ['node', 'tools/harness/static-check.mjs'],
   ];
   for (const argv of checks) {

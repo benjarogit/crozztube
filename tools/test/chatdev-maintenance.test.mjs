@@ -66,3 +66,17 @@ test('an upstream snapshot not integrated into HEAD blocks the gate',()=>fixture
 test('committed product changes cannot be hidden by a later revert',()=>fixture(({root,write})=>{
   write('app/Unrelated.php','<?php\n');git(root,'add','.');git(root,'commit','-m','Forbidden product fixture');git(root,'revert','--no-edit','HEAD');assert.throws(()=>chatdevScope(root),/Outside ChatDev/);
 }));
+
+test('merge-only product changes and restoration cannot evade the historical audit',()=>fixture(({root,write})=>{
+  const base=git(root,'rev-parse','HEAD');
+  write('tools/chatdev/allowed.mjs','// Tooling fixture\n');git(root,'add','.');git(root,'commit','-m','Allowed tooling');
+  const tooling=git(root,'rev-parse','HEAD'),restore=git(root,'write-tree');
+  write('app/Unrelated.php','<?php // Forbidden merge-only product change\n');git(root,'add','.');
+  const foreignTree=git(root,'write-tree');
+  const foreign=git(root,'commit-tree',foreignTree,'-p',tooling,'-p',base,'-m','Foreign merge fixture');
+  const restored=git(root,'commit-tree',restore,'-p',foreign,'-p',tooling,'-m','Restoring merge fixture');
+  git(root,'reset','--hard',restored);
+  assert.equal(git(root,'diff','--name-only',base,'--','app'), '');
+  assert.equal(git(root,'diff-tree','--no-commit-id','--name-only','-r',foreign), '');
+  assert.throws(()=>chatdevScope(root),/Merge commits/);
+}));

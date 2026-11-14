@@ -42,3 +42,19 @@ published origin/main with fixed path restrictions, exact CLI/reference
 appends, unchanged original gates/hooks/progress and snapshot-bound tests.
 Independent review remains necessary; no main merge or feature completion is
 authorized. See tools/harness/chatdev-maintenance.mjs for enforced scope.
+
+## CD-004 — PR decisions and runtime acceptance (2026-11-14)
+
+The orchestrator must continue after PR publication: collect exact-head GitHub
+checks and every review/comment/thread, triage, delegate fixes, consume returned
+evidence, re-test, publish and reassess until READY or a concrete blocker.
+A CodeRabbit Free summary is not substantive independent approval.
+
+The original cross-client acceptance remains required for this integration PR:
+the deliverable claims shared automatically loaded instructions and handoff in
+both environments. Child-process fixture tests alone do not establish that.
+Lack of an automatable Cursor agent is an external verification blocker, not
+permission to change runtime.required to false. No main merge is authorized.
+
+Sources: original user integration acceptance; follow-up PR-orchestration audit
+request; actual installed command inventory and read-only Codex CLI probe.

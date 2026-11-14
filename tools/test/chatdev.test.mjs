@@ -29,3 +29,18 @@ test('two adapter callers use one journal and derive updated authoritative progr
  test('mode changes invalidate source-bound review',()=>withFixture(({root})=>{setup(root);createTask(root,task(),0);reviewTask(root,'test-task',review(),1);assert.equal(validate(root).tasks[0].reviewStatus,'reviewed');fs.chmodSync(path.join(root,'harness/plan.json'),0o755);assert.equal(validate(root).tasks[0].reviewStatus,'open');}));
  test('malformed input and memory JSON never echo their source text',()=>withFixture(({root})=>{setup(root);const input=path.join(root,'malformed.json'),sentinel='DO_NOT_ECHO_SENTINEL';fs.writeFileSync(input,sentinel);const cli=fileURLToPath(new URL('../chatdev/cli.mjs',import.meta.url));try{execFileSync(process.execPath,[cli,'create',input,'0'],{cwd:root,stdio:['ignore','pipe','pipe']});assert.fail('Expected rejection');}catch(e){assert(!String(e.stdout).includes(sentinel));assert(!String(e.stderr).includes(sentinel));}fs.writeFileSync(statePath(root),sentinel);assert.throws(()=>state(root),e=>!e.message.includes(sentinel));}));
  test('exited lock owner requires quiesced manual recovery; active writer remains protected',()=>withFixture(({root})=>{setup(root);const lock=statePath(root)+'.lock';execFileSync(process.execPath,['-e',`const fs=require('node:fs');fs.mkdirSync(process.argv[1]);fs.writeFileSync(process.argv[1]+'/owner.json',JSON.stringify({pid:process.pid}));`,lock]);assert.throws(()=>createTask(root,task(),0),/locked/);assert(fs.existsSync(lock));fs.rmSync(lock,{recursive:true});assert.equal(createTask(root,task(),0).revision,1);fs.mkdirSync(lock);fs.writeFileSync(path.join(lock,'owner.json'),JSON.stringify({pid:process.pid}));assert.throws(()=>updateTask(root,task(),1),/locked/);assert(fs.existsSync(lock));}));
+
+test('blank acceptance, check and review evidence cannot approve work',()=>withFixture(({root})=>{
+ setup(root);
+ for(const acceptance of [[''],['  ']])assert.throws(()=>createTask(root,{...task(),acceptance},0),/Invalid/);
+ for(const field of ['command','evidence'])assert.throws(()=>createTask(root,{...task(),checks:[{...task().checks[0],[field]:'  '}]},0),/Invalid/);
+ createTask(root,task(),0);
+ assert.throws(()=>reviewTask(root,'test-task',{...review(),evidence:['  ']},1),/Invalid/);
+ assert.equal(state(root).revision,1);
+}));
+
+test('documented task example can be created using the live step',()=>withFixture(({root})=>{
+ const doc=fs.readFileSync(new URL('../chatdev/README.md',import.meta.url),'utf8');
+ const example=JSON.parse(doc.match(/```json\n([\s\S]*?)\n```/)[1]);
+ example.step=1;setup(root);createTask(root,example,0);assert.equal(state(root).tasks[0].id,example.id);
+}));
