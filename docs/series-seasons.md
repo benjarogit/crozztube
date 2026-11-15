@@ -1008,8 +1008,10 @@ attests ngemot video and retry constructions. Package SHA-256:
 This old official resource supports the vocabulary, not current native or whole
 catalog certification. The judgment has bounded moderate editorial confidence.
 
-The other proposed Javanese instruction remains unaccepted: its broader video
-playlist term differs from the existing song-list-specific Dhaptar lagu. This
+The other proposed Javanese instruction remains unaccepted at this historical
+checkpoint: its video-playlist term differs from the existing Dhaptar lagu.
+The earlier description of that term as exclusively music-specific was not
+established by the inspected sources and is withdrawn. This
 pass does not silently migrate a shared glossary. Javanese therefore still has
 eight unresolved scoped messages. Current total: **125 absent/unaccepted series
 messages in 15 partial/open packs**, with 110 complete nine-key sets.
@@ -1289,3 +1291,64 @@ keeps its original SHA/ref, and manual dispatch would skip the head_ref-gated
 series jobs. The next genuine language commit uses the existing synchronize
 path; no synthetic commit, workflow patch or PR close/reopen is introduced.
 No merge, deployment or step transition is authorized by this alignment.
+
+## Javanese membership instruction with the existing UI referent
+
+Reference: published fc31bda6. The complete instruction is
+`Pilih video saka dhaptar lagu iki.` It directs selection from this existing
+playlist, including several videos, without requiring ownership, importing,
+uploading or adding items. The direct imperative, number-neutral video noun,
+source phrase and final demonstrative were read as one message by the proposer,
+an independent reviewer and the integrating reviewer. Confidence is bounded
+moderate AI editorial judgment, not native or whole-catalog certification.
+
+The [official historical WordPress Javanese package](https://downloads.wordpress.org/translation/core/4.9.35/jv_ID.zip)
+(PO SHA-256 `b60627a39f88ed64b6000cd583b4fb1c8c7b3cc87167b8c2aab791354690f6e5`)
+attests the selection register and source/demonstrative constructions, including
+Select and Choose from the most used tags. It uses daftar main in its own video
+playlist labels, rather than CrozzTube's existing Dhaptar lagu. Those sources
+neither supply this complete new sentence nor prove that the existing term is
+exclusively music-specific. The earlier claim to that effect is withdrawn.
+This message deliberately retains the current UI referent; no existing label
+or sentence is rewritten or approved by inheritance, and no general glossary
+migration is inferred from this scoped decision.
+
+The existing narrow membership-error browser flow now includes jv_id alongside
+ps, retaining the same assertions for the full alert, creator draft, document
+direction and absence of horizontal overflow in both themes. Both actual
+membership keys are explicitly required. The seven other Javanese series keys
+remain absent and unaccepted; their English fallbacks are not translations.
+
+## Silesian membership instruction and remaining review boundaries
+
+The second whole-message addition is `Ôbier filmy z tyj listy ôdtworzynio.`
+It preserves the existing video and playlist terminology. The singular personal
+imperative, plural video object and source phrase were read together by the
+proposer, an independent reviewer and the integrating reviewer. The instruction
+restricts selection to the current playlist without an ownership, upload,
+create-list, select-all or minimum-two-videos requirement.
+
+The pinned Kodi source above supplies the personal selection register in
+#196/#524 and actual genitive singular listy in #14004/#14006. Its #36176 has
+nominative plural listy and is explicitly not a genitive proof. The pinned
+Mozilla source supplies the plural video object and feminine demonstrative.
+The complete prepositional phrase and whole instruction are bounded moderate
+editorial judgment, not a verbatim upstream translation or native certificate.
+Neither Kodi's different playlist label nor unrelated existing catalog values
+are silently adopted or certified.
+
+The targeted Silesian browser flow now requires this real membership key and
+checks its complete validation alert while retaining the creator's typed title
+at 390px in both themes. Earlier taxonomy and loading assertions remain intact.
+The whole-series heading and next-episode phrase still use unaccepted English
+fallbacks. Revision-conflict tense and reload-before-save grammar, the complete
+both-number-fields-or-both-empty alternative, and the per-season uniqueness
+predicate remain specific unresolved whole-message questions. Individual
+source words do not settle these conditions, including valid season zero.
+
+The prospective scoped inventory is **112 absent/unaccepted messages in 14
+partial packs**, with 111 complete nine-key sets. Javanese has seven outstanding
+keys; Silesian has five. No broader catalog, feature-step or PR acceptance is
+implied. Final-source checks, independent delta review, trusted runtime-hook
+observation, checkpoint, confirmed push and actual main-target CI still need
+their own observed evidence in the existing journal.

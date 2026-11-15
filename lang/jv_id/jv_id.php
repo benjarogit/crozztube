@@ -4451,4 +4451,5 @@ return array (
   'Language directory not found.' => 'Language directory not found.',
   'The selected language directory is read-only. Update its server permissions before editing.' => 'The selected language directory is read-only. Update its server permissions before editing.',
   'Unable to load videos.' => 'Ora bisa ngemot video. Coba maneh.',
+  'Choose videos from this playlist.' => 'Pilih video saka dhaptar lagu iki.',
 );

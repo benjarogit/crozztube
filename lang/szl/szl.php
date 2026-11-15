@@ -4454,4 +4454,5 @@ return array (
   'Season' => 'Sezōn',
   'Episode' => 'Ôdcinek',
   'Unable to load videos.' => 'Ladowanie filmōw sie niy podarziło. Sprōbuj jeszcze roz.',
+  'Choose videos from this playlist.' => 'Ôbier filmy z tyj listy ôdtworzynio.',
 );

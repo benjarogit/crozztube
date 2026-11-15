@@ -55,11 +55,12 @@ const targetedKeys={
  as:messageKeys,
  gd:['Series','Season','Episode','Next episode','Playlist changed. Reload before saving.','Choose videos from this playlist.','Set both season and episode numbers, or leave both empty.','An episode number can only appear once in each season.','Unable to load videos.'],
  my_mm:['Series','Episode','Next episode','Choose videos from this playlist.','Unable to load videos.'],
- szl:['Season','Episode','Unable to load videos.'],
+ szl:['Season','Episode','Choose videos from this playlist.','Unable to load videos.'],
 };
 for(const code of targetedLocales)for(const key of targetedKeys[code])if(typeof fixtureCatalogs[code]?.[key]!=='string'||!fixtureCatalogs[code][key].trim())throw Error('Missing targeted-context key '+code+': '+key);
 const loadingOnlyLocales=['jv_id','ps','arg'];
 for(const code of loadingOnlyLocales)if(typeof fixtureCatalogs[code]?.['Unable to load videos.']!=='string'||!fixtureCatalogs[code]['Unable to load videos.'].trim())throw Error('Missing loading-only context key '+code);
+for(const code of ['ps','jv_id'])if(typeof fixtureCatalogs[code]?.['Choose videos from this playlist.']!=='string'||!fixtureCatalogs[code]['Choose videos from this playlist.'].trim())throw Error('Missing membership context key '+code);
 const fixtureLocales=[...new Set([...referenceLocales,...targetedLocales,...loadingOnlyLocales])];
 const localeTags=JSON.parse(fs.readFileSync('resources/localization/locale-tags.json','utf8'));
 const catalog=code=>{if(!fixtureLocales.includes(code))throw Error('Unknown fixture locale');return fixtureCatalogs[code];};
@@ -316,7 +317,7 @@ try{
     await expect(failure).toHaveCount(0);
     await expect(page.locator('.watch-sidebar')).toContainText(videos[1].title);
     localizedFailure=null;checks+=9;
-    if(locale==='ps'){
+    if(['ps','jv_id'].includes(locale)){
      // Only the reviewed M/L keys are claimed here; the seven taxonomy and
      // numbering messages intentionally remain untranslated in this pack.
      await page.goto(origin+'/playlists?id=1');
@@ -326,9 +327,9 @@ try{
      await partial.locator('button[type="submit"]').click();
      await expect(partial.getByRole('alert')).toContainText(strings[localizedValidationKey]);
      await expect(draft).toHaveValue('Creator title remains unchanged');
-     await expect(page.locator('html')).toHaveAttribute('dir','rtl');
+     await expect(page.locator('html')).toHaveAttribute('dir',direction(locale));
      await expect.poll(()=>page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);
-     await page.screenshot({path:`tools/test/.artifacts/series-seasons/context-ps-${dark?'dark':'light'}-membership.png`,fullPage:true});
+     await page.screenshot({path:`tools/test/.artifacts/series-seasons/context-${locale}-${dark?'dark':'light'}-membership.png`,fullPage:true});
      localizedValidation=null;localizedValidationKey='Set both season and episode numbers, or leave both empty.';checks+=4;
     }
    }
