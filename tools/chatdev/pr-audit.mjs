@@ -15,7 +15,7 @@ const parse = value => { try { return JSON.parse(value); } catch { throw Error('
 const api = (root, endpoint, paginate=false) => parse(run(root,'gh',['api',...(paginate?['--paginate','--slurp']:[]),endpoint]));
 const flat = pages => pages.flat();
 const comment = (item,kind) => ({id:`${kind}:${item.id}`,bodyHash:hash(item.body),hasBody:Boolean(item.body?.trim()),url:safeUrl(item.html_url),authorHash:hash(item.user?.login),commit:item.commit_id || null,createdAt:item.created_at || item.submitted_at,updatedAt:item.updated_at || item.submitted_at});
-const completenessKeys=['checks','statuses','reviews','issueComments','inlineComments','reviewThreads','headStable','baseStable'];
+const completenessKeys=['checks','statuses','reviews','issueComments','inlineComments','reviewThreads','headStable','baseStable','baseTipStable'];
 const roles=['orchestrator','project-manager','engineer','analyst','qa','quality','architecture','security','performance','ux','assets','documentation','localization','repository','infrastructure'];
 
 // This is the actual GitHub PR target, not the separately selected harness base.
@@ -28,6 +28,31 @@ export function validBaseIdentity(value) {
 export const sameBaseIdentity = (a,b) => validBaseIdentity(a) && validBaseIdentity(b)
   && ['baseSha','baseRef','baseRepository'].every(key=>a[key]===b[key]);
 
+// Pull payload base.sha can lag behind its moving branch ref. Read the exact
+// commit ref independently; arrays, prefix matches and tag objects fail closed.
+export function readBaseTip(identity, request) {
+  if(!validBaseIdentity(identity))throw Error('Invalid PR base for ref lookup');
+  const response=request(`repos/${identity.baseRepository}/git/ref/heads/${encodeURIComponent(identity.baseRef)}`);
+  if(!response || Array.isArray(response) || response.ref!==`refs/heads/${identity.baseRef}`
+    || response.object?.type!=='commit' || response.object.sha!==identity.baseSha)throw Error('PR base ref missing, changed or inconsistent');
+  return response.object.sha;
+}
+export const hasCurrentBaseTip = value => validBaseIdentity(value) && value.baseTipSha===value.baseSha;
+
+// Reconciliation may observe a moved ref after a sound collection. Preserve
+// that historical snapshot and only lower the live coordination result.
+export function withReconciliation(result,github=result?.github) {
+  if(!result||typeof result!=='object')return result;
+  if(github===undefined)return {...result};
+  const current={...result,github};
+  if(!github||github.head!==result.head||!sameBaseIdentity(github,result)||!hasCurrentBaseTip(github)
+    ||github.baseTipSha!==result.baseTipSha||!Array.isArray(github.dependencies)||github.dependencies.includes('BASE_REF_NOT_CURRENT')){
+    return {...current,baseTipSha:null,status:result.status==='CHANGES_REQUIRED'?'CHANGES_REQUIRED':'BLOCKED',
+      blockers:[...new Set([...(Array.isArray(result.blockers)?result.blockers:[]),'BASE_REF_NOT_CURRENT'])]};
+  }
+  return current;
+}
+
 /** Read-only GitHub snapshot. Raw comment bodies are hashed in memory and never persisted. */
 export function collect(root,pr) {
   if(!/^[1-9]\d*$/.test(String(pr))) throw Error('Expected a positive PR number');
@@ -37,8 +62,10 @@ export function collect(root,pr) {
   if(!/^[a-f0-9]{40,64}$/.test(head || '')) throw Error('Missing PR head');
   const initialBase=baseIdentity(initial);
   if(!validBaseIdentity(initialBase)||initialBase.baseRepository!==repo)throw Error('Missing or foreign PR base');
-  const snapshot={schemaVersion:1,repository:repo,pr:Number(pr),head,...initialBase,url:safeUrl(initial.html_url),state:initial.state,draft:Boolean(initial.draft),mergeable:initial.mergeable,mergeableState:initial.mergeable_state,authorHash:hash(initial.user?.login),collectedAt:new Date().toISOString(),complete:Object.fromEntries(completenessKeys.map(k=>[k,false])),checks:[],statuses:[],reviews:[],comments:[],threads:[]};
+  const snapshot={schemaVersion:1,repository:repo,pr:Number(pr),head,...initialBase,baseTipSha:null,url:safeUrl(initial.html_url),state:initial.state,draft:Boolean(initial.draft),mergeable:initial.mergeable,mergeableState:initial.mergeable_state,authorHash:hash(initial.user?.login),collectedAt:new Date().toISOString(),complete:Object.fromEntries(completenessKeys.map(k=>[k,false])),checks:[],statuses:[],reviews:[],comments:[],threads:[]};
   const attempt=(key,fn)=>{try{fn();snapshot.complete[key]=true;}catch{snapshot.complete[key]=false;}};
+  let initialTip=null;
+  try{initialTip=readBaseTip(initialBase,endpoint=>api(root,endpoint));snapshot.baseTipSha=initialTip;}catch{}
   attempt('checks',()=>{ const pages=api(root,`${base}/commits/${head}/check-runs?per_page=100&filter=latest`,true); snapshot.checks=pages.flatMap(p=>p.check_runs).map(c=>({id:c.id,head:c.head_sha,key:hash(`${c.app?.id}:${c.name}`),nameHash:hash(c.name),appSlugHash:hash(c.app?.slug),status:c.status,conclusion:c.conclusion,url:safeUrl(c.html_url)})); });
   attempt('statuses',()=>{
     const combined=api(root,`${base}/commits/${head}/status?per_page=100`), all=flat(api(root,`${base}/commits/${head}/statuses?per_page=100`,true));
@@ -62,6 +89,7 @@ export function collect(root,pr) {
     }while(true);
   });
   attempt('headStable',()=>{const current=api(root,`${base}/pulls/${pr}`);snapshot.complete.baseStable=sameBaseIdentity(initialBase,baseIdentity(current));if(current.head?.sha!==head||current.state!==initial.state||Boolean(current.draft)!==snapshot.draft||!snapshot.complete.baseStable)throw Error('PR changed during collection');snapshot.mergeable=current.mergeable;snapshot.mergeableState=current.mergeable_state;});
+  attempt('baseTipStable',()=>{const currentTip=readBaseTip(initialBase,endpoint=>api(root,endpoint));if(!initialTip||currentTip!==initialTip)throw Error('PR base ref changed during collection');snapshot.baseTipSha=currentTip;});
   return snapshot;
 }
 
@@ -84,6 +112,7 @@ export function assess(snapshot,evidence={}) {
   const block=code=>blocked.add(code), fail=code=>changes.add(code);
   if(!snapshot || snapshot.schemaVersion!==1 || !/^[a-f0-9]{40,64}$/.test(head||''))block('INVALID_SNAPSHOT');
   if(!validBaseIdentity(snapshot)||snapshot.baseRepository!==snapshot.repository)block('INVALID_BASE_IDENTITY');
+  if(!hasCurrentBaseTip(snapshot))block('STALE_OR_MISSING_BASE_TIP');
   for(const key of completenessKeys)if(snapshot?.complete?.[key]!==true)block(`INCOMPLETE_${key.toUpperCase()}`);
   if(snapshot?.state!=='open'||snapshot?.draft!==false)block('PR_NOT_OPEN_FOR_REVIEW');
   if(snapshot.mergeable===false||snapshot.mergeableState==='dirty')fail('MERGE_CONFLICT');else if(snapshot.mergeable!==true)block('MERGEABILITY_UNKNOWN');
@@ -142,7 +171,7 @@ export function assess(snapshot,evidence={}) {
   // setup check is not product acceptance. Real Codex hooks remain enforced
   // by the existing harness, not inferred from caller-supplied editor flags.
   const editorIntegration={owner:'Orqen',status:'not-verified',blocking:false};
-  return {schemaVersion:1,head,baseSha:snapshot.baseSha,baseRef:snapshot.baseRef,baseRepository:snapshot.baseRepository,editorIntegration,status:changes.size?'CHANGES_REQUIRED':blocked.size?'BLOCKED':'READY',changes:[...changes].sort(),blockers:[...blocked].sort(),comments:(snapshot?.comments||[]).map(c=>({id:c.id,bodyHash:c.bodyHash,url:safeUrl(c.url)})),participatingRoles:[...required].filter(role=>(evidence.reviews||[]).some(r=>r.role===role&&r.head===head&&sameBaseIdentity(r,snapshot)&&r.result==='passed')),permission:'Advisory only; existing harness and explicit approvals remain authoritative.'};
+  return {schemaVersion:1,head,baseSha:snapshot.baseSha,baseRef:snapshot.baseRef,baseRepository:snapshot.baseRepository,baseTipSha:snapshot.baseTipSha,editorIntegration,status:changes.size?'CHANGES_REQUIRED':blocked.size?'BLOCKED':'READY',changes:[...changes].sort(),blockers:[...blocked].sort(),comments:(snapshot?.comments||[]).map(c=>({id:c.id,bodyHash:c.bodyHash,url:safeUrl(c.url)})),participatingRoles:[...required].filter(role=>(evidence.reviews||[]).some(r=>r.role===role&&r.head===head&&sameBaseIdentity(r,snapshot)&&r.result==='passed')),permission:'Advisory only; existing harness and explicit approvals remain authoritative.'};
 }
 
 export function audit(root,pr,evidenceFile=null){

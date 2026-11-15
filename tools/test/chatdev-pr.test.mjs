@@ -5,12 +5,12 @@ import os from 'node:os';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
-import { assess, collect, audit } from '../chatdev/pr-audit.mjs';
+import { assess, collect, audit, readBaseTip, withReconciliation } from '../chatdev/pr-audit.mjs';
 
 const head='a'.repeat(40), old='b'.repeat(40);
 const prBase={baseSha:'c'.repeat(40),baseRef:'main',baseRepository:'owner/repo'};
 const hash=value=>createHash('sha256').update(value).digest('hex');
-const snapshot=()=>({schemaVersion:1,repository:'owner/repo',...prBase,head,state:'open',draft:false,mergeable:true,complete:Object.fromEntries(['checks','statuses','reviews','issueComments','inlineComments','reviewThreads','headStable','baseStable'].map(k=>[k,true])),checks:[{id:1,head,nameHash:hash('contracts'),appSlugHash:hash('github-actions'),status:'completed',conclusion:'success'}],statuses:[],combinedStatus:{head,state:'pending',total:0},reviews:[],comments:[],threads:[]});
+const snapshot=()=>({schemaVersion:1,repository:'owner/repo',...prBase,baseTipSha:prBase.baseSha,head,state:'open',draft:false,mergeable:true,complete:Object.fromEntries(['checks','statuses','reviews','issueComments','inlineComments','reviewThreads','headStable','baseStable','baseTipStable'].map(k=>[k,true])),checks:[{id:1,head,nameHash:hash('contracts'),appSlugHash:hash('github-actions'),status:'completed',conclusion:'success'}],statuses:[],combinedStatus:{head,state:'pending',total:0},reviews:[],comments:[],threads:[]});
 const evidence=()=>({head,...prBase,authorActor:'author-session',requiredRoles:['quality','qa','security','architecture'],reviews:['quality','qa','security','architecture'].map(role=>({role,actor:role+'-review',head,...prBase,result:'passed',evidence:['actual separate review assertion']})),tests:[{name:'focused',head,...prBase,result:'passed',evidence:['17 fixture tests passed']}],commentDispositions:{},runtime:{required:true,verified:true,head,evidence:['runtime observation supplied by caller']}});
 test('READY is advisory and requires current-head independent evidence',()=>{const r=assess(snapshot(),evidence());assert.equal(r.status,'READY');assert.match(r.permission,/Advisory/);assert.equal(assess(snapshot(),{}).status,'BLOCKED');});
 test('known check, test and role failure require changes',()=>{for(const kind of ['ci','test','role']){const s=snapshot(),e=evidence();if(kind==='ci')s.checks[0].conclusion='failure';else if(kind==='test')e.tests[0].result='failed';else e.reviews[0].result='failed';assert.equal(assess(s,e).status,'CHANGES_REQUIRED');}});
@@ -34,7 +34,8 @@ const fs=require('node:fs');const a=process.argv.slice(2);const h='a'.repeat(40)
 if(a[0]==='repo')result={nameWithOwner:'owner/repo'};
 else if(a[1]==='graphql'){result={data:{repository:{pullRequest:{reviewThreads:{nodes:[],pageInfo:{hasNextPage:false,endCursor:null}}}}}};}
 else {const endpoint=a.at(-1);const paged=a.includes('--paginate')&&a.includes('--slurp');
-if(endpoint.endsWith('/pulls/7'))result={head:{sha:h},base:{sha:'c'.repeat(40),ref:'main',repo:{full_name:'owner/repo'}},state:'open',draft:false,mergeable:true,mergeable_state:'clean',user:{login:'owner'},html_url:'https://github.com/owner/repo/pull/7?secret=TOKEN'};
+if(endpoint==='repos/owner/repo/git/ref/heads/main')result={ref:'refs/heads/main',object:{type:'commit',sha:'c'.repeat(40)}};
+else if(endpoint.endsWith('/pulls/7'))result={head:{sha:h},base:{sha:'c'.repeat(40),ref:'main',repo:{full_name:'owner/repo'}},state:'open',draft:false,mergeable:true,mergeable_state:'clean',user:{login:'owner'},html_url:'https://github.com/owner/repo/pull/7?secret=TOKEN'};
 else if(endpoint.includes('/check-runs?')){if(!paged)process.exit(4);result=[{check_runs:[{id:1,head_sha:h,app:{id:5,slug:'github-actions'},name:'contracts',status:'completed',conclusion:'success',html_url:'https://github.com/owner/repo/actions/runs/1?token=TOKEN'}]}];}
 else if(endpoint.includes('/statuses?')){if(!paged)process.exit(4);result=[[]];}
 else if(endpoint.includes('/status?'))result={sha:h,state:'pending',total_count:0};
@@ -85,7 +86,12 @@ function collectionFixture(change,fn){
 const fs=require('node:fs'),path=require('node:path'),a=process.argv.slice(2),h='a'.repeat(40),change=${JSON.stringify(change)};let result;
 if(a[0]==='repo')result={nameWithOwner:'owner/repo'};
 else if(a[1]==='graphql')result={data:{repository:{pullRequest:{reviewThreads:{nodes:[],pageInfo:{hasNextPage:false}}}}}};
-else {const e=a.at(-1);if(e.endsWith('/pulls/7')){const file=path.join(process.cwd(),'.git','base-reads');let n=0;try{n=Number(fs.readFileSync(file,'utf8'));}catch{}fs.writeFileSync(file,String(n+1));const base={sha:'c'.repeat(40),ref:'main',repo:{full_name:'owner/repo'}};if(change==='foreign-initial')base.repo.full_name='foreign/repo';if(n){if(change==='sha')base.sha='d'.repeat(40);if(change==='ref')base.ref='release';if(change==='repository')base.repo.full_name='foreign/repo';}result={head:{sha:n&&change==='head'?'b'.repeat(40):h},base:change==='missing'?undefined:base,state:'open',draft:false,mergeable:true,mergeable_state:'clean',user:{login:'owner'}};}
+else {const e=a.at(-1);fs.appendFileSync(path.join(process.cwd(),'.git','api-reads'),e+'\\n');
+if(e==='repos/owner/repo/git/ref/heads/main'){const file=path.join(process.cwd(),'.git','tip-reads');let n=0;try{n=Number(fs.readFileSync(file,'utf8'));}catch{}fs.writeFileSync(file,String(n+1));
+if(change==='tip-missing'||n&&change==='tip-missing-final')process.exit(4);
+result={ref:change==='tip-wrong-ref'?'refs/heads/main-extra':'refs/heads/main',object:{type:change==='tip-tag'?'tag':'commit',sha:change==='tip-stale'||n&&change==='tip-moves'||!n&&change==='tip-recovers'?'d'.repeat(40):change==='tip-invalid-sha'?'x'.repeat(40):'c'.repeat(40)}};
+if(change==='tip-array')result=[result];if(change==='tip-no-object')delete result.object;}
+else if(e.endsWith('/pulls/7')){const file=path.join(process.cwd(),'.git','base-reads');let n=0;try{n=Number(fs.readFileSync(file,'utf8'));}catch{}fs.writeFileSync(file,String(n+1));const base={sha:'c'.repeat(40),ref:'main',repo:{full_name:'owner/repo'}};if(change==='foreign-initial')base.repo.full_name='foreign/repo';if(n){if(change==='sha')base.sha='d'.repeat(40);if(change==='ref')base.ref='release';if(change==='repository')base.repo.full_name='foreign/repo';}result={head:{sha:n&&change==='head'?'b'.repeat(40):h},base:change==='missing'?undefined:base,state:'open',draft:false,mergeable:true,mergeable_state:'clean',user:{login:'owner'}};}
 else if(e.includes('/check-runs?'))result=[{check_runs:[{id:1,head_sha:h,name:'contracts',app:{id:5,slug:'github-actions'},status:'completed',conclusion:'success'}]}];
 else if(e.includes('/statuses?'))result=[[]];else if(e.includes('/status?'))result={sha:h,state:'success',total_count:0};else if(e.includes('/reviews?')||e.includes('/comments?'))result=[[]];else process.exit(4);}
 process.stdout.write(JSON.stringify(result));`;
@@ -94,7 +100,53 @@ process.stdout.write(JSON.stringify(result));`;
   }finally{process.env.PATH=prior;fs.rmSync(root,{recursive:true,force:true});}
 }
 test('collector binds stable head/base/ref/repository and never invents a CI base attestation',()=>{
-  collectionFixture('none',root=>{const s=collect(root,7);assert(Object.values(s.complete).every(Boolean));assert.equal(assess(s,evidence()).status,'READY');for(const [k,v]of Object.entries(prBase))assert.equal(s[k],v);assert.equal(s.checks[0].baseSha,undefined);});
+  collectionFixture('none',root=>{const s=collect(root,7);assert(Object.values(s.complete).every(Boolean));assert.equal(assess(s,evidence()).status,'READY');for(const [k,v]of Object.entries(prBase))assert.equal(s[k],v);assert.equal(s.checks[0].baseSha,undefined);assert.equal(s.baseTipSha,prBase.baseSha);const requests=fs.readFileSync(path.join(root,'.git','api-reads'),'utf8').trim().split('\n');assert.equal(requests[1],'repos/owner/repo/git/ref/heads/main');assert.equal(requests.at(-1),'repos/owner/repo/git/ref/heads/main');assert.equal(requests.filter(e=>e.includes('/git/ref/')).length,2);});
   for(const change of ['sha','ref','repository','head'])collectionFixture(change,root=>{const s=collect(root,7);assert.equal(assess(s,evidence()).status,'BLOCKED');assert.equal(s.complete.headStable,false);if(change!=='head')assert.equal(s.complete.baseStable,false);});
   for(const change of ['missing','foreign-initial'])collectionFixture(change,root=>assert.throws(()=>collect(root,7),/Missing or foreign PR base/));
+});
+
+test('a current exact commit ref is mandatory even when PR metadata and head stay unchanged',()=>{
+  for(const change of ['tip-stale','tip-moves','tip-recovers','tip-missing','tip-missing-final','tip-wrong-ref','tip-tag','tip-array','tip-no-object','tip-invalid-sha'])collectionFixture(change,root=>{
+    const s=collect(root,7),result=assess(s,evidence());
+    assert.equal(s.complete.headStable,true,change);
+    assert.equal(s.complete.baseStable,true,change);
+    assert.equal(s.complete.baseTipStable,false,change);
+    assert.equal(result.status,'BLOCKED',change);
+    assert(result.blockers.includes('INCOMPLETE_BASETIPSTABLE'),change);
+    assert.equal(result.baseTipSha,s.baseTipSha);
+  });
+});
+
+test('exact ref validation rejects prefix matches, non-commit objects and malformed identities',()=>{
+  const identity={...prBase,baseRef:'codex/parent with space'};
+  assert.throws(()=>readBaseTip(identity,()=>{throw Error('must not request');}),/Invalid PR base/);
+  const target={...prBase,baseRef:'codex/parent'},payload={ref:'refs/heads/codex/parent',object:{type:'commit',sha:prBase.baseSha}};
+  let requested;
+  assert.equal(readBaseTip(target,endpoint=>{requested=endpoint;return payload;}),prBase.baseSha);
+  assert.equal(requested,'repos/owner/repo/git/ref/heads/codex%2Fparent');
+  for(const response of [null,[],[payload],{...payload,ref:'heads/codex/parent'},{...payload,ref:payload.ref+'-extra'},{...payload,ref:'refs/tags/codex/parent'},{...payload,object:{type:'tag',sha:prBase.baseSha}},{...payload,object:{sha:prBase.baseSha}},{...payload,object:{type:'commit',sha:old}},{...payload,object:{type:'commit',sha:[prBase.baseSha]}}]){
+    assert.throws(()=>readBaseTip(target,()=>response),/missing, changed or inconsistent/);
+  }
+});
+
+test('legacy or mismatched base-tip snapshots never assess READY or alter role evidence requirements',()=>{
+  for(const mutate of [s=>delete s.baseTipSha,s=>s.baseTipSha=old,s=>delete s.complete.baseTipStable,s=>s.complete.baseTipStable=false]){
+    const s=snapshot();mutate(s);assert.equal(assess(s,evidence()).status,'BLOCKED');
+  }
+  const e=evidence(),result=assess(snapshot(),e);
+  assert.equal(result.status,'READY');assert.equal(result.baseTipSha,prBase.baseSha);
+  assert.equal(e.baseTipSha,undefined);assert.equal(e.reviews[0].baseTipSha,undefined);assert.equal(e.tests[0].baseTipSha,undefined);
+});
+
+test('fresh reconciliation can only lower live readiness and never mutates the original audit',()=>{
+  const original=assess(snapshot(),evidence()),before=JSON.stringify(original);
+  const valid={head,...prBase,baseTipSha:prBase.baseSha,dependencies:[]};
+  assert.equal(withReconciliation(original,valid).status,'READY');
+  for(const github of [null,{...valid,baseTipSha:null},{...valid,dependencies:['BASE_REF_NOT_CURRENT']},{...valid,baseSha:old},{...valid,head:old},{...valid,dependencies:undefined}]){
+    const result=withReconciliation(original,github);assert.equal(result.status,'BLOCKED');assert.equal(result.baseTipSha,null);assert(result.blockers.includes('BASE_REF_NOT_CURRENT'));
+    const failed=withReconciliation({...original,status:'CHANGES_REQUIRED',changes:['CI_FAILED']},github);
+    assert.equal(failed.status,'CHANGES_REQUIRED');assert.deepEqual(failed.changes,['CI_FAILED']);
+  }
+  assert.equal(JSON.stringify(original),before);
+  assert.equal(withReconciliation({...original,status:'BLOCKED'},valid).status,'BLOCKED');
 });

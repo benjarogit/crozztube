@@ -34,7 +34,7 @@ function fixture(fn,{pinOutsideRuntime=false}={}){
     const verification={branch:policy.toolingBranch,base:main,digest:sourceDigest,indexDigest:index,checkedAt,purpose:'chatdev-tooling-only'},publication={branch:policy.toolingBranch,commit:head,base:main,checkedAt};
     const verificationFile=privateJson(runtime,'chatdev-verification.json',verification),publicationFile=privateJson(runtime,'chatdev-publication.json',publication);
     const target={baseSha:main,baseRef:'main',baseRepository:policy.repository};
-    const snapshot={schemaVersion:1,repository:policy.repository,pr:3,head,...target,state:'open',draft:false,mergeable:true,mergeableState:'clean',complete:Object.fromEntries(['checks','statuses','reviews','issueComments','inlineComments','reviewThreads','headStable','baseStable'].map(k=>[k,true])),checks:[{head,status:'completed',conclusion:'success',nameHash:hash('contracts'),appSlugHash:hash('github-actions')}],statuses:[],reviews:[],comments:[],threads:[],combinedStatus:{head,total:0,state:'pending'}};
+    const snapshot={schemaVersion:1,repository:policy.repository,pr:3,head,...target,baseTipSha:main,state:'open',draft:false,mergeable:true,mergeableState:'clean',complete:Object.fromEntries(['checks','statuses','reviews','issueComments','inlineComments','reviewThreads','headStable','baseStable','baseTipStable'].map(k=>[k,true])),checks:[{head,status:'completed',conclusion:'success',nameHash:hash('contracts'),appSlugHash:hash('github-actions')}],statuses:[],reviews:[],comments:[],threads:[],combinedStatus:{head,total:0,state:'pending'}};
     const evidence={head,...target,sourceDigest,authorActor:'synthetic-author',reviews:['quality','qa','security','architecture'].map(role=>({role,actor:'synthetic-independent-'+role,head,...target,sourceDigest,result:'passed',evidence:['Synthetic fixture only']})),tests:[{name:'Synthetic test',head,...target,sourceDigest,result:'passed',evidence:['Synthetic fixture only']}],commentDispositions:{}};
     const result=assess(snapshot,evidence);assert.equal(result.status,'READY');
     const audit={snapshot,result,evidence,base:main},auditFile=privateJson(runtime,'stable-series-runtime-audit.json',audit);
@@ -130,6 +130,7 @@ const fs=require('node:fs');const x=JSON.parse(fs.readFileSync(${JSON.stringify(
 if(args[0]==='repo')value={nameWithOwner:x.repo};else{
 const endpoint=args.find(a=>a.startsWith('repos/'));
 if(args[1]==='graphql')value={data:{repository:{pullRequest:{reviewThreads:{nodes:[],pageInfo:{hasNextPage:false}}}}}};
+else if(endpoint==='repos/'+x.repo+'/git/ref/heads/main')value={ref:'refs/heads/main',object:{type:'commit',sha:x.base}};
 else if(endpoint==='repos/'+x.repo+'/pulls/3')value={head:{sha:x.head,ref:'codex/chatdev-integration',repo:{full_name:x.repo}},base:{sha:x.changedBase||x.base,ref:'main',repo:{full_name:x.repo}},state:'open',draft:false,mergeable:true,mergeable_state:'clean',user:{login:'synthetic-author'},html_url:'https://github.com/'+x.repo+'/pull/3'};
 else if(endpoint?.includes('/check-runs?'))value=[{check_runs:[{id:1,head_sha:x.head,status:'completed',conclusion:x.failedCi?'failure':'success',name:'contracts',app:{id:1,slug:'github-actions'},html_url:'https://github.com/'+x.repo+'/actions/runs/1'}]}];
 else if(endpoint?.includes('/statuses?'))value=[[]];

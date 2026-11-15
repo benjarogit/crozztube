@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import fs from 'node:fs';
-import { audit } from './pr-audit.mjs';
+import { audit, withReconciliation } from './pr-audit.mjs';
 import { reconcile } from './github-lifecycle.mjs';
 import { manager } from './project-manager.mjs';
 import { installSkill } from './install-skill.mjs';
@@ -17,7 +17,8 @@ try {
     if(args.length<1||args.length>2)throw Error('Usage: '+command+' pr-number [evidence.json]');
     const evidence=args[1]?inputJson(args[1]):{};
     result=audit(root,args[0],args[1]||null);
-    result.github=reconcile(root,args[0],evidence,result,command==='pr-audit',undefined,()=>{if(args[1]&&JSON.stringify(inputJson(args[1]))!==JSON.stringify(evidence))throw Error('Evidence file changed; refresh before mutation');return audit(root,args[0],args[1]||null);});
+    const github=reconcile(root,args[0],evidence,result,command==='pr-audit',undefined,()=>{if(args[1]&&JSON.stringify(inputJson(args[1]))!==JSON.stringify(evidence))throw Error('Evidence file changed; refresh before mutation');return audit(root,args[0],args[1]||null);});
+    result=withReconciliation(result,github);
     result.projectManagement=manager(root,result);
   }
   else if(command==='validate')result=validate(root);

@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { authoritative, git, roles, state, statePath, validate } from './core.mjs';
-import { validBaseIdentity, sameBaseIdentity } from './pr-audit.mjs';
+import { validBaseIdentity, sameBaseIdentity, hasCurrentBaseTip, withReconciliation } from './pr-audit.mjs';
 
 /** Read-only coordination. This reports evidence; it never grants harness permission. */
 export function manager(root,prResult=null) {
@@ -62,9 +62,14 @@ export function manager(root,prResult=null) {
       auditState=pr?'stored snapshot; refresh before publication':'missing';
     }
   }
+  if(pr)pr=withReconciliation(pr);
   if(pr&&(!validBaseIdentity(pr)||!prResult&&!sameBaseIdentity(pr,storedSnapshot))){
     blockers.push('PR_AUDIT_BASE_UNBOUND');
-    pr={...pr,status:'BLOCKED'};
+    pr={...pr,status:pr.status==='CHANGES_REQUIRED'?'CHANGES_REQUIRED':'BLOCKED'};
+  }
+  if(pr&&(!hasCurrentBaseTip(pr)||!prResult&&(!hasCurrentBaseTip(storedSnapshot)||storedSnapshot?.complete?.baseTipStable!==true||pr.baseTipSha!==storedSnapshot.baseTipSha))){
+    blockers.push('PR_AUDIT_BASE_TIP_UNBOUND');
+    pr={...pr,status:pr.status==='CHANGES_REQUIRED'?'CHANGES_REQUIRED':'BLOCKED'};
   }
   if(!pr){if(auditState!=='ambiguous')blockers.push('PR_AUDIT_MISSING');}
   else if(pr.head!==head)blockers.push('PR_AUDIT_STALE');
@@ -81,5 +86,5 @@ export function manager(root,prResult=null) {
     else if(taskBlockers.length)nextAction={action:'resolve-current-task-blockers',role:'project-manager',instruction:'Resolve dependencies or obtain the listed approvals before resuming affected tasks.'};
     else nextAction={action:'inspect-current-step',role:'project-manager',instruction:'Read the current step acceptance criteria and existing work. Ask the harness for publication status; do not start a later step.'};
   }
-  return {schemaVersion:1,role:'project-manager',head,activeStep:{id:authority.step.id,title:authority.step.title,recordStatus:authority.record.status,authority:'harness/plan.json + harness/progress.json'},mode:'Read-only coordination; logical role, not proof of a spawned process',github:prResult?.github ?? {status:'not-refreshed',nextAction:'Run pr-audit after every work package; github-sync offers a read-only preview.'},registeredRoles:registry.map(r=>r.id),journalRevision:journal.revision,priorities,historical,blockers:[...new Set(blockers)],taskBlockers,prAudit:pr?{head:pr.head,baseSha:pr.baseSha,baseRef:pr.baseRef,baseRepository:pr.baseRepository,status:pr.status,source:auditState}:null,nextAction,permission:'Advisory only. No begin, completion, merge, deployment or approval is performed.'};
+  return {schemaVersion:1,role:'project-manager',head,activeStep:{id:authority.step.id,title:authority.step.title,recordStatus:authority.record.status,authority:'harness/plan.json + harness/progress.json'},mode:'Read-only coordination; logical role, not proof of a spawned process',github:prResult?.github ?? {status:'not-refreshed',nextAction:'Run pr-audit after every work package; github-sync offers a read-only preview.'},registeredRoles:registry.map(r=>r.id),journalRevision:journal.revision,priorities,historical,blockers:[...new Set(blockers)],taskBlockers,prAudit:pr?{head:pr.head,baseSha:pr.baseSha,baseRef:pr.baseRef,baseRepository:pr.baseRepository,baseTipSha:pr.baseTipSha,status:pr.status,source:auditState}:null,nextAction,permission:'Advisory only. No begin, completion, merge, deployment or approval is performed.'};
 }

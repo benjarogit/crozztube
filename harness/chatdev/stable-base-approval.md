@@ -33,3 +33,39 @@ and runtime results belong in the existing private journal and PR evidence.
 No main merge, PR retarget, extra parent integration, deployment, Hook/Trust
 change, plan/progress edit, step-8 completion, step-9 start or Orqen integration
 is authorized. A changed selected feature base remains separately controlled.
+
+## Separately authorized actual-target-ref follow-up
+
+Owner response: “Sieben-Dateien-Zusatzpatch freigeben”, 15 November 2026.
+Exact seven-file patch SHA-256:
+`09fc7e9991849891e1a341471a0808bbe478c86b5f0e87a9aba521b9fc00561e`,
+based on published `0e2a00a89e6e752b0b1d08ad6b5e01edaa386ee9`.
+The seven paths are ChatDev pr-audit, github-lifecycle, project-manager and CLI,
+their existing PR/manager tests and the stable-base test fixtures. This record
+is the additional documentation explicitly included in that approval.
+
+Actual observation: PR4's Pull payload still reported base544b while its target
+Git ref reported0e2a00a. Green CI43727104064 checked the older merge627d5c57.
+PR4 was never declared READY; its incomplete language/draft acceptance remained.
+PR3's main payload and actual Git ref both reported80ed7e3, so the previously
+observed acceptance of0e2a00a remains a historical fact under that exact code.
+The quality finding was recorded as CHANGES_REQUIRED before the follow-up.
+
+The correction independently checks the exact current commit ref before/after
+collection and immediately before each issue mutation. Missing, changed or
+inconsistent refs fail closed. Old READY records lacking ref evidence are not
+upgraded. Read-only inventory remains available with an explicit blocker. A
+later reconciliation disagreement lowers the live CLI and PM result together;
+historical collector snapshots remain unchanged and CHANGES_REQUIRED is never
+upgraded. Authoritative harness and all prior source/index/secret/hook/review/
+CI/publication rules remain intact. No helper, selected-base policy or historical
+merge anchor is changed by this correction.
+
+The integrated draft passed202/202 Node tests, including85 focused cases and
+five independently executed reviewer regressions. All seven file hashes and
+published baselines were independently checked. Canonical bundle SHA-256:
+`dcd7f257c5b52937c3c4a7c99e4650fc153f3a3add3a1751cdd4ae604d163019`
+(sorted relative path + NUL + raw bytes + NUL). Actual source verification,
+publication, CI, new private runtime acceptance and the feature checkpoint still
+require their separate real results. The feature base remains544b and exactly
+five integrations; no further parent integration or main merge is authorized.
