@@ -94,3 +94,28 @@ orchestrator. It never changes step acceptance, grants approvals, merges or
 pretends to control an unavailable Cursor/Codex process. Resume from the current
 active milestone after this validated tooling increment; do not restart completed
 steps or implement product changes on the tooling-only branch.
+
+## Work-package GitHub reconciliation
+
+After every tested/reviewed/published work package, run `pr-audit` with the
+current exact-head evidence file. The existing Project Manager now receives a
+fresh paginated issue/PR inventory and stacked-PR dependencies automatically.
+It reports unmapped issues rather than guessing acceptance from titles or CI.
+PR #3 precedes #4; a closed but unmerged parent does not fulfill that dependency.
+
+Explicit `githubIssues` mappings in the reviewed evidence file bind an issue's
+current body hash, journal task and every task acceptance criterion. Only those
+issues may receive one idempotently maintained status comment. Close requires
+all mapped criteria evidenced, current independent task review, successful
+checks, no open approvals/issues, clean confirmed publication, a freshly READY
+PR audit and fulfilled PR dependencies. Missing tests stay missing. A partial
+issue remains open and its own status comment lists pending criteria/blockers;
+human issue descriptions, labels and comments are preserved. No mapping means
+inventory only. Use `github-sync` for a read-only preview.
+
+This is active-session coordination, not an idle daemon. API failures and
+concurrent changes stop writes and must be reported; earlier successful writes
+may remain and are checked on retry. GitHub does not provide atomic issue-body
+compare-and-swap. Issue closure grants no harness acceptance, PR merge, branch
+retarget, deployment or permission to begin another step. Perform the existing
+PR/harness completion path only after its separate evidence and permissions.

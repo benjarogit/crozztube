@@ -207,3 +207,36 @@ This bounded path cannot complete a step, start another, or merge main. Once
 configured, the actual step-08-series script is additionally mandatory. Product
 changes never use chatdev-checkpoint. Runtime acceptance and user merge approval
 remain separate. See harness/chatdev/step8-handoff.md.
+
+## Issue reconciliation after each work package
+
+`pr-audit PR evidence.json` now collects open issues and all PRs (paginated),
+reports base-branch dependencies and returns that inventory to Project Manager.
+`github-sync PR evidence.json` runs the same audit/inventory without writes.
+Neither command closes, merges or retargets a PR. Use the existing authorized
+publication gate before this handoff; no additional scheduled task is needed.
+
+To reconcile specific issues, add an explicit `githubIssues` array to the
+reviewed exact-head PR evidence file. Each entry has `number`, `bodyHash`
+(SHA-256 of the current entire issue body), `taskId`, and `criteria`. Criteria
+must match the linked journal task's complete `acceptance` array in order;
+each contains `text`, `result` (`passed` or `not-verified`), and nonempty
+`evidence` for actually completed checks. Read the issue first and ensure its
+entire scope is covered by that task; do not omit an unresolved criterion.
+Unmapped issues are never modified. A changed issue invalidates its binding.
+
+After fresh PR audit, `pr-audit` updates one own marked status comment for each
+binding and closes only fully evidenced packages meeting all existing task,
+review, publication and dependency conditions. Unknown tests, language questions
+or runtime gaps remain blockers. A closed unmerged predecessor is unsatisfied.
+Duplicate managed comments block writes. Other people's marker-like comments
+are preserved. Repeating identical evidence changes nothing; API/verification
+failures remain errors rather than reported success. Closing a work-package
+issue does not accept the whole feature or authorize merge/deployment/begin.
+
+Publication evidence must not contain credentials, signed/query URLs, URL
+userinfo or bearer headers. Use sanitized public source links without query
+parameters and commit/test identifiers instead. Fresh audit, source, journal,
+publication and base-dependency checks run again before each mutation, including
+between posting status and closing. These checks reduce races; they cannot
+make the GitHub read-then-write API atomic.
