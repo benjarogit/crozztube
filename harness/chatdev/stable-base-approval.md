@@ -69,3 +69,46 @@ published baselines were independently checked. Canonical bundle SHA-256:
 publication, CI, new private runtime acceptance and the feature checkpoint still
 require their separate real results. The feature base remains544b and exactly
 five integrations; no further parent integration or main merge is authorized.
+
+## Separately authorized historical/current-target distinction
+
+Owner approved option1 for the concrete correction on15November2026 and
+reaffirmed tested work-package commits/pushes, current GitHub/PM care and
+independent progress despite unavailable CodeRabbit reviews or blocked merges.
+These workflow obligations already exist in AGENTS.md and CORE.md; this change
+does not add a second project manager or relax source/publication gates.
+
+Exact seven-file patch SHA-256:
+`ef07b217d5f8eb2b69626c6968ec81182dcb25804edaf2c06aa135348aa0a9a7`,
+based on published `8cdbe72bc3dde6b3b8074b7446d7918ed8c682cb`.
+Paths: ChatDev audit, lifecycle, Project Manager, stable-series-base runtime
+helper and their existing PR/manager/stable-base tests. CLI remains unchanged.
+This approval record is the additional documentation named in the proposal.
+
+The [official GitHub documentation](https://docs.github.com/en/pull-requests/how-tos/create-pull-requests/changing-the-base-branch-of-a-pull-request)
+explains that the original PR base commit stays fixed after branch updates.
+The previous equality requirement confused that historical value with the
+current target and was too strict. Actual CI43732216660 checked merge921940b8
+with parents8cdbe72/b8caca6 and passed202 Node/4214 browser checks despite the
+reported historical544b. That is expected GitHub behavior, not a broken merge.
+
+Schema2 derives canonical baseSha solely from the independently read exact
+current target ref; reportedBaseSha preserves historical metadata separately.
+All reviews/tests/dispositions bind the current target; old target evidence and
+V1 READY/release audits are not silently reinterpreted. Unknown refs never fall
+back to historical metadata. Before/after collection and pre-write ref checks,
+retarget/repository guards, late CLI/PM downgrade and read-only inventory remain.
+Runtime main-ref checks and dependency/plan comparisons also use the actual ref.
+Head-CI alone never proves that a newer target was tested.
+
+The integrated draft passed209/209 Node tests;92 focused cases and eight
+independently executed reviewer regressions passed. All seven source hashes and
+baselines matched. Canonical bundle (sorted path+NUL+rawbytes+NUL):
+`fd5a5897db33be08d701906b5aac4a17e2381972d0f03c53ef26940edf221bbf`.
+Actual staged verification, confirmed push, hosted CI and new runtime acceptance
+remain separately required. No historical receipt is rewritten to claim them.
+
+Feature base544b, the five integration anchors, policy, hooks/trust, plan/progress
+and all existing safety/review/check/publication gates remain. No extra parent
+integration, main merge/retarget, deployment, step acceptance/advance or Orqen
+infrastructure is authorized.

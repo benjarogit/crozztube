@@ -23,7 +23,7 @@ function fixture(fn){
 const task=(id,extra={})=>({id,objective:'Resume approved tooling',step:2,scope:'tooling',author:'engineer-session',owner:'engineer',reviewers:['quality'],files:['tools/chatdev/example.mjs'],risks:[],dependencies:[],acceptance:['Focused checks pass'],checks:[],approvals:[],openIssues:[],nextAction:'Continue the existing tooling task',...extra});
 const add=(root,t)=>createTask(root,t,state(root).revision);
 const prBase={baseSha:'c'.repeat(40),baseRef:'main',baseRepository:'owner/repo'};
-const ready=root=>({...prBase,baseTipSha:prBase.baseSha,head:git(root,['rev-parse','HEAD']),status:'READY',changes:[],blockers:[]});
+const ready=root=>({schemaVersion:2,baseSource:'github-base-branch-ref',...prBase,baseTipSha:prBase.baseSha,head:git(root,['rev-parse','HEAD']),status:'READY',changes:[],blockers:[]});
 const approve=(root,id)=>reviewTask(root,id,{actor:'reviewer-session',role:'quality',decision:'approved',evidence:['Independent review of current fixture']},state(root).revision);
 test('15 canonical roles include project manager and routing always involves coordination',()=>fixture(root=>{const expected=['project-manager','orchestrator','engineer','analyst','qa','quality','architecture','security','performance','ux','assets','documentation','localization','repository','infrastructure'];assert.deepEqual(roles(root).map(r=>r.id).sort(),expected.sort());assert(suggestRoles(root,['README.md']).roles.includes('project-manager'));}));
 test('coordination derives current status and has no mutations or advancement',()=>fixture(root=>{add(root,task('active'));const before=fs.readFileSync(statePath(root),'utf8'), progress=fs.readFileSync(path.join(root,'harness/progress.json'),'utf8');const r=manager(root,ready(root));assert.equal(r.activeStep.id,2);assert.equal(r.nextAction.action,'resume-existing-task');assert.equal(r.nextAction.task,'active');assert.equal(r.registeredRoles.length,15);assert.equal(fs.readFileSync(statePath(root),'utf8'),before);assert.equal(fs.readFileSync(path.join(root,'harness/progress.json'),'utf8'),progress);assert.match(r.permission,/No begin/);}));
@@ -57,7 +57,7 @@ const lifecycleFixture = () => {
   const issue={number:12,body:'Scoped package criterion',state:'open',updated_at:'v1'};
   const task={id:'package',acceptance:['Criterion'],checks:[{result:'passed'}],openIssues:[],approvals:[]};
   const binding={number:12,bodyHash:bodyHash(issue.body),taskId:task.id,criteria:[{text:'Criterion',result:'passed',evidence:['Actual observed result']}]};
-  return {issue,task,binding,audit:{...prBase,baseTipSha:prBase.baseSha,status:'READY'}};
+  return {issue,task,binding,audit:{schemaVersion:2,baseSource:'github-base-branch-ref',...prBase,baseTipSha:prBase.baseSha,status:'READY'}};
 };
 const decide = f => issueDecision(f.issue,f.binding,f.task,'reviewed',f.audit,true,[]);
 test('lifecycle closes only fully mapped independently reviewed accepted work packages',()=>{
@@ -149,7 +149,7 @@ test('manager rejects legacy or inconsistent cached and supplied READY base iden
     const snapshot={...prBase,[field]:field==='baseSha'?'d'.repeat(40):'other'};
     fs.writeFileSync(file,JSON.stringify({snapshot,result:ready(root)}));assert(manager(root).blockers.includes('PR_AUDIT_BASE_UNBOUND'));
   }
-  fs.writeFileSync(file,JSON.stringify({snapshot:{...prBase,baseTipSha:prBase.baseSha,complete:{baseTipStable:true}},result:ready(root)}));
+  fs.writeFileSync(file,JSON.stringify({snapshot:{schemaVersion:2,baseSource:'github-base-branch-ref',...prBase,baseTipSha:prBase.baseSha,complete:{baseTipStable:true}},result:ready(root)}));
   const bound=manager(root);assert.equal(bound.blockers.length,0);assert.equal(bound.prAudit.baseSha,prBase.baseSha);assert.match(bound.prAudit.source,/refresh before publication/);
 }));
 test('pure issue decision cannot close from a legacy READY without an actual-base identity',()=>{
@@ -175,13 +175,13 @@ else {const r=spawnSync(${JSON.stringify(realGit)},a,{stdio:'inherit'});process.
   const current={number:4,state:'open',draft:false,head:{sha:head,ref:branch,repo:{full_name:'owner/repo'}},base:{sha:prBase.baseSha,ref:prBase.baseRef,repo:{full_name:prBase.baseRepository}}};
   const audit={...ready(root)},evidence={head,...prBase,githubIssues:[binding]};
   const baseTip={ref:'refs/heads/main',object:{type:'commit',sha:prBase.baseSha}};
-  const writes=[],comments=[],refReads=[];let afterComment=null;
+  const writes=[],comments=[],refReads=[],comparisons=[];let afterComment=null;
   const api=(endpoint,method='GET',data)=>{
     if(endpoint==='repos/owner/repo/git/ref/heads/main'){refReads.push(endpoint);return structuredClone(baseTip);}
     if(endpoint==='user')return{login:'fixture-bot'};
     if(endpoint.endsWith('/issues?state=open&per_page=100'))return[[structuredClone(issue)]];
     if(endpoint.endsWith('/pulls?state=all&per_page=100'))return[[structuredClone(current)]];
-    if(endpoint.includes('/compare/'))return{status:'identical'};
+    if(endpoint.includes('/compare/')){comparisons.push(endpoint);return{status:'identical'};}
     if(endpoint.endsWith('/pulls/4'))return structuredClone(current);
     if(endpoint.endsWith('/comments?per_page=100'))return[structuredClone(comments)];
     if(method==='POST'&&endpoint.endsWith('/issues/12/comments')){writes.push({method,endpoint});comments.push({id:21,user:{login:'fixture-bot'},body:data.body});issue.updated_at='v2';afterComment?.();return{};}
@@ -189,23 +189,38 @@ else {const r=spawnSync(${JSON.stringify(realGit)},a,{stdio:'inherit'});process.
     if(method==='GET'&&endpoint.endsWith('/issues/12'))return structuredClone(issue);
     throw Error('Unexpected isolated API request');
   };
-  try{return fn({root,current,baseTip,refReads,audit,evidence,writes,issue,comments,setAfterComment:callback=>afterComment=callback,run:(refresh=()=>structuredClone(audit),apply=true)=>reconcile(root,4,evidence,audit,apply,api,refresh)});}
+  try{return fn({root,current,baseTip,refReads,comparisons,audit,evidence,writes,issue,comments,setAfterComment:callback=>afterComment=callback,run:(refresh=()=>structuredClone(audit),apply=true)=>reconcile(root,4,evidence,audit,apply,api,refresh)});}
   finally{process.env.PATH=originalPath;}
 });}
 test('actual reconcile writes are bound to a stable real PR base context',()=>reconciliationFixture(f=>{
   const before=fs.readFileSync(path.join(f.root,'harness/progress.json'),'utf8');
   const result=f.run();assert.equal(result.decisions[0].action,'close');assert.equal(f.issue.state,'closed');assert.deepEqual(f.writes.map(w=>w.method),['POST','PATCH']);
-  assert.equal(result.baseSha,prBase.baseSha);assert.equal(result.baseTipSha,prBase.baseSha);assert.equal(f.refReads.length,3);assert.equal(result.pullRequests[0].base,'main');assert.equal(result.pullRequests[0].baseSha,prBase.baseSha);
+  assert.equal(result.baseSha,prBase.baseSha);assert.equal(result.baseTipSha,prBase.baseSha);assert.equal(f.refReads.length,3);assert.equal(result.pullRequests[0].base,'main');assert.equal(result.pullRequests[0].reportedBaseSha,prBase.baseSha);assert.equal(result.pullRequests[0].baseSha,undefined);
   assert(f.comments[0].body.includes(prBase.baseSha));assert.equal(fs.readFileSync(path.join(f.root,'harness/progress.json'),'utf8'),before);
+}));
+
+test('actual reconcile resolves the current target ref instead of the reported historical pull base',()=>reconciliationFixture(f=>{
+  f.current.base.sha='b'.repeat(40);
+  const result=f.run();assert.equal(result.schemaVersion,2);assert.equal(result.baseSource,'github-base-branch-ref');
+  assert.equal(result.baseSha,prBase.baseSha);assert.equal(result.reportedBaseSha,'b'.repeat(40));
+  assert.equal(result.decisions[0].action,'close');assert.equal(f.issue.state,'closed');
+  assert.equal(result.pullRequests[0].reportedBaseSha,'b'.repeat(40));assert.equal(result.pullRequests[0].baseSha,undefined);
+  assert(f.comparisons.length>=3);assert(f.comparisons.every(endpoint=>endpoint.endsWith('...'+prBase.baseSha)));
+}));
+
+test('reported pull-base diagnostic updates alone do not invalidate an unchanged current target',()=>reconciliationFixture(f=>{
+  f.setAfterComment(()=>{f.current.base.sha='b'.repeat(40);});
+  const result=f.run();assert.equal(result.decisions[0].action,'close');assert.equal(f.issue.state,'closed');
+  assert.deepEqual(f.writes.map(w=>w.method),['POST','PATCH']);
 }));
 test('actual reconcile rejects missing or stale audit/evidence bases before any mutation',()=>{
   for(const target of ['audit','evidence'])for(const field of ['baseSha','baseRef','baseRepository'])for(const missing of [false,true])reconciliationFixture(f=>{
     if(missing)delete f[target][field];else f[target][field]=field==='baseSha'?'d'.repeat(40):field==='baseRef'?'release':'foreign/repo';
-    assert.throws(()=>f.run(),/HEAD\/base/);assert.equal(f.writes.length,0);assert.equal(f.issue.state,'open');
+    assert.throws(()=>f.run(),/HEAD\/base|base-tip proof/);assert.equal(f.writes.length,0);assert.equal(f.issue.state,'open');
   });
 });
 test('actual reconcile detects base SHA, same-SHA retarget, and base repository races before commenting',()=>{
-  for(const field of ['sha','ref','repository'])reconciliationFixture(f=>{
+  for(const field of ['ref','repository'])reconciliationFixture(f=>{
     const refresh=()=>{if(field==='repository')f.current.base.repo.full_name='foreign/repo';else f.current.base[field]=field==='sha'?'d'.repeat(40):'release';return structuredClone(f.audit);};
     assert.throws(()=>f.run(refresh),/Remote PR changed/);assert.equal(f.writes.length,0);
   });
@@ -216,7 +231,7 @@ test('actual reconcile compares every refreshed audit base field even when remot
   });
 });
 test('actual reconcile preserves a posted status comment but never closes after a base race',()=>{
-  for(const field of ['sha','ref','repository'])reconciliationFixture(f=>{
+  for(const field of ['ref','repository'])reconciliationFixture(f=>{
     f.setAfterComment(()=>{if(field==='repository')f.current.base.repo.full_name='foreign/repo';else f.current.base[field]=field==='sha'?'d'.repeat(40):'release';});
     assert.throws(()=>f.run(),/Remote PR changed/);assert.deepEqual(f.writes.map(w=>w.method),['POST']);assert.equal(f.issue.state,'open');assert.equal(f.comments.length,1);
   });
@@ -228,13 +243,13 @@ test('read-only reconcile inventory remains available without mappings or suppli
 
 test('PM rejects legacy READY without an independently collected base-tip proof',()=>fixture(root=>{
   const file=path.join(path.dirname(statePath(root)),'pr-audit-4.json');
-  const current=ready(root),snapshot={...prBase,baseTipSha:prBase.baseSha,complete:{baseTipStable:true}};
-  for(const mutate of [r=>delete r.baseTipSha,r=>r.baseTipSha='d'.repeat(40),r=>r.baseTipSha=[prBase.baseSha]]){
+  const current=ready(root),snapshot={schemaVersion:2,baseSource:'github-base-branch-ref',...prBase,baseTipSha:prBase.baseSha,complete:{baseTipStable:true}};
+  for(const mutate of [r=>delete r.baseTipSha,r=>r.baseTipSha='d'.repeat(40),r=>r.baseTipSha=[prBase.baseSha],r=>r.schemaVersion=1,r=>delete r.baseSource,r=>r.baseSource='historical-pull-base']){
     const result=structuredClone(current);mutate(result);
     const supplied=manager(root,result);assert(supplied.blockers.includes('PR_AUDIT_BASE_TIP_UNBOUND'));assert.equal(supplied.prAudit.status,'BLOCKED');
     fs.writeFileSync(file,JSON.stringify({snapshot,result}));assert(manager(root).blockers.includes('PR_AUDIT_BASE_TIP_UNBOUND'));
   }
-  for(const mutate of [s=>delete s.baseTipSha,s=>s.baseTipSha='d'.repeat(40),s=>delete s.complete.baseTipStable,s=>s.complete.baseTipStable=false]){
+  for(const mutate of [s=>delete s.baseTipSha,s=>s.baseTipSha='d'.repeat(40),s=>delete s.complete.baseTipStable,s=>s.complete.baseTipStable=false,s=>s.schemaVersion=1,s=>delete s.baseSource]){
     const old=structuredClone(snapshot);mutate(old);fs.writeFileSync(file,JSON.stringify({snapshot:old,result:current}));
     const result=manager(root);assert(result.blockers.includes('PR_AUDIT_BASE_TIP_UNBOUND'));assert.equal(result.prAudit.status,'BLOCKED');
   }
@@ -269,6 +284,12 @@ test('actual reconcile includes base-tip proof in every refreshed audit comparis
   assert.throws(()=>f.run(()=>({...f.audit,baseTipSha:'d'.repeat(40)})),/Evidence changed/);
   assert.equal(f.writes.length,0);assert.equal(f.issue.state,'open');
 }));
+
+test('actual reconcile rejects a legacy or changed source marker before every mutation',()=>{
+  for(const mutation of [{schemaVersion:1},{baseSource:'historical-pull-base'}])reconciliationFixture(f=>{
+    assert.throws(()=>f.run(()=>({...f.audit,...mutation})),/Evidence changed/);assert.equal(f.writes.length,0);
+  });
+});
 
 test('stale or missing base refs preserve unmapped inventory and blocked PM coordination',()=>{
   for(const apply of [false,true])for(const missing of [false,true])reconciliationFixture(f=>{

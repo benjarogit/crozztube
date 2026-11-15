@@ -3,7 +3,7 @@ import path from 'node:path';
 import { createHash, randomUUID } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import { digest, indexDigest, localPath } from '../harness/workflow.mjs';
-import { collect, assess, sameBaseIdentity } from './pr-audit.mjs';
+import { collect, assess, sameBaseIdentity, baseIdentity, readBaseTip } from './pr-audit.mjs';
 
 const POLICY='harness/chatdev/feature-bases.json';
 const RELEASE='stable-series-runtime.json';
@@ -153,10 +153,10 @@ export function acceptStableRuntime(runtimeRoot,evidenceFile){
   if(repo!==p.repository)throw Error('Runtime origin is not the policy-approved GitHub repository.');
   if(!boundEvidence(evidence,runtime,proof,repo))throw Error('Independent review and tests must bind the exact runtime head, base identity and source digest.');
   const before=gh(root,`repos/${repo}/pulls/3`);
-  const matches=pr=>pr.head?.sha===runtime&&pr.head?.ref===toolingBranch&&pr.base?.sha===proof.base&&pr.base?.ref==='main'&&pr.head?.repo?.full_name===repo&&pr.base?.repo?.full_name===repo&&pr.state==='open'&&pr.draft===false;
+  const matches=pr=>pr.head?.sha===runtime&&pr.head?.ref===toolingBranch&&pr.base?.ref==='main'&&pr.head?.repo?.full_name===repo&&pr.base?.repo?.full_name===repo&&pr.state==='open'&&pr.draft===false&&readBaseTip(baseIdentity(pr),endpoint=>gh(root,endpoint))===proof.base;
   if(!matches(before))throw Error('Runtime PR3 does not match the published head/base.');
   const snapshot=collect(root,3),result=assess(snapshot,evidence);
-  if(snapshot.repository!==repo||snapshot.head!==runtime||snapshot.pr!==3||result.status!=='READY'||result.head!==runtime)throw Error('Fresh independent PR3 review and required exact-head CI must be READY.');
+  if(snapshot.repository!==repo||snapshot.head!==runtime||snapshot.pr!==3||snapshot.baseSha!==proof.base||result.status!=='READY'||result.head!==runtime)throw Error('Fresh independent PR3 review and required exact-head CI must be READY.');
   if(!matches(gh(root,`repos/${repo}/pulls/3`))||cleanRuntime(root)!==runtime||canonical(publishedProof(root,runtime))!==canonical(proof)||remoteTip(root)!==runtime)throw Error('Runtime source, publication or PR base changed during approval.');
   const audit={snapshot,result,evidence,base:proof.base},auditFile=localPath(root,AUDIT);
   atomic(auditFile,audit);

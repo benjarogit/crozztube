@@ -34,7 +34,7 @@ function fixture(fn,{pinOutsideRuntime=false}={}){
     const verification={branch:policy.toolingBranch,base:main,digest:sourceDigest,indexDigest:index,checkedAt,purpose:'chatdev-tooling-only'},publication={branch:policy.toolingBranch,commit:head,base:main,checkedAt};
     const verificationFile=privateJson(runtime,'chatdev-verification.json',verification),publicationFile=privateJson(runtime,'chatdev-publication.json',publication);
     const target={baseSha:main,baseRef:'main',baseRepository:policy.repository};
-    const snapshot={schemaVersion:1,repository:policy.repository,pr:3,head,...target,baseTipSha:main,state:'open',draft:false,mergeable:true,mergeableState:'clean',complete:Object.fromEntries(['checks','statuses','reviews','issueComments','inlineComments','reviewThreads','headStable','baseStable','baseTipStable'].map(k=>[k,true])),checks:[{head,status:'completed',conclusion:'success',nameHash:hash('contracts'),appSlugHash:hash('github-actions')}],statuses:[],reviews:[],comments:[],threads:[],combinedStatus:{head,total:0,state:'pending'}};
+    const snapshot={schemaVersion:2,baseSource:'github-base-branch-ref',reportedBaseSha:main,repository:policy.repository,pr:3,head,...target,baseTipSha:main,state:'open',draft:false,mergeable:true,mergeableState:'clean',complete:Object.fromEntries(['checks','statuses','reviews','issueComments','inlineComments','reviewThreads','headStable','baseStable','baseTipStable'].map(k=>[k,true])),checks:[{head,status:'completed',conclusion:'success',nameHash:hash('contracts'),appSlugHash:hash('github-actions')}],statuses:[],reviews:[],comments:[],threads:[],combinedStatus:{head,total:0,state:'pending'}};
     const evidence={head,...target,sourceDigest,authorActor:'synthetic-author',reviews:['quality','qa','security','architecture'].map(role=>({role,actor:'synthetic-independent-'+role,head,...target,sourceDigest,result:'passed',evidence:['Synthetic fixture only']})),tests:[{name:'Synthetic test',head,...target,sourceDigest,result:'passed',evidence:['Synthetic fixture only']}],commentDispositions:{}};
     const result=assess(snapshot,evidence);assert.equal(result.status,'READY');
     const audit={snapshot,result,evidence,base:main},auditFile=privateJson(runtime,'stable-series-runtime-audit.json',audit);
@@ -124,13 +124,13 @@ function syntheticGithub(c,options,fn){
   // The raw URL satisfies the production provenance contract; Git transports
   // are rewritten locally and gh is replaced by this fixture-only executable.
   const hosted='https://github.com/benjarogit/crozztube.git';git(c.runtime,'config',`url.${c.bare}.insteadOf`,hosted);git(c.runtime,'remote','set-url','origin',hosted);
-  const file=write(c.home,'synthetic-fixture-data.json',{head:c.head,base:c.main,repo:c.policy.repository,...options});
+  const file=write(c.home,'synthetic-fixture-data.json',{head:c.head,base:c.main,repo:c.policy.repository,refReads:path.join(c.home,'synthetic-ref-reads'),...options});
   const script=`#!${process.execPath}
 const fs=require('node:fs');const x=JSON.parse(fs.readFileSync(${JSON.stringify(file)},'utf8')),args=process.argv.slice(2);let value;
 if(args[0]==='repo')value={nameWithOwner:x.repo};else{
 const endpoint=args.find(a=>a.startsWith('repos/'));
 if(args[1]==='graphql')value={data:{repository:{pullRequest:{reviewThreads:{nodes:[],pageInfo:{hasNextPage:false}}}}}};
-else if(endpoint==='repos/'+x.repo+'/git/ref/heads/main')value={ref:'refs/heads/main',object:{type:'commit',sha:x.base}};
+else if(endpoint==='repos/'+x.repo+'/git/ref/heads/main'){let n=0;try{n=Number(fs.readFileSync(x.refReads,'utf8'));}catch{}fs.writeFileSync(x.refReads,String(n+1));if(x.missingTip||x.missingTipAfter!==undefined&&n>=x.missingTipAfter)throw Error('Synthetic missing ref');value={ref:'refs/heads/main',object:{type:'commit',sha:x.changedTip||x.tipMovesAfter!==undefined&&n>=x.tipMovesAfter?x.changedTip||x.tipMovesTo:x.base}};}
 else if(endpoint==='repos/'+x.repo+'/pulls/3')value={head:{sha:x.head,ref:'codex/chatdev-integration',repo:{full_name:x.repo}},base:{sha:x.changedBase||x.base,ref:'main',repo:{full_name:x.repo}},state:'open',draft:false,mergeable:true,mergeable_state:'clean',user:{login:'synthetic-author'},html_url:'https://github.com/'+x.repo+'/pull/3'};
 else if(endpoint?.includes('/check-runs?'))value=[{check_runs:[{id:1,head_sha:x.head,status:'completed',conclusion:x.failedCi?'failure':'success',name:'contracts',app:{id:1,slug:'github-actions'},html_url:'https://github.com/'+x.repo+'/actions/runs/1'}]}];
 else if(endpoint?.includes('/statuses?'))value=[[]];
@@ -146,8 +146,26 @@ test('explicit acceptance collects fresh synthetic GitHub CI and exact-base inde
   fs.rmSync(c.releaseFile);fs.rmSync(c.auditFile);const file=write(c.home,'synthetic-release-evidence.json',c.evidence);
   const accepted=acceptStableRuntime(c.runtime,file);assert.equal(accepted.binding.runtime,c.head);assert.equal(accepted.binding.base,c.base);assert.equal(read(c.releaseFile).repository,c.policy.repository);assert.equal(read(c.auditFile).snapshot.baseSha,c.main);assert.equal(read(c.auditFile).result.status,'READY');assert.equal(fs.statSync(c.releaseFile).mode&0o077,0);assert.doesNotThrow(()=>selectStableBase(c.feature,c.runtime));
 })));
+test('runtime acceptance uses the fresh exact main ref while retaining a different reported pull base diagnostically',()=>fixture(c=>syntheticGithub(c,{changedBase:c.base},()=>{
+  const file=write(c.home,'synthetic-release-evidence.json',c.evidence);
+  assert.doesNotThrow(()=>acceptStableRuntime(c.runtime,file));
+  const audit=read(c.auditFile);assert.equal(audit.snapshot.schemaVersion,2);assert.equal(audit.snapshot.baseSource,'github-base-branch-ref');
+  assert.equal(audit.snapshot.reportedBaseSha,c.base);assert.equal(audit.snapshot.baseSha,c.main);assert.equal(audit.base,c.main);
+})));
+test('runtime acceptance refuses unreadable refs and advances during collection or the final approval read',()=>{
+  for(const options of [{missingTip:true},{tipMovesAfter:2,tipMovesTo:'a'.repeat(40)},{tipMovesAfter:3,tipMovesTo:'a'.repeat(40)},{missingTipAfter:3}])fixture(c=>syntheticGithub(c,options,()=>{
+    const before=fs.readFileSync(c.releaseFile,'utf8'),file=write(c.home,'synthetic-release-evidence.json',c.evidence);
+    assert.throws(()=>acceptStableRuntime(c.runtime,file));assert.equal(fs.readFileSync(c.releaseFile,'utf8'),before);
+  }));
+});
+test('a legacy v1 stored release audit cannot be reinterpreted as fresh-ref source evidence',()=>fixture(c=>{
+  const audit=read(c.auditFile);audit.snapshot.schemaVersion=1;delete audit.snapshot.baseSource;
+  audit.result.schemaVersion=1;delete audit.result.baseSource;privateJson(c.runtime,'stable-series-runtime-audit.json',audit);
+  const release=read(c.releaseFile);release.auditDigest=hash(fs.readFileSync(c.auditFile));privateJson(c.runtime,'stable-series-runtime.json',release);
+  assert.throws(()=>selectStableBase(c.feature,c.runtime),/attestation does not match/);
+}));
 test('fresh synthetic failed CI or changed actual PR base cannot reuse an old successful acceptance',()=>{
-  for(const kind of ['failed-ci','changed-base'])fixture(c=>syntheticGithub(c,kind==='failed-ci'?{failedCi:true}:{changedBase:c.base},()=>{
+  for(const kind of ['failed-ci','changed-tip'])fixture(c=>syntheticGithub(c,kind==='failed-ci'?{failedCi:true}:{changedTip:c.base},()=>{
     const before=fs.readFileSync(c.releaseFile,'utf8'),file=write(c.home,'synthetic-release-evidence.json',c.evidence);assert.throws(()=>acceptStableRuntime(c.runtime,file),kind==='failed-ci'?/must be READY/:/does not match the published head\/base/);assert.equal(fs.readFileSync(c.releaseFile,'utf8'),before);
   }));
 });

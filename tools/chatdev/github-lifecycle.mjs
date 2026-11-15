@@ -2,7 +2,7 @@ import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import { authoritative, git, state, validate } from './core.mjs';
 import { manager } from './project-manager.mjs';
-import { baseIdentity, validBaseIdentity, sameBaseIdentity, readBaseTip, hasCurrentBaseTip } from './pr-audit.mjs';
+import { baseIdentity, validBaseIdentity, sameBaseIdentity, sameBaseTarget, readBaseTip, hasCurrentBaseTip } from './pr-audit.mjs';
 
 export const bodyHash = body => createHash('sha256').update(String(body ?? '')).digest('hex');
 const number = n => Number.isSafeInteger(n) && n > 0;
@@ -100,13 +100,14 @@ export function reconcile(root, pr, evidence, audit, apply = false, api = transp
   const issues = api(`${base}/issues?state=open&per_page=100`, 'GET', null, true).flat().filter(i => !i.pull_request);
   const prs = api(`${base}/pulls?state=all&per_page=100`, 'GET', null, true).flat();
   const current = prs.find(p => p.number === Number(pr));
-  const currentBase=baseIdentity(current);
-  if (!current || current.head?.repo?.full_name !== repository || current.base?.repo?.full_name !== repository || current.head?.sha !== head || audit.head !== head || !sameBaseIdentity(audit,currentBase) || (evidence?.githubIssues?.length && (evidence.head !== head||!sameBaseIdentity(evidence,currentBase)))) throw Error('PR/evidence no longer matches current HEAD/base');
+  const target=baseIdentity(current),currentBase={...target,baseSha:null};
+  if (!current || current.head?.repo?.full_name !== repository || current.base?.repo?.full_name !== repository || current.head?.sha !== head || audit.head !== head || !sameBaseTarget(audit,target) || (evidence?.githubIssues?.length && (evidence.head !== head||!sameBaseTarget(evidence,target)))) throw Error('PR/evidence no longer matches current HEAD/base');
   let baseTipSha=null,baseTipError;
   try{
-    const currentTip=readBaseTip(currentBase,endpoint=>api(endpoint));
+    const currentTip=readBaseTip(target,endpoint=>api(endpoint));
+    currentBase.baseSha=currentTip;
     if(!hasCurrentBaseTip(audit))throw Error('PR audit lacks current base-tip proof');
-    if(audit.baseTipSha!==currentTip)throw Error('PR base ref differs from audit');
+    if(!sameBaseIdentity(audit,currentBase)||audit.baseTipSha!==currentTip||(evidence?.githubIssues?.length&&!sameBaseIdentity(evidence,currentBase)))throw Error('PR base ref differs from current HEAD/base evidence');
     baseTipSha=currentTip;
   }catch(error){baseTipError=error;}
   // Unverified refs block writes and close previews, not read-only inventory
@@ -116,8 +117,8 @@ export function reconcile(root, pr, evidence, audit, apply = false, api = transp
   // predecessor does not satisfy this dependency. Never merge or retarget here.
   const planBranch=authoritative(root).plan.branch;
   const dependencyState=(list,p)=>{
-    if(!/^[a-f0-9]{40,64}$/.test(p.base?.sha ?? ''))throw Error('Missing base identity');
-    const comparison=api(`${base}/compare/${encodeURIComponent(planBranch)}...${p.base.sha}`);
+    if(!currentBase.baseSha)return dependenciesFor(list,p,repository,true);
+    const comparison=api(`${base}/compare/${encodeURIComponent(planBranch)}...${currentBase.baseSha}`);
     const inPlan=['identical','behind'].includes(comparison.status);
     return dependenciesFor(list,p,repository,inPlan);
   };
@@ -143,20 +144,20 @@ export function reconcile(root, pr, evidence, audit, apply = false, api = transp
       if (typeof refreshAudit !== 'function') throw Error('Fresh audit required before mutations');
       const beforeMutation=()=>{
         const refreshed=refreshAudit(), latestPr=api(`${base}/pulls/${pr}`);
-        const shape=r=>JSON.stringify({head:r.head,baseSha:r.baseSha,baseRef:r.baseRef,baseRepository:r.baseRepository,baseTipSha:r.baseTipSha,status:r.status,blockers:r.blockers,changes:r.changes});
+        const shape=r=>JSON.stringify({schemaVersion:r.schemaVersion,baseSource:r.baseSource,head:r.head,baseSha:r.baseSha,baseRef:r.baseRef,baseRepository:r.baseRepository,baseTipSha:r.baseTipSha,status:r.status,blockers:r.blockers,changes:r.changes});
         if(shape(refreshed)!==shape(audit) || git(root,['rev-parse','HEAD'])!==head || git(root,['status','--porcelain']) || state(root).revision!==journal.revision) throw Error('Evidence changed; refresh before mutation');
-        if(latestPr.head?.sha!==head || !sameBaseIdentity(baseIdentity(latestPr),currentBase) || latestPr.head?.repo?.full_name!==repository || latestPr.state!==current.state || latestPr.draft!==current.draft) throw Error('Remote PR changed; refresh before mutation');
+        if(latestPr.head?.sha!==head || !sameBaseTarget(baseIdentity(latestPr),currentBase) || latestPr.head?.repo?.full_name!==repository || latestPr.state!==current.state || latestPr.draft!==current.draft) throw Error('Remote PR changed; refresh before mutation');
         const remoteHead=git(root,['ls-remote','--heads','origin',`refs/heads/${branch}`]).split(/\s/)[0];
         if(remoteHead!==head) throw Error('Publication changed; refresh before mutation');
         if(JSON.stringify(validate(root).tasks)!==JSON.stringify(reviews)) throw Error('Task review changed; refresh before mutation');
         const refreshedPrs=api(`${base}/pulls?state=all&per_page=100`,'GET',null,true).flat();
         const newDependencies=dependencyState(refreshedPrs,latestPr);
         if(JSON.stringify(newDependencies)!==JSON.stringify(dependencies)) throw Error('Dependencies changed; refresh before mutation');
-        if(readBaseTip(currentBase,endpoint=>api(endpoint))!==audit.baseTipSha)throw Error('PR base ref changed; refresh before mutation');
+        if(readBaseTip(target,endpoint=>api(endpoint))!==currentBase.baseSha||audit.baseTipSha!==currentBase.baseSha)throw Error('PR base ref changed; refresh before mutation');
       };
       decision.publication = applyIssue(api, repository, issue, decision, body, api('user').login, beforeMutation);
     }
     decisions.push(decision);
   }
-  return {repository, head, ...currentBase, baseTipSha, pr:Number(pr), openIssues:issues.map(i => i.number), unmappedOpenIssues:issues.filter(i => !bindings.some(b => b.number === i.number)).map(i => i.number), dependencies, pullRequests:prs.filter(p=>p.state==='open').map(p=>({number:p.number,head:p.head?.sha,base:p.base?.ref,...baseIdentity(p),draft:p.draft,state:p.state})), decisions, mode: apply ? 'explicit-mappings-applied' : 'read-only', permission:'No PR merge/closure, retarget, harness advancement or deployment.'};
+  return {schemaVersion:2,baseSource:'github-base-branch-ref',repository, head, ...currentBase, baseTipSha, pr:Number(pr), openIssues:issues.map(i => i.number), unmappedOpenIssues:issues.filter(i => !bindings.some(b => b.number === i.number)).map(i => i.number), dependencies, pullRequests:prs.filter(p=>p.state==='open').map(p=>({number:p.number,head:p.head?.sha,base:p.base?.ref,...baseIdentity(p),draft:p.draft,state:p.state})), decisions, mode: apply ? 'explicit-mappings-applied' : 'read-only', permission:'No PR merge/closure, retarget, harness advancement or deployment.'};
 }
