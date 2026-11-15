@@ -264,7 +264,8 @@ $check(DB::table('playlist_video')->count() === 11 && DB::table('videos')->count
 $migration->up();
 $check(! Playlist::findOrFail($playlist->id)->is_series, 'Reapply has safe defaults');
 
-if (! $mysql) {
+{
+    // Exercise this same routed contract on both guarded database engines.
     // Real in-process HTTP requests through the project's registered routes,
     // Laravel binding/exception pipeline, Sanctum bearer guard and middleware.
     // This deliberately does not bootstrap the production kernel, session/CSRF
@@ -454,7 +455,7 @@ if (! $mysql) {
     echo 'Series localized API errors: '.count($coveredLocales).' catalogs, four real failure paths on both APIs; '.count($uncoveredLocales).' catalogs remain uncovered: '.implode(',',$uncoveredLocales).".\n";
     // Unable to load videos is a frontend loading state, not an exception this
     // API emits. Do not fabricate a route or claim its browser coverage here.
-    echo 'Series HTTP/API router checks passed: '.$httpChecks.'; actual registered routes, bearer Sanctum, project middleware and JSON serialization; isolated SQLite only, no production kernel/server/cookie-session or HTTP/MySQL claim.'."\n";
+    echo 'Series HTTP/API router checks passed: '.$httpChecks.'; actual registered routes, bearer Sanctum, project middleware and JSON serialization; isolated '.($mysql ? 'MySQL' : 'SQLite').', no production kernel/server/cookie-session claim.'."\n";
 }
 echo 'Series playlist checks passed: '.$checks.'; isolated '.($mysql ? 'MySQL' : 'SQLite memory').", no app environment or media access.\n";
 if ($mysql) require __DIR__.'/series-seasons-checks.php';
