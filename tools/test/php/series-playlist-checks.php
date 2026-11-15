@@ -418,15 +418,18 @@ $check(! Playlist::findOrFail($playlist->id)->is_series, 'Reapply has safe defau
         ['Set both season and episode numbers, or leave both empty.',422,['episodes'=>[['video_id'=>1,'season_number'=>null]]]],
         ['An episode number can only appear once in each season.',422,['episodes'=>[['video_id'=>2,'season_number'=>1,'episode_number'=>1]]]],
     ];
-    $coveredLocales=[]; $uncoveredLocales=[];
+    $requiredPartialCases=['as'=>['Playlist changed. Reload before saving.','Choose videos from this playlist.'],'my_mm'=>['Choose videos from this playlist.']];
+    $coveredLocales=[]; $uncoveredLocales=[]; $partialLocales=[];
     foreach (\App\Support\GeneralSettings::languageIdentifiers() as $locale) {
         $files=glob(base_path('lang/'.$locale.'/*.php')) ?: [];
         $dictionary=$files ? require $files[0] : [];
-        if (array_filter($failureCases,static fn ($case) => ! isset($dictionary[$case[0]]) || ! is_string($dictionary[$case[0]]) || trim($dictionary[$case[0]])==='')) {
-            $uncoveredLocales[]=$locale;
-            continue;
+        foreach ($requiredPartialCases[$locale]??[] as $requiredKey) {
+            $httpCheck(isset($dictionary[$requiredKey]) && is_string($dictionary[$requiredKey]) && trim($dictionary[$requiredKey])!=='','Every newly reviewed partial API message remains present: '.$locale.' '.$requiredKey);
         }
-        foreach (['/api','/api/v1'] as $prefix) foreach ($failureCases as [$key,$status,$changes]) {
+        $availableCases=array_values(array_filter($failureCases,static fn ($case) => isset($dictionary[$case[0]]) && is_string($dictionary[$case[0]]) && trim($dictionary[$case[0]])!==''));
+        if (count($availableCases)!==count($failureCases)) $uncoveredLocales[]=$locale;
+        if (! $availableCases) continue;
+        foreach (['/api','/api/v1'] as $prefix) foreach ($availableCases as [$key,$status,$changes]) {
             $uri=$prefix.'/playlists/'.$localizedSeries->id.'/series';
             $response=$dispatch('PUT',$uri,['expected_revision'=>$localizedRevision,...$changes],$prefix==='/api'?$legacyOwner:$nativeOwner,$locale);
             $httpCheck($response->getStatusCode()===$status,'Localized '.$locale.' '.$prefix.' failure status '.$status);
@@ -448,11 +451,12 @@ $check(! Playlist::findOrFail($playlist->id)->is_series, 'Reapply has safe defau
             $httpCheck(str_contains(strtolower((string) $response->headers->get('Vary')),'x-playhub-language'),'Localized errors vary by language header');
         }
         $httpCheck(SeriesPlaylists::revision($localizedSeries)===$localizedRevision,'Localized failure requests preserve metadata and membership: '.$locale);
-        $coveredLocales[]=$locale;
+        if (count($availableCases)===count($failureCases)) $coveredLocales[]=$locale;
+        else $partialLocales[$locale]=count($availableCases);
     }
-    $retainedLocales=['en','en_au','en_ca','en_gb','en_nz','en_za','de_de','de_at','de_ch','ca','es_ar','es_cl','es_co','es_cr','es_do','es_ec','es_es','es_gt','es_mx','es_pe','es_pr','es_uy','es_ve','fr_be','fr_ca','fr_fr','gl_es','it_it','pt_ao','pt_br','pt_pt','pt_pt_ao90','ro_ro','nl_be','nl_nl','da_dk','sv_se','nb_no','nn_no','fi','cs_cz','sk_sk','pl_pl','hr','sl_si','bs_ba','sr_rs','hu_hu','el','tr_tr','ru_ru','uk'];
+    $retainedLocales=['en','en_au','en_ca','en_gb','en_nz','en_za','de_de','de_at','de_ch','ca','es_ar','es_cl','es_co','es_cr','es_do','es_ec','es_es','es_gt','es_mx','es_pe','es_pr','es_uy','es_ve','fr_be','fr_ca','fr_fr','gl_es','it_it','pt_ao','pt_br','pt_pt','pt_pt_ao90','ro_ro','nl_be','nl_nl','da_dk','sv_se','nb_no','nn_no','fi','cs_cz','sk_sk','pl_pl','hr','sl_si','bs_ba','sr_rs','hu_hu','el','tr_tr','ru_ru','uk','cy','oci','si_lk'];
     $httpCheck(array_diff($retainedLocales,$coveredLocales)===[],'Every retained reference/batch locale must have all four actual API failure messages');
-    echo 'Series localized API errors: '.count($coveredLocales).' catalogs, four real failure paths on both APIs; '.count($uncoveredLocales).' catalogs remain uncovered: '.implode(',',$uncoveredLocales).".\n";
+    echo 'Series localized API errors: '.count($coveredLocales).' complete error catalogs, four real failure paths on both APIs; partial case coverage '.json_encode($partialLocales,JSON_THROW_ON_ERROR).'; '.count($uncoveredLocales).' incomplete error catalogs: '.implode(',',$uncoveredLocales).".\n";
     // Unable to load videos is a frontend loading state, not an exception this
     // API emits. Do not fabricate a route or claim its browser coverage here.
     echo 'Series HTTP/API router checks passed: '.$httpChecks.'; actual registered routes, bearer Sanctum, project middleware and JSON serialization; isolated '.($mysql ? 'MySQL' : 'SQLite').', no production kernel/server/cookie-session claim.'."\n";

@@ -763,3 +763,65 @@ Per the owner's separately approved CD-006 correction, editor interoperability
 is a nonblocking, not-verified Orqen concern. Historical Cursor-blocker statements
 in this document are superseded for product acceptance. Real Codex hooks and
 all product/harness/merge requirements remain unchanged.
+
+## Current follow-up: complete Welsh/Occitan contexts and scoped Asian copy
+
+Source reference: 12cc4c9 (2026-11-15). Thirteen additional whole messages have
+an editorial proposal pass, an independent whole-message/context pass and a
+separate bounded review. This is AI editorial evidence, not native certification
+or acceptance of all existing text in a language pack.
+
+- cy: paired-number and per-season-duplicate rules complete the nine series keys.
+  Rho/gad and Paid â are personal singular commands. The paired rule explicitly
+  names both numeric fields or both empty fields; season 0 is not forbidden.
+  The duplicate rule permits S1/E1 plus S2/E1 and rejects two S1/E1 entries.
+- oci: the load/retry message completes the nine series keys. A newly inspected
+  [Lo Congrès Languedocian article](https://locongres.org/actualitats/linstitucion-e-los-sons-socis/revirada-lo-traductor-automatic-occitan-del-congres)
+  attests feminine la vidèo. Las vidèos is regular editorial plural formation;
+  neither that source nor Mozilla is claimed to certify this entire new sentence.
+- as: revision/reload, current-playlist selection and loading/retry are supplied
+  as whole personal instructions. U+0027 is retained in the video and negative-past
+  word forms, matching the existing spelling. This sign has an orthographic role,
+  not merely decorative punctuation; the [Unicode Assamese ad-hoc report](https://www.unicode.org/L2/L2018/18205-n4999-assamese-adhoc.pdf)
+  describes multiple representations, not canonical equivalence or permission
+  for global smartquote rewriting. The TV-season noun and both season-dependent
+  validators remain unaccepted; no guessed term or internal placeholder is added.
+- my_mm: current-playlist selection and data-retrieval/retry are supplied. The
+  precise media-playlist term is attested by [Kodi message 559](#source-as-kodi-my-mm-po)
+  and used only in the new selection message;
+  the legacy broader wording is not silently rewritten. Normal gentle imperative
+  particles are not treated as formal customer honorifics. Retrieval does not
+  promise a file download or assert a codec/network cause. Sentence-level
+  editorial confidence is moderate; there is no claim of native certification.
+  Season, revision/reload and both season-dependent validators remain open.
+- si_lk: revision/reload, selection, paired fields, per-season duplicates and
+  load/retry complete the nine series keys. Ordinary Sinhala imperatives and
+  colloquial explanations avoid customer honorifics. The duplicate paraphrase
+  prohibits two episodes with the same number inside the same season; it does
+  not impose global uniqueness, equal paired numbers or gapless numbering.
+
+Current inventory: **141 absent/unaccepted messages in 18 partial/open catalogs**;
+107 of 125 catalogs contain all nine scoped series messages. Since the historical
+154-message inventory, cy, oci and si_lk have no missing series keys; as retains
+T/P/D and my_mm retains T/R/P/D. Every other previously listed missing message
+is unchanged. Older 159/154 counts above are historical review snapshots.
+
+Tests retain every previously required locale and add complete CY/OCI/SI
+requirements. The actual routed test now runs each available partial error
+without pretending all four are present: new AS R/M and MY M are individually
+required. Full and partial coverage are reported separately. The browser fixture
+uses a deduplicated language list, type-specific numeric-field queries and
+explicit known-key maps; unresolved Season labels in AS/MY are not called
+translated. Targeted flows exercise only reviewed messages, preserve creator
+input, show loading/retry states, check narrow layout in both themes and capture
+rendered context images. Actual commands/counts/publication are recorded in the
+journal and CI; the presence of a test alone is not a passed execution.
+
+PR #3 was freshly inspected at ac406456 without rerunning unchanged tests.
+Its source-bound local evidence and hosted run 43710076509 show 131 passes;
+actual GitHub state is open/non-draft/mergeable/clean, with no unresolved threads.
+CodeRabbit's neutral rate-limit comment is not substantive approval. The current
+API cannot read branch-protection/ruleset details (403); these requirements are
+unknown, never called passed. Technical READY does not supply an explicit owner
+merge authorization. PR #3 remains before #4; no merge or deployment is performed.
+No Orqen installation or migration infrastructure is added to CrozzTube.

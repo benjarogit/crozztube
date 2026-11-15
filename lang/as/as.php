@@ -4453,4 +4453,7 @@ return array (
   'Series' => 'ধাৰাবাহিক',
   'Episode' => 'খণ্ড',
   'Next episode' => 'পৰৱৰ্তী খণ্ড',
+  'Playlist changed. Reload before saving.' => 'প্লেলিষ্টখন সলনি হৈছে। সংৰক্ষণ কৰাৰ আগতে পুনৰ লোড কৰা।',
+  'Choose videos from this playlist.' => 'এই প্লেলিষ্টৰ পৰা ভিডিঅ\'বোৰ বাছি লোৱা।',
+  'Unable to load videos.' => 'ভিডিঅ\'বোৰ লোড কৰিব পৰা নগ\'ল। আকৌ চেষ্টা কৰা।',
 );

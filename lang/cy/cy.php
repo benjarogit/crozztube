@@ -4678,4 +4678,6 @@ Agor y ffrwd: {STREAM_URL}',
   'Choose videos from this playlist.' => 'Dewisa fideos o’r rhestr chwarae hon.',
   'Unable to load videos.' => 'Doedd dim modd llwytho’r fideos. Ceisia eto.',
   'Season' => 'Cyfres',
+  'Set both season and episode numbers, or leave both empty.' => 'Rho rif y gyfres a rhif y bennod, neu gad y ddau faes yn wag.',
+  'An episode number can only appear once in each season.' => 'Paid â defnyddio’r un rhif pennod fwy nag unwaith yn yr un gyfres.',
 );
