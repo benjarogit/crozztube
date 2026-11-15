@@ -1148,3 +1148,83 @@ historical value. Source/index, trusted hooks, secrets, before/after/pre-write
 ref checks, independent review, actual CI and confirmed publication remain
 mandatory. The normal tested-commit/push/GitHub/PM cycle already exists in
 AGENTS.md and CORE.md and is reused; no parallel project management is added.
+
+## Scottish Gaelic numbered-season and paired-field follow-up
+
+Reference: published c9abfb5. This bounded packet adds `Seusan` for the numbered
+TV-season field and the complete instruction to enter both numbers or leave
+both fields empty. The existing `Sreath` and `Prògram` terms are preserved.
+The quoted `Seusan`/`Prògram` labels identify only the two number fields, not
+the separate creator-authored title. Season zero counts as a supplied number;
+the numbers need not be equal, sequential or globally unique.
+
+The proposer, separate whole-message reviewer and integrating reading checked
+the complete instruction against the editor and service's XOR-null validation.
+Personal singular entry/leave commands retain both alternatives. This is
+bounded moderate editorial confidence, not native or whole-language approval.
+
+The active [GNOME Totem Gaelic catalog](https://raw.githubusercontent.com/GNOME/totem/master/po/gd.po)
+directly uses the proposed season noun with numbered TV seasons/episodes and
+a television-series example. Observed source SHA-256:
+`2a9ba9c1c1e923c5379cbc7694b4ea1d0de9409d9d56dbd50911cbb7ceca7ba5`.
+Its 2018 revision is terminology evidence, not proof of current universal usage;
+its alternative episode/media spellings are not imported.
+The [pinned Mozilla form-validation source](https://raw.githubusercontent.com/mozilla-l10n/firefox-l10n/7317b23fbede38547681b3a61f569fdf18821bcb/gd/dom/chrome/dom/dom.properties)
+attests field and personal number-entry terminology; SHA-256:
+`158734edbad8e0bf4335a98c385397fa435be67ff490deb668adfdf29210ff69`.
+The [Gaelic adjective lesson](https://www.teanga.info/gaidhlig/ionnsachadh/ECG/19.html)
+supports the predicative empty state; SHA-256:
+`7c5a0f32cfcaebcb2341cbbf11de220d78c0d31ba5a67f959dcc652b82e89dcd`.
+These are component/grammar sources; the complete paired-field instruction is
+reviewed editorial synthesis, not a verbatim source quotation.
+
+At this two-message review the duplicate-number instruction remained unaccepted. Its grammar/meaning
+review found no identified defect, but the additional school-PDF instruction
+could not be directly retrieved and verified. An indexed excerpt is not treated
+as a read primary source. The packet does not reduce this unresolved item.
+
+The prospective inventory is **119 absent/unaccepted scoped messages in 15
+partial/open packs**, with 110 complete nine-key sets. Actual narrow light/dark
+field/error context, source-bound full gate, publication and current-target CI
+must be observed before this packet is reported as verified and published.
+
+## Gaelic uniqueness and Aragonese loading evidence follow-up
+
+Before publication, further primary research resolved the Gaelic instruction's
+component-source gap. A different, genuine [Stòrlann exercise PDF](https://www.storlann.co.uk/PDFs/goireasan/criomagan-litreachais_final.pdf)
+is directly readable at PDF page 19 / printed page 17, exercise D. It supplies
+a positive personal instruction with an explicit once-only condition. Observed
+source SHA-256:
+`511932da80335e773d4de7fec52315fa921b7aaacd58feda80f43bf88b9b8ca5`.
+The proposer, independent reviewer and integrating reading observed this
+source; the old Glowscotland PDF remains unverified, not retrospectively read.
+
+The complete new duplicate-number text is editorial synthesis, not a quotation
+from that exercise. Its singular negative instruction forbids more than one
+episode sharing a number **within each season**. Existing `Prògram` and `Seusan`
+terms are retained. Different seasons may reuse an episode number; season zero,
+gaps and unnumbered videos keep the existing service rules. The school exercise's
+requirement to use every word is not imported as compulsory video numbering.
+The complete sentence received separate moderate editorial readings; no native
+or all-dialect certification is asserted.
+
+The Aragonese loading message is a whole attempted-load failure plus personal
+retry, without inventing network, playback, format or expiry causes. The
+[pinned Mozilla add-on source](https://raw.githubusercontent.com/mozilla-l10n/firefox-l10n/7317b23fbede38547681b3a61f569fdf18821bcb/an/toolkit/toolkit/about/aboutAddons.ftl)
+attests the impersonal failure construction with a plural object; SHA-256:
+`248584b61c39d26a8a23465779d85e29f505cf78bb410c56e496252471174b5f`.
+The [pinned new-tab source](https://raw.githubusercontent.com/mozilla-l10n/firefox-l10n/7317b23fbede38547681b3a61f569fdf18821bcb/an/browser/browser/newtab/newtab.ftl)
+supplies the personal retry, web-video noun and loading vocabulary; SHA-256:
+`f6327b965f15bbee082f6afc7435c25a8b99ba3b8b76dd79c407e7008d212c25`.
+Whole-message proposer, independent and integrating readings support bounded
+moderate confidence. The Silesian candidate remains pending: its noun form has
+an additional direct usage example, but the complete loading complement still
+needs a reliable idiomatic reading. No cognate-only acceptance is made.
+
+The final combined packet changes four messages relative to c9abfb5. Its
+prospective inventory is **117 absent/unaccepted scoped messages in 14 partial
+packs**, with 111 complete nine-key sets. This completes the nine scoped Gaelic
+keys, not the Gaelic catalog as a whole. The earlier two-message source had
+3838 HTTP/API and 4228 Chromium checks; those are historical observations of
+that intermediate snapshot. The combined final source needs its own full
+verification, trusted-hook observation, checkpoint, confirmed push and CI.

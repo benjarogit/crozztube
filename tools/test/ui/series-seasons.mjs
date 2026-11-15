@@ -53,11 +53,11 @@ const targetedLocales=['cy','oci','as','my_mm','si_lk','fur','lo','gd'];
 const targetedKeys={
  cy:messageKeys,oci:messageKeys,si_lk:messageKeys,fur:messageKeys,lo:messageKeys,
  as:messageKeys,
- gd:['Series','Episode','Next episode','Playlist changed. Reload before saving.','Choose videos from this playlist.','Unable to load videos.'],
+ gd:['Series','Season','Episode','Next episode','Playlist changed. Reload before saving.','Choose videos from this playlist.','Set both season and episode numbers, or leave both empty.','An episode number can only appear once in each season.','Unable to load videos.'],
  my_mm:['Series','Episode','Next episode','Choose videos from this playlist.','Unable to load videos.'],
 };
 for(const code of targetedLocales)for(const key of targetedKeys[code])if(typeof fixtureCatalogs[code]?.[key]!=='string'||!fixtureCatalogs[code][key].trim())throw Error('Missing targeted-context key '+code+': '+key);
-const loadingOnlyLocales=['jv_id','ps'];
+const loadingOnlyLocales=['jv_id','ps','arg'];
 for(const code of loadingOnlyLocales)if(typeof fixtureCatalogs[code]?.['Unable to load videos.']!=='string'||!fixtureCatalogs[code]['Unable to load videos.'].trim())throw Error('Missing loading-only context key '+code);
 const fixtureLocales=[...new Set([...referenceLocales,...targetedLocales,...loadingOnlyLocales])];
 const localeTags=JSON.parse(fs.readFileSync('resources/localization/locale-tags.json','utf8'));
