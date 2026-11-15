@@ -4451,4 +4451,13 @@ return array (
   'Language directory not found.' => 'Language directory not found.',
   'The selected language directory is read-only. Update its server permissions before editing.' => 'The selected language directory is read-only. Update its server permissions before editing.',
   'Find out how we handle your data in our privacy policy.' => 'Alamin sa aming patakaran sa pagkapribado kung paano namin pinangangasiwaan ang data mo.',
+  'Series' => 'Serye',
+  'Season' => 'Season',
+  'Episode' => 'Episode',
+  'Next episode' => 'Susunod na episode',
+  'Playlist changed. Reload before saving.' => 'Nagbago ang playlist. I-reload muna bago mag-save.',
+  'Choose videos from this playlist.' => 'Pumili ng mga video mula sa playlist na ito.',
+  'Set both season and episode numbers, or leave both empty.' => 'Ilagay ang numero ng season at ang numero ng episode, o iwang walang laman ang dalawa.',
+  'An episode number can only appear once in each season.' => 'Bawat numero ng episode ay puwedeng gamitin nang isang beses lang sa bawat season.',
+  'Unable to load videos.' => 'Hindi ma-load ang mga video. Subukan ulit.',
 );

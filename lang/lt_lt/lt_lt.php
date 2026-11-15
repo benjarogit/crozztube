@@ -4629,4 +4629,13 @@ Tau patikėta moderuoti tiesioginę transliaciją „{STREAM_TITLE}“. Atverk t
 Atverti transliaciją: {STREAM_URL}',
   'Notification' => 'Pranešimas',
   'This email was sent by {site}.' => 'Šį el. laišką išsiuntė {site}.',
+  'Series' => 'Serialas',
+  'Season' => 'Sezonas',
+  'Episode' => 'Serija',
+  'Next episode' => 'Kita serija',
+  'Playlist changed. Reload before saving.' => 'Grojaraštis pasikeitė. Prieš išsaugant įkelk jį iš naujo.',
+  'Choose videos from this playlist.' => 'Pasirink vaizdo įrašus iš šio grojaraščio.',
+  'Set both season and episode numbers, or leave both empty.' => 'Įvesk ir sezono numerį, ir serijos numerį arba palik abu laukus tuščius.',
+  'An episode number can only appear once in each season.' => 'Viename sezone tą patį serijos numerį galima naudoti tik vieną kartą.',
+  'Unable to load videos.' => 'Nepavyko įkelti vaizdo įrašų. Bandyk dar kartą.',
 );

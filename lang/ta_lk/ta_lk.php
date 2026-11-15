@@ -4451,4 +4451,13 @@ return array (
   'Language directory not found.' => 'Language directory not found.',
   'The selected language directory is read-only. Update its server permissions before editing.' => 'The selected language directory is read-only. Update its server permissions before editing.',
   'Find out how we handle your data in our privacy policy.' => 'உன் தரவை நாங்கள் எப்படிக் கையாள்கிறோம் என்பதை எங்கள் தனியுரிமைக் கொள்கையில் தெரிந்துகொள்.',
+  'Series' => 'தொடர்',
+  'Season' => 'பருவம்',
+  'Episode' => 'அத்தியாயம்',
+  'Next episode' => 'அடுத்த அத்தியாயம்',
+  'Playlist changed. Reload before saving.' => 'இயக்கப்பட்டியல் மாற்றப்பட்டுள்ளது. சேமிக்கும் முன் மீண்டும் ஏற்று.',
+  'Choose videos from this playlist.' => 'இந்த இயக்கப்பட்டியலிலிருந்து காணொளிகளைத் தேர்ந்தெடு.',
+  'Set both season and episode numbers, or leave both empty.' => 'பருவ எண், அத்தியாய எண் இரண்டையும் உள்ளிடு, அல்லது இரண்டையும் காலியாக விடு.',
+  'An episode number can only appear once in each season.' => 'ஒரு பருவத்தில் ஒவ்வொரு அத்தியாய எண்ணையும் ஒருமுறை மட்டுமே பயன்படுத்தலாம்.',
+  'Unable to load videos.' => 'காணொளிகளை ஏற்ற முடியவில்லை. மீண்டும் முயற்சி செய்.',
 );

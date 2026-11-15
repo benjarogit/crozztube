@@ -4451,4 +4451,13 @@ return array (
   'Language directory not found.' => 'Language directory not found.',
   'The selected language directory is read-only. Update its server permissions before editing.' => 'The selected language directory is read-only. Update its server permissions before editing.',
   'Find out how we handle your data in our privacy policy.' => 'हामी तिम्रो डेटा कसरी सम्हाल्छौँ भन्ने कुरा हाम्रो गोपनीयता नीतिमा हेर।',
+  'Series' => 'शृङ्खला',
+  'Season' => 'सिजन',
+  'Episode' => 'एपिसोड',
+  'Next episode' => 'अर्को एपिसोड',
+  'Playlist changed. Reload before saving.' => 'प्लेलिस्ट फेरिएको छ। सेभ गर्नुअघि फेरि लोड गर।',
+  'Choose videos from this playlist.' => 'यस प्लेलिस्टबाट भिडियोहरू छान।',
+  'Set both season and episode numbers, or leave both empty.' => 'सिजन र एपिसोड दुवैको नम्बर राख, वा दुवै खाली छोड।',
+  'An episode number can only appear once in each season.' => 'एउटा सिजनमा एउटै एपिसोड नम्बर एक पटक मात्र प्रयोग गर्न मिल्छ।',
+  'Unable to load videos.' => 'भिडियोहरू लोड गर्न सकिएन। फेरि प्रयास गर।',
 );

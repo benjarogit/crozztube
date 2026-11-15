@@ -4451,4 +4451,13 @@ return array (
   'Language directory not found.' => 'Language directory not found.',
   'The selected language directory is read-only. Update its server permissions before editing.' => 'The selected language directory is read-only. Update its server permissions before editing.',
   'Find out how we handle your data in our privacy policy.' => 'ನಿನ್ನ ಡೇಟಾವನ್ನು ನಾವು ಹೇಗೆ ನಿರ್ವಹಿಸುತ್ತೇವೆ ಎಂಬುದನ್ನು ನಮ್ಮ ಗೌಪ್ಯತಾ ನೀತಿಯಲ್ಲಿ ತಿಳಿದುಕೋ.',
+  'Series' => 'ಸರಣಿ',
+  'Season' => 'ಸೀಸನ್',
+  'Episode' => 'ಸಂಚಿಕೆ',
+  'Next episode' => 'ಮುಂದಿನ ಸಂಚಿಕೆ',
+  'Playlist changed. Reload before saving.' => 'ಪ್ಲೇಲಿಸ್ಟ್ ಬದಲಾಗಿದೆ. ಉಳಿಸುವ ಮೊದಲು ಮತ್ತೆ ಲೋಡ್ ಮಾಡು.',
+  'Choose videos from this playlist.' => 'ಈ ಪ್ಲೇಲಿಸ್ಟ್‌ನಿಂದ ವೀಡಿಯೊಗಳನ್ನು ಆರಿಸು.',
+  'Set both season and episode numbers, or leave both empty.' => 'ಸೀಸನ್ ಮತ್ತು ಸಂಚಿಕೆ ಎರಡರ ಸಂಖ್ಯೆಗಳನ್ನೂ ನಮೂದಿಸು, ಅಥವಾ ಎರಡನ್ನೂ ಖಾಲಿ ಬಿಡು.',
+  'An episode number can only appear once in each season.' => 'ಪ್ರತಿ ಸೀಸನ್‌ನಲ್ಲಿ ಸಂಚಿಕೆ ಸಂಖ್ಯೆಯನ್ನು ಒಮ್ಮೆ ಮಾತ್ರ ಬಳಸಬಹುದು.',
+  'Unable to load videos.' => 'ವೀಡಿಯೊಗಳನ್ನು ಲೋಡ್ ಮಾಡಲು ಆಗಲಿಲ್ಲ. ಮತ್ತೆ ಪ್ರಯತ್ನಿಸು.',
 );

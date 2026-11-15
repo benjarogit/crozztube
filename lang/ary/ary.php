@@ -4450,4 +4450,13 @@ return array (
   'Language not found.' => 'Language not found.',
   'Language directory not found.' => 'Language directory not found.',
   'The selected language directory is read-only. Update its server permissions before editing.' => 'The selected language directory is read-only. Update its server permissions before editing.',
+  'Series' => 'مسلسل',
+  'Season' => 'موسم',
+  'Episode' => 'حلقة',
+  'Next episode' => 'الحلقة الجاية',
+  'Playlist changed. Reload before saving.' => 'تبدلات قائمة التشغيل. عاود حمّلها قبل ما تحفظ.',
+  'Choose videos from this playlist.' => 'ختار فيديوهات من هاد القائمة ديال التشغيل.',
+  'Set both season and episode numbers, or leave both empty.' => 'دخل رقم الموسم ورقم الحلقة بجوج، ولا خلي بجوج خاويين.',
+  'An episode number can only appear once in each season.' => 'رقم الحلقة يقدر يبان غير مرة وحدة فكل موسم.',
+  'Unable to load videos.' => 'ما قدرناش نحمّلو الفيديوهات. عاود جرّب.',
 );

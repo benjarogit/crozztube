@@ -4451,4 +4451,13 @@ return array (
   'Language directory not found.' => 'Language directory not found.',
   'The selected language directory is read-only. Update its server permissions before editing.' => 'The selected language directory is read-only. Update its server permissions before editing.',
   'Find out how we handle your data in our privacy policy.' => 'અમે તારા ડેટાને કેવી રીતે સંભાળીએ છીએ, તે અમારી ગોપનીયતા નીતિમાં વાંચ.',
+  'Series' => 'સિરીઝ',
+  'Season' => 'સીઝન',
+  'Episode' => 'એપિસોડ',
+  'Next episode' => 'આગળનો એપિસોડ',
+  'Playlist changed. Reload before saving.' => 'પ્લેલિસ્ટ બદલાઈ છે. સાચવતાં પહેલાં ફરી લોડ કર.',
+  'Choose videos from this playlist.' => 'આ પ્લેલિસ્ટમાંથી વીડિયો પસંદ કર.',
+  'Set both season and episode numbers, or leave both empty.' => 'સીઝન અને એપિસોડ બંનેના નંબર આપ, અથવા બંને ખાલી રાખ.',
+  'An episode number can only appear once in each season.' => 'દરેક સીઝનમાં એક એપિસોડ નંબર ફક્ત એક જ વાર વાપરી શકાય.',
+  'Unable to load videos.' => 'વીડિયો લોડ થઈ શક્યા નહીં. ફરી પ્રયાસ કર.',
 );

@@ -44,13 +44,17 @@ const browserRangeStart=servedRangeRequests;
 const browserType=process.env.SERIES_BROWSER==='firefox'?firefox:chromium;
 const browser=await browserType.launch({headless:true});let checks=3;
 fs.mkdirSync('tools/test/.artifacts/series-seasons',{recursive:true});
-const referenceLocales=['en','en_au','en_ca','en_gb','en_nz','en_za','de_de','de_at','de_ch','ca','es_ar','es_cl','es_co','es_cr','es_do','es_ec','es_es','es_gt','es_mx','es_pe','es_pr','es_uy','es_ve','fr_be','fr_ca','fr_fr','gl_es','it_it','pt_ao','pt_br','pt_pt','pt_pt_ao90','ro_ro','nl_be','nl_nl','da_dk','sv_se','nb_no','nn_no','fi','cs_cz','sk_sk','pl_pl','hr','sl_si','bs_ba','sr_rs','hu_hu','el','tr_tr','ru_ru','uk'];
-const catalogCache=new Map();
+const retainedLocales=['en','en_au','en_ca','en_gb','en_nz','en_za','de_de','de_at','de_ch','ca','es_ar','es_cl','es_co','es_cr','es_do','es_ec','es_es','es_gt','es_mx','es_pe','es_pr','es_uy','es_ve','fr_be','fr_ca','fr_fr','gl_es','it_it','pt_ao','pt_br','pt_pt','pt_pt_ao90','ro_ro','nl_be','nl_nl','da_dk','sv_se','nb_no','nn_no','fi','cs_cz','sk_sk','pl_pl','hr','sl_si','bs_ba','sr_rs','hu_hu','el','tr_tr','ru_ru','uk'];
+const fixtureCatalogs=JSON.parse(execFileSync('php',['tools/i18n/export.php'],{encoding:'utf8',maxBuffer:64*1024*1024}));
+const messageKeys=['Series','Season','Episode','Next episode','Playlist changed. Reload before saving.','Choose videos from this playlist.','Set both season and episode numbers, or leave both empty.','An episode number can only appear once in each season.','Unable to load videos.'];
+const referenceLocales=Object.keys(fixtureCatalogs).filter(code=>messageKeys.every(key=>typeof fixtureCatalogs[code][key]==='string'&&fixtureCatalogs[code][key].trim()));
+if(retainedLocales.some(code=>!referenceLocales.includes(code)))throw Error('A previously checked locale lost a series message');
 const localeTags=JSON.parse(fs.readFileSync('resources/localization/locale-tags.json','utf8'));
-const catalog=code=>{if(!referenceLocales.includes(code))throw Error('Unknown fixture locale');if(!catalogCache.has(code))catalogCache.set(code,JSON.parse(execFileSync('php',['-r',`echo json_encode(require '${code==='en'?'lang/en/english.php':`lang/${code}/${code}.php`}');`],{encoding:'utf8'})));return catalogCache.get(code);};
+const catalog=code=>{if(!referenceLocales.includes(code))throw Error('Unknown fixture locale');return fixtureCatalogs[code];};
+const direction=code=>catalog(code).__meta?.direction==='rtl'?'rtl':'ltr';
 try{
  for(const dark of [false,true]) for(const owner of [true,false]){
-  let fixtureAutoplay=false;let writes=[],nextCalls=0,relatedCalls=0,holdNext=null,holdVideo=null,failSeriesGet=false,failSeriesPut=false,failSeriesNext=false;const errors=[],nextRequests=[],videoRequests=[];
+  let fixtureAutoplay=false;let writes=[],nextCalls=0,relatedCalls=0,holdNext=null,holdVideo=null,failSeriesGet=false,failSeriesPut=false,failSeriesNext=false,localizedFailure=null,localizedValidation=null;const errors=[],nextRequests=[],videoRequests=[];
   const catalogRequests=[];
   const deferred=()=>{let release;const promise=new Promise(resolve=>{release=resolve;});return {promise,release,seen:false};};
   const finishNative=async native=>{
@@ -78,11 +82,12 @@ try{
    const req=route.request(),u=new URL(req.url());if(u.origin!==origin){await route.abort();return;}
    if(!u.pathname.startsWith('/api/')){await route.continue();return;}
    const p=u.pathname;let body={};
-   if(p==='/api/playlists/1/series'&&req.method()==='PUT'&&failSeriesPut){await route.fulfill({status:409,json:{message:'Controlled revision conflict'}});return;}
-   if(p==='/api/playlists/1/series'&&req.method()==='GET'&&failSeriesGet){await route.fulfill({status:500,json:{message:'Controlled series refresh failure'}});return;}
+   if(p==='/api/playlists/1/series'&&req.method()==='PUT'&&localizedValidation){await route.fulfill({status:422,json:{error:{message:'The submitted data is invalid.',validation:{episodes:[catalog(localizedValidation)['Set both season and episode numbers, or leave both empty.']]}}}});return;}
+   if(p==='/api/playlists/1/series'&&req.method()==='PUT'&&failSeriesPut){await route.fulfill({status:409,json:{message:localizedFailure?catalog(localizedFailure)['Playlist changed. Reload before saving.']:'Controlled revision conflict'}});return;}
+   if(p==='/api/playlists/1/series'&&req.method()==='GET'&&failSeriesGet){await route.fulfill({status:500,json:{message:localizedFailure?catalog(localizedFailure)['Unable to load videos.']:'Controlled series refresh failure'}});return;}
    if(p==='/api/playlists/1/series/next'&&failSeriesNext){nextCalls++;await route.fulfill({status:500,json:{message:'Controlled next failure'}});return;}
-   if(p==='/api/i18n')body={languages:referenceLocales.map(code=>({code,label:code})),aliases:{}};
-   else if(p.startsWith('/api/i18n/')){const code=p.split('/').at(-1);catalogRequests.push(code);body={code,translations:catalog(code),direction:'ltr'};}
+   if(p==='/api/i18n')body={languages:referenceLocales.map(code=>({code,label:catalog(code).__meta?.label||code,direction:direction(code)})),aliases:{}};
+   else if(p.startsWith('/api/i18n/')){const code=p.split('/').at(-1);catalogRequests.push(code);body={code,translations:catalog(code),direction:direction(code)};}
    else if(p==='/api/auth/me')body={user:{id:owner?1:2,name:'Synthetic viewer',username:'fixture',channel:videos[0].channel,settings:{role:'user',preferences:{autoplay:fixtureAutoplay},appearance:{accent:'platform'}}}};
    else if(p==='/api/integrations/public')body={website,features:{},auth:{registration:{enabled:true}}};
    else if(p==='/api/auth/preferences/autoplay'){fixtureAutoplay=req.postDataJSON().autoplay;body={autoplay:fixtureAutoplay,user:{id:owner?1:2,name:'Synthetic viewer',username:'fixture',channel:videos[0].channel,settings:{role:'user',preferences:{autoplay:fixtureAutoplay},appearance:{accent:'platform'}}}};}
@@ -215,6 +220,7 @@ try{
     await page.goto(origin+'/playlists?id=1');
     const translated=page.locator('.playlist-series-panel');await translated.locator('summary').click();
     await expect(page.locator('html')).toHaveAttribute('lang',localeTags[locale]||locale.replace(/_/g,'-'));
+    await expect(page.locator('html')).toHaveAttribute('dir',direction(locale));
     expect(await page.evaluate(()=>localStorage.getItem('playhub_language'))).toBe(locale);
     expect(catalogRequests).toContain(locale);
     await expect(translated.locator('summary')).toHaveText(strings.Series);
@@ -223,7 +229,19 @@ try{
     await expect(translated.locator('legend').first()).toHaveText(videos[0].title);
     await page.setViewportSize({width:390,height:900});
     await expect.poll(()=>page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);
-    await page.goto(origin+'/watch/first?list=1');await expect(page.locator('.watch-sidebar')).toContainText(strings['Next episode']);checks+=9;
+    localizedFailure=locale;failSeriesPut=true;
+    const draft=translated.locator('input[type="text"],input:not([type])').first();await draft.fill('Original draft: '+locale);
+    await translated.locator('button[type="submit"]').click();await expect(translated.getByRole('alert')).toContainText(strings['Playlist changed. Reload before saving.']);
+    await expect(draft).toHaveValue('Original draft: '+locale);failSeriesPut=false;
+    localizedValidation=locale;await translated.locator('button[type="submit"]').click();
+    await expect(translated.getByRole('alert')).toContainText(strings['Set both season and episode numbers, or leave both empty.']);
+    await expect(translated.getByRole('alert')).not.toContainText('The submitted data is invalid.');
+    await expect(draft).toHaveValue('Original draft: '+locale);localizedValidation=null;
+    await page.goto(origin+'/watch/first?list=1');await expect(page.locator('.watch-sidebar')).toContainText(strings['Next episode']);
+    failSeriesGet=true;await page.reload();const failure=page.locator('.watch-sidebar').getByRole('alert');
+    await expect(failure).toContainText(strings['Unable to load videos.']);
+    failSeriesGet=false;await failure.getByRole('button').click();await expect(page.locator('.watch-sidebar')).toContainText(strings['Next episode']);
+    localizedFailure=null;checks+=17;
    }
    expect(errors).toEqual([]);checks++;
   }catch(error){console.error(JSON.stringify({fixture:{nextCalls,nextRequests,videoRequests},page:await page.evaluate(()=>({url:location.href,media:[...document.querySelectorAll('video')].map(e=>({src:e.src,currentSrc:e.currentSrc,ready:e.readyState,network:e.networkState,error:e.error?.code,paused:e.paused,time:e.currentTime,duration:e.duration,sourceElements:[...e.querySelectorAll('source')].map(s=>({src:s.src,type:s.type})),surface:window.__seriesMediaSurface(e),html:e.outerHTML.slice(0,900)})),ends:window.__seriesNativeEnds,trace:window.__seriesMediaTrace.slice(-40),queue:JSON.parse(localStorage.getItem('playhub_playback_queue_v1')||'[]'),title:document.querySelector('.watch-info h1')?.textContent}))}));await page.screenshot({path:'tools/test/.artifacts/series-seasons/failure.png',fullPage:true});console.error(JSON.stringify(await page.locator('body *').evaluateAll(es=>es.filter(e=>e.getBoundingClientRect().right>innerWidth+2&&e.getBoundingClientRect().width>0).slice(0,18).map(e=>({tag:e.tagName,cls:e.className,width:e.getBoundingClientRect().width,right:e.getBoundingClientRect().right})))));throw error;}finally{holdNext?.release();holdVideo?.release();await context.close();}

@@ -160,12 +160,75 @@ labels; the other five messages still need runtime error-path context coverage.
 The full controlled German scenarios remain. No live provider or user content
 is translated by this test. Publication results belong in the journal/PR.
 
-The remaining 73 catalogs still lack these new messages; translation and
-linguistic/context review stay open. The canonical ru/russian.php catalog remains open because the existing series
-path gate excludes that filename; it was neither renamed nor forced through.
-No historical tools/i18n/reviews record is
-silently repurposed. This message/locale/context matrix is the scoped review
-record for this batch, not complete language acceptance or native verification.
+At checkpoint d8d4704, 73 catalogs still lacked some or all of these messages.
+The continuation below records the next bounded editorial/runtime increment;
+neither increment is full language acceptance or native-speaker certification.
+
+## Continuation after d8d4704
+
+Reference source: d8d4704848042b3f967f3b2be34cd4e12a0a1001. The same nine-key
+matrix above remains authoritative for message/context review. This increment
+adds 498 entries in 60 catalogs: 230 in the Asian group, 187 in the remaining
+European group, 72 in ar/ary/ckb/fa_af/fa_ir/he_il/ur/sw and nine in the existing
+ru/russian.php catalog. The Russian file is not renamed or duplicated; the owner
+separately approved only its canonical path exception and required parent
+integration with the existing gate checks retained.
+
+Each written message has a whole-message editorial reading and a second source
+context reading, with independent review. Original catalog bytes and existing
+entries are preserved. These are AI editorial checks; native/dialect nuance
+remains unverified. The reports' concrete per-message pending decisions are
+preserved here through the following IDs: S=Series, T=Season, E=Episode,
+N=Next episode, R=reload stale playlist, M=choose playlist members,
+P=paired numbering, D=duplicate number per season, L=video loading/retry.
+For every listed locale, only the listed IDs remain absent/unaccepted:
+
+- am: S, T, E, N, R, M, P, D, L.
+- arg: S, T, E, N, R, M, P, D, L.
+- as: T, R, M, P, D, L.
+- azb: S, T, E, N, R, M, P, D, L.
+- bo: S, T, E, N, R, M, P, D, L.
+- cy: T, P, D.
+- dzo: S, T, E, N, R, M, P, D, L.
+- fur: N, R, M, P, D, L.
+- gd: T, R, M, P, D, L.
+- jv_id: S, T, E, N, R, M, P, D, L.
+- lo: R, M, P, D, L.
+- my_mm: T, R, M, P, D, L.
+- oci: R, M, P, D, L.
+- ps: S, T, E, N, R, M, P, D, L.
+- sah: S, T, E, N, R, M, P, D, L.
+- si_lk: R, M, P, D, L.
+- snd: S, T, E, N, R, M, P, D, L.
+- szl: S, T, E, N, R, M, P, D, L.
+- tah: S, T, E, N, R, M, P, D, L.
+- ug_cn: S, T, E, N, R, M, P, D, L.
+- yor: S, T, E, N, R, M, P, D, L.
+
+Source inventory: 104 catalogs contain all nine messages; 21 are partial or open,
+with 159 missing messages. Missing TV-season terminology, register or complete
+validation phrasing is not guessed. Partial packages are not counted as fully
+translated, and English fallback is not called acceptance. No historical full
+language-review record is silently repurposed.
+
+The routed PHP fixture now checks real stale-revision, invalid membership,
+paired-number and duplicate-number failures through both APIs using language
+headers and exact actual PHP strings, including Vary and nonmutation. It retains
+the generic v1 validation summary contract and verifies localized field details.
+A reproduced client weakness was that this generic summary hid the useful field
+explanation. Only the series editor now prioritizes a valid localized field
+message; global API behavior and the public envelope are unchanged. Focused
+helper regressions cover both envelopes plus conflict/network/malformed errors.
+
+The browser fixture discovers only catalogs with all nine messages, requires all
+52 previously checked locales to remain present, and uses real metadata for the
+existing text direction. It additionally exercises generic v1-shaped validation
+payloads, preserved drafts, localized controlled load failures and retry. These
+are controlled UI-response tests, not a claim that the backend emits the
+frontend-only loading key. Existing RTL is preserved; its removal stays deferred.
+Actual source-bound execution/publication results are recorded in the journal
+and PR, not inferred from this test wiring. Genuine Cursor handoff and production
+integration remain separately unverified. No main merge, deployment or step 9.
 
 ## Prüfungen und Grenzen
 

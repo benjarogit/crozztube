@@ -4450,4 +4450,13 @@ return array (
   'Language not found.' => 'Language not found.',
   'Language directory not found.' => 'Language directory not found.',
   'The selected language directory is read-only. Update its server permissions before editing.' => 'The selected language directory is read-only. Update its server permissions before editing.',
+  'Series' => 'Цуврал',
+  'Season' => 'Улирал',
+  'Episode' => 'Анги',
+  'Next episode' => 'Дараагийн анги',
+  'Playlist changed. Reload before saving.' => 'Тоглуулах жагсаалт өөрчлөгдсөн байна. Хадгалахаасаа өмнө дахин ачаалаарай.',
+  'Choose videos from this playlist.' => 'Энэ тоглуулах жагсаалтаас видеонууд сонгоорой.',
+  'Set both season and episode numbers, or leave both empty.' => 'Улирал болон ангийн дугаарыг хоёуланг нь оруул, эсвэл хоёуланг нь хоосон үлдээ.',
+  'An episode number can only appear once in each season.' => 'Нэг улиралд ангийн дугаар давхардаж болохгүй.',
+  'Unable to load videos.' => 'Видеонуудыг ачаалж чадсангүй. Дахин оролдоорой.',
 );

@@ -4451,4 +4451,13 @@ return array (
   'Language directory not found.' => 'Language directory not found.',
   'The selected language directory is read-only. Update its server permissions before editing.' => 'The selected language directory is read-only. Update its server permissions before editing.',
   'Find out how we handle your data in our privacy policy.' => 'როგორ ვამუშავებთ შენს მონაცემებს, ჩვენს კონფიდენციალურობის პოლიტიკაში გაიგებ.',
+  'Series' => 'სერიალი',
+  'Season' => 'სეზონი',
+  'Episode' => 'ეპიზოდი',
+  'Next episode' => 'შემდეგი ეპიზოდი',
+  'Playlist changed. Reload before saving.' => 'დასაკრავი სია შეიცვალა. შენახვამდე თავიდან ჩატვირთე.',
+  'Choose videos from this playlist.' => 'აირჩიე ვიდეოები ამ დასაკრავი სიიდან.',
+  'Set both season and episode numbers, or leave both empty.' => 'მიუთითე სეზონისა და ეპიზოდის ორივე ნომერი ან ორივე ველი ცარიელი დატოვე.',
+  'An episode number can only appear once in each season.' => 'თითოეულ სეზონში ეპიზოდის ნომერი მხოლოდ ერთხელ შეიძლება გამოჩნდეს.',
+  'Unable to load videos.' => 'ვიდეოების ჩატვირთვა ვერ მოხერხდა. ხელახლა სცადე.',
 );

@@ -4589,4 +4589,13 @@ Open stream: {STREAM_URL}' => 'Здравей, {USERNAME}!
   'This email was sent by {site}.' => 'Този имейл е изпратен от {site}.',
   'Password strength must be at least {level}/10.' => 'Силата на паролата ти трябва да е поне {level}/10.',
   'Code expires in {time}' => 'Кодът ти изтича след {time}',
+  'Series' => 'Сериал',
+  'Season' => 'Сезон',
+  'Episode' => 'Епизод',
+  'Next episode' => 'Следващ епизод',
+  'Playlist changed. Reload before saving.' => 'Плейлистът е променен. Зареди го отново, преди да запазиш промените.',
+  'Choose videos from this playlist.' => 'Избери видеа от този плейлист.',
+  'Set both season and episode numbers, or leave both empty.' => 'Попълни и номера на сезона, и номера на епизода или остави и двете полета празни.',
+  'An episode number can only appear once in each season.' => 'Номерът на епизода може да се използва само веднъж във всеки сезон.',
+  'Unable to load videos.' => 'Видеата не можаха да се заредят. Опитай отново.',
 );

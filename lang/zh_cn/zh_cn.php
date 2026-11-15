@@ -4632,4 +4632,13 @@ Open stream: {STREAM_URL}' => '{USERNAME}，你好！
   'Unable to read this chapter file.' => '无法读取这个章节文件。',
   'Custom chapter list' => '自定义章节列表',
   'Draft segments from video duration' => '根据视频时长生成的章节草稿',
+  'Series' => '系列',
+  'Season' => '季',
+  'Episode' => '集',
+  'Next episode' => '下一集',
+  'Playlist changed. Reload before saving.' => '播放列表已更改。保存前先重新加载。',
+  'Choose videos from this playlist.' => '从这个播放列表中选择视频。',
+  'Set both season and episode numbers, or leave both empty.' => '季编号和集编号要一起填写，或一起留空。',
+  'An episode number can only appear once in each season.' => '同一季的集编号不能重复。',
+  'Unable to load videos.' => '视频加载失败。再试一次吧。',
 );

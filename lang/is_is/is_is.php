@@ -4557,4 +4557,13 @@ return array (
   'Send tip' => 'Senda framlag',
   'Password strength must be at least {level}/10.' => 'Styrkur lykilorðsins þíns verður að ná að minnsta kosti {level}/10.',
   'Code expires in {time}' => 'Kóðinn þinn rennur út eftir {time}',
+  'Series' => 'Þáttaröð',
+  'Season' => 'Sería',
+  'Episode' => 'Þáttur',
+  'Next episode' => 'Næsti þáttur',
+  'Playlist changed. Reload before saving.' => 'Spilunarlistinn hefur breyst. Sæktu hann aftur áður en þú vistar.',
+  'Choose videos from this playlist.' => 'Veldu myndbönd af þessum spilunarlista.',
+  'Set both season and episode numbers, or leave both empty.' => 'Sláðu inn bæði seríunúmer og þáttarnúmer eða skildu báða reitina eftir auða.',
+  'An episode number can only appear once in each season.' => 'Þáttarnúmer má aðeins koma fyrir einu sinni í hverri seríu.',
+  'Unable to load videos.' => 'Ekki tókst að sækja myndböndin. Reyndu aftur.',
 );

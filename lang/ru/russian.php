@@ -4680,4 +4680,13 @@ Open stream: {STREAM_URL}' => 'Привет, {USERNAME}!
   'This email was sent by {site}.' => 'Это письмо отправлено сайтом {site}.',
   'Password strength must be at least {level}/10.' => 'Надёжность твоего пароля должна быть не ниже {level}/10.',
   'Code expires in {time}' => 'Твой код истекает через {time}',
+  'Series' => 'Сериал',
+  'Season' => 'Сезон',
+  'Episode' => 'Серия',
+  'Next episode' => 'Следующая серия',
+  'Playlist changed. Reload before saving.' => 'Плейлист изменился. Перед сохранением загрузи его заново.',
+  'Choose videos from this playlist.' => 'Выбери видео из этого плейлиста.',
+  'Set both season and episode numbers, or leave both empty.' => 'Укажи и номер сезона, и номер серии или оставь оба поля пустыми.',
+  'An episode number can only appear once in each season.' => 'Номер серии может встречаться только один раз в каждом сезоне.',
+  'Unable to load videos.' => 'Не удалось загрузить видео. Попробуй ещё раз.',
 );

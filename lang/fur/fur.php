@@ -4452,4 +4452,7 @@ return array (
   'The selected language directory is read-only. Update its server permissions before editing.' => 'The selected language directory is read-only. Update its server permissions before editing.',
   'Fullscreen' => 'Plen visôr',
   'Exit fullscreen' => 'Jes de modalitât a plen visôr',
+  'Series' => 'Serie',
+  'Season' => 'Stagjon',
+  'Episode' => 'Episodi',
 );

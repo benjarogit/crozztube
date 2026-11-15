@@ -4596,4 +4596,13 @@ Open stream: {STREAM_URL}' => 'สวัสดี {USERNAME}
   'Unable to read this chapter file.' => 'อ่านไฟล์บทนี้ไม่ได้',
   'Custom chapter list' => 'รายการบทที่กำหนดเอง',
   'Draft segments from video duration' => 'ร่างบทจากความยาววิดีโอ',
+  'Series' => 'ซีรีส์',
+  'Season' => 'ซีซัน',
+  'Episode' => 'ตอน',
+  'Next episode' => 'ตอนถัดไป',
+  'Playlist changed. Reload before saving.' => 'เพลย์ลิสต์เปลี่ยนไปแล้ว โหลดใหม่ก่อนบันทึกนะ',
+  'Choose videos from this playlist.' => 'เลือกวิดีโอจากเพลย์ลิสต์นี้',
+  'Set both season and episode numbers, or leave both empty.' => 'ใส่ทั้งหมายเลขซีซันและหมายเลขตอน หรือเว้นว่างทั้งคู่',
+  'An episode number can only appear once in each season.' => 'แต่ละซีซันใช้หมายเลขตอนซ้ำกันไม่ได้',
+  'Unable to load videos.' => 'โหลดวิดีโอไม่ได้ ลองอีกครั้งนะ',
 );

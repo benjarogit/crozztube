@@ -4450,4 +4450,7 @@ return array (
   'Language not found.' => 'Language not found.',
   'Language directory not found.' => 'Language directory not found.',
   'The selected language directory is read-only. Update its server permissions before editing.' => 'The selected language directory is read-only. Update its server permissions before editing.',
+  'Series' => 'ধাৰাবাহিক',
+  'Episode' => 'খণ্ড',
+  'Next episode' => 'পৰৱৰ্তী খণ্ড',
 );

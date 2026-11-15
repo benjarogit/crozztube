@@ -4451,4 +4451,13 @@ return array (
   'Language directory not found.' => 'Language directory not found.',
   'The selected language directory is read-only. Update its server permissions before editing.' => 'The selected language directory is read-only. Update its server permissions before editing.',
   'Find out how we handle your data in our privacy policy.' => 'Soma sera yetu ya faragha uone jinsi tunavyoshughulikia taarifa zako.',
+  'Series' => 'Mfululizo',
+  'Season' => 'Msimu',
+  'Episode' => 'Kipindi',
+  'Next episode' => 'Kipindi kinachofuata',
+  'Playlist changed. Reload before saving.' => 'Orodha ya kucheza imebadilika. Ipakie upya kabla ya kuhifadhi.',
+  'Choose videos from this playlist.' => 'Chagua video kutoka kwenye orodha hii ya kucheza.',
+  'Set both season and episode numbers, or leave both empty.' => 'Weka namba ya msimu na ya kipindi pamoja, au acha sehemu zote mbili tupu.',
+  'An episode number can only appear once in each season.' => 'Namba ya kipindi inaweza kutumika mara moja tu katika kila msimu.',
+  'Unable to load videos.' => 'Video hazikuweza kupakiwa. Jaribu tena.',
 );

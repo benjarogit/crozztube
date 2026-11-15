@@ -4608,4 +4608,13 @@ Tev ir uzticēta tiešraides “{STREAM_TITLE}” moderēšana. Atver tiešraidi
 Atver tiešraidi: {STREAM_URL}',
   'Notification' => 'Paziņojums',
   'This email was sent by {site}.' => 'Šo e-pastu nosūtīja {site}.',
+  'Series' => 'Seriāls',
+  'Season' => 'Sezona',
+  'Episode' => 'Sērija',
+  'Next episode' => 'Nākamā sērija',
+  'Playlist changed. Reload before saving.' => 'Atskaņošanas saraksts ir mainījies. Ielādē to vēlreiz, pirms saglabā.',
+  'Choose videos from this playlist.' => 'Izvēlies video no šī atskaņošanas saraksta.',
+  'Set both season and episode numbers, or leave both empty.' => 'Norādi gan sezonas numuru, gan sērijas numuru vai atstāj abus laukus tukšus.',
+  'An episode number can only appear once in each season.' => 'Sērijas numurs katrā sezonā drīkst parādīties tikai vienu reizi.',
+  'Unable to load videos.' => 'Neizdevās ielādēt video. Mēģini vēlreiz.',
 );

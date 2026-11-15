@@ -4540,4 +4540,7 @@ return array (
   'Drag and drop your short file here' => 'Slaod am faidhle bhidio Short agad an seo',
   'Video: {seconds}s · {width}×{height}. Shorts must be 60 seconds or less and vertical.' => 'Bhidio: {seconds}s · {width}×{height}. Feumaidh Shorts a bhith ann an cruth portraid agus gun a bhith nas fhaide na 60 diog.',
   'Your video was imported.' => 'Chaidh a’ bhidio agad a thoirt a-steach.',
+  'Series' => 'Sreath',
+  'Episode' => 'Prògram',
+  'Next episode' => 'An ath phrògram',
 );

@@ -1,5 +1,6 @@
 import React, { useEffect, useId, useState } from 'react';
 import { useI18n } from '../i18n.jsx';
+import { seriesRequestError } from '../series-context.js';
 import '../styles/playlist-series.css';
 
 /** Episode metadata belongs to the playlist; this editor never reorders videos. */
@@ -34,7 +35,7 @@ export default function PlaylistSeries({ playlistId, isOwner, isSeries, api, onS
           episode_title: e.episode_title || null })),
       }) });
       setData(result); setDraft(result); onSaved?.(result);
-    } catch (err) { setError(err.message || t('Unable to update playlist.')); }
+    } catch (err) { setError(seriesRequestError(err, t('Unable to update playlist.'))); }
     finally { setBusy(false); }
   };
   return <section className="playlist-series-panel">

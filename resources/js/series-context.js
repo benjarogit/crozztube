@@ -30,3 +30,12 @@ export async function freshSeriesTarget(api, { playlistId, currentSlug, videoId,
   const queued = episode.from_queue ? candidates.find(item => Number(item.id) === Number(episode.video_id)) : null;
   return { video: episode.video, list: episode.from_queue ? queued?.playlist_id || '' : playlistId, order: queued?.playlist_order, fromQueue: Boolean(episode.from_queue) };
 }
+/** Series forms show the actionable field explanation from either API envelope. */
+export function seriesRequestError(error, fallback) {
+  const fields = error?.payload?.error?.validation || error?.payload?.errors;
+  const detail = fields && typeof fields === 'object'
+    ? Object.values(fields).flatMap(value => Array.isArray(value) ? value : [])
+      .find(value => typeof value === 'string' && value.trim())
+    : null;
+  return detail || error?.message || fallback;
+}

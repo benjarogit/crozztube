@@ -4632,4 +4632,13 @@ Open stream: {STREAM_URL}' => '안녕하세요, {USERNAME}.
   'Unable to read this chapter file.' => '이 챕터 파일을 읽지 못했어요.',
   'Custom chapter list' => '직접 만든 챕터 목록',
   'Draft segments from video duration' => '동영상 길이로 만든 챕터 초안',
+  'Series' => '시리즈',
+  'Season' => '시즌',
+  'Episode' => '에피소드',
+  'Next episode' => '다음 에피소드',
+  'Playlist changed. Reload before saving.' => '재생목록이 변경되었어요. 저장하기 전에 다시 불러와 주세요.',
+  'Choose videos from this playlist.' => '이 재생목록에서 동영상을 골라 주세요.',
+  'Set both season and episode numbers, or leave both empty.' => '시즌 번호와 에피소드 번호를 둘 다 입력하거나 둘 다 비워 두세요.',
+  'An episode number can only appear once in each season.' => '같은 시즌에서는 에피소드 번호가 중복될 수 없어요.',
+  'Unable to load videos.' => '동영상을 불러오지 못했어요. 다시 시도해 주세요.',
 );

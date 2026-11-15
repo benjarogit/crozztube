@@ -338,8 +338,8 @@ if (! $mysql) {
     $app->instance(\Illuminate\Contracts\Auth\Access\Gate::class, new \Illuminate\Auth\Access\Gate($app, static fn () => app('request')->user()));
     Gate::clearResolvedInstance('gate');
     Gate::policy(Playlist::class, \App\Policies\PlaylistPolicy::class);
-    $dispatch = static function (string $method, string $uri, array $body = [], ?string $token = null) use ($app,$auth,$router): \Symfony\Component\HttpFoundation\Response {
-        $request = Request::create($uri,$method,[],[],[],['HTTP_ACCEPT'=>'application/json','CONTENT_TYPE'=>'application/json','HTTP_X_PLAYHUB_LANGUAGE'=>'en','HTTP_X_REQUEST_ID'=>'994d95ae-0d4a-4363-8238-83f0d2f60c6d'],json_encode($body));
+    $dispatch = static function (string $method, string $uri, array $body = [], ?string $token = null, string $locale = 'en') use ($app,$auth,$router): \Symfony\Component\HttpFoundation\Response {
+        $request = Request::create($uri,$method,[],[],[],['HTTP_ACCEPT'=>'application/json','CONTENT_TYPE'=>'application/json','HTTP_X_PLAYHUB_LANGUAGE'=>$locale,'HTTP_X_REQUEST_ID'=>'994d95ae-0d4a-4363-8238-83f0d2f60c6d'],json_encode($body));
         if ($token !== null) $request->headers->set('Authorization','Bearer '.$token);
         $app->instance('request',$request); $app->instance(Request::class,$request);
         $auth->forgetGuards(); $request->setUserResolver(static fn () => $auth->guard('sanctum')->user());
@@ -401,6 +401,59 @@ if (! $mysql) {
         $private=$expectHttp('GET',$privateUri,200,[],$prefix==='/api'?$legacyOwner:$nativeOwner);
         $httpCheck(($prefix==='/api'?$private:$private['data'])['is_series']===true,'Private owner response is serialized after authorization');
     }
+    // Trigger real controller/service failures through both registered API
+    // stacks. Expected strings come directly from the actual PHP catalogs,
+    // never from the translating service that is under test. Missing entries
+    // remain explicitly uncovered rather than being called translated via EN.
+    $localizedSeries = Playlist::create(['user_id'=>1,'title'=>'Literal creator title: Series','privacy'=>'public']);
+    $localizedSeries->videos()->attach([1=>['sort_order'=>0],2=>['sort_order'=>1]]);
+    SeriesPlaylists::update($owner,$localizedSeries,['expected_revision'=>SeriesPlaylists::revision($localizedSeries),'is_series'=>true,'episodes'=>[
+        ['video_id'=>1,'season_number'=>1,'episode_number'=>1],['video_id'=>2,'season_number'=>1,'episode_number'=>2],
+    ]]);
+    $localizedRevision = SeriesPlaylists::revision($localizedSeries);
+    $failureCases = [
+        ['Playlist changed. Reload before saving.',409,['expected_revision'=>str_repeat('0',64),'is_series'=>false]],
+        ['Choose videos from this playlist.',422,['episodes'=>[['video_id'=>999999]]]],
+        ['Set both season and episode numbers, or leave both empty.',422,['episodes'=>[['video_id'=>1,'season_number'=>null]]]],
+        ['An episode number can only appear once in each season.',422,['episodes'=>[['video_id'=>2,'season_number'=>1,'episode_number'=>1]]]],
+    ];
+    $coveredLocales=[]; $uncoveredLocales=[];
+    foreach (\App\Support\GeneralSettings::languageIdentifiers() as $locale) {
+        $files=glob(base_path('lang/'.$locale.'/*.php')) ?: [];
+        $dictionary=$files ? require $files[0] : [];
+        if (array_filter($failureCases,static fn ($case) => ! isset($dictionary[$case[0]]) || ! is_string($dictionary[$case[0]]) || trim($dictionary[$case[0]])==='')) {
+            $uncoveredLocales[]=$locale;
+            continue;
+        }
+        foreach (['/api','/api/v1'] as $prefix) foreach ($failureCases as [$key,$status,$changes]) {
+            $uri=$prefix.'/playlists/'.$localizedSeries->id.'/series';
+            $response=$dispatch('PUT',$uri,['expected_revision'=>$localizedRevision,...$changes],$prefix==='/api'?$legacyOwner:$nativeOwner,$locale);
+            $httpCheck($response->getStatusCode()===$status,'Localized '.$locale.' '.$prefix.' failure status '.$status);
+            $payload=json_decode($response->getContent(),true,512,JSON_THROW_ON_ERROR);
+            $actual=$status===409 ? ($prefix==='/api'?($payload['message']??null):($payload['error']['message']??null))
+                : ($prefix==='/api'?($payload['errors']['episodes'][0]??null):($payload['error']['validation']['episodes'][0]??null));
+            $httpCheck($actual===$dictionary[$key],'Actual '.$locale.' '.$prefix.' localized series message: '.$key);
+            $topMessage=$prefix==='/api'?($payload['message']??null):($payload['error']['message']??null);
+            if ($prefix==='/api/v1' && $status===422) {
+                // Preserve the public v1 envelope: its summary is generic and
+                // detailed localized guidance belongs to validation. The
+                // series UI's extraction of that guidance is tested in Node.
+                $summaryKey='The submitted data is invalid.';
+                $summary=$dictionary[$summaryKey]??$summaryKey;
+                $httpCheck($topMessage===$summary,'Actual '.$locale.' v1 generic validation summary contract');
+            } else {
+                $httpCheck($topMessage===$dictionary[$key],'Actual '.$locale.' '.$prefix.' localized series summary: '.$key);
+            }
+            $httpCheck(str_contains(strtolower((string) $response->headers->get('Vary')),'x-playhub-language'),'Localized errors vary by language header');
+        }
+        $httpCheck(SeriesPlaylists::revision($localizedSeries)===$localizedRevision,'Localized failure requests preserve metadata and membership: '.$locale);
+        $coveredLocales[]=$locale;
+    }
+    $retainedLocales=['en','en_au','en_ca','en_gb','en_nz','en_za','de_de','de_at','de_ch','ca','es_ar','es_cl','es_co','es_cr','es_do','es_ec','es_es','es_gt','es_mx','es_pe','es_pr','es_uy','es_ve','fr_be','fr_ca','fr_fr','gl_es','it_it','pt_ao','pt_br','pt_pt','pt_pt_ao90','ro_ro','nl_be','nl_nl','da_dk','sv_se','nb_no','nn_no','fi','cs_cz','sk_sk','pl_pl','hr','sl_si','bs_ba','sr_rs','hu_hu','el','tr_tr','ru_ru','uk'];
+    $httpCheck(array_diff($retainedLocales,$coveredLocales)===[],'Every retained reference/batch locale must have all four actual API failure messages');
+    echo 'Series localized API errors: '.count($coveredLocales).' catalogs, four real failure paths on both APIs; '.count($uncoveredLocales).' catalogs remain uncovered: '.implode(',',$uncoveredLocales).".\n";
+    // Unable to load videos is a frontend loading state, not an exception this
+    // API emits. Do not fabricate a route or claim its browser coverage here.
     echo 'Series HTTP/API router checks passed: '.$httpChecks.'; actual registered routes, bearer Sanctum, project middleware and JSON serialization; isolated SQLite only, no production kernel/server/cookie-session or HTTP/MySQL claim.'."\n";
 }
 echo 'Series playlist checks passed: '.$checks.'; isolated '.($mysql ? 'MySQL' : 'SQLite memory').", no app environment or media access.\n";

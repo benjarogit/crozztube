@@ -4451,4 +4451,13 @@ return array (
   'Language directory not found.' => 'Language directory not found.',
   'The selected language directory is read-only. Update its server permissions before editing.' => 'The selected language directory is read-only. Update its server permissions before editing.',
   'Find out how we handle your data in our privacy policy.' => 'ہم تمہارے ڈیٹا کو کیسے سنبھالتے ہیں، یہ ہماری رازداری کی پالیسی میں دیکھو۔',
+  'Series' => 'سیریز',
+  'Season' => 'سیزن',
+  'Episode' => 'قسط',
+  'Next episode' => 'اگلی قسط',
+  'Playlist changed. Reload before saving.' => 'پلے لسٹ بدل گئی ہے۔ محفوظ کرنے سے پہلے اسے دوبارہ لوڈ کرو۔',
+  'Choose videos from this playlist.' => 'اس پلے لسٹ سے ویڈیوز منتخب کرو۔',
+  'Set both season and episode numbers, or leave both empty.' => 'سیزن اور قسط دونوں کے نمبر درج کرو، یا دونوں خانے خالی چھوڑ دو۔',
+  'An episode number can only appear once in each season.' => 'ہر سیزن میں قسط کا ایک نمبر صرف ایک بار استعمال ہو سکتا ہے۔',
+  'Unable to load videos.' => 'ویڈیوز لوڈ نہیں ہو سکیں۔ دوبارہ کوشش کرو۔',
 );

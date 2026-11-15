@@ -40,3 +40,16 @@ test('shuffle ends without repeating the remaining normal series sequence',async
 test('provider/service failure is surfaced instead of becoming an invented end',async()=>{
  await assert.rejects(()=>freshSeriesTarget({request:async()=>{throw Error('Temporary unavailable');}},{playlistId:7,currentSlug:'first',videoId:1,queue:[]}),/Temporary unavailable/);
 });
+
+test('series validation shows the translated field explanation before a generic API summary',async()=>{
+ const {seriesRequestError}=await import('../../resources/js/series-context.js');
+ const translated='Gib Staffel- und Folgennummer zusammen an oder lass beide Felder leer.';
+ assert.equal(seriesRequestError({message:'The submitted data is invalid.',payload:{error:{message:'The submitted data is invalid.',validation:{episodes:[translated]}}}},'Fallback'),translated);
+ assert.equal(seriesRequestError({message:'The given data was invalid.',payload:{errors:{episodes:[translated]}}},'Fallback'),translated);
+});
+test('series errors preserve conflict/network messages and safely ignore malformed validation',async()=>{
+ const {seriesRequestError}=await import('../../resources/js/series-context.js');
+ assert.equal(seriesRequestError({message:'Reload the playlist',payload:{error:{validation:{episodes:[null,42,' ']}}}},'Fallback'),'Reload the playlist');
+ assert.equal(seriesRequestError(new Error('Network unavailable'),'Fallback'),'Network unavailable');
+ assert.equal(seriesRequestError({},'Fallback'),'Fallback');
+});
