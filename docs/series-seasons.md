@@ -825,3 +825,71 @@ API cannot read branch-protection/ruleset details (403); these requirements are
 unknown, never called passed. Technical READY does not supply an explicit owner
 merge authorization. PR #3 remains before #4; no merge or deployment is performed.
 No Orqen installation or migration infrastructure is added to CrozzTube.
+
+## Current follow-up: Friulian and Lao contexts
+
+Source reference: 1146c49 (2026-11-15). Six Friulian and five Lao whole messages
+receive a proposal reading, independent contextual readings and bounded source
+checks. Existing values remain intact. Current count: **130 absent/unaccepted
+series messages in 16 partial/open catalogs**; 109 of 125 catalogs contain all
+nine scoped series keys. The earlier 159/154/141 inventories are historical.
+Since the preceding batch, only fur/N/R/M/P/D/L and lo/R/M/P/D/L are resolved.
+Aragonese's nine messages remain open: the fresh review did not establish
+sufficient confidence in normative TV terminology and whole-message register.
+
+For Friulian, independent review found and corrected the omitted definite
+article in the both-fields construction. The final phrase retains the article
+before cjamps, supported by [University of Udine language-center prose](https://cirf.uniud.it/cors/an-2021/cors-di-lenghe-furlane-par-dipendents-de-aministrazion-publiche).
+The noun plural videos is chosen using the [Friulian dictionary's video entry](https://dizionarifurlan.eu/headword/video).
+ARLeF also uses the invariant UI variant video; this variation is acknowledged,
+not mislabeled a certain language error. The dictionary's invariant adjective
+sense is not proof that its noun is always invariant. Singular imperatives,
+feminine list agreement, before-saving order, both-empty fields and per-season
+uniqueness are checked as whole sentences. No sta with optional a is supported
+by [ARLeF grammar](https://arlef.it/app/uploads/materiali/sff_gramm_visintin_zanello.pdf);
+the reviewers distinguish indexed excerpts from a full PDF read, which exceeded
+tool limits. Accent variation between sources is not invented into an error.
+
+The original Friulian proposer reread the corrected sentences. The independent
+reviewer supplied M/P/L corrections; those corrections were separately checked
+by the parent and original proposer, rather than counted as that reviewer's
+independent approval of their own wording. Another reviewer explicitly declined
+a Friulian grammar sign-off beyond semantic checks; that is not counted as a
+language acceptance. These are bounded AI editorial judgments with moderate
+confidence, not native certification or full existing-catalog review.
+
+For Lao, accepted playlist/video/season/episode terminology is retained.
+Commands omit formal customer address without adding rude or forced slang.
+Reloading precedes saving; selection is from this particular playlist; paired
+numbers may differ and season zero remains valid; duplicates are restricted to
+the same season. The loading/retry statement names no network/codec cause or
+successful recovery promise. Complete sentences, script and exact placeholder
+sets were read independently; moderate confidence for the two validators is
+explicit, with no native or whole-language certification claim.
+
+Fur and lo are added to retained complete-key and real API-error requirements.
+Their targeted browser cases require all nine actual entries, distinguish
+numeric fields by role, preserve input through conflict/validation errors and
+exercise load/retry in both themes at narrow width. Known AS/MY partial mappings
+remain unchanged. Missing keys cannot be hidden by English fallback or by a
+checkbox accidentally matching a numeric-field label. Actual commands, counts,
+review hashes and publication are recorded after execution, not inferred here.
+
+### Separate operational hook-evidence finding
+
+During the current security recheck, the active PreToolUse hook really blocked
+the harmless negative probe before command execution. The existing strict
+runtime-check nevertheless rejected the private local receipt log because one
+line was malformed. A fresh well-formed blocked event had a session and matching
+hook digest; this did not override rejection of the malformed log. No receipt
+content, identifiers or raw lines are copied here; no receipt was edited,
+deleted, fabricated or manually repaired. The cause of corruption is not proven.
+The existing writer reads and rewrites its bounded JSONL file without a lock;
+this observation is not a claimed concurrency reproduction.
+
+This actual evidence-integrity gap is separate from optional editor compatibility.
+It remains not verified for step completion unless the existing gate accepts a
+legitimate fresh runtime record. Hook/gate changes or recovery need their own
+applicable approval; no trust or safety requirement is weakened. Ordinary
+independent copy work continues, but no step-8 completion/main merge/deployment
+or step 9 is asserted. No Orqen installation/migration infrastructure is added.

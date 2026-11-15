@@ -454,7 +454,7 @@ $check(! Playlist::findOrFail($playlist->id)->is_series, 'Reapply has safe defau
         if (count($availableCases)===count($failureCases)) $coveredLocales[]=$locale;
         else $partialLocales[$locale]=count($availableCases);
     }
-    $retainedLocales=['en','en_au','en_ca','en_gb','en_nz','en_za','de_de','de_at','de_ch','ca','es_ar','es_cl','es_co','es_cr','es_do','es_ec','es_es','es_gt','es_mx','es_pe','es_pr','es_uy','es_ve','fr_be','fr_ca','fr_fr','gl_es','it_it','pt_ao','pt_br','pt_pt','pt_pt_ao90','ro_ro','nl_be','nl_nl','da_dk','sv_se','nb_no','nn_no','fi','cs_cz','sk_sk','pl_pl','hr','sl_si','bs_ba','sr_rs','hu_hu','el','tr_tr','ru_ru','uk','cy','oci','si_lk'];
+    $retainedLocales=['en','en_au','en_ca','en_gb','en_nz','en_za','de_de','de_at','de_ch','ca','es_ar','es_cl','es_co','es_cr','es_do','es_ec','es_es','es_gt','es_mx','es_pe','es_pr','es_uy','es_ve','fr_be','fr_ca','fr_fr','gl_es','it_it','pt_ao','pt_br','pt_pt','pt_pt_ao90','ro_ro','nl_be','nl_nl','da_dk','sv_se','nb_no','nn_no','fi','cs_cz','sk_sk','pl_pl','hr','sl_si','bs_ba','sr_rs','hu_hu','el','tr_tr','ru_ru','uk','cy','oci','si_lk','fur','lo'];
     $httpCheck(array_diff($retainedLocales,$coveredLocales)===[],'Every retained reference/batch locale must have all four actual API failure messages');
     echo 'Series localized API errors: '.count($coveredLocales).' complete error catalogs, four real failure paths on both APIs; partial case coverage '.json_encode($partialLocales,JSON_THROW_ON_ERROR).'; '.count($uncoveredLocales).' incomplete error catalogs: '.implode(',',$uncoveredLocales).".\n";
     // Unable to load videos is a frontend loading state, not an exception this
