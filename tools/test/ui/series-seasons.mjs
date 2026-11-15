@@ -53,7 +53,7 @@ const targetedLocales=['cy','oci','as','my_mm','si_lk','fur','lo','gd'];
 const targetedKeys={
  cy:messageKeys,oci:messageKeys,si_lk:messageKeys,fur:messageKeys,lo:messageKeys,
  as:messageKeys,
- gd:['Series','Episode','Next episode','Playlist changed. Reload before saving.'],
+ gd:['Series','Episode','Next episode','Playlist changed. Reload before saving.','Unable to load videos.'],
  my_mm:['Series','Episode','Next episode','Choose videos from this playlist.','Unable to load videos.'],
 };
 for(const code of targetedLocales)for(const key of targetedKeys[code])if(typeof fixtureCatalogs[code]?.[key]!=='string'||!fixtureCatalogs[code][key].trim())throw Error('Missing targeted-context key '+code+': '+key);

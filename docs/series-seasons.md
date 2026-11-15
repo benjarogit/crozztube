@@ -1045,3 +1045,60 @@ complete nine-key sets. The fixture requires only the two reviewed keys in this
 pack, including narrow light/dark RTL, unchanged creator input and retry.
 It does not call fallback series/season/episode labels translated. Actual test,
 review and publication results are recorded after execution in the journal.
+
+## Scottish Gaelic loading-only follow-up
+
+Reference: published fd32b22. One complete loading/retry message is added in
+`gd`: `Cha b’ urrainn dhuinn na bhideothan a luchdadh. Feuch ris a-rithist.`
+The whole message received proposer, independent and integrating readings for
+neutral video-list loading failure and a personal singular retry. The complete
+sentence is a bounded editorial synthesis with moderate AI confidence, not a
+verbatim primary-source translation or native/full-catalog certification.
+
+Pinned [Mozilla preferences](https://raw.githubusercontent.com/mozilla-l10n/firefox-l10n/7317b23fbede38547681b3a61f569fdf18821bcb/gd/browser/browser/preferences/preferences.ftl)
+attest the past-inability construction; [Mozilla content-loading controls](https://raw.githubusercontent.com/mozilla-l10n/firefox-l10n/7317b23fbede38547681b3a61f569fdf18821bcb/gd/browser/browser/newtab/newtab.ftl)
+attest the exact personal retry and loading vocabulary. The official
+[Bòrd na Gàidhlig board papers](https://www.gaidhlig.scot/wp-content/uploads/2021/06/BnG-01-2122-00-Paipearan-Fosgailte-2.pdf),
+PDF page 21 / printed page 73, directly attest `na bhideothan`, resolving the
+inherited e-spelling concern without changing shared terminology. None of these
+sources individually certifies the whole new message.
+
+Four other Gaelic scoped messages remain open. The updated scoped inventory is
+**122 absent/unaccepted messages in 15 partial/open packs**, with 110 complete
+nine-key sets. Existing reviewed S/E/N/R messages and creator content remain.
+The targeted fixture now requires this real loading key and checks narrow
+light/dark error display and retry; it does not claim missing season/numbering
+messages are translated. Actual checks and publication must be recorded after
+execution; adding the key alone does not finish its contextual acceptance.
+
+## Approved stable-tooling continuation for this feature
+
+The selected feature base remains published
+`544b702620f3955c60e7414dcc1fe93f0791fa44`, with the five existing canonical
+integrations unchanged. The separately approved published tooling runtime is
+`8cdbe72bc3dde6b3b8074b7446d7918ed8c682cb`; its actual 202-test harness and
+hosted run 43730717269 passed, and fresh exact-main-ref review plus explicit
+private runtime acceptance were observed. This does not accept step 8 or merge
+either PR. Feature checkpoint and hosted results remain separate evidence.
+
+The feature intentionally retains historical tooling files from its selected
+base. Use the reviewed published external runtime for authoritative ChatDev
+context, Project Manager, PR audit and series checkpoints, rather than its older
+inherited audit CLI. From the feature directory, with `CT_TOOLING_ROOT` pointing
+to the existing reviewed tooling checkout:
+
+```sh
+node "$CT_TOOLING_ROOT/tools/chatdev/cli.mjs" context
+node "$CT_TOOLING_ROOT/tools/chatdev/cli.mjs" project-manager
+node "$CT_TOOLING_ROOT/tools/chatdev/stable-series.mjs" status
+node "$CT_TOOLING_ROOT/tools/chatdev/stable-series.mjs" verify
+node "$CT_TOOLING_ROOT/tools/chatdev/stable-series.mjs" checkpoint --message "..."
+```
+
+The directory variable only locates the script; no base/policy override exists.
+Runtime provenance, source/index, fresh policy and revocation checks remain
+mandatory. Ordinary upstream documentation needs an exact independent relevance
+review; code changes need a reviewed runtime release, not an automatic feature
+parent merge. The legacy local series gate remains strict. Actual GitHub target
+refs and merge coverage are reviewed separately from the immutable feature base.
+No sixth integration, main merge/retarget, deployment or step advance is allowed.
