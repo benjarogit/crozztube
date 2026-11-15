@@ -45,6 +45,7 @@ function fixtureIntegrationScope(root,anchor,policy=null){
   let source=fs.readFileSync(module,'utf8');
   source=source.replace(/const historyPolicy=Object\.freeze\(\{[^\n]+\}\);/,`const historyPolicy=Object.freeze(${JSON.stringify(policy)});`);
   source=source.replace("'./workflow.mjs'",JSON.stringify(new URL('../harness/workflow.mjs',import.meta.url).href));
+  source=source.replace("'../chatdev/stable-series-base.mjs'",JSON.stringify(new URL('../chatdev/stable-series-base.mjs',import.meta.url).href));
   return JSON.parse(execFileSync(process.execPath,['--input-type=module','-e',`const m=await import('data:text/javascript;base64,${Buffer.from(source).toString('base64')}');console.log(JSON.stringify(m.seriesScope(${JSON.stringify(root)})));`],{cwd:root,encoding:'utf8',stdio:['ignore','pipe','pipe']}));
 }
 test('only canonical exact-head tooling integration excludes imported parent history',()=>integrationFixture(({root,feature,base,commitMerge,write,stage})=>{

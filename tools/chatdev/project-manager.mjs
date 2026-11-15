@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { authoritative, git, roles, state, statePath, validate } from './core.mjs';
+import { validBaseIdentity, sameBaseIdentity } from './pr-audit.mjs';
 
 /** Read-only coordination. This reports evidence; it never grants harness permission. */
 export function manager(root,prResult=null) {
@@ -42,7 +43,7 @@ export function manager(root,prResult=null) {
     reports.set(t.id,report);
   }
   const historical=journal.tasks.filter(t=>t.step<authority.step.id).map(t=>({id:t.id,step:t.step,status:'historical',owner:t.owner,acceptedStep:authority.progress.steps.find(s=>s.id===t.step)?.status==='accepted'}));
-  let pr=prResult, auditState='supplied';
+  let pr=prResult, auditState='supplied', storedSnapshot;
   if(!pr){
     const directory=path.dirname(file);
     const snapshots=fs.existsSync(directory)?fs.readdirSync(directory).filter(name=>/^pr-audit-[1-9]\d*\.json$/.test(name)):[];
@@ -56,9 +57,14 @@ export function manager(root,prResult=null) {
       auditState='ambiguous';
       pr=null;
     }else{
-      pr=candidates[0]?.result||items[0]?.result||null;
+      const selected=candidates[0]||items[0];
+      pr=selected?.result||null;storedSnapshot=selected?.snapshot;
       auditState=pr?'stored snapshot; refresh before publication':'missing';
     }
+  }
+  if(pr&&(!validBaseIdentity(pr)||!prResult&&!sameBaseIdentity(pr,storedSnapshot))){
+    blockers.push('PR_AUDIT_BASE_UNBOUND');
+    pr={...pr,status:'BLOCKED'};
   }
   if(!pr){if(auditState!=='ambiguous')blockers.push('PR_AUDIT_MISSING');}
   else if(pr.head!==head)blockers.push('PR_AUDIT_STALE');
@@ -75,5 +81,5 @@ export function manager(root,prResult=null) {
     else if(taskBlockers.length)nextAction={action:'resolve-current-task-blockers',role:'project-manager',instruction:'Resolve dependencies or obtain the listed approvals before resuming affected tasks.'};
     else nextAction={action:'inspect-current-step',role:'project-manager',instruction:'Read the current step acceptance criteria and existing work. Ask the harness for publication status; do not start a later step.'};
   }
-  return {schemaVersion:1,role:'project-manager',head,activeStep:{id:authority.step.id,title:authority.step.title,recordStatus:authority.record.status,authority:'harness/plan.json + harness/progress.json'},mode:'Read-only coordination; logical role, not proof of a spawned process',github:prResult?.github ?? {status:'not-refreshed',nextAction:'Run pr-audit after every work package; github-sync offers a read-only preview.'},registeredRoles:registry.map(r=>r.id),journalRevision:journal.revision,priorities,historical,blockers:[...new Set(blockers)],taskBlockers,prAudit:pr?{head:pr.head,status:pr.status,source:auditState}:null,nextAction,permission:'Advisory only. No begin, completion, merge, deployment or approval is performed.'};
+  return {schemaVersion:1,role:'project-manager',head,activeStep:{id:authority.step.id,title:authority.step.title,recordStatus:authority.record.status,authority:'harness/plan.json + harness/progress.json'},mode:'Read-only coordination; logical role, not proof of a spawned process',github:prResult?.github ?? {status:'not-refreshed',nextAction:'Run pr-audit after every work package; github-sync offers a read-only preview.'},registeredRoles:registry.map(r=>r.id),journalRevision:journal.revision,priorities,historical,blockers:[...new Set(blockers)],taskBlockers,prAudit:pr?{head:pr.head,baseSha:pr.baseSha,baseRef:pr.baseRef,baseRepository:pr.baseRepository,status:pr.status,source:auditState}:null,nextAction,permission:'Advisory only. No begin, completion, merge, deployment or approval is performed.'};
 }

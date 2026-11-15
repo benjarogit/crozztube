@@ -2,6 +2,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { createHash } from 'node:crypto';
 import { spawnSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
+import { selectStableBase } from '../chatdev/stable-series-base.mjs';
 import { git, load, digest, indexDigest, assertStaged, localPath, localState, writeJson, setMode } from './workflow.mjs';
 
 const branch='codex/series-seasons', parent='codex/chatdev-integration';
@@ -145,12 +147,12 @@ export function seriesHistory(root,base,policy=historyPolicy){
   return commits.filter(commit=>!merges.includes(commit));
 }
 
-export function seriesScope(root){
+function scopeFor(root,tooling=null){
   const context=load(root);
   if(git(root,['branch','--show-current'])!==branch)throw Error('Use dedicated codex/series-seasons branch.');
   if(context.step.id!==8||context.record.status!=='active')throw Error('Only active step 8 can use the series checkpoint.');
   if(context.plan.remote!=='origin'||context.plan.branch!=='main')throw Error('Unexpected authoritative branch or remote.');
-  const base=git(root,['rev-parse',`origin/${parent}`]);
+  const base=tooling?.binding.base||git(root,['rev-parse',`origin/${parent}`]);
   git(root,['merge-base','--is-ancestor',base,'HEAD']);
   const commits=seriesHistory(root,base);
   if(fs.existsSync(path.resolve(root,git(root,['rev-parse','--git-path','MERGE_HEAD']))))throw Error('Pending merge is outside the series checkpoint.');
@@ -185,17 +187,29 @@ export function seriesScope(root){
   const ids=baseline.steps.find(s=>s.id===8)?.checkpointChecks;
   if(!Array.isArray(ids)||!ids.length)throw Error('Existing step-8 checkpoint checks are required.');
   if(context.plan.checks?.[checkId]&&!regular(root,script))throw Error('The real series check script is missing.');
-  return {branch,base,parent,context,baseline,checks:context.plan.checks?.[checkId]?[...new Set([...ids,checkId])]:ids,remoteIdentity:remoteIdentity(root)};
+  return {branch,base,parent,context,baseline,checks:context.plan.checks?.[checkId]?[...new Set([...ids,checkId])]:ids,remoteIdentity:remoteIdentity(root),...(tooling?{tooling}: {})};
 }
 
+// The legacy entry remains strict. The separate external-runtime command is
+// the only installed entry selecting the bounded stable policy. No base/root
+// argument or environment override is exposed by that command.
+export const seriesScope=root=>scopeFor(root);
+const runtimeRoot=()=>fileURLToPath(new URL('../..',import.meta.url));
+export const stableSeriesScope=root=>scopeFor(root,selectStableBase(root,runtimeRoot()));
+
 function publishedParent(root,scope){
+  if(scope.tooling){
+    const fresh=selectStableBase(root,runtimeRoot());
+    if(canonical(fresh.binding)!==canonical(scope.tooling.binding))throw Error('Stable tooling authorization changed; verify again.');
+    return;
+  }
   let remote;
   try{remote=git(root,['ls-remote','--exit-code','--heads','origin',`refs/heads/${parent}`]).split(/\s+/)[0];}catch{throw Error('Published tooling parent could not be verified.');}
   if(remote!==scope.base)throw Error('Published tooling parent moved; refresh and review the series base.');
 }
 
-export function verifySeries(root){
-  const scope=seriesScope(root);assertStaged(root);publishedParent(root,scope);
+function verify(root,inspect){
+  const scope=inspect(root);assertStaged(root);publishedParent(root,scope);
   const receipt=localPath(root,'series-verification.json');fs.rmSync(receipt,{force:true});
   const before=digest(root), index=indexDigest(root), results=[];
   for(const id of scope.checks){
@@ -207,26 +221,33 @@ export function verifySeries(root){
     if(result.status!==0){setMode(root,'blocked','Series checkpoint check failed: '+id);throw Error('Series check failed; no verified publication: '+id);}
     results.push({id,passed:true});
   }
-  seriesScope(root);publishedParent(root,scope);
+  inspect(root);publishedParent(root,scope);
   if(digest(root)!==before||indexDigest(root)!==index)throw Error('Checks changed the reviewed series snapshot.');
-  writeJson(receipt,{purpose:'series-checkpoint-only',step:8,branch,base:scope.base,remoteIdentity:scope.remoteIdentity,digest:before,indexDigest:index,checks:results,checkedAt:new Date().toISOString()});
+  writeJson(receipt,{purpose:'series-checkpoint-only',step:8,branch,base:scope.base,remoteIdentity:scope.remoteIdentity,...(scope.tooling?{tooling:scope.tooling.binding}:{}),digest:before,indexDigest:index,checks:results,checkedAt:new Date().toISOString()});
   console.log('PASS: bounded series checkpoint verified; no feature accepted or advanced.');
 }
 
-export function publishSeries(root,message){
+function publish(root,message,inspect){
   if(localState(root).mode!=='implementing')throw Error('Resume before publishing the series checkpoint.');
-  const scope=seriesScope(root);assertStaged(root);
+  const scope=inspect(root);assertStaged(root);
   const receipt=localPath(root,'series-verification.json');if(!fs.existsSync(receipt))throw Error('Run series-verify first.');
   const proof=parse(fs.readFileSync(receipt,'utf8'));
+  if(canonical(proof.tooling||null)!==canonical(scope.tooling?.binding||null))throw Error('Series tooling proof is stale or belongs to a different execution path.');
   if(proof.purpose!=='series-checkpoint-only'||proof.step!==8||proof.branch!==branch||proof.base!==scope.base||proof.remoteIdentity!==scope.remoteIdentity||proof.digest!==digest(root)||proof.indexDigest!==indexDigest(root)||scope.checks.some(id=>!proof.checks?.some(c=>c.id===id&&c.passed)))throw Error('Series proof is stale or incomplete.');
   if(!message?.trim())throw Error('A series checkpoint message is required.');
   publishedParent(root,scope);
   if(git(root,['diff','--cached','--name-only']))git(root,['commit','-m',message]);
   try{
+    if(scope.tooling){
+      // A commit hook can run arbitrary local commands. Recheck authorization
+      // and the exact checked bytes/index after it, immediately before push.
+      const committed=inspect(root);assertStaged(root);publishedParent(root,committed);
+      if(canonical(committed.tooling.binding)!==canonical(scope.tooling.binding)||digest(root)!==proof.digest||indexDigest(root)!==proof.indexDigest)throw Error('Commit changed the authorized stable snapshot.');
+    }
     git(root,['push','--set-upstream','origin',`HEAD:refs/heads/${branch}`]);
     const head=git(root,['rev-parse','HEAD']), remote=git(root,['ls-remote','--exit-code','--heads','origin',`refs/heads/${branch}`]).split(/\s+/)[0];
     if(head!==remote)throw Error('Unconfirmed series publication.');
-    writeJson(localPath(root,'series-publication.json'),{purpose:'series-checkpoint-only',step:8,branch,base:scope.base,commit:head,checkedAt:proof.checkedAt});
+    writeJson(localPath(root,'series-publication.json'),{purpose:'series-checkpoint-only',step:8,branch,base:scope.base,...(scope.tooling?{tooling:scope.tooling.binding}:{}),commit:head,checkedAt:proof.checkedAt});
     setMode(root,'discussion','Series checkpoint committed and confirmed pushed; step 8 remains open.');
     console.log('Confirmed series checkpoint push: '+head);
   }catch{
@@ -234,3 +255,8 @@ export function publishSeries(root,message){
     throw Error('Series push or confirmation failed; resume and retry the same checkpoint.');
   }
 }
+
+export const verifySeries=root=>verify(root,seriesScope);
+export const publishSeries=(root,message)=>publish(root,message,seriesScope);
+export const verifyStableSeries=root=>verify(root,stableSeriesScope);
+export const publishStableSeries=(root,message)=>publish(root,message,stableSeriesScope);

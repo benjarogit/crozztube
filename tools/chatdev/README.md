@@ -242,3 +242,43 @@ parameters and commit/test identifiers instead. Fresh audit, source, journal,
 publication and base-dependency checks run again before each mutation, including
 between posting status and closing. These checks reduce races; they cannot
 make the GitHub read-then-write API atomic.
+
+## Stable series tooling runtime (activation requires bounded owner approval)
+
+The stable-series entry runs from the existing published tooling checkout with
+the feature checkout as its working directory. It never imports tooling files
+into the feature or grants another parent merge. The legacy feature CLI remains
+strict. The selected feature base is the exact policy commit; all five canonical
+history anchors and existing feature source/index/checkpoint checks still apply.
+
+After ordinary ChatDev verification, checkpoint/push, independent source review
+and successful exact-head CI, run `node tools/chatdev/stable-series.mjs
+accept-runtime /absolute/private/evidence.json` from the tooling root. Review
+and test evidence must bind head, baseSha, baseRef, baseRepository and the
+verification sourceDigest. This creates a private local release attestation;
+it is not runtime-hook evidence or merge approval. Status and feature checks
+never create release attestations automatically.
+
+From the feature root, use the absolute published tooling script path followed
+by `status`, `verify`, or `checkpoint --message "..."`. No base or runtime-root
+override is accepted. Receipts bind feature source/index, fixed base, exact
+runtime, effective policy and remote identity. Authorization and checked bytes
+are rechecked after commit hooks and immediately before push. Completion,
+actual hook trust, plan/progress and next-step rules are unchanged.
+
+Fresh provenance checks fetch Git objects into the tooling repository without
+changing either source tree. Unknown upstream source changes require a newly
+reviewed runtime. Documentation-only paths are not semantic review: use
+`inspect-upstream`, read the entire reported changeset and assess relevance,
+then `review-upstream /absolute/private/evidence.json` with independent evidence.
+Its exact runtime/tip/changeset binding must match before publication continues.
+A new tip invalidates that documentation review without requiring a feature
+merge. Published policy changes, revoked runtime/base, rewritten lineage,
+missing remote access or stale proofs fail closed after earlier green CI too.
+
+PR evidence separately binds the actual GitHub target SHA, ref and repository,
+including every role, test and comment disposition. Retargeting or moving that
+target invalidates readiness and pending issue writes. Legacy READY records
+without base binding are blocked. Exact-head CI does not prove a merge result
+against a later target was tested. This path never retargets, merges or closes
+PRs, accepts step 8, or begins step 9.
