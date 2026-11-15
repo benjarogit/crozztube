@@ -57,7 +57,9 @@ const targetedKeys={
  my_mm:['Series','Episode','Next episode','Choose videos from this playlist.','Unable to load videos.'],
 };
 for(const code of targetedLocales)for(const key of targetedKeys[code])if(typeof fixtureCatalogs[code]?.[key]!=='string'||!fixtureCatalogs[code][key].trim())throw Error('Missing targeted-context key '+code+': '+key);
-const fixtureLocales=[...new Set([...referenceLocales,...targetedLocales])];
+const loadingOnlyLocales=['jv_id'];
+for(const code of loadingOnlyLocales)if(typeof fixtureCatalogs[code]?.['Unable to load videos.']!=='string'||!fixtureCatalogs[code]['Unable to load videos.'].trim())throw Error('Missing loading-only context key '+code);
+const fixtureLocales=[...new Set([...referenceLocales,...targetedLocales,...loadingOnlyLocales])];
 const localeTags=JSON.parse(fs.readFileSync('resources/localization/locale-tags.json','utf8'));
 const catalog=code=>{if(!fixtureLocales.includes(code))throw Error('Unknown fixture locale');return fixtureCatalogs[code];};
 const direction=code=>catalog(code).__meta?.direction==='rtl'?'rtl':'ltr';
@@ -290,6 +292,25 @@ try{
      failSeriesGet=false;await failure.getByRole('button').click();await expect(page.locator('.watch-sidebar')).toContainText(strings['Next episode']);
      localizedFailure=null;checks+=2;
     }
+   }
+   if(owner)for(const locale of loadingOnlyLocales){
+    const strings=catalog(locale);
+    await page.evaluate(code=>sessionStorage.setItem('series_reference_locale',code),locale);
+    await page.setViewportSize({width:390,height:900});
+    localizedFailure=locale;failSeriesGet=true;await page.goto(origin+'/watch/first?list=1');
+    const failure=page.locator('.watch-sidebar').getByRole('alert');
+    await expect(page.locator('html')).toHaveAttribute('lang',localeTags[locale]||locale.replace(/_/g,'-'));
+    await expect(page.locator('html')).toHaveAttribute('dir',direction(locale));
+    expect(await page.evaluate(()=>localStorage.getItem('playhub_language'))).toBe(locale);
+    expect(catalogRequests).toContain(locale);
+    await expect(failure).toContainText(strings['Unable to load videos.']);
+    await expect(page.locator('.watch-info h1')).toHaveText(videos[0].title);
+    await expect.poll(()=>page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);
+    await page.screenshot({path:`tools/test/.artifacts/series-seasons/context-${locale}-${dark?'dark':'light'}-load-error.png`,fullPage:true});
+    failSeriesGet=false;await failure.getByRole('button').click();
+    await expect(failure).toHaveCount(0);
+    await expect(page.locator('.watch-sidebar')).toContainText(videos[1].title);
+    localizedFailure=null;checks+=9;
    }
    expect(errors).toEqual([]);checks++;
   }catch(error){console.error(JSON.stringify({fixture:{nextCalls,nextRequests,videoRequests},page:await page.evaluate(()=>({url:location.href,media:[...document.querySelectorAll('video')].map(e=>({src:e.src,currentSrc:e.currentSrc,ready:e.readyState,network:e.networkState,error:e.error?.code,paused:e.paused,time:e.currentTime,duration:e.duration,sourceElements:[...e.querySelectorAll('source')].map(s=>({src:s.src,type:s.type})),surface:window.__seriesMediaSurface(e),html:e.outerHTML.slice(0,900)})),ends:window.__seriesNativeEnds,trace:window.__seriesMediaTrace.slice(-40),queue:JSON.parse(localStorage.getItem('playhub_playback_queue_v1')||'[]'),title:document.querySelector('.watch-info h1')?.textContent}))}));await page.screenshot({path:'tools/test/.artifacts/series-seasons/failure.png',fullPage:true});console.error(JSON.stringify(await page.locator('body *').evaluateAll(es=>es.filter(e=>e.getBoundingClientRect().right>innerWidth+2&&e.getBoundingClientRect().width>0).slice(0,18).map(e=>({tag:e.tagName,cls:e.className,width:e.getBoundingClientRect().width,right:e.getBoundingClientRect().right})))));throw error;}finally{holdNext?.release();holdVideo?.release();await context.close();}

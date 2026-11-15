@@ -991,3 +991,33 @@ entries and explicitly require the one new Gaelic conflict message while leaving
 its unresolved keys partial. Both-theme narrow editor contexts retain typed
 content through the real conflict/validator paths. Execution counts, source
 review and publication are recorded after actual checks in the existing journal.
+
+## Javanese loading-only follow-up
+
+Reference: published 27de4ee. One new whole message is added in jv_id:
+`Ora bisa ngemot video. Coba maneh.` It expresses a neutral video-list loading
+failure and a personal retry action, with no invented network/codec cause or
+recovery guarantee. Existing Video/Videos and Coba maneh terminology and plain
+orthography are retained. Existing catalog entries are not replaced.
+
+The proposing reviewer, an independent second reviewer and the root read the
+complete two-sentence message in its Watch error/retry context. The official
+[WordPress Javanese 4.9.35 package](https://downloads.wordpress.org/translation/core/4.9.35/jv_ID.zip)
+attests ngemot video and retry constructions. Package SHA-256:
+1978c90f3483af3a7003bec854d97ed5cd3bcecfcab69eafda40b495d04e2752.
+This old official resource supports the vocabulary, not current native or whole
+catalog certification. The judgment has bounded moderate editorial confidence.
+
+The other proposed Javanese instruction remains unaccepted: its broader video
+playlist term differs from the existing song-list-specific Dhaptar lagu. This
+pass does not silently migrate a shared glossary. Javanese therefore still has
+eight unresolved scoped messages. Current total: **125 absent/unaccepted series
+messages in 15 partial/open packs**, with 110 complete nine-key sets.
+
+The browser fixture explicitly requires only this real loading key for jv_id.
+It checks language/catalog selection, light/dark 390px loading failure, retry,
+overflow and unchanged creator title. No missing Series/Season/Episode/Next
+episode label is called translated. Existing complete/partial editor and routed
+API requirements remain unchanged; this client loading fallback is not counted
+as a newly translated server validator. Actual execution and publication results
+belong to the existing journal/PR, not a guessed acceptance from key count.
