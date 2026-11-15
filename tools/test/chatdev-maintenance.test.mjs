@@ -38,6 +38,29 @@ test('existing hooks, workflow and Impeccable gate remain immutable',()=>{
     write(file,'modified\n');assert.throws(()=>chatdevScope(root),/Outside ChatDev/);
   });
 });
+test('only the exact reviewed receipt hook blob is permitted without changing mode',()=>fixture(({root,write})=>{
+  const source=fs.readFileSync(new URL('../harness/codex-hook.mjs',import.meta.url));
+  write('tools/harness/codex-hook.mjs',source);
+  assert.equal(chatdevScope(root).branch,'codex/chatdev-integration');
+  fs.chmodSync(path.join(root,'tools/harness/codex-hook.mjs'),0o755);
+  assert.throws(()=>chatdevScope(root),/Outside ChatDev/);
+}));
+test('unknown historical hook changes cannot be hidden by restoring the approved blob',()=>fixture(({root,write})=>{
+  write('tools/harness/codex-hook.mjs','// forbidden intermediate hook\n');git(root,'add','.');git(root,'commit','-qm','Unapproved hook');
+  write('tools/harness/codex-hook.mjs',fs.readFileSync(new URL('../harness/codex-hook.mjs',import.meta.url)));git(root,'add','.');git(root,'commit','-qm','Restore approved hook');
+  assert.throws(()=>chatdevScope(root),/unapproved historical/);
+}));
+test('approved hook commit remains permitted but hook symlinks and deletion fail',()=>fixture(({root,write})=>{
+  write('tools/harness/codex-hook.mjs',fs.readFileSync(new URL('../harness/codex-hook.mjs',import.meta.url)));git(root,'add','.');git(root,'commit','-qm','Reviewed hook');
+  assert.equal(chatdevScope(root).branch,'codex/chatdev-integration');
+  fs.unlinkSync(path.join(root,'tools/harness/codex-hook.mjs'));assert.throws(()=>chatdevScope(root),/regular files|regular file/);
+  fs.symlinkSync('workflow.mjs',path.join(root,'tools/harness/codex-hook.mjs'));assert.throws(()=>chatdevScope(root),/regular files|regular file/);
+}));
+test('receipt regression is mandatory in both tooling verification and hosted CI',()=>{
+  for(const file of ['../harness/chatdev-maintenance.mjs','../../.github/workflows/chatdev.yml']){
+    assert(fs.readFileSync(new URL(file,import.meta.url),'utf8').includes('tools/test/chatdev-hook-receipts.test.mjs'));
+  }
+});
 test('plan and progress changes cannot pass, including valid unchanged-meaning JSON',()=>{
   for(const file of ['harness/plan.json','harness/progress.json'])fixture(({root})=>{
     fs.appendFileSync(path.join(root,file),'\n');assert.throws(()=>chatdevScope(root),/Outside ChatDev/);

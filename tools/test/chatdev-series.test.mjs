@@ -235,6 +235,51 @@ test('public third-integration policy pins both historical merges and the exact 
   const source=fs.readFileSync(new URL('../harness/series-maintenance.mjs',import.meta.url),'utf8');
   for(const [name,value] of Object.entries({approvedFirstIntegration:'c17e930f33a2564c4b4deb92eba5b5792d34f64a',approvedFirstToolingParent:'c8d403968666b789fa189e7c704a0284a3b229a5',approvedSecondIntegration:'3a07a5aaa3978b677649ae00df5235eabd79b20f',approvedSecondToolingParent:'be06d13fcddbfc090c46ae201ddbb2ce1033ba6c',approvedThirdIntegrationHead:'65c04875241caede38045440446af44054059df6'}))assert(source.includes(`const ${name}='${value}';`));
 });
+function fourIntegrationFixture(fn){return threeIntegrationFixture(ctx=>{
+  const {root,write,stage,thirdBase,threePolicy,thirdMerge}=ctx,third=thirdMerge();
+  write('resources/js/main.jsx','// Final approved language checkpoint before receipt repair\n');stage();git(root,'commit','-qm','Fourth approved feature anchor');
+  const fourthHead=git(root,'rev-parse','HEAD');git(root,'push','origin','HEAD:refs/heads/codex/series-seasons');
+  git(root,'checkout','codex/chatdev-integration');write('tools/chatdev/fourth-parent.mjs','// Reviewed receipt repair tooling\n');stage();git(root,'commit','-qm','Fourth published parent');git(root,'push','origin','codex/chatdev-integration');
+  const fourthBase=git(root,'rev-parse','HEAD');git(root,'checkout','codex/series-seasons');
+  const fourPolicy={...threePolicy,thirdMerge:third,thirdParent:thirdBase,fourthHead};
+  const fourthMerge=(parents=[fourthHead,fourthBase],tree=null)=>{
+    tree ||= git(root,'merge-tree','--write-tree',parents[0],parents[1]).split('\n')[0];
+    const merge=git(root,'commit-tree',tree,...parents.flatMap(p=>['-p',p]),'-m','Fourth canonical integration');git(root,'reset','--hard',merge);return merge;
+  };
+  return fn({...ctx,third,fourthHead,fourthBase,fourPolicy,fourthMerge});
+});}
+test('four exact canonical integrations preserve all three historical anchors and feature commits',()=>fourIntegrationFixture(({root,feature,nextHead,thirdHead,fourthHead,fourthBase,fourPolicy,fourthMerge})=>{
+  fourthMerge();assert.deepEqual(seriesHistory(root,fourthBase,fourPolicy),[fourthHead,thirdHead,nextHead,feature]);
+  assert.equal(fixtureIntegrationScope(root,feature,fourPolicy).base,fourthBase);
+}));
+test('fourth integration rejects wrong head, reversed parents, stale parent and octopus',()=>{
+  for(const kind of ['head','reverse','stale','octopus'])fourIntegrationFixture(({root,thirdHead,thirdBase,fourthHead,fourthBase,fourPolicy,fourthMerge})=>{
+    const parents=kind==='head'?[thirdHead,fourthBase]:kind==='reverse'?[fourthBase,fourthHead]:kind==='stale'?[fourthHead,thirdBase]:[fourthHead,fourthBase,thirdHead];
+    fourthMerge(parents,git(root,'write-tree'));assert.throws(()=>seriesHistory(root,fourthBase,fourPolicy),/exact approved feature head|explicitly approved|exact approved third/);
+  });
+});
+test('fourth integration rejects injected trees and manual conflict resolutions',()=>{
+  fourIntegrationFixture(({root,write,stage,fourthBase,fourPolicy,fourthMerge})=>{write('app/Foreign.php','<?php // injected\n');stage();fourthMerge(undefined,git(root,'write-tree'));assert.throws(()=>seriesHistory(root,fourthBase,fourPolicy),/canonical merge tree/);});
+  fourIntegrationFixture(({root,write,stage,fourthHead,fourPolicy,fourthMerge})=>{
+    git(root,'checkout','codex/chatdev-integration');write('resources/js/main.jsx','// Conflicting parent\n');stage();git(root,'commit','-qm','Conflict');git(root,'push','origin','codex/chatdev-integration');const base=git(root,'rev-parse','HEAD');git(root,'checkout','codex/series-seasons');
+    fourthMerge([fourthHead,base],git(root,'write-tree'));assert.throws(()=>seriesHistory(root,base,fourPolicy),/conflict-free/);
+  });
+});
+test('fourth integration requires exact old identities, ancestor retention, advanced base and no fifth merge',()=>{
+  for(const field of ['firstMerge','secondMerge','thirdMerge'])fourIntegrationFixture(({root,fourthHead,fourthBase,fourPolicy,fourthMerge})=>{fourthMerge();assert.throws(()=>seriesHistory(root,fourthBase,{...fourPolicy,[field]:fourthHead}),/explicitly approved|exact approved/);});
+  fourIntegrationFixture(({root,feature,fourthBase,fourPolicy,fourthMerge})=>{fourthMerge();assert.throws(()=>seriesHistory(root,fourthBase,{...fourPolicy,fourthHead:feature}),/third merge.*ancestry/);});
+  fourIntegrationFixture(({root,thirdBase,fourthHead,fourPolicy,fourthMerge})=>{fourthMerge([fourthHead,thirdBase],git(root,'write-tree'));assert.throws(()=>seriesHistory(root,thirdBase,fourPolicy),/advanced published parent/);});
+  fourIntegrationFixture(({root,fourthBase,fourPolicy,fourthMerge})=>{const fourth=fourthMerge(),tree=git(root,'write-tree'),side=git(root,'commit-tree',tree,'-p',fourth,'-m','Unapproved side'),fifth=git(root,'commit-tree',tree,'-p',fourth,'-p',side,'-m','Forbidden fifth');git(root,'reset','--hard',fifth);assert.throws(()=>seriesHistory(root,fourthBase,fourPolicy),/explicitly approved/);});
+});
+test('foreign commits restored before fourth integration remain forbidden historically',()=>fourIntegrationFixture(({root,feature,write,stage,fourthBase,fourPolicy,fourthMerge})=>{
+  write('app/Foreign.php','<?php // forbidden intermediate\n');stage();git(root,'commit','-qm','Foreign before fourth');const foreign=git(root,'rev-parse','HEAD');git(root,'revert','--no-edit','HEAD');const fourthHead=git(root,'rev-parse','HEAD'),policy={...fourPolicy,fourthHead};fourthMerge([fourthHead,fourthBase]);
+  assert(seriesHistory(root,fourthBase,policy).includes(foreign));assert.throws(()=>fixtureIntegrationScope(root,feature,policy),error=>error.stderr?.toString().includes('Outside approved series scope: app/Foreign.php'));
+}));
+test('an unbound fourth checkpoint cannot authorize an integration',()=>fourIntegrationFixture(({root,fourthBase,fourPolicy,fourthMerge})=>{fourthMerge();assert.throws(()=>seriesHistory(root,fourthBase,{...fourPolicy,fourthHead:'PENDING_CONFIRMED_LANGUAGE_CHECKPOINT'}),/awaits the confirmed/);}));
+test('public fourth policy pins the prior integration, parent and confirmed feature checkpoint',()=>{
+  const source=fs.readFileSync(new URL('../harness/series-maintenance.mjs',import.meta.url),'utf8');
+  for(const [name,value] of Object.entries({approvedThirdIntegration:'88e731395587dfba5fa8dbb336fc56fa7008eb2e',approvedThirdToolingParent:'ac406456662c78a154b445328e3539ab87468193',approvedFourthIntegrationHead:'dfa0dc1dc43c5774e711846bac7b558f5b530cc8'}))assert(source.includes(`const ${name}='${value}';`));
+});
 test('exact existing Russian catalog is allowed without permitting duplicates, foreign files or renames',()=>{
   fixture(({root,write})=>{write('lang/ru/russian.php',"<?php return ['Series'=>'Сериал'];\n");assert.equal(seriesScope(root).branch,'codex/series-seasons');});
   for(const file of ['lang/ru/ru.php','lang/ru/foreign.php','lang/new/russian.php'])fixture(({root,write})=>{write(file,'<?php // unapproved\n');assert.throws(()=>seriesScope(root),/Outside approved series/);});
