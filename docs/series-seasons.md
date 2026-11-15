@@ -1228,3 +1228,64 @@ keys, not the Gaelic catalog as a whole. The earlier two-message source had
 3838 HTTP/API and 4228 Chromium checks; those are historical observations of
 that intermediate snapshot. The combined final source needs its own full
 verification, trusted-hook observation, checkpoint, confirmed push and CI.
+
+## Silesian metadata terminology and complete loading follow-up
+
+Reference: published ed7c6b05. This packet adds only the numbered TV-season
+label `Sezōn`, whole-video episode label `Ôdcinek`, and a complete metadata-list
+loading failure with personal retry. It does not translate provider chapters,
+author titles or a series-wide next-episode instruction. Season zero and the
+existing number/nullability rules remain unchanged.
+
+New primary evidence materially resolves the earlier loading-complement hold.
+The [official pinned Kodi Silesian catalog](https://raw.githubusercontent.com/xbmc/translations/59806e24e28680e82a489bd7c602e9296769bd92/kodi-translations/kodi-main/merged-langfiles/kodi.core/resource.language.szl/resources/strings.po)
+has SHA-256 `3cef07ffe6ebffd70298e3d61712f26e1db51e17273c225835cdc184ca0b7c06`.
+Its active metadata error #500 attests the whole nominalized-loading failure
+frame; #19236/#19238 attest plural media complements, and #12011/#20349 identify
+the video's plural noun form. This is stronger context than a Polish cognate
+or an isolated noun match. Active TV metadata labels #20373/#20359 directly
+attest the two proposed field names, rather than weather or chapter meanings.
+
+The exact personal retry comes from the [pinned Mozilla new-tab source](https://raw.githubusercontent.com/mozilla-l10n/firefox-l10n/7317b23fbede38547681b3a61f569fdf18821bcb/szl/browser/browser/newtab/newtab.ftl),
+SHA-256 `b60d9807e823217591e5b0db361901d78313919bda2765b2bc671cbf17fe1bb7`.
+Proposer, separate whole-message reviewer and integrating readings support
+bounded moderate confidence for the complete load/retry pair. It is editorial
+synthesis, not an upstream verbatim whole sentence or native/full-pack approval.
+It gives no invented network, codec, expiry, empty-result or playback cause.
+
+The whole-series heading remains pending: the attested TV-specific noun does
+not yet reliably cover generic creator/nonfiction web series. The complete
+next-episode phrase remains missing too. The fixture checks the new fields and
+load/retry in narrow light/dark flows while explicitly preserving English
+fallback for those unreviewed headings; earlier targeted translation keys and
+assertions remain required. This is not acceptance of the fallback as Silesian.
+
+The prospective inventory is **114 absent/unaccepted scoped messages in 14
+partial packs**, with 111 complete nine-key sets. PHP, structural, whole-context,
+full-gate, publication and current-target CI evidence must be observed on this
+final source before reporting the packet as verified and published.
+
+## Owner-approved PR4 main alignment
+
+PR3 was merged as ed068c9f7f0afb5708effb688fbcf31915b94349. The owner then
+separately approved changing only PR4's target from codex/chatdev-integration
+to main at unchanged published feature head ed7c6b05. PR4 remains open/draft.
+No feature merge, rebase, history rewrite or sixth parent integration occurred.
+The stable feature base stays 544b7026 and the accepted external runtime stays
+frozen at aa7fec7; these are distinct from the PR's actual target branch.
+
+The previous target aa7fec7 and main ed068c9 have identical tree c7c79ede;
+both merge bases with ed7c6b05 are 544b7026. Complete --binary --full-index
+three-dot diffs were byte-identical (SHA-256
+`b734032399fedcf27fd03cd62341a35d4deb7ecb7bbf4ac169dd79d878cb0340`).
+Both computed merge trees are 047e9b5788ab02e75a9327c4b8850dc85a326198.
+The old AA7/ED7 hosted run43740867210 is retained as historical evidence,
+not silently rebound to main. New reviews and CI must bind the actual main
+ref and the next genuine language checkpoint's exact head/merge checkout.
+
+The existing pull_request workflow defaults to opened/synchronize/reopened;
+a base-only edited event does not guarantee a fresh run. A previous-run rerun
+keeps its original SHA/ref, and manual dispatch would skip the head_ref-gated
+series jobs. The next genuine language commit uses the existing synchronize
+path; no synthetic commit, workflow patch or PR close/reopen is introduced.
+No merge, deployment or step transition is authorized by this alignment.

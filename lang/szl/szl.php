@@ -4451,4 +4451,7 @@ return array (
   'Language directory not found.' => 'Language directory not found.',
   'The selected language directory is read-only. Update its server permissions before editing.' => 'The selected language directory is read-only. Update its server permissions before editing.',
   'Your video was imported.' => 'Twōj film bōł importowany.',
+  'Season' => 'Sezōn',
+  'Episode' => 'Ôdcinek',
+  'Unable to load videos.' => 'Ladowanie filmōw sie niy podarziło. Sprōbuj jeszcze roz.',
 );

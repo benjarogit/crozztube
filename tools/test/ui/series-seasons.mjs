@@ -49,12 +49,13 @@ const fixtureCatalogs=JSON.parse(execFileSync('php',['tools/i18n/export.php'],{e
 const messageKeys=['Series','Season','Episode','Next episode','Playlist changed. Reload before saving.','Choose videos from this playlist.','Set both season and episode numbers, or leave both empty.','An episode number can only appear once in each season.','Unable to load videos.'];
 const referenceLocales=Object.keys(fixtureCatalogs).filter(code=>messageKeys.every(key=>typeof fixtureCatalogs[code][key]==='string'&&fixtureCatalogs[code][key].trim()));
 if(retainedLocales.some(code=>!referenceLocales.includes(code)))throw Error('A previously checked locale lost a series message');
-const targetedLocales=['cy','oci','as','my_mm','si_lk','fur','lo','gd'];
+const targetedLocales=['cy','oci','as','my_mm','si_lk','fur','lo','gd','szl'];
 const targetedKeys={
  cy:messageKeys,oci:messageKeys,si_lk:messageKeys,fur:messageKeys,lo:messageKeys,
  as:messageKeys,
  gd:['Series','Season','Episode','Next episode','Playlist changed. Reload before saving.','Choose videos from this playlist.','Set both season and episode numbers, or leave both empty.','An episode number can only appear once in each season.','Unable to load videos.'],
  my_mm:['Series','Episode','Next episode','Choose videos from this playlist.','Unable to load videos.'],
+ szl:['Season','Episode','Unable to load videos.'],
 };
 for(const code of targetedLocales)for(const key of targetedKeys[code])if(typeof fixtureCatalogs[code]?.[key]!=='string'||!fixtureCatalogs[code][key].trim())throw Error('Missing targeted-context key '+code+': '+key);
 const loadingOnlyLocales=['jv_id','ps','arg'];
@@ -256,14 +257,18 @@ try{
    }
    if(owner)for(const locale of targetedLocales){
     const strings=catalog(locale),keys=targetedKeys[locale];
+    // Partial taxonomy coverage does not approve the still-untranslated heading
+    // or next-episode message. Earlier targeted keys remain mandatory above.
+    const seriesText=strings.Series??fixtureCatalogs.en.Series;
+    const nextText=strings['Next episode']??fixtureCatalogs.en['Next episode'];
     await page.evaluate(code=>sessionStorage.setItem('series_reference_locale',code),locale);
     await page.goto(origin+'/playlists?id=1');
     const targeted=page.locator('.playlist-series-panel');await targeted.locator('summary').click();
     await expect(page.locator('html')).toHaveAttribute('lang',localeTags[locale]||locale.replace(/_/g,'-'));
     expect(await page.evaluate(()=>localStorage.getItem('playhub_language'))).toBe(locale);
     expect(catalogRequests).toContain(locale);checks+=3;
-    await expect(targeted.locator('summary')).toHaveText(strings.Series);
-    await expect(targeted.getByRole('checkbox',{name:strings.Series,exact:true})).toBeVisible();checks+=2;
+    await expect(targeted.locator('summary')).toHaveText(seriesText);
+    await expect(targeted.getByRole('checkbox',{name:seriesText,exact:true})).toBeVisible();checks+=2;
     for(const key of ['Season','Episode'])if(keys.includes(key)){
      await expect(targeted.getByRole('spinbutton',{name:strings[key],exact:true}).first()).toBeVisible();checks++;
     }
@@ -289,7 +294,7 @@ try{
      await expect(failure).toContainText(strings['Unable to load videos.']);
      await expect.poll(()=>page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);checks++;
      await page.screenshot({path:`tools/test/.artifacts/series-seasons/context-${locale}-${dark?'dark':'light'}-load-error.png`,fullPage:true});
-     failSeriesGet=false;await failure.getByRole('button').click();await expect(page.locator('.watch-sidebar')).toContainText(strings['Next episode']);
+     failSeriesGet=false;await failure.getByRole('button').click();await expect(page.locator('.watch-sidebar')).toContainText(nextText);
      localizedFailure=null;checks+=2;
     }
    }
