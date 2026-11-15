@@ -7,6 +7,9 @@ export const agentsAppend = '\n## Shared engineering organization\n\nRead `harne
 export const readmeAppend = '\n## Approved ChatDev tooling integration\n\nThe isolated `codex/chatdev-integration` branch uses `chatdev-verify` and\n`chatdev-checkpoint --message "..."` for the narrowly approved orchestration\ntooling only. See `tools/chatdev/README.md`. Existing feature gates, hooks,\nplan/progress and Impeccable maintenance remain unchanged. No feature step is\naccepted or advanced and no main-branch merge is authorized by this path.\n';
 const integrationImport = "import { verifyChatdev, publishChatdev } from './chatdev-maintenance.mjs';\nimport { verifySeries, publishSeries } from './series-maintenance.mjs';\n";
 const integrationCommands = "  else if (command === 'series-verify') verifySeries(root);\n  else if (command === 'series-checkpoint') publishSeries(root, option('--message'));\n  else if (command === 'chatdev-verify') verifyChatdev(root);\n  else if (command === 'chatdev-checkpoint') publishChatdev(root, option('--message'));\n";
+// Owner-approved receipt repair only; this is not general hook-edit permission.
+const receiptHook = 'tools/harness/codex-hook.mjs';
+const approvedReceiptHookBlob = '3a14f3764f1c0bb7fd35502c4b4cba368b54e197';
 export function integratedCli(base) {
   if (!base.includes("import { verifyMaintenance, publishMaintenance } from './maintenance.mjs';\n") || !base.includes("  else if (command === 'maintenance-verify')")) throw Error('Unexpected base CLI: inspect integration manually.');
   return base.replace("import { verifyMaintenance, publishMaintenance } from './maintenance.mjs';\n", "import { verifyMaintenance, publishMaintenance } from './maintenance.mjs';\n" + integrationImport)
@@ -27,7 +30,7 @@ export function chatdevScope(root) {
   if (fs.existsSync(merge)) throw Error('Finish or resolve the pending merge outside this tooling gate.');
   const allowed = file => /^(?:tools\/chatdev\/|harness\/chatdev\/)/.test(file)
     || /^tools\/test\/chatdev(?:-[a-z0-9-]+)?\.test\.mjs$/.test(file)
-    || ['docs/chatdev-integration.md','.cursor/rules/chatdev.mdc','.github/workflows/chatdev.yml','AGENTS.md','harness/README.md','tools/harness/chatdev-maintenance.mjs','tools/harness/series-maintenance.mjs','tools/harness/cli.mjs'].includes(file);
+    || ['docs/chatdev-integration.md','.cursor/rules/chatdev.mdc','.github/workflows/chatdev.yml','AGENTS.md','harness/README.md','tools/harness/chatdev-maintenance.mjs','tools/harness/series-maintenance.mjs','tools/harness/cli.mjs',receiptHook].includes(file);
   const changed = git(root, ['diff', '--name-only', '-z', base, '--']).split('\0').filter(Boolean);
   const untracked = git(root, ['ls-files', '--others', '--exclude-standard', '-z']).split('\0').filter(Boolean);
   const historical = [];
@@ -36,10 +39,23 @@ export function chatdevScope(root) {
   }
   const forbidden = [...changed, ...untracked, ...historical].filter(file => !allowed(file));
   if (forbidden.length) throw Error('Outside ChatDev tooling scope: ' + forbidden.join(', '));
+  const baselineHook = git(root, ['ls-tree', base, '--', receiptHook]);
+  const baselineMatch = /^(100644|100755) blob ([a-f0-9]{40})\t/.exec(baselineHook);
+  if (!baselineMatch) throw Error('Outside ChatDev tooling scope: receipt hook baseline must remain a regular tracked file.');
+  const [mode, baselineBlob] = baselineMatch.slice(1);
+  for (const commit of git(root, ['rev-list', base + '..HEAD']).split('\n').filter(Boolean)) {
+    const entry = git(root, ['ls-tree', commit, '--', receiptHook]);
+    if (![`${mode} blob ${baselineBlob}\t${receiptHook}`, `${mode} blob ${approvedReceiptHookBlob}\t${receiptHook}`].includes(entry)) throw Error('Outside ChatDev tooling scope: unapproved historical receipt hook blob or mode.');
+  }
   for (const file of [...changed, ...untracked]) {
     const absolute = path.join(root, file);
     if (!fs.existsSync(absolute) || !fs.lstatSync(absolute).isFile() || fs.lstatSync(absolute).isSymbolicLink()) throw Error('Tooling paths must remain regular files: ' + file);
   }
+  const hookPath = path.join(root, receiptHook);
+  if (!fs.existsSync(hookPath) || !fs.lstatSync(hookPath).isFile() || fs.lstatSync(hookPath).isSymbolicLink()) throw Error('Outside ChatDev tooling scope: receipt hook must remain a regular file.');
+  const currentHookBlob = git(root, ['hash-object', '--', receiptHook]);
+  const actualMode = fs.statSync(hookPath).mode & 0o111 ? '100755' : '100644';
+  if (![baselineBlob, approvedReceiptHookBlob].includes(currentHookBlob) || actualMode !== mode) throw Error('Outside ChatDev tooling scope: only the exact approved receipt hook repair is permitted.');
   const source = file => git(root, ['show', `${base}:${file}`]);
   // git() trims trailing newlines; normalize only that framing for exact integration comparison.
   const actual = file => fs.readFileSync(path.join(root, file), 'utf8').trimEnd();
@@ -69,7 +85,7 @@ export function verifyChatdev(root) {
   fs.rmSync(receipt, { force: true });
   const before = digest(root), index = indexDigest(root);
   const checks = [
-    ['node', '--test', 'tools/test/harness.test.mjs', 'tools/test/chatdev.test.mjs', 'tools/test/chatdev-maintenance.test.mjs', 'tools/test/chatdev-pr.test.mjs', 'tools/test/chatdev-manager.test.mjs', 'tools/test/chatdev-series.test.mjs'],
+    ['node', '--test', 'tools/test/harness.test.mjs', 'tools/test/chatdev.test.mjs', 'tools/test/chatdev-maintenance.test.mjs', 'tools/test/chatdev-hook-receipts.test.mjs', 'tools/test/chatdev-pr.test.mjs', 'tools/test/chatdev-manager.test.mjs', 'tools/test/chatdev-series.test.mjs'],
     ['node', 'tools/harness/static-check.mjs'],
   ];
   for (const argv of checks) {

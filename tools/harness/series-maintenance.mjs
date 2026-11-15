@@ -12,7 +12,10 @@ const approvedNextIntegrationHead='d8d4704848042b3f967f3b2be34cd4e12a0a1001';
 const approvedSecondIntegration='3a07a5aaa3978b677649ae00df5235eabd79b20f';
 const approvedSecondToolingParent='be06d13fcddbfc090c46ae201ddbb2ce1033ba6c';
 const approvedThirdIntegrationHead='65c04875241caede38045440446af44054059df6';
-const historyPolicy=Object.freeze({firstHead:approvedIntegrationHead,firstMerge:approvedFirstIntegration,firstParent:approvedFirstToolingParent,nextHead:approvedNextIntegrationHead,secondMerge:approvedSecondIntegration,secondParent:approvedSecondToolingParent,thirdHead:approvedThirdIntegrationHead});
+const approvedThirdIntegration='88e731395587dfba5fa8dbb336fc56fa7008eb2e';
+const approvedThirdToolingParent='ac406456662c78a154b445328e3539ab87468193';
+const approvedFourthIntegrationHead='dfa0dc1dc43c5774e711846bac7b558f5b530cc8';
+const historyPolicy=Object.freeze({firstHead:approvedIntegrationHead,firstMerge:approvedFirstIntegration,firstParent:approvedFirstToolingParent,nextHead:approvedNextIntegrationHead,secondMerge:approvedSecondIntegration,secondParent:approvedSecondToolingParent,thirdHead:approvedThirdIntegrationHead,thirdMerge:approvedThirdIntegration,thirdParent:approvedThirdToolingParent,fourthHead:approvedFourthIntegrationHead});
 const checkId='step-08-series', script='tools/test/step-08-series.sh';
 const regular=(root,file)=>{const p=path.join(root,file);if(!fs.existsSync(p))return false;const s=fs.lstatSync(p);return s.isFile()&&!s.isSymbolicLink();};
 const canonical=value=>JSON.stringify(value && typeof value==='object' ? Array.isArray(value)?value.map(v=>JSON.parse(canonical(v))):Object.fromEntries(Object.keys(value).sort().map(k=>[k,JSON.parse(canonical(value[k]))])) : value);
@@ -61,7 +64,7 @@ export function seriesHistory(root,base,policy=historyPolicy){
   const commits=git(root,['rev-list',base+'..HEAD']).split('\n').filter(Boolean);
   const merges=git(root,['rev-list','--merges',base+'..HEAD']).split('\n').filter(Boolean);
   if(!merges.length)return commits;
-  if(merges.length>3||!merges.includes(policy.firstMerge))throw Error('Merge commits are not allowed except the explicitly approved tooling integrations.');
+  if(merges.length>(policy.thirdMerge?4:3)||!merges.includes(policy.firstMerge))throw Error('Merge commits are not allowed except the explicitly approved tooling integrations.');
   const validateMerge=(merge,first,second)=>{
     const parents=git(root,['show','-s','--format=%P',merge]).split(' ');
     if(parents.length!==2||parents[0]!==first||parents[1]!==second)throw Error('Merge commits must integrate the published tooling parent into the exact approved feature head.');
@@ -93,10 +96,26 @@ export function seriesHistory(root,base,policy=historyPolicy){
     }catch{throw Error('Approved second merge and tooling parent must retain their exact ancestry.');}
     if(merges.length===2){
       if(base!==policy.secondParent)throw Error('The moved published tooling parent requires the exact approved third integration.');
-    }else{
+    }else if(!policy.thirdMerge){
       if(base===policy.secondParent)throw Error('The third tooling integration requires an advanced published parent.');
       const third=merges.find(commit=>commit!==policy.firstMerge&&commit!==policy.secondMerge);
       validateMerge(third,policy.thirdHead,base);
+    }else{
+      if(!merges.includes(policy.thirdMerge))throw Error('Merge commits must retain the exact approved third integration.');
+      validateMerge(policy.thirdMerge,policy.thirdHead,policy.thirdParent);
+      try{
+        git(root,['merge-base','--is-ancestor',policy.secondParent,policy.thirdParent]);
+        git(root,['merge-base','--is-ancestor',policy.thirdParent,base]);
+      }catch{throw Error('Approved third merge and tooling parent must retain their exact ancestry.');}
+      if(merges.length===3){
+        if(base!==policy.thirdParent)throw Error('The moved published tooling parent requires the exact approved fourth integration.');
+      }else{
+        if(!/^[a-f0-9]{40}$/.test(policy.fourthHead||''))throw Error('The fourth integration awaits the confirmed approved language checkpoint.');
+        try{git(root,['merge-base','--is-ancestor',policy.thirdMerge,policy.fourthHead]);}catch{throw Error('Approved third merge and fourth checkpoint must retain their exact ancestry.');}
+        if(base===policy.thirdParent)throw Error('The fourth tooling integration requires an advanced published parent.');
+        const fourth=merges.find(commit=>![policy.firstMerge,policy.secondMerge,policy.thirdMerge].includes(commit));
+        validateMerge(fourth,policy.fourthHead,base);
+      }
     }
   }
   // Exclude only validated canonical integrations. All old feature commits,
