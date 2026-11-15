@@ -280,6 +280,49 @@ test('public fourth policy pins the prior integration, parent and confirmed feat
   const source=fs.readFileSync(new URL('../harness/series-maintenance.mjs',import.meta.url),'utf8');
   for(const [name,value] of Object.entries({approvedThirdIntegration:'88e731395587dfba5fa8dbb336fc56fa7008eb2e',approvedThirdToolingParent:'ac406456662c78a154b445328e3539ab87468193',approvedFourthIntegrationHead:'dfa0dc1dc43c5774e711846bac7b558f5b530cc8'}))assert(source.includes(`const ${name}='${value}';`));
 });
+function fiveIntegrationFixture(fn){return fourIntegrationFixture(ctx=>{
+  const {root,write,stage,fourthBase,fourPolicy,fourthMerge}=ctx,fourth=fourthMerge();
+  const fifthHead=fourth;git(root,'push','origin','HEAD:refs/heads/codex/series-seasons');
+  git(root,'checkout','codex/chatdev-integration');write('tools/chatdev/fifth-parent.mjs','// Exact index guard follow-up\n');stage();git(root,'commit','-qm','Fifth published tooling parent');git(root,'push','origin','codex/chatdev-integration');
+  const fifthBase=git(root,'rev-parse','HEAD');git(root,'checkout','codex/series-seasons');
+  const fivePolicy={...fourPolicy,fourthMerge:fourth,fourthParent:fourthBase,fifthHead};
+  const fifthMerge=(parents=[fifthHead,fifthBase],tree=null)=>{
+    tree ||= git(root,'merge-tree','--write-tree',parents[0],parents[1]).split('\n')[0];
+    const merge=git(root,'commit-tree',tree,...parents.flatMap(p=>['-p',p]),'-m','Fifth canonical integration');git(root,'reset','--hard',merge);return merge;
+  };
+  return fn({...ctx,fourth,fifthHead,fifthBase,fivePolicy,fifthMerge});
+});}
+test('fifth canonical integration retains four exact old merges and all feature history',()=>fiveIntegrationFixture(({root,feature,nextHead,thirdHead,fourthHead,fifthBase,fivePolicy,fifthMerge})=>{
+  fifthMerge();assert.deepEqual(seriesHistory(root,fifthBase,fivePolicy),[fourthHead,thirdHead,nextHead,feature]);
+  assert.equal(fixtureIntegrationScope(root,feature,fivePolicy).base,fifthBase);
+}));
+test('fifth integration rejects wrong feature head, reversed parents, stale parent and octopus',()=>{
+  for(const kind of ['head','reverse','stale','octopus'])fiveIntegrationFixture(({root,fourthHead,fourthBase,fifthHead,fifthBase,fivePolicy,fifthMerge})=>{
+    const parents=kind==='head'?[fourthHead,fifthBase]:kind==='reverse'?[fifthBase,fifthHead]:kind==='stale'?[fifthHead,fourthBase]:[fifthHead,fifthBase,fourthHead];
+    fifthMerge(parents,git(root,'write-tree'));assert.throws(()=>seriesHistory(root,fifthBase,fivePolicy),/exact approved feature head|explicitly approved|exact approved fourth/);
+  });
+});
+test('fifth integration rejects injected tree and manual conflict resolution',()=>{
+  fiveIntegrationFixture(({root,write,stage,fifthBase,fivePolicy,fifthMerge})=>{write('app/Foreign.php','<?php // injected\n');stage();fifthMerge(undefined,git(root,'write-tree'));assert.throws(()=>seriesHistory(root,fifthBase,fivePolicy),/canonical merge tree/);});
+  fiveIntegrationFixture(({root,write,stage,fifthHead,fivePolicy,fifthMerge})=>{
+    git(root,'checkout','codex/chatdev-integration');write('resources/js/main.jsx','// Conflicting fifth parent\n');stage();git(root,'commit','-qm','Conflict');git(root,'push','origin','codex/chatdev-integration');const base=git(root,'rev-parse','HEAD');git(root,'checkout','codex/series-seasons');
+    fifthMerge([fifthHead,base],git(root,'write-tree'));assert.throws(()=>seriesHistory(root,base,fivePolicy),/conflict-free/);
+  });
+});
+test('fifth integration rejects missing historical identities, unrelated checkpoint, unchanged parent and sixth merge',()=>{
+  for(const field of ['firstMerge','secondMerge','thirdMerge','fourthMerge'])fiveIntegrationFixture(({root,fifthHead,fifthBase,fivePolicy,fifthMerge})=>{fifthMerge();assert.throws(()=>seriesHistory(root,fifthBase,{...fivePolicy,[field]:fifthHead===fivePolicy[field]?fivePolicy.firstHead:fifthHead}),/explicitly approved|exact approved/);});
+  fiveIntegrationFixture(({root,feature,fifthBase,fivePolicy,fifthMerge})=>{fifthMerge();assert.throws(()=>seriesHistory(root,fifthBase,{...fivePolicy,fifthHead:feature}),/fourth merge.*ancestry/);});
+  fiveIntegrationFixture(({root,fourthBase,fifthHead,fivePolicy,fifthMerge})=>{fifthMerge([fifthHead,fourthBase],git(root,'write-tree'));assert.throws(()=>seriesHistory(root,fourthBase,fivePolicy),/advanced published parent/);});
+  fiveIntegrationFixture(({root,fifthBase,fivePolicy,fifthMerge})=>{const fifth=fifthMerge(),tree=git(root,'write-tree'),side=git(root,'commit-tree',tree,'-p',fifth,'-m','Unapproved side'),sixth=git(root,'commit-tree',tree,'-p',fifth,'-p',side,'-m','Forbidden sixth');git(root,'reset','--hard',sixth);assert.throws(()=>seriesHistory(root,fifthBase,fivePolicy),/explicitly approved/);});
+});
+test('restored foreign commits before fifth integration still fail the full historical path audit',()=>fiveIntegrationFixture(({root,feature,write,stage,fifthBase,fivePolicy,fifthMerge})=>{
+  write('app/Foreign.php','<?php // forbidden intermediate\n');stage();git(root,'commit','-qm','Foreign before fifth');const foreign=git(root,'rev-parse','HEAD');git(root,'revert','--no-edit','HEAD');const fifthHead=git(root,'rev-parse','HEAD'),policy={...fivePolicy,fifthHead};fifthMerge([fifthHead,fifthBase]);
+  assert(seriesHistory(root,fifthBase,policy).includes(foreign));assert.throws(()=>fixtureIntegrationScope(root,feature,policy),error=>error.stderr?.toString().includes('Outside approved series scope: app/Foreign.php'));
+}));
+test('public fifth policy pins consumed fourth merge, exact parent and unchanged feature head',()=>{
+  const source=fs.readFileSync(new URL('../harness/series-maintenance.mjs',import.meta.url),'utf8');
+  for(const [name,value] of Object.entries({approvedFourthIntegration:'27de4ee67f71dd1cf5d15d1fc0f5b976cab18d7c',approvedFourthToolingParent:'2a8273f6054627a4e50e9a89de8a927c9402b8c1',approvedFifthIntegrationHead:'27de4ee67f71dd1cf5d15d1fc0f5b976cab18d7c'}))assert(source.includes(`const ${name}='${value}';`));
+});
 test('exact existing Russian catalog is allowed without permitting duplicates, foreign files or renames',()=>{
   fixture(({root,write})=>{write('lang/ru/russian.php',"<?php return ['Series'=>'Сериал'];\n");assert.equal(seriesScope(root).branch,'codex/series-seasons');});
   for(const file of ['lang/ru/ru.php','lang/ru/foreign.php','lang/new/russian.php'])fixture(({root,write})=>{write(file,'<?php // unapproved\n');assert.throws(()=>seriesScope(root),/Outside approved series/);});

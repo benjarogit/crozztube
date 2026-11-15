@@ -8,7 +8,7 @@ import { chatdevScope, integratedCli, agentsAppend, readmeAppend, publishChatdev
 import { setMode } from '../harness/workflow.mjs';
 const git = (root,...args) => execFileSync('git',args,{cwd:root,encoding:'utf8',stdio:['ignore','pipe','pipe']}).trim();
 const baseCli = "import { verifyMaintenance, publishMaintenance } from './maintenance.mjs';\n  else if (command === 'maintenance-verify') verifyMaintenance(root);\n";
-function fixture(fn) {
+function fixture(fn, hookMode=0o644) {
   const root=fs.mkdtempSync(path.join(os.tmpdir(),'chatdev-gate-test-'));
   const write=(file,body)=>{fs.mkdirSync(path.dirname(path.join(root,file)),{recursive:true});fs.writeFileSync(path.join(root,file),body);};
   try {
@@ -17,6 +17,7 @@ function fixture(fn) {
     write('harness/plan.json',JSON.stringify({schemaVersion:1,branch:'main',remote:'origin',steps:[{id:1}]}));
     write('harness/progress.json',JSON.stringify({schemaVersion:1,activeStep:1,steps:[{id:1,status:'active'}]}));
     for(const file of ['.cursor/hooks.json','.codex/hooks.json','tools/harness/workflow.mjs','tools/harness/maintenance.mjs','tools/harness/codex-hook.mjs'])write(file,'original\n');
+    fs.chmodSync(path.join(root,'tools/harness/codex-hook.mjs'),hookMode);
     git(root,'add','.');git(root,'commit','-m','Synthetic baseline');git(root,'update-ref','refs/remotes/origin/main','HEAD');git(root,'checkout','-b','codex/chatdev-integration');
     fn({root,write});
   } finally {fs.rmSync(root,{recursive:true,force:true});}
@@ -41,6 +42,7 @@ test('existing hooks, workflow and Impeccable gate remain immutable',()=>{
 test('only the exact reviewed receipt hook blob is permitted without changing mode',()=>fixture(({root,write})=>{
   const source=fs.readFileSync(new URL('../harness/codex-hook.mjs',import.meta.url));
   write('tools/harness/codex-hook.mjs',source);
+  git(root,'add','tools/harness/codex-hook.mjs');
   assert.equal(chatdevScope(root).branch,'codex/chatdev-integration');
   fs.chmodSync(path.join(root,'tools/harness/codex-hook.mjs'),0o755);
   assert.throws(()=>chatdevScope(root),/Outside ChatDev/);
@@ -60,6 +62,27 @@ test('receipt regression is mandatory in both tooling verification and hosted CI
   for(const file of ['../harness/chatdev-maintenance.mjs','../../.github/workflows/chatdev.yml']){
     assert(fs.readFileSync(new URL(file,import.meta.url),'utf8').includes('tools/test/chatdev-hook-receipts.test.mjs'));
   }
+});
+test('hidden staged hook mode is rejected when core.filemode is false',()=>fixture(({root,write})=>{
+  write('tools/harness/codex-hook.mjs',fs.readFileSync(new URL('../harness/codex-hook.mjs',import.meta.url)));
+  git(root,'add','tools/harness/codex-hook.mjs');
+  assert.equal(chatdevScope(root).branch,'codex/chatdev-integration');
+  git(root,'config','core.filemode','false');git(root,'update-index','--chmod=-x','tools/harness/codex-hook.mjs');
+  assert.equal(git(root,'diff','--name-only'),'');
+  assert.equal(fs.statSync(path.join(root,'tools/harness/codex-hook.mjs')).mode&0o111,0o111);
+  assert.throws(()=>chatdevScope(root),/index must exactly match/);
+},0o755));
+test('hidden staged hook blobs cannot bypass the reviewed working tree binding',()=>{
+  for(const flag of ['--skip-worktree','--assume-unchanged'])fixture(({root,write})=>{
+    write('tools/harness/codex-hook.mjs',fs.readFileSync(new URL('../harness/codex-hook.mjs',import.meta.url)));
+    git(root,'add','tools/harness/codex-hook.mjs');
+    write('tools/chatdev/unapproved-index-hook.mjs','// forbidden staged hook fixture\n');
+    const blob=git(root,'hash-object','-w','--','tools/chatdev/unapproved-index-hook.mjs');fs.unlinkSync(path.join(root,'tools/chatdev/unapproved-index-hook.mjs'));
+    git(root,'update-index','--cacheinfo',`100755,${blob},tools/harness/codex-hook.mjs`);
+    git(root,'update-index',flag,'tools/harness/codex-hook.mjs');
+    assert.equal(git(root,'diff','--name-only'),'');
+    assert.throws(()=>chatdevScope(root),/index must exactly match/);
+  },0o755);
 });
 test('plan and progress changes cannot pass, including valid unchanged-meaning JSON',()=>{
   for(const file of ['harness/plan.json','harness/progress.json'])fixture(({root})=>{
