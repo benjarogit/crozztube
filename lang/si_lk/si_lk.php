@@ -4450,4 +4450,13 @@ return array (
   'Language not found.' => 'Language not found.',
   'Language directory not found.' => 'Language directory not found.',
   'The selected language directory is read-only. Update its server permissions before editing.' => 'The selected language directory is read-only. Update its server permissions before editing.',
+  'Series' => 'කතාමාලාව',
+  'Season' => 'වාරය',
+  'Episode' => 'කථාංගය',
+  'Next episode' => 'ඊළඟ කථාංගය',
+  'Playlist changed. Reload before saving.' => 'ධාවන ලැයිස්තුව වෙනස් වෙලා. සුරකින්න කලින් නැවත පූරණය කරන්න.',
+  'Choose videos from this playlist.' => 'මේ ධාවන ලැයිස්තුවෙන් වීඩියෝ තෝරන්න.',
+  'Set both season and episode numbers, or leave both empty.' => 'වාර අංකය සහ කථාංග අංකය දෙකම ඇතුළත් කරන්න, නැත්නම් දෙකම හිස්ව තබන්න.',
+  'An episode number can only appear once in each season.' => 'එකම වාරයේ කථාංග දෙකකට එකම අංකය තියෙන්න බැහැ.',
+  'Unable to load videos.' => 'වීඩියෝ පූරණය කරන්න බැරි වුණා. නැවත උත්සාහ කරන්න.',
 );

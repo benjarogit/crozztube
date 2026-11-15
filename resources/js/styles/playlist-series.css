@@ -1,0 +1,27 @@
+.playlist-series-panel{min-width:0;padding:18px;border:1px solid var(--line);border-radius:var(--radius);background:var(--panel)}
+.playlist-series-panel summary{min-height:44px;align-content:center;font-size:16px;font-weight:750;cursor:pointer}
+.playlist-series-panel summary:focus-visible,.playlist-series-panel input:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.playlist-series-panel form{display:grid;gap:16px;padding-top:12px}
+.playlist-series-toggle{display:flex;align-items:center;gap:10px;min-height:44px}
+.playlist-series-toggle input{width:20px;height:20px;accent-color:var(--link)}
+.playlist-series-rows{display:grid;gap:18px}
+.playlist-series-rows fieldset{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,3fr);gap:12px;min-width:0;margin:0;padding:12px 0 0;border:0;border-top:1px solid var(--line)}
+.playlist-series-rows legend{max-width:100%;padding-inline-end:8px;overflow-wrap:anywhere;font-weight:650}
+.playlist-series-rows label{display:grid;gap:6px;min-width:0;color:var(--muted);font-size:13px}
+.playlist-series-rows input{width:100%;min-width:0;min-height:44px;padding:8px 10px;border:1px solid var(--input-border);border-radius:8px;background:var(--input-bg);color:var(--text)}
+.playlist-series-actions{display:flex;flex-wrap:wrap;gap:10px}
+.playlist-series-episode-list{padding-inline-start:22px;display:grid;gap:10px}
+.playlist-series-episode-list li{overflow-wrap:anywhere}.playlist-series-episode-list li>span:first-child{margin-inline-end:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+@media(max-width:680px){.playlist-series-rows fieldset{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.playlist-series-title{grid-column:1/-1}.playlist-series-panel{padding:14px}}
+/* Keep the existing collaboration rail inside the series page's grid track. */
+.playlist-page:has(.playlist-series-panel) .playlist-detail-grid>*,.playlist-page:has(.playlist-series-panel) .playlist-side-stack{min-width:0}
+.playlist-page:has(.playlist-series-panel) .playlist-invite-form{grid-template-columns:minmax(0,1fr) auto}
+.playlist-page:has(.playlist-series-panel) .playlist-invite-form input{grid-column:1/-1;min-width:0;width:100%}
+.playlist-page:has(.playlist-series-panel) .playlist-invite-form select{min-width:0;width:100%}
+.watch-series-episode-link{display:flex;align-items:center;gap:12px;min-height:64px;padding:12px;border-radius:8px;color:var(--text);text-decoration:none}
+.watch-series-episode-link>svg{flex:none;color:var(--link)}
+.watch-series-episode-link>span{display:grid;gap:6px;min-width:0}
+.watch-series-episode-link strong{overflow-wrap:anywhere;font-size:14px}
+.watch-series-episode-link small{color:var(--muted);font-variant-numeric:tabular-nums}
+.watch-series-episode-link:hover{background:var(--control-hover-bg)}
+.watch-series-episode-link:focus-visible{outline:2px solid var(--focus);outline-offset:2px}

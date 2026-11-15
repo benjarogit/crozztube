@@ -4607,4 +4607,13 @@ Open stream: {STREAM_URL}' => 'Kaixo, {USERNAME}!
 Ireki emanaldia: {STREAM_URL}',
   'Notification' => 'Jakinarazpena',
   'This email was sent by {site}.' => 'Mezu elektroniko hau {site} webguneak bidali du.',
+  'Series' => 'Saila',
+  'Season' => 'Denboraldia',
+  'Episode' => 'Atala',
+  'Next episode' => 'Hurrengo atala',
+  'Playlist changed. Reload before saving.' => 'Erreprodukzio-zerrenda aldatu da. Kargatu berriro gorde aurretik.',
+  'Choose videos from this playlist.' => 'Aukeratu bideoak erreprodukzio-zerrenda honetatik.',
+  'Set both season and episode numbers, or leave both empty.' => 'Idatzi bai denboraldiaren zenbakia, bai atalaren zenbakia, edo utzi bi eremuak hutsik.',
+  'An episode number can only appear once in each season.' => 'Denboraldi bakoitzean, atal-zenbaki bera behin bakarrik erabil daiteke.',
+  'Unable to load videos.' => 'Ezin izan dira bideoak kargatu. Saiatu berriro.',
 );

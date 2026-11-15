@@ -4596,4 +4596,13 @@ Open stream: {STREAM_URL}' => 'سلام {USERNAME}،
   'Unable to read this chapter file.' => 'این فایل فصل‌ها خوانده نشد.',
   'Custom chapter list' => 'فهرست فصل‌های دلخواه',
   'Draft segments from video duration' => 'پیش‌نویس فصل‌ها بر اساس مدت ویدیو',
+  'Series' => 'سریال',
+  'Season' => 'فصل',
+  'Episode' => 'قسمت',
+  'Next episode' => 'قسمت بعدی',
+  'Playlist changed. Reload before saving.' => 'لیست پخش تغییر کرده. پیش از ذخیره، دوباره آن را بارگذاری کن.',
+  'Choose videos from this playlist.' => 'ویدیوها را از این لیست پخش انتخاب کن.',
+  'Set both season and episode numbers, or leave both empty.' => 'شمارهٔ فصل و قسمت را با هم وارد کن، یا هر دو را خالی بگذار.',
+  'An episode number can only appear once in each season.' => 'هر شمارهٔ قسمت فقط یک بار در هر فصل قابل استفاده است.',
+  'Unable to load videos.' => 'ویدیوها بارگذاری نشدند. دوباره تلاش کن.',
 );

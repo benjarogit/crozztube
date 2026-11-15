@@ -4631,4 +4631,13 @@ Do bist oanwiisd as moderator foar de livestream “{STREAM_TITLE}”. Iepenje d
 Iepenje de stream: {STREAM_URL}',
   'Notification' => 'Melding',
   'This email was sent by {site}.' => 'Dizze e-mail is ferstjoerd troch {site}.',
+  'Series' => 'Searje',
+  'Season' => 'Seizoen',
+  'Episode' => 'Ôflevering',
+  'Next episode' => 'Folgjende ôflevering',
+  'Playlist changed. Reload before saving.' => 'De playlist is feroare. Laad de playlist opnij foardatst bewarrest.',
+  'Choose videos from this playlist.' => 'Kies fideo’s út dizze playlist.',
+  'Set both season and episode numbers, or leave both empty.' => 'Folje sawol it seizoennûmer as it ôfleveringsnûmer yn, of lit beide fjilden leech.',
+  'An episode number can only appear once in each season.' => 'In ôfleveringsnûmer mei mar ien kear yn elk seizoen foarkomme.',
+  'Unable to load videos.' => 'De fideo’s koene net laden wurde. Besykje it opnij.',
 );

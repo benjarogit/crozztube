@@ -16,6 +16,7 @@ class PlaylistSummaryResource extends JsonResource
             'id' => (int) $this->id,
             'title' => (string) $this->title,
             'description' => (string) ($this->description ?? ''),
+            'is_series' => (bool) $this->is_series,
             'privacy' => (string) $this->privacy,
             'color' => (string) $this->color,
             'videos_count' => (int) ($this->videos_count ?? 0),

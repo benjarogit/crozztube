@@ -4631,4 +4631,13 @@ Open stream: {STREAM_URL}' => 'مرحبًا {USERNAME}،
   'Unable to read this chapter file.' => 'تعذّرت قراءة ملف الفصول هذا.',
   'Custom chapter list' => 'قائمة فصول مخصّصة',
   'Draft segments from video duration' => 'مسودة فصول حسب مدة الفيديو',
+  'Series' => 'مسلسل',
+  'Season' => 'موسم',
+  'Episode' => 'حلقة',
+  'Next episode' => 'الحلقة التالية',
+  'Playlist changed. Reload before saving.' => 'تغيّرت قائمة التشغيل. أعد تحميلها قبل الحفظ.',
+  'Choose videos from this playlist.' => 'اختر فيديوهات من قائمة التشغيل هذه.',
+  'Set both season and episode numbers, or leave both empty.' => 'أدخل رقم الموسم ورقم الحلقة معًا، أو اترك الحقلين فارغين.',
+  'An episode number can only appear once in each season.' => 'لا يمكن تكرار رقم الحلقة في الموسم نفسه.',
+  'Unable to load videos.' => 'تعذّر تحميل الفيديوهات. حاول مجددًا.',
 );

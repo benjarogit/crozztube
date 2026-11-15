@@ -4671,4 +4671,13 @@ Rwyt ti’n gymedrolwr ar gyfer y ffrwd fyw “{STREAM_TITLE}”. Agora’r ffrw
 Agor y ffrwd: {STREAM_URL}',
   'Notification' => 'Hysbysiad',
   'This email was sent by {site}.' => 'Anfonwyd yr e-bost hwn gan {site}.',
+  'Series' => 'Cyfres',
+  'Episode' => 'Pennod',
+  'Next episode' => 'Y bennod nesaf',
+  'Playlist changed. Reload before saving.' => 'Mae’r rhestr chwarae wedi newid. Llwytha hi eto cyn cadw.',
+  'Choose videos from this playlist.' => 'Dewisa fideos o’r rhestr chwarae hon.',
+  'Unable to load videos.' => 'Doedd dim modd llwytho’r fideos. Ceisia eto.',
+  'Season' => 'Cyfres',
+  'Set both season and episode numbers, or leave both empty.' => 'Rho rif y gyfres a rhif y bennod, neu gad y ddau faes yn wag.',
+  'An episode number can only appear once in each season.' => 'Paid â defnyddio’r un rhif pennod fwy nag unwaith yn yr un gyfres.',
 );

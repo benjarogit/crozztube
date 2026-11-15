@@ -4604,4 +4604,13 @@ Je bent aangewezen als moderator voor de livestream “{STREAM_TITLE}”. Open d
 Stream openen: {STREAM_URL}',
   'Password strength must be at least {level}/10.' => 'Je wachtwoord moet minstens {level}/10 scoren.',
   'Code expires in {time}' => 'Je code verloopt over {time}',
+  'Series' => 'Serie',
+  'Season' => 'Seizoen',
+  'Episode' => 'Aflevering',
+  'Next episode' => 'Volgende aflevering',
+  'Playlist changed. Reload before saving.' => 'De playlist is gewijzigd. Laad de playlist opnieuw voordat je opslaat.',
+  'Choose videos from this playlist.' => 'Kies video’s uit deze playlist.',
+  'Set both season and episode numbers, or leave both empty.' => 'Vul zowel het seizoennummer als het afleveringsnummer in, of laat beide velden leeg.',
+  'An episode number can only appear once in each season.' => 'Een afleveringsnummer mag maar één keer per seizoen voorkomen.',
+  'Unable to load videos.' => 'We konden de video’s niet laden. Probeer het opnieuw.',
 );

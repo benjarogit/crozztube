@@ -4589,4 +4589,13 @@ Sulle on antud otseülekande „{STREAM_TITLE}“ moderaatori roll. Ava ülekann
 Ava ülekanne: {STREAM_URL}',
   'Notification' => 'Teavitus',
   'This email was sent by {site}.' => 'Selle e-kirja saatis {site}.',
+  'Series' => 'Sari',
+  'Season' => 'Hooaeg',
+  'Episode' => 'Osa',
+  'Next episode' => 'Järgmine osa',
+  'Playlist changed. Reload before saving.' => 'Esitusloend on muutunud. Laadi see enne salvestamist uuesti.',
+  'Choose videos from this playlist.' => 'Vali videod sellest esitusloendist.',
+  'Set both season and episode numbers, or leave both empty.' => 'Sisesta nii hooaja number kui ka osa number või jäta mõlemad väljad tühjaks.',
+  'An episode number can only appear once in each season.' => 'Iga hooaja sees saab sama osa numbrit kasutada ainult ühe korra.',
+  'Unable to load videos.' => 'Videoid ei saanud laadida. Proovi uuesti.',
 );

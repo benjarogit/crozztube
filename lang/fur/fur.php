@@ -4452,4 +4452,13 @@ return array (
   'The selected language directory is read-only. Update its server permissions before editing.' => 'The selected language directory is read-only. Update its server permissions before editing.',
   'Fullscreen' => 'Plen visôr',
   'Exit fullscreen' => 'Jes de modalitât a plen visôr',
+  'Series' => 'Serie',
+  'Season' => 'Stagjon',
+  'Episode' => 'Episodi',
+  'Next episode' => 'Episodi sucessîf',
+  'Playlist changed. Reload before saving.' => 'La liste di riproduzion e je cambiade. Torne a cjamâ la liste prime di salvâ.',
+  'Choose videos from this playlist.' => 'Sielç i videos di cheste liste di riproduzion.',
+  'Set both season and episode numbers, or leave both empty.' => 'Inserìs il numar de stagjon e il numar dal episodi, o lasse ducj i doi i cjamps vueits.',
+  'An episode number can only appear once in each season.' => 'No sta doprâ il stes numar par doi episodis de stesse stagjon.',
+  'Unable to load videos.' => 'Impussibil cjamâ i videos. Prove di gnûf.',
 );

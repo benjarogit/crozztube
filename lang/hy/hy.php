@@ -4451,4 +4451,13 @@ return array (
   'Language directory not found.' => 'Language directory not found.',
   'The selected language directory is read-only. Update its server permissions before editing.' => 'The selected language directory is read-only. Update its server permissions before editing.',
   'Find out how we handle your data in our privacy policy.' => 'Թե ինչպես ենք մշակում քո տվյալները, կարող ես կարդալ մեր գաղտնիության քաղաքականությունում։',
+  'Series' => 'Սերիալ',
+  'Season' => 'Սեզոն',
+  'Episode' => 'Սերիա',
+  'Next episode' => 'Հաջորդ սերիան',
+  'Playlist changed. Reload before saving.' => 'Երգացանկը փոփոխվել է։ Պահելուց առաջ նորից բեռնիր այն։',
+  'Choose videos from this playlist.' => 'Ընտրիր տեսանյութեր այս երգացանկից։',
+  'Set both season and episode numbers, or leave both empty.' => 'Մուտքագրիր և՛ սեզոնի, և՛ սերիայի համարները կամ երկու դաշտն էլ դատարկ թող։',
+  'An episode number can only appear once in each season.' => 'Յուրաքանչյուր սեզոնում սերիայի համարը կարող է հանդիպել միայն մեկ անգամ։',
+  'Unable to load videos.' => 'Չհաջողվեց բեռնել տեսանյութերը։ Նորից փորձիր։',
 );

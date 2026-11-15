@@ -4451,4 +4451,13 @@ return array (
   'Language directory not found.' => 'Language directory not found.',
   'The selected language directory is read-only. Update its server permissions before editing.' => 'The selected language directory is read-only. Update its server permissions before editing.',
   'Log out' => 'Аккаунттан чыгуу',
+  'Series' => 'Сериал',
+  'Season' => 'Сезон',
+  'Episode' => 'Бөлүм',
+  'Next episode' => 'Кийинки бөлүм',
+  'Playlist changed. Reload before saving.' => 'Ойнотмо тизме өзгөрдү. Сактоодон мурун аны кайра жүктө.',
+  'Choose videos from this playlist.' => 'Ушул ойнотмо тизмеден видеолорду танда.',
+  'Set both season and episode numbers, or leave both empty.' => 'Сезондун номерин да, бөлүмдүн номерин да киргиз же эки талааны тең бош калтыр.',
+  'An episode number can only appear once in each season.' => 'Ар бир сезондо бөлүмдүн номери бир гана жолу колдонулушу мүмкүн.',
+  'Unable to load videos.' => 'Видеолорду жүктөө мүмкүн болгон жок. Кайра аракет кыл.',
 );

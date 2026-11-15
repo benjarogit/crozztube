@@ -37,6 +37,8 @@ import ImportMetadataSummary from './components/ImportMetadataSummary.jsx';
 import LocalizedCount from './components/LocalizedCount.jsx';
 import { continueWatchingState } from './viewerCards.js';
 import { websiteAccent } from './viewerAppearance.js';
+import PlaylistSeries from './components/PlaylistSeries.jsx';
+import { contextualQueue, nextPlaybackTarget, freshSeriesTarget } from './series-context.js';
 import { watchMenuPosition } from './watchMenuPosition.js';
 import './styles/watch-layout.css';
 import './styles/settings-page.css';
@@ -557,6 +559,9 @@ const videoQueueSnapshot = (video) => ({
   channel: video.channel,
   theme: video.theme,
   source_type: video.source_type,
+  playlist_id: video.playlist_id,
+  queue_origin: video.queue_origin,
+  playlist_order: video.playlist_order,
   is_short: isShortVideo(video),
 });
 
@@ -598,6 +603,7 @@ const normalizePersistentPlaybackSession = (value) => {
   return {
     version: 1,
     account_id: value.account_id ? Number(value.account_id) : null,
+    series_context: value.series_context?.playlist_id ? { playlist_id: String(value.series_context.playlist_id), shuffled: Boolean(value.series_context.shuffled), is_series: value.series_context.is_series ?? null } : null,
     video: persistentVideoSnapshot(value.video),
     queue: compactItems(value.queue).filter((item) => item.slug !== value.video.slug),
     history: compactItems(value.history).filter((item) => item.slug !== value.video.slug),
@@ -5841,20 +5847,26 @@ function PersistentVideoPlayer({ path, navigate, auth, defaultVideoQuality = 'au
     snapshotPlayer(false);
   };
 
-  const activateVideo = async (item, queue, history) => {
+  const activateVideo = async (item, queue, history, seriesContext = null, guard = () => true) => {
     if (!item?.slug) return false;
     setMoving(true);
     setError('');
     try {
       const data = await api.request(`/videos/${encodeURIComponent(item.slug)}`, { trackPageLoading: false });
+      if (!guard()) return false;
       const nextVideo = prepareUploaded(data.video);
+      const targetParams = new URLSearchParams();
+      if (seriesContext?.playlist_id) targetParams.set('list', seriesContext.playlist_id);
+      if (seriesContext?.shuffled) targetParams.set('list_order', 'shuffle');
+      const targetSuffix = targetParams.size ? '?' + targetParams : '';
+      const targetPath = seriesContext?.is_series === true ? `/watch/${encodeURIComponent(nextVideo.slug)}${targetSuffix}` : videoPlaybackPath(nextVideo, targetSuffix);
       if (isShortVideo(nextVideo)) {
         clearPersistentPlaybackSession();
-        navigate(videoPlaybackPath(nextVideo));
+        navigate(targetPath);
         return true;
       }
       if (!videoSourcesFor(nextVideo).length) {
-        navigate(videoPlaybackPath(nextVideo));
+        navigate(targetPath);
         return true;
       }
       const nextSession = writePersistentPlaybackSession({
@@ -5862,6 +5874,7 @@ function PersistentVideoPlayer({ path, navigate, auth, defaultVideoQuality = 'au
         video: persistentVideoSnapshot(nextVideo),
         queue,
         history,
+        series_context: seriesContext,
         current_time: 0,
         duration: Number(nextVideo.duration_seconds || 0),
         playing: true,
@@ -5881,9 +5894,44 @@ function PersistentVideoPlayer({ path, navigate, auth, defaultVideoQuality = 'au
     }
   };
 
-  const playNext = async () => {
+  const playNext = async (automatic = false) => {
     if (moving || !sessionRef.current?.video?.slug) return;
+    const current = sessionRef.current;
+    const sourceSlug = current.video.slug;
+    const playbackAttempt = playAttemptRef.current;
+    const queueSnapshot = JSON.stringify(readPlaybackQueue());
+    const guard = () => sessionRef.current?.video?.slug === sourceSlug && queueSnapshot === JSON.stringify(readPlaybackQueue()) && playbackAttempt === playAttemptRef.current && !window.location.pathname.startsWith('/watch/') && (automatic !== true || readAutoplayPreference(auth.user));
+    let isSeries = current.series_context?.is_series;
+    if (current.series_context?.playlist_id && isSeries == null) {
+      setMoving(true);
+      try {
+        const metadata = await api.request('/playlists/' + encodeURIComponent(current.series_context.playlist_id) + '/series');
+        if (!guard()) return;
+        isSeries = Boolean(metadata.is_series);
+      } catch (requestError) { if (guard()) { pause(); setError(requestError.message || 'Unable to load the next video.'); } return; }
+      finally { setMoving(false); }
+    }
+    if (current.series_context?.playlist_id && isSeries) {
+      setMoving(true);
+      try {
+        const pending = contextualQueue(JSON.parse(queueSnapshot), sourceSlug, current.series_context.playlist_id, true);
+        const target = await freshSeriesTarget(api, { playlistId: current.series_context.playlist_id, currentSlug: sourceSlug, videoId: current.video.id, queue: pending, shuffled: current.series_context.shuffled });
+        if (!guard()) return;
+        if (!target) { pause(); return; }
+        const queue = target.fromQueue ? pending.filter(item => item.slug !== target.video.slug) : pending;
+        const history = [...(current.history || []), { ...persistentVideoSnapshot(video || current.video), playlist_id: current.series_context.playlist_id, playlist_order: current.series_context.shuffled ? 'shuffle' : undefined }].slice(-25);
+        const seriesOrder = !target.fromQueue || target.order === 'shuffle' && String(target.list) === String(current.series_context.playlist_id);
+        const changed = await activateVideo(target.video, queue, history, target.list ? { playlist_id: target.list, shuffled: target.order === 'shuffle', is_series: seriesOrder ? true : null } : null, guard);
+        if (changed && target.fromQueue) writePlaybackQueue(readPlaybackQueue().filter(item => item.slug !== target.video.slug));
+      } catch (requestError) { if (guard()) { pause(); setError(requestError.message || 'Unable to load the next video.'); } }
+      finally { setMoving(false); }
+      return;
+    }
     let queue = [...(sessionRef.current.queue || [])];
+    if (current.series_context?.playlist_id) {
+      queue = contextualQueue(JSON.parse(queueSnapshot), sourceSlug, current.series_context.playlist_id);
+      if (!queue.length) { pause(); return; }
+    }
     if (!queue.length) {
       setMoving(true);
       try {
@@ -5903,7 +5951,9 @@ function PersistentVideoPlayer({ path, navigate, auth, defaultVideoQuality = 'au
       return;
     }
     const history = [...(sessionRef.current.history || []), persistentVideoSnapshot(video || sessionRef.current.video)].slice(-25);
-    await activateVideo(next, queue, history);
+    const context = current.series_context?.playlist_id ? { playlist_id: next.playlist_id || current.series_context.playlist_id, shuffled: false, is_series: false } : null;
+    const changed = await activateVideo(next, queue, history, context, guard);
+    if (changed && context) writePlaybackQueue(readPlaybackQueue().filter(item => item.slug !== next.slug));
   };
 
   const playPrevious = async () => {
@@ -5917,7 +5967,7 @@ function PersistentVideoPlayer({ path, navigate, auth, defaultVideoQuality = 'au
     const history = [...sessionRef.current.history];
     const previous = history.pop();
     const queue = [persistentVideoSnapshot(video || sessionRef.current.video), ...(sessionRef.current.queue || [])].slice(0, 25);
-    await activateVideo(previous, queue, history);
+    await activateVideo(previous, queue, history, previous.playlist_id ? { playlist_id: previous.playlist_id, shuffled: previous.playlist_order === 'shuffle', is_series: null } : null);
   };
 
   const toggleMute = () => {
@@ -5940,7 +5990,11 @@ function PersistentVideoPlayer({ path, navigate, auth, defaultVideoQuality = 'au
     if (activeSession.playing) {
       try { sessionStorage.setItem(AUTOPLAY_NEXT_STORAGE_KEY, activeSession.video.slug); } catch (_) {}
     }
-    navigate(`/watch/${encodeURIComponent(activeSession.video.slug)}${activeSession.current_time > 0 ? `?t=${Math.floor(activeSession.current_time)}` : ''}`);
+    const params = new URLSearchParams();
+    if (activeSession.current_time > 0) params.set('t', String(Math.floor(activeSession.current_time)));
+    if (activeSession.series_context?.playlist_id) params.set('list', activeSession.series_context.playlist_id);
+    if (activeSession.series_context?.shuffled) params.set('list_order', 'shuffle');
+    navigate(`/watch/${encodeURIComponent(activeSession.video.slug)}${params.size ? '?' + params : ''}`);
   };
 
   const close = () => {
@@ -6060,8 +6114,13 @@ function PersistentVideoPlayer({ path, navigate, auth, defaultVideoQuality = 'au
         saveSession({ playing: true });
         try { if ('mediaSession' in navigator) navigator.mediaSession.playbackState = 'playing'; } catch (_) {}
       }} onPause={() => {
+        const pausedPlayer = playerRef.current;
+        const pausedSlug = video?.slug;
         window.requestAnimationFrame(() => {
-          if (!visible || !connectedMediaPlayer(playerRef.current)) return;
+          if (!visible || !connectedMediaPlayer(pausedPlayer) || pausedPlayer !== playerRef.current || sessionRef.current?.video?.slug !== pausedSlug) return;
+          // A native end also queues pause. It must not cancel advancement or
+          // write the previous video's snapshot into a newly mounted player.
+          if (pausedPlayer.ended || pausedPlayer.state?.ended || playerMediaElement(pausedPlayer)?.ended) return;
           playAttemptRef.current += 1;
           clearPlayConfirmation();
           playbackConfirmedRef.current = false;
@@ -6092,7 +6151,7 @@ function PersistentVideoPlayer({ path, navigate, auth, defaultVideoQuality = 'au
         playbackConfirmedRef.current = false;
         setPlaying(false);
         snapshotPlayer(false);
-        if (readAutoplayPreference(auth.user)) void playNext();
+        if (readAutoplayPreference(auth.user)) void playNext(true);
       }} onPlayFail={() => {
         if (visible) failPlayback('Playback was paused by your browser.');
       }} onAutoPlayFail={() => {
@@ -6551,7 +6610,7 @@ function TrendingRow({ video, index, navigate }) {
   return <button className="trending-row" onClick={() => openVideo(video, navigate)}><div className="rank-tile">{index}</div><Thumbnail video={video} /><div><strong data-i18n-skip>{video.title}</strong><span><LocalizedCount value={formatNumber(video.views_count)} unit="view" /> · {video.created_label}</span></div><small>↗</small></button>;
 }
 function VideoNavigationLink({ video, navigate, className, children, ...props }) {
-  const path = videoPlaybackPath(video, video.playlist_id ? `?list=${video.playlist_id}` : '');
+  const path = videoPlaybackPath(video, video.playlist_id ? `?list=${encodeURIComponent(video.playlist_id)}${video.playlist_order === 'shuffle' ? '&list_order=shuffle' : ''}` : '');
   return <a href={path} className={className} {...props} onClick={(event) => {
     if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
     event.preventDefault();
@@ -6564,6 +6623,13 @@ function SmallVideoRow({ video, navigate }) {
       <Thumbnail video={video}/><strong data-i18n-skip>{video.title}</strong>
     </VideoNavigationLink>
     <div className="small-video-details"><button type="button" data-i18n-skip className="channel-inline-link" disabled={!profilePathFor(video.channel)} onClick={(event) => openProfile(event, navigate, video.channel)}>{video.channel?.name || 'Creator'}</button><small><LocalizedCount value={formatNumber(video.views_count)} unit="view" /> · {video.created_label}</small></div>
+  </article>;
+}
+function SeriesEpisodeRow({ video, navigate }) {
+  return <article className="small-video-row">
+    <VideoNavigationLink video={video} navigate={navigate} className="watch-series-episode-link">
+      <Icon name="play" size={20}/><span><strong data-i18n-skip>{video.title}</strong><small data-i18n-skip>{video.series_position}{video.series_position && video.duration_seconds > 0 ? ' · ' : ''}{video.duration_seconds > 0 ? formatDurationSeconds(video.duration_seconds) : ''}</small></span>
+    </VideoNavigationLink>
   </article>;
 }
 function videoCardCount(value) {
@@ -7371,13 +7437,15 @@ function PlaylistsPage({ navigate, auth, routeSearch = '' }) {
     setQuery('');
     if (typeof window !== 'undefined') window.history.replaceState(null, '', `/playlists?id=${playlist.id}`);
   };
-  const startPlaylistPlayback = (videos, startIndex = 0) => {
+  const startPlaylistPlayback = (videos, startIndex = 0, shuffledOrder = false) => {
     const playable = videos.filter((item) => item?.slug);
     const startVideo = playable[startIndex] || playable[0];
     if (!startVideo) return;
     const playlistId = selected?.id || '';
-    writePlaybackQueue([...playable.slice(startIndex + 1), ...playable.slice(0, startIndex)].map((item) => ({ ...videoQueueSnapshot(item), playlist_id: playlistId })));
-    navigate(videoPlaybackPath(startVideo, playlistId ? `?list=${playlistId}` : ''));
+    writePlaybackQueue(selected?.is_series
+      ? [...contextualQueue(readPlaybackQueue(), startVideo.slug, playlistId, true), ...(shuffledOrder ? playable.slice(startIndex + 1).map(item => ({ ...videoQueueSnapshot(item), playlist_id: playlistId, queue_origin: 'explicit', playlist_order: 'shuffle' })) : [])]
+      : [...playable.slice(startIndex + 1), ...playable.slice(0, startIndex)].map((item) => ({ ...videoQueueSnapshot(item), playlist_id: playlistId })));
+    navigate(videoPlaybackPath(startVideo, playlistId ? `?list=${playlistId}${selected?.is_series && shuffledOrder ? '&list_order=shuffle' : ''}` : ''));
   };
   const playVideo = (video) => {
     const index = playlistVideos.findIndex((item) => String(item.id || item.slug) === String(video?.id || video?.slug));
@@ -7390,7 +7458,7 @@ function PlaylistsPage({ navigate, auth, routeSearch = '' }) {
       const swapIndex = Math.floor(Math.random() * (index + 1));
       [shuffled[index], shuffled[swapIndex]] = [shuffled[swapIndex], shuffled[index]];
     }
-    startPlaylistPlayback(shuffled, 0);
+    startPlaylistPlayback(shuffled, 0, true);
   };
   const copyPlaylistVideoLink = async (video) => {
     if (!video?.slug) return;
@@ -7578,6 +7646,7 @@ function PlaylistsPage({ navigate, auth, routeSearch = '' }) {
         <div className="playlist-actions"><button type="button" className="btn primary" disabled={!playlistVideos.length} onClick={playAll}><Icon name="play" size={17}/> Play all</button><button type="button" className="btn subtle" disabled={!playlistVideos.length} onClick={shuffle}>Shuffle</button>{isOwner && <button type="button" className="btn subtle" onClick={openCreatePlaylist}><Icon name="plus" size={16}/> New playlist</button>}{isOwner && <button type="button" className="btn subtle" onClick={openEditPlaylist}><Icon name="settings" size={16}/> Edit playlist</button>}<button type="button" className="btn subtle" onClick={sharePlaylist}><Icon name="share" size={16}/> Share</button></div>
       </div>
     </section>
+    <PlaylistSeries key={selected.id} playlistId={selected.id} isOwner={isOwner} isSeries={selected.is_series} api={api} onSaved={result => { setPlaylists(current => current.map(p => String(p.id) === String(selected.id) ? { ...p, is_series: result.is_series } : p)); setNotice('Playlist updated.'); }} />
     <section className="playlist-detail-grid">
       <article className="playlist-video-panel">
         <div className="playlist-toolbar"><label><Icon name="search" size={17}/><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search in this playlist..." />{query && <button type="button" className="search-clear-button" onClick={() => setQuery('')} aria-label="Clear search"><Icon name="close" size={14}/></button>}</label><div><button type="button" className={sort === 'latest' ? 'active' : ''} onClick={() => setSort('latest')}>Latest</button><button type="button" className={sort === 'oldest' ? 'active' : ''} onClick={() => setSort('oldest')}>Oldest</button><button type="button" className={sort === 'popular' ? 'active' : ''} onClick={() => setSort('popular')}>Popular</button></div></div>
@@ -15560,8 +15629,13 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
   const [deleteConfirm, setDeleteConfirm] = useState(null);
   const [videoDeleting, setVideoDeleting] = useState(false);
   const [watchPlaylist, setWatchPlaylist] = useState(null);
+  const [watchSeries, setWatchSeries] = useState(null);
+  const [watchSeriesAttempt, setWatchSeriesAttempt] = useState(0);
+  const seriesRequestVersionRef = useRef(0);
   const [autoplayEnabled, setAutoplayEnabled] = useState(() => readAutoplayPreference(auth.user));
   const [autoplaySaving, setAutoplaySaving] = useState(false);
+  const watchAutoplayRef = useRef(autoplayEnabled);
+  watchAutoplayRef.current = autoplayEnabled;
   const [videoMenuState, setVideoMenuState] = useState({
     queued: false,
     playlist: false,
@@ -15574,6 +15648,10 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
   });
   scrollMiniplayerRef.current = scrollMiniplayer;
   const playlistContextId = typeof window !== 'undefined' ? new URLSearchParams(window.location.search).get('list') : '';
+  const shuffledSeries = typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('list_order') === 'shuffle';
+  const seriesRouteRef = useRef('');
+  const seriesRoute = JSON.stringify([slug, playlistContextId, shuffledSeries]);
+  seriesRouteRef.current = seriesRoute;
 
   const setScrollMiniplayerActive = useCallback((active, animate = true) => {
     const next = Boolean(active);
@@ -15937,13 +16015,14 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
 
   useEffect(() => {
     if (!video?.slug) return;
-    const queued = playbackQueue.filter((item) => item?.slug && item.slug !== video.slug && (!playlistContextId || String(item.playlist_id || '') === String(playlistContextId)));
+    const queued = contextualQueue(playbackQueue, video.slug, playlistContextId, Boolean(watchSeries?.is_series));
     const queuedSlugs = new Set(queued.map((item) => item.slug));
     const related = playlistContextId ? [] : upNext.filter((item) => item?.slug && item.slug !== video.slug && !queuedSlugs.has(item.slug));
     persistentPlaybackRef.current.queue = [...queued, ...related].map(persistentVideoSnapshot).slice(0, 25);
     persistentPlaybackRef.current.video = persistentVideoSnapshot(video);
     persistentPlaybackRef.current.account_id = auth.user?.id || null;
-  }, [video, playbackQueue, upNext, playlistContextId, auth.user?.id]);
+    persistentPlaybackRef.current.series_context = playlistContextId ? { playlist_id: playlistContextId, shuffled: shuffledSeries, is_series: watchSeries && !watchSeries.error ? Boolean(watchSeries.is_series) : null } : null;
+  }, [video, playbackQueue, upNext, playlistContextId, shuffledSeries, watchSeries?.is_series, auth.user?.id]);
 
   useEffect(() => () => {
     const playback = persistentPlaybackRef.current;
@@ -16110,25 +16189,27 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
   }, [playerAdStarted, activePlayerAd?.id]);
 
   useEffect(() => {
-    if (!playlistContextId || !video?.slug || !auth.user) return undefined;
-    const currentQueue = readPlaybackQueue().filter((item) => String(item.playlist_id || '') === String(playlistContextId) && item.slug !== video.slug);
-    let cancelled = false;
-    api.request(`/playlists/${playlistContextId}`)
-      .then((data) => {
-        if (cancelled) return;
+    const version = ++seriesRequestVersionRef.current;
+    setWatchSeries(null); setWatchPlaylist(null);
+    if (!playlistContextId || !video?.slug || video.slug !== slug) return undefined;
+    let active = true;
+    api.request('/playlists/' + playlistContextId + '/series').then(series => {
+      if (!active || seriesRouteRef.current !== seriesRoute || version !== seriesRequestVersionRef.current) return;
+      setWatchSeries(series);
+      if (series.is_series) return;
+      if (!auth.user) return;
+      return api.request('/playlists/' + playlistContextId).then(data => {
+        if (!active || seriesRouteRef.current !== seriesRoute || version !== seriesRequestVersionRef.current) return;
         setWatchPlaylist(data.playlist || null);
-        if (currentQueue.length) {
-          setPlaybackQueue(currentQueue);
-          return;
-        }
-        const videos = (data.playlist?.videos || []).filter((item) => item?.slug);
-        const index = videos.findIndex((item) => item.slug === video.slug);
-        if (index < 0) return;
-        setPlaybackQueue(writePlaybackQueue(videos.slice(index + 1).map((item) => ({ ...videoQueueSnapshot(item), playlist_id: playlistContextId }))));
-      })
-      .catch(() => {});
-    return () => { cancelled = true; };
-  }, [playlistContextId, video?.slug, auth.user]);
+        const queue = contextualQueue(readPlaybackQueue(), video.slug, playlistContextId);
+        if (queue.length) { setPlaybackQueue(queue); return; }
+        const videos = (data.playlist?.videos || []).filter(item => item?.slug);
+        const index = videos.findIndex(item => item.slug === video.slug);
+        if (index >= 0) setPlaybackQueue(writePlaybackQueue(videos.slice(index + 1).map(item => ({ ...videoQueueSnapshot(item), playlist_id: playlistContextId }))));
+      });
+    }).catch(err => { if (active && seriesRouteRef.current === seriesRoute) setWatchSeries({ is_series: false, error: err.message || 'Unable to load videos.' }); });
+    return () => { active = false; seriesRequestVersionRef.current++; };
+  }, [slug, playlistContextId, shuffledSeries, video?.slug, auth.user?.id, watchSeriesAttempt]);
 
   const currentUrl = () => `${window.location.origin}/watch/${slug}`;
   const notify = (message) => setWatchNotice(message);
@@ -16275,7 +16356,7 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
     if (!video?.slug) return;
     const current = readPlaybackQueue();
     const exists = current.some((item) => item.slug === video.slug);
-    const next = exists ? current.filter((item) => item.slug !== video.slug) : [...current, videoQueueSnapshot(video)];
+    const next = exists ? current.filter((item) => item.slug !== video.slug) : [...current, { ...videoQueueSnapshot(video), queue_origin: 'explicit' }];
     const savedQueue = writePlaybackQueue(next);
     setPlaybackQueue(savedQueue);
     setVideoMenuState((state) => ({ ...state, queued: !exists }));
@@ -17014,20 +17095,32 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
     const adBreak = dueBreaks[dueBreaks.length - 1];
     void startPlayerAdBreak(adBreak.ads, adBreak.key);
   };
-  const playNextQueuedVideo = () => {
-    const queue = readPlaybackQueue().filter((item) => item.slug !== slug);
-    const queuedNext = queue.find((item) => !playlistContextId || String(item.playlist_id || '') === String(playlistContextId));
-    const playlistVideos = (watchPlaylist?.videos || []).filter((item) => item?.slug);
-    const playlistIndex = playlistVideos.findIndex((item) => item.slug === slug);
-    const playlistNext = playlistIndex >= 0 ? playlistVideos[playlistIndex + 1] : null;
-    const next = queuedNext || (playlistContextId ? playlistNext : upNext.find((item) => item.slug && item.slug !== slug));
-    writePlaybackQueue(queuedNext ? queue.filter((item) => item.slug !== queuedNext.slug) : queue);
-    if (next?.slug) {
-      try {
-        sessionStorage.setItem(AUTOPLAY_NEXT_STORAGE_KEY, next.slug);
-      } catch (_) {}
-      navigate(videoPlaybackPath(next, playlistContextId ? `?list=${playlistContextId}` : ''));
+  const playNextQueuedVideo = async () => {
+    if (video?.slug !== slug) return;
+    const requestVersion = seriesRequestVersionRef.current;
+    const queueSnapshot = JSON.stringify(readPlaybackQueue());
+    const queue = JSON.parse(queueSnapshot).filter(item => item.slug !== slug);
+    let series = watchSeries;
+    if (playlistContextId) {
+      try { series = await api.request('/playlists/' + playlistContextId + '/series'); }
+      catch (err) { if (seriesRouteRef.current === seriesRoute) notify(err.message || 'Unable to load videos.'); return; }
     }
+    let target = nextPlaybackTarget({queue,currentSlug:slug,playlistId:playlistContextId,series,videoId:video.id,playlistVideos:watchPlaylist?.videos || [],related:upNext});
+    if (series?.is_series) {
+      try {
+        target = await freshSeriesTarget(api, { playlistId: playlistContextId, currentSlug: slug, videoId: video.id, queue, shuffled: shuffledSeries });
+      } catch (err) { if (seriesRouteRef.current === seriesRoute) notify(err.message || 'Unable to load videos.'); return; }
+    }
+    if (target?.fromQueue && series?.is_series) {
+      try { target.video = prepareUploaded((await api.request('/videos/' + encodeURIComponent(target.video.slug), { trackPageLoading: false })).video); }
+      catch (err) { if (seriesRouteRef.current === seriesRoute) notify(err.message || 'Unable to load videos.'); return; }
+    }
+    if (!target?.video?.slug || queueSnapshot !== JSON.stringify(readPlaybackQueue()) || !watchAutoplayRef.current || watchSlugRef.current !== slug || seriesRouteRef.current !== seriesRoute || requestVersion !== seriesRequestVersionRef.current) return;
+    writePlaybackQueue(target.fromQueue ? queue.filter(item => item.slug !== target.video.slug) : queue);
+    try { sessionStorage.setItem(AUTOPLAY_NEXT_STORAGE_KEY, target.video.slug); } catch (_) {}
+    const suffix = target.list ? '?list=' + encodeURIComponent(target.list) + (target.order === 'shuffle' ? '&list_order=shuffle' : '') : '';
+    const seriesOrder = series?.is_series && (!target.fromQueue || target.order === 'shuffle' && String(target.list) === String(playlistContextId));
+    navigate(seriesOrder ? `/watch/${encodeURIComponent(target.video.slug)}${suffix}` : videoPlaybackPath(target.video, suffix));
   };
   const handleContentEnded = async () => {
     setPlayerStarted(false);
@@ -17037,7 +17130,7 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
     syncPersistentPlayback(true, false);
     if (playerLoopEnabled) return;
     const continuePlayback = () => {
-      if (autoplayEnabled) playNextQueuedVideo();
+      if (watchAutoplayRef.current) void playNextQueuedVideo();
     };
     if (await startPlayerAdBreak(postRollCandidates, 'postroll', { resume: false, onComplete: continuePlayback })) return;
     continuePlayback();
@@ -17050,9 +17143,11 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
   const canDeleteVideo = !video.isDemo && Boolean(auth.user && (isOwnVideoChannel || canAccessAdmin(auth.user)));
   const canTipVideoCreator = !isOwnVideoChannel && Boolean(creatorTips?.enabled);
   const isPaidVideoLocked = Boolean(video.sale?.is_paid && !video.sale?.has_access);
-  const queuedUpNext = playbackQueue.filter((item) => item.slug && item.slug !== slug && (!playlistContextId || String(item.playlist_id || '') === String(playlistContextId)));
+  const queuedUpNext = contextualQueue(playbackQueue, slug, playlistContextId, Boolean(watchSeries?.is_series));
   const queuedSlugs = new Set(queuedUpNext.map((item) => item.slug));
-  const allUpNext = playlistContextId ? queuedUpNext : [...queuedUpNext, ...upNext.filter((item) => !queuedSlugs.has(item.slug))];
+  const seriesIndex = watchSeries?.episodes?.findIndex(e => String(e.video_id) === String(video.id)) ?? -1;
+  const seriesUpcoming = watchSeries?.is_series && !shuffledSeries && seriesIndex >= 0 ? watchSeries.episodes.slice(seriesIndex + 1).filter(e => e.available && e.video?.slug && !queuedSlugs.has(e.video.slug)).map(e => ({ ...e.video, title: e.episode_title || e.video.title, playlist_id: playlistContextId, series_episode: true, series_position: e.season_number != null ? `${e.season_number}.${e.episode_number}` : '' })) : [];
+  const allUpNext = watchSeries?.is_series ? [...queuedUpNext, ...seriesUpcoming] : playlistContextId ? queuedUpNext : [...queuedUpNext, ...upNext.filter((item) => !queuedSlugs.has(item.slug))];
   const combinedUpNext = playlistContextId ? allUpNext : allUpNext.slice(0, upNextVisibleLimit);
   const hasMoreUpNext = !playlistContextId && (upNextHasMore || allUpNext.length > upNextVisibleLimit);
   const isWatchLater = Boolean(videoMenuState.watchLater || videoMenuState.saved || video.is_watch_later);
@@ -17218,8 +17313,8 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
     </section>
     <aside ref={watchSidebarRef} className="watch-sidebar">
       <WebsiteAdSlot placement="watch_sidebar"/>
-      <div className="section-title compact">{playlistContextId && <small className="watch-playlist-context">Playlist{watchPlaylist?.title ? <> · <span data-i18n-skip>{watchPlaylist.title}</span></> : null}</small>}<h2>Up Next</h2><button type="button" className={`watch-autoplay-toggle ${autoplayEnabled ? 'active' : ''}`} role="switch" aria-checked={autoplayEnabled} onClick={toggleAutoplay} disabled={autoplaySaving}><span>Autoplay</span><i /></button></div>
-      {upNextLoading && !queuedUpNext.length && !combinedUpNext.length ? <div className="state-card">Loading videos...</div> : combinedUpNext.length ? combinedUpNext.map((item, index) => <React.Fragment key={item.slug || item.id}>{index === 0 && queuedUpNext.length > 0 && <h3 className="watch-up-next-label">Queue</h3>}{index === queuedUpNext.length && queuedUpNext.length > 0 && !playlistContextId && <h3 className="watch-up-next-label">Discover videos</h3>}<SmallVideoRow video={item} navigate={navigate}/><WebsiteAdSlot placement="watch_up_next" sequence={index + 1}/></React.Fragment>) : <div className="state-card">{playlistContextId ? 'No more videos' : 'No more videos available.'}</div>}
+      <div className="section-title compact">{playlistContextId && <small className="watch-playlist-context">Playlist{watchPlaylist?.title ? <> · <span data-i18n-skip>{watchPlaylist.title}</span></> : null}</small>}<h2>{watchSeries?.is_series ? 'Next episode' : 'Up Next'}</h2><button type="button" className={`watch-autoplay-toggle ${autoplayEnabled ? 'active' : ''}`} role="switch" aria-checked={autoplayEnabled} onClick={toggleAutoplay} disabled={autoplaySaving}><span>Autoplay</span><i /></button></div>
+      {watchSeries?.error ? <div className="state-card" role="alert"><p>{watchSeries.error}</p><button type="button" className="btn" onClick={() => setWatchSeriesAttempt(n => n + 1)}>Refresh</button></div> : playlistContextId && !watchSeries || upNextLoading && !queuedUpNext.length && !combinedUpNext.length ? <div className="state-card">Loading videos...</div> : combinedUpNext.length ? combinedUpNext.map((item, index) => <React.Fragment key={item.slug || item.id}>{index === 0 && queuedUpNext.length > 0 && <h3 className="watch-up-next-label">Queue</h3>}{index === queuedUpNext.length && queuedUpNext.length > 0 && !playlistContextId && <h3 className="watch-up-next-label">Discover videos</h3>}{item.series_episode ? <SeriesEpisodeRow video={item} navigate={navigate}/> : <SmallVideoRow video={item} navigate={navigate}/>}<WebsiteAdSlot placement="watch_up_next" sequence={index + 1}/></React.Fragment>) : <div className="state-card">{playlistContextId ? 'No more videos' : 'No more videos available.'}</div>}
       {hasMoreUpNext && <button type="button" className="btn subtle full" disabled={upNextLoading} onClick={loadMoreUpNext}>{upNextLoading ? 'Loading videos...' : 'Load more'}</button>}
     </aside>
     <section className="watch-comments-section">

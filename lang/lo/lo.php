@@ -4450,4 +4450,13 @@ return array (
   'Language not found.' => 'Language not found.',
   'Language directory not found.' => 'Language directory not found.',
   'The selected language directory is read-only. Update its server permissions before editing.' => 'The selected language directory is read-only. Update its server permissions before editing.',
+  'Series' => 'ຊີຣີ',
+  'Season' => 'ລະດູການ',
+  'Episode' => 'ຕອນ',
+  'Next episode' => 'ຕອນຕໍ່ໄປ',
+  'Playlist changed. Reload before saving.' => 'ລາຍການຫຼິ້ນມີການປ່ຽນແປງແລ້ວ. ໂຫຼດໃໝ່ກ່ອນບັນທຶກ.',
+  'Choose videos from this playlist.' => 'ເລືອກວິດີໂອຈາກລາຍການຫຼິ້ນນີ້.',
+  'Set both season and episode numbers, or leave both empty.' => 'ໃສ່ທັງໝາຍເລກລະດູການ ແລະ ໝາຍເລກຕອນ ຫຼື ປ່ອຍທັງສອງຊ່ອງໄວ້ຫວ່າງ.',
+  'An episode number can only appear once in each season.' => 'ຢ່າໃຊ້ໝາຍເລກຕອນຊ້ຳກັນໃນລະດູການດຽວກັນ.',
+  'Unable to load videos.' => 'ໂຫຼດວິດີໂອບໍ່ໄດ້. ລອງອີກຄັ້ງ.',
 );

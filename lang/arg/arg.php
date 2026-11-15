@@ -4452,4 +4452,5 @@ return array (
   'The selected language directory is read-only. Update its server permissions before editing.' => 'The selected language directory is read-only. Update its server permissions before editing.',
   'Fullscreen' => 'Pantalla completa',
   'Exit fullscreen' => 'Salir d’a pantalla completa',
+  'Unable to load videos.' => 'No s\'ha puesto cargar os videos. Torna-lo a intentar.',
 );

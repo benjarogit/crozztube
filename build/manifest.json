@@ -195,7 +195,7 @@
     ]
   },
   "resources/js/main.jsx": {
-    "file": "assets/main-C-cRp4LA.js",
+    "file": "assets/main-QRe3CBqK.js",
     "name": "main",
     "src": "resources/js/main.jsx",
     "isEntry": true,
@@ -207,7 +207,7 @@
       "node_modules/livekit-client/dist/livekit-client.esm.mjs"
     ],
     "css": [
-      "assets/main-DsRGELgg.css"
+      "assets/main-B6FA0f4N.css"
     ]
   }
 }

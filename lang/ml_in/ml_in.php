@@ -4451,4 +4451,13 @@ return array (
   'Language directory not found.' => 'Language directory not found.',
   'The selected language directory is read-only. Update its server permissions before editing.' => 'The selected language directory is read-only. Update its server permissions before editing.',
   'Find out how we handle your data in our privacy policy.' => 'നിന്റെ ഡാറ്റ ഞങ്ങൾ എങ്ങനെ കൈകാര്യം ചെയ്യുന്നു എന്ന് ഞങ്ങളുടെ സ്വകാര്യതാ നയത്തിൽ വായിക്കാം.',
+  'Series' => 'സീരീസ്',
+  'Season' => 'സീസൺ',
+  'Episode' => 'എപ്പിസോഡ്',
+  'Next episode' => 'അടുത്ത എപ്പിസോഡ്',
+  'Playlist changed. Reload before saving.' => 'പ്ലേലിസ്റ്റ് മാറിയിട്ടുണ്ട്. സേവ് ചെയ്യുന്നതിന് മുമ്പ് വീണ്ടും ലോഡ് ചെയ്യൂ.',
+  'Choose videos from this playlist.' => 'ഈ പ്ലേലിസ്റ്റിൽ നിന്നുള്ള വീഡിയോകൾ തിരഞ്ഞെടുക്കൂ.',
+  'Set both season and episode numbers, or leave both empty.' => 'സീസൺ നമ്പറും എപ്പിസോഡ് നമ്പറും ഒരുമിച്ച് നൽകൂ, അല്ലെങ്കിൽ രണ്ടും ഒഴിച്ചിടൂ.',
+  'An episode number can only appear once in each season.' => 'ഓരോ സീസണിലും ഒരു എപ്പിസോഡ് നമ്പർ ഒരിക്കൽ മാത്രമേ ഉപയോഗിക്കാനാകൂ.',
+  'Unable to load videos.' => 'വീഡിയോകൾ ലോഡ് ചെയ്യാനായില്ല. വീണ്ടും ശ്രമിക്കൂ.',
 );

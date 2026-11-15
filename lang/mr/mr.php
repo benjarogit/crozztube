@@ -4451,4 +4451,13 @@ return array (
   'Language directory not found.' => 'Language directory not found.',
   'The selected language directory is read-only. Update its server permissions before editing.' => 'The selected language directory is read-only. Update its server permissions before editing.',
   'Find out how we handle your data in our privacy policy.' => 'आम्ही तुझा डेटा कसा हाताळतो, हे आमच्या गोपनीयता धोरणात जाणून घे.',
+  'Series' => 'मालिका',
+  'Season' => 'सीझन',
+  'Episode' => 'भाग',
+  'Next episode' => 'पुढचा भाग',
+  'Playlist changed. Reload before saving.' => 'प्लेलिस्ट बदलली आहे. जतन करण्याआधी ती पुन्हा लोड कर.',
+  'Choose videos from this playlist.' => 'या प्लेलिस्टमधून व्हिडिओ निवड.',
+  'Set both season and episode numbers, or leave both empty.' => 'सीझन आणि भाग या दोन्हींचे क्रमांक भर किंवा दोन्ही रिकामे ठेव.',
+  'An episode number can only appear once in each season.' => 'एका सीझनमध्ये भागाचा क्रमांक एकदाच वापरता येतो.',
+  'Unable to load videos.' => 'व्हिडिओ लोड करता आले नाहीत. पुन्हा प्रयत्न कर.',
 );

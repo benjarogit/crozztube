@@ -4450,4 +4450,13 @@ return array (
   'Language not found.' => 'Language not found.',
   'Language directory not found.' => 'Language directory not found.',
   'The selected language directory is read-only. Update its server permissions before editing.' => 'The selected language directory is read-only. Update its server permissions before editing.',
+  'Series' => 'ស៊េរី',
+  'Season' => 'រដូវកាល',
+  'Episode' => 'ភាគ',
+  'Next episode' => 'ភាគបន្ទាប់',
+  'Playlist changed. Reload before saving.' => 'បញ្ជីចាក់បានផ្លាស់ប្តូរ។ ផ្ទុកឡើងវិញមុនពេលរក្សាទុក។',
+  'Choose videos from this playlist.' => 'ជ្រើសវីដេអូពីបញ្ជីចាក់នេះ។',
+  'Set both season and episode numbers, or leave both empty.' => 'បញ្ចូលទាំងលេខរដូវកាល និងលេខភាគ ឬទុកទាំងពីរឱ្យទទេ។',
+  'An episode number can only appear once in each season.' => 'លេខភាគមួយអាចប្រើបានតែម្តងក្នុងរដូវកាលនីមួយៗ។',
+  'Unable to load videos.' => 'មិនអាចផ្ទុកវីដេអូបានទេ។ សាកល្បងម្តងទៀត។',
 );

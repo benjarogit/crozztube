@@ -4450,4 +4450,9 @@ return array (
   'Language not found.' => 'Language not found.',
   'Language directory not found.' => 'Language directory not found.',
   'The selected language directory is read-only. Update its server permissions before editing.' => 'The selected language directory is read-only. Update its server permissions before editing.',
+  'Series' => 'စီးရီး',
+  'Episode' => 'အပိုင်း',
+  'Next episode' => 'နောက်အပိုင်း',
+  'Choose videos from this playlist.' => 'ဒီဖွင့်မည့်စာရင်းထဲက ဗီဒီယိုတွေကို ရွေးပါ။',
+  'Unable to load videos.' => 'ဗီဒီယိုတွေကို ရယူလို့ မရခဲ့ပါဘူး။ ထပ်ကြိုးစားပါ။',
 );

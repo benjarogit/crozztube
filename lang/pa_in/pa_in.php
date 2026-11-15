@@ -4451,4 +4451,13 @@ return array (
   'Language directory not found.' => 'Language directory not found.',
   'The selected language directory is read-only. Update its server permissions before editing.' => 'The selected language directory is read-only. Update its server permissions before editing.',
   'Find out how we handle your data in our privacy policy.' => 'ਸਾਡੀ ਗੋਪਨੀਯਤਾ ਨੀਤੀ ਵਿੱਚ ਪੜ੍ਹ ਕਿ ਅਸੀਂ ਤੇਰੇ ਡਾਟੇ ਨੂੰ ਕਿਵੇਂ ਸੰਭਾਲਦੇ ਹਾਂ।',
+  'Series' => 'ਲੜੀ',
+  'Season' => 'ਸੀਜ਼ਨ',
+  'Episode' => 'ਐਪੀਸੋਡ',
+  'Next episode' => 'ਅਗਲਾ ਐਪੀਸੋਡ',
+  'Playlist changed. Reload before saving.' => 'ਪਲੇਲਿਸਟ ਬਦਲ ਗਈ ਹੈ। ਸੇਵ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਇਸਨੂੰ ਮੁੜ ਲੋਡ ਕਰ।',
+  'Choose videos from this playlist.' => 'ਇਸ ਪਲੇਲਿਸਟ ਵਿੱਚੋਂ ਵੀਡੀਓ ਚੁਣ।',
+  'Set both season and episode numbers, or leave both empty.' => 'ਸੀਜ਼ਨ ਅਤੇ ਐਪੀਸੋਡ ਦੋਵਾਂ ਦੇ ਨੰਬਰ ਭਰ, ਜਾਂ ਦੋਵੇਂ ਖਾਲੀ ਛੱਡ ਦੇ।',
+  'An episode number can only appear once in each season.' => 'ਹਰ ਸੀਜ਼ਨ ਵਿੱਚ ਇੱਕ ਐਪੀਸੋਡ ਨੰਬਰ ਸਿਰਫ਼ ਇੱਕ ਵਾਰ ਵਰਤਿਆ ਜਾ ਸਕਦਾ ਹੈ।',
+  'Unable to load videos.' => 'ਵੀਡੀਓ ਲੋਡ ਨਹੀਂ ਹੋ ਸਕੇ। ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰ।',
 );

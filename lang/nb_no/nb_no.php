@@ -4589,4 +4589,13 @@ Du er utnevnt som moderator for direktesendingen «{STREAM_TITLE}». Åpne sendi
   'This email was sent by {site}.' => 'Denne e-posten ble sendt av {site}.',
   'Password strength must be at least {level}/10.' => 'Passordet ditt må oppnå minst {level}/10.',
   'Code expires in {time}' => 'Koden din utløper om {time}',
+  'Series' => 'Serie',
+  'Season' => 'Sesong',
+  'Episode' => 'Episode',
+  'Next episode' => 'Neste episode',
+  'Playlist changed. Reload before saving.' => 'Spillelisten er endret. Last den inn på nytt før du lagrer.',
+  'Choose videos from this playlist.' => 'Velg videoer fra denne spillelisten.',
+  'Set both season and episode numbers, or leave both empty.' => 'Fyll inn både sesongnummer og episodenummer, eller la begge feltene stå tomme.',
+  'An episode number can only appear once in each season.' => 'Et episodenummer kan bare brukes én gang per sesong.',
+  'Unable to load videos.' => 'Vi kunne ikke laste inn videoene. Prøv igjen.',
 );

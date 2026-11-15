@@ -4589,4 +4589,13 @@ Du er valgt som moderator for livestreamen “{STREAM_TITLE}”. Åbn streamen f
   'This email was sent by {site}.' => 'Denne mail er sendt af {site}.',
   'Password strength must be at least {level}/10.' => 'Din adgangskode skal mindst opnå {level}/10.',
   'Code expires in {time}' => 'Din kode udløber om {time}',
+  'Series' => 'Serie',
+  'Season' => 'Sæson',
+  'Episode' => 'Afsnit',
+  'Next episode' => 'Næste afsnit',
+  'Playlist changed. Reload before saving.' => 'Afspilningslisten er blevet ændret. Genindlæs den, før du gemmer.',
+  'Choose videos from this playlist.' => 'Vælg videoer fra denne afspilningsliste.',
+  'Set both season and episode numbers, or leave both empty.' => 'Udfyld både sæsonnummer og afsnitsnummer, eller lad begge felter være tomme.',
+  'An episode number can only appear once in each season.' => 'Et afsnitsnummer må kun bruges én gang i hver sæson.',
+  'Unable to load videos.' => 'Vi kunne ikke hente videoerne. Prøv igen.',
 );

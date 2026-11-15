@@ -4629,4 +4629,13 @@ Open stream: {STREAM_URL}' => 'Прывітанне, {USERNAME}!
 Адкрыць трансляцыю: {STREAM_URL}',
   'Notification' => 'Апавяшчэнне',
   'This email was sent by {site}.' => 'Гэты ліст адпраўлены сайтам {site}.',
+  'Series' => 'Серыял',
+  'Season' => 'Сезон',
+  'Episode' => 'Серыя',
+  'Next episode' => 'Наступная серыя',
+  'Playlist changed. Reload before saving.' => 'Плэйліст змяніўся. Перад захаваннем загрузі яго нанова.',
+  'Choose videos from this playlist.' => 'Выберы відэа з гэтага плэйліста.',
+  'Set both season and episode numbers, or leave both empty.' => 'Укажы і нумар сезона, і нумар серыі або пакінь абодва палі пустымі.',
+  'An episode number can only appear once in each season.' => 'Нумар серыі можа сустракацца толькі адзін раз у кожным сезоне.',
+  'Unable to load videos.' => 'Не ўдалося загрузіць відэа. Паспрабуй яшчэ раз.',
 );

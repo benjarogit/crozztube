@@ -4451,4 +4451,13 @@ return array (
   'Language directory not found.' => 'Language directory not found.',
   'The selected language directory is read-only. Update its server permissions before editing.' => 'The selected language directory is read-only. Update its server permissions before editing.',
   'Log out' => 'بچۆ دەرەوە',
+  'Series' => 'زنجیرە',
+  'Season' => 'وەرز',
+  'Episode' => 'ئەڵقە',
+  'Next episode' => 'ئەڵقەی داهاتوو',
+  'Playlist changed. Reload before saving.' => 'پلەی لیستەکە گۆڕاوە. پێش پاشەکەوتکردن دووبارە باری بکەرەوە.',
+  'Choose videos from this playlist.' => 'ڤیدیۆ لەم پلەی لیستە هەڵبژێرە.',
+  'Set both season and episode numbers, or leave both empty.' => 'ژمارەی وەرز و ئەڵقە هەردووکیان بنووسە، یان هەردووکیان بە بەتاڵی بهێڵەرەوە.',
+  'An episode number can only appear once in each season.' => 'لە هەر وەرزێکدا ژمارەی ئەڵقە تەنها جارێک دەتوانێت هەبێت.',
+  'Unable to load videos.' => 'نەتوانرا ڤیدیۆکان بار بکرێن. دووبارە هەوڵ بدەرەوە.',
 );

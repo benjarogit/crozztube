@@ -4452,4 +4452,13 @@ return array (
   'The selected language directory is read-only. Update its server permissions before editing.' => 'The selected language directory is read-only. Update its server permissions before editing.',
   'Fullscreen' => 'Ecran complèt',
   'Exit fullscreen' => 'Sortir del mòde ecran complèt',
+  'Series' => 'Seria',
+  'Season' => 'Sason',
+  'Episode' => 'Episòdi',
+  'Next episode' => 'Episòdi seguent',
+  'Playlist changed. Reload before saving.' => 'La lista de lectura a cambiat. Torna cargar la lista abans d\'enregistrar.',
+  'Choose videos from this playlist.' => 'Causís de vidèos d\'aquesta lista de lectura.',
+  'Set both season and episode numbers, or leave both empty.' => 'Indica lo numèro de sason e lo numèro d\'episòdi, o daissa los dos camps voids.',
+  'An episode number can only appear once in each season.' => 'Dins una meteissa sason, utiliza pas dos còps lo meteis numèro d\'episòdi.',
+  'Unable to load videos.' => 'Impossible de cargar las vidèos. Ensaja tornarmai.',
 );

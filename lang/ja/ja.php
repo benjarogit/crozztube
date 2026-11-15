@@ -4632,4 +4632,13 @@ Open stream: {STREAM_URL}' => '{USERNAME}、こんにちは。
   'Unable to read this chapter file.' => 'このチャプターファイルを読み込めませんでした。',
   'Custom chapter list' => 'カスタムチャプターリスト',
   'Draft segments from video duration' => '動画の長さから作成した仮チャプター',
+  'Series' => 'シリーズ',
+  'Season' => 'シーズン',
+  'Episode' => 'エピソード',
+  'Next episode' => '次のエピソード',
+  'Playlist changed. Reload before saving.' => 'プレイリストが変更されたよ。保存する前に読み込み直してね。',
+  'Choose videos from this playlist.' => 'このプレイリストから動画を選んでね。',
+  'Set both season and episode numbers, or leave both empty.' => 'シーズン番号とエピソード番号は両方入力するか、両方とも空欄にしてね。',
+  'An episode number can only appear once in each season.' => '同じシーズン内でエピソード番号を重複させることはできません。',
+  'Unable to load videos.' => '動画を読み込めませんでした。もう一度試してね。',
 );

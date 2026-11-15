@@ -537,6 +537,13 @@
         "tools/test/viewer-appearance.test.mjs"
       ],
       "timeoutMs": 30000
+    },
+    "step-08-series": {
+      "argv": [
+        "bash",
+        "tools/test/step-08-series.sh"
+      ],
+      "timeoutMs": 600000
     }
   },
   "defaults": {

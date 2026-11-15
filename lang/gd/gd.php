@@ -4540,4 +4540,13 @@ return array (
   'Drag and drop your short file here' => 'Slaod am faidhle bhidio Short agad an seo',
   'Video: {seconds}s · {width}×{height}. Shorts must be 60 seconds or less and vertical.' => 'Bhidio: {seconds}s · {width}×{height}. Feumaidh Shorts a bhith ann an cruth portraid agus gun a bhith nas fhaide na 60 diog.',
   'Your video was imported.' => 'Chaidh a’ bhidio agad a thoirt a-steach.',
+  'Series' => 'Sreath',
+  'Episode' => 'Prògram',
+  'Next episode' => 'An ath phrògram',
+  'Playlist changed. Reload before saving.' => 'Tha an liosta-cluiche air atharrachadh. Luchdaich an liosta a-rithist mus sàbhail thu.',
+  'Unable to load videos.' => 'Cha b’ urrainn dhuinn na bhideothan a luchdadh. Feuch ris a-rithist.',
+  'Choose videos from this playlist.' => 'Tagh bhideothan bhon liosta-cluiche seo.',
+  'Season' => 'Seusan',
+  'Set both season and episode numbers, or leave both empty.' => 'Cuir a-steach àireamhan anns na raointean “Seusan” agus “Prògram”, no fàg an dà raon falamh.',
+  'An episode number can only appear once in each season.' => 'Na cleachd an aon àireamh airson barrachd air aon phrògram anns gach seusan.',
 );

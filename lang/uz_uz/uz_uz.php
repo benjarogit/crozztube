@@ -4451,4 +4451,13 @@ return array (
   'Language directory not found.' => 'Language directory not found.',
   'The selected language directory is read-only. Update its server permissions before editing.' => 'The selected language directory is read-only. Update its server permissions before editing.',
   'Find out how we handle your data in our privacy policy.' => 'Maʼlumotlaring bilan qanday ishlashimizni maxfiylik siyosatimizdan bilib olishing mumkin.',
+  'Series' => 'Serial',
+  'Season' => 'Mavsum',
+  'Episode' => 'Qism',
+  'Next episode' => 'Keyingi qism',
+  'Playlist changed. Reload before saving.' => 'Pleylist o‘zgardi. Saqlashdan oldin uni qayta yukla.',
+  'Choose videos from this playlist.' => 'Bu pleylistdan videolarni tanla.',
+  'Set both season and episode numbers, or leave both empty.' => 'Mavsum va qism raqamlarini birga kirit yoki ikkala maydonni ham bo‘sh qoldir.',
+  'An episode number can only appear once in each season.' => 'Har bir mavsumda qism raqami faqat bir marta ishlatilishi mumkin.',
+  'Unable to load videos.' => 'Videolarni yuklab bo‘lmadi. Qayta urinib ko‘r.',
 );

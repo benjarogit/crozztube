@@ -4451,4 +4451,13 @@ return array (
   'Language directory not found.' => 'Language directory not found.',
   'The selected language directory is read-only. Update its server permissions before editing.' => 'The selected language directory is read-only. Update its server permissions before editing.',
   'Find out how we handle your data in our privacy policy.' => 'నీ డేటాను మేము ఎలా నిర్వహిస్తామో మా గోప్యతా విధానంలో తెలుసుకో.',
+  'Series' => 'సిరీస్',
+  'Season' => 'సీజన్',
+  'Episode' => 'ఎపిసోడ్',
+  'Next episode' => 'తర్వాతి ఎపిసోడ్',
+  'Playlist changed. Reload before saving.' => 'ప్లేలిస్ట్ మారింది. సేవ్ చేసే ముందు మళ్లీ లోడ్ చేయి.',
+  'Choose videos from this playlist.' => 'ఈ ప్లేలిస్ట్ నుంచి వీడియోలను ఎంచుకో.',
+  'Set both season and episode numbers, or leave both empty.' => 'సీజన్, ఎపిసోడ్ నంబర్లు రెండూ ఇవ్వు లేదా రెండింటినీ ఖాళీగా వదిలేయి.',
+  'An episode number can only appear once in each season.' => 'ఒక సీజన్‌లో ప్రతి ఎపిసోడ్ నంబర్‌ను ఒక్కసారి మాత్రమే వాడవచ్చు.',
+  'Unable to load videos.' => 'వీడియోలను లోడ్ చేయలేకపోయాం. మళ్లీ ప్రయత్నించు.',
 );
