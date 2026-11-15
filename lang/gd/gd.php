@@ -4545,4 +4545,5 @@ return array (
   'Next episode' => 'An ath phrògram',
   'Playlist changed. Reload before saving.' => 'Tha an liosta-cluiche air atharrachadh. Luchdaich an liosta a-rithist mus sàbhail thu.',
   'Unable to load videos.' => 'Cha b’ urrainn dhuinn na bhideothan a luchdadh. Feuch ris a-rithist.',
+  'Choose videos from this playlist.' => 'Tagh bhideothan bhon liosta-cluiche seo.',
 );

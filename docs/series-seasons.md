@@ -1075,7 +1075,7 @@ execution; adding the key alone does not finish its contextual acceptance.
 
 The selected feature base remains published
 `544b702620f3955c60e7414dcc1fe93f0791fa44`, with the five existing canonical
-integrations unchanged. The separately approved published tooling runtime is
+integrations unchanged. At the loading-only packet the approved tooling runtime was
 `8cdbe72bc3dde6b3b8074b7446d7918ed8c682cb`; its actual 202-test harness and
 hosted run 43730717269 passed, and fresh exact-main-ref review plus explicit
 private runtime acceptance were observed. This does not accept step 8 or merge
@@ -1102,3 +1102,49 @@ review; code changes need a reviewed runtime release, not an automatic feature
 parent merge. The legacy local series gate remains strict. Actual GitHub target
 refs and merge coverage are reviewed separately from the immutable feature base.
 No sixth integration, main merge/retarget, deployment or step advance is allowed.
+
+## Scottish Gaelic current-playlist membership follow-up
+
+Reference: published b8caca6. One complete membership instruction is added:
+`Tagh bhideothan bhon liosta-cluiche seo.` Proposer, independent and integrating
+readings checked the entire statement against selection of one or multiple
+members of this current playlist. It adds no owner-only, upload, create,
+select-all or reordering restriction. Personal singular `Tagh`, plural videos
+and the specific source playlist are retained. Confidence is bounded moderate
+AI editorial judgment, not native or full-catalog certification.
+
+The official [Fèisean nan Gàidheal page](https://www.feisean.org/proiseactan/ico-iomairt-chiuil-na-h-oigridh/)
+directly attests the retained `liosta-cluiche` spelling for embedded media; its
+observed source SHA-256 is
+`fef85427ec28bfde0e0ece8e6c7108176bcc8f7f9baf1d609073c42f5cb2cc3c`.
+[National Museums Scotland's Gaelic language plan](https://files.nms.ac.uk/production/Documents/About-us/Gaelic%20language%20plan/gaelic-language-plan-2023-2028-gaelic.pdf)
+and the [RSHP Gaelic instruction](https://rshp.scot/wp-content/uploads/2021/09/Part-1.-Stereotypes-and-Equality-Gaelic.pdf)
+attest personal select-from-list constructions. Source hashes respectively:
+`7aa348f43ad033aa9fd3bcd82eab6209d3b3f198408e871a53471f0b0f80e22e`
+and `c95353656190e271275b897554d665f42da8da91a214752b6a5dbc30fb33badd`.
+These support the construction and terminology, not the full synthesized
+sentence verbatim. No accepted shared term is silently migrated.
+
+Gaelic still lacks season and the paired/duplicate-number messages. The source
+inventory is now **121 absent/unaccepted scoped messages in 15 partial/open
+packs**, with 110 complete nine-key sets. The new fixture requires membership
+display and unchanged creator input in narrow light/dark flows. Real API,
+full-checkpoint and publication results must be recorded after execution; key
+presence alone does not certify acceptance.
+
+For this membership packet the reviewed published runtime is
+`aa7fec7ec4c77f2e28784edb7ea9a56ed3d828b5`. Its actual 209-test harness,
+hosted run 43734594544 and fresh explicit private runtime acceptance passed.
+The feature base remains `544b7026…`, with the same five integrations. The
+external CLI commands above use this accepted runtime in the existing tooling
+checkout; no tooling files are imported into the feature.
+
+Its schema2 audit derives the current PR target only from the exact independently
+read branch ref. `reportedBaseSha` separately preserves GitHub's historical
+opening base, as described in the [official GitHub documentation](https://docs.github.com/en/pull-requests/how-tos/create-pull-requests/changing-the-base-branch-of-a-pull-request).
+Reviews/tests/dispositions bind the actual current target. Old schema1 evidence
+is not silently reinterpreted, and an unreadable ref never falls back to the
+historical value. Source/index, trusted hooks, secrets, before/after/pre-write
+ref checks, independent review, actual CI and confirmed publication remain
+mandatory. The normal tested-commit/push/GitHub/PM cycle already exists in
+AGENTS.md and CORE.md and is reused; no parallel project management is added.
