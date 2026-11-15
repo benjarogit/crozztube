@@ -57,7 +57,7 @@ const targetedKeys={
  my_mm:['Series','Episode','Next episode','Choose videos from this playlist.','Unable to load videos.'],
 };
 for(const code of targetedLocales)for(const key of targetedKeys[code])if(typeof fixtureCatalogs[code]?.[key]!=='string'||!fixtureCatalogs[code][key].trim())throw Error('Missing targeted-context key '+code+': '+key);
-const loadingOnlyLocales=['jv_id'];
+const loadingOnlyLocales=['jv_id','ps'];
 for(const code of loadingOnlyLocales)if(typeof fixtureCatalogs[code]?.['Unable to load videos.']!=='string'||!fixtureCatalogs[code]['Unable to load videos.'].trim())throw Error('Missing loading-only context key '+code);
 const fixtureLocales=[...new Set([...referenceLocales,...targetedLocales,...loadingOnlyLocales])];
 const localeTags=JSON.parse(fs.readFileSync('resources/localization/locale-tags.json','utf8'));
@@ -311,6 +311,21 @@ try{
     await expect(failure).toHaveCount(0);
     await expect(page.locator('.watch-sidebar')).toContainText(videos[1].title);
     localizedFailure=null;checks+=9;
+    if(locale==='ps'){
+     // Only the reviewed M/L keys are claimed here; the seven taxonomy and
+     // numbering messages intentionally remain untranslated in this pack.
+     await page.goto(origin+'/playlists?id=1');
+     const partial=page.locator('.playlist-series-panel');await partial.locator('summary').click();
+     const draft=partial.locator('input[type="text"],input:not([type])').first();await draft.fill('Creator title remains unchanged');
+     localizedValidation=locale;localizedValidationKey='Choose videos from this playlist.';
+     await partial.locator('button[type="submit"]').click();
+     await expect(partial.getByRole('alert')).toContainText(strings[localizedValidationKey]);
+     await expect(draft).toHaveValue('Creator title remains unchanged');
+     await expect(page.locator('html')).toHaveAttribute('dir','rtl');
+     await expect.poll(()=>page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);
+     await page.screenshot({path:`tools/test/.artifacts/series-seasons/context-ps-${dark?'dark':'light'}-membership.png`,fullPage:true});
+     localizedValidation=null;localizedValidationKey='Set both season and episode numbers, or leave both empty.';checks+=4;
+    }
    }
    expect(errors).toEqual([]);checks++;
   }catch(error){console.error(JSON.stringify({fixture:{nextCalls,nextRequests,videoRequests},page:await page.evaluate(()=>({url:location.href,media:[...document.querySelectorAll('video')].map(e=>({src:e.src,currentSrc:e.currentSrc,ready:e.readyState,network:e.networkState,error:e.error?.code,paused:e.paused,time:e.currentTime,duration:e.duration,sourceElements:[...e.querySelectorAll('source')].map(s=>({src:s.src,type:s.type})),surface:window.__seriesMediaSurface(e),html:e.outerHTML.slice(0,900)})),ends:window.__seriesNativeEnds,trace:window.__seriesMediaTrace.slice(-40),queue:JSON.parse(localStorage.getItem('playhub_playback_queue_v1')||'[]'),title:document.querySelector('.watch-info h1')?.textContent}))}));await page.screenshot({path:'tools/test/.artifacts/series-seasons/failure.png',fullPage:true});console.error(JSON.stringify(await page.locator('body *').evaluateAll(es=>es.filter(e=>e.getBoundingClientRect().right>innerWidth+2&&e.getBoundingClientRect().width>0).slice(0,18).map(e=>({tag:e.tagName,cls:e.className,width:e.getBoundingClientRect().width,right:e.getBoundingClientRect().right})))));throw error;}finally{holdNext?.release();holdVideo?.release();await context.close();}

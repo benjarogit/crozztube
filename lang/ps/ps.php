@@ -4450,4 +4450,6 @@ return array (
   'Language not found.' => 'Language not found.',
   'Language directory not found.' => 'Language directory not found.',
   'The selected language directory is read-only. Update its server permissions before editing.' => 'The selected language directory is read-only. Update its server permissions before editing.',
+  'Choose videos from this playlist.' => 'له دې پلی لیست څخه ویډیوګانې غوره کړه.',
+  'Unable to load videos.' => 'ویډیوګانې لوډ نه شوې. بیا هڅه وکړه.',
 );

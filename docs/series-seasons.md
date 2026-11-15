@@ -1021,3 +1021,27 @@ episode label is called translated. Existing complete/partial editor and routed
 API requirements remain unchanged; this client loading fallback is not counted
 as a newly translated server validator. Actual execution and publication results
 belong to the existing journal/PR, not a guessed acceptance from key count.
+
+## Pashto selection and loading follow-up
+
+Reference: published 6b984b29. Two complete messages are added to `ps`:
+`له دې پلی لیست څخه ویډیوګانې غوره کړه.` for selecting videos from this
+playlist, and `ویډیوګانې لوډ نه شوې. بیا هڅه وکړه.` for loading failure and
+retry. The proposing reviewer, a separate reviewer and the integrating editor
+read both whole messages against their membership-validation and Watch-list
+error contexts. Plural videos, the specific source playlist and personal singular
+commands are retained; no cause or recovery guarantee is invented.
+
+The pinned official [VLC Pashto catalog](https://github.com/videolan/vlc/blob/5ff4fb8562e6df80bb7312b279893cbc32696957/po/ps.po)
+(SHA-256 `a8e66d82093879bbd690debf30bc1aaeecd233defb47cf3e24845d9f67e4c4c8`)
+supports media vocabulary only. Its empty Load entry does not certify the new
+loading sentence. `لوډ` is an explicitly bounded software-loan decision; the
+whole-message review has moderate AI editorial confidence, not native-speaker
+or full-catalog certification. Existing Playlist terminology is preserved.
+
+Seven Pashto series messages remain open: S/T/E/N/R/P/D. Current total:
+**123 absent/unaccepted scoped messages in 15 partial/open packs**, with 110
+complete nine-key sets. The fixture requires only the two reviewed keys in this
+pack, including narrow light/dark RTL, unchanged creator input and retry.
+It does not call fallback series/season/episode labels translated. Actual test,
+review and publication results are recorded after execution in the journal.
