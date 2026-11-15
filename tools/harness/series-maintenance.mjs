@@ -6,6 +6,10 @@ import { git, load, digest, indexDigest, assertStaged, localPath, localState, wr
 
 const branch='codex/series-seasons', parent='codex/chatdev-integration';
 const approvedIntegrationHead='02455c7f647ccc34477fd4926dd349c4b6dd810e';
+const approvedFirstIntegration='c17e930f33a2564c4b4deb92eba5b5792d34f64a';
+const approvedFirstToolingParent='c8d403968666b789fa189e7c704a0284a3b229a5';
+const approvedNextIntegrationHead='d8d4704848042b3f967f3b2be34cd4e12a0a1001';
+const historyPolicy=Object.freeze({firstHead:approvedIntegrationHead,firstMerge:approvedFirstIntegration,firstParent:approvedFirstToolingParent,nextHead:approvedNextIntegrationHead});
 const checkId='step-08-series', script='tools/test/step-08-series.sh';
 const regular=(root,file)=>{const p=path.join(root,file);if(!fs.existsSync(p))return false;const s=fs.lstatSync(p);return s.isFile()&&!s.isSymbolicLink();};
 const canonical=value=>JSON.stringify(value && typeof value==='object' ? Array.isArray(value)?value.map(v=>JSON.parse(canonical(v))):Object.fromEntries(Object.keys(value).sort().map(k=>[k,JSON.parse(canonical(value[k]))])) : value);
@@ -48,22 +52,36 @@ function assetNames(manifest){
   return result;
 }
 
-// The test anchor parameter is confined to this history inspector. Public
-// scope/verify/publication always use the fixed, explicitly approved head.
-export function seriesHistory(root,base,approvedHead=approvedIntegrationHead){
+// Synthetic policies are confined to this history inspector for negative tests.
+// Public scope, verification and publication always use the fixed policy above.
+export function seriesHistory(root,base,policy=historyPolicy){
   const commits=git(root,['rev-list',base+'..HEAD']).split('\n').filter(Boolean);
   const merges=git(root,['rev-list','--merges',base+'..HEAD']).split('\n').filter(Boolean);
   if(!merges.length)return commits;
-  if(merges.length!==1)throw Error('Merge commits are not allowed except the approved tooling integration.');
-  const merge=merges[0], parents=git(root,['show','-s','--format=%P',merge]).split(' ');
-  if(parents.length!==2||parents[0]!==approvedHead||parents[1]!==base)throw Error('Merge commits must integrate the published tooling parent into the exact approved feature head.');
-  let expected;
-  try{expected=git(root,['merge-tree','--write-tree',approvedHead,base]).split('\n')[0];}catch{throw Error('Approved tooling integration must be conflict-free; manual resolutions are not allowed.');}
-  if(git(root,['show','-s','--format=%T',merge])!==expected)throw Error('Approved tooling integration differs from the canonical merge tree.');
-  // Exclude only this validated merge. Old feature commits remain in the list,
-  // including changes reverted before integration; imported tooling ancestry
-  // is excluded by rev-list base..HEAD rather than a broad path exemption.
-  return commits.filter(commit=>commit!==merge);
+  if(merges.length>2||!merges.includes(policy.firstMerge))throw Error('Merge commits are not allowed except the two explicitly approved tooling integrations.');
+  const validateMerge=(merge,first,second)=>{
+    const parents=git(root,['show','-s','--format=%P',merge]).split(' ');
+    if(parents.length!==2||parents[0]!==first||parents[1]!==second)throw Error('Merge commits must integrate the published tooling parent into the exact approved feature head.');
+    let expected;
+    try{expected=git(root,['merge-tree','--write-tree',first,second]).split('\n')[0];}catch{throw Error('Approved tooling integration must be conflict-free; manual resolutions are not allowed.');}
+    if(git(root,['show','-s','--format=%T',merge])!==expected)throw Error('Approved tooling integration differs from the canonical merge tree.');
+  };
+  validateMerge(policy.firstMerge,policy.firstHead,policy.firstParent);
+  try{
+    git(root,['merge-base','--is-ancestor',policy.firstParent,base]);
+    git(root,['merge-base','--is-ancestor',policy.firstMerge,policy.nextHead]);
+  }catch{throw Error('Approved first merge and old tooling parent must retain their exact ancestry.');}
+  if(merges.length===1){
+    if(base!==policy.firstParent)throw Error('The moved published tooling parent requires the exact approved second integration.');
+  }else{
+    if(base===policy.firstParent)throw Error('The second tooling integration requires an advanced published parent.');
+    const next=merges.find(commit=>commit!==policy.firstMerge);
+    validateMerge(next,policy.nextHead,base);
+  }
+  // Exclude only validated canonical integrations. All old feature commits,
+  // including forbidden changes later reverted, still undergo path/plan audit.
+  // Only imported tooling ancestry is excluded by rev-list base..HEAD.
+  return commits.filter(commit=>!merges.includes(commit));
 }
 
 export function seriesScope(root){
@@ -91,7 +109,7 @@ export function seriesScope(root){
   for(const commit of [base,...commits])for(const file of assetNames(parse(git(root,['show',`${commit}:build/manifest.json`]))))historicalAssets.add(file);
   const allowed=file=>productPaths.has(file)||file==='harness/plan.json'
     || /^database\/migrations\/\d{4}_\d{2}_\d{2}_\d{6}_(?:create_playlist_(?:seasons|episodes)|add_series_(?:structure|context)_to_playlists)\.php$/.test(file)
-    || (file==='lang/en/english.php'||/^lang\/([a-z0-9_]+)\/\1\.php$/.test(file))&&git(root,['ls-tree',base,'--',file]).length>0
+    || (file==='lang/en/english.php'||file==='lang/ru/russian.php'||/^lang\/([a-z0-9_]+)\/\1\.php$/.test(file))&&git(root,['ls-tree',base,'--',file]).length>0
     || released.has(file)||historicalAssets.has(file);
   const forbidden=[...changed,...untracked,...historical].filter(file=>!allowed(file));
   if(forbidden.length)throw Error('Outside approved series scope: '+[...new Set(forbidden)].join(', '));

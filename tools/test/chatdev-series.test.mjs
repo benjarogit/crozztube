@@ -15,7 +15,7 @@ function fixture(fn){
     const plan={schemaVersion:1,branch:'main',remote:'origin',steps:Array.from({length:8},(_,i)=>({id:i+1,title:'Synthetic step '+(i+1),checks:['completion-not-executed'],...(i===7?{checkpointChecks:['harness-tests','staged-safety']}:{})})),checks:{'harness-tests':{argv:[process.execPath,'tools/test/synthetic-check.mjs','first'],timeoutMs:5000},'staged-safety':{argv:[process.execPath,'tools/test/synthetic-check.mjs','second'],timeoutMs:5000}}};
     write('harness/plan.json',JSON.stringify(plan));write('harness/progress.json',JSON.stringify({schemaVersion:1,activeStep:8,steps:Array.from({length:8},(_,i)=>({id:i+1,status:i===7?'active':'accepted'}))}));
     write('tools/test/synthetic-check.mjs',"if(process.env.SERIES_FIXTURE_FAIL)process.exit(1); console.log('Synthetic check '+process.argv[2]);\n");
-    write('resources/js/main.jsx','// Synthetic existing UI\n');write('build/manifest.json','{}\n');write('AGENTS.md','Existing rules\n');write('.gitignore','build/assets/*\n');write('lang/en/english.php',"<?php return ['Existing'=>'Existing'];\n");
+    write('resources/js/main.jsx','// Synthetic existing UI\n');write('build/manifest.json','{}\n');write('AGENTS.md','Existing rules\n');write('.gitignore','build/assets/*\n');write('lang/en/english.php',"<?php return ['Existing'=>'Existing'];\n");write('lang/ru/russian.php',"<?php return ['Existing'=>'Existing'];\n");
     for(const f of ['.codex/hooks.json','.cursor/hooks.json','tools/harness/codex-hook.mjs','tools/harness/workflow.mjs','tools/harness/maintenance.mjs'])write(f,'Existing immutable fixture\n');
     git(root,'add','.');git(root,'commit','-qm','Synthetic parent');git(root,'push','-u','origin','codex/chatdev-integration');git(root,'checkout','-b','codex/series-seasons');setMode(root,'implementing');
     return fn({home,root,remote,write,plan,stage:()=>git(root,'add','.')});
@@ -34,44 +34,51 @@ function integrationFixture(fn){return fixture(ctx=>{
 // Exercise the real public scope in a child process with only its fixed
 // production checkpoint replaced by the synthetic fixture's checkpoint.
 // Neither the installed CLI nor public scope accepts an anchor override.
-function fixtureIntegrationScope(root,anchor){
+function fixturePolicy(root,feature,base,firstMerge=null,nextHead=null){
+  const merge=firstMerge||git(root,'rev-list','--merges',base+'..HEAD').split('\n').filter(Boolean).at(-1);
+  return {firstHead:feature,firstMerge:merge,firstParent:base,nextHead:nextHead||merge};
+}
+function fixtureIntegrationScope(root,anchor,policy=null){
   const module=new URL('../harness/series-maintenance.mjs',import.meta.url);
-  const source=fs.readFileSync(module,'utf8').replace(/const approvedIntegrationHead='[a-f0-9]{40}';/,`const approvedIntegrationHead='${anchor}';`)
-    .replace("'./workflow.mjs'",JSON.stringify(new URL('../harness/workflow.mjs',import.meta.url).href));
+  const base=git(root,'rev-parse','origin/codex/chatdev-integration');
+  policy ||= fixturePolicy(root,anchor,base);
+  let source=fs.readFileSync(module,'utf8');
+  for(const [key,value] of Object.entries({approvedIntegrationHead:policy.firstHead,approvedFirstIntegration:policy.firstMerge,approvedFirstToolingParent:policy.firstParent,approvedNextIntegrationHead:policy.nextHead}))source=source.replace(new RegExp("const "+key+"='[a-f0-9]{40}';"),"const "+key+"='"+value+"';");
+  source=source.replace("'./workflow.mjs'",JSON.stringify(new URL('../harness/workflow.mjs',import.meta.url).href));
   return JSON.parse(execFileSync(process.execPath,['--input-type=module','-e',`const m=await import('data:text/javascript;base64,${Buffer.from(source).toString('base64')}');console.log(JSON.stringify(m.seriesScope(${JSON.stringify(root)})));`],{cwd:root,encoding:'utf8',stdio:['ignore','pipe','pipe']}));
 }
 test('only canonical exact-head tooling integration excludes imported parent history',()=>integrationFixture(({root,feature,base,commitMerge,write,stage})=>{
-  const merge=commitMerge(),history=seriesHistory(root,base,feature);
+  const merge=commitMerge(),history=seriesHistory(root,base,fixturePolicy(root,feature,base));
   assert.deepEqual(history,[feature]);assert(!history.includes(base));assert(!history.includes(merge));
   assert.equal(fixtureIntegrationScope(root,feature).base,base);
-  assert.throws(()=>seriesScope(root),/exact approved feature head/); // No caller-controlled anchor in the public gate.
+  assert.throws(()=>seriesScope(root),/Merge commits/); // No caller-controlled anchor in the public gate.
   write('resources/js/main.jsx','// Later bounded feature fix\n');stage();git(root,'commit','-qm','Feature followup');
-  assert.deepEqual(seriesHistory(root,base,feature),[git(root,'rev-parse','HEAD'),feature]);
+  assert.deepEqual(seriesHistory(root,base,fixturePolicy(root,feature,base)),[git(root,'rev-parse','HEAD'),feature]);
 }));
 test('tooling integration rejects wrong first parent, reversed parents and unpublished second parent',()=>{
   for(const kind of ['first','reversed','second','octopus'])integrationFixture(({root,feature,base,oldBase,canonical,commitMerge})=>{
     const tree=canonical(),extra=git(root,'commit-tree',tree,'-p',feature,'-m','Unauthorized intermediate');
     const parents=kind==='first'?[extra,base]:kind==='reversed'?[base,feature]:kind==='second'?[feature,oldBase]:[feature,base,extra];
-    commitMerge(tree,parents);assert.throws(()=>seriesHistory(root,base,feature),/Merge commits/);
+    commitMerge(tree,parents);assert.throws(()=>seriesHistory(root,base,fixturePolicy(root,feature,base)),/exact approved feature head/);
   });
 });
 test('canonical integration rejects injected files and manual conflict resolutions',()=>{
-  integrationFixture(({root,feature,base,write,stage,commitMerge})=>{write('app/Foreign.php','<?php // injection\n');stage();commitMerge(git(root,'write-tree'));assert.throws(()=>seriesHistory(root,base,feature),/canonical merge tree/);});
+  integrationFixture(({root,feature,base,write,stage,commitMerge})=>{write('app/Foreign.php','<?php // injection\n');stage();commitMerge(git(root,'write-tree'));assert.throws(()=>seriesHistory(root,base,fixturePolicy(root,feature,base)),/canonical merge tree/);});
   integrationFixture(({root,feature,write,stage,commitMerge})=>{
     git(root,'checkout','codex/chatdev-integration');write('resources/js/main.jsx','// Conflicting parent\n');stage();git(root,'commit','-qm','Conflict');git(root,'push','origin','codex/chatdev-integration');const base=git(root,'rev-parse','HEAD');git(root,'checkout','codex/series-seasons');
-    commitMerge(git(root,'write-tree'),[feature,base]);assert.throws(()=>seriesHistory(root,base,feature),/conflict-free/);
+    commitMerge(git(root,'write-tree'),[feature,base]);assert.throws(()=>seriesHistory(root,base,fixturePolicy(root,feature,base)),/conflict-free/);
   });
 });
-test('second merges and moved published tooling bases invalidate integration',()=>{
-  integrationFixture(({root,feature,base,commitMerge})=>{const merge=commitMerge(),tree=git(root,'write-tree'),extra=git(root,'commit-tree',tree,'-p',feature,'-m','Other branch');const second=git(root,'commit-tree',tree,'-p',merge,'-p',extra,'-m','Second merge');git(root,'reset','--hard',second);assert.throws(()=>seriesHistory(root,base,feature),/Merge commits/);});
-  integrationFixture(({root,feature,base,commitMerge,write,stage})=>{commitMerge();git(root,'checkout','codex/chatdev-integration');write('tools/chatdev/later.mjs','// Later parent\n');stage();git(root,'commit','-qm','Moved parent');const moved=git(root,'rev-parse','HEAD');git(root,'checkout','codex/series-seasons');assert.throws(()=>seriesHistory(root,moved,feature),/published tooling parent/);});
+test('unapproved second merges and moved published tooling bases invalidate integration',()=>{
+  integrationFixture(({root,feature,base,commitMerge})=>{const merge=commitMerge(),tree=git(root,'write-tree'),extra=git(root,'commit-tree',tree,'-p',feature,'-m','Other branch');const second=git(root,'commit-tree',tree,'-p',merge,'-p',extra,'-m','Second merge');git(root,'reset','--hard',second);assert.throws(()=>seriesHistory(root,base,fixturePolicy(root,feature,base)),/advanced published parent/);});
+  integrationFixture(({root,feature,base,commitMerge,write,stage})=>{commitMerge();git(root,'checkout','codex/chatdev-integration');write('tools/chatdev/later.mjs','// Later parent\n');stage();git(root,'commit','-qm','Moved parent');const moved=git(root,'rev-parse','HEAD');git(root,'checkout','codex/series-seasons');assert.throws(()=>seriesHistory(root,moved,fixturePolicy(root,feature,base)),/published tooling parent/);});
 });
 test('pre-integration feature changes and reverted forbidden paths remain historically auditable',()=>integrationFixture(({root,feature,base,write,stage,canonical})=>{
   write('app/Foreign.php','<?php // forbidden history\n');stage();git(root,'commit','-qm','Foreign feature edit');const foreign=git(root,'rev-parse','HEAD');git(root,'revert','--no-edit','HEAD');const first=git(root,'rev-parse','HEAD');
   const tree=git(root,'merge-tree','--write-tree',first,base).split('\n')[0],merge=git(root,'commit-tree',tree,'-p',first,'-p',base,'-m','Canonical integration');git(root,'reset','--hard',merge);
   // Even for an explicitly anchored synthetic checkpoint, foreign/revert
   // commits are returned to the existing historical path and plan validators.
-  const history=seriesHistory(root,base,first);assert(history.includes(foreign));assert(history.includes(feature));
+  const history=seriesHistory(root,base,fixturePolicy(root,first,base));assert(history.includes(foreign));assert(history.includes(feature));
   assert(git(root,'diff-tree','--no-commit-id','--name-only','-r',foreign).includes('app/Foreign.php'));
   assert.throws(()=>fixtureIntegrationScope(root,first),error=>error.stderr?.toString().includes('Outside approved series scope: app/Foreign.php'));
 }));
@@ -147,4 +154,44 @@ test('CI series job installs locked dependencies and executes the real composed 
   for(const command of ['composer install --no-scripts --no-interaction --prefer-dist --no-progress','npm ci --ignore-scripts','npm ci --prefix tools/test/ui --ignore-scripts','node tools/test/ui/node_modules/playwright/cli.js install --with-deps chromium','sudo apt-get update && sudo apt-get install --yes --no-install-recommends ffmpeg','npm run build','bash tools/test/step-08-series.sh'])assert(workflow.includes('run: '+command));
   for(const file of ['harness/plan.json','app/Support/SeriesPlaylists.php','app/Http/Controllers/Api/SeriesPlaylistController.php','routes/api.php','routes/api_v1.php','resources/js/main.jsx','resources/js/components/PlaylistSeries.jsx','resources/js/series-context.js','resources/js/styles/playlist-series.css','lang/*/*.php','build/manifest.json','tools/test/step-08-series.sh','tools/test/php/series-playlist-checks.php','tools/test/series-seasons.test.mjs','tools/test/ui/series-seasons.mjs'])assert(workflow.includes("- '"+file+"'"),'Missing series trigger path '+file);
   assert(workflow.indexOf('run: npm run build')<workflow.indexOf('run: bash tools/test/step-08-series.sh'));
+});
+
+function twoIntegrationFixture(fn){return integrationFixture(ctx=>{
+  const {root,feature,base,commitMerge,write,stage}=ctx,firstMerge=commitMerge();
+  write('resources/js/main.jsx','// Feature after first integration\n');stage();git(root,'commit','-qm','Approved next feature checkpoint');
+  const nextHead=git(root,'rev-parse','HEAD');git(root,'checkout','codex/chatdev-integration');write('tools/chatdev/second-parent.mjs','// New approved tooling\n');stage();git(root,'commit','-qm','New published tooling parent');git(root,'push','origin','codex/chatdev-integration');
+  const newBase=git(root,'rev-parse','HEAD');git(root,'checkout','codex/series-seasons');
+  const policy=fixturePolicy(root,feature,base,firstMerge,nextHead);
+  const secondMerge=(parents=[nextHead,newBase],tree=null)=>{tree ||= git(root,'merge-tree','--write-tree',nextHead,newBase).split('\n')[0];const merge=git(root,'commit-tree',tree,...parents.flatMap(p=>['-p',p]),'-m','Second canonical integration');git(root,'reset','--hard',merge);return merge;};
+  return fn({...ctx,firstMerge,nextHead,newBase,policy,secondMerge});
+});}
+test('exactly two approved canonical integrations retain all feature history and exclude tooling ancestry',()=>twoIntegrationFixture(({root,feature,base,firstMerge,nextHead,newBase,policy,secondMerge})=>{
+  const second=secondMerge();assert.deepEqual(seriesHistory(root,newBase,policy),[nextHead,feature]);
+  assert.equal(fixtureIntegrationScope(root,feature,policy).base,newBase);
+  const commits=seriesHistory(root,newBase,policy);for(const excluded of [base,newBase,firstMerge,second])assert(!commits.includes(excluded));
+}));
+test('second integration rejects wrong head, reversed parents, stale parent and octopus',()=>{
+  for(const kind of ['head','reverse','stale','octopus'])twoIntegrationFixture(({root,feature,base,nextHead,newBase,policy,secondMerge})=>{
+    const parents=kind==='head'?[feature,newBase]:kind==='reverse'?[newBase,nextHead]:kind==='stale'?[nextHead,base]:[nextHead,newBase,feature];secondMerge(parents);
+    assert.throws(()=>seriesHistory(root,newBase,policy),/exact approved feature head|two explicitly approved/);
+  });
+});
+test('second integration rejects injected tree, forged first merge identity and any third merge',()=>{
+  twoIntegrationFixture(({root,write,stage,newBase,policy,secondMerge})=>{write('app/Foreign.php','<?php // injected\n');stage();secondMerge(undefined,git(root,'write-tree'));assert.throws(()=>seriesHistory(root,newBase,policy),/canonical merge tree/);});
+  twoIntegrationFixture(({root,newBase,policy,secondMerge})=>{secondMerge();assert.throws(()=>seriesHistory(root,newBase,{...policy,firstMerge:policy.firstHead}),/two explicitly approved/);});
+  twoIntegrationFixture(({root,newBase,policy,secondMerge})=>{const second=secondMerge(),tree=git(root,'write-tree'),side=git(root,'commit-tree',tree,'-p',second,'-m','Side feature'),third=git(root,'commit-tree',tree,'-p',second,'-p',side,'-m','Unauthorized third');git(root,'reset','--hard',third);assert.throws(()=>seriesHistory(root,newBase,policy),/two explicitly approved/);});
+});
+test('two integrations require preserved first merge and tooling-parent ancestry',()=>{
+  twoIntegrationFixture(({root,feature,newBase,policy,secondMerge})=>{secondMerge();assert.throws(()=>seriesHistory(root,newBase,{...policy,nextHead:feature}),/retain their exact ancestry/);});
+  twoIntegrationFixture(({root,newBase,policy,secondMerge})=>{secondMerge();const other=git(root,'commit-tree',git(root,'write-tree'),'-m','Unrelated parent');assert.throws(()=>seriesHistory(root,other,policy),/retain their exact ancestry/);});
+});
+test('foreign edits reverted between integrations remain forbidden by full historical scope',()=>twoIntegrationFixture(({root,feature,write,stage,newBase,policy,secondMerge})=>{
+  write('app/Foreign.php','<?php // forbidden intermediate\n');stage();git(root,'commit','-qm','Forbidden intermediate');const forbidden=git(root,'rev-parse','HEAD');git(root,'revert','--no-edit','HEAD');const nextHead=git(root,'rev-parse','HEAD'),updated={...policy,nextHead};secondMerge([nextHead,newBase],git(root,'merge-tree','--write-tree',nextHead,newBase).split('\n')[0]);
+  assert(seriesHistory(root,newBase,updated).includes(forbidden));assert.throws(()=>fixtureIntegrationScope(root,feature,updated),error=>error.stderr?.toString().includes('Outside approved series scope: app/Foreign.php'));
+}));
+test('exact existing Russian catalog is allowed without permitting duplicates, foreign files or renames',()=>{
+  fixture(({root,write})=>{write('lang/ru/russian.php',"<?php return ['Series'=>'Сериал'];\n");assert.equal(seriesScope(root).branch,'codex/series-seasons');});
+  for(const file of ['lang/ru/ru.php','lang/ru/foreign.php','lang/new/russian.php'])fixture(({root,write})=>{write(file,'<?php // unapproved\n');assert.throws(()=>seriesScope(root),/Outside approved series/);});
+  fixture(({root})=>{git(root,'mv','lang/ru/russian.php','lang/ru/renamed.php');assert.throws(()=>seriesScope(root),/regular files|Outside approved series/);});
+  fixture(({root,write,stage})=>{git(root,'checkout','codex/chatdev-integration');git(root,'rm','lang/ru/russian.php');git(root,'commit','-qm','Fixture parent without Russian');git(root,'push','origin','codex/chatdev-integration');git(root,'checkout','codex/series-seasons');git(root,'reset','--hard','origin/codex/chatdev-integration');write('lang/ru/russian.php','<?php // newly introduced\n');assert.throws(()=>seriesScope(root),/Outside approved series/);});
 });
