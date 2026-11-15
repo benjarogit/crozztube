@@ -181,7 +181,7 @@ remains unverified. The reports' concrete per-message pending decisions are
 preserved here through the following IDs: S=Series, T=Season, E=Episode,
 N=Next episode, R=reload stale playlist, M=choose playlist members,
 P=paired numbering, D=duplicate number per season, L=video loading/retry.
-For every listed locale, only the listed IDs remain absent/unaccepted:
+Historical inventory before the follow-up below (65c0487): only these IDs were absent/unaccepted:
 
 - am: S, T, E, N, R, M, P, D, L.
 - arg: S, T, E, N, R, M, P, D, L.
@@ -717,3 +717,49 @@ MySQL/concurrency, built-UI and CI evidence. The remaining translation questions
 and cross-client acceptance remain open. Normal completion still requires the
 existing plan-branch verification/publication path and any explicit integration
 permission. A series checkpoint does not grant main merge, deployment or step 9.
+
+## Scoped Welsh/Occitan follow-up (2026-11-15)
+
+Five messages receive a new whole-message editorial reading and independent
+context pass: cy/T and oci/R/M/P/D. Remaining count: **154 missing messages
+in 21 partial/open catalogs**; 104 catalogs still contain all nine scoped keys.
+Current differences from the historical 159-message inventory: cy has only P/D
+open; oci has only L open. All other listed missing-message IDs remain unchanged.
+The historical per-message questions above are retained as the review trail.
+
+Welsh Season uses Cyfres, attested in numbered S4C TV editions. The overall
+Series checkbox/disclosure and numeric Season field have distinct roles; using
+the same normal Welsh noun is not by itself an error. The added browser context
+checks distinguish checkbox and spinbutton explicitly rather than accidentally
+matching the checkbox as a numeric field. Welsh paired/duplicate validation
+sentences are still unaccepted.
+
+Occitan messages keep existing lista de lectura, sason and episòdi terminology.
+R describes the revision change then asks to reload before saving; M restricts
+selection to this playlist; P explicitly pairs the two number fields or leaves
+both empty (season 0 remains valid); D prohibits a second occurrence only within
+the same season. Both editorial passes checked complete messages and actual
+controller rules, with no placeholders added or removed. This is scoped AI
+editorial/context review, not native certification or full-catalog acceptance.
+The independent second pass additionally checked void against
+[Lo Congrès Dicodòc](https://dicodoc.eu/oc/diccionaris?dic%5B0%5D=BASIC&dic%5B1%5D=CANTAL&q=ja&start=300&submit=Cercar&type=oc-oc),
+which attests void as a synonym/gloss of vuèg; this lexical support does not claim
+the entire validation sentence was copied from that source.
+
+Occitan L stays open: the candidate definite plural las vidèos needs register-
+specific checking. Institutional Gascon usage supports feminine video plurals
+([Lo Congrès](https://locongres.org/actualitats/naveras-ressorsas/oc-vod-plataforma-navera-de-video-a-la-demanda)),
+but is not silently treated as a complete Languedocian error/retry sentence.
+No unavailable or uncertain message is relabeled as accepted.
+
+The fixture adds only these two partial contexts to language selection; the
+complete-catalog suite remains separate. Occitan's four actual routed API errors
+are now included by the existing dynamic server test. New browser cases cover
+its four editor messages and retained drafts, plus Welsh labels in both themes
+and narrow layout. Counts and publication evidence belong to actual test logs
+and the journal, not inferred from the presence of these tests.
+
+Per the owner's separately approved CD-006 correction, editor interoperability
+is a nonblocking, not-verified Orqen concern. Historical Cursor-blocker statements
+in this document are superseded for product acceptance. Real Codex hooks and
+all product/harness/merge requirements remain unchanged.

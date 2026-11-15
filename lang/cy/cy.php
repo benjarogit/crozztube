@@ -4677,4 +4677,5 @@ Agor y ffrwd: {STREAM_URL}',
   'Playlist changed. Reload before saving.' => 'Mae’r rhestr chwarae wedi newid. Llwytha hi eto cyn cadw.',
   'Choose videos from this playlist.' => 'Dewisa fideos o’r rhestr chwarae hon.',
   'Unable to load videos.' => 'Doedd dim modd llwytho’r fideos. Ceisia eto.',
+  'Season' => 'Cyfres',
 );

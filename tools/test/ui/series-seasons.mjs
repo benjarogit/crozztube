@@ -49,12 +49,16 @@ const fixtureCatalogs=JSON.parse(execFileSync('php',['tools/i18n/export.php'],{e
 const messageKeys=['Series','Season','Episode','Next episode','Playlist changed. Reload before saving.','Choose videos from this playlist.','Set both season and episode numbers, or leave both empty.','An episode number can only appear once in each season.','Unable to load videos.'];
 const referenceLocales=Object.keys(fixtureCatalogs).filter(code=>messageKeys.every(key=>typeof fixtureCatalogs[code][key]==='string'&&fixtureCatalogs[code][key].trim()));
 if(retainedLocales.some(code=>!referenceLocales.includes(code)))throw Error('A previously checked locale lost a series message');
+const partialLocales=['cy','oci'];
+const partialKeys={cy:['Series','Season','Episode'],oci:['Series','Season','Episode','Playlist changed. Reload before saving.','Choose videos from this playlist.','Set both season and episode numbers, or leave both empty.','An episode number can only appear once in each season.']};
+for(const code of partialLocales)for(const key of partialKeys[code])if(typeof fixtureCatalogs[code]?.[key]!=='string'||!fixtureCatalogs[code][key].trim())throw Error('Missing partial-context key '+code+': '+key);
+const fixtureLocales=[...referenceLocales,...partialLocales];
 const localeTags=JSON.parse(fs.readFileSync('resources/localization/locale-tags.json','utf8'));
-const catalog=code=>{if(!referenceLocales.includes(code))throw Error('Unknown fixture locale');return fixtureCatalogs[code];};
+const catalog=code=>{if(!fixtureLocales.includes(code))throw Error('Unknown fixture locale');return fixtureCatalogs[code];};
 const direction=code=>catalog(code).__meta?.direction==='rtl'?'rtl':'ltr';
 try{
  for(const dark of [false,true]) for(const owner of [true,false]){
-  let fixtureAutoplay=false;let writes=[],nextCalls=0,relatedCalls=0,holdNext=null,holdVideo=null,failSeriesGet=false,failSeriesPut=false,failSeriesNext=false,localizedFailure=null,localizedValidation=null;const errors=[],nextRequests=[],videoRequests=[];
+  let fixtureAutoplay=false;let writes=[],nextCalls=0,relatedCalls=0,holdNext=null,holdVideo=null,failSeriesGet=false,failSeriesPut=false,failSeriesNext=false,localizedFailure=null,localizedValidation=null,localizedValidationKey='Set both season and episode numbers, or leave both empty.';const errors=[],nextRequests=[],videoRequests=[];
   const catalogRequests=[];
   const deferred=()=>{let release;const promise=new Promise(resolve=>{release=resolve;});return {promise,release,seen:false};};
   const finishNative=async native=>{
@@ -82,11 +86,11 @@ try{
    const req=route.request(),u=new URL(req.url());if(u.origin!==origin){await route.abort();return;}
    if(!u.pathname.startsWith('/api/')){await route.continue();return;}
    const p=u.pathname;let body={};
-   if(p==='/api/playlists/1/series'&&req.method()==='PUT'&&localizedValidation){await route.fulfill({status:422,json:{error:{message:'The submitted data is invalid.',validation:{episodes:[catalog(localizedValidation)['Set both season and episode numbers, or leave both empty.']]}}}});return;}
+   if(p==='/api/playlists/1/series'&&req.method()==='PUT'&&localizedValidation){await route.fulfill({status:422,json:{error:{message:'The submitted data is invalid.',validation:{episodes:[catalog(localizedValidation)[localizedValidationKey]]}}}});return;}
    if(p==='/api/playlists/1/series'&&req.method()==='PUT'&&failSeriesPut){await route.fulfill({status:409,json:{message:localizedFailure?catalog(localizedFailure)['Playlist changed. Reload before saving.']:'Controlled revision conflict'}});return;}
    if(p==='/api/playlists/1/series'&&req.method()==='GET'&&failSeriesGet){await route.fulfill({status:500,json:{message:localizedFailure?catalog(localizedFailure)['Unable to load videos.']:'Controlled series refresh failure'}});return;}
    if(p==='/api/playlists/1/series/next'&&failSeriesNext){nextCalls++;await route.fulfill({status:500,json:{message:'Controlled next failure'}});return;}
-   if(p==='/api/i18n')body={languages:referenceLocales.map(code=>({code,label:catalog(code).__meta?.label||code,direction:direction(code)})),aliases:{}};
+   if(p==='/api/i18n')body={languages:fixtureLocales.map(code=>({code,label:catalog(code).__meta?.label||code,direction:direction(code)})),aliases:{}};
    else if(p.startsWith('/api/i18n/')){const code=p.split('/').at(-1);catalogRequests.push(code);body={code,translations:catalog(code),direction:direction(code)};}
    else if(p==='/api/auth/me')body={user:{id:owner?1:2,name:'Synthetic viewer',username:'fixture',channel:videos[0].channel,settings:{role:'user',preferences:{autoplay:fixtureAutoplay},appearance:{accent:'platform'}}}};
    else if(p==='/api/integrations/public')body={website,features:{},auth:{registration:{enabled:true}}};
@@ -242,6 +246,35 @@ try{
     await expect(failure).toContainText(strings['Unable to load videos.']);
     failSeriesGet=false;await failure.getByRole('button').click();await expect(page.locator('.watch-sidebar')).toContainText(strings['Next episode']);
     localizedFailure=null;checks+=17;
+   }
+   if(owner)for(const locale of partialLocales){
+    const strings=catalog(locale);
+    await page.evaluate(code=>sessionStorage.setItem('series_reference_locale',code),locale);
+    await page.goto(origin+'/playlists?id=1');
+    const partial=page.locator('.playlist-series-panel');await partial.locator('summary').click();
+    await expect(page.locator('html')).toHaveAttribute('lang',localeTags[locale]||locale.replace(/_/g,'-'));
+    expect(await page.evaluate(()=>localStorage.getItem('playhub_language'))).toBe(locale);
+    expect(catalogRequests).toContain(locale);checks+=3;
+    await expect(partial.locator('summary')).toHaveText(strings.Series);
+    await expect(partial.getByRole('checkbox',{name:strings.Series,exact:true})).toBeVisible();
+    await expect(partial.getByRole('spinbutton',{name:strings.Season,exact:true}).first()).toBeVisible();
+    await expect(partial.getByRole('spinbutton',{name:strings.Episode,exact:true}).first()).toBeVisible();
+    await page.setViewportSize({width:390,height:900});
+    await expect.poll(()=>page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);
+    if(locale==='oci'){
+     const draft=partial.locator('input[type="text"],input:not([type])').first();await draft.fill('Creator title remains unchanged');
+     localizedFailure=locale;failSeriesPut=true;await partial.locator('button[type="submit"]').click();
+     await expect(partial.getByRole('alert')).toContainText(strings['Playlist changed. Reload before saving.']);
+     await expect(draft).toHaveValue('Creator title remains unchanged');failSeriesPut=false;localizedFailure=null;
+     for(const key of ['Choose videos from this playlist.','Set both season and episode numbers, or leave both empty.','An episode number can only appear once in each season.']){
+      localizedValidation=locale;localizedValidationKey=key;await partial.locator('button[type="submit"]').click();
+      await expect(partial.getByRole('alert')).toContainText(strings[key]);
+      await expect(partial.getByRole('alert')).not.toContainText('The submitted data is invalid.');
+      await expect(draft).toHaveValue('Creator title remains unchanged');checks+=3;
+     }
+     localizedValidation=null;localizedValidationKey='Set both season and episode numbers, or leave both empty.';checks+=2;
+    }
+    checks+=5;
    }
    expect(errors).toEqual([]);checks++;
   }catch(error){console.error(JSON.stringify({fixture:{nextCalls,nextRequests,videoRequests},page:await page.evaluate(()=>({url:location.href,media:[...document.querySelectorAll('video')].map(e=>({src:e.src,currentSrc:e.currentSrc,ready:e.readyState,network:e.networkState,error:e.error?.code,paused:e.paused,time:e.currentTime,duration:e.duration,sourceElements:[...e.querySelectorAll('source')].map(s=>({src:s.src,type:s.type})),surface:window.__seriesMediaSurface(e),html:e.outerHTML.slice(0,900)})),ends:window.__seriesNativeEnds,trace:window.__seriesMediaTrace.slice(-40),queue:JSON.parse(localStorage.getItem('playhub_playback_queue_v1')||'[]'),title:document.querySelector('.watch-info h1')?.textContent}))}));await page.screenshot({path:'tools/test/.artifacts/series-seasons/failure.png',fullPage:true});console.error(JSON.stringify(await page.locator('body *').evaluateAll(es=>es.filter(e=>e.getBoundingClientRect().right>innerWidth+2&&e.getBoundingClientRect().width>0).slice(0,18).map(e=>({tag:e.tagName,cls:e.className,width:e.getBoundingClientRect().width,right:e.getBoundingClientRect().right})))));throw error;}finally{holdNext?.release();holdVideo?.release();await context.close();}
