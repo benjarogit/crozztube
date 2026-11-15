@@ -4543,4 +4543,5 @@ return array (
   'Series' => 'Sreath',
   'Episode' => 'Prògram',
   'Next episode' => 'An ath phrògram',
+  'Playlist changed. Reload before saving.' => 'Tha an liosta-cluiche air atharrachadh. Luchdaich an liosta a-rithist mus sàbhail thu.',
 );

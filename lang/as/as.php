@@ -4456,4 +4456,7 @@ return array (
   'Playlist changed. Reload before saving.' => 'প্লেলিষ্টখন সলনি হৈছে। সংৰক্ষণ কৰাৰ আগতে পুনৰ লোড কৰা।',
   'Choose videos from this playlist.' => 'এই প্লেলিষ্টৰ পৰা ভিডিঅ\'বোৰ বাছি লোৱা।',
   'Unable to load videos.' => 'ভিডিঅ\'বোৰ লোড কৰিব পৰা নগ\'ল। আকৌ চেষ্টা কৰা।',
+  'Season' => 'ছিজন',
+  'Set both season and episode numbers, or leave both empty.' => 'ছিজনৰ নম্বৰ আৰু খণ্ডৰ নম্বৰ দুয়োটা দিয়া, বা দুয়োটা খালী ৰাখা।',
+  'An episode number can only appear once in each season.' => 'একে ছিজনত দুটা খণ্ডৰ নম্বৰ একে হ\'ব নোৱাৰে।',
 );

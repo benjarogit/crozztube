@@ -893,3 +893,101 @@ legitimate fresh runtime record. Hook/gate changes or recovery need their own
 applicable approval; no trust or safety requirement is weakened. Ordinary
 independent copy work continues, but no step-8 completion/main merge/deployment
 or step 9 is asserted. No Orqen installation/migration infrastructure is added.
+
+## Follow-up: receipt race diagnosis and manual PR #3 decision
+
+Reference: published series checkpoint 3909088 and tooling head ac406456.
+The original receipt writer was exercised unchanged in an isolated temporary
+repository with two real child processes and an injected deterministic I/O
+schedule: A-open, B-open, A-write, B-shorter-write. Both hooks exited successfully,
+but the shared file contained one malformed JSONL line. This reproduces a concrete
+read/truncate/write race; the historical scheduling of the actual damaged log
+cannot be reconstructed and is not claimed proven. No active receipt was changed.
+
+Independent source review also found that the existing catch block can replace
+an already computed PreToolUse/legacy denial or Stop block with only a generic
+systemMessage after receipt I/O fails. This inherited defect predates PR #3.
+
+A repair draft outside the repository serializes the entire read/retention/write
+operation under an exclusive bounded lock, publishes complete JSONL by atomic
+rename, keeps restrictive permissions and preserves computed denials/Stop blocks.
+It refuses silent parsing repair and stale-lock removal. Explicit corruption
+recovery archives the exact original bytes privately, creating no replacement
+runtime evidence; a fresh real trusted probe remains required. The strict
+runtimeEvidence parser, session/digest checks, hook configuration and trust remain
+unchanged. Hard-crash durability is not asserted from rename alone.
+
+The root and a separate reviewer each actually ran ten isolated regression
+checks, including 24 concurrent writers, retention, corruption rejection, archive
+preservation, fresh fixture evidence versus changed digest, lock contention,
+injected publication failure, malformed input and bounded Stop behavior. These
+are fixture results, never live-runtime proof. Independently reviewed draft hook
+SHA-256: 867a98a0c074d401273892f84a71d7c4f0581ef643ec3e421d6e9531a95a54ac.
+
+Publication is genuinely blocked by both current path gates: neither the series
+scope nor ChatDev scope permits codex-hook.mjs changes. The repair instruction
+does not silently rewrite those allowlists. A concrete narrowly bounded scope
+extension is prepared for separate authorization: exact reviewed hook blob and
+historical blob checks, dedicated regression test required in tooling verification
+and CI, existing-path documentation, plus exactly one canonical fourth parent
+integration bound to the final published feature and repair heads. Existing three
+merges, all checks, strict evidence rules, plan/progress and trust remain intact.
+No active hook, log, gate or parent integration has been changed for this draft.
+
+PR #3 was freshly inspected at ac406456: clean/published, 131 hosted contracts
+tests passed, mergeable/CLEAN, no formal review or unresolved thread. CodeRabbit's
+neutral/rate-limit walkthrough is not code approval. The workflow uses pinned
+actions, read-only contents permission and no persisted checkout credentials.
+Branch-protection and ruleset APIs both return 403; their requirements are unknown
+and need confirmation in GitHub's UI before an authorized manual merge. Technical
+READY is advisory; explicit owner merge permission is absent. Recommendation:
+resolve and verify the inherited hook defect before the final merge decision.
+After separately authorized exact-head rechecks, use an ancestry-preserving merge
+for #3 before #4. Do not squash/rebase away the parent history or automatically
+merge, retarget, deploy, accept step 8 or begin step 9.
+
+## Current follow-up: Assamese media term and Gaelic revision message
+
+Reference: 3909088. Three Assamese and one Scottish Gaelic messages are added
+without replacing existing entries. Current inventory: **126 absent/unaccepted
+series messages in 15 partial/open catalogs**. 110 of 125 packs contain the nine
+scoped keys; this count is not full-catalog linguistic certification.
+
+For Assamese, two directly read publisher sources attest numbered TV seasons:
+[Assam TV9](https://www.assamtv9.com/entertainment/these-stars-can-replace-salman-khan-in-bigg-boss-ott-4-2080062.html)
+uses ছিজন, ছিজনৰ and ছিজনত in its own prose, while
+[Hindusthan Samachar Assamese](https://assamese.hindusthansamachar.in/Encyc/2026/8/7/trailer-The-Traitors-India-Season-2-released.php)
+also distinguishes season and episode. These sources attest TV terminology,
+not the validators as complete sentences or the only valid orthography. A
+Google Play search-index example was supplementary only: direct access returned
+403, so no inspected UI or current-runtime acceptance is claimed from it.
+
+The whole-message proposal and separate contextual readings check the singular
+personal instructions, both distinct numbers or both empty, season zero and
+duplicate episode numbers only within the same season. The Assamese apostrophe
+in হ'ব remains ASCII U+0027, consistent with existing reviewed spelling; it is
+not stripped or smart-quoted. Whole-message judgments are bounded AI editorial
+review with moderate confidence, not native certification.
+
+The Gaelic revision message says the playlist changed and asks the reader to
+reload the list before saving. Its explicit noun avoids an uncertain object
+pronoun. Singular Luchdaich and thu address the user personally. Existing pinned
+Mozilla Gaelic sources inform the language context; they do not supply a blanket
+grammar endorsement. The whole instruction received a proposer reading and a
+separate root reading. No Gaelic season or video-spelling question is resolved
+by accepting this one message; five Gaelic messages remain open.
+
+The fresh Myanmar review leaves all four outstanding messages open. Newly read
+official Kodi matrix/nexus resources still leave Season/Seasons empty; this does
+not prove that the language has no suitable term. A Refresh loan alone cannot
+justify an entire reload-current-playlist instruction. The possible distinction
+between retrieve/restore and refetch remains a concrete whole-message review
+need. The remaining Silesian/Aragonese proposals were also declined where the
+reviewer could not support the complete grammar/register; neighboring-language
+substitutions are not accepted.
+
+The routed and browser fixtures retain all earlier checks, require all nine AS
+entries and explicitly require the one new Gaelic conflict message while leaving
+its unresolved keys partial. Both-theme narrow editor contexts retain typed
+content through the real conflict/validator paths. Execution counts, source
+review and publication are recorded after actual checks in the existing journal.

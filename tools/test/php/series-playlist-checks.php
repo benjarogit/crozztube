@@ -418,7 +418,7 @@ $check(! Playlist::findOrFail($playlist->id)->is_series, 'Reapply has safe defau
         ['Set both season and episode numbers, or leave both empty.',422,['episodes'=>[['video_id'=>1,'season_number'=>null]]]],
         ['An episode number can only appear once in each season.',422,['episodes'=>[['video_id'=>2,'season_number'=>1,'episode_number'=>1]]]],
     ];
-    $requiredPartialCases=['as'=>['Playlist changed. Reload before saving.','Choose videos from this playlist.'],'my_mm'=>['Choose videos from this playlist.']];
+    $requiredPartialCases=['as'=>['Playlist changed. Reload before saving.','Choose videos from this playlist.'],'my_mm'=>['Choose videos from this playlist.'],'gd'=>['Playlist changed. Reload before saving.']];
     $coveredLocales=[]; $uncoveredLocales=[]; $partialLocales=[];
     foreach (\App\Support\GeneralSettings::languageIdentifiers() as $locale) {
         $files=glob(base_path('lang/'.$locale.'/*.php')) ?: [];
@@ -454,7 +454,7 @@ $check(! Playlist::findOrFail($playlist->id)->is_series, 'Reapply has safe defau
         if (count($availableCases)===count($failureCases)) $coveredLocales[]=$locale;
         else $partialLocales[$locale]=count($availableCases);
     }
-    $retainedLocales=['en','en_au','en_ca','en_gb','en_nz','en_za','de_de','de_at','de_ch','ca','es_ar','es_cl','es_co','es_cr','es_do','es_ec','es_es','es_gt','es_mx','es_pe','es_pr','es_uy','es_ve','fr_be','fr_ca','fr_fr','gl_es','it_it','pt_ao','pt_br','pt_pt','pt_pt_ao90','ro_ro','nl_be','nl_nl','da_dk','sv_se','nb_no','nn_no','fi','cs_cz','sk_sk','pl_pl','hr','sl_si','bs_ba','sr_rs','hu_hu','el','tr_tr','ru_ru','uk','cy','oci','si_lk','fur','lo'];
+    $retainedLocales=['en','en_au','en_ca','en_gb','en_nz','en_za','de_de','de_at','de_ch','ca','es_ar','es_cl','es_co','es_cr','es_do','es_ec','es_es','es_gt','es_mx','es_pe','es_pr','es_uy','es_ve','fr_be','fr_ca','fr_fr','gl_es','it_it','pt_ao','pt_br','pt_pt','pt_pt_ao90','ro_ro','nl_be','nl_nl','da_dk','sv_se','nb_no','nn_no','fi','cs_cz','sk_sk','pl_pl','hr','sl_si','bs_ba','sr_rs','hu_hu','el','tr_tr','ru_ru','uk','cy','oci','si_lk','fur','lo','as'];
     $httpCheck(array_diff($retainedLocales,$coveredLocales)===[],'Every retained reference/batch locale must have all four actual API failure messages');
     echo 'Series localized API errors: '.count($coveredLocales).' complete error catalogs, four real failure paths on both APIs; partial case coverage '.json_encode($partialLocales,JSON_THROW_ON_ERROR).'; '.count($uncoveredLocales).' incomplete error catalogs: '.implode(',',$uncoveredLocales).".\n";
     // Unable to load videos is a frontend loading state, not an exception this

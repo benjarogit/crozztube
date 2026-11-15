@@ -44,15 +44,16 @@ const browserRangeStart=servedRangeRequests;
 const browserType=process.env.SERIES_BROWSER==='firefox'?firefox:chromium;
 const browser=await browserType.launch({headless:true});let checks=3;
 fs.mkdirSync('tools/test/.artifacts/series-seasons',{recursive:true});
-const retainedLocales=['en','en_au','en_ca','en_gb','en_nz','en_za','de_de','de_at','de_ch','ca','es_ar','es_cl','es_co','es_cr','es_do','es_ec','es_es','es_gt','es_mx','es_pe','es_pr','es_uy','es_ve','fr_be','fr_ca','fr_fr','gl_es','it_it','pt_ao','pt_br','pt_pt','pt_pt_ao90','ro_ro','nl_be','nl_nl','da_dk','sv_se','nb_no','nn_no','fi','cs_cz','sk_sk','pl_pl','hr','sl_si','bs_ba','sr_rs','hu_hu','el','tr_tr','ru_ru','uk','cy','oci','si_lk','fur','lo'];
+const retainedLocales=['en','en_au','en_ca','en_gb','en_nz','en_za','de_de','de_at','de_ch','ca','es_ar','es_cl','es_co','es_cr','es_do','es_ec','es_es','es_gt','es_mx','es_pe','es_pr','es_uy','es_ve','fr_be','fr_ca','fr_fr','gl_es','it_it','pt_ao','pt_br','pt_pt','pt_pt_ao90','ro_ro','nl_be','nl_nl','da_dk','sv_se','nb_no','nn_no','fi','cs_cz','sk_sk','pl_pl','hr','sl_si','bs_ba','sr_rs','hu_hu','el','tr_tr','ru_ru','uk','cy','oci','si_lk','fur','lo','as'];
 const fixtureCatalogs=JSON.parse(execFileSync('php',['tools/i18n/export.php'],{encoding:'utf8',maxBuffer:64*1024*1024}));
 const messageKeys=['Series','Season','Episode','Next episode','Playlist changed. Reload before saving.','Choose videos from this playlist.','Set both season and episode numbers, or leave both empty.','An episode number can only appear once in each season.','Unable to load videos.'];
 const referenceLocales=Object.keys(fixtureCatalogs).filter(code=>messageKeys.every(key=>typeof fixtureCatalogs[code][key]==='string'&&fixtureCatalogs[code][key].trim()));
 if(retainedLocales.some(code=>!referenceLocales.includes(code)))throw Error('A previously checked locale lost a series message');
-const targetedLocales=['cy','oci','as','my_mm','si_lk','fur','lo'];
+const targetedLocales=['cy','oci','as','my_mm','si_lk','fur','lo','gd'];
 const targetedKeys={
  cy:messageKeys,oci:messageKeys,si_lk:messageKeys,fur:messageKeys,lo:messageKeys,
- as:['Series','Episode','Next episode','Playlist changed. Reload before saving.','Choose videos from this playlist.','Unable to load videos.'],
+ as:messageKeys,
+ gd:['Series','Episode','Next episode','Playlist changed. Reload before saving.'],
  my_mm:['Series','Episode','Next episode','Choose videos from this playlist.','Unable to load videos.'],
 };
 for(const code of targetedLocales)for(const key of targetedKeys[code])if(typeof fixtureCatalogs[code]?.[key]!=='string'||!fixtureCatalogs[code][key].trim())throw Error('Missing targeted-context key '+code+': '+key);
