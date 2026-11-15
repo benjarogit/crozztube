@@ -4589,4 +4589,13 @@ Du har utsetts till moderator för livesändningen ”{STREAM_TITLE}”. Öppna 
   'This email was sent by {site}.' => 'Det här mejlet skickades av {site}.',
   'Password strength must be at least {level}/10.' => 'Ditt lösenord måste nå minst {level}/10.',
   'Code expires in {time}' => 'Din kod går ut om {time}',
+  'Series' => 'Serie',
+  'Season' => 'Säsong',
+  'Episode' => 'Avsnitt',
+  'Next episode' => 'Nästa avsnitt',
+  'Playlist changed. Reload before saving.' => 'Spellistan har ändrats. Läs in den igen innan du sparar.',
+  'Choose videos from this playlist.' => 'Välj videor från den här spellistan.',
+  'Set both season and episode numbers, or leave both empty.' => 'Ange både säsongsnummer och avsnittsnummer, eller lämna båda fälten tomma.',
+  'An episode number can only appear once in each season.' => 'Ett avsnittsnummer får bara förekomma en gång per säsong.',
+  'Unable to load videos.' => 'Det gick inte att hämta videorna. Försök igen.',
 );

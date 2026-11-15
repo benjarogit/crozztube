@@ -129,17 +129,43 @@ sequence. Late next-episode responses are discarded after route, autoplay or
 queue changes. The miniplayer carries the context and uses the same fresh next
 resolver, preserving expansion back into the series and stopping at its end.
 
-The eight new series messages and the reused video-loading error have editorially
-reviewed reference entries in `en`, `en_au`, `en_ca`, `en_gb`, `en_nz`, `en_za`,
-`de_de`, `de_at` and `de_ch`. The remaining 116 installed catalogs lack these
-messages and currently fall back to English; their translation and linguistic
-review remain open. The full controlled browser scenarios exercise `de_de`;
-an additional `en` owner smoke check covers series/season/episode labels and
-the next-episode label in both themes, including a 390px overflow check.
-English error paths, regional English variants, `de_at` and `de_ch` still need
-context checks. No message-level review records for the eight new series messages
-have been added to `tools/i18n/reviews/`. This is not complete language acceptance;
-a structural catalog audit does not establish linguistic completeness.
+The eight new series messages and the video-loading error retain the nine
+EN/DE regional references. The 2026-11-15 batch adds 43 regional catalogs:
+
+- Romance: ca, es_ar, es_cl, es_co, es_cr, es_do, es_ec, es_es, es_gt, es_mx,
+  es_pe, es_pr, es_uy, es_ve, fr_be, fr_ca, fr_fr, gl_es, it_it, pt_ao, pt_br,
+  pt_pt, pt_pt_ao90, ro_ro.
+- Other European group: nl_be, nl_nl, da_dk, sv_se, nb_no, nn_no, fi, cs_cz,
+  sk_sk, pl_pl, hr, sl_si, bs_ba, sr_rs, hu_hu, el, tr_tr, ru_ru, uk.
+
+Reference snapshot: 1ff4666445906cb4c5e6eaaf1a8f25b5756eafb5. For each listed
+locale, each of the following nine complete message keys receives an editorial
+pass and a second reading against the named code context, plus PHP/structural
+validation. This records AI-agent editorial review, not native-speaker signoff.
+
+- Series; Season; Episode: PlaylistSeries owner form/disclosure labels.
+- Next episode: Watch/miniplayer series suggestion heading.
+- Playlist changed. Reload before saving.: stale revision, owner save conflict.
+- Choose videos from this playlist.: invalid playlist membership.
+- Set both season and episode numbers, or leave both empty.: paired fields.
+- An episode number can only appear once in each season.: duplicate numbering.
+- Unable to load videos.: unavailable video loading and retry guidance.
+
+The existing browser runner now loads actual allowlisted PHP catalogs for all
+52 batch/reference locales, not an English substitute. It checks selected HTML
+language (including pt-PT-ao1990), stored preference, actual catalog request,
+Series/Season/Episode labels, preserved original video title, 390px overflow and
+Next episode in both themes. These are focused owner context checks for the four
+labels; the other five messages still need runtime error-path context coverage.
+The full controlled German scenarios remain. No live provider or user content
+is translated by this test. Publication results belong in the journal/PR.
+
+The remaining 73 catalogs still lack these new messages; translation and
+linguistic/context review stay open. The canonical ru/russian.php catalog remains open because the existing series
+path gate excludes that filename; it was neither renamed nor forced through.
+No historical tools/i18n/reviews record is
+silently repurposed. This message/locale/context matrix is the scoped review
+record for this batch, not complete language acceptance or native verification.
 
 ## Prüfungen und Grenzen
 
