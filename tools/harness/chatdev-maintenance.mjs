@@ -56,6 +56,8 @@ export function chatdevScope(root) {
   const currentHookBlob = git(root, ['hash-object', '--', receiptHook]);
   const actualMode = fs.statSync(hookPath).mode & 0o111 ? '100755' : '100644';
   if (![baselineBlob, approvedReceiptHookBlob].includes(currentHookBlob) || actualMode !== mode) throw Error('Outside ChatDev tooling scope: only the exact approved receipt hook repair is permitted.');
+  const expectedIndex = `${mode} ${currentHookBlob} 0\t${receiptHook}`;
+  if (git(root, ['ls-files', '--stage', '--', receiptHook]) !== expectedIndex) throw Error('Outside ChatDev tooling scope: receipt hook index must exactly match the reviewed working tree blob and mode.');
   const source = file => git(root, ['show', `${base}:${file}`]);
   // git() trims trailing newlines; normalize only that framing for exact integration comparison.
   const actual = file => fs.readFileSync(path.join(root, file), 'utf8').trimEnd();
