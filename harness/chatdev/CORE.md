@@ -119,3 +119,12 @@ may remain and are checked on retry. GitHub does not provide atomic issue-body
 compare-and-swap. Issue closure grants no harness acceptance, PR merge, branch
 retarget, deployment or permission to begin another step. Perform the existing
 PR/harness completion path only after its separate evidence and permissions.
+
+## Editor independence (owner-approved scope correction, 2026-11-15)
+
+Normal CrozzTube work and product acceptance do not require a controllable Cursor
+agent. PR audit reports editor interoperability as separately owned by Orqen and
+not verified; it is not a product blocker or a simulated pass. Do not repeatedly
+probe or ask about Cursor availability during ordinary feature work. Existing
+actual Codex-hook enforcement, reviews, tests, secrets, publication, feature
+acceptance and merge/deployment permissions remain authoritative and unchanged.

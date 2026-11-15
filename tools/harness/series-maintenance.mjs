@@ -9,7 +9,10 @@ const approvedIntegrationHead='02455c7f647ccc34477fd4926dd349c4b6dd810e';
 const approvedFirstIntegration='c17e930f33a2564c4b4deb92eba5b5792d34f64a';
 const approvedFirstToolingParent='c8d403968666b789fa189e7c704a0284a3b229a5';
 const approvedNextIntegrationHead='d8d4704848042b3f967f3b2be34cd4e12a0a1001';
-const historyPolicy=Object.freeze({firstHead:approvedIntegrationHead,firstMerge:approvedFirstIntegration,firstParent:approvedFirstToolingParent,nextHead:approvedNextIntegrationHead});
+const approvedSecondIntegration='3a07a5aaa3978b677649ae00df5235eabd79b20f';
+const approvedSecondToolingParent='be06d13fcddbfc090c46ae201ddbb2ce1033ba6c';
+const approvedThirdIntegrationHead='65c04875241caede38045440446af44054059df6';
+const historyPolicy=Object.freeze({firstHead:approvedIntegrationHead,firstMerge:approvedFirstIntegration,firstParent:approvedFirstToolingParent,nextHead:approvedNextIntegrationHead,secondMerge:approvedSecondIntegration,secondParent:approvedSecondToolingParent,thirdHead:approvedThirdIntegrationHead});
 const checkId='step-08-series', script='tools/test/step-08-series.sh';
 const regular=(root,file)=>{const p=path.join(root,file);if(!fs.existsSync(p))return false;const s=fs.lstatSync(p);return s.isFile()&&!s.isSymbolicLink();};
 const canonical=value=>JSON.stringify(value && typeof value==='object' ? Array.isArray(value)?value.map(v=>JSON.parse(canonical(v))):Object.fromEntries(Object.keys(value).sort().map(k=>[k,JSON.parse(canonical(value[k]))])) : value);
@@ -58,7 +61,7 @@ export function seriesHistory(root,base,policy=historyPolicy){
   const commits=git(root,['rev-list',base+'..HEAD']).split('\n').filter(Boolean);
   const merges=git(root,['rev-list','--merges',base+'..HEAD']).split('\n').filter(Boolean);
   if(!merges.length)return commits;
-  if(merges.length>2||!merges.includes(policy.firstMerge))throw Error('Merge commits are not allowed except the two explicitly approved tooling integrations.');
+  if(merges.length>3||!merges.includes(policy.firstMerge))throw Error('Merge commits are not allowed except the explicitly approved tooling integrations.');
   const validateMerge=(merge,first,second)=>{
     const parents=git(root,['show','-s','--format=%P',merge]).split(' ');
     if(parents.length!==2||parents[0]!==first||parents[1]!==second)throw Error('Merge commits must integrate the published tooling parent into the exact approved feature head.');
@@ -73,10 +76,28 @@ export function seriesHistory(root,base,policy=historyPolicy){
   }catch{throw Error('Approved first merge and old tooling parent must retain their exact ancestry.');}
   if(merges.length===1){
     if(base!==policy.firstParent)throw Error('The moved published tooling parent requires the exact approved second integration.');
-  }else{
+  }else if(!policy.secondMerge){
+    // Synthetic older two-integration policies remain usable for isolated
+    // history tests. The public gate always carries all three fixed anchors.
+    if(merges.length!==2)throw Error('Merge commits are not allowed beyond the explicitly approved integrations.');
     if(base===policy.firstParent)throw Error('The second tooling integration requires an advanced published parent.');
     const next=merges.find(commit=>commit!==policy.firstMerge);
     validateMerge(next,policy.nextHead,base);
+  }else{
+    if(!merges.includes(policy.secondMerge))throw Error('Merge commits must retain the exact approved second integration.');
+    validateMerge(policy.secondMerge,policy.nextHead,policy.secondParent);
+    try{
+      git(root,['merge-base','--is-ancestor',policy.firstParent,policy.secondParent]);
+      git(root,['merge-base','--is-ancestor',policy.secondParent,base]);
+      git(root,['merge-base','--is-ancestor',policy.secondMerge,policy.thirdHead]);
+    }catch{throw Error('Approved second merge and tooling parent must retain their exact ancestry.');}
+    if(merges.length===2){
+      if(base!==policy.secondParent)throw Error('The moved published tooling parent requires the exact approved third integration.');
+    }else{
+      if(base===policy.secondParent)throw Error('The third tooling integration requires an advanced published parent.');
+      const third=merges.find(commit=>commit!==policy.firstMerge&&commit!==policy.secondMerge);
+      validateMerge(third,policy.thirdHead,base);
+    }
   }
   // Exclude only validated canonical integrations. All old feature commits,
   // including forbidden changes later reverted, still undergo path/plan audit.

@@ -70,3 +70,27 @@ mandatory. Only the real step-08-series check may be added to the plan; all
 existing requirements and progress are immutable. Release assets must be
 indexed; receipts bind all remote destinations. Completion/begin and main merges
 remain outside this path and retain the original requirements.
+
+## CD-006 — Owner-approved editor/product scope correction (2026-11-15)
+
+Source: the owner's explicit editor-independence clarification and subsequent
+separate bounded gate approval in this session. Supersedes CD-004's cross-editor
+PR prerequisite and its accidental generic application; keeps its CI/review loop.
+
+The original setup requested a real cross-client test but allowed unavailable
+tests to stay not verified. f837a29's evaluator applied that integration-specific
+requirement to every PR; step 8's authoritative three product criteria contain
+no Cursor requirement. CrozzTube development does not need a controllable Cursor.
+Editor interoperability is separately owned and validated in Orqen. Report it
+as not verified; no simulated or caller-asserted editor flag makes it pass.
+No new orchestration implementation or editor runtime is installed here.
+
+This correction removes only the two universal cross-editor audit blockers.
+Exact-head tests/reviews, GitHub checks/comments, secret/path/provenance safety,
+confirmed publication, real Codex-hook enforcement, step completion and merge
+permissions remain unchanged. READY is advisory, never merge or deployment.
+
+The owner separately authorized one further canonical, conflict-free published
+ChatDev-parent integration at feature head 65c0487. Preserve both prior canonical
+integrations; reject a fourth, foreign history, injected trees, unapproved feature
+heads and manual conflict resolution. No main merge or step 9 is authorized.

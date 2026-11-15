@@ -48,3 +48,11 @@ blocker stays open. Cloud/remote worker propagation was not configured or tested
 The global skill does not put ChatDev code into old main or another checkout.
 It explicitly stops if the current checkout lacks the existing core/CLI/harness.
 No source integration, merge, step completion or step 9 was performed.
+
+### Scope supersession, 2026-11-15
+
+The owner explicitly separated editor interoperability into Orqen and approved
+removing the generic cross-editor PR blocker. The historical observations above
+remain valid and not verified; they no longer block CrozzTube product work.
+Real active-project Codex-hook enforcement remains in the existing harness.
+See CD-006; this does not claim an Orqen implementation or editor execution.

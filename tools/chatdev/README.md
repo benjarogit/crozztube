@@ -181,10 +181,12 @@ Run `node tools/chatdev/cli.mjs pr-audit 3 /absolute/local/evidence.json`.
 The sanitized decision is stored under Git-private crozztube-chatdev/pr-audit-3.json.
 Evidence fields are head, authorActor, reviews (role/actor/result/head/evidence),
 tests (name/result/head/evidence), commentDispositions (keyed by returned id;
-classification/reason/bodyHash/head), and runtime (verified/head/evidence).
+classification/reason/bodyHash/head). Editor interoperability is separately
+reported as not-verified, owned by Orqen; legacy runtime flags cannot assert it.
 The evaluator always requires current-head quality/QA/security/architecture
-passes, successful GitHub Actions contracts, complete comment triage and the
-mandatory real runtime prerequisite. Local evidence cannot waive that requirement.
+passes, successful GitHub Actions contracts and complete comment triage.
+Existing real Codex-hook, publication and feature acceptance gates remain
+enforced by the unchanged harness. An optional editor test is not such a gate.
 READY is advisory; it never merges or replaces harness approval.
 
 ## Project Manager coordination

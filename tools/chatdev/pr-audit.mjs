@@ -57,7 +57,8 @@ export function collect(root,pr) {
  * Evidence is asserted by its supplying reviewer, not authenticated agent identity.
  * {head,authorActor,requiredRoles, reviews:[{role,actor,result,head,evidence:[]}],
  * tests:[{name,result,head,evidence:[]}], commentDispositions:{id:{classification,
- * reason,bodyHash,head}}, runtime:{required:true,verified:false,head,evidence:[]}}
+ * reason,bodyHash,head}}. Editor interoperability belongs to Orqen and is
+ * reported separately; no supplied flag can fabricate runtime verification.
  * READY never grants merge, deployment, permission or harness acceptance.
  */
 export function assess(snapshot,evidence={}) {
@@ -122,9 +123,11 @@ export function assess(snapshot,evidence={}) {
   }
   if(!Array.isArray(evidence.tests)||!evidence.tests.length)block('MISSING_TEST_EVIDENCE');
   for(const t of evidence.tests||[]){if(t.head!==head||!Array.isArray(t.evidence)||!t.evidence.length||t.evidence.some(item=>typeof item!=='string'||!item.trim()))block('STALE_OR_MISSING_TEST_EVIDENCE');else if(t.result==='failed')fail('TESTS_FAILED');else if(t.result!=='passed')block('TESTS_UNVERIFIED');}
-  if(evidence.runtime?.required===false)block('RUNTIME_PREREQUISITE_CANNOT_BE_WAIVED');
-  if(evidence.runtime?.verified!==true||evidence.runtime?.head!==head||!Array.isArray(evidence.runtime?.evidence)||!evidence.runtime.evidence.length||evidence.runtime.evidence.some(item=>typeof item!=='string'||!item.trim()))block('RUNTIME_PREREQUISITE_UNVERIFIED');
-  return {schemaVersion:1,head,status:changes.size?'CHANGES_REQUIRED':blocked.size?'BLOCKED':'READY',changes:[...changes].sort(),blockers:[...blocked].sort(),comments:(snapshot?.comments||[]).map(c=>({id:c.id,bodyHash:c.bodyHash,url:safeUrl(c.url)})),participatingRoles:[...required].filter(role=>(evidence.reviews||[]).some(r=>r.role===role&&r.head===head&&r.result==='passed')),permission:'Advisory only; existing harness and explicit approvals remain authoritative.'};
+  // Owner-approved scope correction, 2026-11-15: the former cross-editor
+  // setup check is not product acceptance. Real Codex hooks remain enforced
+  // by the existing harness, not inferred from caller-supplied editor flags.
+  const editorIntegration={owner:'Orqen',status:'not-verified',blocking:false};
+  return {schemaVersion:1,head,editorIntegration,status:changes.size?'CHANGES_REQUIRED':blocked.size?'BLOCKED':'READY',changes:[...changes].sort(),blockers:[...blocked].sort(),comments:(snapshot?.comments||[]).map(c=>({id:c.id,bodyHash:c.bodyHash,url:safeUrl(c.url)})),participatingRoles:[...required].filter(role=>(evidence.reviews||[]).some(r=>r.role===role&&r.head===head&&r.result==='passed')),permission:'Advisory only; existing harness and explicit approvals remain authoritative.'};
 }
 
 export function audit(root,pr,evidenceFile=null){

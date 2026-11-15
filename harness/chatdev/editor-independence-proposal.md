@@ -1,6 +1,8 @@
 # Proposed separation of product acceptance and editor integration
 
-Status: proposal only, 2026-11-15. No gate is changed by this document.
+Status: both bounded changes explicitly approved by the owner, 2026-11-15.
+The document itself changes no gate; implementation must pass the existing
+review, regression, publication and CI workflow.
 
 ## Origin and scope
 
