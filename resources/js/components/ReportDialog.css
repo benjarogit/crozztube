@@ -1,0 +1,80 @@
+.report-dialog {
+  width: min(520px, 100%);
+  max-height: calc(100vh - 56px);
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--panel);
+  color: var(--text);
+  box-shadow: 0 34px 100px rgba(15, 23, 42, .32);
+  overflow: hidden;
+}
+
+.report-dialog header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 20px 22px 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+.report-dialog header h2 { margin: 0; font-size: 20px; line-height: 1.2; letter-spacing: -.02em; font-weight: 900; }
+.report-dialog header p { margin: 6px 0 0; color: var(--muted); font-size: 13px; line-height: 1.45; }
+.report-dialog .clip-composer-close { flex: 0 0 auto; }
+
+.report-dialog form {
+  display: grid;
+  gap: 14px;
+  min-height: 0;
+  padding: 18px 22px 20px;
+  overflow: auto;
+}
+
+.report-dialog label {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 820;
+}
+
+.report-dialog select,
+.report-dialog textarea {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel-2);
+  color: var(--text);
+  font: inherit;
+  font-weight: 600;
+}
+
+.report-dialog select:focus,
+.report-dialog textarea:focus { outline: 0; border-color: var(--link); box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 16%, transparent); }
+.report-dialog textarea { min-height: 104px; resize: vertical; line-height: 1.5; }
+.report-dialog-count { justify-self: end; color: var(--muted); font-size: 12px; font-weight: 650; font-variant-numeric: tabular-nums; }
+.report-dialog-error { margin: 0; color: var(--danger); font-size: 13px; font-weight: 700; }
+
+.report-dialog footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-top: 4px;
+}
+
+.report-dialog footer .btn { min-width: 112px; }
+.report-dialog footer .btn:disabled { opacity: .55; cursor: not-allowed; }
+
+@media (max-width: 620px) {
+  .collection-modal-backdrop.report-dialog-backdrop { padding: 0; place-items: end center; }
+  .report-dialog { width: 100%; max-height: 92vh; border-radius: var(--radius-lg) var(--radius-lg) 0 0; border-bottom: 0; }
+  .report-dialog header { padding: 18px 18px 10px; }
+  .report-dialog form { padding: 16px 18px 18px; }
+  .report-dialog footer { position: sticky; bottom: 0; background: var(--panel); }
+  .report-dialog footer .btn { flex: 1; }
+}

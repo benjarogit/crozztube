@@ -41,13 +41,26 @@ try {
     $owned = TimeMarks::visible($video, $owner, $now)->pluck('body');
     $check($owned->contains('private note') && $owned->contains('public mark'), 'The author keeps both private notes and public marks.');
 
+    $ownVoteMark = TimeMarks::create($owner, $video, 52, 'owner voted mark', 'public');
+    $ownerVote = TimeMarks::vote($owner, $ownVoteMark, 1);
+    $check($ownerVote !== null && $ownerVote->value === 1, 'Authors can vote on their own mark.');
     $rejected = false;
     try {
-        TimeMarks::vote($owner, $public);
+        TimeMarks::vote($owner, $ownVoteMark, -1);
     } catch (ValidationException) {
         $rejected = true;
     }
-    $check($rejected, 'Authors cannot vote on their own mark.');
+    $check($rejected, 'An author vote on the own mark is final.');
+    $rejected = false;
+    try {
+        TimeMarks::vote($owner, $ownVoteMark, 0);
+    } catch (ValidationException) {
+        $rejected = true;
+    }
+    $check($rejected, 'An author vote on the own mark cannot be withdrawn.');
+    $check(VideoTimeMarkVote::query()->where('video_time_mark_id', $ownVoteMark->id)->where('user_id', $owner->id)->value('value') === 1, 'The author vote keeps its original direction.');
+    $ownerPayload = TimeMarks::visible($video, $owner, $now)->firstWhere('id', $ownVoteMark->id);
+    $check($ownerPayload['owned'] && $ownerPayload['voted'] && $ownerPayload['viewer_vote'] === 1 && $ownerPayload['likes_count'] === 1 && $ownerPayload['score'] === 1, 'An author vote counts like any other vote.');
     $first = TimeMarks::vote($voter, $public);
     $second = TimeMarks::vote($voter, $public);
     $check((int) $first->id === (int) $second->id, 'A viewer has one changeable vote.');
@@ -65,7 +78,7 @@ try {
     }
     $first = TimeMarks::vote($voter, $public, 1);
     $payload = TimeMarks::visible($video, $owner, $now)->firstWhere('id', $public->id);
-    $check($payload['owned'] && $payload['viewer_vote'] === 0 && $payload['likes_count'] === 1, 'The owner sees counts without a self-vote.');
+    $check($payload['owned'] && $payload['viewer_vote'] === 0 && $payload['likes_count'] === 1, 'The owner sees other viewers counts on an unvoted own mark.');
     $first->forceFill(['created_at' => $now->subDays(10), 'updated_at' => $now->subDays(10)])->save();
 
     $stale = VideoTimeMark::query()->create([

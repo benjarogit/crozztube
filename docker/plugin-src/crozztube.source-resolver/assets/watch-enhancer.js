@@ -184,7 +184,9 @@
   // -------------------------------------------------------------------- UI
 
   function actionBar() {
-    return document.querySelector('.watch-source-actions') || (document.querySelector('.watch-toolbar[data-source-menu]') ? null : document.querySelector('.watch-toolbar .action-bar'));
+    return document.querySelector('[data-watch-mirror]')
+      || document.querySelector('.watch-source-actions')
+      || (document.querySelector('.watch-toolbar[data-source-menu]') ? null : document.querySelector('.watch-toolbar .action-bar'));
   }
 
   function playerStage() {

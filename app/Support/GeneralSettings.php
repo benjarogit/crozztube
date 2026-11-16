@@ -13,19 +13,8 @@ class GeneralSettings
     {
         $path = self::settingsPath();
         $stored = is_file($path) && is_readable($path) ? json_decode((string) @file_get_contents($path), true) : [];
-        if (is_array($stored) && ! isset($stored['design']['radiusScaleVersion'])) {
-            $radii = is_array($stored['design']['radii'] ?? null) ? $stored['design']['radii'] : [];
-            if (($radii['radius'] ?? '14px') === '14px') {
-                $radii['radius'] = '10px';
-            }
-            if (($radii['radiusLg'] ?? '18px') === '18px') {
-                $radii['radiusLg'] = '12px';
-            }
-            $radii['radiusMedia'] ??= '8px';
-            $stored['design']['radii'] = $radii;
-            $stored['design']['radiusScaleVersion'] = 2;
-        }
-        $stored = InterfacePalette::migrate(is_array($stored) ? $stored : []);
+        $stored = self::migrateRadiusScale(is_array($stored) ? $stored : []);
+        $stored = InterfacePalette::migrate($stored);
         $settings = array_replace_recursive(self::defaults(), $stored);
         $settings['logoText'] = (string) ($settings['logoText'] ?? '');
         $settings['showLogoText'] = (bool) $settings['showLogoText'];
@@ -228,6 +217,41 @@ class GeneralSettings
         return $languages[0] ?? 'en';
     }
 
+    /**
+     * Migrates stored radius tokens to the flat 4px scale (pills 2px).
+     *
+     * Only values that still equal a previously shipped default are rewritten so
+     * administrator-authored radii survive the upgrade.
+     */
+    public static function migrateRadiusScale(array $stored): array
+    {
+        if (! isset($stored['design']['radiusScaleVersion'])) {
+            $radii = is_array($stored['design']['radii'] ?? null) ? $stored['design']['radii'] : [];
+            if (($radii['radius'] ?? '14px') === '14px') {
+                $radii['radius'] = '10px';
+            }
+            if (($radii['radiusLg'] ?? '18px') === '18px') {
+                $radii['radiusLg'] = '12px';
+            }
+            $radii['radiusMedia'] ??= '8px';
+            $stored['design']['radii'] = $radii;
+            $stored['design']['radiusScaleVersion'] = 2;
+        }
+        if ((int) ($stored['design']['radiusScaleVersion'] ?? 0) < 3) {
+            $radii = is_array($stored['design']['radii'] ?? null) ? $stored['design']['radii'] : [];
+            foreach (['radiusMedia' => '8px', 'radius' => '10px', 'radiusLg' => '12px'] as $key => $shipped) {
+                if (($radii[$key] ?? $shipped) === $shipped) {
+                    $radii[$key] = '4px';
+                }
+            }
+            $radii['radiusPill'] ??= '2px';
+            $stored['design']['radii'] = $radii;
+            $stored['design']['radiusScaleVersion'] = 3;
+        }
+
+        return $stored;
+    }
+
     private static function settingsPath(): string
     {
         return storage_path('app/playhub-general-settings.json');
@@ -282,11 +306,12 @@ class GeneralSettings
                     'bold' => '800',
                     'heavy' => '900',
                 ],
-                'radiusScaleVersion' => 2,
+                'radiusScaleVersion' => 3,
                 'radii' => [
-                    'radiusMedia' => '8px',
-                    'radius' => '10px',
-                    'radiusLg' => '12px',
+                    'radiusMedia' => '4px',
+                    'radius' => '4px',
+                    'radiusLg' => '4px',
+                    'radiusPill' => '2px',
                 ],
                 'layout' => [
                     'sidebarExpanded' => '264px',

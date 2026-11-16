@@ -21,7 +21,7 @@
   margin: 0;
   overflow: hidden;
   border: 1px solid var(--line);
-  border-radius: 12px;
+  border-radius:var(--radius);
   background: var(--panel);
 }
 .hosted-image-preview-list .hosted-image-preview > img {
@@ -48,7 +48,7 @@
   height: auto;
   padding: 8px;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius:var(--radius);
   background: var(--panel-2);
   color: var(--text);
   font-size: 12px;

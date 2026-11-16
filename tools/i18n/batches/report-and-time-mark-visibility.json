@@ -1,0 +1,26 @@
+{
+  "context": "Report flow with required reason and optional details, compact time-mark preview with audio, self-vote finality, and share confirmation. German uses the informal address used across the viewer UI.",
+  "messages": {
+    "Report comment": { "en": "Report comment", "de": "Kommentar melden" },
+    "Choose a reason": { "en": "Choose a reason", "de": "Grund auswählen" },
+    "Spam or misleading": { "en": "Spam or misleading", "de": "Spam oder Irreführung" },
+    "Abusive or harmful content": { "en": "Abusive or harmful content", "de": "Beleidigende oder schädliche Inhalte" },
+    "Violence or graphic content": { "en": "Violence or graphic content", "de": "Gewalt oder verstörende Inhalte" },
+    "Copyright infringement": { "en": "Copyright infringement", "de": "Urheberrechtsverletzung" },
+    "Something else": { "en": "Something else", "de": "Etwas anderes" },
+    "Spam": { "en": "Spam", "de": "Spam" },
+    "Harassment or bullying": { "en": "Harassment or bullying", "de": "Belästigung oder Mobbing" },
+    "Hate speech": { "en": "Hate speech", "de": "Hassrede" },
+    "Sexual content": { "en": "Sexual content", "de": "Sexuelle Inhalte" },
+    "Impersonation": { "en": "Impersonation", "de": "Nachahmung einer Identität" },
+    "More details (optional)": { "en": "More details (optional)", "de": "Weitere Details (optional)" },
+    "Send report": { "en": "Send report", "de": "Meldung senden" },
+    "The report could not be sent. Try again.": { "en": "The report could not be sent. Try again.", "de": "Die Meldung konnte nicht gesendet werden. Versuch es noch einmal." },
+    "Video shared.": { "en": "Video shared.", "de": "Video geteilt." },
+    "Preview unavailable": { "en": "Preview unavailable", "de": "Vorschau nicht verfügbar" },
+    "Preview from": { "en": "Preview from", "de": "Vorschau ab" },
+    "Play preview": { "en": "Play preview", "de": "Vorschau abspielen" },
+    "Pause preview": { "en": "Pause preview", "de": "Vorschau pausieren" },
+    "Your vote is final": { "en": "Your vote is final", "de": "Deine Stimme ist endgültig" }
+  }
+}

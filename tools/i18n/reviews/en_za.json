@@ -857,6 +857,15 @@
             ],
             "reviewed_at": "2026-11-06T11:32:47+00:00"
         },
+        "05955157000128548b4e412003ed7358fb45e4c37855476b81261e7c1543ac88": {
+            "source_hash": "05955157000128548b4e412003ed7358fb45e4c37855476b81261e7c1543ac88",
+            "translation_hash": "05955157000128548b4e412003ed7358fb45e4c37855476b81261e7c1543ac88",
+            "status": "editorial",
+            "contexts": [
+                "Report flow with required reason and optional details, compact time-mark preview with audio, self-vote finality, and share confirmation. German uses the informal address used across the viewer UI."
+            ],
+            "reviewed_at": "2026-11-16T12:56:16+00:00"
+        },
         "05a79885effe6f14b868a3683f72a8cee43c9964d437e957499bf4256b01f157": {
             "source_hash": "60f7c4c8be73d49ba1430f4691490ebd6e5103b855e4e30f4eff923b27b2ff0e",
             "translation_hash": "60f7c4c8be73d49ba1430f4691490ebd6e5103b855e4e30f4eff923b27b2ff0e",
@@ -4114,6 +4123,15 @@
                 "English reference editorial pass: moderation/monetization, static category labels, public help/FAQ/contact/refund guidance, API/developer metadata. User-facing help avoids database/popup jargon; legal/refund conditions preserved. CSS, identifiers, sample statistics and sample creator title excluded from copy review."
             ],
             "reviewed_at": "2026-11-06T10:21:26+00:00"
+        },
+        "1e5655f1aac7974bbf2d932967ceda36ec1e77cb09f80b822e8b1159e8284af6": {
+            "source_hash": "1e5655f1aac7974bbf2d932967ceda36ec1e77cb09f80b822e8b1159e8284af6",
+            "translation_hash": "1e5655f1aac7974bbf2d932967ceda36ec1e77cb09f80b822e8b1159e8284af6",
+            "status": "editorial",
+            "contexts": [
+                "Report flow with required reason and optional details, compact time-mark preview with audio, self-vote finality, and share confirmation. German uses the informal address used across the viewer UI."
+            ],
+            "reviewed_at": "2026-11-16T12:56:16+00:00"
         },
         "1e5aba0d2ae508d1de61ee6a2fa210996fc42a119897a2db414547f5508652bb": {
             "source_hash": "1e5aba0d2ae508d1de61ee6a2fa210996fc42a119897a2db414547f5508652bb",
@@ -7494,6 +7512,15 @@
             ],
             "reviewed_at": "2026-11-06T11:28:45+00:00"
         },
+        "35a0b1fdc8009bfdb94737be898d22c56b4f19af89e84ed35abac2d97762d515": {
+            "source_hash": "35a0b1fdc8009bfdb94737be898d22c56b4f19af89e84ed35abac2d97762d515",
+            "translation_hash": "35a0b1fdc8009bfdb94737be898d22c56b4f19af89e84ed35abac2d97762d515",
+            "status": "editorial",
+            "contexts": [
+                "Report flow with required reason and optional details, compact time-mark preview with audio, self-vote finality, and share confirmation. German uses the informal address used across the viewer UI."
+            ],
+            "reviewed_at": "2026-11-16T12:56:16+00:00"
+        },
         "35b981886bee01ec1780f55ea32eacccc32bc4287d163c01d1c9a25d66209d85": {
             "source_hash": "49a500d4d4e35cbc378927bcea1f3de2d7e73cab03195de6298e7f8fb2a0ad41",
             "translation_hash": "49a500d4d4e35cbc378927bcea1f3de2d7e73cab03195de6298e7f8fb2a0ad41",
@@ -9771,6 +9798,15 @@
             ],
             "reviewed_at": "2026-11-06T11:31:07+00:00"
         },
+        "468904932c2d3414774aecf1e83c1ad7bad70695c899d3f114771490e6136a0e": {
+            "source_hash": "468904932c2d3414774aecf1e83c1ad7bad70695c899d3f114771490e6136a0e",
+            "translation_hash": "468904932c2d3414774aecf1e83c1ad7bad70695c899d3f114771490e6136a0e",
+            "status": "editorial",
+            "contexts": [
+                "Report flow with required reason and optional details, compact time-mark preview with audio, self-vote finality, and share confirmation. German uses the informal address used across the viewer UI."
+            ],
+            "reviewed_at": "2026-11-16T12:56:16+00:00"
+        },
         "46e893bc2559b4a08054a67cb1ce4258b1c737b5b464b284bad9f25fce2b922f": {
             "source_hash": "46e893bc2559b4a08054a67cb1ce4258b1c737b5b464b284bad9f25fce2b922f",
             "translation_hash": "46e893bc2559b4a08054a67cb1ce4258b1c737b5b464b284bad9f25fce2b922f",
@@ -11661,6 +11697,15 @@
             ],
             "reviewed_at": "2026-11-06T11:31:07+00:00"
         },
+        "53861d4d35c1c09dc0a70ac362d294ecd55776080187b3222fbd81ffa23bbb84": {
+            "source_hash": "53861d4d35c1c09dc0a70ac362d294ecd55776080187b3222fbd81ffa23bbb84",
+            "translation_hash": "53861d4d35c1c09dc0a70ac362d294ecd55776080187b3222fbd81ffa23bbb84",
+            "status": "editorial",
+            "contexts": [
+                "Report flow with required reason and optional details, compact time-mark preview with audio, self-vote finality, and share confirmation. German uses the informal address used across the viewer UI."
+            ],
+            "reviewed_at": "2026-11-16T12:56:16+00:00"
+        },
         "538d87e6cd1b7ec05ab600a2b099507282884a8cda04cbed15bfbac11d67957a": {
             "source_hash": "538d87e6cd1b7ec05ab600a2b099507282884a8cda04cbed15bfbac11d67957a",
             "translation_hash": "538d87e6cd1b7ec05ab600a2b099507282884a8cda04cbed15bfbac11d67957a",
@@ -12192,6 +12237,15 @@
             ],
             "reviewed_at": "2026-11-06T11:17:03+00:00"
         },
+        "56dc2b3bb2e59041fdbfd67326640d1006857fcd6814136b153841c153f215ec": {
+            "source_hash": "56dc2b3bb2e59041fdbfd67326640d1006857fcd6814136b153841c153f215ec",
+            "translation_hash": "56dc2b3bb2e59041fdbfd67326640d1006857fcd6814136b153841c153f215ec",
+            "status": "editorial",
+            "contexts": [
+                "Report flow with required reason and optional details, compact time-mark preview with audio, self-vote finality, and share confirmation. German uses the informal address used across the viewer UI."
+            ],
+            "reviewed_at": "2026-11-16T12:56:16+00:00"
+        },
         "56dd6d833c402fba585035cc944d1f48f552f127d841c5bf1a1981cbcaefe3f1": {
             "source_hash": "56dd6d833c402fba585035cc944d1f48f552f127d841c5bf1a1981cbcaefe3f1",
             "translation_hash": "56dd6d833c402fba585035cc944d1f48f552f127d841c5bf1a1981cbcaefe3f1",
@@ -12695,6 +12749,15 @@
                 "English reference editorial pass covering live chat, participant approval/privacy, gifts/tips, stickers, ads, stream recovery, replay, payment history, language administration, import/captions/chapters and standard emails. Existing current editorial/context-reviewed entries retained without downgrading their status. Sentence fragments and technical/sample identifiers excluded. Stream and advertising wording clarified without new security/payment guarantees."
             ],
             "reviewed_at": "2026-11-06T11:32:47+00:00"
+        },
+        "5b1a77cb089480428f8e22b22432f99fb0096ecad8688cfca4aeb5ea6ed6b43f": {
+            "source_hash": "5b1a77cb089480428f8e22b22432f99fb0096ecad8688cfca4aeb5ea6ed6b43f",
+            "translation_hash": "5b1a77cb089480428f8e22b22432f99fb0096ecad8688cfca4aeb5ea6ed6b43f",
+            "status": "editorial",
+            "contexts": [
+                "Report flow with required reason and optional details, compact time-mark preview with audio, self-vote finality, and share confirmation. German uses the informal address used across the viewer UI."
+            ],
+            "reviewed_at": "2026-11-16T12:56:16+00:00"
         },
         "5b4b370c0ea28ed84e8de39412c716faf37383fe21138e196812a5f5ed04b929": {
             "source_hash": "5b4b370c0ea28ed84e8de39412c716faf37383fe21138e196812a5f5ed04b929",
@@ -13244,6 +13307,15 @@
                 "Editorial review of all built-in help/page definitions: personal English and German guidance; API identifiers retained for developer instructions; legal and refund meaning preserved; administrator overrides excluded."
             ],
             "reviewed_at": "2026-11-06T09:18:02+00:00"
+        },
+        "5f457d191b7e1ddd3bc39303c5b8eb950797bbbeee87888803961af3cf57548b": {
+            "source_hash": "5f457d191b7e1ddd3bc39303c5b8eb950797bbbeee87888803961af3cf57548b",
+            "translation_hash": "5f457d191b7e1ddd3bc39303c5b8eb950797bbbeee87888803961af3cf57548b",
+            "status": "editorial",
+            "contexts": [
+                "Report flow with required reason and optional details, compact time-mark preview with audio, self-vote finality, and share confirmation. German uses the informal address used across the viewer UI."
+            ],
+            "reviewed_at": "2026-11-16T12:56:16+00:00"
         },
         "5f4db8307f82870aabbc3ccb66130cc911ebba226d9db0172280f48dfa596136": {
             "source_hash": "5f4db8307f82870aabbc3ccb66130cc911ebba226d9db0172280f48dfa596136",
@@ -14846,6 +14918,15 @@
                 "English reference editorial pass: navigation, channel/profile actions, upload/import status, chat, community, moderation, live discovery, library, account controls and admin settings. Obsolete developer-facing upload wording and unsupported audience-size claims corrected; names, sample content, protocol identifiers and unresolved sentence fragments excluded."
             ],
             "reviewed_at": "2026-11-06T11:17:03+00:00"
+        },
+        "68ee8a10467db91411d4997262800c62554e7a12fa1381c7b3cb6857d2bd6a81": {
+            "source_hash": "68ee8a10467db91411d4997262800c62554e7a12fa1381c7b3cb6857d2bd6a81",
+            "translation_hash": "68ee8a10467db91411d4997262800c62554e7a12fa1381c7b3cb6857d2bd6a81",
+            "status": "editorial",
+            "contexts": [
+                "Report flow with required reason and optional details, compact time-mark preview with audio, self-vote finality, and share confirmation. German uses the informal address used across the viewer UI."
+            ],
+            "reviewed_at": "2026-11-16T12:56:16+00:00"
         },
         "69018965492bd3c021b55ad66701677100cce9b6d19930e5eba0f50898c17744": {
             "source_hash": "69018965492bd3c021b55ad66701677100cce9b6d19930e5eba0f50898c17744",
@@ -21425,6 +21506,15 @@
             ],
             "reviewed_at": "2026-11-06T11:32:47+00:00"
         },
+        "94a9eac404c8c6ff825a438e1f8f3ff1afa9340dd3d1a6412d2c511a800de478": {
+            "source_hash": "94a9eac404c8c6ff825a438e1f8f3ff1afa9340dd3d1a6412d2c511a800de478",
+            "translation_hash": "94a9eac404c8c6ff825a438e1f8f3ff1afa9340dd3d1a6412d2c511a800de478",
+            "status": "editorial",
+            "contexts": [
+                "Report flow with required reason and optional details, compact time-mark preview with audio, self-vote finality, and share confirmation. German uses the informal address used across the viewer UI."
+            ],
+            "reviewed_at": "2026-11-16T12:56:16+00:00"
+        },
         "94c116ee118a72998db6cd10b586a9ef112a1891ff8ced8c7b2944ff62453b5f": {
             "source_hash": "94c116ee118a72998db6cd10b586a9ef112a1891ff8ced8c7b2944ff62453b5f",
             "translation_hash": "94c116ee118a72998db6cd10b586a9ef112a1891ff8ced8c7b2944ff62453b5f",
@@ -21748,6 +21838,15 @@
                 "English reference editorial pass covering live chat, participant approval/privacy, gifts/tips, stickers, ads, stream recovery, replay, payment history, language administration, import/captions/chapters and standard emails. Existing current editorial/context-reviewed entries retained without downgrading their status. Sentence fragments and technical/sample identifiers excluded. Stream and advertising wording clarified without new security/payment guarantees."
             ],
             "reviewed_at": "2026-11-06T11:32:47+00:00"
+        },
+        "97ab5d0657d3189bc100b454d59ff4857ce8f9a3cdd439c3c1d78118d2285844": {
+            "source_hash": "97ab5d0657d3189bc100b454d59ff4857ce8f9a3cdd439c3c1d78118d2285844",
+            "translation_hash": "97ab5d0657d3189bc100b454d59ff4857ce8f9a3cdd439c3c1d78118d2285844",
+            "status": "editorial",
+            "contexts": [
+                "Report flow with required reason and optional details, compact time-mark preview with audio, self-vote finality, and share confirmation. German uses the informal address used across the viewer UI."
+            ],
+            "reviewed_at": "2026-11-16T12:56:16+00:00"
         },
         "97bc36baf1b4539821686c87351f896aadc06ef2e7351619d548841cade8ee6d": {
             "source_hash": "97bc36baf1b4539821686c87351f896aadc06ef2e7351619d548841cade8ee6d",
@@ -22829,6 +22928,15 @@
             ],
             "reviewed_at": "2026-11-06T10:57:47+00:00"
         },
+        "9ff06903d43df11d7c909690453ec2fa7424a12da3a53306c447f35c07148265": {
+            "source_hash": "9ff06903d43df11d7c909690453ec2fa7424a12da3a53306c447f35c07148265",
+            "translation_hash": "9ff06903d43df11d7c909690453ec2fa7424a12da3a53306c447f35c07148265",
+            "status": "editorial",
+            "contexts": [
+                "Report flow with required reason and optional details, compact time-mark preview with audio, self-vote finality, and share confirmation. German uses the informal address used across the viewer UI."
+            ],
+            "reviewed_at": "2026-11-16T12:56:16+00:00"
+        },
         "9ff759eb5f2dd97c7ca2216b39869e0eab8e3d308d1acf6c20b260fbbe92083f": {
             "source_hash": "9ff759eb5f2dd97c7ca2216b39869e0eab8e3d308d1acf6c20b260fbbe92083f",
             "translation_hash": "9ff759eb5f2dd97c7ca2216b39869e0eab8e3d308d1acf6c20b260fbbe92083f",
@@ -23369,6 +23477,15 @@
             ],
             "reviewed_at": "2026-11-06T11:31:07+00:00"
         },
+        "a32470324a8b0269e8ad0876000ddc66c79d03694151661ae5e250a29def5817": {
+            "source_hash": "a32470324a8b0269e8ad0876000ddc66c79d03694151661ae5e250a29def5817",
+            "translation_hash": "a32470324a8b0269e8ad0876000ddc66c79d03694151661ae5e250a29def5817",
+            "status": "editorial",
+            "contexts": [
+                "Report flow with required reason and optional details, compact time-mark preview with audio, self-vote finality, and share confirmation. German uses the informal address used across the viewer UI."
+            ],
+            "reviewed_at": "2026-11-16T12:56:16+00:00"
+        },
         "a339bfb3bfff3fdcdd4a824b77e7917153835879e646e20c112a78d4e05cd804": {
             "source_hash": "a339bfb3bfff3fdcdd4a824b77e7917153835879e646e20c112a78d4e05cd804",
             "translation_hash": "a339bfb3bfff3fdcdd4a824b77e7917153835879e646e20c112a78d4e05cd804",
@@ -23530,6 +23647,15 @@
                 "English reference editorial pass: account/password/two-factor states, Creator/channel management, administrator accounts/test-data generation, moderation, support, analytics and server/storage settings. Test accounts explicitly identified; no creator content or saved administrator copy changed."
             ],
             "reviewed_at": "2026-11-06T10:15:09+00:00"
+        },
+        "a44d35311325e654d827529a7713c7dc07309ef4de66a4741807b5eb252d0eaa": {
+            "source_hash": "a44d35311325e654d827529a7713c7dc07309ef4de66a4741807b5eb252d0eaa",
+            "translation_hash": "a44d35311325e654d827529a7713c7dc07309ef4de66a4741807b5eb252d0eaa",
+            "status": "editorial",
+            "contexts": [
+                "Report flow with required reason and optional details, compact time-mark preview with audio, self-vote finality, and share confirmation. German uses the informal address used across the viewer UI."
+            ],
+            "reviewed_at": "2026-11-16T12:56:16+00:00"
         },
         "a45aae80dcc1570cabb8b3f0bda9718fb91e07d1e226a9465e72af320a6b81c4": {
             "source_hash": "a45aae80dcc1570cabb8b3f0bda9718fb91e07d1e226a9465e72af320a6b81c4",
@@ -26525,6 +26651,15 @@
             ],
             "reviewed_at": "2026-11-06T10:21:26+00:00"
         },
+        "b99fa6c061504f0011fb2d5af1fb600b28ed177f02cf94286d5b542f2333d803": {
+            "source_hash": "b99fa6c061504f0011fb2d5af1fb600b28ed177f02cf94286d5b542f2333d803",
+            "translation_hash": "b99fa6c061504f0011fb2d5af1fb600b28ed177f02cf94286d5b542f2333d803",
+            "status": "editorial",
+            "contexts": [
+                "Report flow with required reason and optional details, compact time-mark preview with audio, self-vote finality, and share confirmation. German uses the informal address used across the viewer UI."
+            ],
+            "reviewed_at": "2026-11-16T12:56:16+00:00"
+        },
         "b9c8cad475b1b321c607638da92914033bc7a1d58a43152d9a718a8da797315b": {
             "source_hash": "b9c8cad475b1b321c607638da92914033bc7a1d58a43152d9a718a8da797315b",
             "translation_hash": "b9c8cad475b1b321c607638da92914033bc7a1d58a43152d9a718a8da797315b",
@@ -26749,6 +26884,15 @@
                 "English reference editorial pass: navigation, channel/profile actions, upload/import status, chat, community, moderation, live discovery, library, account controls and admin settings. Obsolete developer-facing upload wording and unsupported audience-size claims corrected; names, sample content, protocol identifiers and unresolved sentence fragments excluded."
             ],
             "reviewed_at": "2026-11-06T11:17:03+00:00"
+        },
+        "bb6a20da1740cf32d219c30068e210d97e5bc8e7d0b093fc3d7552ad72081371": {
+            "source_hash": "bb6a20da1740cf32d219c30068e210d97e5bc8e7d0b093fc3d7552ad72081371",
+            "translation_hash": "bb6a20da1740cf32d219c30068e210d97e5bc8e7d0b093fc3d7552ad72081371",
+            "status": "editorial",
+            "contexts": [
+                "Report flow with required reason and optional details, compact time-mark preview with audio, self-vote finality, and share confirmation. German uses the informal address used across the viewer UI."
+            ],
+            "reviewed_at": "2026-11-16T12:56:16+00:00"
         },
         "bb954d61fd855c5c03d727bdf0b1b834fcff698322b95d94546acf10846e5e76": {
             "source_hash": "26bfe5f058be83a797974252e939b585fa3a5b0c22602e7ec2c5730cef02f359",
@@ -28590,6 +28734,15 @@
             ],
             "reviewed_at": "2026-11-06T09:28:00+00:00"
         },
+        "c82df4aca249da3d0de570e8d566565216a4956f2993b1b0357dea54b19a000a": {
+            "source_hash": "c82df4aca249da3d0de570e8d566565216a4956f2993b1b0357dea54b19a000a",
+            "translation_hash": "c82df4aca249da3d0de570e8d566565216a4956f2993b1b0357dea54b19a000a",
+            "status": "editorial",
+            "contexts": [
+                "Report flow with required reason and optional details, compact time-mark preview with audio, self-vote finality, and share confirmation. German uses the informal address used across the viewer UI."
+            ],
+            "reviewed_at": "2026-11-16T12:56:16+00:00"
+        },
         "c82eb9708c4967d7fd8b72316f85ff468032d122876f4035c9cae644205c105c": {
             "source_hash": "c82eb9708c4967d7fd8b72316f85ff468032d122876f4035c9cae644205c105c",
             "translation_hash": "c82eb9708c4967d7fd8b72316f85ff468032d122876f4035c9cae644205c105c",
@@ -29195,6 +29348,15 @@
             ],
             "reviewed_at": "2026-11-06T09:18:02+00:00"
         },
+        "cc72843144841a6f8110b7ebe7a1768101e03c4c8c152865cb7207e8e4bf8745": {
+            "source_hash": "cc72843144841a6f8110b7ebe7a1768101e03c4c8c152865cb7207e8e4bf8745",
+            "translation_hash": "cc72843144841a6f8110b7ebe7a1768101e03c4c8c152865cb7207e8e4bf8745",
+            "status": "editorial",
+            "contexts": [
+                "Report flow with required reason and optional details, compact time-mark preview with audio, self-vote finality, and share confirmation. German uses the informal address used across the viewer UI."
+            ],
+            "reviewed_at": "2026-11-16T12:56:16+00:00"
+        },
         "cc7c07c934ce9c73e385fea274e950124c4f3b9a3201f5d52c6b9e6bf7630159": {
             "source_hash": "cc7c07c934ce9c73e385fea274e950124c4f3b9a3201f5d52c6b9e6bf7630159",
             "translation_hash": "cc7c07c934ce9c73e385fea274e950124c4f3b9a3201f5d52c6b9e6bf7630159",
@@ -29545,6 +29707,15 @@
                 "English reference editorial pass for community/bookmarks, livestream setup/readiness, theme/design settings, support tickets, LiveKit/RTMP/WebRTC/TURN configuration, certificates, Docker status and scheduler administration. Technical parameters retained where administrators need them. Obsolete promises about future broadcasting replaced with present configuration requirements; names/examples/time quantities/fragments excluded."
             ],
             "reviewed_at": "2026-11-06T11:31:07+00:00"
+        },
+        "cedfe045ae82517a295850c9daa3f80c3104a0fdb9d767f439677ffccb7d3863": {
+            "source_hash": "cedfe045ae82517a295850c9daa3f80c3104a0fdb9d767f439677ffccb7d3863",
+            "translation_hash": "cedfe045ae82517a295850c9daa3f80c3104a0fdb9d767f439677ffccb7d3863",
+            "status": "editorial",
+            "contexts": [
+                "Report flow with required reason and optional details, compact time-mark preview with audio, self-vote finality, and share confirmation. German uses the informal address used across the viewer UI."
+            ],
+            "reviewed_at": "2026-11-16T12:56:16+00:00"
         },
         "cee34b911e9ec1ed6dfe70e0735a85d5ee611cb8baf5cb5828ad57fef6a8539f": {
             "source_hash": "cee34b911e9ec1ed6dfe70e0735a85d5ee611cb8baf5cb5828ad57fef6a8539f",
@@ -31660,6 +31831,15 @@
                 "English reference editorial pass: account/password/two-factor states, Creator/channel management, administrator accounts/test-data generation, moderation, support, analytics and server/storage settings. Test accounts explicitly identified; no creator content or saved administrator copy changed."
             ],
             "reviewed_at": "2026-11-06T10:15:09+00:00"
+        },
+        "dc1a25ca3a505876539c6472f420ef04fb2ae002eaada8f89fcdf11d45f31990": {
+            "source_hash": "dc1a25ca3a505876539c6472f420ef04fb2ae002eaada8f89fcdf11d45f31990",
+            "translation_hash": "dc1a25ca3a505876539c6472f420ef04fb2ae002eaada8f89fcdf11d45f31990",
+            "status": "editorial",
+            "contexts": [
+                "Report flow with required reason and optional details, compact time-mark preview with audio, self-vote finality, and share confirmation. German uses the informal address used across the viewer UI."
+            ],
+            "reviewed_at": "2026-11-16T12:56:16+00:00"
         },
         "dc1b72fb493ff10b457c29e933e2949310e76156f4c06d97708bfcab9eddda6b": {
             "source_hash": "dc1b72fb493ff10b457c29e933e2949310e76156f4c06d97708bfcab9eddda6b",
@@ -36358,6 +36538,15 @@
                 "English reference editorial pass for community/bookmarks, livestream setup/readiness, theme/design settings, support tickets, LiveKit/RTMP/WebRTC/TURN configuration, certificates, Docker status and scheduler administration. Technical parameters retained where administrators need them. Obsolete promises about future broadcasting replaced with present configuration requirements; names/examples/time quantities/fragments excluded."
             ],
             "reviewed_at": "2026-11-06T11:31:07+00:00"
+        },
+        "f9479b869e1045ab3d23e24ebea1f649fe627001b8987c25ee2e530a037e9a18": {
+            "source_hash": "f9479b869e1045ab3d23e24ebea1f649fe627001b8987c25ee2e530a037e9a18",
+            "translation_hash": "f9479b869e1045ab3d23e24ebea1f649fe627001b8987c25ee2e530a037e9a18",
+            "status": "editorial",
+            "contexts": [
+                "Report flow with required reason and optional details, compact time-mark preview with audio, self-vote finality, and share confirmation. German uses the informal address used across the viewer UI."
+            ],
+            "reviewed_at": "2026-11-16T12:56:16+00:00"
         },
         "f96281a2fb88c022d64b8b7ce3c07df924b0c792c66405526e54612b41bae982": {
             "source_hash": "f96281a2fb88c022d64b8b7ce3c07df924b0c792c66405526e54612b41bae982",

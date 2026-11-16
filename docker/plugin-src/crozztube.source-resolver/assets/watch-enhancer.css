@@ -49,7 +49,7 @@
   margin: 10px 0 0;
   padding: 10px 14px;
   border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: 12px;
+  border-radius: var(--radius, 4px);
   background: rgba(255, 255, 255, 0.04);
   font-size: 0.92rem;
   line-height: 1.4;
@@ -81,7 +81,7 @@
   margin-left: auto;
   padding: 4px 10px;
   border: 1px solid currentColor;
-  border-radius: 999px;
+  border-radius: var(--radius-pill, 2px);
   background: transparent;
   color: inherit;
   font: inherit;

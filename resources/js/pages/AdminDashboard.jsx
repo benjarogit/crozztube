@@ -2575,6 +2575,7 @@ const websiteRadiiFields = [
   ['radiusMedia', 'Media radius'],
   ['radius', 'Default radius'],
   ['radiusLg', 'Large radius'],
+  ['radiusPill', 'Pill radius'],
 ];
 const websiteLayoutFields = [
   ['sidebarExpanded', 'Sidebar width'],

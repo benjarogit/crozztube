@@ -31,7 +31,7 @@
 
 .clip-composer h2 { margin: 0; font-size: 1.5rem; line-height: 1.25; }
 .clip-composer header p { max-inline-size: 60ch; margin: 8px 0 0; color: var(--muted); line-height: 1.5; }
-.clip-composer-close { display: grid; flex: 0 0 44px; width: 44px; height: 44px; place-items: center; border: 1px solid var(--line); border-radius: 12px; background: var(--panel-2); color: var(--muted); cursor: pointer; }
+.clip-composer-close { display: grid; flex: 0 0 44px; width: 44px; height: 44px; place-items: center; border: 1px solid var(--line); border-radius:var(--radius); background: var(--panel-2); color: var(--muted); cursor: pointer; }
 .clip-composer-close:hover { border-color: transparent; background: var(--primary-soft); color: var(--link); }
 .clip-composer-close:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 
@@ -44,7 +44,7 @@
   overflow: hidden;
   aspect-ratio: 16 / 9;
   border: 1px solid var(--line);
-  border-radius: 14px;
+  border-radius:var(--radius);
   background: #0b1220;
 }
 .clip-composer-preview-frame canvas {
@@ -101,7 +101,7 @@
 }
 
 .clip-composer label { display: grid; gap: 8px; min-width: 0; font-weight: 650; }
-.clip-composer input:not([type="range"]),.clip-composer select { width: 100%; min-height: 46px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--panel-2); color: var(--text); font: inherit; }
+.clip-composer input:not([type="range"]),.clip-composer select { width: 100%; min-height: 46px; padding: 10px 12px; border: 1px solid var(--line); border-radius:var(--radius); background: var(--panel-2); color: var(--text); font: inherit; }
 .clip-composer input:not([type="range"]):hover,.clip-composer select:hover { border-color: var(--line-strong); }
 .clip-composer input:not([type="range"]):focus,.clip-composer select:focus { border-color: var(--link); outline: 2px solid color-mix(in srgb, var(--focus) 35%, transparent); outline-offset: 1px; }
 
@@ -132,7 +132,7 @@
   inset-inline: 0;
   top: 50%;
   height: 10px;
-  border-radius: 999px;
+  border-radius:999px;
   background: var(--line-strong, var(--line));
   transform: translateY(-50%);
   cursor: pointer;
@@ -225,7 +225,7 @@
 }
 .clip-composer-duration-presets { display: flex; flex-wrap: wrap; gap: 8px; }
 .clip-composer-preview > .clip-composer-duration-presets { margin-top: 10px; }
-.clip-composer-duration-presets button { min-width: 58px; min-height: 44px; padding: 0 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--panel); color: var(--text); font: inherit; font-weight: 750; cursor: pointer; }
+.clip-composer-duration-presets button { min-width: 58px; min-height: 44px; padding: 0 12px; border: 1px solid var(--line); border-radius:var(--radius); background: var(--panel); color: var(--text); font: inherit; font-weight: 750; cursor: pointer; }
 .clip-composer-duration-presets button:hover:not(:disabled) { border-color: var(--focus); background: var(--control-selected-bg); color: var(--text); }
 .clip-composer-duration-presets button:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 .clip-composer-duration-presets button[aria-pressed="true"] { border-color: var(--link); background: var(--primary-soft); color: var(--link); }

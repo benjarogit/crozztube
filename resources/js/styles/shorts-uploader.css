@@ -26,7 +26,7 @@
 .shorts-creator-follow:focus-visible {
   outline: 2px solid var(--focus);
   outline-offset: 3px;
-  border-radius: 6px;
+  border-radius:var(--radius);
 }
 .shorts-detail-author { grid-template-columns: minmax(0, 1fr) auto; }
 .shorts-detail-creator > .shorts-uploader-link { min-width: 0; font-size: inherit; }

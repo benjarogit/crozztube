@@ -213,10 +213,14 @@ class CommentController extends Controller
         $this->assertCommentParentVisible($comment, $request->user());
         abort_unless($request->user() && $request->user()->id !== $comment->user_id, 403);
 
+        $data = $request->validate(\App\Support\ReportReasons::rules(\App\Support\ReportReasons::COMMENT));
+
         DB::table('comment_reports')->updateOrInsert([
             'user_id' => $request->user()->id,
             'comment_id' => $comment->id,
         ], [
+            'reason' => $data['reason'],
+            'details' => \App\Support\ReportReasons::details($data['details'] ?? null),
             'updated_at' => now(),
             'created_at' => now(),
         ]);

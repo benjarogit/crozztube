@@ -40,3 +40,4 @@
 .phpunit.result.cache
 *.log
 .DS_Store
+/storage/app/playhub-auth.json

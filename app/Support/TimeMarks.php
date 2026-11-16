@@ -36,18 +36,25 @@ final class TimeMarks
 
     public static function vote(User $user, VideoTimeMark $mark, int $value = 1): ?VideoTimeMarkVote
     {
-        if ((int) $mark->user_id === (int) $user->id) {
-            throw ValidationException::withMessages(['vote' => 'You cannot vote on your own time mark.']);
-        }
+        $isOwner = (int) $mark->user_id === (int) $user->id;
+        $existing = VideoTimeMarkVote::query()
+            ->where('video_time_mark_id', $mark->id)
+            ->where('user_id', $user->id)
+            ->first();
+
         if (! $mark->isPublic()) {
             throw ValidationException::withMessages(['vote' => 'Private notes cannot be voted on.']);
+        }
+        if ($isOwner && $existing) {
+            throw ValidationException::withMessages(['vote' => 'Your vote on your own time mark is final.']);
         }
 
         if (! in_array($value, [-1, 0, 1], true)) {
             throw ValidationException::withMessages(['value' => 'Choose a valid vote.']);
         }
         if ($value === 0) {
-            VideoTimeMarkVote::query()->where('video_time_mark_id', $mark->id)->where('user_id', $user->id)->delete();
+            $existing?->delete();
+
             return null;
         }
 

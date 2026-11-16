@@ -1513,10 +1513,14 @@ Route::middleware(['auth:sanctum', \App\Http\Middleware\EnsureUgcSafety::class])
         abort_unless(Schema::hasTable('user_reports'), 503, 'Profile reports are not available yet.');
         abort_if((int) $request->user()->id === (int) $channel->user_id, 403, 'You cannot report your own profile.');
 
+        $data = $request->validate(\App\Support\ReportReasons::rules(\App\Support\ReportReasons::PROFILE));
+
         DB::table('user_reports')->updateOrInsert([
             'user_id' => $request->user()->id,
             'reported_user_id' => $channel->user_id,
         ], [
+            'reason' => $data['reason'],
+            'details' => \App\Support\ReportReasons::details($data['details'] ?? null),
             'updated_at' => now(),
             'created_at' => now(),
         ]);

@@ -1,5 +1,6 @@
 import ResponsiveOverlays from './components/ResponsiveOverlays.jsx';
 import ClipComposer from './components/ClipComposer.jsx';
+import ReportDialog from './components/ReportDialog.jsx';
 import ClipUploads from './components/ClipUploads.jsx';
 import AttachmentImage, { ImageUploadPreview, attachmentCandidates } from './components/AttachmentImage.jsx';
 import { useHostedImages, hostedImagesReady, appendHostedImageIds } from './imageUploadQueue.js';
@@ -33,6 +34,7 @@ import { detectImportProvider, resolveImportProvider } from './importProviders.j
 import { formatChapterTimestamp as formatUploadChapterTimestamp, importChapterDraft } from './importChapters.js';
 import VideoTranscript from './components/VideoTranscript.jsx';
 import { seekWithoutStopping } from './components/transcript-document.js';
+import { canMirrorMedia, createPreviewFrameLoop, paintMediaFrame, restorePlayback, seekMedia, snapshotPlayback, waitForPresentedFrame } from './clips/clipPreviewSession.js';
 import ImportMetadataSummary from './components/ImportMetadataSummary.jsx';
 import LocalizedCount from './components/LocalizedCount.jsx';
 import { continueWatchingState } from './viewerCards.js';
@@ -2836,13 +2838,11 @@ function Topbar({ user, setUser, navigate, logout, theme, onMenu, sidebarOpen = 
     <div className="topbar-account-menu-head" role={accountDialog ? "button" : "menuitem"} tabIndex={0} aria-label="View profile" onClick={() => goAccount('/profile')} onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); goAccount('/profile'); } }}>
       <Avatar label={user.name} image={accountAvatarUrl} />
       <span><strong>{user.name}</strong><small>{accountHandle}</small>{canAdmin && <em><Icon name="checkCircle" size={12} />{accountRoleLabel}</em>}</span>
-      <Icon name="chevronRight" size={16} />
     </div>
     {accountMenuGroups.map((group, groupIndex) => <div className="topbar-account-menu-section" key={groupIndex}>
       {group.map(([icon, label, to, value]) => <button type="button" role={accountDialog ? undefined : "menuitem"} key={label} onClick={() => goAccount(to)}>
         <Icon name={icon} size={18} />
         <span className="topbar-account-menu-label"><span>{label}</span>{value && <b data-i18n-skip>{value}</b>}</span>
-        <Icon name="chevronRight" size={15} />
       </button>)}
     </div>)}
     <div className="topbar-account-appearance">
@@ -2853,10 +2853,10 @@ function Topbar({ user, setUser, navigate, logout, theme, onMenu, sidebarOpen = 
       </button>)}</div>
     </div>
     <div className="topbar-account-menu-section">
-      <button type="button" role={accountDialog ? undefined : "menuitem"} onClick={() => goAccount('/contact')}><Icon name="comment" size={18} /><span>Send feedback</span><Icon name="chevronRight" size={15} /></button>
+      <button type="button" role={accountDialog ? undefined : "menuitem"} onClick={() => goAccount('/contact')}><Icon name="comment" size={18} /><span>Send feedback</span></button>
     </div>
     <div className="topbar-account-menu-section">
-      {canAdmin && <button type="button" role={accountDialog ? undefined : "menuitem"} onClick={() => goAccount('/admin/dashboard')}><Icon name="shield" size={18} /><span>Admin Dashboard</span><Icon name="chevronRight" size={15} /></button>}
+      {canAdmin && <button type="button" role={accountDialog ? undefined : "menuitem"} onClick={() => goAccount('/admin/dashboard')}><Icon name="shield" size={18} /><span>Admin Dashboard</span></button>}
       <button type="button" role={accountDialog ? undefined : "menuitem"} onClick={toggleAccountSwitcher}><Icon name="users" size={18} /><span>Switch account</span><Icon name="chevronRight" size={15} /></button>
       {accountSwitcherOpen && <div className="topbar-account-switcher">
         <p>Accounts</p>
@@ -4027,8 +4027,7 @@ function WatchCommentsPanel({ video, comments, setComments, body, setBody, onSub
   const [menuOpenId, setMenuOpenId] = useState(null);
   const [deleteConfirm, setDeleteConfirm] = useState(null);
   const [deletingCommentId, setDeletingCommentId] = useState(null);
-  const [reportConfirm, setReportConfirm] = useState(null);
-  const [reportingCommentId, setReportingCommentId] = useState(null);
+  const [reportTarget, setReportTarget] = useState(null);
   const [commentMenuPlacement, setCommentMenuPlacement] = useState({});
   const [replyingId, setReplyingId] = useState(null);
   const [replyBody, setReplyBody] = useState('');
@@ -4411,26 +4410,22 @@ function WatchCommentsPanel({ video, comments, setComments, body, setBody, onSub
     }
   };
 
-  const reportComment = async (commentItem) => {
+  const reportComment = (commentItem) => {
     if (!auth.user) return navigate('/login');
-    setReportingCommentId(commentKey(commentItem));
-    updateComment(commentItem, (item) => ({ ...item, reported: true }));
     setMenuOpenId(null);
-    try {
-      if (!(video?.isDemo || String(commentItem.id || '').startsWith('local-'))) {
-        const data = await api.request(`/comments/${commentItem.id}/report`, { method: 'POST' });
-        mergeServerComment(commentItem, data.comment);
-        pushCommentNotice(data.message || 'Comment reported for review.');
-      } else {
-        pushCommentNotice('Comment reported for review.');
-      }
-      setReportConfirm(null);
-    } catch (err) {
-      updateComment(commentItem, (item) => ({ ...item, reported: false }));
-      pushCommentNotice(err.message || 'Unable to report comment.');
-    } finally {
-      setReportingCommentId(null);
+    if (video?.isDemo || String(commentItem.id || '').startsWith('local-')) {
+      updateComment(commentItem, (item) => ({ ...item, reported: true }));
+      pushCommentNotice('Comment reported for review.');
+      return;
     }
+    setReportTarget(commentItem);
+  };
+
+  const reportSubmitted = (data) => {
+    const commentItem = reportTarget;
+    if (!commentItem) return;
+    updateComment(commentItem, (item) => ({ ...item, reported: true }));
+    if (data?.comment) mergeServerComment(commentItem, data.comment);
   };
 
   const deleteComment = async (commentItem) => {
@@ -4586,7 +4581,7 @@ function WatchCommentsPanel({ video, comments, setComments, body, setBody, onSub
         <button type="button" className="comment-action-item" onClick={() => copyCommentLink(commentItem)}><Icon name="link" size={17}/><span>Copy Link</span></button>
         {showPin && <button type="button" className={`comment-action-item ${commentItem.pinned ? 'is-selected accent' : ''}`} onClick={() => togglePin(commentItem)}><Icon name="pin" size={17}/><span>{commentItem.pinned ? 'Unpin Comment' : 'Pin Comment'}</span></button>}
         {showMute && <button type="button" className="comment-action-item" onClick={() => muteUser(commentItem)}><Icon name="mute" size={17}/><span>Mute User</span></button>}
-        {showReport && <button type="button" className={`comment-action-item ${commentItem.reported ? 'is-selected' : ''}`} onClick={() => { setMenuOpenId(null); setReportConfirm({ commentItem, title: 'Report comment?', message: 'Send this comment to the moderation team for review?', icon: 'flag', tone: 'primary', confirmLabel: 'Report comment', busyLabel: 'Reporting...' }); }}><Icon name="flag" size={17}/><span>{commentItem.reported ? 'Reported' : 'Report Comment'}</span></button>}
+        {showReport && <button type="button" className={`comment-action-item ${commentItem.reported ? 'is-selected' : ''}`} onClick={() => reportComment(commentItem)}><Icon name="flag" size={17}/><span>{commentItem.reported ? 'Reported' : 'Report Comment'}</span></button>}
         {showDelete && <button type="button" className="comment-action-item danger" onClick={() => { setMenuOpenId(null); setDeleteConfirm({ commentItem, title: 'Delete comment?', message: 'This comment will be permanently deleted. Any replies will also be removed.', confirmLabel: 'Delete comment', busyLabel: 'Deleting...' }); }}><Icon name="trash" size={17}/><span>Delete Comment</span></button>}
       </CommentMenuSurface>}
     </div>;
@@ -4781,7 +4776,7 @@ function WatchCommentsPanel({ video, comments, setComments, body, setBody, onSub
       {hasMoreVisibleComments && <button type="button" className="text-button watch-comments-load-more" onClick={loadMoreVisibleComments} disabled={loadingMoreComments}>{loadingMoreComments ? 'Loading comments...' : 'Load more comments'}</button>}
     </div>
     <AppConfirmDialog dialog={deleteConfirm} busy={Boolean(deletingCommentId)} onCancel={() => setDeleteConfirm(null)} onConfirm={() => deleteConfirm?.commentItem && deleteComment(deleteConfirm.commentItem)} />
-    <AppConfirmDialog dialog={reportConfirm} busy={Boolean(reportingCommentId)} onCancel={() => setReportConfirm(null)} onConfirm={() => reportConfirm?.commentItem && reportComment(reportConfirm.commentItem)} />
+    <ReportDialog open={Boolean(reportTarget)} type="comment" path={reportTarget ? `/comments/${reportTarget.id}/report` : ''} label={reportTarget?.body ? String(reportTarget.body).slice(0, 120) : ''} api={api} Icon={Icon} notify={pushCommentNotice} onClose={() => setReportTarget(null)} onReported={reportSubmitted} />
   </section>;
 }
 
@@ -4790,8 +4785,7 @@ function StudioCommentsCard({ initialComments, navigate, auth }) {
   const [menuOpenId, setMenuOpenId] = useState(null);
   const [deleteConfirm, setDeleteConfirm] = useState(null);
   const [deletingCommentId, setDeletingCommentId] = useState(null);
-  const [reportConfirm, setReportConfirm] = useState(null);
-  const [reportingCommentId, setReportingCommentId] = useState(null);
+  const [reportTarget, setReportTarget] = useState(null);
   const [replyingId, setReplyingId] = useState(null);
   const [replyBody, setReplyBody] = useState('');
   const [notice, setNotice] = useState('');
@@ -4921,21 +4915,16 @@ function StudioCommentsCard({ initialComments, navigate, auth }) {
     }
   };
 
-  const handleReport = async (comment) => {
-    setReportingCommentId(comment.id);
-    setComments((current) => current.map((item) => item.id === comment.id ? { ...item, reported: true } : item));
+  const handleReport = (comment) => {
     setMenuOpenId(null);
-    try {
-      const data = await api.request(`/comments/${comment.id}/report`, { method: 'POST' });
-      mergeComment(comment, data.comment);
-      setReportConfirm(null);
-      pushNotice(data.message || 'Comment reported for review.');
-    } catch (err) {
-      setComments((current) => current.map((item) => item.id === comment.id ? { ...item, reported: false } : item));
-      pushNotice(err.message || 'Unable to report comment.');
-    } finally {
-      setReportingCommentId(null);
-    }
+    setReportTarget(comment);
+  };
+
+  const reportSubmitted = (data) => {
+    const comment = reportTarget;
+    if (!comment) return;
+    setComments((current) => current.map((item) => item.id === comment.id ? { ...item, reported: true } : item));
+    if (data?.comment) mergeComment(comment, data.comment);
   };
 
   const handleDelete = async (comment) => {
@@ -4990,13 +4979,13 @@ function StudioCommentsCard({ initialComments, navigate, auth }) {
           <button type="button" className="comment-action-item" onClick={() => handleCopyLink(comment)}><Icon name="link" size={16}/><span>Copy Link</span></button>
           {canPinComment(comment) && <button type="button" className={`comment-action-item ${comment.pinned ? 'is-selected accent' : ''}`} onClick={() => handleTogglePin(comment)}><Icon name="pin" size={16}/><span>{comment.pinned ? 'Unpin Comment' : 'Pin Comment'}</span></button>}
           {canMuteCommentUser(comment) && <button type="button" className="comment-action-item" onClick={() => handleMuteUser(comment)}><Icon name="mute" size={16}/><span>Mute User</span></button>}
-          {canReportComment(comment) && <button type="button" className={`comment-action-item ${comment.reported ? 'is-selected' : ''}`} onClick={() => { setMenuOpenId(null); setReportConfirm({ comment, title: 'Report comment?', message: 'Send this comment to the moderation team for review?', icon: 'flag', tone: 'primary', confirmLabel: 'Report comment', busyLabel: 'Reporting...' }); }}><Icon name="flag" size={16}/><span>{comment.reported ? 'Reported' : 'Report Comment'}</span></button>}
+          {canReportComment(comment) && <button type="button" className={`comment-action-item ${comment.reported ? 'is-selected' : ''}`} onClick={() => handleReport(comment)}><Icon name="flag" size={16}/><span>{comment.reported ? 'Reported' : 'Report Comment'}</span></button>}
           {canDeleteComment(comment) && <button type="button" className="comment-action-item danger" onClick={() => { setMenuOpenId(null); setDeleteConfirm({ comment, title: 'Delete comment?', message: 'This comment will be permanently deleted. Any replies will also be removed.', confirmLabel: 'Delete comment', busyLabel: 'Deleting...' }); }}><Icon name="trash" size={16}/><span>Delete Comment</span></button>}
         </CommentMenuSurface>}
       </div>
     </div>) : <div className="studio-comments-empty"><Icon name="comment" size={18}/><span>All clear — new comments will appear here.</span></div>}
     <AppConfirmDialog dialog={deleteConfirm} busy={Boolean(deletingCommentId)} onCancel={() => setDeleteConfirm(null)} onConfirm={() => deleteConfirm?.comment && handleDelete(deleteConfirm.comment)} />
-    <AppConfirmDialog dialog={reportConfirm} busy={Boolean(reportingCommentId)} onCancel={() => setReportConfirm(null)} onConfirm={() => reportConfirm?.comment && handleReport(reportConfirm.comment)} />
+    <ReportDialog open={Boolean(reportTarget)} type="comment" path={reportTarget ? `/comments/${reportTarget.id}/report` : ''} label={reportTarget?.body ? String(reportTarget.body).slice(0, 120) : ''} api={api} Icon={Icon} notify={pushNotice} onClose={() => setReportTarget(null)} onReported={reportSubmitted} />
   </article>;
 }
 
@@ -10849,6 +10838,7 @@ function LiveDetailPage({ slug, navigate, auth, initialRoomData = null, defaultV
   const [liveLoading, setLiveLoading] = useState(true);
   const [liveError, setLiveError] = useState('');
   const [shareNotice, setShareNotice] = useState('');
+  const [replayReportOpen, setReplayReportOpen] = useState(false);
   const [viewerCount, setViewerCount] = useState(0);
   const [viewerMediaTracks, setViewerMediaTracks] = useState([]);
   const [viewerStageParticipants, setViewerStageParticipants] = useState([]);
@@ -11688,7 +11678,7 @@ function LiveDetailPage({ slug, navigate, auth, initialRoomData = null, defaultV
       setShareNotice(requestError.message || 'Unable to update Watch Later.');
     }
   };
-  const reportReplay = async () => {
+  const reportReplay = () => {
     if (!auth?.user) { navigate('/login'); return; }
     if (!replayVideo?.slug) return;
     if (replayVideo.reported) {
@@ -11699,14 +11689,7 @@ function LiveDetailPage({ slug, navigate, auth, initialRoomData = null, defaultV
       setShareNotice('You cannot report your own video.');
       return;
     }
-    updateReplayVideo({ reported: true, can_report: false });
-    try {
-      const data = await api.request(`/videos/${encodeURIComponent(replayVideo.slug)}/report`, { method: 'POST' });
-      setShareNotice(data.message || 'Video reported for review.');
-    } catch (requestError) {
-      updateReplayVideo({ reported: false, can_report: true });
-      setShareNotice(requestError.message || 'Unable to report video.');
-    }
+    setReplayReportOpen(true);
   };
   const openReplayAnalytics = () => {
     if (replayOwner) {
@@ -12109,6 +12092,7 @@ function LiveDetailPage({ slug, navigate, auth, initialRoomData = null, defaultV
           </section>
         </aside>
       </section>
+      <ReportDialog open={replayReportOpen} type="video" path={replayVideo?.slug ? `/videos/${encodeURIComponent(replayVideo.slug)}/report` : ''} label={replayVideo?.title || ''} api={api} Icon={Icon} notify={setShareNotice} onClose={() => setReplayReportOpen(false)} onReported={() => updateReplayVideo({ reported: true, can_report: false })} />
     </main>;
   }
 
@@ -13071,6 +13055,7 @@ function ShortsDetailPage({ slug, navigate, auth }) {
   const [playbackProgress, setPlaybackProgress] = useState(0);
   const [isMuted, setIsMuted] = useState(true);
   const [moreMenuOpen, setMoreMenuOpen] = useState(false);
+  const [shortReportOpen, setShortReportOpen] = useState(false);
   const [autoplayEnabled, setAutoplayEnabled] = useState(() => readAutoplayPreference(auth?.user));
   const [autoplaySaving, setAutoplaySaving] = useState(false);
   const [slideDirection, setSlideDirection] = useState('');
@@ -14016,24 +14001,13 @@ function ShortsDetailPage({ slug, navigate, auth }) {
     }
   };
 
-  const reportShort = async () => {
+  const reportShort = () => {
     setMoreMenuOpen(false);
     if (!video?.slug) return;
     if (!auth?.user) { navigate('/login'); return; }
     if (video?.reported) { setNotice('Short already reported.'); return; }
     if (video?.can_report === false) { setNotice('You cannot report your own video.'); return; }
-    const targetSlug = video.slug;
-    const action = `report:${targetSlug}`;
-    if (!beginShortAction(action)) return;
-    try {
-      const data = await api.request(`/videos/${encodeURIComponent(targetSlug)}/report`, { method: 'POST' });
-      updateShort(targetSlug, (current) => ({ ...current, ...(data.video || {}), reported: true, can_report: false }));
-      if (mountedRef.current && localDataRequestRef.current === targetSlug) setNotice('Short reported for review.');
-    } catch (err) {
-      if (mountedRef.current && localDataRequestRef.current === targetSlug) setNotice(err.message || 'Unable to report short.');
-    } finally {
-      finishShortAction(action);
-    }
+    setShortReportOpen(true);
   };
 
   const submitComment = async (event, images = [], sticker = null) => {
@@ -14152,6 +14126,7 @@ function ShortsDetailPage({ slug, navigate, auth }) {
       </aside>}
     </div>
     {activePanel && <button type="button" className="shorts-panel-backdrop" aria-label="Close panel backdrop" tabIndex={-1} onClick={closePanel} />}
+    <ReportDialog open={shortReportOpen} type="video" path={video?.slug ? `/videos/${encodeURIComponent(video.slug)}/report` : ''} label={video?.title || ''} api={api} Icon={Icon} notify={(message) => { if (mountedRef.current) setNotice(message); }} onClose={() => setShortReportOpen(false)} onReported={() => { if (!video?.slug) return; updateShort(video.slug, (current) => ({ ...current, reported: true, can_report: false })); }} />
   </main>;
 }
 
@@ -15276,7 +15251,7 @@ function TimeMarkCue({ marks, currentSeconds }) {
   return <p className="watch-time-mark-cue" role="status"><time data-i18n-skip>{formatDurationSeconds(active.start_seconds) || '0:00'}</time><span data-i18n-skip dir="auto">{active.body}</span></p>;
 }
 
-function WatchTimeMarks({ slug, auth, navigate, currentSeconds, onSeek, notify, onOverlay }) {
+function WatchTimeMarks({ slug, auth, navigate, currentSeconds, onSeek, notify, onOverlay, getMediaElement }) {
   const { t } = useI18n();
   const [marks, setMarks] = useState([]);
   const [week, setWeek] = useState([]);
@@ -15290,10 +15265,18 @@ function WatchTimeMarks({ slug, auth, navigate, currentSeconds, onSeek, notify, 
   const [error, setError] = useState('');
   const [composerOpen, setComposerOpen] = useState(false);
   const [playbackSecond, setPlaybackSecond] = useState(0);
+  const [markSecond, setMarkSecond] = useState(0);
+  const [previewReady, setPreviewReady] = useState(false);
+  const [previewPlaying, setPreviewPlaying] = useState(false);
   const readSeconds = useRef(currentSeconds);
   const dialogRef = useRef(null);
   const openButtonRef = useRef(null);
+  const previewCanvasRef = useRef(null);
+  const previewLoopRef = useRef(null);
+  const previewSnapshotRef = useRef(null);
+  const mediaGetterRef = useRef(getMediaElement);
   readSeconds.current = currentSeconds;
+  mediaGetterRef.current = getMediaElement;
 
   useEffect(() => {
     const update = () => setPlaybackSecond(Math.max(0, Math.floor(Number(readSeconds.current()) || 0)));
@@ -15301,6 +15284,84 @@ function WatchTimeMarks({ slug, auth, navigate, currentSeconds, onSeek, notify, 
     const timer = window.setInterval(update, 1000);
     return () => window.clearInterval(timer);
   }, []);
+
+  const stopPreviewLoop = () => {
+    previewLoopRef.current?.();
+    previewLoopRef.current = null;
+  };
+
+  const paintMarkPreview = (media = mediaGetterRef.current?.()) => {
+    const painted = paintMediaFrame(previewCanvasRef.current, media);
+    setPreviewReady(painted);
+    return painted;
+  };
+
+  useEffect(() => {
+    if (!composerOpen) return undefined;
+    const second = Math.max(0, Math.floor(Number(readSeconds.current()) || 0));
+    setMarkSecond(second);
+    setPreviewPlaying(false);
+    setPreviewReady(false);
+    const media = mediaGetterRef.current?.();
+    previewSnapshotRef.current = snapshotPlayback(media);
+    let cancelled = false;
+    const syncPreview = async () => {
+      if (!media || !canMirrorMedia(media)) return;
+      try { media.pause(); } catch { /* keep the dialog usable */ }
+      const ok = await seekMedia(media, second);
+      if (cancelled || !ok) return;
+      await waitForPresentedFrame(media);
+      if (cancelled) return;
+      paintMarkPreview(media);
+    };
+    const frame = window.requestAnimationFrame(syncPreview);
+    return () => {
+      cancelled = true;
+      window.cancelAnimationFrame(frame);
+      stopPreviewLoop();
+      setPreviewPlaying(false);
+      const snapshot = previewSnapshotRef.current;
+      previewSnapshotRef.current = null;
+      restorePlayback(mediaGetterRef.current?.(), snapshot);
+    };
+  }, [composerOpen]);
+
+  const toggleMarkPreview = async () => {
+    const media = mediaGetterRef.current?.();
+    if (!media || !canMirrorMedia(media)) {
+      setPreviewReady(false);
+      return;
+    }
+    if (previewPlaying) {
+      stopPreviewLoop();
+      setPreviewPlaying(false);
+      try { media.pause(); } catch { /* ignore */ }
+      const settled = await seekMedia(media, markSecond);
+      if (settled) {
+        await waitForPresentedFrame(media);
+        paintMarkPreview(media);
+      }
+      return;
+    }
+    const ok = await seekMedia(media, markSecond);
+    if (!ok) return;
+    setPreviewPlaying(true);
+    stopPreviewLoop();
+    previewLoopRef.current = createPreviewFrameLoop(media, () => {
+      paintMarkPreview(media);
+      if (Number(media.currentTime || 0) >= markSecond + 8 || media.ended) {
+        try { media.pause(); } catch { /* ignore */ }
+        stopPreviewLoop();
+        setPreviewPlaying(false);
+      }
+    });
+    try {
+      await media.play();
+    } catch {
+      stopPreviewLoop();
+      setPreviewPlaying(false);
+    }
+  };
 
   useEffect(() => {
     if (!composerOpen) return undefined;
@@ -15368,7 +15429,7 @@ function WatchTimeMarks({ slug, auth, navigate, currentSeconds, onSeek, notify, 
     try {
       await api.request(`/videos/${encodeURIComponent(slug)}/time-marks`, {
         method: 'POST',
-        body: JSON.stringify({ start_seconds: playbackSecond, body: note, visibility }),
+        body: JSON.stringify({ start_seconds: markSecond, body: note, visibility }),
         trackPageLoading: false,
       });
       setNote('');
@@ -15388,7 +15449,7 @@ function WatchTimeMarks({ slug, auth, navigate, currentSeconds, onSeek, notify, 
     setVotingId(mark.id);
     setError('');
     try {
-      await api.request(`/time-marks/${mark.id}/vote`, { method: 'POST', body: JSON.stringify({ value: mark.viewer_vote === value ? 0 : value }), trackPageLoading: false });
+      await api.request(`/time-marks/${mark.id}/vote`, { method: 'POST', body: JSON.stringify({ value: mark.viewer_vote === value && !mark.owned ? 0 : value }), trackPageLoading: false });
       await loadMarks();
     } catch (voteError) {
       setError(voteError.message || t('Your vote could not be saved. Try again.'));
@@ -15428,7 +15489,14 @@ function WatchTimeMarks({ slug, auth, navigate, currentSeconds, onSeek, notify, 
           <button type="button" className="clip-composer-close" onClick={closeComposer} aria-label={t('Close')}><Icon name="close" size={20}/></button>
         </header>
         <form onSubmit={saveMark}>
-          <p>{t('Current time')} <time data-i18n-skip>{formatDurationSeconds(playbackSecond) || '0:00'}</time></p>
+          <div className="watch-time-mark-preview" data-ready={previewReady ? 'true' : 'false'} data-playing={previewPlaying ? 'true' : 'false'}>
+            <div className="watch-time-mark-preview-frame">
+              <canvas ref={previewCanvasRef} aria-hidden="true" />
+              <button type="button" className="watch-time-mark-preview-toggle" onClick={toggleMarkPreview} aria-label={t(previewPlaying ? 'Pause preview' : 'Play preview')} aria-pressed={previewPlaying} disabled={!previewReady && !previewPlaying}><span><Icon name={previewPlaying ? 'pause' : 'play'} size={22}/></span></button>
+              {!previewReady && !previewPlaying && <span className="watch-time-mark-preview-empty">{t('Preview unavailable')}</span>}
+            </div>
+            <p>{t('Preview from')} <time data-i18n-skip>{formatDurationSeconds(markSecond) || '0:00'}</time></p>
+          </div>
           <label htmlFor="watch-time-mark-note">{t('Time mark note')}
             <textarea id="watch-time-mark-note" value={note} maxLength={280} onChange={(event) => setNote(event.target.value)} />
           </label>
@@ -15449,9 +15517,9 @@ function WatchTimeMarks({ slug, auth, navigate, currentSeconds, onSeek, notify, 
       {mark.visibility === 'private' && <span>{t('Private')}</span>}
       <div className="time-mark-actions">
         <button type="button" className="text-button" onClick={() => copyTimeLink(mark)}><Icon name="link" size={16}/>{t('Copy time link')}</button>
-        {mark.visibility === 'public' && (mark.owned ? <span className="time-mark-owner">{t('Your time mark')}<span className="time-mark-counts" data-i18n-skip><span title={t('Likes')}><Icon name="like" size={16}/>{mark.likes_count || 0}</span><span title={t('Dislikes')}><Icon name="like" size={16}/>{mark.dislikes_count || 0}</span></span></span> : <div className="time-mark-votes" role="group" aria-label={t('Rate time mark')}>
-          {[1, -1].map(value => <button key={value} type="button" aria-label={t(value === 1 ? 'Like time mark' : 'Dislike time mark')} aria-pressed={mark.viewer_vote === value} onClick={() => voteForMark(mark, value)} disabled={votingId !== null}><Icon name="like" size={16}/><span data-i18n-skip>{value === 1 ? mark.likes_count || 0 : mark.dislikes_count || 0}</span></button>)}
-        </div>)}
+        {mark.visibility === 'public' && <>{mark.owned && <span className="time-mark-owner">{t('Your time mark')}</span>}<div className={`time-mark-votes${mark.owned ? ' is-owner' : ''}`} role="group" aria-label={t('Rate time mark')}>
+          {[1, -1].map(value => <button key={value} type="button" aria-label={t(value === 1 ? 'Like time mark' : 'Dislike time mark')} aria-pressed={mark.viewer_vote === value} title={mark.owned && mark.viewer_vote ? t('Your vote is final') : undefined} onClick={() => voteForMark(mark, value)} disabled={votingId !== null || Boolean(mark.owned && mark.viewer_vote)}><Icon name="like" size={16}/><span data-i18n-skip>{value === 1 ? mark.likes_count || 0 : mark.dislikes_count || 0}</span></button>)}
+        </div></>}
       </div>
     </li>)}</ol> : <p>{rankWindow === 'all' ? t('No time marks yet.') : t('No ranked marks yet.')}</p>}
   </section>;
@@ -15482,7 +15550,6 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
   const detailMenuTriggerRef = useRef(null);
   const saveTriggerRef = useRef(null);
   const clipTriggerRef = useRef(null);
-  const returnToManageRef = useRef(false);
   const playerContextMenuRef = useRef(null);
   const watchPlayerStageRef = useRef(null);
   const watchVideoPlayerRef = useRef(null);
@@ -15521,7 +15588,6 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
   const [dropdownView, setDropdownView] = useState('actions');
   const [dropdownLayout, setDropdownLayout] = useState(null);
   const [descriptionExpanded, setDescriptionExpanded] = useState(false);
-  const [watchNotice, setWatchNotice] = useState('');
   const [timeMarkOverlay, setTimeMarkOverlay] = useState([]);
   const [watchToast, setWatchToast] = useState('');
   const [upNext, setUpNext] = useState([]);
@@ -15558,6 +15624,7 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
   const [playlistSavingId, setPlaylistSavingId] = useState(null);
   const [playlistError, setPlaylistError] = useState('');
   const [deleteConfirm, setDeleteConfirm] = useState(null);
+  const [reportDialog, setReportDialog] = useState(null);
   const [videoDeleting, setVideoDeleting] = useState(false);
   const [watchPlaylist, setWatchPlaylist] = useState(null);
   const [autoplayEnabled, setAutoplayEnabled] = useState(() => readAutoplayPreference(auth.user));
@@ -15696,8 +15763,8 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
     googleImaClientRef.current?.destroy();
     googleImaClientRef.current = null;
     setDropdownOpen(false);
-    setWatchNotice('');
     setWatchToast('');
+    setReportDialog(null);
     setPlayerReady(false);
     setPlayerStarted(false);
     setPlayerPlaying(false);
@@ -15990,8 +16057,7 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
     const closeOnEscape = (event) => {
       if (event.key !== 'Escape' || event.defaultPrevented) return;
       event.preventDefault();
-      if (dropdownView === 'manage') { returnToManageRef.current = true; setDropdownView('actions'); }
-      else { setDropdownOpen(false); detailMenuTriggerRef.current?.focus({ preventScroll: true }); }
+      setDropdownOpen(false); detailMenuTriggerRef.current?.focus({ preventScroll: true });
     };
     document.addEventListener('mousedown', closeOnOutside);
     document.addEventListener('keydown', closeOnEscape);
@@ -16044,9 +16110,7 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
 
   useLayoutEffect(() => {
     if (!dropdownOpen || !dropdownLayout) return;
-    const selector = returnToManageRef.current && dropdownView === 'actions' ? '[data-watch-manage]' : '[role^="menuitem"]:not(:disabled)';
-    detailMenuRef.current?.querySelector(selector)?.focus({ preventScroll: true });
-    returnToManageRef.current = false;
+    detailMenuRef.current?.querySelector('[role^="menuitem"]:not(:disabled)')?.focus({ preventScroll: true });
   }, [dropdownOpen, dropdownView, Boolean(dropdownLayout)]);
 
   const handleDetailMenuKeys = (event) => {
@@ -16056,21 +16120,11 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
       const index = items.indexOf(document.activeElement);
       const next = event.key === 'Home' ? 0 : event.key === 'End' ? items.length - 1 : (index + (event.key === 'ArrowUp' ? -1 : 1) + items.length) % items.length;
       items[next]?.focus();
-    } else if (event.key === 'ArrowRight' && document.activeElement?.hasAttribute('data-watch-manage')) {
-      event.preventDefault(); setDropdownView('manage');
-    } else if (event.key === 'ArrowLeft' && dropdownView === 'manage') {
-      event.preventDefault(); returnToManageRef.current = true; setDropdownView('actions');
     } else if (event.key === 'Tab') {
       setDropdownOpen(false);
       detailMenuTriggerRef.current?.focus({ preventScroll: true });
     }
   };
-
-  useEffect(() => {
-    if (!watchNotice) return undefined;
-    const timer = window.setTimeout(() => setWatchNotice(''), 2600);
-    return () => window.clearTimeout(timer);
-  }, [watchNotice]);
 
   useEffect(() => () => window.clearTimeout(watchToastTimerRef.current), []);
 
@@ -16131,13 +16185,13 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
   }, [playlistContextId, video?.slug, auth.user]);
 
   const currentUrl = () => `${window.location.origin}/watch/${slug}`;
-  const notify = (message) => setWatchNotice(message);
   const showWatchToast = (message) => {
     window.clearTimeout(watchToastTimerRef.current);
     setWatchToast('');
     window.setTimeout(() => setWatchToast(message), 20);
     watchToastTimerRef.current = window.setTimeout(() => setWatchToast(''), 4600);
   };
+  const notify = (message) => showWatchToast(message);
 
   const loadMoreUpNext = async () => {
     if (playlistContextId || upNextLoading || !hasMoreUpNext || upNextRequestRef.current === slug) return;
@@ -16202,16 +16256,17 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
 
   const shareVideo = async () => {
     const title = video?.title || `${websiteName()} video`;
-    try {
-      if (navigator.share) {
+    if (navigator.share) {
+      try {
         await navigator.share({ title, text: title, url: currentUrl() });
-      } else {
-        await copyVideoLink();
-        notify('Sharing is not available, link copied instead.');
+        notify('Video shared.');
+        return;
+      } catch (err) {
+        if (err?.name === 'AbortError') return;
       }
-    } catch (err) {
-      if (err?.name !== 'AbortError') notify('Sharing was cancelled.');
     }
+    await copyVideoLink();
+    notify(navigator.share ? 'Sharing is not available, link copied instead.' : 'Video link copied.');
   };
   const toggleAutoplay = async () => {
     const next = !autoplayEnabled;
@@ -16232,7 +16287,7 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
       setAutoplaySaving(false);
     }
   };
-  const reportVideo = async () => {
+  const reportVideo = () => {
     if (!auth.user) return navigate('/login');
     if (video?.isDemo) {
       setVideoMenuState((current) => ({ ...current, reported: true }));
@@ -16247,15 +16302,7 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
       notify('Video already reported.');
       return;
     }
-    setVideoMenuState((current) => ({ ...current, reported: true }));
-    try {
-      const data = await api.request(`/videos/${slug}/report`, { method: 'POST' });
-      setVideo((current) => current ? { ...current, reported: true, can_report: false } : current);
-      notify(data.message || 'Video reported for review.');
-    } catch (err) {
-      setVideoMenuState((current) => ({ ...current, reported: false }));
-      notify(err.message || 'Unable to report video.');
-    }
+    setReportDialog({ type: 'video', path: `/videos/${slug}/report`, label: video?.title || '' });
   };
   const toggleWatchLater = async () => {
     if (!auth.user) return navigate('/login');
@@ -16320,7 +16367,6 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
   const toggleVideoDropdown = async (view, trigger) => {
     const opening = !dropdownOpen || (view === 'share') !== (dropdownView === 'share');
     detailMenuTriggerRef.current = trigger;
-    returnToManageRef.current = false;
     setDropdownView(view);
     setDropdownOpen(opening);
     if (opening && view === 'actions') await refreshWatchMenuState();
@@ -16438,8 +16484,14 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
     if (action === 'playlist') {
       await openPlaylistPicker();
     }
-    if (action === 'share') await shareVideo();
-    if (action === 'copy') await copyVideoLink();
+    if (action === 'share' || action === 'copy') {
+      setDropdownOpen(false);
+      detailMenuTriggerRef.current?.focus({ preventScroll: true });
+      await new Promise((resolve) => window.requestAnimationFrame(() => resolve()));
+      if (action === 'share') await shareVideo();
+      else await copyVideoLink();
+      return;
+    }
     if (action === 'watchLater') {
       await toggleWatchLater();
     }
@@ -16458,7 +16510,7 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
       }
     }
     setDropdownOpen(false);
-    if (action === 'share' || action === 'copy' || action === 'pin') detailMenuTriggerRef.current?.focus({ preventScroll: true });
+    if (action === 'pin') detailMenuTriggerRef.current?.focus({ preventScroll: true });
   };
 
   const like = async () => {
@@ -17171,7 +17223,6 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
       <div className="watch-info">
         <h1 data-i18n-skip>{video.title}</h1>
         <p className="muted-line"><LocalizedCount value={formatNumber(video.views_count)} unit="view" /> · {video.created_label || 'Recently'}</p>
-        {watchNotice && <div className="watch-action-notice" aria-live="polite">{watchNotice}</div>}
         <div className="watch-toolbar" data-source-menu="true">
           <button type="button" className="channel-identity profile-identity-button" onClick={(event) => openProfile(event, navigate, video.channel)} disabled={!profilePathFor(video.channel)}><Avatar label={video.channel?.name || 'Channel'} image={assetUrl(video.channel?.avatar_url || video.channel?.avatar_path)} /><div><strong><span data-i18n-skip>{video.channel?.name || t('Channel')}</span><VerifiedBadge verified={video.channel?.verified} /></strong><span className="channel-subscriber-count"><LocalizedCount value={formatNumber(video.channel?.subscribers_count || 0)} unit="subscriber" /></span></div></button>
           <div className={`watch-creator-actions ${isOwnVideoChannel ? 'is-own-channel' : ''}`}>
@@ -17186,31 +17237,31 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
             <button ref={clipTriggerRef} type="button" className="action-pill" aria-label={t('Create a clip')} onClick={() => auth.user ? setClipComposerOpen(true) : navigate('/login')}><Icon name="clip" size={18}/><span>{t('Clip')}</span></button>
             <div className="video-detail-menu-shell" ref={detailMenuShellRef}>
               <button className={`action-pill icon-only ${dropdownOpen && dropdownView !== 'share' ? 'active' : ''}`} onClick={(event) => toggleVideoDropdown('actions', event.currentTarget)} aria-label="Video actions" aria-haspopup="menu" aria-controls={`watch-video-actions-${slug}`} aria-expanded={dropdownOpen && dropdownView !== 'share'}><Icon name="more" size={18} /></button>
-              {dropdownOpen && createPortal(<div ref={detailMenuRef} id={`watch-video-actions-${slug}`} role="menu" aria-label={t(dropdownView === 'share' ? 'Share Video' : dropdownView === 'manage' ? 'Manage video' : 'Video actions')} className={`video-detail-action-menu watch-detail-menu open-${dropdownLayout?.placement || 'down'}`} onKeyDown={handleDetailMenuKeys} style={dropdownLayout ? { top: dropdownLayout.top, left: dropdownLayout.left, width: dropdownLayout.width, maxHeight: dropdownLayout.maxHeight, '--watch-menu-sheet-max-height': `${dropdownLayout.sheetMaxHeight}px` } : { visibility: 'hidden' }}>
+              {dropdownOpen && createPortal(<div ref={detailMenuRef} id={`watch-video-actions-${slug}`} role="menu" aria-label={t(dropdownView === 'share' ? 'Share Video' : 'Video actions')} className={`video-detail-action-menu watch-detail-menu open-${dropdownLayout?.placement || 'down'}`} onKeyDown={handleDetailMenuKeys} style={dropdownLayout ? { top: dropdownLayout.top, left: dropdownLayout.left, width: dropdownLayout.width, maxHeight: dropdownLayout.maxHeight, '--watch-menu-sheet-max-height': `${dropdownLayout.sheetMaxHeight}px` } : { visibility: 'hidden' }}>
                 {dropdownView === 'share' ? <>
                   <button type="button" role="menuitem" className="video-detail-action-item" onClick={() => runVideoMenuAction('share')}><Icon name="share" size={20}/><span>Share Video</span></button>
                   <button type="button" role="menuitem" className="video-detail-action-item" onClick={() => runVideoMenuAction('copy')}><Icon name="link" size={20}/><span>Copy Link</span></button>
-                </> : dropdownView === 'manage' ? <>
-                  <button type="button" role="menuitem" className="video-detail-action-item" onClick={() => { returnToManageRef.current = true; setDropdownView('actions'); }}><Icon name="chevronLeft" size={20}/><span>Back</span></button>
-                  <div className="video-detail-menu-divider" />
-                  {isOwnVideoChannel && <><button type="button" role="menuitem" className="video-detail-action-item" onClick={() => runVideoMenuAction('edit')}><Icon name="edit" size={20}/><span>Edit video</span></button>{!video.is_short && video.source_type !== 'live_replay' && <button type="button" role="menuitem" className="video-detail-action-item" onClick={() => runVideoMenuAction('boost')}><Icon name="trending" size={20}/><span>Boost video</span></button>}<button type="button" role="menuitem" className={`video-detail-action-item ${videoMenuState.pinned ? 'is-selected' : ''}`} onClick={() => runVideoMenuAction('pin')} disabled={videoMenuState.pinning}><Icon name={videoMenuState.pinned ? 'pinOff' : 'pin'} size={20}/><span>{videoMenuState.pinning ? 'Saving...' : videoMenuState.pinned ? 'Unpin from profile' : 'Pin to profile'}</span></button></>}
-                  {canDeleteVideo && <>{isOwnVideoChannel && <div className="video-detail-menu-divider" />}<button type="button" role="menuitem" className="video-detail-action-item danger" onClick={() => runVideoMenuAction('delete')} disabled={videoDeleting}><Icon name="trash" size={20}/><span>{videoDeleting ? 'Deleting...' : 'Delete Video'}</span></button></>}
                 </> : <>
-                  <div className="watch-source-actions" onClick={() => { setDropdownOpen(false); detailMenuTriggerRef.current?.focus({ preventScroll: true }); }} />
-                  {(isOwnVideoChannel || canDeleteVideo) && <button type="button" role="menuitem" className="video-detail-action-item" data-watch-manage aria-haspopup="menu" aria-expanded={false} onClick={() => setDropdownView('manage')}><Icon name="edit" size={20}/><span>Manage video</span><Icon name="chevronRight" size={16}/></button>}
-                  {!isOwnVideoChannel && <>
+                  {isOwnVideoChannel && <>
+                    <button type="button" role="menuitem" className="video-detail-action-item" onClick={() => runVideoMenuAction('edit')}><Icon name="edit" size={20}/><span>Edit video</span></button>
+                    {!video.is_short && video.source_type !== 'live_replay' && <button type="button" role="menuitem" className="video-detail-action-item" onClick={() => runVideoMenuAction('boost')}><Icon name="trending" size={20}/><span>Boost video</span></button>}
+                    <button type="button" role="menuitem" className={`video-detail-action-item ${videoMenuState.pinned ? 'is-selected' : ''}`} onClick={() => runVideoMenuAction('pin')} disabled={videoMenuState.pinning}><Icon name={videoMenuState.pinned ? 'pinOff' : 'pin'} size={20}/><span>{videoMenuState.pinning ? 'Saving...' : videoMenuState.pinned ? 'Unpin from profile' : 'Pin to profile'}</span></button>
+                  </>}
+                  {canDeleteVideo && <><div className="video-detail-menu-divider" /><button type="button" role="menuitem" className="video-detail-action-item danger" onClick={() => runVideoMenuAction('delete')} disabled={videoDeleting}><Icon name="trash" size={20}/><span>{videoDeleting ? 'Deleting...' : 'Delete Video'}</span></button></>}
+                  {!isOwnVideoChannel && <><div className="video-detail-menu-divider" />
                     {video.can_report !== false && <button type="button" role="menuitem" className={`video-detail-action-item ${videoMenuState.reported ? 'is-selected' : ''}`} onClick={() => runVideoMenuAction('report')}><Icon name="flag" size={20}/><span>{videoMenuState.reported ? 'Reported' : 'Report Video'}</span></button>}
                     <button type="button" role="menuitem" className={`video-detail-action-item danger ${videoMenuState.hidden ? 'is-selected' : ''}`} onClick={() => runVideoMenuAction('notInterested')}><Icon name="block" size={20}/><span>{videoMenuState.hidden ? 'Marked Not Interested' : 'Not Interested'}</span></button>
                   </>}
                 </>}
               </div>, document.body)}
             </div>
+            <div className="watch-mirror-host" data-watch-mirror="true" />
           </div>
         </div>
         {videoMenuState.hidden && <div className="watch-hidden-feedback"><Icon name="block" size={18}/><div><strong>Marked as not interested</strong><span>This feedback is saved on this device. You can continue watching or choose another video.</span></div><button className="text-button" onClick={() => { try { const current = JSON.parse(localStorage.getItem(notInterestedVideosKey) || '[]'); localStorage.setItem(notInterestedVideosKey, JSON.stringify((Array.isArray(current) ? current : []).filter((item) => item !== video.slug))); } catch (_) {} setVideoMenuState((state) => ({ ...state, hidden: false })); notify('Not interested feedback removed.'); }}>Undo</button></div>}
         <div className={`description-card ${descriptionExpanded ? 'expanded' : ''}`}><p dir="auto" data-i18n-skip={watchDescription ? true : undefined}>{watchDescription ? <VideoDescriptionText text={watchDescription} onSeek={isPaidVideoLocked ? null : seekToDescriptionTime} /> : 'No description yet.'}</p>{watchDescription && <button className="text-button" onClick={() => setDescriptionExpanded((expanded) => !expanded)}>{descriptionExpanded ? 'Show less' : 'Show more'}</button>}</div>
         {!isPaidVideoLocked && videoChapters.length > 0 && <details className="watch-chapters"><summary data-i18n-skip>{t('Chapters')}</summary><ol>{videoChapters.map((chapter) => <li key={chapter.startTime}><button type="button" onClick={() => seekToDescriptionTime(chapter.startTime)}><time data-i18n-skip>{formatDurationSeconds(chapter.startTime) || '0:00'}</time><span data-i18n-skip dir="auto">{chapter.text}</span></button></li>)}</ol></details>}
-        {!isPaidVideoLocked && <WatchTimeMarks slug={slug} auth={auth} navigate={navigate} currentSeconds={currentPlaybackSeconds} onSeek={seekToDescriptionTime} notify={notify} onOverlay={setTimeMarkOverlay} />}
+        {!isPaidVideoLocked && <WatchTimeMarks slug={slug} auth={auth} navigate={navigate} currentSeconds={currentPlaybackSeconds} onSeek={seekToDescriptionTime} notify={notify} onOverlay={setTimeMarkOverlay} getMediaElement={() => playerMediaElement(playerRef.current)} />}
         {(video.caption_tracks || []).some((track) => track.transcript_url) && <VideoTranscript key={`${video.slug}-${video.caption_tracks.map((track) => track.transcript_url).join('|')}`} tracks={video.caption_tracks} onSeek={isPaidVideoLocked ? null : seekTranscript} currentSeconds={currentPlaybackSeconds} />}
         {watchTags.length > 0 && <div className="watch-tag-list" aria-label="Tags">{watchTags.map((tag) => <button key={tag} type="button" className="watch-tag-chip" data-i18n-skip onClick={() => navigate(`/search?q=${encodeURIComponent(`#${tag}`)}`)}>#{tag}</button>)}</div>}
       </div>
@@ -17230,6 +17281,7 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
     <ClipComposer open={clipComposerOpen} api={api} video={video} sourceUrl={clipSourceUrl} getMediaElement={() => playerMediaElement(playerRef.current)} currentTime={currentPlaybackSeconds()} duration={playerDuration || video.duration_seconds} Icon={Icon} onClose={() => { setClipComposerOpen(false); window.requestAnimationFrame(() => clipTriggerRef.current?.focus({ preventScroll: true })); }} onCreated={(transfer) => navigate(`/clip-uploads?clip=${encodeURIComponent(transfer.id)}`)} onTimeLink={() => copyPlayerText(watchUrlAtTime(currentUrl(), currentPlaybackSeconds()), 'Video URL at current time copied.')} onCaptureStateChange={(active) => { if (active) clipCaptureStartedRef.current = persistentPlaybackRef.current.started; else persistentPlaybackRef.current.started = clipCaptureStartedRef.current; clipCaptureActiveRef.current = active; }} />
     <CreatorTipDialog open={creatorTipOpen} creator={video.channel} video={video} settings={creatorTips || {}} navigate={navigate} onClose={() => setCreatorTipOpen(false)} onSent={notify} />
     <AppConfirmDialog dialog={deleteConfirm} busy={videoDeleting} onCancel={() => setDeleteConfirm(null)} onConfirm={confirmDeleteVideo} />
+    <ReportDialog open={Boolean(reportDialog)} type={reportDialog?.type} path={reportDialog?.path} label={reportDialog?.label} api={api} Icon={Icon} notify={notify} onClose={() => setReportDialog(null)} onReported={() => { setVideoMenuState((current) => ({ ...current, reported: true })); setVideo((current) => current ? { ...current, reported: true, can_report: false } : current); }} />
     {watchToast && <button type="button" className="copy-toast-notice watch-player-toast" role="status" aria-live="polite" onClick={() => setWatchToast('')}><span><Icon name="info" size={18}/></span><strong>{watchToast}</strong></button>}
   </main></div>;
 }
@@ -22257,6 +22309,7 @@ function ProfileActionDropdown({ profile, navigate, auth, onChannelChange = null
   const [favoriteBusy, setFavoriteBusy] = useState(false);
   const [reported, setReported] = useState(Boolean(profile.channel?.reported));
   const [reportBusy, setReportBusy] = useState(false);
+  const [reportOpen, setReportOpen] = useState(false);
   const [notice, setNotice] = useState('');
 
   const profileUrl = useMemo(() => `${window.location.origin}${profilePathFor(profile.channel || profile) || '/profile'}`, [profile.channel?.slug, profile.channel?.profile_path, profile.channel?.profileUrl, profile.channel_slug, profile.slug]);
@@ -22374,24 +22427,19 @@ function ProfileActionDropdown({ profile, navigate, auth, onChannelChange = null
     }
   };
 
-  const reportProfile = async () => {
+  const reportProfile = () => {
     setOpen(false);
     if (!auth?.user) {
       navigate?.('/login');
       return;
     }
     if (!profile.channel?.slug || reportBusy || reported) return;
-    setReportBusy(true);
-    try {
-      const data = await api.request(`/channels/${encodeURIComponent(profile.channel.slug)}/report`, { method: 'POST' });
-      setReported(true);
-      onChannelChange?.({ ...profile.channel, reported: true, can_report: false });
-      pushNotice(data.message || 'Profile reported for review.');
-    } catch (error) {
-      pushNotice(error.message || 'Action failed');
-    } finally {
-      setReportBusy(false);
-    }
+    setReportOpen(true);
+  };
+
+  const reportSubmitted = () => {
+    setReported(true);
+    onChannelChange?.({ ...profile.channel, reported: true, can_report: false });
   };
 
   const openMessage = () => {
@@ -22452,6 +22500,7 @@ function ProfileActionDropdown({ profile, navigate, auth, onChannelChange = null
     </div>
     {notice && <div className="profile-action-notice" aria-live="polite">{notice}</div>}
     <CreatorTipDialog open={tipOpen} creator={profile.channel} settings={profile.tips} navigate={navigate} onClose={() => setTipOpen(false)} onSent={pushNotice} />
+    <ReportDialog open={reportOpen} type="profile" path={profile.channel?.slug ? `/channels/${encodeURIComponent(profile.channel.slug)}/report` : ''} label={profile.channel?.name || ''} api={api} Icon={Icon} notify={pushNotice} onClose={() => setReportOpen(false)} onReported={reportSubmitted} />
   </div>;
 }
 

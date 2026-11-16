@@ -23,7 +23,7 @@
 .home-category-section .horizontal-videos:focus-visible {
   outline: 2px solid var(--focus);
   outline-offset: 4px;
-  border-radius: 10px;
+  border-radius:var(--radius);
 }
 
 .home-category-loading { margin-top: 28px; }
@@ -34,7 +34,7 @@
   display: block;
   flex: 0 0 calc((100% - 54px) / 4);
   aspect-ratio: 16 / 9;
-  border-radius: 12px;
+  border-radius:var(--radius);
 }
 
 .home-category-error { display: flex; align-items: center; justify-content: space-between; gap: 16px; }

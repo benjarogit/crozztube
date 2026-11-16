@@ -3,9 +3,9 @@
 .klipy-attribution:hover{color:var(--text);text-decoration:underline}
 .klipy-catalog-status{grid-column:1/-1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;min-width:0;min-height:100px;padding:20px 12px;text-align:center;font-size:12px;line-height:1.5;color:var(--muted);background:var(--panel);white-space:normal}
 .comment-sticker-grid .klipy-catalog-status span{font-size:12px;white-space:normal;overflow:visible}
-.comment-sticker-grid .klipy-catalog-status button,.live-super-sticker-dropdown .klipy-catalog-status button{display:block;height:auto;min-height:36px;padding:8px 14px;border:1px solid var(--line);border-radius:8px;background:var(--panel-2);color:var(--text);font-size:12px}
+.comment-sticker-grid .klipy-catalog-status button,.live-super-sticker-dropdown .klipy-catalog-status button{display:block;height:auto;min-height:36px;padding:8px 14px;border:1px solid var(--line);border-radius:var(--radius);background:var(--panel-2);color:var(--text);font-size:12px}
 .comment-sticker-grid>.comment-sticker-load-more{grid-column:1/-1;display:block;height:auto;min-height:36px}
-.klipy-live-search{display:flex;align-items:center;gap:8px;margin:10px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;color:var(--muted);background:var(--panel-2)}
+.klipy-live-search{display:flex;align-items:center;gap:8px;margin:10px;padding:8px 10px;border:1px solid var(--line);border-radius:var(--radius);color:var(--muted);background:var(--panel-2)}
 .klipy-live-search svg{flex:0 0 auto}
 .klipy-live-search input{width:100%;min-width:0;padding:0;border:0;outline:0;background:transparent;color:var(--text);font:inherit;font-size:13px}
 .klipy-live-search:focus-within{border-color:var(--link)}
@@ -27,7 +27,7 @@
 .admin-klipy-settings .admin-gift-enabled input{flex:0 0 auto;margin-top:3px}
 .admin-klipy-actions{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
 .admin-klipy-actions button{min-height:40px}
-.admin-klipy-notice{margin:0;padding:12px 14px;border:1px solid var(--line);border-radius:9px;background:var(--primary-soft);color:var(--text);font-size:13px;line-height:1.5;overflow-wrap:anywhere}
+.admin-klipy-notice{margin:0;padding:12px 14px;border:1px solid var(--line);border-radius:var(--radius);background:var(--primary-soft);color:var(--text);font-size:13px;line-height:1.5;overflow-wrap:anywhere}
 .admin-klipy-notice.error{background:color-mix(in srgb,#ef4444 8%,var(--panel));border-color:color-mix(in srgb,#ef4444 35%,var(--line))}
 .admin-klipy-notice button{margin-left:10px;color:var(--link);text-decoration:underline}
 @media(max-width:520px){

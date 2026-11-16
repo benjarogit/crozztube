@@ -638,10 +638,14 @@ class VideoController extends Controller
         app(\App\Services\Api\V1\VideoAccessService::class)->assertViewable($video, $request->user());
         abort_unless($request->user() && $request->user()->id !== $video->user_id, 403);
 
+        $data = $request->validate(\App\Support\ReportReasons::rules(\App\Support\ReportReasons::VIDEO));
+
         DB::table('video_reports')->updateOrInsert([
             'user_id' => $request->user()->id,
             'video_id' => $video->id,
         ], [
+            'reason' => $data['reason'],
+            'details' => \App\Support\ReportReasons::details($data['details'] ?? null),
             'updated_at' => now(),
             'created_at' => now(),
         ]);

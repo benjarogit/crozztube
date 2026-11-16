@@ -97,14 +97,36 @@ try {
         await marksSection.locator('li').filter({hasText:'Meine geheime private Notiz'}).getByRole('button',{name:'Copy time link',exact:true}).click();
         const copied=await page.evaluate(()=>globalThis.qualityCopies.at(-1));assert(copied.includes('t=66')&&!copied.includes('geheime'),'private sharing includes only position');
       }
-      if(role==='owner') {await expect(marksSection.getByRole('button',{name:'Like time mark',exact:true})).toHaveCount(0);await expect(marksSection).toContainText('Your time mark');checks+=2;}
+      if(role==='owner') {
+        await expect(marksSection).toContainText('Your time mark');checks++;
+        const ownLike=marksSection.getByRole('button',{name:'Like time mark',exact:true}).first();
+        await expect(ownLike).toBeEnabled();
+        await ownLike.click();
+        await expect(ownLike).toHaveAttribute('aria-pressed','true');
+        await expect(ownLike).toBeDisabled();
+        await expect(ownLike).toHaveAttribute('title','Your vote is final');checks+=4;
+      }
       if(role==='guest') {await expect(marksSection).not.toContainText('geheime');checks++;}
       for(const width of [320,390,768,924,1440,1915]) {
         await page.setViewportSize({width,height:902});await expectContained(page,`${role} ${dark} ${width}`);checks++;
         const more=page.locator('.watch-toolbar').getByRole('button',{name:'Video actions',exact:true});await more.click();
-        await expect(page.getByRole('menuitemcheckbox',{name:'Mirror',exact:true})).toBeVisible();checks++; if(role === 'viewer') {await expect(page.getByRole('menuitem',{name:'Manage video',exact:true})).toHaveCount(0);checks++;}
-        await expect(page.locator('.watch-toolbar .crz-mirror-toggle')).toHaveCount(0);checks++;
+        await expect(page.getByRole('menuitemcheckbox',{name:'Mirror',exact:true})).toHaveCount(0);checks++;
+        await expect(page.getByRole('menuitem',{name:'Manage video',exact:true})).toHaveCount(0);checks++;
+        const mirrorPill=page.locator('.watch-toolbar .crz-mirror-toggle');
+        await expect(mirrorPill).toHaveCount(1);await expect(mirrorPill).toBeVisible();checks+=2;
+        if(role==='owner'){await expect(page.getByRole('menuitem',{name:'Edit video',exact:true})).toBeVisible();checks++;}
         await page.keyboard.press('Escape');await expect(more).toBeFocused();checks++;
+        if(role==='viewer' && width===1440){
+          await more.click();
+          await page.getByRole('menuitem',{name:'Report video',exact:true}).click();
+          const reportDialog=page.getByRole('dialog',{name:'Report video',exact:true});
+          await expect(reportDialog).toBeVisible();
+          await expect(reportDialog.getByRole('button',{name:'Send report',exact:true})).toBeDisabled();
+          await reportDialog.locator('#report-reason').selectOption('spam');
+          await expect(reportDialog.getByRole('button',{name:'Send report',exact:true})).toBeEnabled();
+          await reportDialog.getByRole('button',{name:'Cancel',exact:true}).click();
+          await expect(reportDialog).toHaveCount(0);checks+=4;
+        }
         await expect(player).toHaveAttribute('data-quality-player','preserved');checks++;
         if(authenticated){await expect(draft).toHaveValue('Unveröffentlichter Kommentar bleibt erhalten');checks++;}
         if(width<=390){const ys=await page.locator('.action-bar > button,.action-bar > .video-detail-menu-shell').evaluateAll(es=>es.filter(e=>e.getBoundingClientRect().height).map(e=>Math.round(e.getBoundingClientRect().y)));assert(new Set(ys).size===2,'mobile toolbar has two rows'); const widths=await page.locator('.action-bar > button,.action-bar > .video-detail-menu-shell > button').evaluateAll(es=>es.filter(e=>e.getBoundingClientRect().height).map(e=>Math.round(e.getBoundingClientRect().width))); assert(Math.max(...widths)-Math.min(...widths)<=1,'mobile actions share a width');}

@@ -62,7 +62,7 @@
   padding: 0 !important;
   overflow: visible !important;
   border: 0 !important;
-  border-radius: 12px;
+  border-radius:var(--radius);
   background: #000 !important;
   box-shadow: none !important;
   isolation: isolate;
@@ -170,7 +170,7 @@
     max-height: calc(var(--shorts-viewer-height) - 88px);
     overflow-y: auto;
     border-color: var(--line) !important;
-    border-radius: 12px !important;
+    border-radius:var(--radius) !important;
     background: var(--panel) !important;
     box-shadow: 0 12px 40px rgb(0 0 0 / .22) !important;
     backdrop-filter: none !important;
@@ -204,7 +204,7 @@
     gap: 2px !important;
     padding: 6px !important;
     border: 1px solid var(--line) !important;
-    border-radius: 12px !important;
+    border-radius:var(--radius) !important;
     background: var(--panel) !important;
     color: var(--text) !important;
     box-shadow: 0 12px 40px rgb(0 0 0 / .22) !important;
@@ -377,7 +377,7 @@
   min-height: 34px;
   padding-inline: 14px;
   border: 0;
-  border-radius: 999px;
+  border-radius:999px;
   background: var(--primary);
   color: var(--primary-ink);
   font-size: 12px;
@@ -437,7 +437,7 @@
   gap: 7px;
   min-height: 30px;
   padding: 5px 10px;
-  border-radius: 999px;
+  border-radius:999px;
   background: rgb(255 255 255 / .17);
   color: #fff;
   font-size: 12px;
@@ -648,7 +648,7 @@
 .shorts-viewer .shorts-detail-related-grid .shorts-poster {
   aspect-ratio: 9 / 16;
   border: 0;
-  border-radius: 8px;
+  border-radius:var(--radius);
 }
 
 .shorts-viewer .shorts-detail-related-grid .shorts-mini-card strong { font-weight: 650; }
@@ -658,7 +658,7 @@
   width: min(calc(var(--shorts-viewer-height) * .5625), calc(100% - 24px));
   height: var(--shorts-viewer-height);
   margin: auto;
-  border-radius: 12px;
+  border-radius:var(--radius);
   background: linear-gradient(110deg, var(--panel-3) 25%, var(--panel-2) 44%, var(--panel-3) 64%);
   background-size: 240% 100%;
   animation: shortsSkeletonShimmer 1.5s ease-in-out infinite;
@@ -705,7 +705,7 @@
     margin: 0;
     padding: 0;
     border: 1px solid var(--line-strong);
-    border-radius: 14px;
+    border-radius:var(--radius);
     box-shadow: none;
     animation: none;
   }
@@ -753,7 +753,7 @@
   }
   .shorts-viewer .shorts-detail-shell { padding-inline-end: 0; }
   .shorts-viewer .shorts-detail-stage { display: block; width: var(--shorts-video-width); }
-  .shorts-viewer .shorts-detail-player-card { margin-inline: auto !important; border-radius: 10px; }
+  .shorts-viewer .shorts-detail-player-card { margin-inline: auto !important; border-radius:var(--radius); }
   .shorts-viewer .shorts-detail-side-actions {
     position: absolute;
     z-index: 9;
