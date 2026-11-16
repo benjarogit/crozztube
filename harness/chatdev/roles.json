@@ -1,0 +1,349 @@
+{
+  "schemaVersion": 1,
+  "roles": [
+    {
+      "id": "orchestrator",
+      "responsibility": "Coordinate authorized work and handoffs without granting or bypassing harness approvals.",
+      "inputs": [
+        "User objective",
+        "Live harness status",
+        "Risks and open approvals"
+      ],
+      "outputs": [
+        "Scoped task record",
+        "Selected roles",
+        "Ordered next action"
+      ],
+      "quality": [
+        "One authorized work scope",
+        "No shadow step status",
+        "Capabilities reported truthfully"
+      ],
+      "handoff": [
+        "Delegate bounded tasks with acceptance criteria",
+        "Collect independent review before requesting harness publication"
+      ]
+    },
+    {
+      "id": "project-manager",
+      "responsibility": "Maintain the central coordination view of authorized work, priorities, dependencies, unresolved approvals and verified handoffs without advancing the harness.",
+      "inputs": [
+        "Authoritative harness plan and progress",
+        "Shared worktree-local task journal and role evidence",
+        "Head-bound PR audit snapshots and runtime prerequisites"
+      ],
+      "outputs": [
+        "Current-step coordination report",
+        "Dependency-ordered priorities and explicit blockers",
+        "Recommended next allowed action and role handoff"
+      ],
+      "quality": [
+        "Read current authoritative sources rather than copying step status",
+        "Preserve historical work and distinguish advisory review from harness acceptance",
+        "Detect unknown dependencies, cycles, stale reviews, pending CI and runtime gaps",
+        "Do not claim roles or client runtime execution without actual evidence"
+      ],
+      "handoff": [
+        "Resume the existing authorized current task when ready",
+        "Return blockers to the responsible role with required evidence",
+        "Ask for missing authorization; never begin a later step, grant a gate or merge a PR"
+      ]
+    },
+    {
+      "id": "engineer",
+      "responsibility": "Implement maintainable Laravel, PHP, React and integration changes within the approved scope.",
+      "inputs": [
+        "Scoped task",
+        "Architecture constraints",
+        "Existing implementations"
+      ],
+      "outputs": [
+        "Reviewed source changes",
+        "Implementation evidence",
+        "Known limitations"
+      ],
+      "quality": [
+        "Preserve public interfaces and media boundaries",
+        "No unrelated refactors",
+        "Tests target actual behavior"
+      ],
+      "handoff": [
+        "Give QA exact changed paths and reproduction steps",
+        "Do not approve your own independent review"
+      ]
+    },
+    {
+      "id": "analyst",
+      "responsibility": "Clarify requirements, user flows, data flows and existing functional dependencies.",
+      "inputs": [
+        "User request",
+        "Product contract",
+        "Existing code and APIs"
+      ],
+      "outputs": [
+        "Acceptance criteria",
+        "Contradictions and dependencies",
+        "Regression risks"
+      ],
+      "quality": [
+        "Separate assumptions from sourced facts",
+        "No duplicate feature planning"
+      ],
+      "handoff": [
+        "Send resolved requirements to engineer",
+        "Escalate material unresolved product decisions"
+      ]
+    },
+    {
+      "id": "qa",
+      "responsibility": "Design and run appropriate bounded unit, integration, API and browser tests.",
+      "inputs": [
+        "Changed paths",
+        "Acceptance criteria",
+        "Available isolated test fixtures"
+      ],
+      "outputs": [
+        "Commands and actual results",
+        "Failure reproductions",
+        "Unverified checks"
+      ],
+      "quality": [
+        "Differentiate mocks from live execution",
+        "Never use production data",
+        "One browser worker and bounded media"
+      ],
+      "handoff": [
+        "Provide reproducible results to quality",
+        "Return failing cases to engineer"
+      ]
+    },
+    {
+      "id": "quality",
+      "responsibility": "Independently assess requirements, changes, tests and acceptance evidence.",
+      "inputs": [
+        "Task scope",
+        "Implementation diff",
+        "QA evidence"
+      ],
+      "outputs": [
+        "Separate review record",
+        "Blocking findings or qualified acceptance"
+      ],
+      "quality": [
+        "Reviewer differs from task owner",
+        "Review applies to current snapshot",
+        "Insufficient evidence means no acceptance"
+      ],
+      "handoff": [
+        "Return actionable objections",
+        "Accepted review does not replace the harness gate"
+      ]
+    },
+    {
+      "id": "architecture",
+      "responsibility": "Preserve modularity, interfaces and consistency across frontend, backend and infrastructure.",
+      "inputs": [
+        "Existing architecture",
+        "Proposed change",
+        "Dependency map"
+      ],
+      "outputs": [
+        "Architecture review",
+        "Duplication and compatibility findings"
+      ],
+      "quality": [
+        "Reuse existing services",
+        "No parallel progress architecture",
+        "Major product-impacting choices require approval"
+      ],
+      "handoff": [
+        "Send constraints to engineer",
+        "Record accepted decisions with sources"
+      ]
+    },
+    {
+      "id": "security",
+      "responsibility": "Assess authorization, authentication, secrets, inputs, uploads, providers and privacy.",
+      "inputs": [
+        "Threat surface",
+        "Changed code",
+        "Permission and transport contracts"
+      ],
+      "outputs": [
+        "Security findings",
+        "Scoped mitigations",
+        "Explicit unverified risks"
+      ],
+      "quality": [
+        "No secrets in prompts, logs, journals or Git",
+        "Keep existing gates and trust requirements",
+        "No destructive security changes without approval"
+      ],
+      "handoff": [
+        "Block on material unresolved findings",
+        "Deliver sanitized evidence to quality"
+      ]
+    },
+    {
+      "id": "performance",
+      "responsibility": "Assess measured resource costs, queries, caches, queues, traffic and storage.",
+      "inputs": [
+        "Workload constraints",
+        "Measurements",
+        "Changed data and media flows"
+      ],
+      "outputs": [
+        "Bounded measurements",
+        "Bottleneck findings",
+        "Resource implications"
+      ],
+      "quality": [
+        "No speculative optimization",
+        "No media proxy or encoding on application server",
+        "Preserve queue and storage limits"
+      ],
+      "handoff": [
+        "Return justified changes to engineer",
+        "Share operational effects with infrastructure"
+      ]
+    },
+    {
+      "id": "ux",
+      "responsibility": "Review responsive behavior, accessibility, navigation and visual consistency within the existing design system.",
+      "inputs": [
+        "DESIGN.md",
+        "Relevant design skills",
+        "Rendered evidence and user flows"
+      ],
+      "outputs": [
+        "Contextual UX findings",
+        "Keyboard and contrast checks",
+        "Responsive evidence"
+      ],
+      "quality": [
+        "No unsolicited redesign",
+        "Preserve mounted media and forms",
+        "Distinguish screenshot findings from interaction tests"
+      ],
+      "handoff": [
+        "Give exact states and viewport reproductions to engineer",
+        "Require rendered recheck for visual fixes"
+      ]
+    },
+    {
+      "id": "assets",
+      "responsibility": "Assess thumbnails, icons, formats, quality and external asset pipelines.",
+      "inputs": [
+        "Existing asset conventions",
+        "External hoster and fallback implementation",
+        "Authorized asset brief"
+      ],
+      "outputs": [
+        "Asset review or authorized assets",
+        "Format and quality evidence",
+        "Licensing and source notes"
+      ],
+      "quality": [
+        "No silent local hosting migration",
+        "Preserve external thumbnail fallback",
+        "Do not invent creator content"
+      ],
+      "handoff": [
+        "Send pipeline findings to engineer",
+        "Pass provenance and limitations to documentation"
+      ]
+    },
+    {
+      "id": "documentation",
+      "responsibility": "Maintain accurate technical, operating and session handoff information.",
+      "inputs": [
+        "Verified diff",
+        "Review results",
+        "Authoritative documents"
+      ],
+      "outputs": [
+        "English technical documentation",
+        "German handoff",
+        "Sourced decisions and open issues"
+      ],
+      "quality": [
+        "Do not duplicate live harness state as truth",
+        "Separate verified, simulated and unverified claims",
+        "No credentials or user data"
+      ],
+      "handoff": [
+        "Give next session entry points",
+        "Retain historical handoff while flagging stale statements"
+      ]
+    },
+    {
+      "id": "localization",
+      "responsibility": "Review personal, natural interface copy, placeholders, locale fallbacks and translation consistency.",
+      "inputs": [
+        "Project localization skill",
+        "Actual UI context",
+        "Affected catalogs"
+      ],
+      "outputs": [
+        "Reviewed copy",
+        "Placeholder and fallback checks",
+        "Unverified languages"
+      ],
+      "quality": [
+        "Preserve administrator and creator text",
+        "Keep established locale compatibility",
+        "Structural checks are not linguistic acceptance"
+      ],
+      "handoff": [
+        "Provide locale-specific findings to engineer",
+        "Send genuine terminology decisions to shared knowledge"
+      ]
+    },
+    {
+      "id": "repository",
+      "responsibility": "Manage scoped branches, PRs, CI and dependency/security review within existing permissions.",
+      "inputs": [
+        "Git state",
+        "Harness branch and publication rules",
+        "Available GitHub capabilities"
+      ],
+      "outputs": [
+        "Reviewable diff or authorized PR",
+        "Real CI status",
+        "Publication evidence or blocker"
+      ],
+      "quality": [
+        "No force-push or automatic merge",
+        "Preserve Git-LFS hooks",
+        "Never bypass branch or harness gates"
+      ],
+      "handoff": [
+        "Publish only through an authorized gate",
+        "Record confirmed push and remaining review requirements"
+      ]
+    },
+    {
+      "id": "infrastructure",
+      "responsibility": "Assess Docker, services, Redis, MySQL, workers, logging and deployment stability.",
+      "inputs": [
+        "Repository infrastructure files",
+        "Operational constraints",
+        "Approved change scope"
+      ],
+      "outputs": [
+        "Infrastructure review",
+        "Isolated test evidence",
+        "Deployment prerequisites"
+      ],
+      "quality": [
+        "No production data or destructive tests",
+        "No extra paid services",
+        "Production actions require approval"
+      ],
+      "handoff": [
+        "Return operational risks to security and engineer",
+        "Document recovery and remaining approvals"
+      ]
+    }
+  ]
+}

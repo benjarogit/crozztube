@@ -108,3 +108,11 @@ Checknamen sind Abschlussanforderungen und keine erfolgreich bestandenen
 Platzhalter. Schritt 2 verwendet den behaltenen synthetischen Besitzerclip für
 eine begrenzte echte Odysee-Wiedergabeprüfung; neue Veröffentlichungen gehören
 nicht in den automatischen Abschlusscheck.
+
+## Approved ChatDev tooling integration
+
+The isolated `codex/chatdev-integration` branch uses `chatdev-verify` and
+`chatdev-checkpoint --message "..."` for the narrowly approved orchestration
+tooling only. See `tools/chatdev/README.md`. Existing feature gates, hooks,
+plan/progress and Impeccable maintenance remain unchanged. No feature step is
+accepted or advanced and no main-branch merge is authorized by this path.
