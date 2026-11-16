@@ -21,6 +21,8 @@ use App\Support\MonetizationSettings;
 use App\Support\PlatformFeatureSettings;
 use App\Support\PlayerAdSettings;
 use App\Support\PublishingAccess;
+use App\Support\SeriesStructure;
+use App\Support\SharedPlaylists;
 use App\Support\Slugs;
 use App\Support\VideoChapters;
 use App\Support\VideoImportSettings;
@@ -613,6 +615,7 @@ class VideoController extends Controller
 
         return response()->json([
             'video' => new VideoResource($video),
+            'series' => $this->seriesContext($video, $user),
             'player_ads' => $hasSaleAccess ? PlayerAdSettings::publicSettings() : ['enabled' => false, 'ads' => []],
             'tips' => LiveStreamingSettings::creatorTipSettings($video->user),
         ])->header('Cache-Control', 'private, no-store');
@@ -631,6 +634,37 @@ class VideoController extends Controller
         return response()->json([
             'video' => new VideoResource($video),
         ])->header('Cache-Control', 'private, no-store');
+    }
+
+    /**
+     * Series context for the watch page: the first series that contains the
+     * video and that this viewer may open, including the episode numbering and
+     * the next episode resolved with the normal playback access rules.
+     */
+    private function seriesContext(Video $video, ?\App\Models\User $viewer): ?array
+    {
+        if (! Schema::hasColumn('playlists', 'kind')) {
+            return null;
+        }
+
+        $series = Playlist::query()
+            ->where('kind', SeriesStructure::KIND_SERIES)
+            ->whereHas('videos', fn ($query) => $query->where('videos.id', $video->id))
+            ->with('user')
+            ->orderBy('id')
+            ->first();
+
+        if (! $series) {
+            return null;
+        }
+
+        $role = SharedPlaylists::role($viewer, $series);
+        $publicOwner = in_array($series->privacy, ['public', 'unlisted'], true) && $series->user?->hasPublicProfileEnabled();
+        if ($role === null && ! $publicOwner) {
+            return null;
+        }
+
+        return SeriesStructure::payload($series, $viewer, $video->slug);
     }
 
     public function report(Request $request, Video $video): JsonResponse

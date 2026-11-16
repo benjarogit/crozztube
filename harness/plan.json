@@ -159,6 +159,7 @@
         "time-mark-quality",
         "viewer-quality-copy",
         "captcha-quality",
+        "step-08-series",
         "staged-safety"
       ]
     },
@@ -545,6 +546,13 @@
         "tools/test/viewer-appearance.test.mjs"
       ],
       "timeoutMs": 30000
+    },
+    "step-08-series": {
+      "argv": [
+        "bash",
+        "tools/test/step-08-series.sh"
+      ],
+      "timeoutMs": 300000
     }
   },
   "defaults": {

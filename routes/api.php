@@ -403,6 +403,29 @@ Route::get('/playlists/{playlist}', function (Request $request, Playlist $playli
         'playlist' => $payload,
     ]);
 });
+Route::get('/playlists/{playlist}/next-episode', function (Request $request, Playlist $playlist) {
+    $token = $request->bearerToken();
+    $user = $request->user() ?: ($token ? PersonalAccessToken::findToken($token)?->tokenable : null);
+    $playlist->loadMissing('user');
+    $viewerRole = \App\Support\SharedPlaylists::role($user, $playlist);
+    $publicOwner = in_array($playlist->privacy, ['public', 'unlisted'], true) && $playlist->user?->hasPublicProfileEnabled();
+    abort_unless($viewerRole !== null || $publicOwner, 403);
+
+    // Access is resolved per episode on the server, so a hidden or scheduled
+    // episode can never be autoplayed just because its slug was guessed.
+    $current = trim((string) $request->query('episode', ''));
+    $next = \App\Support\SeriesStructure::nextEpisode($playlist, $current !== '' ? $current : null, $user);
+
+    return response()->json([
+        'playlist' => [
+            'id' => (int) $playlist->id,
+            'title' => (string) $playlist->title,
+            'kind' => \App\Support\SeriesStructure::kind($playlist->kind),
+            'status' => \App\Support\SeriesStructure::status($playlist->series_status),
+        ],
+        'next' => $next,
+    ])->header('Cache-Control', 'no-store');
+});
 
 Route::get('/upload-options', function (Request $request) {
     $token = $request->bearerToken();
@@ -1719,7 +1742,7 @@ Route::middleware(['auth:sanctum', \App\Http\Middleware\EnsureUgcSafety::class])
     Route::post('/channels/{channel:slug}/playlists', function (Request $request, Channel $channel) {
         abort_unless($request->user()?->id === $channel->user_id, 403);
 
-        $data = $request->validate([
+        $data = $request->validate(array_merge([
             'title' => ['required', 'string', 'max:120'],
             'description' => ['nullable', 'string', 'max:500'],
             'privacy' => ['nullable', 'string', 'in:public,private,unlisted,Public,Private,Unlisted'],
@@ -1727,14 +1750,19 @@ Route::middleware(['auth:sanctum', \App\Http\Middleware\EnsureUgcSafety::class])
             'cover_video_id' => ['nullable', 'integer'],
             'video_ids' => ['nullable', 'array'],
             'video_ids.*' => ['integer'],
-        ]);
+        ], \App\Support\SeriesStructure::rules()));
 
+        $kind = \App\Support\SeriesStructure::kind($data['kind'] ?? (isset($data['episodes']) ? \App\Support\SeriesStructure::KIND_SERIES : \App\Support\SeriesStructure::KIND_PLAYLIST));
         $playlist = Playlist::create([
             'user_id' => $request->user()->id,
             'channel_id' => $channel->id,
             'title' => trim($data['title']),
             'description' => trim((string) ($data['description'] ?? '')) ?: null,
             'privacy' => strtolower($data['privacy'] ?? 'public'),
+            'kind' => $kind,
+            'series_status' => $kind === \App\Support\SeriesStructure::KIND_SERIES
+                ? \App\Support\SeriesStructure::status($data['series_status'] ?? null)
+                : null,
             'color' => $data['color'] ?? '#6c4cff',
         ]);
 
@@ -1754,6 +1782,9 @@ Route::middleware(['auth:sanctum', \App\Http\Middleware\EnsureUgcSafety::class])
         }
 
         $playlist->videos()->sync($videoIds->mapWithKeys(fn ($id, $index) => [$id => ['sort_order' => $index]])->all());
+        if ($kind === \App\Support\SeriesStructure::KIND_SERIES) {
+            \App\Support\SeriesStructure::applyEpisodes($playlist, $data['episodes'] ?? []);
+        }
 
         return response()->json([
             'message' => 'Playlist created.',
@@ -1763,7 +1794,7 @@ Route::middleware(['auth:sanctum', \App\Http\Middleware\EnsureUgcSafety::class])
     Route::put('/playlists/{playlist}', function (Request $request, Playlist $playlist) {
         abort_unless($request->user()?->id === $playlist->user_id, 403);
 
-        $data = $request->validate([
+        $data = $request->validate(array_merge([
             'title' => ['required', 'string', 'max:120'],
             'description' => ['nullable', 'string', 'max:500'],
             'privacy' => ['nullable', 'string', 'in:public,private,unlisted,Public,Private,Unlisted'],
@@ -1771,8 +1802,9 @@ Route::middleware(['auth:sanctum', \App\Http\Middleware\EnsureUgcSafety::class])
             'cover_video_id' => ['nullable', 'integer'],
             'video_ids' => ['nullable', 'array'],
             'video_ids.*' => ['integer'],
-        ]);
+        ], \App\Support\SeriesStructure::rules()));
 
+        $kind = \App\Support\SeriesStructure::kind($data['kind'] ?? $playlist->kind ?? \App\Support\SeriesStructure::KIND_PLAYLIST);
         $videoIds = DB::table('videos')
             ->whereIn('id', $data['video_ids'] ?? $playlist->videos()->pluck('videos.id')->all())
             ->where(function ($query) use ($request) {
@@ -1788,6 +1820,10 @@ Route::middleware(['auth:sanctum', \App\Http\Middleware\EnsureUgcSafety::class])
             'title' => trim($data['title']),
             'description' => trim((string) ($data['description'] ?? '')) ?: null,
             'privacy' => strtolower($data['privacy'] ?? 'public'),
+            'kind' => $kind,
+            'series_status' => $kind === \App\Support\SeriesStructure::KIND_SERIES
+                ? \App\Support\SeriesStructure::status($data['series_status'] ?? $playlist->series_status ?? null)
+                : null,
             'color' => $data['color'] ?? '#6c4cff',
         ];
 
@@ -1797,6 +1833,9 @@ Route::middleware(['auth:sanctum', \App\Http\Middleware\EnsureUgcSafety::class])
 
         $playlist->update($updates);
         $playlist->videos()->sync($videoIds->mapWithKeys(fn ($id, $index) => [$id => ['sort_order' => $index]])->all());
+        if ($kind === \App\Support\SeriesStructure::KIND_SERIES) {
+            \App\Support\SeriesStructure::applyEpisodes($playlist, $data['episodes'] ?? []);
+        }
 
         return response()->json([
             'message' => 'Playlist updated.',

@@ -25,6 +25,7 @@ import { embedPermissions, httpEmbedUrl } from './embedPermissions.js';
 import { shortsTagViewTotals } from './shortsTrendingTags.js';
 import { MAX_SHORT_SECONDS, qualifiesShort, isShortVideoRecord } from './shortVideos.js';
 import { formatMessage, languageTag } from './localizationFormat.js';
+import { resolveNextPlayback, episodeLabel } from './seriesPlayback.js';
 import { liveStudioDraftRequest, liveStudioPreflightReady, liveStudioResponseMatches } from './liveStudioDraft.js';
 import { createKlipyCatalog, emptyKlipyCatalog, registerKlipySticker, trackKlipyStickerShare } from './klipyCatalog.js';
 import '@vidstack/react/player/styles/default/theme.css';
@@ -7245,6 +7246,7 @@ function PageSection({ title, action = null, onAction = null, sub = null, childr
 }
 
 function PlaylistsPage({ navigate, auth, routeSearch = '' }) {
+  const { t } = useI18n();
   const [playlists, setPlaylists] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -7503,14 +7505,17 @@ function PlaylistsPage({ navigate, auth, routeSearch = '' }) {
       title: playlist.title,
       description: playlist.description,
       privacy: playlist.privacy,
-        color: playlist.color,
-        cover_video_id: playlist.cover_video_id,
-        video_ids: playlist.video_ids || [],
+      kind: playlist.kind === 'series' ? 'series' : 'playlist',
+      series_status: playlist.kind === 'series' ? (playlist.series_status || 'ongoing') : null,
+      episodes: playlist.kind === 'series' ? (playlist.episodes || []) : [],
+      color: playlist.color,
+      cover_video_id: playlist.cover_video_id,
+      video_ids: playlist.video_ids || [],
     }) });
     setPlaylists((current) => [data.playlist, ...current]);
     setSelectedId(String(data.playlist.id));
     setModalOpen(false);
-    setNotice(`Created "${data.playlist.title}".`);
+    setNotice(data.playlist.kind === 'series' ? `Created series "${data.playlist.title}".` : `Created "${data.playlist.title}".`);
   };
   const openCreatePlaylist = () => {
     setEditingPlaylist(null);
@@ -7535,6 +7540,9 @@ function PlaylistsPage({ navigate, auth, routeSearch = '' }) {
       title: playlist.title,
       description: playlist.description,
       privacy: playlist.privacy,
+      kind: playlist.kind === 'series' ? 'series' : 'playlist',
+      series_status: playlist.kind === 'series' ? (playlist.series_status || 'ongoing') : null,
+      episodes: playlist.kind === 'series' ? (playlist.episodes || []) : [],
       color: playlist.color,
       cover_video_id: playlist.cover_video_id,
       video_ids: playlist.video_ids || [],
@@ -7542,7 +7550,7 @@ function PlaylistsPage({ navigate, auth, routeSearch = '' }) {
     setPlaylists((current) => current.map((item) => String(item.id) === String(data.playlist.id) ? data.playlist : item));
     setEditingPlaylist(null);
     setModalOpen(false);
-    setNotice('Playlist updated.');
+    setNotice(data.playlist.kind === 'series' ? 'Series updated.' : 'Playlist updated.');
   };
 
   if (loading) return <main className="content-area playlist-page"><div className="state-card">Loading playlists...</div></main>;
@@ -7558,14 +7566,15 @@ function PlaylistsPage({ navigate, auth, routeSearch = '' }) {
   return <main className="content-area playlist-page">
     {notice && <div className="playlist-notice">{notice}</div>}
     <section className="playlist-detail-hero">
-      <div className="playlist-cover-card" style={{ '--playlist-color': selected.color || colorFallbacks[0] }}>{coverVideo ? <Thumbnail video={coverVideo} /> : <div className="playlist-cover-gradient"><Icon name="playlist" size={54}/></div>}<span><Icon name="playlist" size={14}/> {playlistVideos.length} {playlistVideos.length === 1 ? 'video' : 'videos'}</span></div>
+      <div className="playlist-cover-card" style={{ '--playlist-color': selected.color || colorFallbacks[0] }}>{coverVideo ? <Thumbnail video={coverVideo} /> : <div className="playlist-cover-gradient"><Icon name="playlist" size={54}/></div>}<span><Icon name="playlist" size={14}/> {playlistVideos.length} {selected.kind === 'series' ? (playlistVideos.length === 1 ? t('episode') : t('episodes')) : (playlistVideos.length === 1 ? 'video' : 'videos')}</span></div>
       <div className="playlist-hero-copy">
         <em className="playlist-privacy-badge">{selected.privacy || 'Public'}</em>
+        {selected.kind === 'series' && <em className="playlist-series-badge" data-i18n-skip>{t('Series')}</em>}
         <h1>{selected.title}</h1>
         <p>{selected.description || 'No description has been added for this playlist yet.'}</p>
         <button type="button" className="playlist-owner" onClick={() => playlistChannel.slug && navigate(`/channel/${playlistChannel.slug}`)} disabled={!playlistChannel.slug}><Avatar label={playlistChannel.name || 'Creator'} image={ownerAvatarUrl}/><span><strong>{playlistChannel.name || 'Creator'}</strong><small>@{playlistChannel.slug || 'creator'}</small></span></button>
-        <div className="playlist-meta-line"><span>{playlistVideos.length} videos</span><span>{durationText(totalDuration)}</span><span>{formatNumber(totalViews)} views</span><span>Updated {selected.updated_at ? formatPlaylistTime(selected.updated_at) : 'recently'}</span></div>
-        <div className="playlist-actions"><button type="button" className="btn primary" disabled={!playlistVideos.length} onClick={playAll}><Icon name="play" size={17}/> Play all</button><button type="button" className="btn subtle" disabled={!playlistVideos.length} onClick={shuffle}>Shuffle</button>{isOwner && <button type="button" className="btn subtle" onClick={openCreatePlaylist}><Icon name="plus" size={16}/> New playlist</button>}{isOwner && <button type="button" className="btn subtle" onClick={openEditPlaylist}><Icon name="settings" size={16}/> Edit playlist</button>}<button type="button" className="btn subtle" onClick={sharePlaylist}><Icon name="share" size={16}/> Share</button></div>
+        <div className="playlist-meta-line"><span>{playlistVideos.length} {selected.kind === 'series' ? (playlistVideos.length === 1 ? t('episode') : t('episodes')) : 'videos'}</span><span>{durationText(totalDuration)}</span><span>{formatNumber(totalViews)} views</span><span>Updated {selected.updated_at ? formatPlaylistTime(selected.updated_at) : 'recently'}</span></div>
+        <div className="playlist-actions"><button type="button" className="btn primary" disabled={!playlistVideos.length} onClick={playAll}><Icon name="play" size={17}/> Play all</button><button type="button" className="btn subtle" disabled={!playlistVideos.length} onClick={shuffle}>Shuffle</button>{isOwner && <button type="button" className="btn subtle" onClick={openCreatePlaylist}><Icon name="plus" size={16}/> {selected.kind === 'series' ? t('New series') : 'New playlist'}</button>}{isOwner && <button type="button" className="btn subtle" onClick={openEditPlaylist}><Icon name="settings" size={16}/> {selected.kind === 'series' ? t('Edit series') : 'Edit playlist'}</button>}<button type="button" className="btn subtle" onClick={sharePlaylist}><Icon name="share" size={16}/> Share</button></div>
       </div>
     </section>
     <section className="playlist-detail-grid">
@@ -7573,11 +7582,14 @@ function PlaylistsPage({ navigate, auth, routeSearch = '' }) {
         <div className="playlist-toolbar"><label><Icon name="search" size={17}/><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search in this playlist..." />{query && <button type="button" className="search-clear-button" onClick={() => setQuery('')} aria-label="Clear search"><Icon name="close" size={14}/></button>}</label><div><button type="button" className={sort === 'latest' ? 'active' : ''} onClick={() => setSort('latest')}>Latest</button><button type="button" className={sort === 'oldest' ? 'active' : ''} onClick={() => setSort('oldest')}>Oldest</button><button type="button" className={sort === 'popular' ? 'active' : ''} onClick={() => setSort('popular')}>Popular</button></div></div>
         <div className="playlist-video-list-page">{searchLoading ? <div className="state-card">Searching playlist...</div> : filteredVideos.length ? filteredVideos.map((video, index) => {
           const menuId = video.id || video.slug || index;
-          return <div className="playlist-video-row-page" key={menuId} role="button" tabIndex={0} onClick={() => playVideo(video)} onKeyDown={(event) => { if (event.key === 'Enter') playVideo(video); }}><b>{index + 1}</b><Thumbnail video={video}/><span><strong data-i18n-skip={video.title ? '' : undefined}>{video.title || 'Untitled video'}</strong><small>{video.description || video.channel?.name || 'No description yet.'}</small></span><em>{video.channel?.name || playlistChannel.name || 'Creator'}</em><i>{formatNumber(video.views_count || video.views || 0)}</i><time>{video.published_at ? formatPlaylistTime(video.published_at) : 'Recently'}</time><div className="playlist-row-menu-shell" onClick={(event) => event.stopPropagation()}><button type="button" className={openMenuId === menuId ? 'more-button active' : 'more-button'} onClick={() => setOpenMenuId((current) => current === menuId ? null : menuId)} aria-label="More actions"><span>...</span></button>{openMenuId === menuId && <div className="playlist-row-action-menu" role="menu"><button type="button" onClick={() => playVideo(video)}><Icon name="play" size={17}/> Watch video</button><button type="button" onClick={() => copyPlaylistVideoLink(video)}><Icon name="link" size={17}/> Copy link</button><button type="button" onClick={() => video.channel?.slug && navigate(`/channel/${video.channel.slug}`)}><Icon name="users" size={17}/> View creator</button>{canManageVideos && <button type="button" onClick={() => removeVideoFromPlaylist(video)} className="danger"><Icon name="trash" size={17}/> Remove from playlist</button>}{canVote && <button type="button" onClick={() => votePlaylistVideo(video)}><Icon name="like" size={17}/> Vote ({voteCounts[video.id] || 0})</button>}</div>}</div></div>;
+          const isSeries = selected.kind === 'series';
+          const seasonNumber = Number(video.season_number || 1);
+          const previousSeason = index > 0 ? Number(filteredVideos[index - 1]?.season_number || 1) : null;
+          return <React.Fragment key={menuId}>{isSeries && seasonNumber !== previousSeason && <h3 className="playlist-season-heading">{t('Season')} {seasonNumber}</h3>}<div className="playlist-video-row-page" role="button" tabIndex={0} onClick={() => playVideo(video)} onKeyDown={(event) => { if (event.key === 'Enter') playVideo(video); }}><b>{isSeries ? (video.episode_label || index + 1) : index + 1}</b><Thumbnail video={video}/><span><strong data-i18n-skip={video.title ? '' : undefined}>{video.episode_title || video.title || 'Untitled video'}</strong><small>{video.episode_title ? (video.title || '') : (video.description || video.channel?.name || 'No description yet.')}</small></span><em>{video.channel?.name || playlistChannel.name || 'Creator'}</em><i>{formatNumber(video.views_count || video.views || 0)}</i><time>{video.published_at ? formatPlaylistTime(video.published_at) : 'Recently'}</time><div className="playlist-row-menu-shell" onClick={(event) => event.stopPropagation()}><button type="button" className={openMenuId === menuId ? 'more-button active' : 'more-button'} onClick={() => setOpenMenuId((current) => current === menuId ? null : menuId)} aria-label="More actions"><span>...</span></button>{openMenuId === menuId && <div className="playlist-row-action-menu" role="menu"><button type="button" onClick={() => playVideo(video)}><Icon name="play" size={17}/> Watch video</button><button type="button" onClick={() => copyPlaylistVideoLink(video)}><Icon name="link" size={17}/> Copy link</button><button type="button" onClick={() => video.channel?.slug && navigate(`/channel/${video.channel.slug}`)}><Icon name="users" size={17}/> View creator</button>{canManageVideos && <button type="button" onClick={() => removeVideoFromPlaylist(video)} className="danger"><Icon name="trash" size={17}/> Remove from playlist</button>}{canVote && <button type="button" onClick={() => votePlaylistVideo(video)}><Icon name="like" size={17}/> Vote ({voteCounts[video.id] || 0})</button>}</div>}</div></div></React.Fragment>;
         }) : <div className="state-card">No videos match this playlist search.</div>}</div>
       </article>
       <aside className="playlist-side-stack">
-        <article className="playlist-side-card"><h2>About this playlist</h2><p>{selected.description || 'No description has been added for this playlist yet.'}</p><ul><li><Icon name="globe" size={15}/>{selected.privacy || 'Public'}</li><li><Icon name="calendar" size={15}/>Created {selected.created_at ? new Date(selected.created_at).toLocaleDateString() : 'recently'}</li><li><Icon name="playlist" size={15}/>{playlistVideos.length} videos</li></ul></article>
+        <article className="playlist-side-card"><h2>{selected.kind === 'series' ? t('About this series') : 'About this playlist'}</h2><p>{selected.description || 'No description has been added for this playlist yet.'}</p><ul><li><Icon name="globe" size={15}/>{selected.privacy || 'Public'}</li><li><Icon name="calendar" size={15}/>Created {selected.created_at ? new Date(selected.created_at).toLocaleDateString() : 'recently'}</li>{selected.kind === 'series' ? <><li><Icon name="playlist" size={15}/>{selected.series?.season_count || 1} {t('seasons')}</li><li><Icon name="library" size={15}/>{playlistVideos.length} {playlistVideos.length === 1 ? t('episode') : t('episodes')}</li><li><Icon name="trending" size={15}/>{selected.series_status === 'completed' ? t('Completed') : t('Ongoing')}</li></> : <li><Icon name="playlist" size={15}/>{playlistVideos.length} videos</li>}</ul></article>
         <article className="playlist-side-card">
           <h2>Shared access</h2>
           {viewerRole === null && !selected?.pending_invite && user ? <p>Ask the owner for an invite to collaborate.</p> : null}
@@ -15589,6 +15601,7 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
   const [reportDialog, setReportDialog] = useState(null);
   const [videoDeleting, setVideoDeleting] = useState(false);
   const [watchPlaylist, setWatchPlaylist] = useState(null);
+  const [watchSeries, setWatchSeries] = useState(null);
   const [autoplayEnabled, setAutoplayEnabled] = useState(() => readAutoplayPreference(auth.user));
   const [autoplaySaving, setAutoplaySaving] = useState(false);
   const [videoMenuState, setVideoMenuState] = useState({
@@ -15652,6 +15665,7 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
 
   useEffect(() => {
     let cancelled = false;
+    setWatchSeries(null);
     (async () => {
       try {
         if (auth.user) await migrateLegacyWatchProgress(auth.user);
@@ -15661,7 +15675,7 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
           navigate(videoData.video.live_stream_url);
           return;
         }
-        setVideo(prepareUploaded(videoData.video, 0)); setPlayerAds(videoData.player_ads || null); setCreatorTips(videoData.tips || null); setComments(commentsData.data || []);
+        setVideo(prepareUploaded(videoData.video, 0)); setWatchSeries(videoData.series || null); setPlayerAds(videoData.player_ads || null); setCreatorTips(videoData.tips || null); setComments(commentsData.data || []);
         setCommentsPage(Number(commentsData.meta?.current_page || 1));
         setCommentsHasMore(Boolean(commentsData.links?.next) || Number(commentsData.meta?.current_page || 1) < Number(commentsData.meta?.last_page || 1));
       } catch (err) {
@@ -17034,13 +17048,21 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
     const playlistVideos = (watchPlaylist?.videos || []).filter((item) => item?.slug);
     const playlistIndex = playlistVideos.findIndex((item) => item.slug === slug);
     const playlistNext = playlistIndex >= 0 ? playlistVideos[playlistIndex + 1] : null;
-    const next = queuedNext || (playlistContextId ? playlistNext : upNext.find((item) => item.slug && item.slug !== slug));
-    writePlaybackQueue(queuedNext ? queue.filter((item) => item.slug !== queuedNext.slug) : queue);
+    const { item: next, source } = resolveNextPlayback({
+      queue: queuedNext ? [queuedNext] : [],
+      seriesNext: watchSeries?.next || null,
+      playlistNext,
+      discover: playlistContextId ? [] : upNext,
+      currentSlug: slug,
+      autoplayEnabled,
+    });
+    if (source === 'queue' && queuedNext) writePlaybackQueue(queue.filter((item) => item.slug !== queuedNext.slug));
     if (next?.slug) {
       try {
         sessionStorage.setItem(AUTOPLAY_NEXT_STORAGE_KEY, next.slug);
       } catch (_) {}
-      navigate(videoPlaybackPath(next, playlistContextId ? `?list=${playlistContextId}` : ''));
+      const listId = source === 'series' ? watchSeries?.id : (playlistContextId || '');
+      navigate(videoPlaybackPath(next, listId ? `?list=${listId}` : ''));
     }
   };
   const handleContentEnded = async () => {
@@ -17183,6 +17205,11 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
     </div>
       <WebsiteAdSlot placement="watch_below_player"/>
       <div className="watch-info">
+        {watchSeries && <button type="button" className="watch-series-chip" onClick={() => navigate(`/playlists?id=${watchSeries.id}`)}>
+          <Icon name="playlist" size={14}/>
+          <span data-i18n-skip>{watchSeries.title}</span>
+          {watchSeries.current && <em data-i18n-skip>{episodeLabel(watchSeries.current)}</em>}
+        </button>}
         <h1 data-i18n-skip>{video.title}</h1>
         <p className="muted-line"><LocalizedCount value={formatNumber(video.views_count)} unit="view" /> · {video.created_label || 'Recently'}</p>
         <div className="watch-toolbar" data-source-menu="true">
@@ -17220,6 +17247,13 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
             <div className="watch-mirror-host" data-watch-mirror="true" />
           </div>
         </div>
+        {watchSeries?.next && <div className="watch-next-episode">
+          <button type="button" className="watch-next-episode-card" onClick={() => navigate(videoPlaybackPath(watchSeries.next, `?list=${watchSeries.id}`))}>
+            <span className="watch-next-episode-icon"><Icon name="play" size={19}/></span>
+            <span className="watch-next-episode-copy"><small>{t('Next episode')}</small><strong data-i18n-skip>{watchSeries.next.episode_title || watchSeries.next.title}</strong><em data-i18n-skip>{episodeLabel(watchSeries.next)}</em></span>
+          </button>
+          <button type="button" className={`watch-autoplay-toggle watch-next-episode-toggle ${autoplayEnabled ? 'active' : ''}`} role="switch" aria-checked={autoplayEnabled} onClick={toggleAutoplay} disabled={autoplaySaving}><span>{t('Autoplay next episode')}</span><i /></button>
+        </div>}
         {videoMenuState.hidden && <div className="watch-hidden-feedback"><Icon name="block" size={18}/><div><strong>Marked as not interested</strong><span>This feedback is saved on this device. You can continue watching or choose another video.</span></div><button className="text-button" onClick={() => { try { const current = JSON.parse(localStorage.getItem(notInterestedVideosKey) || '[]'); localStorage.setItem(notInterestedVideosKey, JSON.stringify((Array.isArray(current) ? current : []).filter((item) => item !== video.slug))); } catch (_) {} setVideoMenuState((state) => ({ ...state, hidden: false })); notify('Not interested feedback removed.'); }}>Undo</button></div>}
         <div className={`description-card ${descriptionExpanded ? 'expanded' : ''}`}><p dir="auto" data-i18n-skip={watchDescription ? true : undefined}>{watchDescription ? <VideoDescriptionText text={watchDescription} onSeek={isPaidVideoLocked ? null : seekToDescriptionTime} /> : 'No description yet.'}</p>{watchDescription && <button className="text-button" onClick={() => setDescriptionExpanded((expanded) => !expanded)}>{descriptionExpanded ? 'Show less' : 'Show more'}</button>}</div>
         {!isPaidVideoLocked && videoChapters.length > 0 && <details className="watch-chapters"><summary data-i18n-skip>{t('Chapters')}</summary><ol>{videoChapters.map((chapter) => <li key={chapter.startTime}><button type="button" onClick={() => seekToDescriptionTime(chapter.startTime)}><time data-i18n-skip>{formatDurationSeconds(chapter.startTime) || '0:00'}</time><span data-i18n-skip dir="auto">{chapter.text}</span></button></li>)}</ol></details>}
@@ -17231,7 +17265,7 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
     </section>
     <aside ref={watchSidebarRef} className="watch-sidebar">
       <WebsiteAdSlot placement="watch_sidebar"/>
-      <div className="section-title compact">{playlistContextId && <small className="watch-playlist-context">Playlist{watchPlaylist?.title ? <> · <span data-i18n-skip>{watchPlaylist.title}</span></> : null}</small>}<h2>Up Next</h2><button type="button" className={`watch-autoplay-toggle ${autoplayEnabled ? 'active' : ''}`} role="switch" aria-checked={autoplayEnabled} onClick={toggleAutoplay} disabled={autoplaySaving}><span>Autoplay</span><i /></button></div>
+      <div className="section-title compact">{playlistContextId && <small className="watch-playlist-context">{watchSeries ? t('Series') : t('Playlist')}{watchPlaylist?.title ? <> · <span data-i18n-skip>{watchPlaylist.title}</span></> : null}</small>}<h2>Up Next</h2>{!watchSeries?.next && <button type="button" className={`watch-autoplay-toggle ${autoplayEnabled ? 'active' : ''}`} role="switch" aria-checked={autoplayEnabled} onClick={toggleAutoplay} disabled={autoplaySaving}><span>Autoplay</span><i /></button>}</div>
       {upNextLoading && !queuedUpNext.length && !combinedUpNext.length ? <div className="state-card">Loading videos...</div> : combinedUpNext.length ? combinedUpNext.map((item, index) => <React.Fragment key={item.slug || item.id}>{index === 0 && queuedUpNext.length > 0 && <h3 className="watch-up-next-label">Queue</h3>}{index === queuedUpNext.length && queuedUpNext.length > 0 && !playlistContextId && <h3 className="watch-up-next-label">Discover videos</h3>}<SmallVideoRow video={item} navigate={navigate}/><WebsiteAdSlot placement="watch_up_next" sequence={index + 1}/></React.Fragment>) : <div className="state-card">{playlistContextId ? 'No more videos' : 'No more videos available.'}</div>}
       {hasMoreUpNext && <button type="button" className="btn subtle full" disabled={upNextLoading} onClick={loadMoreUpNext}>{upNextLoading ? 'Loading videos...' : 'Load more'}</button>}
     </aside>
@@ -24686,6 +24720,7 @@ function AddToPlaylistModal({ video, playlists, loading, error, savingId, onClos
 }
 
 function NewPlaylistModal({ videos, onClose, onCreate, initialAddVideos = false, initialVideoIds = [], playlist = null }) {
+  const { t } = useI18n();
   const isEditing = Boolean(playlist?.id);
   const colorOptions = ['#6c4cff', '#ec4899', '#ef4444', '#f97316', '#f59e0b', '#22c55e', '#14b8a6', '#2563eb', '#6d5dfc', '#334155'];
   const privacyOptions = [
@@ -24706,9 +24741,24 @@ function NewPlaylistModal({ videos, onClose, onCreate, initialAddVideos = false,
   const [videosError, setVideosError] = useState('');
   const [selectedVideos, setSelectedVideos] = useState(initialPlaylistVideoIds.length ? initialPlaylistVideoIds : initialVideoIds);
   const [coverVideoId, setCoverVideoId] = useState(playlist?.cover_video_id || playlist?.video?.id || initialPlaylistVideoIds[0] || initialVideoIds[0] || '');
+  const [kind, setKind] = useState(playlist?.kind === 'series' ? 'series' : 'playlist');
+  const [seriesStatus, setSeriesStatus] = useState(playlist?.series_status === 'completed' ? 'completed' : 'ongoing');
+  const [episodeMeta, setEpisodeMeta] = useState(() => {
+    const initial = {};
+    for (const video of (playlist?.videos || [])) {
+      if (!video?.id) continue;
+      initial[video.id] = {
+        season_number: video.season_number || 1,
+        episode_number: video.episode_number || '',
+        episode_title: video.episode_title || '',
+      };
+    }
+    return initial;
+  });
   const [saving, setSaving] = useState(false);
   const [formError, setFormError] = useState('');
   const trimmedName = name.trim();
+  const isSeries = kind === 'series';
   const selectedCount = selectedVideos.length;
   const activePrivacy = privacyOptions.find((option) => option.id === privacy) || privacyOptions[0];
   const filteredVideos = availableVideos.filter((video) => `${video.title} ${video.description || ''} ${video.channel?.name || ''}`.toLowerCase().includes(videoQuery.trim().toLowerCase()));
@@ -24750,21 +24800,40 @@ function NewPlaylistModal({ videos, onClose, onCreate, initialAddVideos = false,
   }, [onClose]);
 
   const toggleVideo = (videoId) => setSelectedVideos((current) => current.map(Number).includes(Number(videoId)) ? current.filter((id) => Number(id) !== Number(videoId)) : [...current, videoId]);
+  const updateEpisode = (videoId, patch) => setEpisodeMeta((current) => ({
+    ...current,
+    [videoId]: { season_number: 1, episode_number: '', episode_title: '', ...(current[videoId] || {}), ...patch },
+  }));
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!trimmedName || saving) return;
     setSaving(true);
     setFormError('');
     try {
+      const episodes = isSeries ? selectedVideos.map((id) => {
+        const meta = episodeMeta[id] || {};
+        const explicitNumber = meta.episode_number === '' || meta.episode_number == null ? null : Number(meta.episode_number);
+        return {
+          video_id: Number(id),
+          season_number: Number(meta.season_number) || 1,
+          episode_number: Number.isFinite(explicitNumber) && explicitNumber > 0 ? explicitNumber : null,
+          episode_title: (meta.episode_title || '').trim() || null,
+        };
+      }) : [];
       await onCreate({
         id: `playlist-${Date.now()}`,
         title: trimmedName,
         description: description.trim(),
         color: selectedColor,
         privacy,
+        kind,
+        series_status: isSeries ? seriesStatus : null,
+        episodes,
         video_ids: selectedVideos,
         cover_video_id: selectedCoverVideo?.id || null,
-        count: `${selectedCount} ${selectedCount === 1 ? 'video' : 'videos'}`,
+        count: isSeries
+          ? `${selectedCount} ${selectedCount === 1 ? t('episode') : t('episodes')}`
+          : `${selectedCount} ${selectedCount === 1 ? 'video' : 'videos'}`,
         video: selectedCoverVideo || firstSelectedVideo || null,
       });
     } catch (err) {
@@ -24778,26 +24847,40 @@ function NewPlaylistModal({ videos, onClose, onCreate, initialAddVideos = false,
     <form className="playlist-modal" onSubmit={handleSubmit}>
       <header className="playlist-modal-header">
         <span className="playlist-modal-icon"><Icon name="playlist" size={27}/></span>
-        <div><h2 id="playlist-modal-title">{isEditing ? 'Edit Playlist' : 'Create New Playlist'}</h2><p>{isEditing ? 'Update playlist details and cover' : 'Organize your videos into a playlist'}</p></div>
+        <div><h2 id="playlist-modal-title">{isSeries ? (isEditing ? t('Edit Series') : t('Create New Series')) : (isEditing ? 'Edit Playlist' : 'Create New Playlist')}</h2><p>{isSeries ? t('Group episodes into seasons and keep them in order') : (isEditing ? 'Update playlist details and cover' : 'Organize your videos into a playlist')}</p></div>
         <button type="button" className="playlist-modal-close" onClick={onClose} aria-label="Close"><Icon name="close" size={24}/></button>
       </header>
       <div className="playlist-modal-body">
         <section className="playlist-form-panel">
           <label className="playlist-field"><span>Playlist Name <b>*</b></span><div className="playlist-input-wrap"><input value={name} onChange={(event) => setName(event.target.value.slice(0, 60))} placeholder="e.g. Travel Vlogs 2025" autoFocus={!shouldUseNativeSelect()} required /><em>{name.length}/60</em></div></label>
           <label className="playlist-field"><span>Description <small>(optional)</small></span><div className="playlist-input-wrap textarea"><textarea value={description} onChange={(event) => setDescription(event.target.value.slice(0, 200))} placeholder="What’s this playlist about?" rows={4} /><em>{description.length}/200</em></div></label>
+          <div className="playlist-field"><span>{t('Format')}</span><div className="playlist-format-row" role="radiogroup" aria-label={t('Format')}><button type="button" role="radio" aria-checked={!isSeries} className={!isSeries ? 'active' : ''} onClick={() => setKind('playlist')}><Icon name="playlist" size={18}/><strong>{t('Playlist')}</strong><small>{t('Any mix of videos in your order')}</small></button><button type="button" role="radio" aria-checked={isSeries} className={isSeries ? 'active' : ''} onClick={() => setKind('series')}><Icon name="library" size={18}/><strong>{t('Series')}</strong><small>{t('Seasons with numbered episodes')}</small></button></div></div>
+          {isSeries && <div className="playlist-field"><span>{t('Series status')}</span><label className="playlist-privacy-select"><span>{seriesStatus === 'completed' ? '✓' : '▶'}</span><AdaptiveSelect value={seriesStatus} onChange={(event) => setSeriesStatus(event.target.value)}><option value="ongoing">{t('Ongoing')}</option><option value="completed">{t('Completed')}</option></AdaptiveSelect><small>{seriesStatus === 'completed' ? t('No further episodes are planned') : t('New episodes are still coming')}</small><Icon name="trending" size={16}/></label></div>}
           <div className="playlist-field"><span>Select Color</span><div className="playlist-color-row">{colorOptions.map((color) => <button type="button" key={color} className={selectedColor === color ? 'active' : ''} style={{ '--playlist-color': color }} onClick={() => setSelectedColor(color)}>{selectedColor === color ? '✓' : ''}</button>)}</div><p className="playlist-help"><Icon name="help" size={17}/> This color will represent your playlist</p></div>
           <div className="playlist-field"><span>Privacy</span><label className="playlist-privacy-select"><span>{activePrivacy.icon}</span><AdaptiveSelect value={privacy} onChange={(event) => setPrivacy(event.target.value)}>{privacyOptions.map((option) => <option data-i18n-skip key={option.id} value={option.id}>{option.title}</option>)}</AdaptiveSelect><small>{activePrivacy.text}</small><Icon name="trending" size={16}/></label></div>
-          <div className="playlist-field add-playlist-videos"><span>Add to Playlist</span><label className="playlist-checkbox-row"><input type="checkbox" checked={addVideos} onChange={(event) => setAddVideos(event.target.checked)} /><i /> <strong>Add videos to this playlist now</strong></label>{addVideos && <div className="playlist-video-picker"><label className="profile-video-search collection-video-search"><Icon name="search" size={17}/><input value={videoQuery} onChange={(event) => setVideoQuery(event.target.value)} placeholder="Search videos to add..." />{videoQuery && <button type="button" className="search-clear-button" onClick={() => setVideoQuery('')} aria-label="Clear search"><Icon name="close" size={15}/></button>}</label><div className="collection-video-list playlist-video-list">{filteredVideos.map((video) => <button type="button" key={video.id} className="collection-video-row" onClick={() => toggleVideo(video.id)}><span className={`collection-check ${selectedVideoIds.includes(Number(video.id)) ? 'checked' : ''}`}>{selectedVideoIds.includes(Number(video.id)) ? '✓' : ''}</span><Thumbnail video={video}/><div><strong data-i18n-skip>{video.title}</strong><small>{video.channel?.name || websiteName()} · <LocalizedCount value={formatNumber(video.views_count)} unit="view" /></small></div></button>)}{videosLoading && !filteredVideos.length ? <div className="state-card">Loading your videos...</div> : null}{!videosLoading && !filteredVideos.length ? <div className="state-card">No videos match your search.</div> : null}</div>{videosError && <div className="profile-action-notice" aria-live="polite">{videosError}</div>}<div className="collection-selected-footer"><span>{selectedCount} {selectedCount === 1 ? 'video' : 'videos'} selected</span><button type="button" onClick={() => { setSelectedVideos([]); setCoverVideoId(''); }}>Clear</button></div></div>}</div>
+          <div className="playlist-field add-playlist-videos"><span>Add to Playlist</span><label className="playlist-checkbox-row"><input type="checkbox" checked={addVideos} onChange={(event) => setAddVideos(event.target.checked)} /><i /> <strong>{isSeries ? t('Add episodes to this series now') : 'Add videos to this playlist now'}</strong></label>{addVideos && <div className="playlist-video-picker"><label className="profile-video-search collection-video-search"><Icon name="search" size={17}/><input value={videoQuery} onChange={(event) => setVideoQuery(event.target.value)} placeholder="Search videos to add..." />{videoQuery && <button type="button" className="search-clear-button" onClick={() => setVideoQuery('')} aria-label="Clear search"><Icon name="close" size={15}/></button>}</label><div className="collection-video-list playlist-video-list">{filteredVideos.map((video) => <button type="button" key={video.id} className="collection-video-row" onClick={() => toggleVideo(video.id)}><span className={`collection-check ${selectedVideoIds.includes(Number(video.id)) ? 'checked' : ''}`}>{selectedVideoIds.includes(Number(video.id)) ? '✓' : ''}</span><Thumbnail video={video}/><div><strong data-i18n-skip>{video.title}</strong><small>{video.channel?.name || websiteName()} · <LocalizedCount value={formatNumber(video.views_count)} unit="view" /></small></div></button>)}{videosLoading && !filteredVideos.length ? <div className="state-card">Loading your videos...</div> : null}{!videosLoading && !filteredVideos.length ? <div className="state-card">No videos match your search.</div> : null}</div>{videosError && <div className="profile-action-notice" aria-live="polite">{videosError}</div>}<div className="collection-selected-footer"><span>{selectedCount} {selectedCount === 1 ? 'video' : 'videos'} selected</span><button type="button" onClick={() => { setSelectedVideos([]); setCoverVideoId(''); }}>Clear</button></div></div>}</div>
+          {isSeries && <div className="playlist-field playlist-episode-editor"><span>{t('Seasons and episodes')}</span><p className="playlist-help"><Icon name="help" size={17}/> {t('Leave the episode number empty to number it automatically from its position in the season.')}</p><div className="playlist-episode-list">{selectedVideos.map((id) => {
+            const video = availableVideos.find((item) => Number(item.id) === Number(id));
+            if (!video) return null;
+            const meta = episodeMeta[id] || {};
+            return <div className="playlist-episode-row" key={id}>
+              <Thumbnail video={video} />
+              <span className="playlist-episode-name" data-i18n-skip>{video.title}</span>
+              <label><small>{t('Season')}</small><input type="number" min="1" max="500" inputMode="numeric" value={meta.season_number ?? 1} onChange={(event) => updateEpisode(id, { season_number: event.target.value })} aria-label={`${t('Season')} — ${video.title}`} /></label>
+              <label><small>{t('Episode')}</small><input type="number" min="1" max="10000" inputMode="numeric" placeholder={t('auto')} value={meta.episode_number ?? ''} onChange={(event) => updateEpisode(id, { episode_number: event.target.value })} aria-label={`${t('Episode')} — ${video.title}`} /></label>
+              <label className="playlist-episode-title"><small>{t('Episode title')}</small><input value={meta.episode_title ?? ''} maxLength={160} placeholder={video.title} onChange={(event) => updateEpisode(id, { episode_title: event.target.value })} aria-label={`${t('Episode title')} — ${video.title}`} /></label>
+            </div>;
+          })}{!selectedVideos.length ? <div className="state-card">{t('Add videos to number the episodes.')}</div> : null}</div></div>}
           {formError && <div className="profile-action-notice" aria-live="polite">{formError}</div>}
         </section>
         <aside className="playlist-preview-panel">
           <h3>Preview</h3>
           <article className="playlist-preview-card" style={{ '--playlist-color': selectedColor }}>
             <div className="playlist-preview-art">{selectedCoverVideo ? <Thumbnail video={selectedCoverVideo} /> : <><i /><span><Icon name="playlist" size={54}/></span></>}</div>
-            <div className="playlist-preview-copy"><strong>{trimmedName || 'Playlist Name'}</strong><small>{selectedCount} {selectedCount === 1 ? 'video' : 'videos'} <b>•</b> {privacy}</small></div>
+            <div className="playlist-preview-copy"><strong>{trimmedName || (isSeries ? t('Series Name') : 'Playlist Name')}</strong><small>{selectedCount} {selectedCount === 1 ? (isSeries ? t('episode') : 'video') : (isSeries ? t('episodes') : 'videos')} <b>•</b> {isSeries ? t(seriesStatus === 'completed' ? 'Completed' : 'Ongoing') : privacy}</small></div>
           </article>
           {coverVideos.length ? <div className="playlist-cover-slider"><strong>Playlist cover</strong><div>{coverVideos.map((video) => <button type="button" key={video.id} className={Number(coverVideoId) === Number(video.id) ? 'active' : ''} onClick={() => setCoverVideoId(video.id)}><Thumbnail video={video}/><span>{Number(coverVideoId) === Number(video.id) ? 'Cover selected' : 'Select cover'}</span></button>)}</div></div> : <p className="playlist-cover-empty">No playlist videos available for cover selection.</p>}
-          <div className="playlist-tip-card"><span><Icon name="help" size={22}/></span><div><strong>Playlist tip</strong><p>Use playlists to organize your content and make it easier for your audience to discover more videos.</p></div></div>
+          <div className="playlist-tip-card"><span><Icon name="help" size={22}/></span><div><strong>{isSeries ? t('Series tip') : 'Playlist tip'}</strong><p>{isSeries ? t('Episodes stay in one playlist. Season and episode numbers define the order your viewers see, and the next episode keeps playing automatically.') : 'Use playlists to organize your content and make it easier for your audience to discover more videos.'}</p></div></div>
         </aside>
       </div>
       <footer className="playlist-modal-footer"><button type="button" className="btn subtle" onClick={onClose} disabled={saving}>Cancel</button><button type="submit" className="btn primary" disabled={!trimmedName || saving}><Icon name={isEditing ? 'settings' : 'plus'} size={18}/> {saving ? (isEditing ? 'Saving...' : 'Creating...') : (isEditing ? 'Save playlist' : 'Create Playlist')}</button></footer>

@@ -1,0 +1,185 @@
+{
+  "context": "Series and seasons: converting an existing playlist into a series, the season/episode editor in the playlist dialog, series context on the watch page and the next-episode card. English and German references only; other language reviews remain open.",
+  "messages": {
+    "Series": {
+      "en": "Series",
+      "de_de": "Serie",
+      "de_at": "Serie",
+      "de_ch": "Serie"
+    },
+    "episode": {
+      "en": "episode",
+      "de_de": "Folge",
+      "de_at": "Folge",
+      "de_ch": "Folge"
+    },
+    "episodes": {
+      "en": "episodes",
+      "de_de": "Folgen",
+      "de_at": "Folgen",
+      "de_ch": "Folgen"
+    },
+    "seasons": {
+      "en": "seasons",
+      "de_de": "Staffeln",
+      "de_at": "Staffeln",
+      "de_ch": "Staffeln"
+    },
+    "Season": {
+      "en": "Season",
+      "de_de": "Staffel",
+      "de_at": "Staffel",
+      "de_ch": "Staffel"
+    },
+    "Episode": {
+      "en": "Episode",
+      "de_de": "Folge",
+      "de_at": "Folge",
+      "de_ch": "Folge"
+    },
+    "Episode title": {
+      "en": "Episode title",
+      "de_de": "Folgentitel",
+      "de_at": "Folgentitel",
+      "de_ch": "Folgentitel"
+    },
+    "Next episode": {
+      "en": "Next episode",
+      "de_de": "Nächste Folge",
+      "de_at": "Nächste Folge",
+      "de_ch": "Nächste Folge"
+    },
+    "Autoplay next episode": {
+      "en": "Autoplay next episode",
+      "de_de": "Nächste Folge automatisch abspielen",
+      "de_at": "Nächste Folge automatisch abspielen",
+      "de_ch": "Nächste Folge automatisch abspielen"
+    },
+    "Format": {
+      "en": "Format",
+      "de_de": "Format",
+      "de_at": "Format",
+      "de_ch": "Format"
+    },
+    "Series status": {
+      "en": "Series status",
+      "de_de": "Serienstatus",
+      "de_at": "Serienstatus",
+      "de_ch": "Serienstatus"
+    },
+    "Ongoing": {
+      "en": "Ongoing",
+      "de_de": "Laufend",
+      "de_at": "Laufend",
+      "de_ch": "Laufend"
+    },
+    "New series": {
+      "en": "New series",
+      "de_de": "Neue Serie",
+      "de_at": "Neue Serie",
+      "de_ch": "Neue Serie"
+    },
+    "Edit series": {
+      "en": "Edit series",
+      "de_de": "Serie bearbeiten",
+      "de_at": "Serie bearbeiten",
+      "de_ch": "Serie bearbeiten"
+    },
+    "Edit Series": {
+      "en": "Edit Series",
+      "de_de": "Serie bearbeiten",
+      "de_at": "Serie bearbeiten",
+      "de_ch": "Serie bearbeiten"
+    },
+    "Create New Series": {
+      "en": "Create New Series",
+      "de_de": "Neue Serie erstellen",
+      "de_at": "Neue Serie erstellen",
+      "de_ch": "Neue Serie erstellen"
+    },
+    "Group episodes into seasons and keep them in order": {
+      "en": "Group episodes into seasons and keep them in order",
+      "de_de": "Ordne Folgen in Staffeln und bring sie in die richtige Reihenfolge",
+      "de_at": "Ordne Folgen in Staffeln und bring sie in die richtige Reihenfolge",
+      "de_ch": "Ordne Folgen in Staffeln und bring sie in die richtige Reihenfolge"
+    },
+    "Any mix of videos in your order": {
+      "en": "Any mix of videos in your order",
+      "de_de": "Beliebige Videos in deiner Reihenfolge",
+      "de_at": "Beliebige Videos in deiner Reihenfolge",
+      "de_ch": "Beliebige Videos in deiner Reihenfolge"
+    },
+    "Seasons with numbered episodes": {
+      "en": "Seasons with numbered episodes",
+      "de_de": "Staffeln mit nummerierten Folgen",
+      "de_at": "Staffeln mit nummerierten Folgen",
+      "de_ch": "Staffeln mit nummerierten Folgen"
+    },
+    "No further episodes are planned": {
+      "en": "No further episodes are planned",
+      "de_de": "Es sind keine weiteren Folgen geplant",
+      "de_at": "Es sind keine weiteren Folgen geplant",
+      "de_ch": "Es sind keine weiteren Folgen geplant"
+    },
+    "New episodes are still coming": {
+      "en": "New episodes are still coming",
+      "de_de": "Neue Folgen sind weiterhin geplant",
+      "de_at": "Neue Folgen sind weiterhin geplant",
+      "de_ch": "Neue Folgen sind weiterhin geplant"
+    },
+    "Seasons and episodes": {
+      "en": "Seasons and episodes",
+      "de_de": "Staffeln und Folgen",
+      "de_at": "Staffeln und Folgen",
+      "de_ch": "Staffeln und Folgen"
+    },
+    "Leave the episode number empty to number it automatically from its position in the season.": {
+      "en": "Leave the episode number empty to number it automatically from its position in the season.",
+      "de_de": "Lass die Folgennummer leer, dann wird sie automatisch aus der Position in der Staffel vergeben.",
+      "de_at": "Lass die Folgennummer leer, dann wird sie automatisch aus der Position in der Staffel vergeben.",
+      "de_ch": "Lass die Folgennummer leer, dann wird sie automatisch aus der Position in der Staffel vergeben."
+    },
+    "auto": {
+      "en": "auto",
+      "de_de": "automatisch",
+      "de_at": "automatisch",
+      "de_ch": "automatisch"
+    },
+    "Add videos to number the episodes.": {
+      "en": "Add videos to number the episodes.",
+      "de_de": "Füge Videos hinzu, um die Folgen zu nummerieren.",
+      "de_at": "Füge Videos hinzu, um die Folgen zu nummerieren.",
+      "de_ch": "Füge Videos hinzu, um die Folgen zu nummerieren."
+    },
+    "Add episodes to this series now": {
+      "en": "Add episodes to this series now",
+      "de_de": "Folgen jetzt zu dieser Serie hinzufügen",
+      "de_at": "Folgen jetzt zu dieser Serie hinzufügen",
+      "de_ch": "Folgen jetzt zu dieser Serie hinzufügen"
+    },
+    "Series Name": {
+      "en": "Series Name",
+      "de_de": "Serienname",
+      "de_at": "Serienname",
+      "de_ch": "Serienname"
+    },
+    "Series tip": {
+      "en": "Series tip",
+      "de_de": "Serien-Tipp",
+      "de_at": "Serien-Tipp",
+      "de_ch": "Serien-Tipp"
+    },
+    "Episodes stay in one playlist. Season and episode numbers define the order your viewers see, and the next episode keeps playing automatically.": {
+      "en": "Episodes stay in one playlist. Season and episode numbers define the order your viewers see, and the next episode keeps playing automatically.",
+      "de_de": "Folgen bleiben in einer Playlist. Staffel- und Folgennummern legen die Reihenfolge für deine Zuschauer fest, und die nächste Folge läuft automatisch weiter.",
+      "de_at": "Folgen bleiben in einer Playlist. Staffel- und Folgennummern legen die Reihenfolge für deine Zuschauer fest, und die nächste Folge läuft automatisch weiter.",
+      "de_ch": "Folgen bleiben in einer Playlist. Staffel- und Folgennummern legen die Reihenfolge für deine Zuschauer fest, und die nächste Folge läuft automatisch weiter."
+    },
+    "About this series": {
+      "en": "About this series",
+      "de_de": "Über diese Serie",
+      "de_at": "Über diese Serie",
+      "de_ch": "Über diese Serie"
+    }
+  }
+}

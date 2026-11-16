@@ -385,3 +385,197 @@
 }
 
 .playlist-error > div { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* Series and seasons -------------------------------------------------------
+   A series is a playlist with episode metadata, so the chrome reuses the
+   playlist vocabulary: one chip for the series, one card for the next episode
+   and a compact season heading in the list. Gold stays on the play action. */
+.playlist-series-badge {
+  width: max-content;
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  margin-left: 8px;
+  border: 1px solid color-mix(in srgb, var(--primary) 28%, var(--line));
+  border-radius: var(--radius);
+  background: var(--panel);
+  color: var(--link);
+  padding: 0 8px;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 900;
+  letter-spacing: .02em;
+}
+.playlist-season-heading {
+  margin: 0;
+  padding: 12px 14px 8px;
+  border-bottom: 1px solid var(--line);
+  background: var(--panel-2);
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.playlist-video-list-page > .playlist-season-heading:first-child { border-top: 0; }
+.playlist-video-row-page > b { white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+.playlist-format-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+.playlist-format-row button {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  gap: 2px 10px;
+  align-items: center;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--panel);
+  padding: 12px 14px;
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+  transition: border-color .16s ease, background-color .16s ease, box-shadow .16s ease;
+}
+.playlist-format-row button:hover { background: var(--panel-2); }
+.playlist-format-row button:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.playlist-format-row button.active {
+  border-color: color-mix(in srgb, var(--primary) 55%, var(--line));
+  background: var(--primary-soft);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--primary) 32%, transparent);
+}
+.playlist-format-row button svg { grid-row: 1 / 3; color: var(--muted); }
+.playlist-format-row button.active svg { color: var(--link); }
+.playlist-format-row strong { font-size: 14px; font-weight: 900; line-height: 1.2; }
+.playlist-format-row small { color: var(--muted); font-size: 12px; font-weight: 650; line-height: 1.35; }
+
+.playlist-episode-editor { margin-top: 4px; }
+.playlist-episode-list { display: grid; gap: 8px; margin-top: 4px; }
+.playlist-episode-row {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1.4fr) 74px 74px minmax(0, 1fr);
+  gap: 10px;
+  align-items: end;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel-2);
+  padding: 10px;
+}
+.playlist-episode-row .thumb { width: 64px; height: 44px; border-radius: var(--radius); align-self: center; }
+.playlist-episode-name {
+  min-width: 0;
+  align-self: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 750;
+  line-height: 1.3;
+}
+.playlist-episode-row label { min-width: 0; display: grid; gap: 4px; font-weight: 850; }
+.playlist-episode-row label small { color: var(--muted); font-size: 11px; font-weight: 800; letter-spacing: .03em; text-transform: uppercase; }
+.playlist-episode-row input {
+  width: 100%;
+  height: 38px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--input-bg);
+  color: var(--text);
+  padding: 0 9px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  outline: 0;
+}
+.playlist-episode-row input:focus { border-color: var(--link); box-shadow: 0 0 0 3px var(--primary-soft); }
+.playlist-episode-row input::placeholder { color: color-mix(in srgb, var(--muted) 72%, transparent); }
+@media (max-width: 920px) {
+  .playlist-episode-row { grid-template-columns: 56px minmax(0, 1fr) 70px 70px; }
+  .playlist-episode-row .playlist-episode-title { grid-column: 2 / -1; }
+  .playlist-episode-row .thumb { width: 56px; height: 40px; }
+}
+@media (max-width: 560px) {
+  .playlist-format-row { grid-template-columns: 1fr; }
+  .playlist-episode-row { grid-template-columns: minmax(0, 1fr) 64px 64px; }
+  .playlist-episode-row .thumb { display: none; }
+  .playlist-episode-row .playlist-episode-name { grid-column: 1 / -1; }
+  .playlist-episode-row .playlist-episode-title { grid-column: 1 / -1; }
+  .playlist-episode-row input { font-size: 16px; }
+}
+
+.watch-series-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  max-width: 100%;
+  min-height: 26px;
+  margin-top: 14px;
+  border: 1px solid color-mix(in srgb, var(--primary) 24%, var(--line));
+  border-radius: var(--radius);
+  background: var(--primary-soft);
+  color: var(--link);
+  padding: 0 9px;
+  font-size: 12px;
+  font-weight: 850;
+  cursor: pointer;
+  transition: background-color .16s ease, border-color .16s ease;
+}
+.watch-series-chip:hover { background: color-mix(in srgb, var(--primary) 16%, var(--panel)); border-color: color-mix(in srgb, var(--primary) 42%, var(--line)); }
+.watch-series-chip span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.watch-series-chip em { flex: 0 0 auto; border-radius: var(--radius); background: var(--panel); padding: 1px 6px; color: var(--text); font-size: 11px; font-style: normal; font-weight: 900; font-variant-numeric: tabular-nums; }
+.watch-info .watch-series-chip + h1 { margin-top: 10px; }
+
+.watch-next-episode {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+  padding: 10px 12px;
+}
+.watch-next-episode-card {
+  min-width: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  padding: 0;
+  text-align: left;
+  cursor: pointer;
+}
+.watch-next-episode-card:hover .watch-next-episode-copy strong { color: var(--link); }
+.watch-next-episode-icon {
+  flex: 0 0 auto;
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius);
+  background: var(--primary-soft);
+  color: var(--link);
+}
+.watch-next-episode-copy { min-width: 0; display: grid; gap: 1px; }
+.watch-next-episode-copy small { color: var(--muted); font-size: 11px; font-weight: 850; letter-spacing: .04em; text-transform: uppercase; }
+.watch-next-episode-copy strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text); font-size: 14px; font-weight: 850; line-height: 1.3; transition: color .16s ease; }
+.watch-next-episode-copy em { color: var(--muted); font-size: 12px; font-style: normal; font-weight: 800; font-variant-numeric: tabular-nums; }
+.watch-next-episode-toggle { flex: 0 0 auto; }
+@media (max-width: 560px) {
+  .watch-next-episode { align-items: flex-start; }
+  .watch-next-episode-card { flex: 1 1 100%; }
+  .watch-next-episode-copy strong { white-space: normal; }
+  .watch-next-episode-toggle { margin-left: 49px; }
+}
