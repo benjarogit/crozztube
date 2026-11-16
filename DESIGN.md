@@ -63,3 +63,13 @@ Impeccable skill 4.8.1, engine 0.1.19 is vendored under `.agents/skills/impeccab
 - Reporting a video, comment or profile always asks for one reason from a fixed list per type and an optional description capped at 500 characters. The server validates both again; legacy rows without a reason remain readable in admin.
 - Interaction copy is authored in English through `t()` and reviewed per locale. Reference packs live in `tools/i18n/batches/`.
 - This corrective work is explicitly requested while step 8 is active. It does not accept series/seasons or advance steps 9–12.
+
+## Captcha and bot protection, 2026-11-16
+
+- Six providers are registered: simple image, question, Google reCAPTCHA v2, Google reCAPTCHA v3, hCaptcha and Cloudflare Turnstile. The server rotates the enabled and configured providers by weight; local providers start at 1, external providers at 2. Disabled or incomplete providers are skipped instead of weakening the challenge.
+- Registration and login each choose a scope: `off`, `risk` or `always`. Risk adds failed logins, failed checks, a filled honeypot, a submission faster than 1.2 seconds and a missing user agent, compared against the configured threshold.
+- `POST /api/captcha/challenge` returns only the provider the server selected plus a one-time, server-bound token. Verification never trusts a client-sent provider, and a token cannot be reused or moved to another context. reCAPTCHA v3 runs invisibly; a low score escalates the next challenge to a visible provider on the server.
+- External providers are contacted only while they are enabled and carry both a site key and a secret. They receive the visitor IP and the challenge response for verification. The simple image and question checks stay on this server. The privacy page discloses both cases.
+- Native clients keep the legacy single-provider endpoints and understand only the image captcha and reCAPTCHA v2; the admin UI states this limit. If a scope requires a challenge but no usable provider is configured, the server fails open rather than locking every visitor out.
+- Challenge UI copy is authored in English through `t()` and reviewed per locale; the reference batch is `tools/i18n/batches/captcha-challenge.json`.
+- This work is requested while step 8 is active. It does not accept series/seasons or advance later plan steps.

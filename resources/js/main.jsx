@@ -1,6 +1,7 @@
 import ResponsiveOverlays from './components/ResponsiveOverlays.jsx';
 import ClipComposer from './components/ClipComposer.jsx';
 import ReportDialog from './components/ReportDialog.jsx';
+import CaptchaChallenge from './components/CaptchaChallenge.jsx';
 import ClipUploads from './components/ClipUploads.jsx';
 import AttachmentImage, { ImageUploadPreview, attachmentCandidates } from './components/AttachmentImage.jsx';
 import { useHostedImages, hostedImagesReady, appendHostedImageIds } from './imageUploadQueue.js';
@@ -1891,11 +1892,11 @@ function App() {
   const loadingDisplay = platformWebsite?.loadingDisplay === 'bar' ? 'bar' : 'instant';
   const maintenanceActive = maintenanceMode.enabled === true && !canAccessAdmin(user) && !['/login', '/register', '/forgot-password'].includes(route.path) && !(route.path === '/admin' || route.path.startsWith('/admin/'));
   let page = <Home navigate={route.navigate} auth={auth} path={route.path} />;
-  if (route.path === '/login') page = <Login navigate={route.navigate} auth={auth} socialProviders={platformAuth.social || {}} socialError={socialAuthError} />;
+  if (route.path === '/login') page = <Login navigate={route.navigate} auth={auth} socialProviders={platformAuth.social || {}} socialError={socialAuthError} captchaScope={platformAuth.captcha?.login?.scope || 'risk'} />;
   if (route.path === '/activate') page = user
     ? <TvActivationPage navigate={route.navigate} user={user} />
-    : <Login navigate={route.navigate} auth={auth} socialProviders={platformAuth.social || {}} socialError={socialAuthError} title="Connect your TV" subtitle="Log in to approve the television using the code shown on its screen." />;
-  if (route.path === '/register') page = <Register navigate={route.navigate} auth={auth} settings={platformAuth.registration || {}} socialProviders={platformAuth.social || {}} socialError={socialAuthError} />;
+    : <Login navigate={route.navigate} auth={auth} socialProviders={platformAuth.social || {}} socialError={socialAuthError} captchaScope={platformAuth.captcha?.login?.scope || 'risk'} title="Connect your TV" subtitle="Log in to approve the television using the code shown on its screen." />;
+  if (route.path === '/register') page = <Register navigate={route.navigate} auth={auth} settings={platformAuth.registration || {}} captchaSettings={platformAuth.captcha || {}} socialProviders={platformAuth.social || {}} socialError={socialAuthError} />;
   if (route.path === '/forgot-password') page = <ForgotPassword navigate={route.navigate} />;
   if (route.path === '/explore') page = <ExplorePage navigate={route.navigate} auth={auth} />;
   if (route.path === '/trending') page = <TrendingPage navigate={route.navigate} auth={auth} />;
@@ -7637,6 +7638,7 @@ const infoPages = {
   privacy: { title: 'Privacy Policy', subtitle: 'How this PlayHub deployment handles account, content, activity, security, and preference data.', tag: 'Legal', actions: [['Cookie Policy', '/cookies'], ['Settings', '/settings']], sections: [
     ['Data processed by PlayHub', ['PlayHub stores account details, creator profile data, uploaded videos, thumbnails, captions, categories, languages, playlists, comments, likes, subscriptions, watch-later records, notifications, messages, reports, device/session data, language preference, theme preference, and security settings needed to operate the platform.']],
     ['How data is used', ['Data is used to authenticate users, publish and process content, show videos and channels, personalize account preferences, prevent abuse, support moderation, provide admin analytics, and keep creator and viewer features working.']],
+    ['Security checks', ['When a captcha is required, the platform may process the visitor IP address, browser signals, and the challenge answer to block automated abuse. Local checks are evaluated on this server. External providers (Google reCAPTCHA, hCaptcha, Cloudflare Turnstile) are contacted only when an administrator enables them and process challenge data under their own privacy policies.']],
     ['Controls', ['Users can update profile and preference data in Settings, manage uploaded content in Creator Studio, change password and two-factor options in Security settings, and use report tools for content safety. Administrators can manage users, content, reports, roles, and system settings from the admin dashboard.']],
     ['Retention and access', ['Uploaded media and account records are retained while needed for platform operation, legal compliance, security, moderation, and user-requested features. Deleting users or content should also remove associated server media files where implemented by the admin tools.']],
   ] },
@@ -14456,10 +14458,11 @@ function TvActivationPage({ navigate, user }) {
   </AuthShell>;
 }
 
-function Login({ navigate, auth, socialProviders = {}, socialError = '', title = 'Welcome back', subtitle = 'Log in to upload, comment, subscribe and manage your creator studio.', onLoginSuccess = null, showRegisterLink = true }) {
-  const [form, setForm] = useState({ login: '', password: '', twoFactorCode: '', captcha_answer: '' });
-  const [captcha, setCaptcha] = useState(null);
-  const [captchaRequired, setCaptchaRequired] = useState(false);
+function Login({ navigate, auth, socialProviders = {}, socialError = '', captchaScope = 'risk', title = 'Welcome back', subtitle = 'Log in to upload, comment, subscribe and manage your creator studio.', onLoginSuccess = null, showRegisterLink = true }) {
+  const [form, setForm] = useState({ login: '', password: '', twoFactorCode: '' });
+  const [captchaPayload, setCaptchaPayload] = useState({ token: '', answer: '', response: '', honeypot: '', elapsed_ms: 0 });
+  const [captchaRequired, setCaptchaRequired] = useState(captchaScope === 'always');
+  const [captchaReload, setCaptchaReload] = useState(0);
   const [twoFactorRequired, setTwoFactorRequired] = useState(false);
   const [notice, setNotice] = useState('');
   const [error, setError] = useState('');
@@ -14473,15 +14476,6 @@ function Login({ navigate, auth, socialProviders = {}, socialError = '', title =
     : enabledLoginMethods.join(' or ') || 'email';
   const loginIdentifierLabel = loginIdentifier.charAt(0).toUpperCase() + loginIdentifier.slice(1);
   useEffect(() => { if (socialError) setError(socialError); }, [socialError]);
-  const loadCaptcha = useCallback(async () => {
-    try {
-      const data = await api.request('/captcha/simple');
-      setCaptcha(data.enabled ? data : null);
-      setForm((current) => ({ ...current, captcha_answer: '' }));
-    } catch (_) {
-      setCaptcha(null);
-    }
-  }, []);
   const submit = async (e) => {
     e.preventDefault(); setBusy(true); setError(''); setNotice('');
     const payload = {
@@ -14490,8 +14484,11 @@ function Login({ navigate, auth, socialProviders = {}, socialError = '', title =
     };
     if (twoFactorRequired || form.twoFactorCode) payload.two_factor_code = form.twoFactorCode || undefined;
     if (captchaRequired) {
-      payload.captcha_id = captcha?.id;
-      payload.captcha_answer = form.captcha_answer;
+      payload.captcha_token = captchaPayload.token;
+      payload.captcha_answer = captchaPayload.answer;
+      payload.captcha_response = captchaPayload.response;
+      payload.captcha_honeypot = captchaPayload.honeypot || '';
+      payload.captcha_elapsed_ms = captchaPayload.elapsed_ms || 0;
     }
     try {
       const data = await api.request('/auth/login', { method: 'POST', body: JSON.stringify(payload) });
@@ -14510,22 +14507,22 @@ function Login({ navigate, auth, socialProviders = {}, socialError = '', title =
         setTwoFactorRequired(true);
         setNotice(twoFactorMessage);
         setCaptchaRequired(false);
-        setCaptcha(null);
+        setCaptchaPayload({ token: '', answer: '', response: '', honeypot: '', elapsed_ms: 0 });
         setError('');
         return;
       }
       setError(err.message);
       if (err.payload?.requires_captcha) {
         setCaptchaRequired(true);
-        loadCaptcha();
+        setCaptchaReload((current) => current + 1);
       } else {
         setCaptchaRequired(false);
-        setCaptcha(null);
+        setCaptchaPayload({ token: '', answer: '', response: '', honeypot: '', elapsed_ms: 0 });
       }
     }
     finally { setBusy(false); }
   };
-  return <AuthShell title={title} subtitle={subtitle} socialProviders={socialProviders} socialIntent="login"><form onSubmit={submit} className="form auth-form">{error && <div className="error">{error}</div>}{notice && <div className="state-card compact">{notice}</div>}{twoFactorRequired ? <><label>Two-factor code<span className="auth-input-wrap"><input type="text" inputMode="numeric" maxLength={6} value={form.twoFactorCode} onChange={(e) => setForm({ ...form, twoFactorCode: e.target.value.replace(/\D/g, '').slice(0, 6) })} placeholder="6-digit code from email/phone" required autoFocus /></span></label><button type="button" className="text-button center" onClick={() => { setTwoFactorRequired(false); setNotice(''); setError(''); setForm({ ...form, twoFactorCode: '' }); }}>Back</button></> : <><label>{loginIdentifierLabel}<span className="auth-input-wrap"><input type="text" value={form.login} onChange={(e) => { setForm({ ...form, login: e.target.value, twoFactorCode: '' }); setTwoFactorRequired(false); setNotice(''); }} placeholder={`Enter your ${loginIdentifier}`} required /></span></label><label>Password<span className="auth-input-wrap"><input type="password" value={form.password} onChange={(e) => { setForm({ ...form, password: e.target.value, twoFactorCode: '' }); setTwoFactorRequired(false); setNotice(''); }} placeholder="Enter your password" required /></span></label>{captchaRequired && <><button type="button" className="captcha-preview" onClick={loadCaptcha} title="Refresh captcha" aria-label="Refresh captcha">{captcha?.image ? <img src={captcha.image} alt="Captcha image" /> : <span>Loading captcha...</span>}</button><label>Security check<span className="auth-input-wrap"><input value={form.captcha_answer} onChange={(e) => setForm({ ...form, captcha_answer: e.target.value })} required placeholder="Enter the text from the image." /></span></label><button type="button" className="text-button center" onClick={loadCaptcha}>Refresh captcha</button></>}<div className="auth-row-between"><label className="auth-checkbox"><input type="checkbox" checked={remember} onChange={(e) => setRemember(e.target.checked)} /><span>Remember me</span></label><button type="button" className="text-button" onClick={() => navigate('/forgot-password')}>Forgot password?</button></div></>}<button disabled={busy} className="btn primary full">{busy ? 'Logging in...' : 'Log in'}</button>{showRegisterLink && !twoFactorRequired && <p className="auth-switch-copy">Don't have an account? <button type="button" onClick={() => navigate('/register')}>Create an account</button></p>}</form></AuthShell>;
+  return <AuthShell title={title} subtitle={subtitle} socialProviders={socialProviders} socialIntent="login"><form onSubmit={submit} className="form auth-form">{error && <div className="error">{error}</div>}{notice && <div className="state-card compact">{notice}</div>}{twoFactorRequired ? <><label>Two-factor code<span className="auth-input-wrap"><input type="text" inputMode="numeric" maxLength={6} value={form.twoFactorCode} onChange={(e) => setForm({ ...form, twoFactorCode: e.target.value.replace(/\D/g, '').slice(0, 6) })} placeholder="6-digit code from email/phone" required autoFocus /></span></label><button type="button" className="text-button center" onClick={() => { setTwoFactorRequired(false); setNotice(''); setError(''); setForm({ ...form, twoFactorCode: '' }); }}>Back</button></> : <><label>{loginIdentifierLabel}<span className="auth-input-wrap"><input type="text" value={form.login} onChange={(e) => { setForm({ ...form, login: e.target.value, twoFactorCode: '' }); setTwoFactorRequired(false); setNotice(''); }} placeholder={`Enter your ${loginIdentifier}`} required /></span></label><label>Password<span className="auth-input-wrap"><input type="password" value={form.password} onChange={(e) => { setForm({ ...form, password: e.target.value, twoFactorCode: '' }); setTwoFactorRequired(false); setNotice(''); }} placeholder="Enter your password" required /></span></label>{captchaRequired && <CaptchaChallenge api={api} context="login" active={captchaRequired} onChange={setCaptchaPayload} reloadKey={captchaReload} />}<div className="auth-row-between"><label className="auth-checkbox"><input type="checkbox" checked={remember} onChange={(e) => setRemember(e.target.checked)} /><span>Remember me</span></label><button type="button" className="text-button" onClick={() => navigate('/forgot-password')}>Forgot password?</button></div></>}<button disabled={busy} className="btn primary full">{busy ? 'Logging in...' : 'Log in'}</button>{showRegisterLink && !twoFactorRequired && <p className="auth-switch-copy">Don't have an account? <button type="button" onClick={() => navigate('/register')}>Create an account</button></p>}</form></AuthShell>;
 }
 
 function ForgotPassword({ navigate }) {
@@ -14920,19 +14917,22 @@ function registrationCountdown(seconds) {
   return `${String(Math.floor(value / 60)).padStart(2, '0')}:${String(value % 60).padStart(2, '0')}`;
 }
 
-function Register({ navigate, auth, settings = {}, socialProviders = {}, socialError = '' }) {
+function Register({ navigate, auth, settings = {}, captchaSettings = {}, socialProviders = {}, socialError = '' }) {
   const { t } = useI18n();
   const registration = { enabled: true, phoneEnabled: false, usernameRequired: false, confirmationMethod: 'none', passwordStrengthEnabled: true, passwordStrengthLevel: 0, captchaEnabled: false, captchaProvider: 'simple', googleCaptchaSiteKey: '', codeDigits: 4, codeExpiresSeconds: 300, maxResends: 3, ...settings };
   const confirmationMethod = registration.confirmationMethod === 'sms' ? 'sms' : registration.confirmationMethod === 'email' ? 'email' : 'none';
   const phoneRegistrationEnabled = Boolean(registration.phoneEnabled) || confirmationMethod === 'sms';
   const firstStepField = confirmationMethod === 'sms' || (confirmationMethod === 'none' && phoneRegistrationEnabled) ? 'phone' : 'email';
   const verificationRequired = confirmationMethod === 'email' || confirmationMethod === 'sms';
-  const captchaProvider = registration.captchaProvider === 'google' ? 'google' : 'simple';
+  const captchaScope = captchaSettings.registration?.scope || (registration.captchaEnabled ? 'always' : 'off');
+  const captchaProviderCount = Object.keys(captchaSettings.registration?.providers || {}).length;
+  const captchaActive = captchaScope !== 'off' && captchaProviderCount > 0;
   const smsCodeDigits = Math.max(4, Math.min(8, Number(registration.codeDigits ?? registration.smsCodeDigits ?? 4) || 4));
   const [step, setStep] = useState(1);
   const [phoneCountry, setPhoneCountry] = useState(() => registrationPhoneCountryFromIso(detectedRegistrationCountryIso()));
-  const [form, setForm] = useState({ name: '', username: '', email: '', phone: '', phone_confirmation_code: '', password: '', password_confirmation: '', captcha_answer: '' });
-  const [captcha, setCaptcha] = useState(null);
+  const [form, setForm] = useState({ name: '', username: '', email: '', phone: '', phone_confirmation_code: '', password: '', password_confirmation: '' });
+  const [captchaPayload, setCaptchaPayload] = useState({ token: '', answer: '', response: '', honeypot: '', elapsed_ms: 0 });
+  const [captchaReload, setCaptchaReload] = useState(0);
   const [confirmation, setConfirmation] = useState(null);
   const [confirmationCode, setConfirmationCode] = useState('');
   const [phoneChallengeMessage, setPhoneChallengeMessage] = useState('');
@@ -14944,8 +14944,6 @@ function Register({ navigate, auth, settings = {}, socialProviders = {}, socialE
   const [busy, setBusy] = useState(false);
   const [resendBusy, setResendBusy] = useState(false);
   const [availability, setAvailability] = useState({});
-  const googleCaptchaRef = useRef(null);
-  const googleCaptchaWidgetRef = useRef(null);
   const phoneCodeRefs = useRef([]);
   const selectedCountry = phoneCountry;
   const fullPhone = registrationPhoneFor(selectedCountry, form.phone);
@@ -14988,17 +14986,6 @@ function Register({ navigate, auth, settings = {}, socialProviders = {}, socialE
       window.clearTimeout(timer);
     };
   }, [form.username, form.email, form.phone, fullPhone, phoneRegistrationEnabled, registration.usernameRequired]);
-  const loadCaptcha = useCallback(async () => {
-    if (!registration.captchaEnabled || captchaProvider !== 'simple') return;
-    try {
-      const data = await api.request('/captcha/simple');
-      setCaptcha(data.enabled ? data : null);
-      setForm((current) => ({ ...current, captcha_answer: '' }));
-    } catch (_) {
-      setCaptcha(null);
-    }
-  }, [registration.captchaEnabled, captchaProvider]);
-  useEffect(() => { if (step === 2) loadCaptcha(); }, [step, loadCaptcha]);
   useEffect(() => {
     if (!phoneChallengeExpiresAt) return undefined;
     const updateRemaining = () => setPhoneChallengeRemaining(Math.max(0, Math.ceil((phoneChallengeExpiresAt - Date.now()) / 1000)));
@@ -15006,30 +14993,6 @@ function Register({ navigate, auth, settings = {}, socialProviders = {}, socialE
     const timer = window.setInterval(updateRemaining, 1000);
     return () => window.clearInterval(timer);
   }, [phoneChallengeExpiresAt]);
-  useEffect(() => {
-    if (step !== 2 || !registration.captchaEnabled || captchaProvider !== 'google' || !registration.googleCaptchaSiteKey) return undefined;
-    googleCaptchaWidgetRef.current = null;
-    const renderCaptcha = () => {
-      if (!googleCaptchaRef.current || !window.grecaptcha?.render || googleCaptchaWidgetRef.current !== null) return;
-      googleCaptchaRef.current.innerHTML = '';
-      googleCaptchaWidgetRef.current = window.grecaptcha.render(googleCaptchaRef.current, { sitekey: registration.googleCaptchaSiteKey });
-    };
-    if (window.grecaptcha?.render) {
-      renderCaptcha();
-      return undefined;
-    }
-    let script = document.getElementById('playhub-google-recaptcha');
-    if (!script) {
-      script = document.createElement('script');
-      script.id = 'playhub-google-recaptcha';
-      script.src = 'https://www.google.com/recaptcha/api.js?render=explicit';
-      script.async = true;
-      script.defer = true;
-      document.head.appendChild(script);
-    }
-    script.addEventListener('load', renderCaptcha);
-    return () => script.removeEventListener('load', renderCaptcha);
-  }, [step, registration.captchaEnabled, captchaProvider, registration.googleCaptchaSiteKey]);
   const requestRegistrationChallenge = async (resend = false) => {
     setError('');
     if (registration.enabled === false) return;
@@ -15129,12 +15092,12 @@ function Register({ navigate, auth, settings = {}, socialProviders = {}, socialE
     if (confirmationMethod === 'email') {
       payload.email_confirmation_code = form.phone_confirmation_code;
     }
-    if (registration.captchaEnabled && captchaProvider === 'simple') {
-      payload.captcha_id = captcha?.id;
-      payload.captcha_answer = form.captcha_answer;
-    }
-    if (registration.captchaEnabled && captchaProvider === 'google') {
-      payload.google_captcha_token = googleCaptchaWidgetRef.current !== null ? window.grecaptcha?.getResponse(googleCaptchaWidgetRef.current) : '';
+    if (captchaActive) {
+      payload.captcha_token = captchaPayload.token;
+      payload.captcha_answer = captchaPayload.answer;
+      payload.captcha_response = captchaPayload.response;
+      payload.captcha_honeypot = captchaPayload.honeypot || '';
+      payload.captcha_elapsed_ms = captchaPayload.elapsed_ms || 0;
     }
     try {
       const data = await api.request('/auth/register', { method: 'POST', body: JSON.stringify(payload) });
@@ -15147,8 +15110,7 @@ function Register({ navigate, auth, settings = {}, socialProviders = {}, socialE
     }
     catch (err) {
       setError(err.message);
-      if (registration.captchaEnabled && captchaProvider === 'simple') loadCaptcha();
-      if (registration.captchaEnabled && captchaProvider === 'google' && googleCaptchaWidgetRef.current !== null) window.grecaptcha?.reset(googleCaptchaWidgetRef.current);
+      if (captchaActive) setCaptchaReload((current) => current + 1);
     }
     finally { setBusy(false); }
   };
@@ -15185,7 +15147,7 @@ function Register({ navigate, auth, settings = {}, socialProviders = {}, socialE
   if (step === 1) {
     return <AuthShell title="Create your channel" subtitle={stepOneSubtitle} socialProviders={socialProviders} socialIntent="register"><form onSubmit={startRegistration} className="form">{error && <div className="error">{error}</div>}{registration.enabled === false && <div className="error">Registration is currently disabled.</div>}{stepOneIsPhone ? <label>Phone number<AuthPhoneInput value={form.phone} onChange={(phone) => setForm({ ...form, phone })} country={phoneCountry} onCountryChange={setPhoneCountry} />{renderAvailabilityStatus(phoneStatus, 'phone')}</label> : <label>Email<input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} required autoComplete="email" placeholder="Enter your email address" />{renderAvailabilityStatus(emailStatus, 'email')}</label>}<button disabled={busy || registration.enabled === false || firstStepBlocked} className="btn primary full">{busy ? 'Sending...' : 'Next'}</button><button type="button" className="text-button center" onClick={() => navigate('/login')}>Already have an account?</button></form></AuthShell>;
   }
-  return <AuthShell title="Create your channel" subtitle={websiteText('Join PlayHub to upload, connect with your audience, and grow your brand.')} socialProviders={socialProviders} socialIntent="register"><form onSubmit={submit} className="form">{error && <div className="error">{error}</div>}{verificationRequired && phoneChallengeMessage && <div className="state-card compact">{phoneChallengeMessage}</div>}<div className="auth-step-summary"><span>{summaryLabel}</span><strong>{summaryValue}</strong><button type="button" className="text-button" onClick={() => setStep(1)}>Back</button></div><label>Name<input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value.slice(0, 80) })} required maxLength="80" aria-invalid={nameBlocked || undefined} autoComplete="name" placeholder="Enter your full name" />{renderAvailabilityStatus(nameStatus)}</label>{registration.usernameRequired && <label>Username<input value={form.username} onChange={(e) => setForm({ ...form, username: e.target.value.replace(/[^A-Za-z0-9_-]/g, '').slice(0, 30) })} required minLength="4" maxLength="30" autoComplete="username" placeholder="Choose a unique username" />{renderAvailabilityStatus(usernameStatus, 'username')}</label>}{stepOneIsPhone && <label>Email<input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} required autoComplete="email" placeholder="Enter your email address" />{renderAvailabilityStatus(emailStatus, 'email')}</label>}{phoneRegistrationEnabled && !stepOneIsPhone && <label>Phone number<AuthPhoneInput value={form.phone} onChange={(phone) => setForm({ ...form, phone })} country={phoneCountry} onCountryChange={setPhoneCountry} />{renderAvailabilityStatus(phoneStatus, 'phone')}</label>}{verificationRequired && <div className="phone-code-field"><span>{codeLabel}</span><div className="phone-code-inputs">{phoneCodeChars.map((digit, index) => <input key={index} ref={(node) => { phoneCodeRefs.current[index] = node; }} type="text" inputMode="numeric" autoComplete={index === 0 ? 'one-time-code' : 'off'} maxLength={1} value={digit.trim()} onChange={(e) => updatePhoneCodeDigit(index, e.target.value)} onKeyDown={(e) => handlePhoneCodeKeyDown(e, index)} onPaste={handlePhoneCodePaste} disabled={phoneCodeExpired} required />)}</div><small data-i18n-skip>{phoneChallengeRemaining > 0 ? t('Code expires in {time}', { time: registrationCountdown(phoneChallengeRemaining) }) : t('Code expired.')}</small>{phoneCodeExpired && resendsRemaining > 0 && <button type="button" className="text-button center" onClick={() => requestRegistrationChallenge(true)} disabled={resendBusy || busy}>{resendBusy ? 'Sending...' : 'Request a new code'}</button>}</div>}<label>Password<input type="password" value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} required minLength="6" placeholder="Create a strong password" /></label>{registration.passwordStrengthEnabled && form.password && <div className={`password-feedback ${passwordFeedback?.ok ? 'good' : 'bad'}`} role="status" aria-live="polite"><strong>{passwordFeedback?.ok ? 'Password looks good.' : 'Password needs work.'}</strong>{!passwordFeedback?.ok && <ul>{passwordFeedback?.missing.map((item) => <li key={item}>{item}</li>)}</ul>}</div>}<label>Confirm password<input type="password" value={form.password_confirmation} onChange={(e) => setForm({ ...form, password_confirmation: e.target.value })} required minLength="6" placeholder="Confirm your password" /></label>{registration.captchaEnabled && captchaProvider === 'simple' && <><button type="button" className="captcha-preview" onClick={loadCaptcha} title="Refresh captcha" aria-label="Refresh captcha">{captcha?.image ? <img src={captcha.image} alt="Captcha image" /> : <span>Loading captcha...</span>}</button><label>Security check<input value={form.captcha_answer} onChange={(e) => setForm({ ...form, captcha_answer: e.target.value })} required placeholder="Enter the text from the image." /></label><button type="button" className="text-button center" onClick={loadCaptcha}>Refresh captcha</button></>}{registration.captchaEnabled && captchaProvider === 'google' && (registration.googleCaptchaSiteKey ? <div ref={googleCaptchaRef} className="notranslate" /> : <div className="error">Google captcha is not configured.</div>)}<button disabled={busy || registration.enabled === false || phoneCodeExpired || nameBlocked || usernameBlocked || emailBlocked || phoneBlocked} className="btn primary full">{busy ? 'Creating...' : 'Create account'}</button></form></AuthShell>;
+  return <AuthShell title="Create your channel" subtitle={websiteText('Join PlayHub to upload, connect with your audience, and grow your brand.')} socialProviders={socialProviders} socialIntent="register"><form onSubmit={submit} className="form">{error && <div className="error">{error}</div>}{verificationRequired && phoneChallengeMessage && <div className="state-card compact">{phoneChallengeMessage}</div>}<div className="auth-step-summary"><span>{summaryLabel}</span><strong>{summaryValue}</strong><button type="button" className="text-button" onClick={() => setStep(1)}>Back</button></div><label>Name<input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value.slice(0, 80) })} required maxLength="80" aria-invalid={nameBlocked || undefined} autoComplete="name" placeholder="Enter your full name" />{renderAvailabilityStatus(nameStatus)}</label>{registration.usernameRequired && <label>Username<input value={form.username} onChange={(e) => setForm({ ...form, username: e.target.value.replace(/[^A-Za-z0-9_-]/g, '').slice(0, 30) })} required minLength="4" maxLength="30" autoComplete="username" placeholder="Choose a unique username" />{renderAvailabilityStatus(usernameStatus, 'username')}</label>}{stepOneIsPhone && <label>Email<input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} required autoComplete="email" placeholder="Enter your email address" />{renderAvailabilityStatus(emailStatus, 'email')}</label>}{phoneRegistrationEnabled && !stepOneIsPhone && <label>Phone number<AuthPhoneInput value={form.phone} onChange={(phone) => setForm({ ...form, phone })} country={phoneCountry} onCountryChange={setPhoneCountry} />{renderAvailabilityStatus(phoneStatus, 'phone')}</label>}{verificationRequired && <div className="phone-code-field"><span>{codeLabel}</span><div className="phone-code-inputs">{phoneCodeChars.map((digit, index) => <input key={index} ref={(node) => { phoneCodeRefs.current[index] = node; }} type="text" inputMode="numeric" autoComplete={index === 0 ? 'one-time-code' : 'off'} maxLength={1} value={digit.trim()} onChange={(e) => updatePhoneCodeDigit(index, e.target.value)} onKeyDown={(e) => handlePhoneCodeKeyDown(e, index)} onPaste={handlePhoneCodePaste} disabled={phoneCodeExpired} required />)}</div><small data-i18n-skip>{phoneChallengeRemaining > 0 ? t('Code expires in {time}', { time: registrationCountdown(phoneChallengeRemaining) }) : t('Code expired.')}</small>{phoneCodeExpired && resendsRemaining > 0 && <button type="button" className="text-button center" onClick={() => requestRegistrationChallenge(true)} disabled={resendBusy || busy}>{resendBusy ? 'Sending...' : 'Request a new code'}</button>}</div>}<label>Password<input type="password" value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} required minLength="6" placeholder="Create a strong password" /></label>{registration.passwordStrengthEnabled && form.password && <div className={`password-feedback ${passwordFeedback?.ok ? 'good' : 'bad'}`} role="status" aria-live="polite"><strong>{passwordFeedback?.ok ? 'Password looks good.' : 'Password needs work.'}</strong>{!passwordFeedback?.ok && <ul>{passwordFeedback?.missing.map((item) => <li key={item}>{item}</li>)}</ul>}</div>}<label>Confirm password<input type="password" value={form.password_confirmation} onChange={(e) => setForm({ ...form, password_confirmation: e.target.value })} required minLength="6" placeholder="Confirm your password" /></label><CaptchaChallenge api={api} context="registration" active={captchaActive} onChange={setCaptchaPayload} reloadKey={`${captchaReload}-${step}`} /><button disabled={busy || registration.enabled === false || phoneCodeExpired || nameBlocked || usernameBlocked || emailBlocked || phoneBlocked} className="btn primary full">{busy ? 'Creating...' : 'Create account'}</button></form></AuthShell>;
 }
 function startSocialAuth(provider, intent = 'login') {
   if (typeof window === 'undefined') return;

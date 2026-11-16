@@ -8,13 +8,25 @@ class AuthSettings
     {
         $path = self::settingsPath();
         $stored = is_file($path) && is_readable($path) ? json_decode((string) @file_get_contents($path), true) : [];
+        $stored = CaptchaSettings::migrate(is_array($stored) ? $stored : []);
+        $settings = array_replace_recursive(self::defaults(), $stored);
 
-        return array_replace_recursive(self::defaults(), is_array($stored) ? $stored : []);
+        // Question lists are replaced wholesale; merging by numeric index would
+        // silently keep defaults the administrator deleted.
+        if (is_array($stored['captcha']['questions'] ?? null)) {
+            $settings['captcha']['questions'] = $stored['captcha']['questions'];
+        }
+
+        return CaptchaSettings::normalize($settings);
     }
 
     public static function save(array $settings): void
     {
         $settings = array_replace_recursive(self::defaults(), $settings);
+        if (is_array($settings['captcha']['questions'] ?? null)) {
+            $settings['captcha']['questions'] = CaptchaSettings::normalizeQuestions($settings['captcha']['questions']);
+        }
+        $settings = CaptchaSettings::normalize($settings);
         $path = self::settingsPath();
 
         if (! is_dir(dirname($path))) {
@@ -44,6 +56,7 @@ class AuthSettings
             data_set($settings, 'social.apple.privateKey', '');
             data_set($settings, 'social.apple.privateKeyConfigured', true);
         }
+        $settings['captcha'] = CaptchaSettings::masked($settings);
         data_set($settings, 'social.google.redirectUrl', url('/api/auth/social/google/callback'));
         data_set($settings, 'social.facebook.redirectUrl', url('/api/auth/social/facebook/callback'));
         data_set($settings, 'social.apple.redirectUrl', url('/api/auth/social/apple/callback'));
@@ -74,6 +87,16 @@ class AuthSettings
                 'email' => self::loginMethodEnabled('email', $settings),
                 'username' => self::loginMethodEnabled('username', $settings),
                 'phone' => self::loginMethodEnabled('phone', $settings),
+            ],
+            'captcha' => [
+                'registration' => [
+                    'scope' => CaptchaSettings::scope($settings, CaptchaSettings::CONTEXT_REGISTRATION),
+                    'providers' => CaptchaSettings::publicProviders($settings),
+                ],
+                'login' => [
+                    'scope' => CaptchaSettings::scope($settings, CaptchaSettings::CONTEXT_LOGIN),
+                    'threshold' => CaptchaSettings::threshold($settings),
+                ],
             ],
             'social' => [
                 'google' => ['enabled' => self::socialProviderEnabled('google', $settings)],
@@ -321,6 +344,7 @@ class AuthSettings
                     'privateKey' => '',
                 ],
             ],
+            'captcha' => CaptchaSettings::defaults(),
         ];
     }
 }

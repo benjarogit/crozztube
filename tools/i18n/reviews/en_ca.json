@@ -2095,9 +2095,9 @@
             "translation_hash": "0f7dce711b5c8b374b7d3827c265132ac2ba30a4b61e413f9eaaa02d3ddc94ec",
             "status": "editorial",
             "contexts": [
-                "English editorial reference: community/channel states, error and recovery messages, notifications, upload progress, account registration/confirmation/captcha and password-strength feedback. Login preview defaults now describe the community instead of selling a UI kit. Author content, technical examples, unresolved fragments and unverifiable plan claims excluded."
+                "Captcha challenge UI for registration and login: local image and question captchas plus reCAPTCHA, hCaptcha and Turnstile. German uses the informal address used across the viewer UI."
             ],
-            "reviewed_at": "2026-11-06T11:24:07+00:00"
+            "reviewed_at": "2026-11-16T13:43:24+00:00"
         },
         "0f85d0ef947ed36d7743f4b7a2d6be4408e0243d20d8f69a2e34e4c48e8e68b3": {
             "source_hash": "0f85d0ef947ed36d7743f4b7a2d6be4408e0243d20d8f69a2e34e4c48e8e68b3",
@@ -2716,9 +2716,9 @@
             "translation_hash": "147bf977ab0a8f12f94434ed53563f01b831ba3b8af02bf264e6f62e77ced101",
             "status": "editorial",
             "contexts": [
-                "English editorial reference: community/channel states, error and recovery messages, notifications, upload progress, account registration/confirmation/captcha and password-strength feedback. Login preview defaults now describe the community instead of selling a UI kit. Author content, technical examples, unresolved fragments and unverifiable plan claims excluded."
+                "Captcha challenge UI for registration and login: local image and question captchas plus reCAPTCHA, hCaptcha and Turnstile. German uses the informal address used across the viewer UI."
             ],
-            "reviewed_at": "2026-11-06T11:24:07+00:00"
+            "reviewed_at": "2026-11-16T13:43:24+00:00"
         },
         "14995f390637d62cc432c55ecd78ad8645028db7c23148fe5edab8d56c940bf2": {
             "source_hash": "14995f390637d62cc432c55ecd78ad8645028db7c23148fe5edab8d56c940bf2",
@@ -5879,6 +5879,15 @@
             ],
             "reviewed_at": "2026-11-06T11:31:06+00:00"
         },
+        "2a287e5f21c2399403e0f973cf3dc4b61d4a35e1ecc64deefc4c6fee6cb3161a": {
+            "source_hash": "2a287e5f21c2399403e0f973cf3dc4b61d4a35e1ecc64deefc4c6fee6cb3161a",
+            "translation_hash": "2a287e5f21c2399403e0f973cf3dc4b61d4a35e1ecc64deefc4c6fee6cb3161a",
+            "status": "editorial",
+            "contexts": [
+                "Captcha challenge UI for registration and login: local image and question captchas plus reCAPTCHA, hCaptcha and Turnstile. German uses the informal address used across the viewer UI."
+            ],
+            "reviewed_at": "2026-11-16T13:43:24+00:00"
+        },
         "2a36428839a37e680cdce701c1100a695cf2cac101f81f594ba4ec8c8c8a8d3b": {
             "source_hash": "2a36428839a37e680cdce701c1100a695cf2cac101f81f594ba4ec8c8c8a8d3b",
             "translation_hash": "2a36428839a37e680cdce701c1100a695cf2cac101f81f594ba4ec8c8c8a8d3b",
@@ -6834,6 +6843,15 @@
                 "English reference editorial pass covering live chat, participant approval/privacy, gifts/tips, stickers, ads, stream recovery, replay, payment history, language administration, import/captions/chapters and standard emails. Existing current editorial/context-reviewed entries retained without downgrading their status. Sentence fragments and technical/sample identifiers excluded. Stream and advertising wording clarified without new security/payment guarantees."
             ],
             "reviewed_at": "2026-11-06T11:32:47+00:00"
+        },
+        "30e189cf4831859dd2b25149818b58428fda6e346397cd8b893801e3878d6e5b": {
+            "source_hash": "30e189cf4831859dd2b25149818b58428fda6e346397cd8b893801e3878d6e5b",
+            "translation_hash": "30e189cf4831859dd2b25149818b58428fda6e346397cd8b893801e3878d6e5b",
+            "status": "editorial",
+            "contexts": [
+                "Captcha challenge UI for registration and login: local image and question captchas plus reCAPTCHA, hCaptcha and Turnstile. German uses the informal address used across the viewer UI."
+            ],
+            "reviewed_at": "2026-11-16T13:43:24+00:00"
         },
         "30ff78147a35dbd18fcd77bc4f820cf63a7fb4319bdbf2d49e713299716e3d1d": {
             "source_hash": "30ff78147a35dbd18fcd77bc4f820cf63a7fb4319bdbf2d49e713299716e3d1d",
@@ -8952,6 +8970,15 @@
             ],
             "reviewed_at": "2026-11-06T11:28:44+00:00"
         },
+        "402e338375363c76450f47108d73f58e452dba986956ba5b20d0d2ea640a636e": {
+            "source_hash": "402e338375363c76450f47108d73f58e452dba986956ba5b20d0d2ea640a636e",
+            "translation_hash": "402e338375363c76450f47108d73f58e452dba986956ba5b20d0d2ea640a636e",
+            "status": "editorial",
+            "contexts": [
+                "Captcha challenge UI for registration and login: local image and question captchas plus reCAPTCHA, hCaptcha and Turnstile. German uses the informal address used across the viewer UI."
+            ],
+            "reviewed_at": "2026-11-16T13:43:24+00:00"
+        },
         "403151089cb1cbbd1fb0698b2815cafd80199a7a702afdf2a0421656e4232090": {
             "source_hash": "403151089cb1cbbd1fb0698b2815cafd80199a7a702afdf2a0421656e4232090",
             "translation_hash": "403151089cb1cbbd1fb0698b2815cafd80199a7a702afdf2a0421656e4232090",
@@ -9257,6 +9284,15 @@
                 "English reference editorial pass covering live chat, participant approval/privacy, gifts/tips, stickers, ads, stream recovery, replay, payment history, language administration, import/captions/chapters and standard emails. Existing current editorial/context-reviewed entries retained without downgrading their status. Sentence fragments and technical/sample identifiers excluded. Stream and advertising wording clarified without new security/payment guarantees."
             ],
             "reviewed_at": "2026-11-06T11:32:47+00:00"
+        },
+        "429c4a6da7246e586a59db8fb347d3297713640c73e70d3d9ea6caebab507c64": {
+            "source_hash": "429c4a6da7246e586a59db8fb347d3297713640c73e70d3d9ea6caebab507c64",
+            "translation_hash": "429c4a6da7246e586a59db8fb347d3297713640c73e70d3d9ea6caebab507c64",
+            "status": "editorial",
+            "contexts": [
+                "Captcha challenge UI for registration and login: local image and question captchas plus reCAPTCHA, hCaptcha and Turnstile. German uses the informal address used across the viewer UI."
+            ],
+            "reviewed_at": "2026-11-16T13:43:24+00:00"
         },
         "42f233a81c1403977b0533cc50949d4b5b401213adc57c34a2d4b15da64f3634": {
             "source_hash": "42f233a81c1403977b0533cc50949d4b5b401213adc57c34a2d4b15da64f3634",
@@ -15846,6 +15882,15 @@
             ],
             "reviewed_at": "2026-11-06T11:28:44+00:00"
         },
+        "6e2788da3339e3bdd12e83cf8d1ca4327874535bce6d53850521bd25b9ee9e7d": {
+            "source_hash": "6e2788da3339e3bdd12e83cf8d1ca4327874535bce6d53850521bd25b9ee9e7d",
+            "translation_hash": "6e2788da3339e3bdd12e83cf8d1ca4327874535bce6d53850521bd25b9ee9e7d",
+            "status": "editorial",
+            "contexts": [
+                "Captcha challenge UI for registration and login: local image and question captchas plus reCAPTCHA, hCaptcha and Turnstile. German uses the informal address used across the viewer UI."
+            ],
+            "reviewed_at": "2026-11-16T13:43:24+00:00"
+        },
         "6e66491eaef0b12d50a4d48a381960deef80cff92a69d43219b8bf2e7a5a5a8d": {
             "source_hash": "6e66491eaef0b12d50a4d48a381960deef80cff92a69d43219b8bf2e7a5a5a8d",
             "translation_hash": "6e66491eaef0b12d50a4d48a381960deef80cff92a69d43219b8bf2e7a5a5a8d",
@@ -16661,9 +16706,9 @@
             "translation_hash": "735c3d6027f3d72874f497d39f666af488a82a18a7ae46584fc764c2786a8522",
             "status": "editorial",
             "contexts": [
-                "English editorial reference: community/channel states, error and recovery messages, notifications, upload progress, account registration/confirmation/captcha and password-strength feedback. Login preview defaults now describe the community instead of selling a UI kit. Author content, technical examples, unresolved fragments and unverifiable plan claims excluded."
+                "Captcha challenge UI for registration and login: local image and question captchas plus reCAPTCHA, hCaptcha and Turnstile. German uses the informal address used across the viewer UI."
             ],
-            "reviewed_at": "2026-11-06T11:24:07+00:00"
+            "reviewed_at": "2026-11-16T13:43:24+00:00"
         },
         "737290b8f498e1db473b54dd51e3d3f1a2cb815602dd77c791328c3a71196b79": {
             "source_hash": "737290b8f498e1db473b54dd51e3d3f1a2cb815602dd77c791328c3a71196b79",
@@ -17955,6 +18000,15 @@
                 "English editorial reference for account recovery/verification, social sign-in, category/role/permission management, wallet/monetization, theme, mass import, user privacy/moderation, device sessions and livestream setup. Technical connection labels remain useful in admin/studio; procedural copy clarified. Proper names, UI style tokens and quantity fragments excluded."
             ],
             "reviewed_at": "2026-11-06T11:28:44+00:00"
+        },
+        "7bcf61f6161045d5665f6e365c85ea0cc31e312640d510e0de8c7daab89281bc": {
+            "source_hash": "7bcf61f6161045d5665f6e365c85ea0cc31e312640d510e0de8c7daab89281bc",
+            "translation_hash": "7bcf61f6161045d5665f6e365c85ea0cc31e312640d510e0de8c7daab89281bc",
+            "status": "editorial",
+            "contexts": [
+                "Captcha challenge UI for registration and login: local image and question captchas plus reCAPTCHA, hCaptcha and Turnstile. German uses the informal address used across the viewer UI."
+            ],
+            "reviewed_at": "2026-11-16T13:43:24+00:00"
         },
         "7bd94b02f725c6454cf9e5d3f8e575f0e6c463b75e58c7b55b7155cd2e37a5ef": {
             "source_hash": "7bd94b02f725c6454cf9e5d3f8e575f0e6c463b75e58c7b55b7155cd2e37a5ef",
@@ -27979,9 +28033,9 @@
             "translation_hash": "c2e8e0af9e088cf22f3db8e6ce59d4cba0efe2649cc213974d08df4a7cf84afa",
             "status": "editorial",
             "contexts": [
-                "English editorial reference: community/channel states, error and recovery messages, notifications, upload progress, account registration/confirmation/captcha and password-strength feedback. Login preview defaults now describe the community instead of selling a UI kit. Author content, technical examples, unresolved fragments and unverifiable plan claims excluded."
+                "Captcha challenge UI for registration and login: local image and question captchas plus reCAPTCHA, hCaptcha and Turnstile. German uses the informal address used across the viewer UI."
             ],
-            "reviewed_at": "2026-11-06T11:24:07+00:00"
+            "reviewed_at": "2026-11-16T13:43:24+00:00"
         },
         "c2e8e6cf56113fb669a6172fd0d5681926aa53e6ca829ba2046bd3d4c2543155": {
             "source_hash": "c2e8e6cf56113fb669a6172fd0d5681926aa53e6ca829ba2046bd3d4c2543155",
@@ -31364,6 +31418,15 @@
             ],
             "reviewed_at": "2026-11-06T10:15:08+00:00"
         },
+        "d96f5867951e1c391166af2405fd1bed293c5f657fd1c025d25847226256748f": {
+            "source_hash": "d96f5867951e1c391166af2405fd1bed293c5f657fd1c025d25847226256748f",
+            "translation_hash": "d96f5867951e1c391166af2405fd1bed293c5f657fd1c025d25847226256748f",
+            "status": "editorial",
+            "contexts": [
+                "Captcha challenge UI for registration and login: local image and question captchas plus reCAPTCHA, hCaptcha and Turnstile. German uses the informal address used across the viewer UI."
+            ],
+            "reviewed_at": "2026-11-16T13:43:24+00:00"
+        },
         "d9734b089fbd3298aefe7c8bd758f9ff48735ab02ff0f72d8aa8eab49e74085a": {
             "source_hash": "d9734b089fbd3298aefe7c8bd758f9ff48735ab02ff0f72d8aa8eab49e74085a",
             "translation_hash": "d9734b089fbd3298aefe7c8bd758f9ff48735ab02ff0f72d8aa8eab49e74085a",
@@ -32101,6 +32164,15 @@
                 "English reference editorial pass: comment actions/errors, discovery, subscription and Watch Later states, player/debug controls, sharing and account preferences. Short action labels retained; technical share-sheet jargon and incomplete catch-up state clarified. Context review remains separate."
             ],
             "reviewed_at": "2026-11-06T09:57:14+00:00"
+        },
+        "ddda6ae3dea0bf4b36abbfe8b07166247f6fc1a585b24f91c4eec1e7e5ca64ff": {
+            "source_hash": "ddda6ae3dea0bf4b36abbfe8b07166247f6fc1a585b24f91c4eec1e7e5ca64ff",
+            "translation_hash": "ddda6ae3dea0bf4b36abbfe8b07166247f6fc1a585b24f91c4eec1e7e5ca64ff",
+            "status": "editorial",
+            "contexts": [
+                "Captcha challenge UI for registration and login: local image and question captchas plus reCAPTCHA, hCaptcha and Turnstile. German uses the informal address used across the viewer UI."
+            ],
+            "reviewed_at": "2026-11-16T13:43:24+00:00"
         },
         "dddd1ef85016633ec4aae55ddbcdfe7986b2fd70ba746f089e20f14bb7e13288": {
             "source_hash": "dddd1ef85016633ec4aae55ddbcdfe7986b2fd70ba746f089e20f14bb7e13288",
@@ -35851,9 +35923,9 @@
             "translation_hash": "f51861b109d25e8dad43d84a4fff3a7c6b55cc5384ab55c93daae52a6edabc9b",
             "status": "editorial",
             "contexts": [
-                "English editorial reference: community/channel states, error and recovery messages, notifications, upload progress, account registration/confirmation/captcha and password-strength feedback. Login preview defaults now describe the community instead of selling a UI kit. Author content, technical examples, unresolved fragments and unverifiable plan claims excluded."
+                "Captcha challenge UI for registration and login: local image and question captchas plus reCAPTCHA, hCaptcha and Turnstile. German uses the informal address used across the viewer UI."
             ],
-            "reviewed_at": "2026-11-06T11:24:07+00:00"
+            "reviewed_at": "2026-11-16T13:43:24+00:00"
         },
         "f52256d10e14ef49ea258bac127f894c9e0c909b165a4394d6b04d7d4bf0c2e9": {
             "source_hash": "f52256d10e14ef49ea258bac127f894c9e0c909b165a4394d6b04d7d4bf0c2e9",

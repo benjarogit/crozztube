@@ -1,0 +1,18 @@
+{
+  "context": "Captcha challenge UI for registration and login: local image and question captchas plus reCAPTCHA, hCaptcha and Turnstile. German uses the informal address used across the viewer UI.",
+  "messages": {
+    "The security check could not be loaded. Try again.": { "en": "The security check could not be loaded. Try again.", "de": "Die Sicherheitsprüfung konnte nicht geladen werden. Versuch es noch einmal." },
+    "The security check could not be completed. Try again.": { "en": "The security check could not be completed. Try again.", "de": "Die Sicherheitsprüfung konnte nicht abgeschlossen werden. Versuch es noch einmal." },
+    "Loading security check...": { "en": "Loading security check...", "de": "Sicherheitsprüfung wird geladen …" },
+    "No security check is required right now.": { "en": "No security check is required right now.", "de": "Aktuell ist keine Sicherheitsprüfung erforderlich." },
+    "Refresh captcha": { "en": "Refresh captcha", "de": "Captcha erneuern" },
+    "Captcha image": { "en": "Captcha image", "de": "Captcha-Bild" },
+    "Loading captcha...": { "en": "Loading captcha...", "de": "Captcha wird geladen …" },
+    "Security check": { "en": "Security check", "de": "Sicherheitsprüfung" },
+    "Enter the text from the image.": { "en": "Enter the text from the image.", "de": "Gib den Text aus dem Bild ein." },
+    "Security question": { "en": "Security question", "de": "Sicherheitsfrage" },
+    "Enter the answer.": { "en": "Enter the answer.", "de": "Gib die Antwort ein." },
+    "This form is protected by reCAPTCHA.": { "en": "This form is protected by reCAPTCHA.", "de": "Dieses Formular ist durch reCAPTCHA geschützt." },
+    "Refresh security check": { "en": "Refresh security check", "de": "Sicherheitsprüfung erneuern" }
+  }
+}

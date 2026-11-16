@@ -4883,3 +4883,5 @@
 }
 @media(max-width:600px) { .admin-media-fields input { font-size:16px } }
 .admin-card,.admin-metric-card{border-color:var(--surface-edge,var(--ad-border))}
+.admin-captcha-provider{display:grid;gap:10px;padding:12px;border:1px solid var(--line);border-radius:var(--radius);background:var(--panel-2)}
+.admin-settings-note{display:block;margin:0;color:var(--muted);font-size:12px;line-height:1.45}

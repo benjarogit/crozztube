@@ -16,6 +16,7 @@ use App\Models\Video;
 use App\Models\WebsiteAd;
 use App\Plugins\PluginHooks;
 use App\Support\AuthSettings;
+use App\Support\CaptchaSettings;
 use App\Support\BrandedEmail;
 use App\Support\ContentPages;
 use App\Support\EmailTemplates;
@@ -1250,6 +1251,15 @@ class AdminController extends Controller
 
         $current = AuthSettings::settings();
         $settings = array_replace_recursive($current, $this->validatedAuthSettings($request));
+        foreach (CaptchaSettings::providerIds() as $provider) {
+            if (($request->input('captcha.providers.'.$provider.'.secretKey') ?? '') === '') {
+                data_set($settings, 'captcha.providers.'.$provider.'.secretKey', data_get($current, 'captcha.providers.'.$provider.'.secretKey', ''));
+            }
+        }
+        if ($request->has('captcha.questionsText')) {
+            $settings['captcha']['questions'] = CaptchaSettings::parseQuestions((string) $request->input('captcha.questionsText'));
+        }
+        unset($settings['captcha']['questionsText']);
         if (($request->input('registration.googleCaptchaSecretKey') ?? '') === '') {
             data_set($settings, 'registration.googleCaptchaSecretKey', data_get($current, 'registration.googleCaptchaSecretKey'));
         }
@@ -2286,7 +2296,7 @@ class AdminController extends Controller
 
     private function validatedAuthSettings(Request $request): array
     {
-        return $request->validate([
+        $rules = [
             'registration' => ['nullable', 'array'],
             'registration.enabled' => ['nullable', 'boolean'],
             'registration.defaultRole' => ['sometimes', 'required', 'string', Rule::in(['user', 'creator'])],
@@ -2328,7 +2338,9 @@ class AdminController extends Controller
             'social.apple.teamId' => ['nullable', 'string', 'max:80'],
             'social.apple.keyId' => ['nullable', 'string', 'max:80'],
             'social.apple.privateKey' => ['nullable', 'string', 'max:10000'],
-        ]);
+        ];
+
+        return $request->validate(array_merge($rules, CaptchaSettings::rules()));
     }
 
     private function adminMassImportOptions(): array

@@ -4944,4 +4944,12 @@ The processing job encodes renditions, creates thumbnails when needed, stores ca
   'Play preview' => 'Play preview',
   'Pause preview' => 'Pause preview',
   'Your vote is final' => 'Your vote is final',
+  'The security check could not be loaded. Try again.' => 'The security check could not be loaded. Try again.',
+  'The security check could not be completed. Try again.' => 'The security check could not be completed. Try again.',
+  'Loading security check...' => 'Loading security check...',
+  'No security check is required right now.' => 'No security check is required right now.',
+  'Security question' => 'Security question',
+  'Enter the answer.' => 'Enter the answer.',
+  'This form is protected by reCAPTCHA.' => 'This form is protected by reCAPTCHA.',
+  'Refresh security check' => 'Refresh security check',
 );

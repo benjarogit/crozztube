@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Plugins\PluginManager;
 use App\Support\AuthSettings;
+use App\Support\CaptchaSettings;
 use App\Support\Client\ClientContext;
 use App\Support\GeneralSettings;
 use App\Support\IntegrationSettings;
@@ -68,9 +69,11 @@ final class ApplicationBootstrapService
                         'level' => max(0, min(10, (int) data_get($auth, 'registration.passwordStrengthLevel', 0))),
                     ],
                     'captcha' => [
-                        'enabled' => (bool) data_get($auth, 'registration.captchaEnabled', false),
+                        'enabled' => CaptchaSettings::scope($auth, CaptchaSettings::CONTEXT_REGISTRATION) !== CaptchaSettings::SCOPE_OFF,
                         'provider' => (string) data_get($auth, 'registration.captchaProvider', 'simple'),
                         'site_key' => (string) data_get($auth, 'registration.googleCaptchaSiteKey', ''),
+                        'scope' => CaptchaSettings::scope($auth, CaptchaSettings::CONTEXT_REGISTRATION),
+                        'providers' => array_keys(CaptchaSettings::activeProviders($auth, CaptchaSettings::SURFACE_NATIVE)),
                     ],
                     'verification_code' => [
                         'digits' => max(4, min(8, (int) data_get($auth, 'registration.codeDigits', 4))),

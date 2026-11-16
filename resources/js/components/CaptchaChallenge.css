@@ -1,0 +1,8 @@
+.captcha-challenge{display:grid;gap:10px;margin:4px 0 8px}
+.captcha-challenge .captcha-preview{margin:0}
+.captcha-honeypot{position:absolute!important;left:-10000px;width:1px;height:1px;opacity:0;pointer-events:none}
+.captcha-status{margin:0;color:var(--muted);font-size:12px;font-weight:650}
+.captcha-error{margin:0;color:var(--danger,#e5484d);font-size:12px;font-weight:700}
+.captcha-question{display:block;padding:10px 12px;border:1px solid var(--line);border-radius:var(--radius);background:var(--panel-2);font-size:13px;font-weight:700;letter-spacing:.01em}
+.captcha-remote{display:grid;justify-items:start;gap:6px;min-height:0}
+.captcha-remote:empty{display:none}

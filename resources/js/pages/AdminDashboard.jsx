@@ -11,6 +11,7 @@ const systemSettingsBlocks = [
   { id: 'setting-general', section: 'general', label: 'General' },
   { id: 'setting-registration', section: 'registration', label: 'Registration' },
   { id: 'setting-login', section: 'login', label: 'Login' },
+  { id: 'setting-captcha', section: 'captcha', label: 'Captcha' },
   { id: 'setting-social-login', section: 'social-login', label: 'Social Login' },
   { id: 'setting-live-streaming', section: 'live-streaming', label: 'Live Streaming' },
   { id: 'setting-publishing-access', section: 'publishing-access', label: 'Publishing Access' },
@@ -27,6 +28,19 @@ const systemSettingsBlocks = [
   { id: 'setting-integrations', section: 'integrations', label: 'Integrations' },
   { id: 'setting-maintenance', section: 'maintenance', label: 'Maintenance Mode' },
 ];
+
+const captchaProviderFields = [
+  ['simple', 'Simple image captcha', false, false],
+  ['question', 'Question captcha', false, false],
+  ['recaptcha_v2', 'Google reCAPTCHA v2', true, false],
+  ['recaptcha_v3', 'Google reCAPTCHA v3', true, true],
+  ['hcaptcha', 'hCaptcha', true, false],
+  ['turnstile', 'Cloudflare Turnstile', true, false],
+];
+
+const captchaQuestionsText = (questions) => (Array.isArray(questions) ? questions : [])
+  .map((question) => `${question.question} | ${question.answer}`)
+  .join('\n');
 
 const navigation = [
   { label: 'Dashboard', icon: 'dashboard', to: '/admin/dashboard', activePaths: ['/admin', '/admin/dashboard'] },
@@ -3208,6 +3222,14 @@ function SettingsPage({ navigate, data = {}, api = null, onRefresh = null, alert
   const setAuthProviderValue = (provider, key, value) => setAuthForm((current) => {
     return { ...current, social: { ...(current.social || {}), [provider]: { ...((current.social || {})[provider] || {}), [key]: value } } };
   });
+  const setAuthCaptchaValue = (key, value) => setAuthForm((current) => {
+    return { ...current, captcha: { ...(current.captcha || {}), [key]: value } };
+  });
+  const setAuthCaptchaProviderValue = (provider, key, value) => setAuthForm((current) => {
+    const captcha = current.captcha || {};
+    const providers = captcha.providers || {};
+    return { ...current, captcha: { ...captcha, providers: { ...providers, [provider]: { ...(providers[provider] || {}), [key]: value } } } };
+  });
   const setFeatureValue = (section, key, value) => setFeatureForm((current) => {
     return { ...current, [section]: { ...(current[section] || {}), [key]: value } };
   });
@@ -3526,6 +3548,31 @@ function SettingsPage({ navigate, data = {}, api = null, onRefresh = null, alert
             <EditableField label="Captcha after bad logins" value={authForm.login?.captchaAfterAttempts ?? 3} onChange={(value) => setAuthValue('login', 'captchaAfterAttempts', value)} saved={savedSettingField === 'auth.login.captchaAfterAttempts'} type="number" />
             <EditableField label="Ban time (minutes)" value={authForm.login?.banMinutes ?? 15} onChange={(value) => setAuthValue('login', 'banMinutes', value)} saved={savedSettingField === 'auth.login.banMinutes'} type="number" />
             <button type="button" className="admin-outline-action primary-text" onClick={saveAuthSettings} disabled={authSaving}><AdminIcon name="shield" size={16} />{authSaving ? 'Saving...' : 'Save Login'}</button>
+          </SettingsRow>
+          <SettingsRow {...settingsRowProps('setting-captcha')} title="Captcha and bot protection" description="Choose when a challenge is required and let enabled providers rotate at random. Native apps only support the image captcha and reCAPTCHA v2.">
+            <div className="admin-settings-delimiter"><span>When to require a challenge</span></div>
+            <EditableSelect label="Registration" value={authForm.captcha?.registrationScope || 'off'} onChange={(value) => setAuthCaptchaValue('registrationScope', value)} options={[['off', 'Off'], ['risk', 'Only at elevated risk'], ['always', 'Always']]} saved={savedSettingField === 'auth.captcha.registrationScope'} />
+            <EditableSelect label="Login" value={authForm.captcha?.loginScope || 'risk'} onChange={(value) => setAuthCaptchaValue('loginScope', value)} options={[['off', 'Off'], ['risk', 'Only at elevated risk'], ['always', 'Always']]} saved={savedSettingField === 'auth.captcha.loginScope'} />
+            <EditableField label="Risk score threshold" value={authForm.captcha?.riskThreshold ?? 6} onChange={(value) => setAuthCaptchaValue('riskThreshold', value)} saved={savedSettingField === 'auth.captcha.riskThreshold'} type="number" min="1" max="50" />
+            <EditableField label="Challenge lifetime (seconds)" value={authForm.captcha?.challengeTtlSeconds ?? 600} onChange={(value) => setAuthCaptchaValue('challengeTtlSeconds', value)} saved={savedSettingField === 'auth.captcha.challengeTtlSeconds'} type="number" min="60" max="3600" />
+            <EditableField label="Failed checks before a new challenge" value={authForm.captcha?.maxAttempts ?? 5} onChange={(value) => setAuthCaptchaValue('maxAttempts', value)} saved={savedSettingField === 'auth.captcha.maxAttempts'} type="number" min="1" max="20" />
+            <div className="admin-settings-delimiter"><span>Providers and rotation weights</span></div>
+            {captchaProviderFields.map(([id, label, needsKeys, scored]) => {
+              const provider = authForm.captcha?.providers?.[id] || {};
+              return <div className="admin-captcha-provider" key={id}>
+                <EditableToggleField label={label} checked={provider.enabled ?? false} onChange={(value) => setAuthCaptchaProviderValue(id, 'enabled', value)} saved={savedSettingField === `auth.captcha.providers.${id}.enabled`} />
+                <EditableField label="Rotation weight" value={provider.weight ?? 1} onChange={(value) => setAuthCaptchaProviderValue(id, 'weight', value)} saved={savedSettingField === `auth.captcha.providers.${id}.weight`} type="number" min="1" max="10" />
+                {needsKeys && <>
+                  <EditableField label="Site key" value={provider.siteKey || ''} onChange={(value) => setAuthCaptchaProviderValue(id, 'siteKey', value)} saved={savedSettingField === `auth.captcha.providers.${id}.siteKey`} wide />
+                  <EditableField label="Secret key" value={provider.secretKey || ''} onChange={(value) => setAuthCaptchaProviderValue(id, 'secretKey', value)} saved={savedSettingField === `auth.captcha.providers.${id}.secretKey`} type="password" placeholder={provider.secretKeyConfigured ? 'Secret configured. Leave blank to keep the existing secret.' : ''} wide />
+                </>}
+                {scored && <EditableField label="Minimum v3 score (0-1)" value={provider.threshold ?? 0.5} onChange={(value) => setAuthCaptchaProviderValue(id, 'threshold', value)} saved={savedSettingField === `auth.captcha.providers.${id}.threshold`} type="number" step="0.1" min="0" max="1" />}
+              </div>;
+            })}
+            <div className="admin-settings-delimiter"><span>Question captcha</span></div>
+            <EditableTextarea label="Questions and answers (one per line: question | answer)" value={authForm.captcha?.questionsText ?? captchaQuestionsText(authForm.captcha?.questions)} onChange={(value) => setAuthCaptchaValue('questionsText', value)} placeholder="What color is the sky on a clear day? | blue" />
+            <small className="admin-settings-note">An enabled external provider receives the visitor IP address and usage data for the challenge. Keep the privacy policy disclosure in sync. A missing provider configuration is skipped instead of locking visitors out.</small>
+            <button type="button" className="admin-outline-action primary-text" onClick={saveAuthSettings} disabled={authSaving}><AdminIcon name="shield" size={16} />{authSaving ? 'Saving...' : 'Save Captcha'}</button>
           </SettingsRow>
           <SettingsRow {...settingsRowProps('setting-social-login')} title="Google, Facebook and Apple sign-in" description="Enable Google, Facebook and Apple OAuth for login and registration.">
             <div className="admin-settings-delimiter"><span>Google</span></div>

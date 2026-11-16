@@ -158,6 +158,7 @@
         "viewer-ui-quality",
         "time-mark-quality",
         "viewer-quality-copy",
+        "captcha-quality",
         "staged-safety"
       ]
     },
@@ -521,6 +522,13 @@
         "tools/test/step-04-time-marks.sh"
       ],
       "timeoutMs": 120000
+    },
+    "captcha-quality": {
+      "argv": [
+        "bash",
+        "tools/test/captcha.sh"
+      ],
+      "timeoutMs": 180000
     },
     "viewer-quality-copy": {
       "argv": [

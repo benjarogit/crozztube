@@ -12,6 +12,8 @@ use App\Services\Auth\NativeDeviceSessionManager;
 use App\Services\PushDeviceService;
 use App\Support\AuthSettings;
 use App\Support\BrandedEmail;
+use App\Support\CaptchaService;
+use App\Support\CaptchaSettings;
 use App\Support\EmailTemplates;
 use App\Support\IntegrationSettings;
 use App\Support\MediaStorage;
@@ -56,7 +58,9 @@ class AuthController extends Controller
     public function registrationCaptcha(Request $request): JsonResponse
     {
         $settings = AuthSettings::settings();
-        if (! (bool) data_get($settings, 'registration.captchaEnabled', false) || data_get($settings, 'registration.captchaProvider') === 'google') {
+        $providers = CaptchaSettings::activeProviders($settings, CaptchaSettings::SURFACE_NATIVE);
+        if (CaptchaSettings::scope($settings, CaptchaSettings::CONTEXT_REGISTRATION) === CaptchaSettings::SCOPE_OFF
+            || ! isset($providers['simple'])) {
             return response()->json(['enabled' => false]);
         }
 
@@ -395,8 +399,14 @@ class AuthController extends Controller
             ]);
         }
 
-        if ($this->loginCaptchaRequired($throttleKey, $authSettings)) {
-            if ($captchaMessage = $this->simpleCaptchaValidationMessage($request)) {
+        if ($this->loginCaptchaRequired($throttleKey, $authSettings, $request)) {
+            if ($request->filled('captcha_token')) {
+                try {
+                    app(CaptchaService::class)->verify($request, CaptchaSettings::CONTEXT_LOGIN, $authSettings);
+                } catch (ValidationException $captchaError) {
+                    return $this->loginCaptchaResponse((string) data_get($captchaError->errors(), 'captcha.0', 'Complete the captcha to continue.'));
+                }
+            } elseif ($captchaMessage = $this->simpleCaptchaValidationMessage($request)) {
                 return $this->loginCaptchaResponse($captchaMessage);
             }
         }
@@ -1260,10 +1270,18 @@ class AuthController extends Controller
 
     private function validateRegistrationCaptcha(Request $request, array $settings): void
     {
-        if (! (bool) data_get($settings, 'registration.captchaEnabled', false)) {
+        $service = app(CaptchaService::class);
+        if ($request->filled('captcha_token')) {
+            $service->verify($request, CaptchaSettings::CONTEXT_REGISTRATION, $settings);
+
             return;
         }
 
+        if (! $service->required($request, CaptchaSettings::CONTEXT_REGISTRATION, $settings)) {
+            return;
+        }
+
+        // Native and old web clients still submit the single-provider fields.
         if (data_get($settings, 'registration.captchaProvider') === 'google') {
             $token = trim((string) $request->input('google_captcha_token', ''));
             $secret = trim((string) data_get($settings, 'registration.googleCaptchaSecretKey', ''));
@@ -1499,9 +1517,14 @@ class AuthController extends Controller
         return $valid ? null : 'The captcha answer is incorrect.';
     }
 
-    private function loginCaptchaRequired(string $throttleKey, array $settings): bool
+    private function loginCaptchaRequired(string $throttleKey, array $settings, ?Request $request = null): bool
     {
-        return RateLimiter::attempts($throttleKey) >= AuthSettings::loginCaptchaAfterAttempts($settings);
+        return app(CaptchaService::class)->required(
+            $request ?? request(),
+            CaptchaSettings::CONTEXT_LOGIN,
+            $settings,
+            RateLimiter::attempts($throttleKey),
+        );
     }
 
     private function loginCaptchaResponse(string $message): JsonResponse

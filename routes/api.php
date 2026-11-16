@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AdminController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CaptchaController;
 use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\CommunityPostController;
 use App\Http\Controllers\Api\FeedController;
@@ -208,6 +209,7 @@ Route::get('/integrations/public', fn (Request $request) => response()->json(arr
 ]))->header('Cache-Control', 'no-store'));
 
 Route::get('/captcha/simple', [AuthController::class, 'simpleCaptcha']);
+Route::post('/captcha/challenge', [CaptchaController::class, 'challenge'])->middleware('throttle:auth-captcha');
 
 Route::get('/i18n', function (\App\Services\LocalizationService $localization) {
     $catalog = $localization->catalog();
