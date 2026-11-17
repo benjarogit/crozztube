@@ -9,7 +9,7 @@
 
 1. Vor Implementierung `node tools/harness/cli.mjs status` lesen.
 2. Produktideen und Wettbewerbsentscheidungen nur in `docs/product-backlog.md` pflegen; den Harness nicht umgehen.
-3. Aktiver Schritt: **8 — Serien und Staffeln**. Implementierung, Prüfungen und der Design-Nachlauf sind als `45c9030` checkpointet und auf `main` veröffentlicht. `complete` und `begin 9` sind **gesperrt**: Der Projekt-Hook wurde in der aktuellen OpenCode-Runtime nicht geladen und es gibt keinen beobachteten `deny-probe`-Receipt mit aktuellem `hookDigest`.
+3. Aktiver Schritt: **8 — Serien und Staffeln**. Implementierung und Design-Nachlauf sind als `45c9030`/`442e179` auf `main` veröffentlicht. Der vorliegende Checkpoint enthält den bis dahin unveröffentlichten Duplikat-/Lock-Fix, die Pending-Migration und die aktualisierte Nachweislage; die Folgennummern-Integrität wird mit diesem Checkpoint veröffentlicht. `complete` und `begin 9` sind **gesperrt**: Der Projekt-Hook wurde in der aktuellen OpenCode-Runtime nicht geladen und es gibt keinen beobachteten `deny-probe`-Receipt mit aktuellem `hookDigest`.
 4. Schritt 8 baut auf bestehenden Playlists (`kind='series'`); keine zweite Serienstruktur. Nächste Folge/Playlist-Priorität bleiben serverseitig zugangsgeprüft bzw. clientseitig als reine JS-Regel.
 5. Die UI-Verfeinerung (Startseite, Karten, Navigation, Seriendetail, Watch) ist eine abgegrenzte Designarbeit, keine Schritt-9-Arbeit und keine Abnahme von Schritt 8.
 6. Rollengrenze: normale Nutzer/Creator empfehlen nur; Curator/Admin importieren und veröffentlichen. Persönliche Playlists dürfen nur freigegebene CrozzTube-Videos sammeln.
@@ -17,20 +17,22 @@
 
 ## Offene Punkte nach dem Checkpoint
 
-- **Runtime-Hook:** `.codex/hooks.json`/`.cursor/hooks.json` werden von OpenCode nicht geladen. Nächster minimaler Schritt ist ein geprüftes Projekt-Plugin unter `.opencode/plugins/`, das echte Shell-/Tool-Events an `tools/harness/codex-hook.mjs` weiterreicht, Deny auf `permission.evaluate` abbildet und einen echten `node tools/harness/cli.mjs deny-probe` beobachtet. Bis dahin bleibt `runtimeHookVerified: false`.
-- **PR #4** (`https://github.com/benjarogit/crozztube/pull/4`, Draft): Die `is_series`-Implementierung ist durch das `kind`-Modell überholt und soll nicht gemergt werden. Der PR bleibt als Träger der Sprachprüfungen offen; die doppelte explizite Folgennummer (`playlist_video_episode_index` nicht unique, `applyEpisodes()` ohne Transaktion) ist als separater Follow-up auf `main` zu lösen.
-- **Sprachpakete:** Die 30 neuen Serien-Schlüssel fehlen in 116 von 125 Paketen; PR #4 deckt die 4 geteilten Schlüssel in 111 Paketen ab, 14 Pakete bleiben teilweise/leer (`am arg azb bo dzo jv_id my_mm ps sah snd szl tah ug_cn yor`). Fehlende Pakete offen führen, nicht als geprüft zählen.
-- **CI:** Für `35461c1` existiert kein Actions-Lauf. Der einzige Workflow `.github/workflows/chatdev.yml` läuft nur auf `pull_request`/`workflow_dispatch` und die Serienschritte nur bei `head_ref == codex/series-seasons`.
-- **Migration:** `2026_11_16_000002` ist auf `crozztube-web`/`crozztube-mysql` als Batch 18 ausgeführt; die PR-Migration `2026_11_14_000001` lief nie. Keine automatische Rücksetzung, keine weitere Produktivmigration ohne Freigabe.
+- **Runtime-Hook:** `.codex/hooks.json`/`.cursor/hooks.json` werden von OpenCode nicht geladen. Nächster minimaler Schritt ist ein geprüftes Projekt-Plugin unter `.opencode/plugins/`, das echte Shell-/Tool-Events an `tools/harness/codex-hook.mjs` weiterreicht, Deny auf `permission.evaluate` abbildet und einen echten `node tools/harness/cli.mjs deny-probe` beobachtet. Bis dahin bleibt `runtimeHookVerified: false`. Das ist nicht die einzige offene Abschlussvoraussetzung: Migration, CI und Sprachprüfung stehen daneben.
+- **PR #4** (`https://github.com/benjarogit/crozztube/pull/4`, Draft/`DIRTY`): Die `is_series`-Implementierung ist durch das `kind`-Modell überholt und soll nicht gemergt werden. Der PR bleibt als Träger der Sprachprüfungen offen.
+- **Sprachpakete:** 31 neue Serien-Schlüssel (inkl. `Episode numbers must be unique within a season.`) sind in 9 von 125 Paketen vollständig (`de_at`, `de_ch`, `de_de`, `en`, `en_au`, `en_ca`, `en_gb`, `en_nz`, `en_za`); 116 Pakete fehlen. PR #4 deckt die 4 geteilten Schlüssel in 111 Paketen ab, 14 Pakete bleiben teilweise/leer (`am arg azb bo dzo jv_id my_mm ps sah snd szl tah ug_cn yor`). Fehlende Pakete offen führen, nicht als geprüft zählen.
+- **CI:** Für `35461c1`, `45c9030`, `442e179` und den aktuellen Arbeitsbaum existiert kein Actions-Lauf. Der einzige Workflow `.github/workflows/chatdev.yml` läuft nur auf `pull_request`/`workflow_dispatch`; die Serienschritte sind auf `head_ref == codex/series-seasons` begrenzt und `step-08-series.sh` nutzt `docker exec`, das auf einem Runner fehlt. Der kleinste Patch (Push auf `main`, runner-taugliche Node-/JSON-Checks, erweiterter Pfadfilter) ist in `docs/series-seasons-reconciliation.md` als Entscheidungsvorlage dokumentiert, **nicht angewendet**.
+- **Migration:** `2026_11_16_000002` ist auf `crozztube-web`/`crozztube-mysql` als Batch 18 ausgeführt; die PR-Migration `2026_11_14_000001` lief nie. Der Unique-Index-Entwurf `tools/migrations/pending/2026_11_17_000001_add_unique_episode_number_to_playlist_video.php` ist **nicht ausgeführt** und braucht ausdrückliche Freigabe. Keine automatische Rücksetzung, keine weitere Produktivmigration ohne Freigabe.
 - **Live-Test:** Plugin-/Mirror-Änderungen sind ohne `TEST_PASSWORD` nicht live geprüft und dürfen nicht als live getestet behauptet werden.
 
-## Verifizierte Prüfungen für `45c9030`
+## Verifizierte Prüfungen (Arbeitsbaum nach `442e179`)
 
-- `bash tools/test/step-08-series.sh` (57 PHP-Checks, 8 Node-Tests, Browser-Fixture)
-- `node tools/test/ui/viewer-quality.mjs` (520 Checks), `node tools/test/ui/series-ui-check.mjs`
-- `npm run build`
-- `node tools/harness/cli.mjs verify --checkpoint` inkl. `interface-palette`, `viewer-quality-copy`, `staged-safety`; Checkpoint-Push bestätigt.
-- Screenshots (nicht im Repo): `/tmp/opencode/shots/before|after|series`.
+- `bash tools/test/step-08-series.sh`: 61 PHP-Checks, 6 prozessübergreifende Lock-Checks, 8 Node-Tests, `series-ui-check.mjs`.
+- `node tools/test/ui/viewer-quality.mjs` (520 Checks), `node tools/test/ui/series-ui-check.mjs`.
+- `npx playwright test specs/viewer-experience.spec.ts --project=chromium --grep-invert "webkit:"`: 10/10. WebKit scheitert lokal an Host-Bibliotheken (`libicu74`, `libxml2`, `libflite1`), kein Codefehler.
+- `node tools/test/ui/layout-shots.mjs <label>`: 5 Bereiche × de/en × hell/dunkel × Desktop/Mobil = 40 Bilder je Lauf, keine Seitenüberläufe, keine Writes, keine Fehler. Die Navigation wird als Sidebar-Element fotografiert; die Überlaufprüfung gilt für die vier Seitenbereiche.
+- `npm run build`.
+- Screenshots (nicht im Repo): `/tmp/opencode/shots/before` (aus `35461c1` in detached Worktree, temporärer Build-Tausch) und `/tmp/opencode/shots/after`, je 40 Bilder.
+- **Review-Stand:** Ein unabhängiger Reviewer-Durchgang meldete zwei blockierende Befunde (Publikationsaussage, fehlender `/playlists`-Einstieg) und nicht-blockierende Hinweise; beide Blocker sind behoben und die betroffenen Checks erneut gelaufen. Die unabhängige Nachprüfung genau dieser Korrekturen konnte nicht abgeschlossen werden, weil das Reviewer-Modell sein Free-Usage-Limit erreichte. Es wird keine zweite unabhängige Freigabe behauptet; Schritt 8 bleibt offen.
 
 Die folgenden Abschnitte beschreiben den älteren Betriebs-/Resolver-Stand vom 5. Nov 2026 und sind Historie, keine zweite Roadmap.
 

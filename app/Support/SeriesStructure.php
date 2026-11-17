@@ -8,6 +8,7 @@ use App\Models\Video;
 use App\Services\Api\V1\VideoAccessService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 /**
  * Season and episode structure layered on top of an existing playlist.
@@ -281,64 +282,89 @@ final class SeriesStructure
             return;
         }
 
-        $attached = DB::table('playlist_video')
-            ->where('playlist_id', $playlist->id)
-            ->get()
-            ->keyBy('video_id');
+        // A save rewrites several pivot rows and the playlist timestamp. One
+        // transaction and one row lock keep a failed write atomic and make two
+        // concurrent editors serialize instead of interleaving their ordering.
+        // Three attempts let Laravel retry a detected deadlock instead of
+        // surfacing it as a 500.
+        DB::transaction(function () use ($playlist, $episodes): void {
+            DB::table('playlists')->where('id', $playlist->id)->lockForUpdate()->first();
 
-        $bySeason = [];
-        foreach ($episodes as $episode) {
-            $videoId = (int) ($episode['video_id'] ?? 0);
-            if (! $attached->has($videoId)) {
-                continue;
+            $attached = DB::table('playlist_video')
+                ->where('playlist_id', $playlist->id)
+                ->lockForUpdate()
+                ->get()
+                ->keyBy('video_id');
+
+            $bySeason = [];
+            foreach ($episodes as $episode) {
+                $videoId = (int) ($episode['video_id'] ?? 0);
+                if (! $attached->has($videoId)) {
+                    continue;
+                }
+
+                $season = max(1, min(500, (int) ($episode['season_number'] ?? 1)));
+                $bySeason[$season][] = [
+                    'video_id' => $videoId,
+                    'season_number' => $season,
+                    'episode_number' => isset($episode['episode_number']) && $episode['episode_number'] !== ''
+                        ? max(1, min(10000, (int) $episode['episode_number']))
+                        : null,
+                    'episode_title' => self::nullableString($episode['episode_title'] ?? null, 160),
+                    'episode_description' => self::nullableString($episode['episode_description'] ?? null),
+                    'aired_at' => ! empty($episode['aired_at']) ? $episode['aired_at'] : null,
+                ];
             }
 
-            $season = max(1, min(500, (int) ($episode['season_number'] ?? 1)));
-            $bySeason[$season][] = [
-                'video_id' => $videoId,
-                'season_number' => $season,
-                'episode_number' => isset($episode['episode_number']) && $episode['episode_number'] !== ''
-                    ? max(1, min(10000, (int) $episode['episode_number']))
-                    : null,
-                'episode_title' => self::nullableString($episode['episode_title'] ?? null),
-                'episode_description' => self::nullableString($episode['episode_description'] ?? null),
-                'aired_at' => ! empty($episode['aired_at']) ? $episode['aired_at'] : null,
-            ];
-        }
+            ksort($bySeason);
+            $rows = [];
+            foreach ($bySeason as $season => $seasonRows) {
+                $explicit = [];
+                foreach ($seasonRows as $index => $row) {
+                    $explicit[$index] = $row['episode_number'];
+                }
 
-        ksort($bySeason);
-        $rows = [];
-        foreach ($bySeason as $seasonRows) {
-            $explicit = [];
-            foreach ($seasonRows as $index => $row) {
-                $explicit[$index] = $row['episode_number'];
+                $submitted = array_filter($explicit, static fn (?int $number): bool => $number !== null);
+                if (count($submitted) !== count(array_unique($submitted))) {
+                    throw ValidationException::withMessages([
+                        'episodes' => __('Episode numbers must be unique within a season.'),
+                    ]);
+                }
+
+                $numbers = self::numberSeason($explicit);
+                foreach ($seasonRows as $index => $row) {
+                    $row['episode_number'] = $numbers[$index];
+                    // The submitted order decides where an unnumbered episode sits,
+                    // the effective number decides the final order.
+                    $row['position'] = $index;
+                    $rows[] = $row;
+                }
             }
-            $numbers = self::numberSeason($explicit);
-            foreach ($seasonRows as $index => $row) {
-                $row['episode_number'] = $numbers[$index];
-                // The submitted order decides where an unnumbered episode sits,
-                // the effective number decides the final order.
-                $row['position'] = $index;
-                $rows[] = $row;
-            }
-        }
 
-        usort($rows, static function (array $left, array $right): int {
-            return [$left['season_number'], $left['episode_number'], $left['position']]
-                <=> [$right['season_number'], $right['episode_number'], $right['position']];
-        });
+            usort($rows, static function (array $left, array $right): int {
+                return [$left['season_number'], $left['episode_number'], $left['position']]
+                    <=> [$right['season_number'], $right['episode_number'], $right['position']];
+            });
 
-        $order = 0;
-        foreach ($rows as $row) {
-            $position = $row['position'];
-            unset($row['position']);
+            // Clear the affected numbers first: once the pending unique index
+            // is approved, a swap like 1 <-> 2 would otherwise collide while
+            // the rows are rewritten one by one.
             DB::table('playlist_video')
                 ->where('playlist_id', $playlist->id)
-                ->where('video_id', $row['video_id'])
-                ->update([...$row, 'sort_order' => $order++, 'updated_at' => now()]);
-        }
+                ->whereIn('video_id', array_column($rows, 'video_id'))
+                ->update(['episode_number' => null]);
 
-        $playlist->touch();
+            $order = 0;
+            foreach ($rows as $row) {
+                unset($row['position']);
+                DB::table('playlist_video')
+                    ->where('playlist_id', $playlist->id)
+                    ->where('video_id', $row['video_id'])
+                    ->update([...$row, 'sort_order' => $order++, 'updated_at' => now()]);
+            }
+
+            $playlist->touch();
+        }, 3);
     }
 
     /**
@@ -387,10 +413,10 @@ final class SeriesStructure
         ];
     }
 
-    private static function nullableString(mixed $value): ?string
+    private static function nullableString(mixed $value, int $limit = 1000): ?string
     {
         $text = trim((string) ($value ?? ''));
 
-        return $text === '' ? null : mb_substr($text, 0, 1000);
+        return $text === '' ? null : mb_substr($text, 0, $limit);
     }
 }

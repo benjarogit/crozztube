@@ -250,14 +250,7 @@
 .watch-layout-shell .description-card .text-button { color: var(--text); }
 .home-page .section-title .text-button:hover,
 .watch-layout-shell .description-card .text-button:hover { background: var(--panel-2); color: var(--text); }
-.home-page .hero-buttons .btn.primary svg,
-.home-page .spotlight-watch-action svg { fill: currentColor; }
-.home-page .hero-buttons .btn.glass:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
-.home-page .spotlight-card:hover,
-.home-page .spotlight-card:focus-visible { background: var(--panel-2); }
-.home-page .spotlight-card:is(:hover, :focus-visible) .spotlight-watch-action { background: var(--primary); border-color: transparent; color: var(--primary-ink); }
-.home-page .spotlight-card:active .spotlight-watch-action { background: var(--control-primary-press); border-color: transparent; color: var(--primary-ink); }
-.home-page .spotlight-card:focus-visible { outline: 2px solid var(--focus); outline-offset: -3px; }
+.home-page .hero-buttons .btn.primary svg { fill: currentColor; }
 .action-pill.crz-mirror-toggle.is-active,
 .action-pill.crz-mirror-toggle.is-active:hover,
 .action-pill.crz-mirror-toggle.is-active:active,
@@ -268,9 +261,10 @@
 }
 .thumb .duration { color: #fff; }
 .trending-row .duration,
-.spotlight-card .duration,
 .continue-card .duration,
 .small-video-row .duration { inset-inline-end: 6px; bottom: 6px; min-height: 20px; padding: 3px 5px; font-size: 11px; }
+/* Grid cards keep the compact badge too so shelves do not drift apart. */
+.home-page .video-card .thumb .duration { inset-inline-end: 6px; bottom: 6px; min-height: 20px; padding: 3px 5px; font-size: 11px; }
 /* Compact browse rows get the same whole-row feedback for mouse and keyboard. */
 .explore-feature-grid .small-video-row { border-radius: var(--radius); transition: background-color .15s ease; }
 .explore-feature-grid .small-video-row:is(:hover, :focus-within) { background: var(--panel-2); }
@@ -296,14 +290,11 @@
   .home-page .hero-buttons .btn:focus-visible { outline-color: var(--focus); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .home-page .spotlight-watch-action,
   .explore-feature-grid .small-video-row { transition: none; }
 }
 
 /* Shelves and watch blocks share one panel: card fill, visible 1px edge, one radius, one padding.
    Thumbnails and rows inside a shelf are tiles, not a second card. */
-.home-page .trending-panel,
-.home-page .spotlight-stack,
 .watch-layout-shell .description-card,
 .watch-layout-shell .watch-sidebar,
 .watch-layout-shell .watch-chapters,
@@ -336,9 +327,6 @@
   line-height: 1.3;
 }
 .watch-layout-shell .watch-comments-head h2 { margin: 0; }
-:root[data-theme="dark"] .home-page .content-section,
-:root[data-theme="dark"] .home-page .trending-panel,
-:root[data-theme="dark"] .home-page .spotlight-stack,
 :root[data-theme="dark"] .watch-layout-shell .description-card,
 :root[data-theme="dark"] .watch-layout-shell .watch-sidebar,
 :root[data-theme="dark"] .watch-layout-shell .watch-chapters,
@@ -456,6 +444,8 @@
 .playlist-format-row small { color: var(--muted); font-size: 12px; font-weight: 650; line-height: 1.35; }
 
 .playlist-episode-editor { margin-top: 4px; }
+.playlist-episode-warning { margin: 8px 0 0; color: var(--danger); font-size: 12.5px; font-weight: 750; }
+.playlist-episode-row input.is-invalid { border-color: var(--danger); }
 .playlist-episode-list { display: grid; gap: 8px; margin-top: 4px; }
 .playlist-episode-row {
   min-width: 0;
@@ -712,7 +702,9 @@
 }
 .home-page .trending-row { padding: 6px 0; gap: 12px; }
 .home-page .trending-row:hover { background: none; }
-.home-page .trending-row:hover strong { text-decoration: underline; text-underline-offset: 3px; }
+/* Same whole-row feedback for pointer and keyboard; the row keeps its box. */
+.home-page .trending-row:is(:hover, :focus, :focus-visible) strong { text-decoration: underline; text-underline-offset: 3px; }
+.home-page .trending-row:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 .home-page .trending-row .rank-tile { left: 6px; top: 6px; bottom: auto; }
 .home-page .home-empty-trending { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 6px 22px; }
 
@@ -795,9 +787,29 @@
   -webkit-box-orient: vertical;
   line-height: 1.3;
 }
+/* Duration and progress stay readable instead of ending in an ellipsis. */
+.playlist-video-row-page.series-row small {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  white-space: normal;
+  line-height: 1.35;
+}
 @media (max-width: 560px) {
   /* Keep the row menu in its own column instead of wrapping it under the row. */
   .playlist-video-row-page { grid-template-columns: 40px 86px minmax(0, 1fr) 44px; }
   .playlist-season-chips { padding: 10px; }
   .playlist-season-chips button { min-height: 40px; }
 }
+
+/* Nested surfaces step one radius down from the container they sit in, the
+   same pattern WoltLab uses (calc(var(--wcfBorderRadius) - 1px/-2px)). The
+   administrator-authored base radius stays the only scale input. */
+.playlist-format-row button,
+.playlist-episode-row,
+.playlist-video-picker .collection-video-row,
+.playlist-preview-panel .playlist-preview-card { border-radius: var(--radius-inner); }
+.playlist-episode-row input,
+.playlist-episode-row .thumb,
+.playlist-video-picker .collection-video-row .thumb { border-radius: var(--radius-inner-2); }
+.global-search-suggestions .global-search-suggestion { border-radius: var(--radius-inner); }

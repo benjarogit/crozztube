@@ -156,6 +156,39 @@ try {
     check(array_column($readBack, 'video_id') === [$episodeTwo->id, $episodeOne->id, $episodeFour->id, $episodeThree->id], 'reading the series reproduces the stored order');
     check(SeriesStructure::seasons($playlist)[0]['episode_count'] === 3 && count(SeriesStructure::seasons($playlist)) === 2, 'seasons group the episodes');
 
+    $snapshot = static fn () => DB::table('playlist_video')
+        ->where('playlist_id', $playlist->id)
+        ->orderBy('video_id')
+        ->get(['video_id', 'season_number', 'episode_number', 'episode_title', 'episode_description', 'aired_at', 'sort_order'])
+        ->map(static fn ($row) => (array) $row)
+        ->all();
+    $beforeInvalidSave = $snapshot();
+
+    $duplicateRejected = false;
+    try {
+        SeriesStructure::applyEpisodes($playlist->fresh(), [
+            ['video_id' => $episodeTwo->id, 'season_number' => 1, 'episode_number' => 4, 'episode_title' => 'Duplicate A'],
+            ['video_id' => $episodeFour->id, 'season_number' => 1, 'episode_number' => 4, 'episode_title' => 'Duplicate B'],
+        ]);
+    } catch (\Illuminate\Validation\ValidationException $exception) {
+        $duplicateRejected = array_key_exists('episodes', $exception->errors());
+    }
+    check($duplicateRejected, 'explicit duplicate episode numbers are rejected');
+    check($snapshot() === $beforeInvalidSave, 'a rejected duplicate save leaves every pivot row unchanged');
+
+    $rollbackRejected = false;
+    try {
+        SeriesStructure::applyEpisodes($playlist->fresh(), [
+            ['video_id' => $episodeTwo->id, 'season_number' => 1, 'episode_number' => 10, 'episode_title' => 'Must roll back'],
+            ['video_id' => $episodeOne->id, 'season_number' => 1, 'episode_number' => 11, 'episode_title' => 'Must roll back too'],
+            ['video_id' => $episodeFour->id, 'season_number' => 1, 'episode_number' => 99, 'aired_at' => 'not-a-date'],
+        ]);
+    } catch (\Illuminate\Database\QueryException) {
+        $rollbackRejected = true;
+    }
+    check($rollbackRejected, 'a failing episode write is reported instead of silently partially applying');
+    check($snapshot() === $beforeInvalidSave, 'a failing episode write rolls back every earlier pivot row');
+
     $resource = (new PlaylistResource($playlist))->resolve($request);
     check($resource['kind'] === 'series' && $resource['series_status'] === 'ongoing', 'the playlist resource exposes the series kind and status');
     check($resource['series']['season_count'] === 2 && $resource['series']['episode_count'] === 4, 'the resource reports seasons and episode counts');

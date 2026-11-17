@@ -2409,10 +2409,11 @@ function Sidebar({ overlayActive = false, path, navigate, user, open, onClose, c
       { label: 'Communities', icon: 'messageCircle', to: '/communities', activePaths: ['/communities'] },
       { label: 'Subscriptions', icon: 'users', to: '/subscriptions', activePaths: ['/subscriptions'], authOnly: true },
     ] },
+    // The playlist block below the groups is the single playlists entry; a
+    // second nav item would only duplicate it.
     { id: 'library', label: 'Library', items: [
       { label: 'Watch Later', icon: 'clock', to: '/watch-later', activePaths: ['/watch-later'], authOnly: true },
       { label: 'Liked Videos', icon: 'like', to: '/liked-videos', activePaths: ['/liked-videos'], authOnly: true },
-      { label: 'Playlists', icon: 'playlist', to: '/playlists', activePaths: ['/playlists'], authOnly: true },
     ] },
     { id: 'create', label: 'Live & Create', items: [
       { label: 'Live', icon: 'play', to: '/live', activePaths: ['/live'], hidden: !liveStreamingEnabled },
@@ -2490,7 +2491,7 @@ function Sidebar({ overlayActive = false, path, navigate, user, open, onClose, c
           </button>)}
         </div>)}
         {user && <div className="playlist-block">
-          <div className="playlist-head"><p>Playlists</p><button type="button" onClick={openPlaylistModal} aria-label="Create playlist"><Icon name="plus" size={15}/></button></div>
+          <div className="playlist-head"><button type="button" className="playlist-head-link" onClick={() => go('/playlists')}>Playlists</button><button type="button" onClick={openPlaylistModal} aria-label="Create playlist"><Icon name="plus" size={15}/></button></div>
           {playlistsLoading ? <span className="playlist-empty">Loading playlists...</span> : visiblePlaylists.length ? visiblePlaylists.map((item, index) => <button className="playlist-item" key={item.id || item.title} onClick={() => go(`/playlists?id=${item.id}`)}><i className="playlist-dot" style={{ background: item.color || playlistColors[index % playlistColors.length] }} />{item.title}</button>) : <span className="playlist-empty">No playlists yet.</span>}
           {playlists.length > 5 && <button className="text-button mini" type="button" onClick={() => setPlaylistsExpanded((expanded) => !expanded)}>{playlistsExpanded ? 'Show less' : 'Show more'} <span>⌄</span></button>}
         </div>}
@@ -6325,7 +6326,7 @@ function Home({ navigate, auth }) {
     .filter((item) => !heroSlideIds.has(String(item.id || item.slug)) && !continueSlugs.has(String(item.slug)))
     .slice(0, 6);
   const trendingIds = new Set(trending.map((video) => String(video.id || video.slug)));
-  const discoveryVideos = uploadedVideos.filter((video) => !trendingIds.has(String(video.id || video.slug)) && !continueSlugs.has(String(video.slug)));
+  const discoveryVideos = uploadedVideos.filter((video) => !heroSlideIds.has(String(video.id || video.slug)) && !trendingIds.has(String(video.id || video.slug)) && !continueSlugs.has(String(video.slug)));
   const creatorChannels = [...new Map(uploadedVideos
     .filter((video) => !auth.user?.channel || String(video.channel?.id || '') !== String(auth.user.channel.id || ''))
     .map((video) => [video.channel?.id || video.channel?.slug || video.channel?.name, video.channel])
@@ -24795,6 +24796,24 @@ function NewPlaylistModal({ videos, onClose, onCreate, initialAddVideos = false,
   const firstSelectedVideo = availableVideos.find((video) => selectedVideoIds.includes(Number(video.id)));
   const coverVideos = availableVideos.filter((video) => selectedVideoIds.includes(Number(video.id)));
   const selectedCoverVideo = coverVideos.find((video) => Number(video.id) === Number(coverVideoId)) || firstSelectedVideo;
+  const duplicateEpisodeIds = (() => {
+    const duplicate = new Set();
+    if (!isSeries) return duplicate;
+    const seen = new Map();
+    for (const id of selectedVideos) {
+      const meta = episodeMeta[id] || {};
+      const raw = meta.episode_number;
+      const number = raw === '' || raw == null ? null : Number(raw);
+      if (!Number.isFinite(number) || number <= 0) continue;
+      const key = `${Number(meta.season_number) || 1}:${number}`;
+      if (!seen.has(key)) seen.set(key, []);
+      seen.get(key).push(Number(id));
+    }
+    for (const ids of seen.values()) {
+      if (ids.length > 1) ids.forEach((id) => duplicate.add(id));
+    }
+    return duplicate;
+  })();
 
   useEffect(() => {
     let cancelled = false;
@@ -24836,6 +24855,10 @@ function NewPlaylistModal({ videos, onClose, onCreate, initialAddVideos = false,
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!trimmedName || saving) return;
+    if (duplicateEpisodeIds.size) {
+      setFormError(t('Episode numbers must be unique within a season.'));
+      return;
+    }
     setSaving(true);
     setFormError('');
     try {
@@ -24896,10 +24919,10 @@ function NewPlaylistModal({ videos, onClose, onCreate, initialAddVideos = false,
               <Thumbnail video={video} />
               <span className="playlist-episode-name" data-i18n-skip>{video.title}</span>
               <label><small>{t('Season')}</small><input type="number" min="1" max="500" inputMode="numeric" value={meta.season_number ?? 1} onChange={(event) => updateEpisode(id, { season_number: event.target.value })} aria-label={`${t('Season')} — ${video.title}`} /></label>
-              <label><small>{t('Episode')}</small><input type="number" min="1" max="10000" inputMode="numeric" placeholder={t('auto')} value={meta.episode_number ?? ''} onChange={(event) => updateEpisode(id, { episode_number: event.target.value })} aria-label={`${t('Episode')} — ${video.title}`} /></label>
+              <label><small>{t('Episode')}</small><input type="number" min="1" max="10000" inputMode="numeric" placeholder={t('auto')} aria-invalid={duplicateEpisodeIds.has(Number(id)) || undefined} className={duplicateEpisodeIds.has(Number(id)) ? 'is-invalid' : undefined} value={meta.episode_number ?? ''} onChange={(event) => updateEpisode(id, { episode_number: event.target.value })} aria-label={`${t('Episode')} — ${video.title}`} /></label>
               <label className="playlist-episode-title"><small>{t('Episode title')}</small><input value={meta.episode_title ?? ''} maxLength={160} placeholder={video.title} onChange={(event) => updateEpisode(id, { episode_title: event.target.value })} aria-label={`${t('Episode title')} — ${video.title}`} /></label>
             </div>;
-          })}{!selectedVideos.length ? <div className="state-card">{t('Add videos to number the episodes.')}</div> : null}</div></div>}
+          })}{!selectedVideos.length ? <div className="state-card">{t('Add videos to number the episodes.')}</div> : null}</div>{duplicateEpisodeIds.size ? <p className="playlist-episode-warning" role="alert">{t('Episode numbers must be unique within a season.')}</p> : null}</div>}
           {formError && <div className="profile-action-notice" aria-live="polite">{formError}</div>}
         </section>
         <aside className="playlist-preview-panel">
@@ -24912,7 +24935,7 @@ function NewPlaylistModal({ videos, onClose, onCreate, initialAddVideos = false,
           <div className="playlist-tip-card"><span><Icon name="help" size={22}/></span><div><strong>{isSeries ? t('Series tip') : 'Playlist tip'}</strong><p>{isSeries ? t('Episodes stay in one playlist. Season and episode numbers define the order your viewers see, and the next episode keeps playing automatically.') : 'Use playlists to organize your content and make it easier for your audience to discover more videos.'}</p></div></div>
         </aside>
       </div>
-      <footer className="playlist-modal-footer"><button type="button" className="btn subtle" onClick={onClose} disabled={saving}>Cancel</button><button type="submit" className="btn primary" disabled={!trimmedName || saving}><Icon name={isEditing ? 'settings' : 'plus'} size={18}/> {saving ? (isEditing ? 'Saving...' : 'Creating...') : (isEditing ? 'Save playlist' : 'Create Playlist')}</button></footer>
+      <footer className="playlist-modal-footer"><button type="button" className="btn subtle" onClick={onClose} disabled={saving}>Cancel</button><button type="submit" className="btn primary" disabled={!trimmedName || saving || duplicateEpisodeIds.size > 0}><Icon name={isEditing ? 'settings' : 'plus'} size={18}/> {saving ? (isEditing ? 'Saving...' : 'Creating...') : (isEditing ? 'Save playlist' : 'Create Playlist')}</button></footer>
     </form>
   </div>;
   return typeof document !== 'undefined' ? createPortal(modal, document.body) : modal;

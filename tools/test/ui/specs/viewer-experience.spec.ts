@@ -14,10 +14,55 @@ function fixtureVideo() {
     caption_tracks: [{ url: '/fixtures/viewer.vtt', format: 'vtt', label: 'Saved', language: 'en', default: true }],
   };
 }
+const serveCloneDetail = async (session: any) => {
+  const base = applicationJson(`/api/videos/${original().slug}`);
+  const related = applicationJson('/api/videos?type=video&per_page=10');
+  await session.page.route(/\/api\/videos\?.*related_to=[^&]*-layout-/, async (route: any) => {
+    await route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify({ data: expandVideos(related.data), meta: { current_page: 1, last_page: 1 }, links: { next: null } }),
+    });
+  });
+  await session.page.route(/\/api\/videos\/[^/]*-layout-[^/?#]+/, async (route: any) => {
+    const requested = decodeURIComponent(new URL(route.request().url()).pathname.split('/').pop()!);
+    await route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify({ ...base, player_ads: null, video: { ...fixtureVideo(), slug: requested } }),
+    });
+  });
+};
+const cloneBySlug = new Map<string, any>();
+const expandVideos = (data: any[]) => {
+  const base = data.filter(item => item?.slug).slice(0, 4);
+  if (!base.length) return data;
+  const out = [...data];
+  for (let index = 0; out.length < 10; index += 1) {
+    const item = base[index % base.length];
+    const clone = {
+      ...item,
+      id: Number(item.id || 0) + 100000 + index,
+      slug: `${item.slug}-layout-${index}`,
+      title: `${item.title} ${index + 2}`,
+      views_count: 1200 * (index + 2),
+    };
+    cloneBySlug.set(clone.slug, clone);
+    out.push(clone);
+  }
+  return out;
+};
 const transform = (path: string, payload: any) => {
-  if (path.startsWith('/api/videos/') && payload.video) return { ...payload, player_ads: null, video: fixtureVideo() };
+  if (path.startsWith('/api/videos/') && payload.video) {
+    const requested = decodeURIComponent(path.split('?')[0].slice('/api/videos/'.length));
+    const video = cloneBySlug.get(requested);
+    return { ...payload, player_ads: null, video: video ? { ...fixtureVideo(), ...video } : fixtureVideo() };
+  }
   if (path.startsWith('/api/continue-watching')) return { ...payload, data: [{ ...fixtureVideo(), progress: 13, current_time: 4 }] };
   if (path.startsWith('/api/videos?') && /type=short/.test(path)) return { ...payload, data: [{ ...fixtureVideo(), id: 999991, slug: 'viewer-short', is_short: true, video_width: 360, video_height: 640 }] };
+  // A sparse fixture would otherwise fill hero, trending and continue from the
+  // same few rows and leave the discovery shelf empty.
+  if (path.startsWith('/api/videos?') && Array.isArray(payload.data)) return { ...payload, data: expandVideos(payload.data) };
   return payload;
 };
 
@@ -40,7 +85,9 @@ for (const width of [320, 390, 768, 1024, 1440]) {
         return (Math.max(a, b) + .05) / (Math.min(a, b) + .05);
       });
       expect(contrast).toBeGreaterThanOrEqual(4.5);
-      expect(headings).toEqual(['Weiterschauen', 'Videos entdecken', 'Shorts', 'Creator entdecken']);
+      // Trending is the first shelf after Continue; the creator shelf is
+      // conditional because the fixture only contains the viewer's own channel.
+      expect(headings).toEqual(['Weiterschauen', 'Jetzt im Trend', 'Videos entdecken', 'Shorts']);
       await expect(page.locator('.continue-content')).toContainText('Noch 0:26');
       await expect(page.locator('.continue-card [role="progressbar"]')).toHaveAttribute('aria-valuenow', '13');
       await expect(page.locator('.home-page .video-grid .rank-badge')).toHaveCount(0);
@@ -126,6 +173,7 @@ test('queue, empty sections and card menus have clear keyboard paths', async ({ 
   const items = applicationJson('/api/videos?type=video&per_page=10').data;
   const queued = { ...items[1], title: 'Home', duration: '1:00' };
   const session = await layoutSession(browser, { language: 'de_de', width: 390, transform });
+  await serveCloneDetail(session);
   await session.context.addInitScript(item => localStorage.setItem('playhub_playback_queue_v1', JSON.stringify([item])), queued);
   try {
     const { page } = session;
@@ -182,6 +230,7 @@ for (const [browserName, engine] of Object.entries({ firefox, webkit })) {
 
 test('touch cards expose reachable actions and start playback only after a tap', async ({ browser }) => {
   const session = await layoutSession(browser, { language: 'de_de', width: 390, dark: true, touch: true, userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 Mobile/15E148 Safari/604.1', transform });
+  await serveCloneDetail(session);
   try {
     const { page } = session;
     await session.goto('/');
@@ -198,7 +247,7 @@ test('touch cards expose reachable actions and start playback only after a tap',
   } finally { await session.context.close(); }
 });
 
-test('hero, spotlight and discovery rows give feedback without layout shifts or previews', async ({ browser }) => {
+test('hero, trending and discovery rows give feedback without layout shifts or previews', async ({ browser }) => {
   const session = await layoutSession(browser, { authenticated: false, language: 'de_de', width: 1915, height: 902 });
   try {
     const { page } = session;
@@ -209,16 +258,16 @@ test('hero, spotlight and discovery rows give feedback without layout shifts or 
     await primary.hover();
     await expect.poll(() => primary.evaluate(e => getComputedStyle(e).backgroundColor)).not.toBe(idle);
     expect(await primary.boundingBox()).toEqual(before);
-    const spotlight = page.locator('.trending-row').first();
-    const action = spotlight.locator('strong');
+    const trendingRow = page.locator('.trending-row').first();
+    const action = trendingRow.locator('strong');
     await expect(action).toBeVisible();
-    const cardBounds = await spotlight.boundingBox();
-    await spotlight.hover();
+    const cardBounds = await trendingRow.boundingBox();
+    await trendingRow.hover();
     await expect.poll(() => action.evaluate(e => getComputedStyle(e).textDecorationLine)).toBe('underline');
-    await spotlight.focus();
+    await trendingRow.focus();
     await page.mouse.move(0, 0);
     await expect.poll(() => action.evaluate(e => getComputedStyle(e).textDecorationLine)).toBe('underline');
-    expect(await spotlight.boundingBox()).toEqual(cardBounds);
+    expect(await trendingRow.boundingBox()).toEqual(cardBounds);
     const thumb = page.locator('.video-card-link .thumb').first();
     const duration = thumb.locator('.duration');
     expect((await duration.boundingBox())!.x + (await duration.boundingBox())!.width).toBeLessThan((await thumb.boundingBox())!.x + (await thumb.boundingBox())!.width - 5);

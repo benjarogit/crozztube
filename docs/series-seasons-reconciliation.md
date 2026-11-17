@@ -1,8 +1,8 @@
 # Series and seasons: PR #4 reconciliation
 
-Date: 2026-11-16
-Canonical revision: `main` at `35461c1` ("Add series and seasons on top of playlists with access-aware next episode")
-Reviewed branch: `origin/codex/series-seasons` at `35cb80079a0cc6f86ca9c0e3ab0395ee20e2467b` (PR #4, draft, `DIRTY`, 22 commits ahead / 8 behind `main`, merge base `544b702`).
+Date: 2026-11-17
+Canonical revision: `main` at `442e179` (design follow-up on the step-8 implementation `35461c1`, "Add series and seasons on top of playlists with access-aware next episode")
+Reviewed branch: `origin/codex/series-seasons` at `35cb80079a0cc6f86ca9c0e3ab0395ee20e2467b` (PR #4, draft, `DIRTY`, 22 commits ahead / 10 behind `main`, merge base `544b702`).
 
 This document records what was carried over, what is obsolete and what remains open. It does not accept step 8, does not replace the language review and does not authorize a merge of PR #4.
 
@@ -30,11 +30,11 @@ PR #4 implements a parallel model (`is_series`, `app/Support/SeriesPlaylists.php
 | `build/manifest.json`, `build/assets/*` | Generated from `main`. | Not adopted. |
 | `harness/plan.json` | Already contains `step-08-series` in checks and step 8 acceptance. | No change needed. |
 | `docs/series-seasons.md` | Documents the obsolete model. | Not merged. |
-| `tools/test/php/series-playlist-checks.php`, `tools/test/php/series-seasons-checks.php`, `tools/test/series-seasons.test.mjs`, `tools/test/step-08-series.sh`, `tools/test/ui/series-seasons.mjs` | Main runs `tools/test/step-08-series.sh` (57 PHP checks, 8 Node tests, `series-ui-check.mjs`). | Keep `main`; the PR variants test the obsolete model. |
+| `tools/test/php/series-playlist-checks.php`, `tools/test/php/series-seasons-checks.php`, `tools/test/series-seasons.test.mjs`, `tools/test/step-08-series.sh`, `tools/test/ui/series-seasons.mjs` | Main runs `tools/test/step-08-series.sh` (61 PHP checks, 6 cross-process lock checks, 8 Node tests, `series-ui-check.mjs`). | Keep `main`; the PR variants test the obsolete model. |
 
 ## Language inventory
 
-- The 30 new reference messages live in `tools/i18n/batches/series-and-seasons.json`.
+- The 31 new reference messages live in `tools/i18n/batches/series-and-seasons.json`. The 31st is the server-side duplicate guard (`Episode numbers must be unique within a season.`), which the playlist editor also shows before submitting.
 - They are complete in 9 of 125 packages: `de_at`, `de_ch`, `de_de`, `en`, `en_au`, `en_ca`, `en_gb`, `en_nz`, `en_za`.
 - They are missing in the other 116 packages. This is an open language review, not an accepted translation.
 - PR #4 carries four shared keys (`Series`, `Season`, `Episode`, `Next episode`) in 111 of 125 packages. Fourteen packages are partial or empty: `am`, `arg`, `azb`, `bo`, `dzo`, `jv_id`, `my_mm` (only `Season` missing), `ps`, `sah`, `snd`, `szl` (missing `Series`, `Next episode`), `tah`, `ug_cn`, `yor`. The PR description itself reports unreviewed messages in 14 partial packages.
@@ -43,9 +43,32 @@ PR #4 implements a parallel model (`is_series`, `app/Support/SeriesPlaylists.php
 
 ## Checks and CI
 
-- Local checks for `main`/step 8: `bash tools/test/step-08-series.sh` (57 PHP checks, 8 Node tests, `series-ui-check.mjs`) and `node tools/test/ui/viewer-quality.mjs` (520 checks). Both were re-run against the design changes and passed.
+- Local checks for `main`/step 8: `bash tools/test/step-08-series.sh` (61 PHP checks, 6 cross-process lock checks, 8 Node tests, `series-ui-check.mjs`) and `node tools/test/ui/viewer-quality.mjs` (520 checks). `tools/test/ui/specs/viewer-experience.spec.ts` runs 10/10 Chromium tests covering discovery order, queue sections, touch cards, resize, native playback and the hero/trending focus feedback.
 - Browser evidence for the series/watch design: `node tools/test/ui/series-shots.mjs`, which renders the real pages against read-only API responses and a playlist fixture (the local database has no published multi-season series). It checks English/German, light/dark, desktop/mobile and reports no overflow, no writes and no page errors.
-- GitHub Actions: the repository has one workflow, `.github/workflows/chatdev.yml`. It runs on `pull_request` and `workflow_dispatch`; the series tooling steps are gated on `github.head_ref == 'codex/series-seasons'`. There is no run for `35461c1`. The most recent successful runs are on the PR branch (`35cb800`, 2026-11-15). No GitHub-CI result is claimed for `main`.
+- Five-area evidence: `node tools/test/ui/layout-shots.mjs <label>` writes home, video cards, navigation, series detail and watch for de/en, light/dark and desktop/mobile (40 images per label). Navigation is captured as the sidebar element; the overflow check covers the four page areas. The `before` set was built from `35461c1` in a detached worktree and served from a temporary build swap; the `after` set comes from the current checkout. Both sets use the same script and the same synthetic shelves. The pair compares the step-8 base with the refined tree, not only the latest fix round. Watch shots show the series chip and next-episode card; the player surface stays empty because no media is downloaded. Images stay in `/tmp/opencode/shots/{before,after}` and are not committed.
+- WebKit: the spec also contains WebKit-labelled cases, but the host lacks `libicu74`, `libxml2` and `libflite1`. The Chromium project runs the same assertions; no WebKit pass is claimed.
+
+### GitHub Actions gap
+
+- The repository still has one workflow, `.github/workflows/chatdev.yml`. It runs on `pull_request` and `workflow_dispatch` only; a push to `main` produces no run at all.
+- Its job runs the ChatDev harness tests unconditionally. The series steps are gated on `github.head_ref == 'codex/series-seasons'`, so they never run for `main` and never run for a `workflow_dispatch` build of `main`.
+- Even when that gate matches, `bash tools/test/step-08-series.sh` starts with `docker exec crozztube-web …`. A GitHub-hosted runner has no such container, so the step would fail rather than verify the series code.
+- The path filter still lists PR #4 files (`SeriesPlaylists.php`, `PlaylistSeason.php`, `resources/js/series-context.js`) and misses files this work changed: `app/Support/SeriesStructure.php`, `tools/test/php/series-checks.php`, `tools/test/php/series-concurrency-checks.php`, `tools/test/ui/specs/viewer-experience.spec.ts`, `resources/js/styles/**`, `tools/i18n/batches/**`, `tools/migrations/**` and this document.
+- Consequence: there is no Actions result for `35461c1`, `45c9030`, `442e179` or the current working tree. Only local runs are evidence today.
+
+Smallest useful workflow patch, **prepared but not applied** (needs a decision because it changes CI scope for every pull request):
+
+1. Add `push: branches: [main]` so a published checkpoint is at least exercised.
+2. Replace the `head_ref` gate with a step that runs only the parts that work on a runner: `node --test tools/test/series-playback.test.mjs` plus a JSON-only check of `tools/i18n/batches/series-and-seasons.json` (for example `node -e "JSON.parse(require('fs').readFileSync('tools/i18n/batches/series-and-seasons.json'))"`).
+3. Keep the PHP/browser series steps local until a runner-ready variant of `series-checks.php` exists (it needs a database and the HTTP kernel). Do not pretend the Docker script ran.
+4. Extend the path filter with the files listed above and remove the obsolete PR #4 paths.
+
+A full CI port of `series-checks.php` would need a MySQL or SQLite service, `composer install`, seeded migrations and an application key; that is a separate step, not a path-filter edit.
+
+## Build artifacts
+
+- `build/manifest.json` is tracked, but `/build/assets/*` is git-ignored (files are added selectively for release commits). The manifest therefore always names hashes that a fresh clone does not contain; `npm run build` is required before serving a checkout.
+- `45c9030` repeated that pattern. The current working tree changes nothing about it; the manifest is regenerated locally and is not part of the reviewed change set.
 
 ## Migration evidence
 
@@ -53,18 +76,19 @@ PR #4 implements a parallel model (`is_series`, `app/Support/SeriesPlaylists.php
 - Applied: `2026_11_16_000002_add_series_structure_to_playlists`, batch 18.
 - Data at review time: 1 playlist (`id 4`, private, `kind = playlist`, `series_status = NULL`), 1 `playlist_video` row (`playlist_id 4`, `video_id 2`, `sort_order 0`, `season_number 1` from the column default, `episode_number = NULL`, `episode_title = NULL`), 6 videos.
 - Not applied: PR #4 migration `2026_11_14_000001`. It has no row in `migrations`.
-- No reset, rollback or further production migration is part of this change. A new migration needs explicit approval.
+- Pending draft, not applied: `tools/migrations/pending/2026_11_17_000001_add_unique_episode_number_to_playlist_video.php` (unique index on `(playlist_id, season_number, episode_number)`, replaces the redundant non-unique `playlist_video_episode_index` and restores it on rollback, NULLs stay valid, documented `down()`). The preflight query returns 0 duplicate groups on the local instance (1 unnumbered row of 1 total). It is outside `database/migrations/`, so neither `php artisan migrate` nor the `migrate --force` in `step-08-series.sh` can execute it. `applyEpisodes()` already clears affected numbers before writing finals, so the draft no longer risks a transient duplicate during renumbering.
+- No reset, rollback or further production migration is part of this change. Applying the draft needs explicit approval, a backup and a reviewed move into `database/migrations/`.
 
-## Open correctness gap
+## Episode numbering integrity
 
-Explicit duplicate episode numbers are currently accepted. `SeriesStructure::numberSeason()` records explicit numbers in `$taken` but does not reject a duplicate; `episode_number` is nullable and the index `playlist_video_episode_index` is not unique; `applyEpisodes()` updates pivot rows one by one without a transaction or row lock. A failed write can therefore leave a partially renumbered season, and two concurrent saves can interleave.
+Resolved in this change set (published with the checkpoint that contains this document):
 
-PR #4's revision/lock/unique-index approach points in the right direction, but it belongs to the obsolete `is_series` schema and its migration never ran. Suggested follow-up on `main`, after approval:
-
-1. Validate explicit numbers as unique within each season (request validation plus a final server-side check).
-2. Wrap `applyEpisodes()` in a transaction and lock the playlist pivot rows while renumbering.
-3. Add a reviewed unique index migration for `(playlist_id, season_number, episode_number)` after existing data is checked.
-4. Keep owner/admin access and the existing effective order unchanged.
+- `SeriesStructure::applyEpisodes()` now runs in one `DB::transaction`, locks the `playlists` row and the pivot rows (`lockForUpdate()`) before renumbering, and rejects explicit duplicate episode numbers within a season with a `ValidationException` on the `episodes` key. The transaction retries a detected deadlock up to three times.
+- Playlist create and update routes wrap playlist creation, pivot sync and episode application in one transaction; update locks and refreshes the playlist row first, so two editors serialize instead of interleaving.
+- Before writing the final numbers, `applyEpisodes()` clears the affected pivot rows to `episode_number = NULL`. That keeps a future unique index safe for swaps such as `1 <-> 2`, which would otherwise collide mid-save.
+- Episode titles are clipped to the column width (160), and the client marks every duplicate episode input, shows the same message inline and disables saving until the duplicate is fixed.
+- Evidence: `tools/test/php/series-checks.php` (61 checks) covers duplicate rejection, unchanged rows after rejection, a failing write rolled back and the effective order. `tools/test/php/series-concurrency-checks.php` (6 checks) starts a second PHP process, holds the playlist lock in the parent, observes the child still running after it reaches the save call, and verifies one complete final order.
+- Remaining storage-level gap: the index `playlist_video_episode_index` is still non-unique. The reviewed unique index exists only as the pending draft above; until it is approved and applied, a writer that bypasses `applyEpisodes()` can still store a duplicate.
 
 ## PR #4 recommendation
 

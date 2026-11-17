@@ -4982,4 +4982,5 @@ The processing job encodes renditions, creates thumbnails when needed, stores ca
   'Series tip' => 'Series tip',
   'Episodes stay in one playlist. Season and episode numbers define the order your viewers see, and the next episode keeps playing automatically.' => 'Episodes stay in one playlist. Season and episode numbers define the order your viewers see, and the next episode keeps playing automatically.',
   'About this series' => 'About this series',
+  'Episode numbers must be unique within a season.' => 'Episode numbers must be unique within a season.',
 );

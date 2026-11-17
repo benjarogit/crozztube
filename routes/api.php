@@ -1753,38 +1753,42 @@ Route::middleware(['auth:sanctum', \App\Http\Middleware\EnsureUgcSafety::class])
         ], \App\Support\SeriesStructure::rules()));
 
         $kind = \App\Support\SeriesStructure::kind($data['kind'] ?? (isset($data['episodes']) ? \App\Support\SeriesStructure::KIND_SERIES : \App\Support\SeriesStructure::KIND_PLAYLIST));
-        $playlist = Playlist::create([
-            'user_id' => $request->user()->id,
-            'channel_id' => $channel->id,
-            'title' => trim($data['title']),
-            'description' => trim((string) ($data['description'] ?? '')) ?: null,
-            'privacy' => strtolower($data['privacy'] ?? 'public'),
-            'kind' => $kind,
-            'series_status' => $kind === \App\Support\SeriesStructure::KIND_SERIES
-                ? \App\Support\SeriesStructure::status($data['series_status'] ?? null)
-                : null,
-            'color' => $data['color'] ?? '#6c4cff',
-        ]);
+        $playlist = DB::transaction(function () use ($request, $data, $kind, $channel) {
+            $playlist = Playlist::create([
+                'user_id' => $request->user()->id,
+                'channel_id' => $channel->id,
+                'title' => trim($data['title']),
+                'description' => trim((string) ($data['description'] ?? '')) ?: null,
+                'privacy' => strtolower($data['privacy'] ?? 'public'),
+                'kind' => $kind,
+                'series_status' => $kind === \App\Support\SeriesStructure::KIND_SERIES
+                    ? \App\Support\SeriesStructure::status($data['series_status'] ?? null)
+                    : null,
+                'color' => $data['color'] ?? '#6c4cff',
+            ]);
 
-        $videoIds = DB::table('videos')
-            ->whereIn('id', $data['video_ids'] ?? [])
-            ->where(function ($query) use ($request) {
-                $query->where('user_id', $request->user()->id)
-                    ->orWhere(function ($publicQuery) {
-                        $publicQuery->where('visibility', 'public')->where('status', 'ready');
-                    });
-            })
-            ->pluck('id')
-            ->values();
+            $videoIds = DB::table('videos')
+                ->whereIn('id', $data['video_ids'] ?? [])
+                ->where(function ($query) use ($request) {
+                    $query->where('user_id', $request->user()->id)
+                        ->orWhere(function ($publicQuery) {
+                            $publicQuery->where('visibility', 'public')->where('status', 'ready');
+                        });
+                })
+                ->pluck('id')
+                ->values();
 
-        if (Schema::hasColumn('playlists', 'cover_video_id')) {
-            $playlist->update(['cover_video_id' => $videoIds->contains((int) ($data['cover_video_id'] ?? 0)) ? (int) $data['cover_video_id'] : null]);
-        }
+            if (Schema::hasColumn('playlists', 'cover_video_id')) {
+                $playlist->update(['cover_video_id' => $videoIds->contains((int) ($data['cover_video_id'] ?? 0)) ? (int) $data['cover_video_id'] : null]);
+            }
 
-        $playlist->videos()->sync($videoIds->mapWithKeys(fn ($id, $index) => [$id => ['sort_order' => $index]])->all());
-        if ($kind === \App\Support\SeriesStructure::KIND_SERIES) {
-            \App\Support\SeriesStructure::applyEpisodes($playlist, $data['episodes'] ?? []);
-        }
+            $playlist->videos()->sync($videoIds->mapWithKeys(fn ($id, $index) => [$id => ['sort_order' => $index]])->all());
+            if ($kind === \App\Support\SeriesStructure::KIND_SERIES) {
+                \App\Support\SeriesStructure::applyEpisodes($playlist, $data['episodes'] ?? []);
+            }
+
+            return $playlist;
+        }, 3);
 
         return response()->json([
             'message' => 'Playlist created.',
@@ -1804,38 +1808,47 @@ Route::middleware(['auth:sanctum', \App\Http\Middleware\EnsureUgcSafety::class])
             'video_ids.*' => ['integer'],
         ], \App\Support\SeriesStructure::rules()));
 
-        $kind = \App\Support\SeriesStructure::kind($data['kind'] ?? $playlist->kind ?? \App\Support\SeriesStructure::KIND_PLAYLIST);
-        $videoIds = DB::table('videos')
-            ->whereIn('id', $data['video_ids'] ?? $playlist->videos()->pluck('videos.id')->all())
-            ->where(function ($query) use ($request) {
-                $query->where('user_id', $request->user()->id)
-                    ->orWhere(function ($publicQuery) {
-                        $publicQuery->where('visibility', 'public')->where('status', 'ready');
-                    });
-            })
-            ->pluck('id')
-            ->values();
+        $playlist = DB::transaction(function () use ($request, $data, $playlist) {
+            // Serialize two editors of the same playlist before reading the
+            // current pivot order they are about to rewrite.
+            DB::table('playlists')->where('id', $playlist->id)->lockForUpdate()->first();
+            $playlist->refresh();
 
-        $updates = [
-            'title' => trim($data['title']),
-            'description' => trim((string) ($data['description'] ?? '')) ?: null,
-            'privacy' => strtolower($data['privacy'] ?? 'public'),
-            'kind' => $kind,
-            'series_status' => $kind === \App\Support\SeriesStructure::KIND_SERIES
-                ? \App\Support\SeriesStructure::status($data['series_status'] ?? $playlist->series_status ?? null)
-                : null,
-            'color' => $data['color'] ?? '#6c4cff',
-        ];
+            $kind = \App\Support\SeriesStructure::kind($data['kind'] ?? $playlist->kind ?? \App\Support\SeriesStructure::KIND_PLAYLIST);
+            $videoIds = DB::table('videos')
+                ->whereIn('id', $data['video_ids'] ?? $playlist->videos()->pluck('videos.id')->all())
+                ->where(function ($query) use ($request) {
+                    $query->where('user_id', $request->user()->id)
+                        ->orWhere(function ($publicQuery) {
+                            $publicQuery->where('visibility', 'public')->where('status', 'ready');
+                        });
+                })
+                ->pluck('id')
+                ->values();
 
-        if (Schema::hasColumn('playlists', 'cover_video_id')) {
-            $updates['cover_video_id'] = $videoIds->contains((int) ($data['cover_video_id'] ?? 0)) ? (int) $data['cover_video_id'] : null;
-        }
+            $updates = [
+                'title' => trim($data['title']),
+                'description' => trim((string) ($data['description'] ?? '')) ?: null,
+                'privacy' => strtolower($data['privacy'] ?? 'public'),
+                'kind' => $kind,
+                'series_status' => $kind === \App\Support\SeriesStructure::KIND_SERIES
+                    ? \App\Support\SeriesStructure::status($data['series_status'] ?? $playlist->series_status ?? null)
+                    : null,
+                'color' => $data['color'] ?? '#6c4cff',
+            ];
 
-        $playlist->update($updates);
-        $playlist->videos()->sync($videoIds->mapWithKeys(fn ($id, $index) => [$id => ['sort_order' => $index]])->all());
-        if ($kind === \App\Support\SeriesStructure::KIND_SERIES) {
-            \App\Support\SeriesStructure::applyEpisodes($playlist, $data['episodes'] ?? []);
-        }
+            if (Schema::hasColumn('playlists', 'cover_video_id')) {
+                $updates['cover_video_id'] = $videoIds->contains((int) ($data['cover_video_id'] ?? 0)) ? (int) $data['cover_video_id'] : null;
+            }
+
+            $playlist->update($updates);
+            $playlist->videos()->sync($videoIds->mapWithKeys(fn ($id, $index) => [$id => ['sort_order' => $index]])->all());
+            if ($kind === \App\Support\SeriesStructure::KIND_SERIES) {
+                \App\Support\SeriesStructure::applyEpisodes($playlist, $data['episodes'] ?? []);
+            }
+
+            return $playlist;
+        }, 3);
 
         return response()->json([
             'message' => 'Playlist updated.',

@@ -180,6 +180,12 @@
       "de_de": "Über diese Serie",
       "de_at": "Über diese Serie",
       "de_ch": "Über diese Serie"
+    },
+    "Episode numbers must be unique within a season.": {
+      "en": "Episode numbers must be unique within a season.",
+      "de_de": "Folgennummern müssen innerhalb einer Staffel eindeutig sein.",
+      "de_at": "Folgennummern müssen innerhalb einer Staffel eindeutig sein.",
+      "de_ch": "Folgennummern müssen innerhalb einer Staffel eindeutig sein."
     }
   }
 }
