@@ -1,11 +1,17 @@
-/* Viewer surfaces share the existing brand, type and theme tokens. */
+/* Viewer surfaces share the existing brand, type and theme tokens.
+   Media sections are separated by headings and spacing, not by boxes. */
 .home-page .content-section {
-  margin-top: 24px;
-  padding: 18px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-lg);
-  background: var(--panel);
+  margin-top: 28px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
   box-shadow: none;
+}
+.home-page .content-section > .section-title {
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 16px;
 }
 .home-page .section-title { align-items: center; gap: 12px; }
 .home-page .section-title h2 { font-size: 16px; font-weight: 750; letter-spacing: -.02em; line-height: 1.3; }
@@ -45,10 +51,6 @@
 .video-card .channel-link:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
 .video-card .muted-line { margin-top: 2px; line-height: 1.5; }
 .video-card .channel-name { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
-.video-card .video-card-stats { position: absolute; z-index: 2; inset-inline-start: 8px; bottom: 8px; display: flex; align-items: center; gap: 6px; max-width: calc(100% - 88px); pointer-events: none; }
-.video-card .video-card-stat,
-.video-card .thumb .duration { display: inline-flex; align-items: center; gap: 4px; min-height: 26px; padding: 5px 8px; border: 1px solid rgba(255,255,255,.28); border-radius:var(--radius); background: rgba(0,0,0,.92); color: #fff; font-size: 13px; font-weight: 650; line-height: 1; font-variant-numeric: tabular-nums; white-space: nowrap; }
-.video-card .video-card-stat svg { display: block; width: 14px; height: 14px; flex: 0 0 auto; }
 .video-card-link:hover h3,
 .shorts-card-link:hover h3 { text-decoration: underline; text-underline-offset: 3px; }
 .video-card-link:focus-visible,
@@ -547,6 +549,7 @@
 }
 .watch-next-episode-card {
   min-width: 0;
+  flex: 1 1 auto;
   display: inline-flex;
   align-items: center;
   gap: 11px;
@@ -568,7 +571,7 @@
   background: var(--primary-soft);
   color: var(--link);
 }
-.watch-next-episode-copy { min-width: 0; display: grid; gap: 1px; }
+.watch-next-episode-copy { min-width: 0; overflow: hidden; display: grid; gap: 1px; }
 .watch-next-episode-copy small { color: var(--muted); font-size: 11px; font-weight: 850; letter-spacing: .04em; text-transform: uppercase; }
 .watch-next-episode-copy strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text); font-size: 14px; font-weight: 850; line-height: 1.3; transition: color .16s ease; }
 .watch-next-episode-copy em { color: var(--muted); font-size: 12px; font-style: normal; font-weight: 800; font-variant-numeric: tabular-nums; }
@@ -578,4 +581,223 @@
   .watch-next-episode-card { flex: 1 1 100%; }
   .watch-next-episode-copy strong { white-space: normal; }
   .watch-next-episode-toggle { margin-left: 49px; }
+}
+
+/* Home focus, 2026-11-16: one feature, then the viewer's own history, then
+   shelves. Panels stay where they carry a function (dialogs, forms, notices). */
+.home-page .home-hero-grid { grid-template-columns: minmax(0, 1fr); }
+.home-page .hero-feature { min-height: clamp(320px, 34vw, 460px); border-radius: var(--radius-lg); }
+.home-page .hero-copy { max-width: min(100%, 660px); padding: 34px 34px 72px; }
+.home-page .hero-copy h1 {
+  font-size: clamp(26px, 3.1cqw, 46px);
+  line-height: 1.08;
+  letter-spacing: -.025em;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.home-page .hero-copy p {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  max-width: 52ch;
+}
+/* Save stays available but reads as the secondary action next to "Watch now". */
+.home-page .hero-buttons { gap: 10px; }
+.home-page .hero-buttons .btn.primary { min-height: 46px; padding-inline: 22px; font-size: 14px; }
+.home-page .hero-buttons .btn.ghost {
+  min-height: 44px;
+  padding-inline: 14px;
+  border: 1px solid rgb(255 255 255 / .34);
+  background: rgb(0 0 0 / .28);
+  color: #f4f4f4;
+  font-weight: 600;
+  font-size: 13px;
+}
+.home-page .hero-buttons .btn.ghost:hover,
+.home-page .hero-buttons .btn.ghost:focus-visible { background: rgb(255 255 255 / .16); color: #fff; }
+.home-page .hero-buttons .btn.ghost.active { border-color: #fff; color: #fff; }
+
+.home-page .thumb .duration { border-radius: var(--radius-media); }
+
+.home-page .continue-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 22px 20px;
+}
+.home-page .continue-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  gap: 0;
+  align-items: start;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  position: relative;
+}
+.home-page .continue-video-link {
+  display: grid;
+  grid-column: 1;
+  grid-row: 1;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  gap: 10px;
+  align-items: start;
+}
+.home-page .continue-video-link .thumb {
+  grid-column: 1;
+  grid-row: 1;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-media);
+}
+.home-page .continue-video-link strong {
+  grid-column: 1;
+  grid-row: 2;
+  margin: 0;
+  padding-inline-end: 0;
+  min-height: 0;
+  font-size: 14px;
+  line-height: 1.4;
+  font-weight: 750;
+}
+.home-page .continue-content { grid-column: 1; grid-row: 2; margin-top: 2px; }
+.home-page .continue-content .channel-inline-link { min-height: 24px; padding: 0; font-size: 12.5px; }
+.home-page .continue-content small { margin: 2px 0 0; color: var(--muted); font-size: 12.5px; }
+/* The inline action menu sits on the preview instead of adding a second row. */
+.home-page .continue-actions {
+  position: absolute;
+  z-index: 4;
+  top: 4px;
+  inset-inline-end: 4px;
+  margin: 0;
+  width: auto;
+}
+.home-page .continue-actions summary {
+  width: 40px;
+  height: 40px;
+  border-color: rgb(255 255 255 / .22);
+  background: rgb(12 14 18 / .72);
+  color: #fff;
+  backdrop-filter: none;
+}
+.home-page .continue-actions summary:hover,
+.home-page .continue-actions[open] summary { background: rgb(12 14 18 / .92); color: #fff; }
+@media (pointer: coarse) {
+  .home-page .continue-actions summary { width: 44px; height: 44px; }
+}
+/* The progress bar belongs to the preview it describes. */
+.home-page .continue-video-link .thumb { position: relative; }
+.home-page .continue-progress {
+  position: absolute;
+  z-index: 3;
+  inset-inline: 0;
+  bottom: 0;
+  height: 4px;
+  margin: 0;
+  border-radius: 0;
+  background: rgb(255 255 255 / .3);
+  pointer-events: none;
+}
+.home-page .continue-progress i { border-radius: 0; background: var(--primary); }
+
+.home-page .trending-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 6px 22px;
+}
+.home-page .trending-row { padding: 6px 0; gap: 12px; }
+.home-page .trending-row:hover { background: none; }
+.home-page .trending-row:hover strong { text-decoration: underline; text-underline-offset: 3px; }
+.home-page .trending-row .rank-tile { left: 6px; top: 6px; bottom: auto; }
+.home-page .home-empty-trending { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 6px 22px; }
+
+@media (max-width: 560px) {
+  .home-page .hero-feature { min-height: 0; }
+  .home-page .hero-copy { padding: 16px; gap: 12px; }
+  .home-page .hero-copy h1 {
+    font-size: 20px;
+    line-height: 1.25;
+    letter-spacing: -.02em;
+    min-height: 0;
+    max-height: 2.5em;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+  }
+  .home-page .hero-copy p { display: none; }
+  .home-page .hero-buttons { display: grid; grid-template-columns: minmax(0, 1fr); width: 100%; gap: 8px; }
+  .home-page .hero-buttons .btn,
+  .home-page .hero-buttons .btn.ghost {
+    width: 100%;
+    justify-content: center;
+  }
+  .home-page .hero-buttons .btn.ghost {
+    border-color: var(--line);
+    background: var(--panel-2);
+    color: var(--text);
+  }
+  .home-page .continue-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 18px 14px; }
+  .home-page .continue-video-link strong { font-size: 13px; }
+  .home-page .trending-grid,
+  .home-page .home-empty-trending { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* Series detail, 2026-11-16: season choice, resume entry and progress in the
+   episode rows. A series is still a playlist, so the list keeps its columns
+   and only swaps channel/views for episode duration/progress. */
+.playlist-season-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--line);
+  background: var(--panel);
+}
+.playlist-season-chips button {
+  min-height: 36px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel-2);
+  color: var(--muted);
+  font-size: 12.5px;
+  font-weight: 800;
+  cursor: pointer;
+}
+.playlist-season-chips button:hover { color: var(--text); border-color: var(--line-strong); }
+.playlist-season-chips button.active {
+  border-color: color-mix(in srgb, var(--primary) 40%, var(--line));
+  background: var(--primary-soft);
+  color: var(--link);
+}
+.playlist-season-chips button:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.playlist-row-progress {
+  position: absolute;
+  z-index: 3;
+  inset-inline: 0;
+  bottom: 0;
+  height: 4px;
+  margin: 0;
+  border-radius: 0;
+  background: rgb(255 255 255 / .32);
+  pointer-events: none;
+}
+.playlist-row-progress i { border-radius: 0; background: var(--primary); }
+/* Episode titles are the main line in a series and may wrap to two lines. */
+.playlist-video-row-page.series-row strong {
+  white-space: normal;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-height: 1.3;
+}
+@media (max-width: 560px) {
+  /* Keep the row menu in its own column instead of wrapping it under the row. */
+  .playlist-video-row-page { grid-template-columns: 40px 86px minmax(0, 1fr) 44px; }
+  .playlist-season-chips { padding: 10px; }
+  .playlist-season-chips button { min-height: 40px; }
 }

@@ -2408,17 +2408,22 @@ function Sidebar({ overlayActive = false, path, navigate, user, open, onClose, c
       { label: 'Shorts', icon: 'shorts', to: '/shorts', activePaths: ['/shorts'] },
       { label: 'Communities', icon: 'messageCircle', to: '/communities', activePaths: ['/communities'] },
       { label: 'Subscriptions', icon: 'users', to: '/subscriptions', activePaths: ['/subscriptions'], authOnly: true },
+    ] },
+    { id: 'library', label: 'Library', items: [
       { label: 'Watch Later', icon: 'clock', to: '/watch-later', activePaths: ['/watch-later'], authOnly: true },
       { label: 'Liked Videos', icon: 'like', to: '/liked-videos', activePaths: ['/liked-videos'], authOnly: true },
+      { label: 'Playlists', icon: 'playlist', to: '/playlists', activePaths: ['/playlists'], authOnly: true },
     ] },
     { id: 'create', label: 'Live & Create', items: [
       { label: 'Live', icon: 'play', to: '/live', activePaths: ['/live'], hidden: !liveStreamingEnabled },
       { label: 'Go Live', icon: 'live', iconSize: 18, className: 'go-live-nav-item', to: '/go-live', activePaths: ['/go-live'], authOnly: true, hidden: !liveStreamingEnabled },
       { label: 'Upload', icon: 'upload', to: '/upload', activePaths: ['/upload'], authOnly: true },
       { label: 'Creator Studio', icon: 'studio', to: '/studio', activePaths: ['/studio'], exact: true, authOnly: true },
-      { label: 'Content', icon: 'library', to: '/studio/content', activePaths: ['/studio/content'], authOnly: true },
-      { label: 'Analytics', icon: 'chart', to: '/studio/analytics', activePaths: ['/studio/analytics'], authOnly: true },
-      ...(user?.channel ? [{ label: 'Earnings', icon: 'wallet', to: '/studio/earnings', activePaths: ['/studio/earnings'], authOnly: true }] : []),
+      // Studio management pages stay reachable while the viewer navigation is in
+      // view, and appear as secondary entries once the creator is inside Studio.
+      { label: 'Content', icon: 'library', to: '/studio/content', activePaths: ['/studio/content'], authOnly: true, studioOnly: true },
+      { label: 'Analytics', icon: 'chart', to: '/studio/analytics', activePaths: ['/studio/analytics'], authOnly: true, studioOnly: true },
+      ...(user?.channel ? [{ label: 'Earnings', icon: 'wallet', to: '/studio/earnings', activePaths: ['/studio/earnings'], authOnly: true, studioOnly: true }] : []),
     ] },
   ];
   const filteredGroups = window.PlayHub?.applyFilters?.('playhub.navigation.groups', baseGroups, { path, user }) ?? baseGroups;
@@ -2465,7 +2470,7 @@ function Sidebar({ overlayActive = false, path, navigate, user, open, onClose, c
   const activePlanPriceLabel = membershipPriceLabel(activePlanPrice);
   const storagePercent = Math.max(0, Math.min(100, Number(storage?.percent || 0)));
   const visiblePlaylists = playlistsExpanded ? playlists : playlists.slice(0, 5);
-  const visibleGroups = groups.map((group) => ({ ...group, items: group.items.filter((item) => !item.hidden && (!item.adminOnly || canAdmin) && (!item.authOnly || user)) })).filter((group) => group.items.length);
+  const visibleGroups = groups.map((group) => ({ ...group, items: group.items.filter((item) => !item.hidden && (!item.adminOnly || canAdmin) && (!item.authOnly || user) && (!item.studioOnly || path.startsWith('/studio'))) })).filter((group) => group.items.length);
   return (
     <aside id="website-sidebar" inert={overlayNavigation ? !open : collapsed} aria-hidden={(overlayNavigation ? !open : collapsed) || undefined} data-responsive-overlay={overlayActive ? 'navigation' : undefined} role={overlayActive ? 'dialog' : undefined} aria-modal={overlayActive ? true : undefined} aria-label="Main navigation" className={`sidebar ${open ? 'open' : ''}`} onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp} onPointerCancel={onPointerCancel} onLostPointerCapture={onLostPointerCapture} onClickCapture={onClickCapture}>
       <div className="sidebar-drawer-head"><strong>Navigation</strong><button type="button" className="icon-button" data-overlay-close onClick={onClose} aria-label="Close navigation"><Icon name="close" /></button></div>
@@ -6312,9 +6317,19 @@ function Home({ navigate, auth }) {
   
   
   const heroSlideIds = new Set(heroSlides.map((video) => String(video.id || video.slug)));
-  const featureStack = heroSlides.length ? uploadedVideos.filter((item) => !heroSlideIds.has(String(item.id || item.slug))).slice(0, 3) : [];
-  const trending = heroSlides.length ? trendingUploads.filter((item) => !heroSlideIds.has(String(item.id || item.slug))).slice(0, 6) : trendingUploads.slice(0, 6);
-  const creatorChannels = [...new Map(uploadedVideos.map((video) => [video.channel?.id || video.channel?.slug || video.channel?.name, video.channel]).filter(([key]) => key)).values()].slice(0, 6);
+  // Trending is the first shelf after the hero and "Weiterschauen". It may not
+  // repeat the hero feature or a video the viewer is already watching, and
+  // discovery drops what the shelves immediately above already showed.
+  const continueSlugs = new Set(continueVideos.map((video) => String(video.slug)));
+  const trending = trendingUploads
+    .filter((item) => !heroSlideIds.has(String(item.id || item.slug)) && !continueSlugs.has(String(item.slug)))
+    .slice(0, 6);
+  const trendingIds = new Set(trending.map((video) => String(video.id || video.slug)));
+  const discoveryVideos = uploadedVideos.filter((video) => !trendingIds.has(String(video.id || video.slug)) && !continueSlugs.has(String(video.slug)));
+  const creatorChannels = [...new Map(uploadedVideos
+    .filter((video) => !auth.user?.channel || String(video.channel?.id || '') !== String(auth.user.channel.id || ''))
+    .map((video) => [video.channel?.id || video.channel?.slug || video.channel?.name, video.channel])
+    .filter(([key]) => key)).values()].slice(0, 6);
   // On tall screens, recommendations and the hero can both remain visible.
   // Keep slides still while the reader interacts with the content below them.
   const isBrowsingContent = (target, container) => {
@@ -6357,7 +6372,7 @@ function Home({ navigate, auth }) {
       onPointerLeave={() => setContentHovered(false)}
       onFocusCapture={(event) => setContentFocused(isBrowsingContent(event.target, event.currentTarget))}
       onBlurCapture={(event) => setContentFocused(isBrowsingContent(event.relatedTarget, event.currentTarget))}>
-      <section className={`home-hero-grid ${!loading && !featureStack.length ? 'without-spotlights' : ''} ${trending.length ? 'has-trending' : 'without-trending'}`}>
+      <section className="home-hero-grid">
         {featured ? <article ref={heroRef} className="hero-feature" role="region" aria-roledescription="carousel" aria-label="Featured" onMouseEnter={() => setHeroHovered(true)} onMouseLeave={() => setHeroHovered(false)} onFocusCapture={() => setHeroFocused(true)} onBlurCapture={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setHeroFocused(false); }}>
             <Thumbnail key={`hero-media-${featured.id || featured.slug}`} video={featured} large showDuration={false} />
             <button type="button" className="hero-feature-hitbox" aria-label="Watch now" onClick={() => openVideo(featured, navigate)} />
@@ -6366,7 +6381,7 @@ function Home({ navigate, auth }) {
               <p data-i18n-skip={featured.description ? '' : undefined}>{featured.description || websiteText('Watch the latest cinematic stories from creators on PlayHub.')}</p>
               <div className="hero-buttons">
                 <button type="button" className="btn primary" onClick={() => openVideo(featured, navigate)}><Icon name="play" size={18} /> Watch now</button>
-                <button type="button" className={`btn glass ${featured.is_watch_later ? 'active' : ''}`} onClick={saveFeatured} disabled={savingFeatured}><Icon name={featured.is_watch_later ? 'bookmark' : 'plus'} size={16} /><span className="hero-save-label"><span className="hero-save-label-reserve" aria-hidden="true"><span>Save for later</span><span>Saved</span><span>Saving...</span></span><span>{savingFeatured ? 'Saving...' : featured.is_watch_later ? 'Saved' : 'Save for later'}</span></span></button>
+                <button type="button" className={`btn ghost hero-save ${featured.is_watch_later ? 'active' : ''}`} onClick={saveFeatured} disabled={savingFeatured}><Icon name={featured.is_watch_later ? 'bookmark' : 'plus'} size={16} /><span className="hero-save-label"><span className="hero-save-label-reserve" aria-hidden="true"><span>Save for later</span><span>Saved</span><span>Saving...</span></span><span>{savingFeatured ? 'Saving...' : featured.is_watch_later ? 'Saved' : 'Save for later'}</span></span></button>
               </div>
             </div>
             {(heroSlides.length > 1 || featured.duration) && <div className="hero-carousel-controls">
@@ -6380,16 +6395,6 @@ function Home({ navigate, auth }) {
             </div>}
             {heroSlides.length > 1 && <span key={`hero-progress-${activeHeroIndex}`} className={`hero-autoplay-progress ${heroAutoplayRunning ? 'running' : ''}`} style={{ '--hero-autoplay-delay': `${HERO_AUTOPLAY_DELAY_MS}ms` }} aria-hidden="true" />}
           </article> : <HomeEmptyHero navigate={navigate} loading={loading} />}
-        {featureStack.length ? <div className="spotlight-stack">
-          {featureStack.map((video) => <button className="spotlight-card" key={video.id} onClick={() => openVideo(video, navigate)}>
-            <div><h3 data-i18n-skip>{video.title}</h3><p data-i18n-skip>{video.description}</p><span className="spotlight-watch-action"><Icon name="play" size={16}/> Watch now</span></div>
-            <Thumbnail video={video} />
-          </button>)}
-        </div> : <HomeEmptySpotlights loading={loading} />}
-        {(loading || trending.length > 0) && <aside className="trending-panel">
-          <div className="section-title compact"><h2>Trending now</h2><button type="button" className="text-button" onClick={() => navigate('/trending')}>View all</button></div>
-          {trending.length ? trending.slice(0, 4).map((video, index) => <TrendingRow key={video.id} video={video} index={index + 1} navigate={navigate} />) : <HomeEmptyTrending loading={loading} />}
-        </aside>}
       </section>
 
       <WebsiteAdSlot placement="home_feed"/>
@@ -6404,8 +6409,11 @@ function Home({ navigate, auth }) {
           return items.filter((item) => item.slug !== video.slug);
         })} />)}</div>
       </Section> : null}
-      {(loading || uploadedVideos.length > 0) && <Section title="Discover videos" action="View all" onAction={() => navigate('/explore')}>
-        {uploadedVideos.length ? <div className="video-grid">{uploadedVideos.slice(0, 12).map((video, index) => <React.Fragment key={video.id || video.slug}><VideoCard video={{ ...video, rank: null }} navigate={navigate} /><WebsiteAdSlot placement="video_grid" sequence={index + 1} className="website-ad-grid-span"/></React.Fragment>)}</div> : <HomeEmptyVideoSection navigate={navigate} loading={loading} />}
+      {(loading || trending.length > 0) && <Section title="Trending now" action="View all" onAction={() => navigate('/trending')}>
+        {trending.length ? <div className="trending-grid">{trending.map((video, index) => <TrendingRow key={video.id} video={video} index={index + 1} navigate={navigate} />)}</div> : <HomeEmptyTrending loading={loading} />}
+      </Section>}
+      {(loading || discoveryVideos.length > 0) && <Section title="Discover videos" action="View all" onAction={() => navigate('/explore')}>
+        {discoveryVideos.length ? <div className="video-grid">{discoveryVideos.slice(0, 12).map((video, index) => <React.Fragment key={video.id || video.slug}><VideoCard video={{ ...video, rank: null }} navigate={navigate} /><WebsiteAdSlot placement="video_grid" sequence={index + 1} className="website-ad-grid-span"/></React.Fragment>)}</div> : <HomeEmptyVideoSection navigate={navigate} loading={loading} />}
       </Section>}
       <HomeCategorySections navigate={navigate} viewerId={auth.user?.id}/>
       {shortVideos.length > 0 && <Section title="Shorts" action="View all" onAction={() => navigate('/shorts')}>
@@ -6430,7 +6438,10 @@ function HomeCategorySections({ navigate, viewerId }) {
         const categories = (payload.data || []).map((category) => ({
           ...category,
           videos: (category.videos || []).map(prepareUploaded).filter((video) => !isShortVideo(video)),
-        })).filter((category) => category.name && category.videos.length > 0);
+        // A shelf needs a full first row. Categories with one or two videos stay
+        // reachable through Discover, search and the category pages instead of
+        // showing up as an almost empty box on the home page.
+        })).filter((category) => category.name && category.videos.length >= 4);
         setState({ loading: false, categories, error: '' });
       })
       .catch(() => {
@@ -6507,16 +6518,6 @@ function HomeEmptyHero({ navigate, loading }) {
   </article>;
 }
 
-function HomeEmptySpotlights({ loading = false }) {
-  if (!loading) return null;
-  return <div className="spotlight-stack home-empty-spotlights" aria-hidden="true">
-    {[0, 1, 2].map((item) => <div className="spotlight-card home-empty-card" key={item}>
-      <div><span className="placeholder-line short"/><span className="placeholder-line"/><span className="placeholder-button"/></div>
-      <span className="placeholder-thumb"/>
-    </div>)}
-  </div>;
-}
-
 function HomeEmptyTrending({ loading = false }) {
   if (!loading) return <p className="rail-note">No trending videos yet.</p>;
   return <div className="home-empty-trending" aria-hidden="true">
@@ -6557,29 +6558,11 @@ function SmallVideoRow({ video, navigate }) {
     <div className="small-video-details"><button type="button" data-i18n-skip className="channel-inline-link" disabled={!profilePathFor(video.channel)} onClick={(event) => openProfile(event, navigate, video.channel)}>{video.channel?.name || 'Creator'}</button><small><LocalizedCount value={formatNumber(video.views_count)} unit="view" /> · {video.created_label}</small></div>
   </article>;
 }
-function videoCardCount(value) {
-  if (value === null || value === undefined || value === '') return null;
-  const count = Number(value);
-  return Number.isFinite(count) ? count : null;
-}
-function VideoCardStat({ icon, value, label }) {
-  return <span className="video-card-stat" data-i18n-skip>
-    <Icon name={icon} size={14}/>
-    <span aria-hidden="true">{formatNumber(value)}</span>
-    <span className="sr-only">{label}</span>
-  </span>;
-}
 function VideoCard({ video, navigate }) {
-  const { t, count } = useI18n();
-  const commentsCount = videoCardCount(video.comments_count);
-  const likesCount = videoCardCount(video.likes_count);
   return <article className="video-card">
     {video.rank && <span className="rank-badge">#{video.rank}</span>}
     <VideoNavigationLink video={video} navigate={navigate} className="video-card-link">
-      <Thumbnail video={video} overlay={(commentsCount !== null || likesCount !== null) && <div className="video-card-stats">
-        {commentsCount !== null && <VideoCardStat icon="comment" value={commentsCount} label={count(commentsCount, 'comment')}/>}
-        {likesCount !== null && <VideoCardStat icon="like" value={likesCount} label={`${formatNumber(likesCount)} ${t('Likes')}`}/>}
-      </div>}/>
+      <Thumbnail video={video}/>
       <h3 data-i18n-skip>{video.title}</h3>
     </VideoNavigationLink>
     <div className="video-body">
@@ -6623,11 +6606,13 @@ function ContinueCard({ video, navigate, onChange = null }) {
     }
   };
   return <article className="continue-card">
-    <VideoNavigationLink video={video} navigate={navigate} className="continue-video-link"><Thumbnail video={video}/><strong data-i18n-skip>{video.title}</strong></VideoNavigationLink>
+    <VideoNavigationLink video={video} navigate={navigate} className="continue-video-link">
+      <Thumbnail video={video} overlay={<span className="progress-line continue-progress" role="progressbar" aria-label={t('Watch progress')} aria-valuemin={0} aria-valuemax={100} aria-valuenow={progress}><i style={{ width: `${progress}%` }}/></span>}/>
+      <strong data-i18n-skip>{video.title}</strong>
+    </VideoNavigationLink>
     <div className="continue-content">
       <button type="button" data-i18n-skip className="channel-inline-link" disabled={!profilePathFor(video.channel)} onClick={(event) => openProfile(event, navigate, video.channel)}>{video.channel?.name || 'Creator'}</button>
       <small data-i18n-skip>{remaining === null ? t('{percent}% watched', { percent: progress }) : t('{time} left', { time: formatDurationSeconds(remaining) || '0:00' })}</small>
-      <div className="progress-line" role="progressbar" aria-label={t('Watch progress')} aria-valuemin={0} aria-valuemax={100} aria-valuenow={progress}><i style={{ width: `${progress}%` }}/></div>
       <details className="continue-actions" ref={actionsRef} onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) event.currentTarget.open = false; }} onKeyDown={(event) => { if (event.key === 'Escape') { event.currentTarget.open = false; event.currentTarget.querySelector('summary')?.focus(); event.preventDefault(); } }}>
         <summary aria-label={t('Video actions')}><Icon name="more" size={18}/></summary><div className="continue-action-list">
         <button type="button" className="text-button" disabled={Boolean(busy)} onClick={(event) => runAction('dismiss', event)}>{t('Remove')}</button>
@@ -7254,6 +7239,9 @@ function PlaylistsPage({ navigate, auth, routeSearch = '' }) {
   const [selectedId, setSelectedId] = useState(() => typeof window !== 'undefined' ? (new URLSearchParams(window.location.search).get('id') || '') : '');
   const [query, setQuery] = useState('');
   const [sort, setSort] = useState('latest');
+  // A series shows one season at a time; "all" keeps the previous behaviour.
+  const [activeSeason, setActiveSeason] = useState('all');
+  const [resumeProgress, setResumeProgress] = useState({});
   const [notice, setNotice] = useState('');
   const [modalOpen, setModalOpen] = useState(false);
   const [openMenuId, setOpenMenuId] = useState(null);
@@ -7358,6 +7346,42 @@ function PlaylistsPage({ navigate, auth, routeSearch = '' }) {
   const totalDuration = playlistVideos.reduce((sum, video) => sum + parseDuration(video.duration_seconds ?? video.duration), 0);
   const totalViews = playlistVideos.reduce((sum, video) => sum + Number(video.views_count || video.views || 0), 0);
   const filteredVideos = playlistVideos;
+  // Season choice only filters the visible rows. Playback keeps the existing
+  // queue and autoplay rules; it never re-orders or renumbers episodes.
+  const seriesSeasons = selected?.kind === 'series'
+    ? [...new Set(playlistVideos.map((video) => Number(video.season_number || 1)))].sort((a, b) => a - b)
+    : [];
+  const seasonVideos = activeSeason === 'all' ? filteredVideos : filteredVideos.filter((video) => Number(video.season_number || 1) === Number(activeSeason));
+  const resumeEpisode = (() => {
+    if (selected?.kind !== 'series') return null;
+    let latest = null;
+    seasonVideos.forEach((video) => {
+      const watched = resumeProgress[video.slug];
+      const progress = Number(watched?.progress || 0);
+      if (progress <= 0 || progress >= 95) return;
+      const updated = String(watched?.progress_updated_at || '');
+      if (!latest || updated > latest.updated) latest = { video, updated };
+    });
+    return latest?.video || null;
+  })();
+  useEffect(() => { setActiveSeason('all'); }, [selectedId]);
+  // Continue watching already carries the viewer's real progress. It is only
+  // requested for a series and a signed-in viewer, never for anonymous pages.
+  useEffect(() => {
+    if (!user || selected?.kind !== 'series') { setResumeProgress({}); return undefined; }
+    let cancelled = false;
+    api.request('/continue-watching?limit=50')
+      .then((data) => {
+        if (cancelled) return;
+        const next = {};
+        (data.data || []).forEach((item) => {
+          if (item?.slug) next[item.slug] = { progress: Number(item.progress || 0), current_time: item.current_time, duration_seconds: item.duration_seconds, progress_updated_at: item.progress_updated_at };
+        });
+        setResumeProgress(next);
+      })
+      .catch(() => { if (!cancelled) setResumeProgress({}); });
+    return () => { cancelled = true; };
+  }, [user?.id, selected?.kind]);
   const selectPlaylist = (playlist) => {
     setSelectedId(String(playlist.id));
     setQuery('');
@@ -7375,9 +7399,9 @@ function PlaylistsPage({ navigate, auth, routeSearch = '' }) {
     const index = playlistVideos.findIndex((item) => String(item.id || item.slug) === String(video?.id || video?.slug));
     startPlaylistPlayback(playlistVideos, Math.max(0, index));
   };
-  const playAll = () => startPlaylistPlayback(playlistVideos, 0);
+  const playAll = () => startPlaylistPlayback(seasonVideos, 0);
   const shuffle = () => {
-    const shuffled = [...playlistVideos];
+    const shuffled = [...seasonVideos];
     for (let index = shuffled.length - 1; index > 0; index -= 1) {
       const swapIndex = Math.floor(Math.random() * (index + 1));
       [shuffled[index], shuffled[swapIndex]] = [shuffled[swapIndex], shuffled[index]];
@@ -7574,18 +7598,23 @@ function PlaylistsPage({ navigate, auth, routeSearch = '' }) {
         <p>{selected.description || 'No description has been added for this playlist yet.'}</p>
         <button type="button" className="playlist-owner" onClick={() => playlistChannel.slug && navigate(`/channel/${playlistChannel.slug}`)} disabled={!playlistChannel.slug}><Avatar label={playlistChannel.name || 'Creator'} image={ownerAvatarUrl}/><span><strong>{playlistChannel.name || 'Creator'}</strong><small>@{playlistChannel.slug || 'creator'}</small></span></button>
         <div className="playlist-meta-line"><span>{playlistVideos.length} {selected.kind === 'series' ? (playlistVideos.length === 1 ? t('episode') : t('episodes')) : 'videos'}</span><span>{durationText(totalDuration)}</span><span>{formatNumber(totalViews)} views</span><span>Updated {selected.updated_at ? formatPlaylistTime(selected.updated_at) : 'recently'}</span></div>
-        <div className="playlist-actions"><button type="button" className="btn primary" disabled={!playlistVideos.length} onClick={playAll}><Icon name="play" size={17}/> Play all</button><button type="button" className="btn subtle" disabled={!playlistVideos.length} onClick={shuffle}>Shuffle</button>{isOwner && <button type="button" className="btn subtle" onClick={openCreatePlaylist}><Icon name="plus" size={16}/> {selected.kind === 'series' ? t('New series') : 'New playlist'}</button>}{isOwner && <button type="button" className="btn subtle" onClick={openEditPlaylist}><Icon name="settings" size={16}/> {selected.kind === 'series' ? t('Edit series') : 'Edit playlist'}</button>}<button type="button" className="btn subtle" onClick={sharePlaylist}><Icon name="share" size={16}/> Share</button></div>
+        <div className="playlist-actions">{resumeEpisode ? <button type="button" className="btn primary" onClick={() => playVideo(resumeEpisode)}><Icon name="play" size={17}/> {t('Continue')}{episodeLabel(resumeEpisode) ? ` ${episodeLabel(resumeEpisode)}` : ''}</button> : <button type="button" className="btn primary" disabled={!seasonVideos.length} onClick={playAll}><Icon name="play" size={17}/> Play all</button>}<button type="button" className="btn subtle" disabled={!seasonVideos.length} onClick={shuffle}>Shuffle</button>{isOwner && <button type="button" className="btn subtle" onClick={openCreatePlaylist}><Icon name="plus" size={16}/> {selected.kind === 'series' ? t('New series') : 'New playlist'}</button>}{isOwner && <button type="button" className="btn subtle" onClick={openEditPlaylist}><Icon name="settings" size={16}/> {selected.kind === 'series' ? t('Edit series') : 'Edit playlist'}</button>}<button type="button" className="btn subtle" onClick={sharePlaylist}><Icon name="share" size={16}/> Share</button></div>
       </div>
     </section>
     <section className="playlist-detail-grid">
       <article className="playlist-video-panel">
         <div className="playlist-toolbar"><label><Icon name="search" size={17}/><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search in this playlist..." />{query && <button type="button" className="search-clear-button" onClick={() => setQuery('')} aria-label="Clear search"><Icon name="close" size={14}/></button>}</label><div><button type="button" className={sort === 'latest' ? 'active' : ''} onClick={() => setSort('latest')}>Latest</button><button type="button" className={sort === 'oldest' ? 'active' : ''} onClick={() => setSort('oldest')}>Oldest</button><button type="button" className={sort === 'popular' ? 'active' : ''} onClick={() => setSort('popular')}>Popular</button></div></div>
-        <div className="playlist-video-list-page">{searchLoading ? <div className="state-card">Searching playlist...</div> : filteredVideos.length ? filteredVideos.map((video, index) => {
+        {selected.kind === 'series' && seriesSeasons.length > 1 && <div className="playlist-season-chips" role="group" aria-label={t('Season')}>
+          <button type="button" className={activeSeason === 'all' ? 'active' : ''} aria-pressed={activeSeason === 'all'} onClick={() => setActiveSeason('all')}>{t('All')}</button>
+          {seriesSeasons.map((season) => <button key={season} type="button" className={String(activeSeason) === String(season) ? 'active' : ''} aria-pressed={String(activeSeason) === String(season)} onClick={() => setActiveSeason(String(season))}>{t('Season')} {season}</button>)}
+        </div>}
+        <div className="playlist-video-list-page">{searchLoading ? <div className="state-card">Searching playlist...</div> : seasonVideos.length ? seasonVideos.map((video, index) => {
           const menuId = video.id || video.slug || index;
           const isSeries = selected.kind === 'series';
           const seasonNumber = Number(video.season_number || 1);
-          const previousSeason = index > 0 ? Number(filteredVideos[index - 1]?.season_number || 1) : null;
-          return <React.Fragment key={menuId}>{isSeries && seasonNumber !== previousSeason && <h3 className="playlist-season-heading">{t('Season')} {seasonNumber}</h3>}<div className="playlist-video-row-page" role="button" tabIndex={0} onClick={() => playVideo(video)} onKeyDown={(event) => { if (event.key === 'Enter') playVideo(video); }}><b>{isSeries ? (video.episode_label || index + 1) : index + 1}</b><Thumbnail video={video}/><span><strong data-i18n-skip={video.title ? '' : undefined}>{video.episode_title || video.title || 'Untitled video'}</strong><small>{video.episode_title ? (video.title || '') : (video.description || video.channel?.name || 'No description yet.')}</small></span><em>{video.channel?.name || playlistChannel.name || 'Creator'}</em><i>{formatNumber(video.views_count || video.views || 0)}</i><time>{video.published_at ? formatPlaylistTime(video.published_at) : 'Recently'}</time><div className="playlist-row-menu-shell" onClick={(event) => event.stopPropagation()}><button type="button" className={openMenuId === menuId ? 'more-button active' : 'more-button'} onClick={() => setOpenMenuId((current) => current === menuId ? null : menuId)} aria-label="More actions"><span>...</span></button>{openMenuId === menuId && <div className="playlist-row-action-menu" role="menu"><button type="button" onClick={() => playVideo(video)}><Icon name="play" size={17}/> Watch video</button><button type="button" onClick={() => copyPlaylistVideoLink(video)}><Icon name="link" size={17}/> Copy link</button><button type="button" onClick={() => video.channel?.slug && navigate(`/channel/${video.channel.slug}`)}><Icon name="users" size={17}/> View creator</button>{canManageVideos && <button type="button" onClick={() => removeVideoFromPlaylist(video)} className="danger"><Icon name="trash" size={17}/> Remove from playlist</button>}{canVote && <button type="button" onClick={() => votePlaylistVideo(video)}><Icon name="like" size={17}/> Vote ({voteCounts[video.id] || 0})</button>}</div>}</div></div></React.Fragment>;
+          const previousSeason = index > 0 ? Number(seasonVideos[index - 1]?.season_number || 1) : null;
+          const watchedProgress = Math.round(Math.min(100, Math.max(0, Number(resumeProgress[video.slug]?.progress || 0))));
+          return <React.Fragment key={menuId}>{isSeries && seasonNumber !== previousSeason && <h3 className="playlist-season-heading">{t('Season')} {seasonNumber}</h3>}<div className={`playlist-video-row-page${isSeries ? ' series-row' : ''}`} role="button" tabIndex={0} onClick={() => playVideo(video)} onKeyDown={(event) => { if (event.key === 'Enter') playVideo(video); }}><b>{isSeries ? (video.episode_label || episodeLabel(video, index + 1) || index + 1) : index + 1}</b><Thumbnail video={video} overlay={isSeries && watchedProgress > 0 && watchedProgress < 95 ? <span className="progress-line playlist-row-progress" role="progressbar" aria-label={t('Watch progress')} aria-valuemin={0} aria-valuemax={100} aria-valuenow={watchedProgress}><i style={{ width: `${watchedProgress}%` }}/></span> : null}/><span><strong data-i18n-skip={video.title ? '' : undefined}>{video.episode_title || video.title || 'Untitled video'}</strong><small>{isSeries ? [video.duration || formatDurationSeconds(video.duration_seconds), watchedProgress > 0 ? t('{percent}% watched', { percent: watchedProgress }) : null].filter(Boolean).join(' · ') : (video.episode_title ? (video.title || '') : (video.description || video.channel?.name || 'No description yet.'))}</small></span><em>{video.channel?.name || playlistChannel.name || 'Creator'}</em><i>{formatNumber(video.views_count || video.views || 0)}</i><time>{video.published_at ? formatPlaylistTime(video.published_at) : 'Recently'}</time><div className="playlist-row-menu-shell" onClick={(event) => event.stopPropagation()}><button type="button" className={openMenuId === menuId ? 'more-button active' : 'more-button'} onClick={() => setOpenMenuId((current) => current === menuId ? null : menuId)} aria-label="More actions"><span>...</span></button>{openMenuId === menuId && <div className="playlist-row-action-menu" role="menu"><button type="button" onClick={() => playVideo(video)}><Icon name="play" size={17}/> Watch video</button><button type="button" onClick={() => copyPlaylistVideoLink(video)}><Icon name="link" size={17}/> Copy link</button><button type="button" onClick={() => video.channel?.slug && navigate(`/channel/${video.channel.slug}`)}><Icon name="users" size={17}/> View creator</button>{canManageVideos && <button type="button" onClick={() => removeVideoFromPlaylist(video)} className="danger"><Icon name="trash" size={17}/> Remove from playlist</button>}{canVote && <button type="button" onClick={() => votePlaylistVideo(video)}><Icon name="like" size={17}/> Vote ({voteCounts[video.id] || 0})</button>}</div>}</div></div></React.Fragment>;
         }) : <div className="state-card">No videos match this playlist search.</div>}</div>
       </article>
       <aside className="playlist-side-stack">
