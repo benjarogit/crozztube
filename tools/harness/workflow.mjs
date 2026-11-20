@@ -137,9 +137,18 @@ export function begin(root, id) {
 }
 export function hookDigest(root) {
   const hash = createHash('sha256');
-  for (const file of ['.codex/hooks.json', '.cursor/hooks.json', 'tools/harness/codex-hook.mjs', 'tools/harness/workflow.mjs']) {
+  const tracked = ['.codex/hooks.json', '.cursor/hooks.json', 'tools/harness/codex-hook.mjs', 'tools/harness/workflow.mjs',
+    'tools/harness/opencode-adapter.mjs', 'opencode.json', 'opencode.jsonc'];
+  const pluginRoot = path.join(root, '.opencode/plugins');
+  const walk = directory => fs.readdirSync(directory, { withFileTypes: true })
+    .sort((left, right) => left.name.localeCompare(right.name))
+    .flatMap(entry => entry.isDirectory() ? walk(path.join(directory, entry.name)) : [path.join(directory, entry.name)]);
+  if (fs.existsSync(pluginRoot)) tracked.push(...walk(pluginRoot).map(file => path.relative(root, file)));
+  for (const file of [...new Set(tracked)].sort()) {
     const absolute = path.join(root, file);
-    if (fs.existsSync(absolute)) hash.update(file + '\0').update(fs.readFileSync(absolute));
+    if (!fs.existsSync(absolute)) continue;
+    if (fs.lstatSync(absolute).isSymbolicLink()) hash.update(file + '\0').update('link\0').update(fs.readlinkSync(absolute));
+    else hash.update(file + '\0').update(fs.readFileSync(absolute));
   }
 
   return hash.digest('hex');

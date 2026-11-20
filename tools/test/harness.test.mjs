@@ -7,6 +7,7 @@ import { fileURLToPath } from 'node:url';
 import { randomBytes } from 'node:crypto';
 import { execFileSync, spawnSync } from 'node:child_process';
 import { git, load, localPath, localState, setMode, digest, verify, assertVerification, begin, publish, published, stopDecision, writeJson, runtimeEvidence } from '../harness/workflow.mjs';
+import { ADAPTER_DENIAL, evaluateHarnessCommand, shouldEvaluate } from '../harness/opencode-adapter.mjs';
 
 const source = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const branch = 'codex/viewer-community-features';
@@ -39,7 +40,9 @@ function fixture(t) {
   fs.mkdirSync(path.join(root, '.codex'));
   fs.mkdirSync(path.join(root, '.cursor'));
   fs.mkdirSync(path.join(root, 'tools/harness'), { recursive: true });
-  for (const file of ['.codex/hooks.json', '.cursor/hooks.json', 'tools/harness/codex-hook.mjs', 'tools/harness/workflow.mjs']) fs.copyFileSync(path.join(source, file), path.join(root, file));
+  for (const file of ['.codex/hooks.json', '.cursor/hooks.json', 'tools/harness/codex-hook.mjs', 'tools/harness/workflow.mjs', 'tools/harness/opencode-adapter.mjs']) fs.copyFileSync(path.join(source, file), path.join(root, file));
+  fs.mkdirSync(path.join(root, '.opencode/plugins/crozztube-harness'), { recursive: true });
+  fs.copyFileSync(path.join(source, '.opencode/plugins/crozztube-harness/index.ts'), path.join(root, '.opencode/plugins/crozztube-harness/index.ts'));
   git(root, ['add', '.']); git(root, ['commit', '-qm', 'Fixture baseline']);
   setMode(root, 'implementing');
   t.after(() => fs.rmSync(directory, { recursive: true, force: true }));
@@ -231,4 +234,56 @@ test('secret scan detects a new credential and does not mistake benign modifier 
   const rejected = scan();
   assert.equal(rejected.status, 1);
   assert.equal((rejected.stdout + rejected.stderr).includes(fake), false);
+});
+
+test('the OpenCode adapter forwards only gate-critical harness commands', () => {
+  assert.equal(shouldEvaluate('node tools/harness/cli.mjs deny-probe'), true);
+  assert.equal(shouldEvaluate('node tools/harness/cli.mjs begin 2'), true);
+  assert.equal(shouldEvaluate('node tools/harness/cli.mjs status'), false);
+  assert.equal(shouldEvaluate('git status --short'), false);
+  assert.equal(shouldEvaluate('grep -r deny-probe.txt docs'), false);
+  assert.equal(shouldEvaluate(''), false);
+});
+
+test('the OpenCode adapter turns a real hook denial into a runtime receipt', t => {
+  const { root } = fixture(t);
+  const probe = evaluateHarnessCommand({ root, command: 'node tools/harness/cli.mjs deny-probe', sessionID: 'adapter-probe-unit' });
+  assert.equal(probe.deny, true);
+  assert.match(probe.message, /CROZZTUBE_HARNESS_PROBE_BLOCKED/);
+  assert.equal(runtimeEvidence(root), true);
+});
+
+test('the OpenCode adapter allows non-probe commands and blocks a premature transition', t => {
+  const { root } = fixture(t);
+  const allowed = evaluateHarnessCommand({ root, command: 'grep -r deny-probe docs', sessionID: 'adapter-allow-unit' });
+  assert.equal(allowed.deny, false);
+  assert.equal(runtimeEvidence(root), false);
+  const transition = evaluateHarnessCommand({ root, command: 'node tools/harness/cli.mjs begin 2', sessionID: 'adapter-begin-unit' });
+  assert.equal(transition.deny, true);
+  assert.match(transition.message, /not accepted/);
+});
+
+test('runtime evidence is bound to the OpenCode adapter and plugin files', t => {
+  const { root } = fixture(t);
+  assert.equal(evaluateHarnessCommand({ root, command: 'node tools/harness/cli.mjs deny-probe', sessionID: 'adapter-digest-unit' }).deny, true);
+  assert.equal(runtimeEvidence(root), true);
+  fs.appendFileSync(path.join(root, 'tools/harness/opencode-adapter.mjs'), '\n// changed\n');
+  assert.equal(runtimeEvidence(root), false);
+  fs.appendFileSync(path.join(root, '.opencode/plugins/crozztube-harness/index.ts'), '\n// changed\n');
+  fs.mkdirSync(path.join(root, '.opencode/plugins/extra'), { recursive: true });
+  fs.writeFileSync(path.join(root, '.opencode/plugins/extra/index.ts'), 'export const extra = true;\n');
+  assert.equal(runtimeEvidence(root), false);
+});
+
+test('the OpenCode adapter fails closed when the project hook cannot run', t => {
+  const { root } = fixture(t);
+  const failed = evaluateHarnessCommand({
+    root,
+    command: 'node tools/harness/cli.mjs deny-probe',
+    sessionID: 'adapter-failure-unit',
+    hookPath: path.join(root, 'tools/harness/missing-hook.mjs'),
+  });
+  assert.equal(failed.deny, true);
+  assert.equal(failed.message, ADAPTER_DENIAL);
+  assert.equal(runtimeEvidence(root), false);
 });
