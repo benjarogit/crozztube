@@ -48,20 +48,13 @@ PR #4 implements a parallel model (`is_series`, `app/Support/SeriesPlaylists.php
 - Five-area evidence: `node tools/test/ui/layout-shots.mjs <label>` writes home, video cards, navigation, series detail and watch for de/en, light/dark and desktop/mobile (40 images per label). Navigation is captured as the sidebar element; the overflow check covers the four page areas. The `before` set was built from `35461c1` in a detached worktree and served from a temporary build swap; the `after` set comes from the current checkout. Both sets use the same script and the same synthetic shelves. The pair compares the step-8 base with the refined tree, not only the latest fix round. Watch shots show the series chip and next-episode card; the player surface stays empty because no media is downloaded. Images stay in `/tmp/opencode/shots/{before,after}` and are not committed.
 - WebKit: the spec also contains WebKit-labelled cases, but the host lacks `libicu74`, `libxml2` and `libflite1`. The Chromium project runs the same assertions; no WebKit pass is claimed.
 
-### GitHub Actions gap
+### GitHub Actions
 
-- The repository still has one workflow, `.github/workflows/chatdev.yml`. It runs on `pull_request` and `workflow_dispatch` only; a push to `main` produces no run at all.
-- Its job runs the ChatDev harness tests unconditionally. The series steps are gated on `github.head_ref == 'codex/series-seasons'`, so they never run for `main` and never run for a `workflow_dispatch` build of `main`.
-- Even when that gate matches, `bash tools/test/step-08-series.sh` starts with `docker exec crozztube-web …`. A GitHub-hosted runner has no such container, so the step would fail rather than verify the series code.
-- The path filter still lists PR #4 files (`SeriesPlaylists.php`, `PlaylistSeason.php`, `resources/js/series-context.js`) and misses files this work changed: `app/Support/SeriesStructure.php`, `tools/test/php/series-checks.php`, `tools/test/php/series-concurrency-checks.php`, `tools/test/ui/specs/viewer-experience.spec.ts`, `resources/js/styles/**`, `tools/i18n/batches/**`, `tools/migrations/**` and this document.
-- Consequence: there is no Actions result for `35461c1`, `45c9030`, `442e179` or the current working tree. Only local runs are evidence today.
-
-Smallest useful workflow patch, **prepared but not applied** (needs a decision because it changes CI scope for every pull request):
-
-1. Add `push: branches: [main]` so a published checkpoint is at least exercised.
-2. Replace the `head_ref` gate with a step that runs only the parts that work on a runner: `node --test tools/test/series-playback.test.mjs` plus a JSON-only check of `tools/i18n/batches/series-and-seasons.json` (for example `node -e "JSON.parse(require('fs').readFileSync('tools/i18n/batches/series-and-seasons.json'))"`).
-3. Keep the PHP/browser series steps local until a runner-ready variant of `series-checks.php` exists (it needs a database and the HTTP kernel). Do not pretend the Docker script ran.
-4. Extend the path filter with the files listed above and remove the obsolete PR #4 paths.
+- The repository has one workflow, `.github/workflows/chatdev.yml`. It now also runs on `push` to `main` (with the same path filter), in addition to `pull_request` and `workflow_dispatch`.
+- The existing ChatDev harness tests stay unconditional and unchanged. A new runner-safe step runs `node --test tools/test/series-playback.test.mjs` plus a JSON-only parse of `harness/plan.json`, `harness/progress.json`, `tools/i18n/batches/series-and-seasons.json`, `.codex/hooks.json` and `.cursor/hooks.json`.
+- The heavy series steps remain gated on `github.head_ref == 'codex/series-seasons'`. They still use `docker exec crozztube-web …`; a GitHub-hosted runner has no such container, so they are not claimed as runner evidence. A runner-ready PHP/DB port is a separate step.
+- The path filter now includes the step-8 files that actually change (`app/Support/SeriesStructure.php`, `tools/test/php/series-checks.php`, `tools/test/php/series-concurrency-checks.php`, `tools/test/ui/specs/viewer-experience.spec.ts`, `resources/js/styles/**`, `tools/i18n/batches/**`, `tools/migrations/**`, `.opencode/**`, the adapter and this document) and no longer lists the obsolete PR #4 paths.
+- The local runner-safe checks pass (`series-playback.test.mjs` 8/8, JSON parse clean). The workflow change is published with this checkpoint; the actual Actions run must still be matched to that commit before CI evidence is claimed.
 
 A full CI port of `series-checks.php` would need a MySQL or SQLite service, `composer install`, seeded migrations and an application key; that is a separate step, not a path-filter edit.
 
