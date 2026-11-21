@@ -1,7 +1,21 @@
 import { chromium, expect } from '@playwright/test';
 import { applicationJson, layoutSession, layoutProblems } from './fixtures/readonly-layout.ts';
 
-const video = applicationJson('/api/videos?type=video&per_page=1', false).data[0];
+const listed = applicationJson('/api/videos?type=video&per_page=1', false).data[0];
+// A controlled upload source keeps this check about the series UI. An imported
+// catalogue entry may legitimately ask the source-resolver plugin to refresh
+// its stale source, which is a write and unrelated to the series surface.
+const video = {
+  ...listed,
+  source_type: 'upload',
+  import_provider: null,
+  import_url: null,
+  embed_url: null,
+  playback_pending: false,
+  video_url: '/fixtures/viewer.mp4',
+  video_sources: [{ src: '/fixtures/viewer.mp4', type: 'video/mp4' }],
+  renditions: [],
+};
 const series = {
   id: 987654321,
   title: 'Series fixture',
@@ -16,7 +30,15 @@ const series = {
 const browser = await chromium.launch({ headless: true });
 const session = await layoutSession(browser, {
   authenticated: false,
-  transform: (path, payload) => path === `/api/videos/${video.slug}` ? { ...payload, series } : payload,
+  // The synthetic payload is an upload. The application answers 404 on the
+  // resolver status route for a non-imported video, so the source-resolver
+  // plugin stays idle instead of refreshing a catalogue import.
+  respond: path => path === `/api/source-resolver/status/slug/${video.slug}`
+    ? { status: 404, body: '{"message":"Not found."}' }
+    : undefined,
+  transform: (path, payload) => path === `/api/videos/${video.slug}`
+    ? { ...payload, video: { ...payload.video, ...video }, series }
+    : payload,
 });
 const { page } = session;
 try {

@@ -136,7 +136,7 @@ test('existing canonical English catalog is allowed but new or foreign catalogs 
   fixture(({root,write})=>{write('lang/en/english.php',"<?php return ['Existing'=>'Existing','Series'=>'Series'];\n");assert.equal(seriesScope(root).branch,'codex/series-seasons');});
   for(const file of ['lang/new/new.php','lang/en/foreign.php','lang/en/untracked.php'])fixture(({root,write})=>{write(file,'<?php // Unapproved catalog fixture\n');assert.throws(()=>seriesScope(root),/Outside approved series/);});
 });
-test('CI preserves unconditional tooling contracts and gates every series setup step by exact feature branch',()=>{
+test('CI runs every series check on a runner instead of gating it behind a feature branch',()=>{
   const workflow=fs.readFileSync(new URL('../../.github/workflows/chatdev.yml',import.meta.url),'utf8');
   assert.match(workflow,/permissions:\n  contents: read\njobs:\n  contracts:/);
   assert.match(workflow,/persist-credentials: false/);
@@ -144,11 +144,25 @@ test('CI preserves unconditional tooling contracts and gates every series setup 
   const steps=workflow.split(/(?=^      - )/m).slice(1);
   const tooling=steps.find(s=>s.includes('node --test tools/test/harness.test.mjs'));
   assert(tooling&&!tooling.includes('if:'));
-  const feature=steps.filter(s=>s.includes('name: Series '));assert.equal(feature.length,8);
-  for(const step of feature)assert.match(step,/^        if: github\.head_ref == 'codex\/series-seasons'$/m);
-  const actions=[...workflow.matchAll(/uses: ([^\s@]+)@([^\s]+)/g)];assert.equal(actions.length,3);for(const action of actions)assert.match(action[2],/^[a-f0-9]{40}$/);
+  const jobs=workflow.split(/(?=^  [a-z]+:$)/m);
+  const seriesJob=jobs.find(j=>/^  series:$/m.test(j));
+  assert(seriesJob,'Missing unconditional series job');
+  assert.match(seriesJob,/services:\n      mysql:\n        image: mysql:8\.0\.46\n/);
+  assert.match(seriesJob,/--health-cmd="mysqladmin ping/);
+  assert.match(seriesJob,/CROZZTUBE_PHP_CONTAINER: ''/);
+  assert.match(seriesJob,/LAYOUT_PHP_LOCAL: '1'/);
+  assert.match(seriesJob,/CROZZTUBE_UI_FIXTURE: '1'/);
+  const feature=steps.filter(s=>s.includes('name: Series '));assert.equal(feature.length,9);
+  for(const step of feature){
+    assert(jobs.find(j=>j.includes(step))===seriesJob,'Series step outside the runner job: '+step.split('\n')[0]);
+    assert(!step.includes('if:'),'Series step is gated: '+step.split('\n')[0]);
+  }
+  assert(!/github\.head_ref/.test(workflow));
+  const actions=[...workflow.matchAll(/uses: ([^\s@]+)@([^\s]+)/g)];
+  assert.deepEqual([...new Set(actions.map(a=>a[1]))],['actions/checkout','actions/setup-node','shivammathur/setup-php']);
+  for(const action of actions)assert.match(action[2],/^[a-f0-9]{40}$/);
   assert.match(workflow,/shivammathur\/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962/);
-  assert.match(workflow,/php-version: '8\.5'/);assert.match(workflow,/extensions: iconv, pdo_sqlite/);
+  assert.match(workflow,/php-version: '8\.5'/);assert.match(workflow,/extensions: iconv, mbstring, pdo_mysql, pdo_sqlite/);
 });
 test('CI series job installs locked dependencies and executes the real composed runner',()=>{
   const workflow=fs.readFileSync(new URL('../../.github/workflows/chatdev.yml',import.meta.url),'utf8');

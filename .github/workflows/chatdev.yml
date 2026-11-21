@@ -143,31 +143,69 @@ jobs:
         run: |
           node --test tools/test/series-playback.test.mjs
           node -e "for (const file of ['harness/plan.json','harness/progress.json','tools/i18n/batches/series-and-seasons.json','.codex/hooks.json','.cursor/hooks.json']) JSON.parse(require('node:fs').readFileSync(file, 'utf8'))"
+  series:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    services:
+      mysql:
+        image: mysql:8.0.46
+        env:
+          MYSQL_ROOT_PASSWORD: series-root
+          MYSQL_DATABASE: crozztube
+          MYSQL_USER: crozztube
+          MYSQL_PASSWORD: series-db
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -useries-root -pseries-root"
+          --health-interval=5s
+          --health-timeout=5s
+          --health-retries=20
+    env:
+      APP_ENV: testing
+      APP_DEBUG: 'false'
+      APP_URL: http://127.0.0.1:8010
+      DB_CONNECTION: mysql
+      DB_HOST: 127.0.0.1
+      DB_PORT: '3306'
+      DB_DATABASE: crozztube
+      DB_USERNAME: crozztube
+      DB_PASSWORD: series-db
+      CACHE_STORE: array
+      SESSION_DRIVER: file
+      QUEUE_CONNECTION: sync
+      FILESYSTEM_DISK: local
+      CROZZTUBE_PHP_CONTAINER: ''
+      CROZZTUBE_UI_FIXTURE: '1'
+      LAYOUT_PHP_LOCAL: '1'
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22'
       - name: Series PHP runtime
-        if: github.head_ref == 'codex/series-seasons'
         uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0, v2 tag dereferenced to commit
         with:
           php-version: '8.5'
-          extensions: iconv, pdo_sqlite
+          extensions: iconv, mbstring, pdo_mysql, pdo_sqlite
           coverage: none
       - name: Series PHP dependencies
-        if: github.head_ref == 'codex/series-seasons'
         run: composer install --no-scripts --no-interaction --prefer-dist --no-progress
       - name: Series JavaScript dependencies
-        if: github.head_ref == 'codex/series-seasons'
         run: npm ci --ignore-scripts
       - name: Series browser test dependencies
-        if: github.head_ref == 'codex/series-seasons'
         run: npm ci --prefix tools/test/ui --ignore-scripts
       - name: Series Chromium runtime
-        if: github.head_ref == 'codex/series-seasons'
         run: node tools/test/ui/node_modules/playwright/cli.js install --with-deps chromium
       - name: Series bounded media fixture tooling
-        if: github.head_ref == 'codex/series-seasons'
         run: sudo apt-get update && sudo apt-get install --yes --no-install-recommends ffmpeg
+      - name: Series application environment
+        run: |
+          cp .env.example .env
+          php artisan key:generate --force
       - name: Series production frontend build
-        if: github.head_ref == 'codex/series-seasons'
         run: npm run build
       - name: Series backend and browser regressions
-        if: github.head_ref == 'codex/series-seasons'
         run: bash tools/test/step-08-series.sh

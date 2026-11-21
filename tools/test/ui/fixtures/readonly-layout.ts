@@ -39,9 +39,14 @@ export function applicationGet(path: string, authenticated = true, language = 'e
   const user = authenticated ? process.env.LAYOUT_USER_ID || '1' : '0';
   const key = `${user}:${language}:${path}`;
   if (!payloads.has(key)) {
-    const output = execFileSync('docker', [
-      'exec', process.env.WEB_CONTAINER || 'crozztube-web', 'php', '-r', readOnlyPhp, path, user, language,
-    ], { encoding: 'utf8', timeout: 20_000, maxBuffer: 20_000_000, stdio: ['ignore', 'pipe', 'pipe'] });
+    // Compose stack: PHP runs in the web container. Bare CI runner: PHP runs
+    // here with the same application database (LAYOUT_PHP_LOCAL=1).
+    const php = ['-r', readOnlyPhp, path, user, language];
+    const command = process.env.LAYOUT_PHP_LOCAL === '1' ? (process.env.PHP_BINARY || 'php') : 'docker';
+    const args = process.env.LAYOUT_PHP_LOCAL === '1'
+      ? php
+      : ['exec', process.env.WEB_CONTAINER || 'crozztube-web', 'php', ...php];
+    const output = execFileSync(command, args, { encoding: 'utf8', timeout: 20_000, maxBuffer: 20_000_000, stdio: ['ignore', 'pipe', 'pipe'] });
     payloads.set(key, JSON.parse(output));
   }
   return payloads.get(key)!;
@@ -62,6 +67,8 @@ export type LayoutOptions = {
   touch?: boolean;
   userAgent?: string;
   transform?: PayloadTransform;
+  /** Controlled read answer for one API path, before the application is asked. */
+  respond?: (path: string) => { status: number; body: string } | undefined;
   strictHttps?: boolean;
 };
 
@@ -116,6 +123,11 @@ export async function layoutSession(browser: Browser, options: LayoutOptions = {
     }
     if (url.pathname.startsWith('/api/')) {
       const path = url.pathname + url.search;
+      const override = options.respond?.(path);
+      if (override) {
+        await route.fulfill({ status: override.status, contentType: 'application/json', body: override.body });
+        return;
+      }
       const response = applicationGet(path, authenticated, language);
       if (response.status >= 500) failedGets.push(`${path}: ${response.status}`);
       let body = response.body;
