@@ -1,5 +1,15 @@
 # CrozzTube — Agent-Handoff (Stand: 20. Nov 2026)
 
+Nachtrag 21. Nov: `143a8dc` und sein tatsächlicher Actions-Lauf `44888403846`
+sind bestätigt grün (`contracts` und `series`). Der Runner-Nachlauf behebt die
+unabhängig gefundenen Grenzen für lokale Datenbankisolation und fehlende
+CI-Triggerpfade; siehe `docs/series-seasons-reconciliation.md`, Abschnitt
+„Runner review follow-up“. Compose-Tests führen keine Migrationen mehr selbst
+aus; lokales PHP verlangt eine explizite leere Wegwerf-Testdatenbank. Prüfung
+und Veröffentlichung dieses Nachlaufs sind getrennt nachzuweisen. Ein separater
+Runtime-Review hat drei offene Adapter-/Nachweisbefunde geliefert, keine neue
+Runtime-Abnahme. Schritt 8, Sprachprüfung und Pending-Migration bleiben offen.
+
 > Kompakte Übergabe für den nächsten Agenten.
 > Verbindlich: `AGENTS.md`, `harness/plan.json`, `harness/progress.json`, `docs/product-backlog.md`.
 > Ausführliche Historie weiter unten und in `HANDOFF.md`. Wiki: `Wiki/index.html`.

@@ -6,6 +6,52 @@ Reviewed branch: `origin/codex/series-seasons` at `35cb80079a0cc6f86ca9c0e3ab039
 
 This document records what was carried over, what is obsolete and what remains open. It does not accept step 8, does not replace the language review and does not authorize a merge of PR #4.
 
+## Runner review follow-up, 2026-11-21
+
+Both published runs `44888104336` (`c7eef78`) and `44888403846`
+(`143a8dc`) actually executed successful `contracts` and `series` jobs. These
+are real runner observations, not skipped-job passes. Independent review then
+identified two gaps: local PHP did not itself establish a disposable database,
+and the workflow omitted the actual browser-check and fixture paths.
+
+The local PHP path now requires `CROZZTUBE_SERIES_DISPOSABLE_DB=1` and an explicit
+`APP_ENV=testing`. Before application providers or any migration execute, the
+preflight loads fresh configuration, rejects cached configuration and connection
+overrides, and validates a loopback MySQL target named `crozztube_series_test`
+or `crozztube_series_test_<suffix>`. A read-only schema query must confirm zero
+tables. This is an explicit empty disposable database contract, not permission
+to rename or clear an existing database. A completed database is deliberately
+refused on reuse; no automatic drop or truncation is performed. CI supplies its
+own fresh service database with that name. The compose path retains the schema
+assertions and all series tests but no longer applies migrations automatically.
+The pending unique-index draft remains outside `database/migrations/`.
+
+Local PHP starts its own application server; a supplied `BASE_URL` is rejected.
+Readiness requires both a per-process random identity from the generated router
+and application `/up`, with the child process still alive. An occupied port
+therefore cannot substitute another application. Temporary router, fixture and
+private server log files are removed on exit. The identity route exists only
+in this temporary loopback test router, not in product routes.
+
+Both workflow trigger lists now include `series-ui-check.mjs`,
+`fixtures/readonly-layout.ts`, the runner safety sources, the current playback
+helper and the shared stylesheet. Pure configuration checks and isolated shell
+refusal tests cover unsafe targets, attempted fixture use in compose mode and a
+foreign healthy server occupying the requested port. An initialized-database
+negative check also runs after the real hosted series suite. Final execution,
+independent review, commit, confirmed push and current-head CI evidence belong
+in the existing ChatDev journal; the prior published runs do not certify this
+new source until its own checks finish.
+
+The separate runtime-adapter review is now available. It identified mismatched
+recognition of quoted/compound commands, acceptance of malformed permission
+objects, and the limit that a historical digest-bound receipt does not establish
+registration in the currently active host/session. The historical OpenCode
+probe is not disputed. The existing `runtimeHookVerified` status must not be
+described as a newly observed Codex-session hook. Hook/acceptance-rule changes
+remain subject to separate explicit approval; this runner fix changes none of
+those files and grants neither step completion nor advancement.
+
 ## Model decision
 
 A series is an existing playlist with `kind = series` and metadata on `playlist_video`. Main implements this in `app/Support/SeriesStructure.php`, `PlaylistResource`, `routes/api.php` and `resources/js/seriesPlayback.js`.
