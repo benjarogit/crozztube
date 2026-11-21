@@ -10,6 +10,12 @@ und Veröffentlichung dieses Nachlaufs sind getrennt nachzuweisen. Ein separater
 Runtime-Review hat drei offene Adapter-/Nachweisbefunde geliefert, keine neue
 Runtime-Abnahme. Schritt 8, Sprachprüfung und Pending-Migration bleiben offen.
 
+Der Runner-Fix ist als `829f462` bestätigt veröffentlicht. Sein erster CI-Lauf
+`44934743130` ist **nicht grün**: `contracts` bestand, der Browsercheck scheiterte
+direkt nach dem Wechsel auf 375px. Der Test wartet im Nachlauf ausdrücklich auf
+den neuen Overlay-Navigationszustand und prüft weiterhin dieselben vollständigen
+Überlauf-/Write-Bedingungen. Neuer Checkpoint und CI-Nachweis sind erforderlich.
+
 > Kompakte Übergabe für den nächsten Agenten.
 > Verbindlich: `AGENTS.md`, `harness/plan.json`, `harness/progress.json`, `docs/product-backlog.md`.
 > Ausführliche Historie weiter unten und in `HANDOFF.md`. Wiki: `Wiki/index.html`.

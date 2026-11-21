@@ -51,7 +51,11 @@ try {
   expect(await page.locator('.watch-autoplay-toggle').count()).toBe(1);
   expect(await layoutProblems(page)).toEqual([]);
   await page.setViewportSize({ width: 375, height: 812 });
-  expect(await layoutProblems(page)).toEqual([]);
+  // matchMedia updates the React shell asynchronously after viewport resize.
+  // Require the real overlay mode and settled geometry, retaining every
+  // overflow check rather than sampling the preceding desktop layout.
+  await expect(page.locator('.app-shell')).toHaveAttribute('data-navigation-mode', 'overlay');
+  await expect.poll(() => layoutProblems(page)).toEqual([]);
   expect(session.errors).toEqual([]);
   expect(session.writes).toEqual([]);
   console.log('Series UI fixture: chip, next-episode card, single autoplay toggle and no overflow at 1440/375.');

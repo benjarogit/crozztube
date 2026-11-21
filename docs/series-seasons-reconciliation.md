@@ -52,6 +52,17 @@ described as a newly observed Codex-session hook. Hook/acceptance-rule changes
 remain subject to separate explicit approval; this runner fix changes none of
 those files and grants neither step completion nor advancement.
 
+The first follow-up was published as `829f462`. Run `44934743130` passed
+`contracts` but failed the narrow browser overflow assertion after resizing
+from desktop to 375px. The database checks and preceding series assertions
+ran; this is not a green runner acceptance. The resize assertion had sampled
+geometry immediately after `setViewportSize`, before explicitly establishing
+the React shell's new navigation state. The follow-up now requires the real
+`data-navigation-mode="overlay"` state and polls the same unchanged overflow
+checks until layout settles. It neither ignores overflowing elements nor
+changes bounds, viewport size or `writes == []`. Local execution passes; a new
+published checkpoint and hosted run are still required for final acceptance.
+
 ## Model decision
 
 A series is an existing playlist with `kind = series` and metadata on `playlist_video`. Main implements this in `app/Support/SeriesStructure.php`, `PlaylistResource`, `routes/api.php` and `resources/js/seriesPlayback.js`.
