@@ -882,7 +882,7 @@
   height:20px;
   display:inline-flex;
   align-items:center;
-  border-radius:999px;
+  border-radius:var(--radius-full);
   padding:0 8px;
   background:var(--primary-soft);
   color:var(--link);
@@ -1041,7 +1041,7 @@
   width:40px;
   height:22px;
   padding:2px;
-  border-radius:999px;
+  border-radius:var(--radius-full);
   background:var(--line-strong);
   transition:background-color .16s ease;
 }

@@ -22,7 +22,7 @@
 .home-page .hero-carousel-controls { bottom: 12px; flex-wrap: wrap; }
 .home-page .hero-dot { min-width: 36px; height: 44px; }
 .home-page .hero-autoplay-toggle { width: 44px; height: 44px; backdrop-filter: none; background: color-mix(in srgb, var(--primary-ink) 62%, transparent); color: #fff; border-color: color-mix(in srgb, #fff 42%, transparent); }
-.home-page .hero-controls-end .duration { padding: 5px 8px; border-radius:var(--radius); background: #181818; color: #fff; line-height: 1.2; }
+.home-page .hero-controls-end .duration { padding: 5px 8px; border-radius:var(--radius-sm); background: #181818; color: #fff; line-height: 1.2; }
 
 .video-card { cursor: default; }
 .video-card-link,
@@ -626,7 +626,7 @@
 .home-page .hero-buttons .btn.ghost:focus-visible { background: rgb(255 255 255 / .16); color: #fff; }
 .home-page .hero-buttons .btn.ghost.active { border-color: #fff; color: #fff; }
 
-.home-page .thumb .duration { border-radius: var(--radius-media); }
+.home-page .thumb .duration { border-radius: var(--radius-sm); }
 
 .home-page .continue-card {
   display: grid;

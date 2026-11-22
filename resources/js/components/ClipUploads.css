@@ -26,7 +26,7 @@
 .clip-collections-manager input,.clip-collections-manager select { min-height:44px; min-width:0; padding:8px 10px; border:1px solid var(--line); border-radius:var(--radius); background:var(--panel); color:var(--text); font:inherit; }
 .clip-original-link { display:block; max-inline-size:100%; margin-block-start:10px; padding:0; border:0; background:none; color:var(--text); text-align:start; text-decoration:underline; text-underline-offset:3px; cursor:pointer; overflow-wrap:anywhere; }
 .clip-collection-tags { display:flex; flex-wrap:wrap; gap:6px; margin-block-start:10px; }
-.clip-collection-tags>span { display:inline-flex; align-items:center; gap:4px; min-height:32px; padding:4px 4px 4px 10px; border-radius:var(--radius-pill); background:var(--soft); }
+.clip-collection-tags>span { display:inline-flex; align-items:center; gap:4px; min-height:32px; padding:4px 4px 4px 10px; border-radius:var(--radius-full); background:var(--soft); }
 .clip-collection-tags button { display:grid; width:28px; height:28px; place-items:center; border:0; border-radius:50%; background:transparent; color:var(--text); cursor:pointer; }
 .clip-delete-confirm { grid-column:1/-1; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px; padding:14px; border-radius:var(--radius); background:var(--soft); }
 .clip-delete-confirm p { margin:0; color:var(--text); }

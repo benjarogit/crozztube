@@ -132,7 +132,7 @@
   inset-inline: 0;
   top: 50%;
   height: 10px;
-  border-radius:999px;
+  border-radius:var(--radius-full);
   background: var(--line-strong, var(--line));
   transform: translateY(-50%);
   cursor: pointer;
@@ -245,7 +245,7 @@
 
 @media (max-width: 640px) {
   .clip-composer-backdrop { align-items: end; padding: 0; }
-  .clip-composer { max-height: calc(100dvh - 24px); border-radius: 16px 16px 0 0; }
+  .clip-composer { max-height: calc(100dvh - 24px); border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
   .clip-composer > header,.clip-composer form,.clip-composer-fallback { padding: 20px 16px; }
   .clip-composer-preview-frame { max-height: min(36vh, 220px); }
   .clip-composer footer { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }

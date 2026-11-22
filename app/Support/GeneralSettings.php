@@ -218,36 +218,33 @@ class GeneralSettings
     }
 
     /**
-     * Migrates stored radius tokens to the flat 4px scale (pills 2px).
+     * Migrates radius tokens from the original stored scale.
      *
      * Only values that still equal a previously shipped default are rewritten so
      * administrator-authored radii survive the upgrade.
      */
     public static function migrateRadiusScale(array $stored): array
     {
-        if (! isset($stored['design']['radiusScaleVersion'])) {
-            $radii = is_array($stored['design']['radii'] ?? null) ? $stored['design']['radii'] : [];
-            if (($radii['radius'] ?? '14px') === '14px') {
-                $radii['radius'] = '10px';
-            }
-            if (($radii['radiusLg'] ?? '18px') === '18px') {
-                $radii['radiusLg'] = '12px';
-            }
-            $radii['radiusMedia'] ??= '8px';
-            $stored['design']['radii'] = $radii;
-            $stored['design']['radiusScaleVersion'] = 2;
+        $version = (int) ($stored['design']['radiusScaleVersion'] ?? 1);
+        if ($version >= 4) {
+            return $stored;
         }
-        if ((int) ($stored['design']['radiusScaleVersion'] ?? 0) < 3) {
-            $radii = is_array($stored['design']['radii'] ?? null) ? $stored['design']['radii'] : [];
-            foreach (['radiusMedia' => '8px', 'radius' => '10px', 'radiusLg' => '12px'] as $key => $shipped) {
-                if (($radii[$key] ?? $shipped) === $shipped) {
-                    $radii[$key] = '4px';
-                }
+
+        $previous = match ($version) {
+            3 => ['radius' => '4px', 'radiusMedia' => '4px', 'radiusLg' => '4px', 'radiusPill' => '2px'],
+            2 => ['radius' => '10px', 'radiusMedia' => '8px', 'radiusLg' => '12px', 'radiusPill' => '2px'],
+            default => ['radius' => '14px', 'radiusMedia' => '8px', 'radiusLg' => '18px', 'radiusPill' => '2px'],
+        };
+        $current = ['radius' => '8px', 'radiusMedia' => '12px', 'radiusLg' => '12px', 'radiusPill' => '999px'];
+        $radii = is_array($stored['design']['radii'] ?? null) ? $stored['design']['radii'] : [];
+        foreach ($current as $key => $value) {
+            if (($radii[$key] ?? $previous[$key]) === $previous[$key]) {
+                $radii[$key] = $value;
             }
-            $radii['radiusPill'] ??= '2px';
-            $stored['design']['radii'] = $radii;
-            $stored['design']['radiusScaleVersion'] = 3;
         }
+        $radii['radiusSm'] ??= '6px';
+        $stored['design']['radii'] = $radii;
+        $stored['design']['radiusScaleVersion'] = 4;
 
         return $stored;
     }
@@ -306,12 +303,13 @@ class GeneralSettings
                     'bold' => '800',
                     'heavy' => '900',
                 ],
-                'radiusScaleVersion' => 3,
+                'radiusScaleVersion' => 4,
                 'radii' => [
-                    'radiusMedia' => '4px',
-                    'radius' => '4px',
-                    'radiusLg' => '4px',
-                    'radiusPill' => '2px',
+                    'radiusSm' => '6px',
+                    'radiusMedia' => '12px',
+                    'radius' => '8px',
+                    'radiusLg' => '12px',
+                    'radiusPill' => '999px',
                 ],
                 'layout' => [
                     'sidebarExpanded' => '264px',

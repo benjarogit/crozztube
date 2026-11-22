@@ -864,7 +864,7 @@ class AdminController extends Controller
             'design.fontSizes.*' => ['nullable', 'string', 'max:40'],
             'design.fontWeights' => ['sometimes', 'array'],
             'design.fontWeights.*' => ['nullable', 'string', 'max:20'],
-            'design.radiusScaleVersion' => ['sometimes', 'integer', 'min:2', 'max:3'],
+            'design.radiusScaleVersion' => ['sometimes', 'integer', 'min:2', 'max:4'],
             'design.radii' => ['sometimes', 'array'],
             'design.radii.*' => ['nullable', 'string', 'max:40'],
             'design.layout' => ['sometimes', 'array'],

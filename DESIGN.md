@@ -109,3 +109,7 @@ Impeccable skill 4.8.1, engine 0.1.19 is vendored under `.agents/skills/impeccab
 ## Shared snackbar
 
 Transient notifications use one application snackbar with four tones, at most three items, a close button and hover or focus pause. Errors last longer and use alert semantics. The stack is centered and clears the mobile navigation. Form validation and actionable recovery messages remain next to the affected fields or controls.
+
+## Radius scale
+
+The current scale supersedes the previous flat corners. Small badges and compact controls start at 6px, buttons and menus at 8px, and larger cards, media and dialogs at 12px. Avatars, pills and progress bars use the full radius. Existing radius settings remain compatible through aliases. The settings upgrade changes shipped defaults and preserves nondefault values. Inset corners subtract the inset from the outer radius, with a zero minimum where the inset can exceed it. The channel avatar uses the same single-pixel neutral frame as other surfaces. Focus and stacked avatar outlines remain distinct.

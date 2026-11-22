@@ -15,48 +15,40 @@ function check(bool $condition, string $name): void {
     else { $fail++; echo "FAIL $name\n"; }
 }
 
-// Fresh installs get the flat 4px scale with 2px pills.
+$expected = ['radiusSm' => '6px', 'radius' => '8px', 'radiusLg' => '12px', 'radiusMedia' => '12px', 'radiusPill' => '999px'];
 $defaults = GeneralSettings::defaultSettings();
-check(($defaults['design']['radiusScaleVersion'] ?? null) === 3, 'defaults carry scale version 3');
-foreach (['radiusMedia', 'radius', 'radiusLg'] as $key) {
-    check(($defaults['design']['radii'][$key] ?? null) === '4px', "default {$key} is 4px");
+check($defaults['design']['radiusScaleVersion'] === 4, 'fresh installs use scale 4');
+foreach ($expected as $key => $value) {
+    check($defaults['design']['radii'][$key] === $value, "fresh installs use {$value} for {$key}");
 }
-check(($defaults['design']['radii']['radiusPill'] ?? null) === '2px', 'default radiusPill is 2px');
 
-// A v2 record that still holds shipped values moves to 4px.
-$v2 = GeneralSettings::migrateRadiusScale([
-    'design' => [
-        'radiusScaleVersion' => 2,
-        'radii' => ['radiusMedia' => '8px', 'radius' => '10px', 'radiusLg' => '12px'],
-    ],
-]);
-check($v2['design']['radiusScaleVersion'] === 3, 'v2 record upgraded to 3');
-check($v2['design']['radii']['radius'] === '4px', 'v2 shipped default radius becomes 4px');
-check($v2['design']['radii']['radiusMedia'] === '4px', 'v2 shipped media radius becomes 4px');
-check($v2['design']['radii']['radiusLg'] === '4px', 'v2 shipped large radius becomes 4px');
-check($v2['design']['radii']['radiusPill'] === '2px', 'v2 record receives pill radius');
+$versions = [
+    ['radii' => ['radius' => '14px', 'radiusLg' => '18px']],
+    ['radiusScaleVersion' => 2, 'radii' => ['radius' => '10px', 'radiusLg' => '12px', 'radiusMedia' => '8px']],
+    ['radiusScaleVersion' => 3, 'radii' => ['radius' => '4px', 'radiusLg' => '4px', 'radiusMedia' => '4px', 'radiusPill' => '2px']],
+];
+foreach ($versions as $index => $design) {
+    $migrated = GeneralSettings::migrateRadiusScale(['design' => $design]);
+    check($migrated['design']['radiusScaleVersion'] === 4, "historical design {$index} migrates to scale 4");
+    foreach ($expected as $key => $value) {
+        check($migrated['design']['radii'][$key] === $value, "historical design {$index} migrates {$key}");
+    }
+    check(GeneralSettings::migrateRadiusScale($migrated) === $migrated, 'migration is idempotent');
+}
 
-// Administrator-authored values are preserved.
-$custom = GeneralSettings::migrateRadiusScale([
-    'design' => [
-        'radiusScaleVersion' => 2,
-        'radii' => ['radiusMedia' => '6px', 'radius' => '9px', 'radiusLg' => '20px'],
-    ],
-]);
-check($custom['design']['radii']['radius'] === '9px', 'custom radius preserved');
-check($custom['design']['radii']['radiusLg'] === '20px', 'custom large radius preserved');
-check($custom['design']['radii']['radiusPill'] === '2px', 'custom record receives pill radius');
+$custom = ['radius' => '9px', 'radiusLg' => '20px', 'radiusMedia' => '7px', 'radiusPill' => '16px', 'radiusSm' => '5px'];
+$result = GeneralSettings::migrateRadiusScale(['design' => ['radiusScaleVersion' => 3, 'radii' => $custom]]);
+check($result['design']['radii'] === $custom, 'all customized radii are preserved');
 
-// Legacy records without a version are migrated through both scales.
-$legacy = GeneralSettings::migrateRadiusScale(['design' => ['radii' => ['radius' => '14px', 'radiusLg' => '18px']]]);
-check($legacy['design']['radii']['radius'] === '4px', 'legacy 14px radius becomes 4px');
-check($legacy['design']['radii']['radiusLg'] === '4px', 'legacy 18px radius becomes 4px');
-check($legacy['design']['radii']['radiusMedia'] === '4px', 'legacy record gains media radius');
-check($legacy['design']['radii']['radiusPill'] === '2px', 'legacy record gains pill radius');
-
-// Migration is idempotent.
-$twice = GeneralSettings::migrateRadiusScale($v2);
-check($twice === $v2, 'migration is idempotent');
+foreach ([1, 2] as $version) {
+    $customFour = ['radius' => '4px', 'radiusLg' => '4px', 'radiusMedia' => '4px'];
+    $original = ['radii' => $customFour];
+    if ($version === 2) {
+        $original['radiusScaleVersion'] = 2;
+    }
+    $result = GeneralSettings::migrateRadiusScale(['design' => $original]);
+    check(array_intersect_key($result['design']['radii'], $customFour) === $customFour, "custom 4px stops being mistaken for shipped defaults in v{$version}");
+}
 
 echo "\n{$pass} passed, {$fail} failed\n";
 exit($fail === 0 ? 0 : 1);
