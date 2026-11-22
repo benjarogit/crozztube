@@ -5154,7 +5154,7 @@ function videoPosterUrl(video) {
 }
 
 
-function copyTextToClipboard(value) {
+async function copyTextToClipboard(value) {
   const text = String(value || '');
   if (navigator.clipboard?.writeText) return navigator.clipboard.writeText(text);
   const input = document.createElement('textarea');
@@ -5163,10 +5163,14 @@ function copyTextToClipboard(value) {
   input.style.position = 'fixed';
   input.style.left = '-9999px';
   document.body.appendChild(input);
-  input.select();
-  document.execCommand('copy');
-  input.remove();
-  return Promise.resolve();
+  const previousFocus = document.activeElement;
+  try {
+    input.select();
+    if (!document.execCommand('copy')) throw new Error('Clipboard copy failed');
+  } finally {
+    input.remove();
+    previousFocus?.focus?.({ preventScroll: true });
+  }
 }
 
 function parseWatchTimeParam(value) {
@@ -16251,10 +16255,11 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
     }
   };
 
-  const copyVideoLink = async () => {
+  const canShareVideo = typeof navigator.share === 'function';
+  const copyVideoLink = async (successMessage = 'Video link copied.') => {
     try {
       await copyTextToClipboard(currentUrl());
-      notify('Video link copied.');
+      notify(successMessage);
     } catch (_) {
       notify('Unable to copy video link.');
     }
@@ -16262,17 +16267,13 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
 
   const shareVideo = async () => {
     const title = video?.title || `${websiteName()} video`;
-    if (navigator.share) {
-      try {
-        await navigator.share({ title, text: title, url: currentUrl() });
-        notify('Video shared.');
-        return;
-      } catch (err) {
-        if (err?.name === 'AbortError') return;
-      }
+    try {
+      await navigator.share({ title, url: currentUrl() });
+      notify('Video shared.');
+    } catch (err) {
+      if (err?.name === 'AbortError') return;
+      await copyVideoLink('Sharing is not available, link copied instead.');
     }
-    await copyVideoLink();
-    notify(navigator.share ? 'Sharing is not available, link copied instead.' : 'Video link copied.');
   };
   const toggleAutoplay = async () => {
     const next = !autoplayEnabled;
@@ -16493,7 +16494,6 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
     if (action === 'share' || action === 'copy') {
       setDropdownOpen(false);
       detailMenuTriggerRef.current?.focus({ preventScroll: true });
-      await new Promise((resolve) => window.requestAnimationFrame(() => resolve()));
       if (action === 'share') await shareVideo();
       else await copyVideoLink();
       return;
@@ -17252,7 +17252,15 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
             <button className={`action-pill ${liked ? 'active' : ''}`} onClick={like} aria-label={t(liked ? 'Unlike video' : 'Like video')} aria-pressed={liked}><Icon name="like" size={18} /> {formatNumber(video.likes_count)}</button>
             <button type="button" className="action-pill watch-comments-action" aria-label={t('Comments')} onClick={() => document.querySelector('.watch-comments-card')?.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' })}><Icon name="comment" size={18} /> {formatNumber(video.comments_count)}</button>
             <button ref={saveTriggerRef} type="button" className={`action-pill ${isWatchLater || videoMenuState.playlist ? 'active' : ''}`} onClick={saveVideo} aria-label={t('Save')} aria-pressed={isWatchLater || videoMenuState.playlist} aria-haspopup="dialog"><Icon name="bookmark" size={18}/><span data-i18n-skip>{t(isWatchLater || videoMenuState.playlist ? 'Saved' : 'Save')}</span></button>
-            <button ref={detailShareShellRef} type="button" className={`action-pill ${dropdownOpen && dropdownView === 'share' ? 'active' : ''}`} aria-label={t('Share Video')} aria-haspopup="menu" aria-expanded={dropdownOpen && dropdownView === 'share'} aria-controls={`watch-video-actions-${slug}`} onClick={(event) => toggleVideoDropdown('share', event.currentTarget)}><Icon name="share" size={18} /> Share</button>
+            {canShareVideo ? (
+              <button ref={detailShareShellRef} type="button" className={`action-pill ${dropdownOpen && dropdownView === 'share' ? 'active' : ''}`} aria-label={t('Share Video')} aria-haspopup="menu" aria-expanded={dropdownOpen && dropdownView === 'share'} aria-controls={`watch-video-actions-${slug}`} onClick={(event) => toggleVideoDropdown('share', event.currentTarget)}>
+                <Icon name="share" size={18} /><span>{t('Share')}</span>
+              </button>
+            ) : (
+              <button type="button" className="action-pill" onClick={() => copyVideoLink()}>
+                <Icon name="link" size={18} /><span>{t('Copy Link')}</span>
+              </button>
+            )}
             <button ref={clipTriggerRef} type="button" className="action-pill" aria-label={t('Create a clip')} onClick={() => auth.user ? setClipComposerOpen(true) : navigate('/login')}><Icon name="clip" size={18}/><span>{t('Clip')}</span></button>
             <div className="video-detail-menu-shell" ref={detailMenuShellRef}>
               <button className={`action-pill icon-only ${dropdownOpen && dropdownView !== 'share' ? 'active' : ''}`} onClick={(event) => toggleVideoDropdown('actions', event.currentTarget)} aria-label="Video actions" aria-haspopup="menu" aria-controls={`watch-video-actions-${slug}`} aria-expanded={dropdownOpen && dropdownView !== 'share'}><Icon name="more" size={18} /></button>

@@ -7,7 +7,23 @@
   min-width: 0;
 }
 
+.app-main {
+  --video-grid-min: 240px;
+  --video-grid-row-gap: 24px;
+  --video-grid-column-gap: 16px;
+  --video-card-title-size: .875rem;
+  --video-card-title-leading: 1.4;
+  --video-card-title-weight: 750;
+  --video-card-title-tracking: -.015em;
+  --video-card-title-gap: 12px;
+}
+
 .video-grid,
+.home-page .continue-grid,
+.wide-video-grid,
+.live-grid,
+.live-now-grid,
+.live-replay-grid,
 .profile-upload-grid,
 .profile-playlist-grid,
 .profile-videos-grid,
@@ -19,8 +35,8 @@
 .library-collections-grid,
 .saved-playlist-row {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
-  gap: 24px 16px;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--video-grid-min)), 1fr));
+  gap: var(--video-grid-row-gap) var(--video-grid-column-gap);
   min-width: 0;
 }
 
@@ -34,7 +50,7 @@
 }
 
 /* Horizontal cards need room for both their identity and their action/copy. */
-.continue-grid,
+.continue-grid:not(.home-page .continue-grid),
 .creator-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));

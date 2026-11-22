@@ -100,3 +100,8 @@ Impeccable skill 4.8.1, engine 0.1.19 is vendored under `.agents/skills/impeccab
 - Watch view: the next-episode card stays adjacent to the single autoplay switch, one switch only. Alignment and truncation changed; queue priority, access rules and the player itself did not.
 - Verified with the existing UI checks plus before/after screenshots in light/dark, de/en and mobile/desktop. `tools/test/ui/layout-shots.mjs` covers home, video cards, navigation, series detail and watch; `tools/test/ui/design-shots.mjs` compares the pre-refinement and current start page; `tools/test/ui/series-shots.mjs` covers the series/watch variants. Screenshots stay outside the repository.
 - This refinement is requested while step 8 is active. It does not accept series/seasons and does not advance later plan steps.
+
+## Share and card consistency
+
+- The watch toolbar offers direct link copying when native sharing is unavailable. Otherwise Share opens the existing menu with system sharing and link copying. A cancelled system share stays silent. A fallback message confirms copying only after the clipboard accepts the link.
+- Catalog, home resume, Watch Later and live video grids share the same 240px minimum track and 24px by 16px row and column gaps. Cards share title typography. Compact lists, horizontal shelves and portrait Shorts keep their own layout.
