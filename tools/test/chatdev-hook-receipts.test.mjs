@@ -7,7 +7,7 @@ test('receipt writer serialized persistence, strict recovery and denial/Stop ret
 const parent=fs.mkdtempSync(path.join(os.tmpdir(),'hook-repair-fixtures-'));let checks=0;
 const fixture=name=>{const root=path.join(parent,name);fs.mkdirSync(root);execFileSync('git',['init','-q',root]);fs.mkdirSync(path.join(root,'harness'));
  fs.writeFileSync(path.join(root,'harness/plan.json'),JSON.stringify({schemaVersion:1,steps:[{id:1}]}));fs.writeFileSync(path.join(root,'harness/progress.json'),JSON.stringify({schemaVersion:1,activeStep:1,steps:[{id:1,status:'active'}]}));
- for(const file of ['tools/harness/workflow.mjs','.codex/hooks.json','.cursor/hooks.json']){fs.mkdirSync(path.dirname(path.join(root,file)),{recursive:true});fs.copyFileSync(path.join(source,file),path.join(root,file));}
+ for(const file of ['tools/harness/workflow.mjs','tools/harness/opencode-adapter.mjs','.codex/hooks.json','.cursor/hooks.json']){fs.mkdirSync(path.dirname(path.join(root,file)),{recursive:true});fs.copyFileSync(path.join(source,file),path.join(root,file));}
  fs.copyFileSync(path.join(source,'tools/harness/codex-hook.mjs'),path.join(root,'tools/harness/codex-hook.mjs'));
  const receipt=path.join(root,'.git/crozztube-harness/hook-receipts.jsonl');fs.mkdirSync(path.dirname(receipt),{recursive:true,mode:0o700});return{root,receipt};};
 const input=(id,event='PreToolUse')=>JSON.stringify({hook_event_name:event,session_id:'isolated-fixture-'+id,tool_name:'exec_command',tool_input:{cmd:'node tools/harness/cli.mjs deny-probe'},command:'node tools/harness/cli.mjs deny-probe'});

@@ -12,14 +12,26 @@ import path from 'node:path';
  */
 export const ADAPTER_DENIAL = 'CrozzTube harness: the project hook could not validate this runtime command. Keep the current step open.';
 
-const PROBE = /(?:^|[\s"'`;&|(])deny-probe(?=$|[\s"'`;&|)])/;
-const BEGIN = /tools[\\/]harness[\\/]cli\.mjs[\s"'`]*\s+begin\s+\d+(?=$|[\s"'`;&|)])/;
+// Bounded lexical recognition, not a general shell parser. Keep matching shared
+// with the delegated hook so a forwarded spelling cannot silently become allow.
+// Supports ordinary quoted path/verb/integer tokens and shell command separators.
+const CLI = String.raw`tools[\\/]harness[\\/]cli\.mjs(?:["'])?`;
+const END = String.raw`(?=$|[\s;&|)])`;
+const token = word => `(?:${word}|"${word}"|'${word}')`;
+const PROBE = new RegExp(CLI + String.raw`\s+` + token('deny-probe') + END, 'g');
+const BEGIN = new RegExp(CLI + String.raw`\s+` + token('begin') + String.raw`\s+(` + token('\\d+') + ')' + END, 'g');
+
+export function harnessCommands(command) {
+  if (typeof command !== 'string' || !command.trim()) return { probe: false, transitions: [] };
+  return {
+    probe: [...command.matchAll(PROBE)].length > 0,
+    transitions: [...command.matchAll(BEGIN)].map(match => Number(match[1].replace(/["']/g, ''))),
+  };
+}
 
 export function shouldEvaluate(command) {
-  if (typeof command !== 'string' || !command.trim()) return false;
-  // The hook itself decides whether the probe or the transition is allowed.
-  // The adapter never turns a non-match into a denial.
-  return PROBE.test(command) || BEGIN.test(command);
+  const candidates = harnessCommands(command);
+  return candidates.probe || candidates.transitions.length > 0;
 }
 
 export function evaluateHarnessCommand({
@@ -47,7 +59,9 @@ export function evaluateHarnessCommand({
   const line = String(result.stdout || '').trim().split('\n').filter(Boolean).pop();
   let output;
   try { output = JSON.parse(line); } catch { return { deny: true, message: ADAPTER_DENIAL }; }
-  if (output?.permission !== 'deny') return { deny: false };
+  if (!output || typeof output !== 'object' || Array.isArray(output)
+    || !['allow', 'deny'].includes(output.permission)) return { deny: true, message: ADAPTER_DENIAL };
+  if (output.permission === 'allow') return { deny: false };
   return {
     deny: true,
     message: String(output.agent_message || output.user_message || ADAPTER_DENIAL),

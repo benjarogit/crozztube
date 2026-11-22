@@ -7,7 +7,7 @@ import { fileURLToPath } from 'node:url';
 import { randomBytes } from 'node:crypto';
 import { execFileSync, spawnSync } from 'node:child_process';
 import { git, load, localPath, localState, setMode, digest, verify, assertVerification, begin, publish, published, stopDecision, writeJson, runtimeEvidence } from '../harness/workflow.mjs';
-import { ADAPTER_DENIAL, evaluateHarnessCommand, shouldEvaluate } from '../harness/opencode-adapter.mjs';
+import { ADAPTER_DENIAL, evaluateHarnessCommand, shouldEvaluate, harnessCommands } from '../harness/opencode-adapter.mjs';
 
 const source = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const branch = 'codex/viewer-community-features';
@@ -285,5 +285,111 @@ test('the OpenCode adapter fails closed when the project hook cannot run', t => 
   });
   assert.equal(failed.deny, true);
   assert.equal(failed.message, ADAPTER_DENIAL);
+  assert.equal(runtimeEvidence(root), false);
+});
+
+// These are isolated fixture protocol checks, not proof of host plugin loading.
+test('critical command recognition is shared across ordinary quoted tokens and separators', () => {
+  const commands = [
+    'node "tools/harness/cli.mjs" begin 2',
+    "node 'tools/harness/cli.mjs' 'begin' '2'",
+    'node tools/harness/cli.mjs begin "2"',
+    'node tools/harness/cli.mjs begin 2; true',
+    'node tools/harness/cli.mjs begin 2&&true',
+    'node tools/harness/cli.mjs begin 2|cat',
+    'node tools/harness/cli.mjs begin 2\ntrue',
+  ];
+  for (const command of commands) {
+    assert.equal(shouldEvaluate(command), true, command);
+    assert.deepEqual(harnessCommands(command), { probe: false, transitions: [2] }, command);
+  }
+  assert.deepEqual(harnessCommands('node tools/harness/cli.mjs begin 2; node tools/harness/cli.mjs begin 3'), {
+    probe: false, transitions: [2, 3],
+  });
+});
+
+test('quoted and compound forward-step commands cannot fall through to allow', t => {
+  const { root } = fixture(t);
+  for (const command of [
+    'node "tools/harness/cli.mjs" begin 2',
+    "node 'tools/harness/cli.mjs' 'begin' '2'",
+    'node tools/harness/cli.mjs begin "2"',
+    'node tools/harness/cli.mjs begin 2; true',
+    'node tools/harness/cli.mjs begin 2&&true',
+    'node tools/harness/cli.mjs begin 2|cat',
+  ]) {
+    const result = evaluateHarnessCommand({ root, command, sessionID: 'isolated-quoted-transition-fixture', node: process.execPath });
+    assert.equal(result.deny, true, command);
+    assert.match(result.message, /not accepted/, command);
+  }
+  assert.equal(load(root).step.id, 1);
+  assert.equal(runtimeEvidence(root), false);
+});
+
+test('quoted and compound probes preserve the denial in both hook contracts', t => {
+  const { root } = fixture(t);
+  for (const command of [
+    'node "tools/harness/cli.mjs" deny-probe',
+    "node 'tools/harness/cli.mjs' 'deny-probe'; true",
+    'node tools/harness/cli.mjs deny-probe&&true',
+  ]) {
+    const result = evaluateHarnessCommand({ root, command, sessionID: 'isolated-quoted-probe-fixture', node: process.execPath });
+    assert.equal(result.deny, true, command);
+    assert.match(result.message, /CROZZTUBE_HARNESS_PROBE_BLOCKED/, command);
+    const codex = hook(root, 'PreToolUse', { tool_name: 'exec_command', tool_input: { cmd: command } });
+    assert.equal(codex.hookSpecificOutput.permissionDecision, 'deny', command);
+  }
+});
+
+test('a valid first transition cannot conceal a later invalid transition', t => {
+  const { root } = fixture(t);
+  probe(root); verify(root);
+  publish(root, 'test: compound-command fixture prerequisite', { complete: true, note: 'Synthetic fixture prerequisite only; no host evidence.' });
+  assert.equal(evaluateHarnessCommand({ root, command: 'node tools/harness/cli.mjs begin 2', sessionID: 'isolated-compound-fixture', node: process.execPath }).deny, false);
+  const result = evaluateHarnessCommand({ root, command: 'node tools/harness/cli.mjs begin 2; node tools/harness/cli.mjs begin 3', sessionID: 'isolated-compound-fixture', node: process.execPath });
+  assert.equal(result.deny, true);
+  assert.match(result.message, /not accepted/);
+  assert.equal(load(root).step.id, 1);
+});
+
+test('missing or unknown permission schemas fail closed even with exit zero and valid JSON', t => {
+  const { root } = fixture(t);
+  const hookPath = path.join(root, 'synthetic-protocol-child.mjs');
+  for (const payload of [{}, null, [], true, 1, 'allow', { permission: 'unexpected' }, { permission: 1 }]) {
+    fs.writeFileSync(hookPath, `console.log(${JSON.stringify(JSON.stringify(payload))});\n`);
+    const result = evaluateHarnessCommand({ root, command: 'node tools/harness/cli.mjs begin 2', sessionID: 'isolated-invalid-schema-fixture', hookPath, node: process.execPath });
+    assert.deepEqual(result, { deny: true, message: ADAPTER_DENIAL }, JSON.stringify(payload));
+  }
+  assert.equal(runtimeEvidence(root), false);
+});
+
+test('only an explicit recognized permission object releases a matched command', t => {
+  const { root } = fixture(t);
+  const hookPath = path.join(root, 'synthetic-protocol-child.mjs');
+  fs.writeFileSync(hookPath, 'console.log(JSON.stringify({ permission: "allow" }));\n');
+  assert.deepEqual(evaluateHarnessCommand({ root, command: 'node tools/harness/cli.mjs begin 2', hookPath, node: process.execPath }), { deny: false });
+  fs.writeFileSync(hookPath, 'console.log(JSON.stringify({ permission: "deny", agent_message: "Synthetic explicit denial" }));\n');
+  assert.deepEqual(evaluateHarnessCommand({ root, command: 'node tools/harness/cli.mjs begin 2', hookPath, node: process.execPath }), { deny: true, message: 'Synthetic explicit denial' });
+  assert.equal(runtimeEvidence(root), false);
+});
+
+test('invalid JSON, empty output, child failure and timeout all deny matched commands', t => {
+  const { root } = fixture(t);
+  const hookPath = path.join(root, 'synthetic-protocol-child.mjs');
+  for (const script of ["console.log('not JSON')", "console.log('')", 'process.exit(2)']) {
+    fs.writeFileSync(hookPath, script);
+    assert.deepEqual(evaluateHarnessCommand({ root, command: 'node tools/harness/cli.mjs begin 2', hookPath, node: process.execPath }), { deny: true, message: ADAPTER_DENIAL });
+  }
+  fs.writeFileSync(hookPath, 'setInterval(() => {}, 1000);\n');
+  assert.deepEqual(evaluateHarnessCommand({ root, command: 'node tools/harness/cli.mjs begin 2', hookPath, node: process.execPath, timeout: 50 }), { deny: true, message: ADAPTER_DENIAL });
+  assert.equal(runtimeEvidence(root), false);
+});
+
+test('unrelated commands remain outside forwarding even if the configured child is absent', t => {
+  const { root } = fixture(t);
+  for (const command of ['git status --short', 'node tools/harness/cli.mjs status', 'grep -r deny-probe docs', 'grep -r deny-probe.txt docs', '']) {
+    assert.equal(shouldEvaluate(command), false, command);
+    assert.deepEqual(evaluateHarnessCommand({ root, command, hookPath: path.join(root, 'missing-hook.mjs'), node: process.execPath }), { deny: false }, command);
+  }
   assert.equal(runtimeEvidence(root), false);
 });

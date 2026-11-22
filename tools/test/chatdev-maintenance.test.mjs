@@ -1,4 +1,5 @@
 import test from 'node:test';
+import {createHash} from 'node:crypto';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
@@ -8,6 +9,11 @@ import { chatdevScope, integratedCli, agentsAppend, readmeAppend, publishChatdev
 import { setMode } from '../harness/workflow.mjs';
 const git = (root,...args) => execFileSync('git',args,{cwd:root,encoding:'utf8',stdio:['ignore','pipe','pipe']}).trim();
 const baseCli = "import { verifyMaintenance, publishMaintenance } from './maintenance.mjs';\n  else if (command === 'maintenance-verify') verifyMaintenance(root);\n";
+// Immutable historical repair data, never imported or run as a hook. The
+// legacy tooling permission is for this exact Git blob, not today's hook.
+const approvedReceiptHook=fs.readFileSync(new URL('../chatdev/fixtures/approved-receipt-hook.txt',import.meta.url));
+assert.equal(createHash('sha1').update('blob '+approvedReceiptHook.length+'\0').update(approvedReceiptHook).digest('hex'),
+  '3a14f3764f1c0bb7fd35502c4b4cba368b54e197', 'Historical approved receipt-hook fixture changed');
 function fixture(fn, hookMode=0o644) {
   const root=fs.mkdtempSync(path.join(os.tmpdir(),'chatdev-gate-test-'));
   const write=(file,body)=>{fs.mkdirSync(path.dirname(path.join(root,file)),{recursive:true});fs.writeFileSync(path.join(root,file),body);};
@@ -40,7 +46,7 @@ test('existing hooks, workflow and Impeccable gate remain immutable',()=>{
   });
 });
 test('only the exact reviewed receipt hook blob is permitted without changing mode',()=>fixture(({root,write})=>{
-  const source=fs.readFileSync(new URL('../harness/codex-hook.mjs',import.meta.url));
+  const source=approvedReceiptHook;
   write('tools/harness/codex-hook.mjs',source);
   git(root,'add','tools/harness/codex-hook.mjs');
   assert.equal(chatdevScope(root).branch,'codex/chatdev-integration');
@@ -49,11 +55,11 @@ test('only the exact reviewed receipt hook blob is permitted without changing mo
 }));
 test('unknown historical hook changes cannot be hidden by restoring the approved blob',()=>fixture(({root,write})=>{
   write('tools/harness/codex-hook.mjs','// forbidden intermediate hook\n');git(root,'add','.');git(root,'commit','-qm','Unapproved hook');
-  write('tools/harness/codex-hook.mjs',fs.readFileSync(new URL('../harness/codex-hook.mjs',import.meta.url)));git(root,'add','.');git(root,'commit','-qm','Restore approved hook');
+  write('tools/harness/codex-hook.mjs',approvedReceiptHook);git(root,'add','.');git(root,'commit','-qm','Restore approved hook');
   assert.throws(()=>chatdevScope(root),/unapproved historical/);
 }));
 test('approved hook commit remains permitted but hook symlinks and deletion fail',()=>fixture(({root,write})=>{
-  write('tools/harness/codex-hook.mjs',fs.readFileSync(new URL('../harness/codex-hook.mjs',import.meta.url)));git(root,'add','.');git(root,'commit','-qm','Reviewed hook');
+  write('tools/harness/codex-hook.mjs',approvedReceiptHook);git(root,'add','.');git(root,'commit','-qm','Reviewed hook');
   assert.equal(chatdevScope(root).branch,'codex/chatdev-integration');
   fs.unlinkSync(path.join(root,'tools/harness/codex-hook.mjs'));assert.throws(()=>chatdevScope(root),/regular files|regular file/);
   fs.symlinkSync('workflow.mjs',path.join(root,'tools/harness/codex-hook.mjs'));assert.throws(()=>chatdevScope(root),/regular files|regular file/);
@@ -64,7 +70,7 @@ test('receipt regression is mandatory in both tooling verification and hosted CI
   }
 });
 test('hidden staged hook mode is rejected when core.filemode is false',()=>fixture(({root,write})=>{
-  write('tools/harness/codex-hook.mjs',fs.readFileSync(new URL('../harness/codex-hook.mjs',import.meta.url)));
+  write('tools/harness/codex-hook.mjs',approvedReceiptHook);
   git(root,'add','tools/harness/codex-hook.mjs');
   assert.equal(chatdevScope(root).branch,'codex/chatdev-integration');
   git(root,'config','core.filemode','false');git(root,'update-index','--chmod=-x','tools/harness/codex-hook.mjs');
@@ -74,7 +80,7 @@ test('hidden staged hook mode is rejected when core.filemode is false',()=>fixtu
 },0o755));
 test('hidden staged hook blobs cannot bypass the reviewed working tree binding',()=>{
   for(const flag of ['--skip-worktree','--assume-unchanged'])fixture(({root,write})=>{
-    write('tools/harness/codex-hook.mjs',fs.readFileSync(new URL('../harness/codex-hook.mjs',import.meta.url)));
+    write('tools/harness/codex-hook.mjs',approvedReceiptHook);
     git(root,'add','tools/harness/codex-hook.mjs');
     write('tools/chatdev/unapproved-index-hook.mjs','// forbidden staged hook fixture\n');
     const blob=git(root,'hash-object','-w','--','tools/chatdev/unapproved-index-hook.mjs');fs.unlinkSync(path.join(root,'tools/chatdev/unapproved-index-hook.mjs'));

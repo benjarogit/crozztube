@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import fs from 'node:fs';
+import { harnessCommands } from './opencode-adapter.mjs';
 import path from 'node:path';
 import { repository, load, localPath, published, setMode, stopDecision, hookDigest } from './workflow.mjs';
 
@@ -70,17 +71,17 @@ try {
     const command = cursorShell ? String(input.command || '')
       : input.tool_input?.cmd ?? input.tool_input?.command ?? input.tool_input?.code ?? '';
     const shellTool = cursorShell || /Bash|exec_command|functions\.exec|run_in_terminal/.test(tool);
-    if (shellTool && /tools\/harness\/cli\.mjs\s+deny-probe(?:\s|$)/.test(command)) {
+    const candidates = shellTool ? harnessCommands(command) : { probe: false, transitions: [] };
+    if (candidates.probe) {
       decision = 'probe-blocked';
       const reason = 'CROZZTUBE_HARNESS_PROBE_BLOCKED: the project hook intercepted the harmless runtime probe.';
       output = cursorShell
         ? { permission: 'deny', user_message: reason, agent_message: reason }
         : { hookSpecificOutput: { hookEventName: 'PreToolUse', permissionDecision: 'deny', permissionDecisionReason: reason } };
     }
-    const transition = /tools\/harness\/cli\.mjs\s+begin\s+(\d+)(?:\s|$)/.exec(command);
-    if (transition && shellTool) {
+    if (candidates.transitions.length) {
       const context = load(root);
-      if (Number(transition[1]) !== context.step.id + 1 || !published(root, context)) {
+      if (candidates.transitions.some(id => id !== context.step.id + 1) || !published(root, context)) {
         decision = 'advance-blocked';
         const reason = 'CrozzTube harness: the current step is not accepted, cleanly committed and confirmed pushed. Keep it open.';
         output = cursorShell
