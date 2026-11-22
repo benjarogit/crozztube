@@ -156,7 +156,7 @@
 .hero-copy h1 {
   font-size: clamp(24px, 4cqw, 48px);
   line-height: 1.15;
-  letter-spacing: -.03em;
+  letter-spacing: var(--heading-tracking);
   text-wrap: balance;
 }
 .home-page .hero-copy h1 {
@@ -321,7 +321,7 @@
     color: var(--text);
     font-size: 20px;
     line-height: 1.25;
-    letter-spacing: -.02em;
+    letter-spacing: var(--heading-tracking);
   }
   .home-page .hero-copy p { display: none; }
   .home-page .hero-buttons { margin-top: 0; }

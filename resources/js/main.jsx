@@ -1615,12 +1615,12 @@ function loginSuccessRedirectPath() {
 function categoryIcon(name = '') {
   const icons = {
     documentary: 'explore',
-    'travel & events': 'trending',
+    'travel & events': 'globe',
     technology: 'settings',
     education: 'studio',
     lifestyle: 'clock',
-    music: 'mail',
-    sports: 'like',
+    music: 'musicNote',
+    sports: 'trophy',
     gaming: 'play',
   };
   return icons[String(name).toLowerCase()] || 'explore';
@@ -2362,6 +2362,8 @@ function Icon({ name, size = 20 }) {
     zoomIn: <><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4M11 8v6M8 11h6"/></>,
     zoomOut: <><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4M8 11h6"/></>,
     rotate: <><path d="M20 7v5h-5"/><path d="M18.5 17a8 8 0 1 1 1.3-8.5L20 12"/></>,
+    musicNote: <><path d="M9 18V5l12-2v13"/><ellipse cx="6" cy="18" rx="3" ry="2"/><ellipse cx="18" cy="16" rx="3" ry="2"/></>,
+    trophy: <><path d="M8 4h8v7a4 4 0 0 1-8 0zM8 6H4v2a3 3 0 0 0 3 3h1m8-5h4v2a3 3 0 0 1-3 3h-1m-4 4v5m-4 0h8"/></>,
     globe: <><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18"/><path d="M12 3a14 14 0 0 0 0 18"/></>,
     help: <><circle cx="12" cy="12" r="9"/><path d="M9.1 9a3 3 0 1 1 5.8 1c-.8 1.2-2.4 1.5-2.7 3"/><path d="M12 17h.01"/></>,
     reply: <><path d="M9 17 4 12l5-5"/><path d="M20 18v-2a6 6 0 0 0-6-6H4"/></>,
@@ -3588,8 +3590,12 @@ function MobileNav({ path, navigate, user, liveStreamingEnabled = true }) {
   })}</nav>;
 }
 
+function DefaultAvatarIcon() {
+  return <svg className="avatar-default-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="m 8 1 c -1.65625 0 -3 1.34375 -3 3 s 1.34375 3 3 3 s 3 -1.34375 3 -3 s -1.34375 -3 -3 -3 z m -1.5 7 c -2.492188 0 -4.5 2.007812 -4.5 4.5 v 0.5 c 0 1.109375 0.890625 2 2 2 h 8 c 1.109375 0 2 -0.890625 2 -2 v -0.5 c 0 -2.492188 -2.007812 -4.5 -4.5 -4.5 z m 0 0" /></svg>;
+}
+
 function Avatar({ label = 'PH', image = null }) {
-  return <span className={`avatar ${image ? '' : 'default-avatar'}`.trim()}>{image ? <img src={image} alt="" /> : <svg className="avatar-default-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="m 8 1 c -1.65625 0 -3 1.34375 -3 3 s 1.34375 3 3 3 s 3 -1.34375 3 -3 s -1.34375 -3 -3 -3 z m -1.5 7 c -2.492188 0 -4.5 2.007812 -4.5 4.5 v 0.5 c 0 1.109375 0.890625 2 2 2 h 8 c 1.109375 0 2 -0.890625 2 -2 v -0.5 c 0 -2.492188 -2.007812 -4.5 -4.5 -4.5 z m 0 0" /></svg>}</span>;
+  return <span className={`avatar ${image ? '' : 'default-avatar'}`.trim()}>{image ? <img src={image} alt="" /> : <DefaultAvatarIcon />}</span>;
 }
 
 const trackedBoostImpressions = new Set();
@@ -6868,7 +6874,7 @@ function SearchFeaturedVideo({ video, navigate, onNotInterested = null }) {
     <div className="search-featured-info">
       <button data-i18n-skip type="button" className="search-title-link featured" onClick={() => navigate(videoPlaybackPath(video))}>{video.title}</button>
       <p className="search-result-meta">{video.channel?.name || 'Creator'} <VerifiedBadge verified={video.channel?.verified} /></p>
-      <p className="search-result-meta"><LocalizedCount value={formatNumber(video.views_count)} unit="view" /> <span>•</span> {video.created_label}</p>
+      <p className="search-result-meta"><LocalizedCount value={formatNumber(video.views_count)} unit="view" /> <span>·</span> {video.created_label}</p>
       <p data-i18n-skip className="search-featured-desc">{video.description}</p>
       {labels.length > 0 && <div className="search-badges">{labels.map((label) => <span key={label}>{label}</span>)}</div>}
     </div>
@@ -6883,7 +6889,7 @@ function SearchVideoRow({ video, navigate, onNotInterested = null }) {
     <div>
       <h3><button data-i18n-skip type="button" className="search-title-link" onClick={() => navigate(videoPlaybackPath(video))}>{video.title}</button></h3>
       <p className="search-result-meta">{video.channel?.name || 'Creator'} <VerifiedBadge verified={video.channel?.verified} /></p>
-      <p className="search-result-meta"><LocalizedCount value={formatNumber(video.views_count)} unit="view" /> <span>•</span> {video.created_label}</p>
+      <p className="search-result-meta"><LocalizedCount value={formatNumber(video.views_count)} unit="view" /> <span>·</span> {video.created_label}</p>
       <p data-i18n-skip>{video.description}</p>
       {labels.length > 0 && <div className="search-badges">{labels.map((label) => <span key={label}>{label}</span>)}</div>}
     </div>
@@ -6981,7 +6987,7 @@ function SearchPlaylistCard({ playlist, navigate }) {
 }
 
 function SearchShortCard({ video, navigate }) {
-  return <article className="search-short-card" onClick={() => navigate(shortsDetailPath(video))}><Thumbnail video={video}/><h3 data-i18n-skip>{video.title}</h3><p><LocalizedCount value={formatNumber(video.views_count)} unit="view" /> <span>•</span> {video.created_label}</p></article>;
+  return <article className="search-short-card" onClick={() => navigate(shortsDetailPath(video))}><Thumbnail video={video}/><h3 data-i18n-skip>{video.title}</h3><p><LocalizedCount value={formatNumber(video.views_count)} unit="view" /> <span>·</span> {video.created_label}</p></article>;
 }
 
 function CommunityPhotoPaywall({ sale, auth, busy, error, onPurchase }) {
@@ -7185,8 +7191,8 @@ function PageHero({ title, subtitle, children, action = false, navigate = null }
   return <div className="page-hero"><div><h1>{title}</h1><p>{subtitle}</p></div>{action && navigate && <button type="button" className="btn primary upload-split" onClick={() => navigate('/upload')}><Icon name="upload" size={17} />Upload Video<span>⌄</span></button>}{children}</div>;
 }
 
-function FilterBar({ items, active = 0, right = null, onSelect = null }) {
-  return <div className="filter-bar"><div className="filter-chips">{items.map((item, index) => onSelect ? <button type="button" key={item} className={`chip ${index === active ? 'active' : ''}`} onClick={() => onSelect(item, index)}>{item}</button> : <span key={item} className={`chip ${index === active ? 'active' : ''}`}>{item}</span>)}</div>{right}</div>;
+function FilterBar({ items, active = 0, right = null, onSelect = null, labelForItem = null }) {
+  return <div className="filter-bar"><div className="filter-chips">{items.map((item, index) => onSelect ? <button type="button" key={item} className={`chip ${index === active ? 'active' : ''}`} onClick={() => onSelect(item, index)}>{labelForItem ? <span data-i18n-skip>{labelForItem(item)}</span> : item}</button> : <span key={item} className={`chip ${index === active ? 'active' : ''}`}>{labelForItem ? <span data-i18n-skip>{labelForItem(item)}</span> : item}</span>)}</div>{right}</div>;
 }
 
 function RailCard({ title, action = 'View all', onAction = null, children, className = '' }) {
@@ -8065,7 +8071,7 @@ function CollectionCard({ icon, title, meta, dashed = false }) {
 
 function ContinueWideCard({ video, navigate }) {
   const progress = Math.max(0, Math.min(100, Number(video.progress || 0)));
-  return <button className="continue-wide-card" onClick={() => navigate(videoPlaybackPath(video))}><Thumbnail video={video} /><div className="wide-progress" style={{ '--progress': `${progress}%` }}><span>{progress}%</span><i /></div><strong data-i18n-skip>{video.title}</strong><p className={profilePathFor(video.channel) ? 'channel-inline-link' : ''} onClick={(event) => openProfile(event, navigate, video.channel)}><Avatar label={video.channel?.name || 'Creator'} />{video.channel?.name || 'Creator'} <VerifiedBadge verified={video.channel?.verified} /></p><small><LocalizedCount value={formatNumber(video.views_count)} unit="view" /> · Saved {video.created_label}</small></button>;
+  return <button className="continue-wide-card" onClick={() => navigate(videoPlaybackPath(video))}><Thumbnail video={video} /><div className="wide-progress" style={{ '--progress': `${progress}%` }}><span>{progress}%</span><i /></div><strong data-i18n-skip>{video.title}</strong><p className={profilePathFor(video.channel) ? 'channel-inline-link' : ''} onClick={(event) => openProfile(event, navigate, video.channel)}><Avatar label={video.channel?.name || 'Creator'} image={assetUrl(video.channel?.avatar_url || video.channel?.avatar_path)} />{video.channel?.name || 'Creator'} <VerifiedBadge verified={video.channel?.verified} /></p><small><LocalizedCount value={formatNumber(video.views_count)} unit="view" />{video.created_label ? <> · {video.created_label}</> : null}</small></button>;
 }
 
 
@@ -12772,9 +12778,9 @@ function LiveBrowseCard({ item, mode = 'all', onAction, onDelete = null, deletin
       {!profile && item.status === 'replay' && String(item.description || '').trim() ? <p className="live-browse-description" data-i18n-skip>{item.description}</p> : null}
       {profile ? <div className="profile-live-card-copy">{hasDescription ? <p data-i18n-skip>{item.description}</p> : <div className="live-browse-meta profile-fallback"><Avatar label={item.creator} image={item.creatorAvatar}/><div><strong data-i18n-skip>{item.creator}<VerifiedBadge verified={item.creatorVerified}/></strong></div></div>}<small>Category: <strong data-i18n-skip>{item.category || item.creatorMeta || 'All'}</strong></small></div> : <div className="live-browse-meta"><Avatar label={item.creator} image={item.creatorAvatar}/><div><strong data-i18n-skip>{item.creator}<VerifiedBadge verified={item.creatorVerified}/></strong><span data-i18n-skip>{item.creatorMeta}</span></div></div>}
       <div className="live-browse-submeta">
-        {item.status === 'live' && <><span>{item.followers}</span><b>•</b><span>{item.viewersLabel} watching</span></>}
-        {item.status === 'upcoming' && <><span>{item.scheduledDay}</span><b>•</b><span>{item.scheduledTime}</span></>}
-        {item.status === 'replay' && <><span>{item.viewersLabel} views</span><b>•</b><span>{item.replayAge}</span></>}
+        {item.status === 'live' && <><span>{item.followers}</span><b>·</b><span>{item.viewersLabel} watching</span></>}
+        {item.status === 'upcoming' && <><span>{item.scheduledDay}</span><b>·</b><span>{item.scheduledTime}</span></>}
+        {item.status === 'replay' && <><span>{item.viewersLabel} views</span><b>·</b><span>{item.replayAge}</span></>}
       </div>
       <button className={`btn ${isLive ? 'outline-live' : 'subtle'} compact full`} onClick={onAction}><Icon name={isUpcoming ? 'calendar' : 'play'} size={15}/> {buttonLabel}</button>
     </div>
@@ -14254,6 +14260,7 @@ function FavoritesPage({ navigate, auth }) {
 }
 
 function WatchLaterPage({ navigate, auth }) {
+  const { t } = useI18n();
   const [saved, setSaved] = useState([]);
   const [loading, setLoading] = useState(Boolean(auth.user));
   const [error, setError] = useState('');
@@ -14295,11 +14302,11 @@ function WatchLaterPage({ navigate, auth }) {
   const activeFilterIndex = Math.max(0, pageFilters.watchLater.indexOf(watchLaterFilter));
   const updateWatchLaterFilter = (item) => { setWatchLaterFilter(item); if (item === 'All') setSortMode('recent'); };
   const updateWatchLaterSort = (value) => { setSortMode(value); setWatchLaterFilter(value === 'duration_desc' ? 'Longest' : value === 'duration_asc' ? 'Shortest' : value === 'recent' ? 'Recently Saved' : 'All'); };
-  return <main className="content-area catalog-page watch-later-page"><PageHero title="Watch Later" subtitle="Videos you saved to watch when you have time." /><FilterBar items={pageFilters.watchLater} active={activeFilterIndex} onSelect={updateWatchLaterFilter} right={<label className="sort-box"><AdaptiveSelect value={activeSortMode} onChange={(event) => updateWatchLaterSort(event.target.value)}><option value="recent">Recently Added</option><option value="title">Title A-Z</option><option value="duration_desc">Duration: Longest</option><option value="duration_asc">Duration: Shortest</option></AdaptiveSelect><span>⌄</span></label>} />
+  return <main className="content-area catalog-page watch-later-page"><PageHero title="Watch Later" subtitle="Videos you saved to watch when you have time." /><FilterBar items={pageFilters.watchLater} labelForItem={t} active={activeFilterIndex} onSelect={updateWatchLaterFilter} right={<label className="sort-box"><AdaptiveSelect value={activeSortMode} onChange={(event) => updateWatchLaterSort(event.target.value)}><option value="recent">Recently Added</option><option value="title">Title A-Z</option><option value="duration_desc">{t('Duration: Longest')}</option><option value="duration_asc">{t('Duration: Shortest')}</option></AdaptiveSelect><span>⌄</span></label>} />
     {!auth.user && <div className="state-card">Log in to view your Watch Later videos.</div>}
     {error && <div className="state-card error">{error}</div>}
     {loading && <div className="state-card">Loading saved videos...</div>}
-    <div className="two-column-page"><section className="page-main-column"><section className="panel-section"><div className="section-title"><h2>{inProgress.length ? 'Continue from where you left off' : 'Recently saved'}</h2><button type="button" className="text-button" onClick={() => { setWatchLaterFilter('All'); setSortMode('recent'); }}>View all</button></div><div className="wide-video-grid watch-later-continue-row">{(inProgress.length ? inProgress : sortedSaved.slice(0, 4)).map((video)=><ContinueWideCard key={video.id} video={video} navigate={navigate} />)}{!sortedSaved.length && <div className="state-card">{saved.length ? 'No videos match this filter.' : 'No Watch Later videos saved yet.'}</div>}</div></section><PageSection title="Recently saved" sub={sortedSaved.length ? `${sortedSaved.length} saved videos` : null}>{sortedSaved.length ? <HorizontalVideos videos={sortedSaved} navigate={navigate} compact /> : <div className="state-card">{saved.length ? 'No videos match this filter.' : 'Save videos to build your Watch Later list.'}</div>}</PageSection><PageSection title="Saved categories"><div className="collections-grid">{categoryCounts.length ? categoryCounts.map(([title, count]) => <CollectionCard key={title} icon="🎥" title={title} meta={`${count} videos`} />) : <div className="state-card">No saved categories yet.</div>}</div></PageSection></section><aside className="right-rail"><RailCard title="Watch later summary" action={null}><div className="summary-grid"><div><span>Total saved videos</span><strong>{saved.length}</strong></div><div><span>Total duration</span><strong>{totalDuration}</strong></div><div><span>Unwatched</span><strong>{saved.filter((video) => !video.progress).length}</strong></div><div><span>In progress</span><strong>{saved.filter((video) => Number(video.progress || 0) > 0).length}</strong></div></div><button type="button" className="text-button" onClick={() => { setWatchLaterFilter('All'); setSortMode('recent'); }}>View full library →</button></RailCard><RailCard title="Sort & organize" action={null}><div className="sort-list"><button type="button" className={activeSortMode === 'recent' ? 'active' : ''} onClick={() => updateWatchLaterSort('recent')}>Recently added</button><button type="button" className={activeSortMode === 'title' ? 'active' : ''} onClick={() => updateWatchLaterSort('title')}>Title A-Z</button><button type="button" className={activeSortMode === 'duration_desc' ? 'active' : ''} onClick={() => updateWatchLaterSort('duration_desc')}>Duration: Longest</button><button type="button" className={activeSortMode === 'duration_asc' ? 'active' : ''} onClick={() => updateWatchLaterSort('duration_asc')}>Duration: Shortest</button></div></RailCard><RailCard title="Saved categories">{categoryCounts.length ? <TextRankList items={categoryCounts.slice(0,5).map(([name]) => [name])} /> : <p className="rail-note">No categories found.</p>}</RailCard><RailCard title="From your saved channels" className="creators-rail">{[...new Map(saved.map((video) => [video.channel?.id || video.channel?.name, video.channel]).filter(([key]) => key)).values()].slice(0,3).map((channel)=><PersonRow key={channel.id || channel.name} person={[channel.name, <LocalizedCount value={formatNumber(channel.subscribers_count || 0)} unit="subscriber" />, '']} follow={false} avatar={channel.avatar_url || channel.avatar_path} />)}</RailCard></aside></div></main>;
+    <div className="two-column-page"><section className="page-main-column"><section className="panel-section"><div className="section-title"><h2>{inProgress.length ? 'Continue from where you left off' : 'Recently saved'}</h2><button type="button" className="text-button" onClick={() => { setWatchLaterFilter('All'); setSortMode('recent'); }}>View all</button></div><div className="wide-video-grid watch-later-continue-row">{(inProgress.length ? inProgress : sortedSaved.slice(0, 4)).map((video)=><ContinueWideCard key={video.id} video={video} navigate={navigate} />)}{!sortedSaved.length && <div className="state-card">{saved.length ? 'No videos match this filter.' : 'No Watch Later videos saved yet.'}</div>}</div></section><PageSection title="Recently saved" sub={sortedSaved.length ? `${sortedSaved.length} saved videos` : null}>{sortedSaved.length ? <HorizontalVideos videos={sortedSaved} navigate={navigate} compact /> : <div className="state-card">{saved.length ? 'No videos match this filter.' : 'Save videos to build your Watch Later list.'}</div>}</PageSection><PageSection title="Saved categories"><div className="collections-grid">{categoryCounts.length ? categoryCounts.map(([title, count]) => <CollectionCard key={title} icon="🎥" title={title} meta={`${count} videos`} />) : <div className="state-card">No saved categories yet.</div>}</div></PageSection></section><aside className="right-rail"><RailCard title="Watch later summary" action={null}><div className="summary-grid"><div><span>Total saved videos</span><strong>{saved.length}</strong></div><div><span>Total duration</span><strong>{totalDuration}</strong></div><div><span>Unwatched</span><strong>{saved.filter((video) => !video.progress).length}</strong></div><div><span>In progress</span><strong>{saved.filter((video) => Number(video.progress || 0) > 0).length}</strong></div></div><button type="button" className="text-button" onClick={() => { setWatchLaterFilter('All'); setSortMode('recent'); }}><span data-i18n-skip>{t('View full library')}</span> <span aria-hidden="true">→</span></button></RailCard><RailCard title="Sort & organize" action={null}><div className="sort-list"><button type="button" className={activeSortMode === 'recent' ? 'active' : ''} onClick={() => updateWatchLaterSort('recent')}>Recently added</button><button type="button" className={activeSortMode === 'title' ? 'active' : ''} onClick={() => updateWatchLaterSort('title')}>Title A-Z</button><button type="button" className={activeSortMode === 'duration_desc' ? 'active' : ''} onClick={() => updateWatchLaterSort('duration_desc')}>Duration: Longest</button><button type="button" className={activeSortMode === 'duration_asc' ? 'active' : ''} onClick={() => updateWatchLaterSort('duration_asc')}>Duration: Shortest</button></div></RailCard><RailCard title="Saved categories">{categoryCounts.length ? <TextRankList items={categoryCounts.slice(0,5).map(([name]) => [name])} /> : <p className="rail-note">No categories found.</p>}</RailCard><RailCard title="From your saved channels" className="creators-rail">{[...new Map(saved.map((video) => [video.channel?.id || video.channel?.name, video.channel]).filter(([key]) => key)).values()].slice(0,3).map((channel)=><PersonRow key={channel.id || channel.name} person={[channel.name, <LocalizedCount value={formatNumber(channel.subscribers_count || 0)} unit="subscriber" />, '']} follow={false} avatar={channel.avatar_url || channel.avatar_path} />)}</RailCard></aside></div></main>;
 }
 
 function BookmarksPage({ navigate, auth }) {
@@ -23359,8 +23366,8 @@ function CreatorProfilePage({ navigate, path = '/profile', auth = null }) {
     <section className="channel-profile-card">
       {profileError && <div className="profile-action-notice" aria-live="polite">{profileError}</div>}
       <div className="channel-profile-top">
-        <div className="channel-avatar-shell">{profile.avatarUrl ? <GalleryImage src={profile.avatarUrl} thumb={profile.avatarUrl} title={`${profile.name} avatar`} description={profile.handle} itemClassName="channel-avatar-photo channel-avatar-gallery"><img src={profile.avatarUrl} alt="" /></GalleryImage> : <div className="channel-avatar-photo default-avatar"><svg className="avatar-default-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="m 8 1 c -1.65625 0 -3 1.34375 -3 3 s 1.34375 3 3 3 s 3 -1.34375 3 -3 s -1.34375 -3 -3 -3 z m -1.5 7 c -2.492188 0 -4.5 2.007812 -4.5 4.5 v 0.5 c 0 1.109375 0.890625 2 2 2 h 8 c 1.109375 0 2 -0.890625 2 -2 v -0.5 c 0 -2.492188 -2.007812 -4.5 -4.5 -4.5 z m 0 0" /></svg></div>}<VerifiedBadge verified={profile.verified} className="channel-avatar-verified" size={14} />{canEditProfile && <><input ref={avatarInputRef} type="file" accept="image/jpeg,image/png,image/webp" className="sr-only" onChange={uploadAvatar} /><button type="button" className="channel-avatar-edit" onClick={() => setAvatarMenuOpen((value) => !value)} disabled={avatarUploading} aria-label="Edit avatar" aria-expanded={avatarMenuOpen}><Icon name="edit" size={15}/></button>{avatarMenuOpen && <div className="channel-avatar-menu"><button type="button" onClick={() => avatarInputRef.current?.click()} disabled={avatarUploading}><Icon name="upload" size={15}/><span>{profile.avatarUrl ? 'Update avatar' : 'Add avatar'}</span></button>{profile.avatarUrl && <button type="button" className="danger" onClick={removeAvatar} disabled={avatarUploading}><Icon name="trash" size={15}/><span>Remove avatar</span></button>}</div>}</>}</div>
-        <div className="channel-profile-copy"><h1>{profile.name} <VerifiedBadge verified={profile.verified} size={16} /></h1><div className="channel-meta-line">{profile.handle && <span>{profile.handle}</span>}{profile.handle && <span>•</span>}<span>{profile.subscribers}</span><span>•</span><span>{profile.videos}</span></div>
+        <div className="channel-avatar-shell">{profile.avatarUrl ? <GalleryImage src={profile.avatarUrl} thumb={profile.avatarUrl} title={`${profile.name} avatar`} description={profile.handle} itemClassName="channel-avatar-photo channel-avatar-gallery"><img src={profile.avatarUrl} alt="" /></GalleryImage> : <div className="channel-avatar-photo default-avatar"><DefaultAvatarIcon /></div>}<VerifiedBadge verified={profile.verified} className="channel-avatar-verified" size={14} />{canEditProfile && <><input ref={avatarInputRef} type="file" accept="image/jpeg,image/png,image/webp" className="sr-only" onChange={uploadAvatar} /><button type="button" className="channel-avatar-edit" onClick={() => setAvatarMenuOpen((value) => !value)} disabled={avatarUploading} aria-label="Edit avatar" aria-expanded={avatarMenuOpen}><Icon name="edit" size={15}/></button>{avatarMenuOpen && <div className="channel-avatar-menu"><button type="button" onClick={() => avatarInputRef.current?.click()} disabled={avatarUploading}><Icon name="upload" size={15}/><span>{profile.avatarUrl ? 'Update avatar' : 'Add avatar'}</span></button>{profile.avatarUrl && <button type="button" className="danger" onClick={removeAvatar} disabled={avatarUploading}><Icon name="trash" size={15}/><span>Remove avatar</span></button>}</div>}</>}</div>
+        <div className="channel-profile-copy"><h1>{profile.name} <VerifiedBadge verified={profile.verified} size={16} /></h1><div className="channel-meta-line">{profile.handle && <span>{profile.handle}</span>}{profile.handle && <span>·</span>}<span>{profile.subscribers}</span><span>·</span><span>{profile.videos}</span></div>
           {bioEditing ? <form className="channel-bio-editor" onSubmit={saveBio}>
             <div className="channel-bio-input-row">
               <input ref={bioInputRef} value={draftBio} maxLength={100} onChange={(event) => setDraftBio(event.target.value.slice(0, 100))} placeholder="Add channel bio..." />
@@ -23472,8 +23479,8 @@ function CreatorProfileHomeTab({ profile, videos, playlists, navigate, search, c
   };
   return <>
     {featuredNotice && <div className="profile-action-notice" aria-live="polite">{featuredNotice}</div>}
-    <article className="studio-card channel-featured-card"><button className="channel-featured-media" onClick={() => navigate(featuredPath)}><Thumbnail video={featured} large />{featuredIsShort && <span className="channel-featured-short-badge"><Icon name="play" size={12}/> Short</span>}<span className="channel-featured-play"><Icon name="play" size={22}/></span></button><div className="channel-featured-copy">{isSelectedFeatured && <span className="text-badge">Pinned</span>}<h2 data-i18n-skip>{featured.title}</h2><div className="channel-featured-meta"><span>{profile.name}</span><span>•</span><span>{formatNumber(featured.views_count)} views</span><span>•</span><span>{dateLabel(featured.published_at || featured.created_at)}</span></div><p data-i18n-skip={featured.description ? '' : undefined}>{featured.description || 'No description provided.'}</p><button className="btn primary" onClick={() => navigate(featuredPath)}><Icon name="play" size={15}/> Watch now</button></div><span className="channel-featured-menu-shell"><button type="button" className={featuredMenuOpen ? 'more-button active' : 'more-button'} aria-label="More actions" aria-expanded={featuredMenuOpen} onClick={() => setFeaturedMenuOpen((open) => !open)}><Icon name="more" size={17} /></button>{featuredMenuOpen && <span className="channel-featured-action-menu" role="menu"><button type="button" role="menuitem" onClick={() => { setFeaturedMenuOpen(false); navigate(featuredPath); }}><Icon name="play" size={16}/> Watch video</button><button type="button" role="menuitem" onClick={copyFeaturedLink}><Icon name="link" size={16}/> Copy link</button><button type="button" role="menuitem" onClick={shareFeatured}><Icon name="share" size={16}/> Share</button>{canEdit && <button type="button" role="menuitem" className={isSelectedFeatured ? 'is-selected' : ''} onClick={togglePinnedVideo} disabled={featuredSaving || pinningVideoId === featured.id}><Icon name={isSelectedFeatured ? 'pinOff' : 'pin'} size={16}/> {featuredSaving || pinningVideoId === featured.id ? 'Saving...' : isSelectedFeatured ? 'Unpin from profile' : 'Pin to profile'}</button>}</span>}</span></article>
-    <section className="profile-section"><div className="section-title"><h2>Recent uploads</h2><button className="text-button" onClick={() => search.openSearch('videos')}>View all</button></div><div className="profile-upload-grid">{recentUploads.map((item) => <article className="profile-video-card" key={item.video.id} onClick={() => navigate(videoPlaybackPath(item.video))}><Thumbnail video={item.video} /><h3>{item.video.title}</h3><p>{item.views} views <span>•</span> {item.time}</p></article>)}</div></section>
+    <article className="studio-card channel-featured-card"><button className="channel-featured-media" onClick={() => navigate(featuredPath)}><Thumbnail video={featured} large />{featuredIsShort && <span className="channel-featured-short-badge"><Icon name="play" size={12}/> Short</span>}<span className="channel-featured-play"><Icon name="play" size={22}/></span></button><div className="channel-featured-copy">{isSelectedFeatured && <span className="text-badge">Pinned</span>}<h2 data-i18n-skip>{featured.title}</h2><div className="channel-featured-meta"><span>{profile.name}</span><span>·</span><span>{formatNumber(featured.views_count)} views</span><span>·</span><span>{dateLabel(featured.published_at || featured.created_at)}</span></div><p data-i18n-skip={featured.description ? '' : undefined}>{featured.description || 'No description provided.'}</p><button className="btn primary" onClick={() => navigate(featuredPath)}><Icon name="play" size={15}/> Watch now</button></div><span className="channel-featured-menu-shell"><button type="button" className={featuredMenuOpen ? 'more-button active' : 'more-button'} aria-label="More actions" aria-expanded={featuredMenuOpen} onClick={() => setFeaturedMenuOpen((open) => !open)}><Icon name="more" size={17} /></button>{featuredMenuOpen && <span className="channel-featured-action-menu" role="menu"><button type="button" role="menuitem" onClick={() => { setFeaturedMenuOpen(false); navigate(featuredPath); }}><Icon name="play" size={16}/> Watch video</button><button type="button" role="menuitem" onClick={copyFeaturedLink}><Icon name="link" size={16}/> Copy link</button><button type="button" role="menuitem" onClick={shareFeatured}><Icon name="share" size={16}/> Share</button>{canEdit && <button type="button" role="menuitem" className={isSelectedFeatured ? 'is-selected' : ''} onClick={togglePinnedVideo} disabled={featuredSaving || pinningVideoId === featured.id}><Icon name={isSelectedFeatured ? 'pinOff' : 'pin'} size={16}/> {featuredSaving || pinningVideoId === featured.id ? 'Saving...' : isSelectedFeatured ? 'Unpin from profile' : 'Pin to profile'}</button>}</span>}</span></article>
+    <section className="profile-section"><div className="section-title"><h2>Recent uploads</h2><button className="text-button" onClick={() => search.openSearch('videos')}>View all</button></div><div className="profile-upload-grid">{recentUploads.map((item) => <article className="profile-video-card" key={item.video.id} onClick={() => navigate(videoPlaybackPath(item.video))}><Thumbnail video={item.video} /><h3>{item.video.title}</h3><p>{item.views} views <span>·</span> {item.time}</p></article>)}</div></section>
     {playlists.length > 0 && <section className="profile-section"><div className="section-title"><h2>Playlists</h2><button className="text-button" onClick={() => search.openSearch('playlists')}>View all</button></div><div className="profile-playlist-grid">{playlists.map((playlist) => <article className="profile-playlist-card" key={playlist.id || playlist.title} role="link" tabIndex={0} onClick={() => navigate(`/playlists?id=${playlist.id}`)} onKeyDown={(event) => { if (event.key === 'Enter') navigate(`/playlists?id=${playlist.id}`); }}>{playlist.video ? <Thumbnail video={playlist.video} /> : <div className="playlist-gradient-thumb" style={{ '--playlist-color': playlist.color }}><Icon name="playlist" size={24}/></div>}<div className="profile-playlist-meta"><Icon name="library" size={14}/><span>{playlist.count} {playlist.count === 1 ? 'video' : 'videos'}</span></div></article>)}</div></section>}
   </>;
 }
@@ -24075,12 +24082,12 @@ function ProfileVideoResultCard({ item, navigate, canEdit = false, pinnedVideoId
       <Thumbnail video={item.video} />
       {canEdit && <button type="button" className={`profile-video-pin-button ${isPinned ? 'active' : ''}`} onClick={togglePin} disabled={isPinning} aria-label={isPinned ? 'Unpin from profile' : 'Pin to profile'}><Icon name={isPinned ? 'pinOff' : 'pin'} size={14}/><span>{isPinning ? 'Saving...' : isPinned ? 'Pinned' : 'Pin'}</span></button>}
     </div>
-    <h3>{item.video.title}</h3><p>{item.views} views <span>•</span> {item.time}</p><div className="profile-video-badges">{isPinned && <span className="pinned">Pinned</span>}{item.labels.map((label) => <span key={label}>{label}</span>)}</div>
+    <h3>{item.video.title}</h3><p>{item.views} views <span>·</span> {item.time}</p><div className="profile-video-badges">{isPinned && <span className="pinned">Pinned</span>}{item.labels.map((label) => <span key={label}>{label}</span>)}</div>
   </article>;
 }
 
 function ProfileShortResultCard({ item, navigate }) {
-  return <article className="profile-short-card" onClick={() => navigate(shortsDetailPath(item.video))}><div className="short-media"><Thumbnail video={item.video} previewShort/><span><Icon name="play" size={12}/> Short</span></div><h3>{item.video.title}</h3><p>{item.views} views <span>•</span> {item.time}</p></article>;
+  return <article className="profile-short-card" onClick={() => navigate(shortsDetailPath(item.video))}><div className="short-media"><Thumbnail video={item.video} previewShort/><span><Icon name="play" size={12}/> Short</span></div><h3>{item.video.title}</h3><p>{item.views} views <span>·</span> {item.time}</p></article>;
 }
 
 function ProfilePlaylistSearchCard({ item, navigate }) {
@@ -24553,7 +24560,7 @@ function CreatorProfileLibraryTab({ library, playlists, videos, canEdit, loading
   const visiblePlaylists = (playlists || []).filter(matchesPlaylist);
   const subscriptions = (library.subscriptions || []).filter(matchesChannel);
   const uploads = (library.uploads || []).filter(matchesVideo);
-  const videoMeta = (video) => <><LocalizedCount value={formatNumber(video.views_count || 0)} unit="view" /> • {dateLabel(video.published_at || video.created_at)}</>;
+  const videoMeta = (video) => <><LocalizedCount value={formatNumber(video.views_count || 0)} unit="view" /> · {dateLabel(video.published_at || video.created_at)}</>;
   const openChannel = (slug) => { if (slug) navigate(`/channel/${slug}`); };
   const handleCreatePlaylist = async (playlist) => {
     await onCreatePlaylist(playlist);
@@ -24862,7 +24869,7 @@ function NewPlaylistModal({ videos, onClose, onCreate, initialAddVideos = false,
           <h3>Preview</h3>
           <article className="playlist-preview-card" style={{ '--playlist-color': selectedColor }}>
             <div className="playlist-preview-art">{selectedCoverVideo ? <Thumbnail video={selectedCoverVideo} /> : <><i /><span><Icon name="playlist" size={54}/></span></>}</div>
-            <div className="playlist-preview-copy"><strong>{trimmedName || (isSeries ? t('Series Name') : 'Playlist Name')}</strong><small>{selectedCount} {selectedCount === 1 ? (isSeries ? t('episode') : 'video') : (isSeries ? t('episodes') : 'videos')} <b>•</b> {isSeries ? t(seriesStatus === 'completed' ? 'Completed' : 'Ongoing') : privacy}</small></div>
+            <div className="playlist-preview-copy"><strong>{trimmedName || (isSeries ? t('Series Name') : 'Playlist Name')}</strong><small>{selectedCount} {selectedCount === 1 ? (isSeries ? t('episode') : 'video') : (isSeries ? t('episodes') : 'videos')} <b>·</b> {isSeries ? t(seriesStatus === 'completed' ? 'Completed' : 'Ongoing') : privacy}</small></div>
           </article>
           {coverVideos.length ? <div className="playlist-cover-slider"><strong>Playlist cover</strong><div>{coverVideos.map((video) => <button type="button" key={video.id} className={Number(coverVideoId) === Number(video.id) ? 'active' : ''} onClick={() => setCoverVideoId(video.id)}><Thumbnail video={video}/><span>{Number(coverVideoId) === Number(video.id) ? 'Cover selected' : 'Select cover'}</span></button>)}</div></div> : <p className="playlist-cover-empty">No playlist videos available for cover selection.</p>}
           <div className="playlist-tip-card"><span><Icon name="help" size={22}/></span><div><strong>{isSeries ? t('Series tip') : 'Playlist tip'}</strong><p>{isSeries ? t('Episodes stay in one playlist. Season and episode numbers define the order your viewers see, and the next episode keeps playing automatically.') : 'Use playlists to organize your content and make it easier for your audience to discover more videos.'}</p></div></div>

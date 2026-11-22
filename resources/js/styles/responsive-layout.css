@@ -88,7 +88,7 @@
 .app-shell .topbar .global-search { min-width: 0; }
 .app-shell .topbar .top-actions { min-width: 0; flex-shrink: 0; }
 .app-shell .topbar .topbar-logo-button { flex-shrink: 0; }
-.app-shell .topbar .logo-text { letter-spacing: -.03em; }
+.app-shell .topbar .logo-text { letter-spacing: var(--heading-tracking); }
 .app-shell .nav-item { min-height: 44px; height: auto; padding-block: 10px; }
 .app-shell .sidebar .nav-item span { white-space: normal; overflow-wrap: anywhere; }
 :where(button, a, input, select, textarea):focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }

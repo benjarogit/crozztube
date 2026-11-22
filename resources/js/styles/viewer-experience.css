@@ -14,10 +14,10 @@
   margin-bottom: 16px;
 }
 .home-page .section-title { align-items: center; gap: 12px; }
-.home-page .section-title h2 { font-size: 16px; font-weight: 750; letter-spacing: -.02em; line-height: 1.3; }
+.home-page .section-title h2 { font-size: 16px; font-weight: 750; letter-spacing: var(--heading-tracking); line-height: 1.3; }
 .home-page .section-title .text-button { min-height: 44px; flex-shrink: 0; }
 .home-page .hero-feature .hero-copy { gap: 18px; max-width: 720px; }
-.home-page .hero-copy h1 { font-weight: 850; letter-spacing: -.025em; }
+.home-page .hero-copy h1 { font-weight: 850; letter-spacing: var(--heading-tracking); }
 .home-page .hero-copy p { color: #eee; max-width: 55ch; }
 .home-page .hero-carousel-controls { bottom: 12px; flex-wrap: wrap; }
 .home-page .hero-dot { min-width: 36px; height: 44px; }
@@ -146,7 +146,7 @@
 .watch-layout-shell .video-detail-menu-shell { margin-inline-start: auto; }
 .watch-layout-shell .watch-sidebar > .section-title { display: flex; flex-wrap: wrap; flex-direction: row; justify-content: space-between; align-items: center; gap: 12px; }
 .watch-layout-shell .watch-sidebar .section-title h2,
-.watch-layout-shell .watch-sidebar h2 { font-size: 16px; font-weight: 750; letter-spacing: -.02em; line-height: 1.3; }
+.watch-layout-shell .watch-sidebar h2 { font-size: 16px; font-weight: 750; letter-spacing: var(--heading-tracking); line-height: 1.3; }
 .watch-layout-shell .watch-autoplay-toggle { margin-inline-start: auto; min-height: 44px; }
 .watch-layout-shell .watch-playlist-context { width: 100%; overflow-wrap: anywhere; }
 .watch-layout-shell .watch-up-next-label { margin: 12px 0 4px; font-size: 14px; color: var(--muted); }
@@ -597,7 +597,7 @@
 .home-page .hero-copy h1 {
   font-size: clamp(26px, 3.1cqw, 46px);
   line-height: 1.08;
-  letter-spacing: -.025em;
+  letter-spacing: var(--heading-tracking);
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -722,7 +722,7 @@
   .home-page .hero-copy h1 {
     font-size: 20px;
     line-height: 1.25;
-    letter-spacing: -.02em;
+    letter-spacing: var(--heading-tracking);
     min-height: 0;
     max-height: 2.5em;
     -webkit-line-clamp: 2;
@@ -819,3 +819,17 @@
 .playlist-episode-row .thumb,
 .playlist-video-picker .collection-video-row .thumb { border-radius: var(--radius-inner-2); }
 .global-search-suggestions .global-search-suggestion { border-radius: var(--radius-inner); }
+
+/* The poster remains visible beside the copy on wide screens. */
+.explore-banner h2,
+.explore-banner p { text-shadow: var(--hero-text-shadow); }
+.explore-banner .btn { justify-self: start; max-inline-size: 100%; white-space: normal; }
+:root[dir="rtl"] .explore-banner::after {
+  background: linear-gradient(270deg, rgb(0 0 0 / .9) 0%, rgb(0 0 0 / .82) 44%, rgb(0 0 0 / .4) 72%, transparent 100%);
+}
+@container content-page (max-width: 639px) {
+  .explore-banner::after,
+  :root[dir="rtl"] .explore-banner::after {
+    background: linear-gradient(0deg, rgb(0 0 0 / .9), rgb(0 0 0 / .74) 68%, rgb(0 0 0 / .45));
+  }
+}

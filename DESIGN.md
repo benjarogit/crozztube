@@ -113,3 +113,7 @@ Transient notifications use one application snackbar with four tones, at most th
 ## Radius scale
 
 The current scale supersedes the previous flat corners. Small badges and compact controls start at 6px, buttons and menus at 8px, and larger cards, media and dialogs at 12px. Avatars, pills and progress bars use the full radius. Existing radius settings remain compatible through aliases. The settings upgrade changes shipped defaults and preserves nondefault values. Inset corners subtract the inset from the outer radius, with a zero minimum where the inset can exceed it. The channel avatar uses the same single-pixel neutral frame as other surfaces. Focus and stacked avatar outlines remain distinct.
+
+## Discovery, library and avatar details
+
+Explore uses a stronger scrim behind poster copy and a content-width watch action. Page and section headings use the shared heading tracking. Video metadata uses a middle dot. Watch Later shows the existing video date as video metadata and translates its sort and filter labels as whole messages. Avatar placeholders share one square, centered icon, including the large channel avatar. The sidebar uses its existing independent scroll region so account and storage details remain reachable below the fold.
