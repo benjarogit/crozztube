@@ -91,10 +91,10 @@ PR #4 implements a parallel model (`is_series`, `app/Support/SeriesPlaylists.php
 
 ## Language inventory
 
-- The 31 new reference messages live in `tools/i18n/batches/series-and-seasons.json`. The 31st is the server-side duplicate guard (`Episode numbers must be unique within a season.`), which the playlist editor also shows before submitting.
-- They are complete in 9 of 125 packages: `de_at`, `de_ch`, `de_de`, `en`, `en_au`, `en_ca`, `en_gb`, `en_nz`, `en_za`.
-- They are missing in the other 116 packages. This is an open language review, not an accepted translation.
+- The 33 current reference messages live in `tools/i18n/batches/series-and-seasons.json`. The editor includes the same duplicate guard as the server, and the reference now has a singular season label, a series-specific completed status and an autoplay hint that describes the actual player setting.
+- All 33 messages are present in the three German variants, six English variants, `fr_fr`, `fr_be`, `fr_ca`, `it_it` and `es_es`. The latter five were added through `tools/i18n/batches/series-romance-first.json`; this review applies to the series messages only. The other 111 packages still need series coverage and review.
 - PR #4 carries four shared keys (`Series`, `Season`, `Episode`, `Next episode`) in 111 of 125 packages. Fourteen packages are partial or empty: `am`, `arg`, `azb`, `bo`, `dzo`, `jv_id`, `my_mm` (only `Season` missing), `ps`, `sah`, `snd`, `szl` (missing `Series`, `Next episode`), `tah`, `ug_cn`, `yor`. The PR description itself reports unreviewed messages in 14 partial packages.
+- Candidate browser check: `tools/test/ui/series-localization.mjs` renders Watch, playlist and the editor at 390px in dark mode for the five new locales. It checks the next episode, singular season count, completed status, autoplay hint and duplicate-number warning. Long translated labels exposed two overflow cases in the playlist and Watch. The fixed layouts pass with zero unexpected writes or page errors. Use the isolated Vite build directory as `SERIES_TEST_BUILD`.
 - These drafts are not linguistic acceptance and do not replace the open checks for the other packages. Any later import goes through the normal i18n batch review, not by merging the series implementation.
 - The 2026-11-16 design copy adds no i18n key. It reuses `Continue`, `Play all`, `Season`, `All`, `Watch progress`, `Duration`, `{percent}% watched`, `Library` and existing labels. The new navigation group uses the existing `Library` key so German keeps its translated label.
 

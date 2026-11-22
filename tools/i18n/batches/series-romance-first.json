@@ -1,0 +1,236 @@
+{
+  "context": "Series step 8: existing playlist conversion, editable season order, episode numbering and watch playback. French variants follow their existing Playlist terminology. Spanish uses Spain spelling and vocabulary. Italian follows the existing Playlist terminology.",
+  "messages": {
+    "Series": {
+      "fr_fr": "Série",
+      "fr_be": "Série",
+      "fr_ca": "Série",
+      "it_it": "Serie",
+      "es_es": "Serie"
+    },
+    "episode": {
+      "fr_fr": "épisode",
+      "fr_be": "épisode",
+      "fr_ca": "épisode",
+      "it_it": "episodio",
+      "es_es": "episodio"
+    },
+    "episodes": {
+      "fr_fr": "épisodes",
+      "fr_be": "épisodes",
+      "fr_ca": "épisodes",
+      "it_it": "episodi",
+      "es_es": "episodios"
+    },
+    "seasons": {
+      "fr_fr": "saisons",
+      "fr_be": "saisons",
+      "fr_ca": "saisons",
+      "it_it": "stagioni",
+      "es_es": "temporadas"
+    },
+    "Season": {
+      "fr_fr": "Saison",
+      "fr_be": "Saison",
+      "fr_ca": "Saison",
+      "it_it": "Stagione",
+      "es_es": "Temporada"
+    },
+    "Episode": {
+      "fr_fr": "Épisode",
+      "fr_be": "Épisode",
+      "fr_ca": "Épisode",
+      "it_it": "Episodio",
+      "es_es": "Episodio"
+    },
+    "Episode title": {
+      "fr_fr": "Titre de l’épisode",
+      "fr_be": "Titre de l’épisode",
+      "fr_ca": "Titre de l’épisode",
+      "it_it": "Titolo dell’episodio",
+      "es_es": "Título del episodio"
+    },
+    "Next episode": {
+      "fr_fr": "Épisode suivant",
+      "fr_be": "Épisode suivant",
+      "fr_ca": "Épisode suivant",
+      "it_it": "Prossimo episodio",
+      "es_es": "Siguiente episodio"
+    },
+    "Autoplay next episode": {
+      "fr_fr": "Lire automatiquement l’épisode suivant",
+      "fr_be": "Lire automatiquement l’épisode suivant",
+      "fr_ca": "Lire automatiquement l’épisode suivant",
+      "it_it": "Riproduci automaticamente il prossimo episodio",
+      "es_es": "Reproducir automáticamente el siguiente episodio"
+    },
+    "Format": {
+      "fr_fr": "Format",
+      "fr_be": "Format",
+      "fr_ca": "Format",
+      "it_it": "Formato",
+      "es_es": "Formato"
+    },
+    "Series status": {
+      "fr_fr": "Statut de la série",
+      "fr_be": "Statut de la série",
+      "fr_ca": "Statut de la série",
+      "it_it": "Stato della serie",
+      "es_es": "Estado de la serie"
+    },
+    "Ongoing": {
+      "fr_fr": "En cours",
+      "fr_be": "En cours",
+      "fr_ca": "En cours",
+      "it_it": "In corso",
+      "es_es": "En curso"
+    },
+    "New series": {
+      "fr_fr": "Nouvelle série",
+      "fr_be": "Nouvelle série",
+      "fr_ca": "Nouvelle série",
+      "it_it": "Nuova serie",
+      "es_es": "Nueva serie"
+    },
+    "Edit series": {
+      "fr_fr": "Modifier la série",
+      "fr_be": "Modifier la série",
+      "fr_ca": "Modifier la série",
+      "it_it": "Modifica serie",
+      "es_es": "Editar serie"
+    },
+    "Edit Series": {
+      "fr_fr": "Modifier la série",
+      "fr_be": "Modifier la série",
+      "fr_ca": "Modifier la série",
+      "it_it": "Modifica serie",
+      "es_es": "Editar serie"
+    },
+    "Create New Series": {
+      "fr_fr": "Créer une série",
+      "fr_be": "Créer une série",
+      "fr_ca": "Créer une série",
+      "it_it": "Crea una serie",
+      "es_es": "Crear una serie"
+    },
+    "Group episodes into seasons and keep them in order": {
+      "fr_fr": "Regroupe les épisodes par saison et choisis leur ordre",
+      "fr_be": "Regroupe les épisodes par saison et choisis leur ordre",
+      "fr_ca": "Regroupe les épisodes par saison et choisis leur ordre",
+      "it_it": "Raggruppa gli episodi in stagioni e scegli il loro ordine",
+      "es_es": "Agrupa los episodios en temporadas y ordénalos"
+    },
+    "Any mix of videos in your order": {
+      "fr_fr": "Des vidéos dans l’ordre de ton choix",
+      "fr_be": "Des vidéos dans l’ordre de ton choix",
+      "fr_ca": "Des vidéos dans l’ordre de ton choix",
+      "it_it": "Combina i video nell’ordine che preferisci",
+      "es_es": "Combina vídeos en el orden que prefieras"
+    },
+    "Seasons with numbered episodes": {
+      "fr_fr": "Des saisons avec des épisodes numérotés",
+      "fr_be": "Des saisons avec des épisodes numérotés",
+      "fr_ca": "Des saisons avec des épisodes numérotés",
+      "it_it": "Stagioni con episodi numerati",
+      "es_es": "Temporadas con episodios numerados"
+    },
+    "No further episodes are planned": {
+      "fr_fr": "Aucun autre épisode n’est prévu",
+      "fr_be": "Aucun autre épisode n’est prévu",
+      "fr_ca": "Aucun autre épisode n’est prévu",
+      "it_it": "Non sono previsti altri episodi",
+      "es_es": "No hay más episodios previstos"
+    },
+    "New episodes are still coming": {
+      "fr_fr": "De nouveaux épisodes sont prévus",
+      "fr_be": "De nouveaux épisodes sont prévus",
+      "fr_ca": "De nouveaux épisodes sont prévus",
+      "it_it": "Sono previsti nuovi episodi",
+      "es_es": "Hay nuevos episodios previstos"
+    },
+    "Seasons and episodes": {
+      "fr_fr": "Saisons et épisodes",
+      "fr_be": "Saisons et épisodes",
+      "fr_ca": "Saisons et épisodes",
+      "it_it": "Stagioni ed episodi",
+      "es_es": "Temporadas y episodios"
+    },
+    "Leave the episode number empty to number it automatically from its position in the season.": {
+      "fr_fr": "Laisse le numéro de l’épisode vide pour l’attribuer automatiquement selon sa position dans la saison.",
+      "fr_be": "Laisse le numéro de l’épisode vide pour l’attribuer automatiquement selon sa position dans la saison.",
+      "fr_ca": "Laisse le numéro de l’épisode vide pour l’attribuer automatiquement selon sa position dans la saison.",
+      "it_it": "Lascia vuoto il numero dell’episodio per assegnarlo automaticamente in base alla sua posizione nella stagione.",
+      "es_es": "Deja vacío el número del episodio para asignarlo automáticamente según su posición en la temporada."
+    },
+    "auto": {
+      "fr_fr": "auto",
+      "fr_be": "auto",
+      "fr_ca": "auto",
+      "it_it": "auto",
+      "es_es": "auto"
+    },
+    "Add videos to number the episodes.": {
+      "fr_fr": "Ajoute des vidéos pour numéroter les épisodes.",
+      "fr_be": "Ajoute des vidéos pour numéroter les épisodes.",
+      "fr_ca": "Ajoute des vidéos pour numéroter les épisodes.",
+      "it_it": "Aggiungi video per numerare gli episodi.",
+      "es_es": "Añade vídeos para numerar los episodios."
+    },
+    "Add episodes to this series now": {
+      "fr_fr": "Ajouter des épisodes à cette série maintenant",
+      "fr_be": "Ajouter des épisodes à cette série maintenant",
+      "fr_ca": "Ajouter des épisodes à cette série maintenant",
+      "it_it": "Aggiungi ora episodi a questa serie",
+      "es_es": "Añadir episodios a esta serie ahora"
+    },
+    "Series Name": {
+      "fr_fr": "Nom de la série",
+      "fr_be": "Nom de la série",
+      "fr_ca": "Nom de la série",
+      "it_it": "Nome della serie",
+      "es_es": "Nombre de la serie"
+    },
+    "Series tip": {
+      "fr_fr": "Conseil pour ta série",
+      "fr_be": "Conseil pour ta série",
+      "fr_ca": "Conseil pour ta série",
+      "it_it": "Consiglio per la serie",
+      "es_es": "Consejo para tu serie"
+    },
+    "Episodes stay in one playlist. Season and episode numbers set their order. You can turn autoplay on or off in the player.": {
+      "fr_fr": "Les épisodes restent dans une seule playlist. Les numéros de saison et d’épisode définissent leur ordre. Tu peux activer ou désactiver la lecture automatique dans le lecteur.",
+      "fr_be": "Les épisodes restent dans une seule playlist. Les numéros de saison et d’épisode définissent leur ordre. Tu peux activer ou désactiver la lecture automatique dans le lecteur.",
+      "fr_ca": "Les épisodes restent dans une seule playlist. Les numéros de saison et d’épisode définissent leur ordre. Tu peux activer ou désactiver la lecture automatique dans le lecteur.",
+      "it_it": "Gli episodi rimangono in un’unica playlist. I numeri di stagione ed episodio ne determinano l’ordine. Puoi attivare o disattivare la riproduzione automatica nel player.",
+      "es_es": "Los episodios se mantienen en una sola lista de reproducción. Los números de temporada y episodio marcan el orden. Puedes activar o desactivar la reproducción automática en el reproductor."
+    },
+    "About this series": {
+      "fr_fr": "À propos de cette série",
+      "fr_be": "À propos de cette série",
+      "fr_ca": "À propos de cette série",
+      "it_it": "Informazioni sulla serie",
+      "es_es": "Acerca de esta serie"
+    },
+    "Episode numbers must be unique within a season.": {
+      "fr_fr": "Chaque épisode doit avoir un numéro différent au sein d’une même saison.",
+      "fr_be": "Chaque épisode doit avoir un numéro différent au sein d’une même saison.",
+      "fr_ca": "Chaque épisode doit avoir un numéro différent au sein d’une même saison.",
+      "it_it": "Ogni episodio deve avere un numero diverso all’interno della stessa stagione.",
+      "es_es": "Cada episodio debe tener un número distinto dentro de la misma temporada."
+    },
+    "season": {
+      "fr_fr": "saison",
+      "fr_be": "saison",
+      "fr_ca": "saison",
+      "it_it": "stagione",
+      "es_es": "temporada"
+    },
+    "Series completed": {
+      "fr_fr": "Terminée",
+      "fr_be": "Terminée",
+      "fr_ca": "Terminée",
+      "it_it": "Conclusa",
+      "es_es": "Finalizada"
+    }
+  }
+}

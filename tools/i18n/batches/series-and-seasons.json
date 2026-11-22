@@ -169,11 +169,11 @@
       "de_at": "Serien-Tipp",
       "de_ch": "Serien-Tipp"
     },
-    "Episodes stay in one playlist. Season and episode numbers define the order your viewers see, and the next episode keeps playing automatically.": {
-      "en": "Episodes stay in one playlist. Season and episode numbers define the order your viewers see, and the next episode keeps playing automatically.",
-      "de_de": "Folgen bleiben in einer Playlist. Staffel- und Folgennummern legen die Reihenfolge für deine Zuschauer fest, und die nächste Folge läuft automatisch weiter.",
-      "de_at": "Folgen bleiben in einer Playlist. Staffel- und Folgennummern legen die Reihenfolge für deine Zuschauer fest, und die nächste Folge läuft automatisch weiter.",
-      "de_ch": "Folgen bleiben in einer Playlist. Staffel- und Folgennummern legen die Reihenfolge für deine Zuschauer fest, und die nächste Folge läuft automatisch weiter."
+    "Episodes stay in one playlist. Season and episode numbers set their order. You can turn autoplay on or off in the player.": {
+      "en": "Episodes stay in one playlist. Season and episode numbers set their order. You can turn autoplay on or off in the player.",
+      "de_de": "Die Folgen bleiben in einer Playlist. Staffel- und Folgennummern legen die Reihenfolge fest. Im Player kannst du Autoplay ein- oder ausschalten.",
+      "de_at": "Die Folgen bleiben in einer Playlist. Staffel- und Folgennummern legen die Reihenfolge fest. Im Player kannst du Autoplay ein- oder ausschalten.",
+      "de_ch": "Die Folgen bleiben in einer Playlist. Staffel- und Folgennummern legen die Reihenfolge fest. Im Player kannst du Autoplay ein- oder ausschalten."
     },
     "About this series": {
       "en": "About this series",
@@ -186,6 +186,18 @@
       "de_de": "Folgennummern müssen innerhalb einer Staffel eindeutig sein.",
       "de_at": "Folgennummern müssen innerhalb einer Staffel eindeutig sein.",
       "de_ch": "Folgennummern müssen innerhalb einer Staffel eindeutig sein."
+    },
+    "season": {
+      "en": "season",
+      "de_de": "Staffel",
+      "de_at": "Staffel",
+      "de_ch": "Staffel"
+    },
+    "Series completed": {
+      "en": "Completed",
+      "de_de": "Abgeschlossen",
+      "de_at": "Abgeschlossen",
+      "de_ch": "Abgeschlossen"
     }
   }
 }

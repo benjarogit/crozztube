@@ -5003,4 +5003,7 @@ Anschließend erstellt die Verarbeitung die Videoauflösungen und bei Bedarf Vor
   'Sharing failed.' => 'Teilen fehlgeschlagen.',
   'Dismiss notification' => 'Meldung schließen',
   'Copied to clipboard.' => 'In die Zwischenablage kopiert.',
+  'Episodes stay in one playlist. Season and episode numbers set their order. You can turn autoplay on or off in the player.' => 'Die Folgen bleiben in einer Playlist. Staffel- und Folgennummern legen die Reihenfolge fest. Im Player kannst du Autoplay ein- oder ausschalten.',
+  'season' => 'Staffel',
+  'Series completed' => 'Abgeschlossen',
 );

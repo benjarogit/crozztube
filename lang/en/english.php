@@ -5021,4 +5021,7 @@ The processing job encodes renditions, creates thumbnails when needed, stores ca
   'Sharing failed.' => 'Sharing failed.',
   'Dismiss notification' => 'Dismiss notification',
   'Copied to clipboard.' => 'Copied to clipboard.',
+  'Episodes stay in one playlist. Season and episode numbers set their order. You can turn autoplay on or off in the player.' => 'Episodes stay in one playlist. Season and episode numbers set their order. You can turn autoplay on or off in the player.',
+  'season' => 'season',
+  'Series completed' => 'Completed',
 );

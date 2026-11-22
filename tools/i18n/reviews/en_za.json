@@ -9393,6 +9393,15 @@
             ],
             "reviewed_at": "2026-11-06T10:21:26+00:00"
         },
+        "431f10a5cb9ace2657effaab8d8d86e094b0a4b3a94f66c735e8dbef22d31987": {
+            "source_hash": "431f10a5cb9ace2657effaab8d8d86e094b0a4b3a94f66c735e8dbef22d31987",
+            "translation_hash": "431f10a5cb9ace2657effaab8d8d86e094b0a4b3a94f66c735e8dbef22d31987",
+            "status": "editorial",
+            "contexts": [
+                "Correct the series library singular count, context-specific completed status and misleading editor autoplay tip."
+            ],
+            "reviewed_at": "2026-11-22T12:00:23+00:00"
+        },
         "4320b2b2eea7ae8e49d7e3aaca9a9d44dd25dc09e07f9c8676a2a1ecf569bec8": {
             "source_hash": "4320b2b2eea7ae8e49d7e3aaca9a9d44dd25dc09e07f9c8676a2a1ecf569bec8",
             "translation_hash": "4320b2b2eea7ae8e49d7e3aaca9a9d44dd25dc09e07f9c8676a2a1ecf569bec8",
@@ -11561,6 +11570,15 @@
                 "English reference editorial pass for community/bookmarks, livestream setup/readiness, theme/design settings, support tickets, LiveKit/RTMP/WebRTC/TURN configuration, certificates, Docker status and scheduler administration. Technical parameters retained where administrators need them. Obsolete promises about future broadcasting replaced with present configuration requirements; names/examples/time quantities/fragments excluded."
             ],
             "reviewed_at": "2026-11-06T11:31:07+00:00"
+        },
+        "5195697708d6deb20508169390389af0d085da19cf324528ecce972ec8964b09": {
+            "source_hash": "22a970d2e5b1cc233e462be7c7b64e135a275bb09d83d87683bf4236c43113a1",
+            "translation_hash": "22a970d2e5b1cc233e462be7c7b64e135a275bb09d83d87683bf4236c43113a1",
+            "status": "editorial",
+            "contexts": [
+                "Correct the series library singular count, context-specific completed status and misleading editor autoplay tip."
+            ],
+            "reviewed_at": "2026-11-22T12:00:23+00:00"
         },
         "519a438ce5ae601fc08248a55bb22ccec4da86f32ec66590115f0f2b8a58e5bc": {
             "source_hash": "519a438ce5ae601fc08248a55bb22ccec4da86f32ec66590115f0f2b8a58e5bc",
@@ -20965,6 +20983,15 @@
                 "English reference editorial pass covering live chat, participant approval/privacy, gifts/tips, stickers, ads, stream recovery, replay, payment history, language administration, import/captions/chapters and standard emails. Existing current editorial/context-reviewed entries retained without downgrading their status. Sentence fragments and technical/sample identifiers excluded. Stream and advertising wording clarified without new security/payment guarantees."
             ],
             "reviewed_at": "2026-11-06T11:32:47+00:00"
+        },
+        "8f8e24f65c57e9d506fe81adfca35ef329983d6e33af935dd388a03c579613de": {
+            "source_hash": "8f8e24f65c57e9d506fe81adfca35ef329983d6e33af935dd388a03c579613de",
+            "translation_hash": "8f8e24f65c57e9d506fe81adfca35ef329983d6e33af935dd388a03c579613de",
+            "status": "editorial",
+            "contexts": [
+                "Correct the series library singular count, context-specific completed status and misleading editor autoplay tip."
+            ],
+            "reviewed_at": "2026-11-22T12:00:23+00:00"
         },
         "8f941ce22110a57aacadc204de24af7b9e543001d8aeb3aff827eae6a2dbbc3d": {
             "source_hash": "8f941ce22110a57aacadc204de24af7b9e543001d8aeb3aff827eae6a2dbbc3d",

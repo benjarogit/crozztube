@@ -4983,4 +4983,7 @@ The processing job encodes renditions, creates thumbnails when needed, stores ca
   'Episodes stay in one playlist. Season and episode numbers define the order your viewers see, and the next episode keeps playing automatically.' => 'Episodes stay in one playlist. Season and episode numbers define the order your viewers see, and the next episode keeps playing automatically.',
   'About this series' => 'About this series',
   'Episode numbers must be unique within a season.' => 'Episode numbers must be unique within a season.',
+  'Episodes stay in one playlist. Season and episode numbers set their order. You can turn autoplay on or off in the player.' => 'Episodes stay in one playlist. Season and episode numbers set their order. You can turn autoplay on or off in the player.',
+  'season' => 'season',
+  'Series completed' => 'Completed',
 );

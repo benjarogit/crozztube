@@ -581,12 +581,19 @@
 .watch-next-episode-copy small { color: var(--muted); font-size: 11px; font-weight: 850; letter-spacing: .04em; text-transform: uppercase; }
 .watch-next-episode-copy strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text); font-size: 14px; font-weight: 850; line-height: 1.3; transition: color .16s ease; }
 .watch-next-episode-copy em { color: var(--muted); font-size: 12px; font-style: normal; font-weight: 800; font-variant-numeric: tabular-nums; }
-.watch-next-episode-toggle { flex: 0 0 auto; }
+.watch-next-episode-toggle {
+  flex: 0 1 auto;
+  min-inline-size: 0;
+  max-inline-size: 100%;
+  text-align: start;
+}
+.watch-next-episode-toggle span { min-inline-size: 0; overflow-wrap: anywhere; white-space: normal; }
+.watch-next-episode-toggle i { flex: 0 0 auto; }
 @media (max-width: 560px) {
   .watch-next-episode { align-items: flex-start; }
   .watch-next-episode-card { flex: 1 1 100%; }
   .watch-next-episode-copy strong { white-space: normal; }
-  .watch-next-episode-toggle { margin-left: 49px; }
+  .watch-layout-shell .watch-next-episode-toggle { margin-inline-start: 0; }
 }
 
 /* Home focus, 2026-11-16: one feature, then the viewer's own history, then
@@ -832,4 +839,8 @@
   :root[dir="rtl"] .explore-banner::after {
     background: linear-gradient(0deg, rgb(0 0 0 / .9), rgb(0 0 0 / .74) 68%, rgb(0 0 0 / .45));
   }
+}
+
+@media (max-width: 560px) {
+  .playlist-invite-form { grid-template-columns: minmax(0, 1fr); }
 }

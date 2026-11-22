@@ -3860,6 +3860,15 @@
             ],
             "reviewed_at": "2026-11-06T12:27:02+00:00"
         },
+        "431f10a5cb9ace2657effaab8d8d86e094b0a4b3a94f66c735e8dbef22d31987": {
+            "source_hash": "431f10a5cb9ace2657effaab8d8d86e094b0a4b3a94f66c735e8dbef22d31987",
+            "translation_hash": "44a7f2b11e18eb92eface24c223370fafbabaafb38606a0a41e0670d1986bfc5",
+            "status": "editorial",
+            "contexts": [
+                "Correct the series library singular count, context-specific completed status and misleading editor autoplay tip."
+            ],
+            "reviewed_at": "2026-11-22T12:00:19+00:00"
+        },
         "43494390c933c5c4b86dd68280dc66c8e63a9eabd94a9d5ccc65d709ffd99fec": {
             "source_hash": "43494390c933c5c4b86dd68280dc66c8e63a9eabd94a9d5ccc65d709ffd99fec",
             "translation_hash": "8d42e167491ee34395e438cf6bab0785797b93d886a1655257b31bb93f5ec177",
@@ -4795,6 +4804,15 @@
                 "Editorial pass: previously untranslated LiveKit/TURN configuration, server cron jobs, live waiting/chat/polls/contributions, guest stage consent and camera/microphone states, local gifts/Super Stickers. Original technical paths and named placeholders retained; event fragments remain flagged for later whole-message integration."
             ],
             "reviewed_at": "2026-11-06T09:49:48+00:00"
+        },
+        "5195697708d6deb20508169390389af0d085da19cf324528ecce972ec8964b09": {
+            "source_hash": "22a970d2e5b1cc233e462be7c7b64e135a275bb09d83d87683bf4236c43113a1",
+            "translation_hash": "38ee859a969e3aa49e7624010a180bf81cd22b78aabfa05932614b6b21604ba1",
+            "status": "editorial",
+            "contexts": [
+                "Correct the series library singular count, context-specific completed status and misleading editor autoplay tip."
+            ],
+            "reviewed_at": "2026-11-22T12:00:19+00:00"
         },
         "51b3ba0dc55d93035163666cd935de8cb3bb50e25360635be7a151a89b513753": {
             "source_hash": "51b3ba0dc55d93035163666cd935de8cb3bb50e25360635be7a151a89b513753",
@@ -8585,6 +8603,15 @@
                 "Source reading: comments and pinned actions, subscriptions, saved videos, player controls, account settings; dictionary messages 191–390"
             ],
             "reviewed_at": "2026-11-06T08:57:05+00:00"
+        },
+        "8f8e24f65c57e9d506fe81adfca35ef329983d6e33af935dd388a03c579613de": {
+            "source_hash": "8f8e24f65c57e9d506fe81adfca35ef329983d6e33af935dd388a03c579613de",
+            "translation_hash": "dba54607da5833da4d18539c6501d5c1dba9d6a9ef7ff8f352384417eeaace6b",
+            "status": "editorial",
+            "contexts": [
+                "Correct the series library singular count, context-specific completed status and misleading editor autoplay tip."
+            ],
+            "reviewed_at": "2026-11-22T12:00:19+00:00"
         },
         "8f941ce22110a57aacadc204de24af7b9e543001d8aeb3aff827eae6a2dbbc3d": {
             "source_hash": "8f941ce22110a57aacadc204de24af7b9e543001d8aeb3aff827eae6a2dbbc3d",
