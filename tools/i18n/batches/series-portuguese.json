@@ -1,0 +1,203 @@
+{
+  "context": "Step 8 playlist conversion, season and episode editor and watch context in Portuguese. Preserve established Playlist/player in Brazil versus lista de reprodução/leitor in Portugal and Angola; preserve the existing pre-AO90 spelling in pt_pt and pt_ao and AO90 spelling in pt_pt_ao90.",
+  "messages": {
+    "Series": {
+      "pt_ao": "Série",
+      "pt_br": "Série",
+      "pt_pt": "Série",
+      "pt_pt_ao90": "Série"
+    },
+    "episode": {
+      "pt_ao": "episódio",
+      "pt_br": "episódio",
+      "pt_pt": "episódio",
+      "pt_pt_ao90": "episódio"
+    },
+    "episodes": {
+      "pt_ao": "episódios",
+      "pt_br": "episódios",
+      "pt_pt": "episódios",
+      "pt_pt_ao90": "episódios"
+    },
+    "seasons": {
+      "pt_ao": "temporadas",
+      "pt_br": "temporadas",
+      "pt_pt": "temporadas",
+      "pt_pt_ao90": "temporadas"
+    },
+    "Season": {
+      "pt_ao": "Temporada",
+      "pt_br": "Temporada",
+      "pt_pt": "Temporada",
+      "pt_pt_ao90": "Temporada"
+    },
+    "Episode": {
+      "pt_ao": "Episódio",
+      "pt_br": "Episódio",
+      "pt_pt": "Episódio",
+      "pt_pt_ao90": "Episódio"
+    },
+    "Episode title": {
+      "pt_ao": "Título do episódio",
+      "pt_br": "Título do episódio",
+      "pt_pt": "Título do episódio",
+      "pt_pt_ao90": "Título do episódio"
+    },
+    "Next episode": {
+      "pt_ao": "Próximo episódio",
+      "pt_br": "Próximo episódio",
+      "pt_pt": "Próximo episódio",
+      "pt_pt_ao90": "Próximo episódio"
+    },
+    "Autoplay next episode": {
+      "pt_ao": "Reproduzir automaticamente o próximo episódio",
+      "pt_br": "Reproduzir automaticamente o próximo episódio",
+      "pt_pt": "Reproduzir automaticamente o próximo episódio",
+      "pt_pt_ao90": "Reproduzir automaticamente o próximo episódio"
+    },
+    "Format": {
+      "pt_ao": "Formato",
+      "pt_br": "Formato",
+      "pt_pt": "Formato",
+      "pt_pt_ao90": "Formato"
+    },
+    "Series status": {
+      "pt_ao": "Estado da série",
+      "pt_br": "Status da série",
+      "pt_pt": "Estado da série",
+      "pt_pt_ao90": "Estado da série"
+    },
+    "Ongoing": {
+      "pt_ao": "Em curso",
+      "pt_br": "Em andamento",
+      "pt_pt": "Em curso",
+      "pt_pt_ao90": "Em curso"
+    },
+    "New series": {
+      "pt_ao": "Nova série",
+      "pt_br": "Nova série",
+      "pt_pt": "Nova série",
+      "pt_pt_ao90": "Nova série"
+    },
+    "Edit series": {
+      "pt_ao": "Editar série",
+      "pt_br": "Editar série",
+      "pt_pt": "Editar série",
+      "pt_pt_ao90": "Editar série"
+    },
+    "Edit Series": {
+      "pt_ao": "Editar série",
+      "pt_br": "Editar série",
+      "pt_pt": "Editar série",
+      "pt_pt_ao90": "Editar série"
+    },
+    "Create New Series": {
+      "pt_ao": "Criar uma série",
+      "pt_br": "Criar uma série",
+      "pt_pt": "Criar uma série",
+      "pt_pt_ao90": "Criar uma série"
+    },
+    "Group episodes into seasons and keep them in order": {
+      "pt_ao": "Agrupa os episódios em temporadas e define a sua ordem",
+      "pt_br": "Agrupe os episódios em temporadas e defina a ordem.",
+      "pt_pt": "Agrupa os episódios em temporadas e define a sua ordem",
+      "pt_pt_ao90": "Agrupa os episódios em temporadas e define a sua ordem"
+    },
+    "Any mix of videos in your order": {
+      "pt_ao": "Combina os vídeos na ordem que preferires",
+      "pt_br": "Combine vídeos na ordem que preferir.",
+      "pt_pt": "Combina os vídeos na ordem que preferires",
+      "pt_pt_ao90": "Combina os vídeos na ordem que preferires"
+    },
+    "Seasons with numbered episodes": {
+      "pt_ao": "Temporadas com episódios numerados",
+      "pt_br": "Temporadas com episódios numerados",
+      "pt_pt": "Temporadas com episódios numerados",
+      "pt_pt_ao90": "Temporadas com episódios numerados"
+    },
+    "No further episodes are planned": {
+      "pt_ao": "Não estão previstos mais episódios",
+      "pt_br": "Não estão previstos mais episódios",
+      "pt_pt": "Não estão previstos mais episódios",
+      "pt_pt_ao90": "Não estão previstos mais episódios"
+    },
+    "New episodes are still coming": {
+      "pt_ao": "Estão previstos novos episódios",
+      "pt_br": "Estão previstos novos episódios",
+      "pt_pt": "Estão previstos novos episódios",
+      "pt_pt_ao90": "Estão previstos novos episódios"
+    },
+    "Seasons and episodes": {
+      "pt_ao": "Temporadas e episódios",
+      "pt_br": "Temporadas e episódios",
+      "pt_pt": "Temporadas e episódios",
+      "pt_pt_ao90": "Temporadas e episódios"
+    },
+    "Leave the episode number empty to number it automatically from its position in the season.": {
+      "pt_ao": "Deixa o número do episódio em branco para que seja atribuído automaticamente de acordo com a posição do episódio na temporada.",
+      "pt_br": "Deixe o número do episódio em branco para que ele seja atribuído automaticamente conforme a posição na temporada.",
+      "pt_pt": "Deixa o número do episódio em branco para que seja atribuído automaticamente de acordo com a posição do episódio na temporada.",
+      "pt_pt_ao90": "Deixa o número do episódio em branco para que seja atribuído automaticamente de acordo com a posição do episódio na temporada."
+    },
+    "auto": {
+      "pt_ao": "auto",
+      "pt_br": "auto",
+      "pt_pt": "auto",
+      "pt_pt_ao90": "auto"
+    },
+    "Add videos to number the episodes.": {
+      "pt_ao": "Adiciona vídeos para numerar os episódios.",
+      "pt_br": "Adicione vídeos para numerar os episódios.",
+      "pt_pt": "Adiciona vídeos para numerar os episódios.",
+      "pt_pt_ao90": "Adiciona vídeos para numerar os episódios."
+    },
+    "Add episodes to this series now": {
+      "pt_ao": "Adicionar episódios a esta série agora",
+      "pt_br": "Adicionar episódios a esta série agora",
+      "pt_pt": "Adicionar episódios a esta série agora",
+      "pt_pt_ao90": "Adicionar episódios a esta série agora"
+    },
+    "Series Name": {
+      "pt_ao": "Nome da série",
+      "pt_br": "Nome da série",
+      "pt_pt": "Nome da série",
+      "pt_pt_ao90": "Nome da série"
+    },
+    "Series tip": {
+      "pt_ao": "Sugestão para a série",
+      "pt_br": "Dica para a série",
+      "pt_pt": "Sugestão para a série",
+      "pt_pt_ao90": "Sugestão para a série"
+    },
+    "Episodes stay in one playlist. Season and episode numbers set their order. You can turn autoplay on or off in the player.": {
+      "pt_ao": "Os episódios ficam numa só lista de reprodução. Os números das temporadas e dos episódios definem a ordem. Podes activar ou desactivar a reprodução automática no leitor.",
+      "pt_br": "Os episódios ficam em uma só playlist. Os números de temporada e episódio definem a ordem. Você pode ativar ou desativar a reprodução automática no player.",
+      "pt_pt": "Os episódios ficam numa só lista de reprodução. Os números das temporadas e dos episódios definem a ordem. Podes activar ou desactivar a reprodução automática no leitor.",
+      "pt_pt_ao90": "Os episódios ficam numa só lista de reprodução. Os números das temporadas e dos episódios definem a ordem. Podes ativar ou desativar a reprodução automática no leitor."
+    },
+    "About this series": {
+      "pt_ao": "Sobre esta série",
+      "pt_br": "Sobre esta série",
+      "pt_pt": "Sobre esta série",
+      "pt_pt_ao90": "Sobre esta série"
+    },
+    "Episode numbers must be unique within a season.": {
+      "pt_ao": "Cada episódio deve ter um número diferente dentro da mesma temporada.",
+      "pt_br": "Cada episódio deve ter um número diferente dentro da mesma temporada.",
+      "pt_pt": "Cada episódio deve ter um número diferente dentro da mesma temporada.",
+      "pt_pt_ao90": "Cada episódio deve ter um número diferente dentro da mesma temporada."
+    },
+    "season": {
+      "pt_ao": "temporada",
+      "pt_br": "temporada",
+      "pt_pt": "temporada",
+      "pt_pt_ao90": "temporada"
+    },
+    "Series completed": {
+      "pt_ao": "Concluída",
+      "pt_br": "Concluída",
+      "pt_pt": "Concluída",
+      "pt_pt_ao90": "Concluída"
+    }
+  }
+}

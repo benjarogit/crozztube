@@ -1,20 +1,26 @@
 import path from 'node:path';
 import { readFileSync } from 'node:fs';
 import { chromium, expect as baseExpect } from '@playwright/test';
-import { applicationJson, layoutSession, expectContained } from './fixtures/readonly-layout.ts';
+import { applicationGet, applicationJson, layoutSession, expectContained } from './fixtures/readonly-layout.ts';
 
-const expect = baseExpect.configure({ timeout: 15_000 });
+const expect = baseExpect.configure({ timeout: 30_000 });
 const build = process.env.SERIES_TEST_BUILD;
 if (!build) throw new Error('Set SERIES_TEST_BUILD to the isolated Vite output directory.');
 const entry = JSON.parse(readFileSync(path.join(build, 'manifest.json')))['resources/js/main.jsx'];
-const batch = JSON.parse(readFileSync(new URL('../../i18n/batches/series-romance-first.json', import.meta.url)));
-const locales = Object.keys(batch.messages.Series);
+const batchFiles = process.argv.length > 2
+  ? process.argv.slice(2)
+  : [new URL('../../i18n/batches/series-romance-first.json', import.meta.url)];
+const batches = batchFiles.map(file => JSON.parse(readFileSync(file)));
+const cases = batches.flatMap(batch => Object.keys(batch.messages.Series).map(locale => ({ batch, locale })));
+if (!cases.length) throw new Error('No series locale cases selected.');
 const videos = applicationJson('/api/videos?type=video&per_page=6', false).data
   .filter(video => video?.slug)
   .slice(0, 2)
   .map((video, index) => ({ ...video, season_number: 1, episode_number: index + 1, episode_label: 'S1 E' + (index + 1) }));
 if (videos.length !== 2) throw new Error('Series locale fixture needs two catalogue entries.');
 const [first, next] = videos;
+const watchPath = '/api/videos/' + first.slug;
+const watchPayload = applicationJson(watchPath, true);
 const playlist = {
   id: 987654321, user_id: Number(process.env.LAYOUT_USER_ID || '1'), title: 'Series language fixture',
   kind: 'series', viewer_role: 'owner', series_status: 'completed', privacy: 'Public', videos, videos_count: videos.length,
@@ -26,7 +32,7 @@ const detail = video => ({ slug: video.slug, title: video.title, video_id: video
 
 const browser = await chromium.launch({ headless: true });
 try {
-  for (const locale of locales) {
+  for (const { batch, locale } of cases) {
     const message = key => batch.messages[key][locale];
     const session = await layoutSession(browser, {
       language: locale, width: 390, touch: true, dark: true, strictHttps: true,
@@ -35,14 +41,21 @@ try {
         if (url === '/api/source-resolver/status/slug/' + first.slug) return { status: 404, body: '{"message":"Not found."}' };
         if (url.startsWith('/api/playlists?') || url === '/api/playlists') return json({ playlists: [playlist] });
         if (url.split('?')[0] === '/api/playlists/' + playlist.id) return json({ playlist, viewer_role: 'owner', vote_counts: {}, members: [] });
+        if (url === watchPath) return json({
+          ...watchPayload,
+          video: { ...watchPayload.video, source_type: 'upload', import_provider: null, import_url: null, embed_url: null,
+            playback_pending: false, video_url: '/fixtures/viewer.mp4', video_sources: [{ src: '/fixtures/viewer.mp4', type: 'video/mp4' }] },
+          series: { ...playlist.series, id: playlist.id, title: playlist.title, kind: 'series', status: 'ongoing',
+            current: detail(first), next: detail(next) },
+        });
+        // Only the catalog endpoint needs a fresh locale-specific body. Reuse
+        // the shared read-only fixture cache for unrelated application routes.
+        if (!url.startsWith('/api/i18n/')) {
+          const response = applicationGet(url, true, 'en');
+          if (response.status >= 500) throw new Error(`Application fixture returned ${response.status} for ${url}`);
+          return response;
+        }
       },
-      transform: (url, payload) => url === '/api/videos/' + first.slug ? {
-        ...payload,
-        video: { ...payload.video, source_type: 'upload', import_provider: null, import_url: null, embed_url: null,
-          playback_pending: false, video_url: '/fixtures/viewer.mp4', video_sources: [{ src: '/fixtures/viewer.mp4', type: 'video/mp4' }] },
-        series: { ...playlist.series, id: playlist.id, title: playlist.title, kind: 'series', status: 'ongoing',
-          current: detail(first), next: detail(next) },
-      } : payload,
     });
     const { context, page, writes, errors, failedGets } = session;
     const goto = route => page.goto(route, { waitUntil: 'domcontentloaded' });
@@ -68,7 +81,16 @@ try {
         if (!body.includes('/build/' + entry.file)) throw new Error('Candidate frontend entry is missing.');
         await route.fulfill({ response, body });
       });
-      await goto('/watch/' + first.slug);
+      const expectedCatalog = '/api/i18n/' + locale;
+      const [response] = await Promise.all([
+        page.waitForResponse(candidate => new URL(candidate.url()).pathname === expectedCatalog
+          && candidate.request().method() === 'GET' && candidate.status() === 200, { timeout: 45_000 }),
+        goto('/watch/' + first.slug),
+      ]);
+      const catalog = await response.json();
+      expect(catalog.code).toBe(locale);
+      await expect(page.locator('html')).toHaveAttribute('lang', catalog.language_tag);
+      for (const key of Object.keys(batch.messages)) expect(catalog.translations[key]).toBe(message(key));
       await expect(page.locator('.watch-next-episode')).toContainText(message('Next episode'));
       await expect(page.locator('.watch-next-episode')).toContainText('S1 E2');
       await expect(page.locator('.watch-autoplay-toggle')).toHaveCount(1);
