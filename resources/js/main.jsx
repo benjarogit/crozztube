@@ -1,3 +1,4 @@
+import { ToastProvider, useToast } from './components/ToastProvider.jsx';
 import ResponsiveOverlays from './components/ResponsiveOverlays.jsx';
 import ClipComposer from './components/ClipComposer.jsx';
 import ReportDialog from './components/ReportDialog.jsx';
@@ -2305,6 +2306,8 @@ function Icon({ name, size = 20 }) {
     smile: <><circle cx="12" cy="12" r="9"/><path d="M8.5 10h.01M15.5 10h.01"/><path d="M8 14.5c1.1 1.2 2.4 1.8 4 1.8s2.9-.6 4-1.8"/></>,
     sticker: <><path d="M5 3h10a4 4 0 0 1 4 4v7l-6 6H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z"/><path d="M13 20v-4a2 2 0 0 1 2-2h4"/><path d="M7.5 8.5h.01M14.5 8.5h.01"/><path d="M8 12c1 .9 2.3 1.4 4 1.4"/></>,
     image: <><rect x="4" y="5" width="16" height="14" rx="2"/><circle cx="9" cy="10" r="1.7"/><path d="m4 16 4-4 3 3 3-4 6 6"/></>,
+    errorCircle: <><circle cx="12" cy="12" r="9"/><path d="m9 9 6 6m0-6-6 6"/></>,
+    warningTriangle: <><path d="M12 3 2 20h20L12 3z"/><path d="M12 9v4m0 3h.01"/></>,
     checkCircle: <><path d="M9 12.2 11.1 14.3 16 9.4"/><circle cx="12" cy="12" r="9"/></>,
     search: <><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></>,
     enter: <><path d="M20 4v7a4 4 0 0 1-4 4H5"/><path d="m9 11-4 4 4 4"/></>,
@@ -2522,7 +2525,7 @@ function Topbar({ user, setUser, navigate, logout, theme, onMenu, sidebarOpen = 
   const [accountSwitcherOpen, setAccountSwitcherOpen] = useState(false);
   const [storedAccounts, setStoredAccounts] = useState([]);
   const [switchingAccountId, setSwitchingAccountId] = useState('');
-  const [accountSwitchNotice, setAccountSwitchNotice] = useState('');
+  const toast = useToast();
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
   const [mobileAccountSheet, setMobileAccountSheet] = useState(() => window.matchMedia?.('(max-width: 860px)')?.matches ?? window.innerWidth <= 860);
   const navigationAccountOverlay = overlayNavigation && sidebarOpen;
@@ -2805,7 +2808,6 @@ function Topbar({ user, setUser, navigate, logout, theme, onMenu, sidebarOpen = 
   const accountRows = sortedStoredAccounts.length ? sortedStoredAccounts : [accountStorageSnapshot(user, currentAccountToken, currentTokenRemembered())].filter(Boolean);
   const toggleAccountSwitcher = () => {
     refreshStoredAccounts();
-    setAccountSwitchNotice('');
     setAccountSwitcherOpen((open) => !open);
   };
   const addSwitchAccount = () => {
@@ -2821,7 +2823,6 @@ function Topbar({ user, setUser, navigate, logout, theme, onMenu, sidebarOpen = 
     const previousUser = user;
     if (previousUser && previousToken) saveStoredAccount(previousUser, previousToken, previousRemember);
     setSwitchingAccountId(account.id);
-    setAccountSwitchNotice('');
     api.setToken(account.token, account.remember !== false);
     try {
       const data = await api.request('/auth/me');
@@ -2836,7 +2837,7 @@ function Topbar({ user, setUser, navigate, logout, theme, onMenu, sidebarOpen = 
       else api.setToken(null);
       setUser?.(previousUser || null);
       setStoredAccounts(readStoredAccounts());
-      setAccountSwitchNotice('Session expired. Login again.');
+      toast.error('Session expired. Login again.');
     } finally {
       setSwitchingAccountId('');
     }
@@ -2878,7 +2879,7 @@ function Topbar({ user, setUser, navigate, logout, theme, onMenu, sidebarOpen = 
           </button>;
         })}
         <button type="button" className="topbar-account-switch-add" onClick={addSwitchAccount}><Icon name="plus" size={17}/><span>Login</span></button>
-        {accountSwitchNotice && <small className="topbar-account-switch-notice">{accountSwitchNotice}</small>}
+
       </div>}
       <button type="button" role={accountDialog ? undefined : "menuitem"} className="danger" onClick={() => { setAccountOpen(false); logout(); }}><Icon name="block" size={18}/><span>Logout</span></button>
     </div>
@@ -4796,7 +4797,7 @@ function StudioCommentsCard({ initialComments, navigate, auth }) {
   const [reportTarget, setReportTarget] = useState(null);
   const [replyingId, setReplyingId] = useState(null);
   const [replyBody, setReplyBody] = useState('');
-  const [notice, setNotice] = useState('');
+  const toast = useToast();
   const replyInputRef = useRef(null);
   const replyMentions = useMentionAutocomplete({ auth, value: replyBody, setValue: setReplyBody, inputRef: replyInputRef, maxLength: 2000 });
 
@@ -4827,15 +4828,9 @@ function StudioCommentsCard({ initialComments, navigate, auth }) {
     };
   }, [menuOpenId, replyingId]);
 
-  useEffect(() => {
-    if (!notice) return undefined;
-    const timer = window.setTimeout(() => setNotice(''), 2400);
-    return () => window.clearTimeout(timer);
-  }, [notice]);
 
   const orderedComments = useMemo(() => [...comments].sort((a, b) => Number(Boolean(b.pinned)) - Number(Boolean(a.pinned))), [comments]);
 
-  const pushNotice = (message) => setNotice(message);
   const canPinComment = (comment) => Boolean(comment.can_pin);
   const canDeleteComment = (comment) => Boolean(comment.can_delete ?? true);
   const canReportComment = (comment) => Boolean(comment.can_report);
@@ -4865,9 +4860,9 @@ function StudioCommentsCard({ initialComments, navigate, auth }) {
       setReplyingId(null);
       setReplyBody('');
       replyMentions.closeMentionMenu();
-      pushNotice(`Reply added for ${comment.name}.`);
+      toast.success(`Reply added for ${comment.name}.`);
     } catch (err) {
-      pushNotice(err.message || 'Unable to save reply.');
+      toast.error(err.message || 'Unable to save reply.');
     }
   };
 
@@ -4883,10 +4878,10 @@ function StudioCommentsCard({ initialComments, navigate, auth }) {
     try {
       const data = await api.request(`/comments/${comment.id}/pin`, { method: 'POST' });
       mergeComment(comment, data.comment);
-      pushNotice(data.message || (nextPinned ? `Pinned ${comment.name}'s comment.` : `Unpinned ${comment.name}'s comment.`));
+      toast.success(data.message || (nextPinned ? `Pinned ${comment.name}'s comment.` : `Unpinned ${comment.name}'s comment.`));
     } catch (err) {
       setComments((current) => current.map((item) => item.id === comment.id ? { ...item, pinned: !nextPinned } : item));
-      pushNotice(err.message || 'Unable to update pinned comment.');
+      toast.error(err.message || 'Unable to update pinned comment.');
     }
   };
 
@@ -4895,19 +4890,10 @@ function StudioCommentsCard({ initialComments, navigate, auth }) {
     const commentHash = isShortVideo(comment.video) ? `#short-${comment.video.slug}-comment-${comment.id}` : `#comment-${comment.id}`;
     const link = `${window.location.origin}${commentPath}${commentHash}`;
     try {
-      if (navigator.clipboard?.writeText) {
-        await navigator.clipboard.writeText(link);
-      } else {
-        const input = document.createElement('input');
-        input.value = link;
-        document.body.appendChild(input);
-        input.select();
-        document.execCommand('copy');
-        input.remove();
-      }
-      pushNotice('Comment link copied.');
+      await copyTextToClipboard(link);
+      toast.success('Link copied.');
     } catch (_) {
-      pushNotice('Unable to copy the link.');
+      toast.error('Copy failed.');
     }
     setMenuOpenId(null);
   };
@@ -4916,10 +4902,10 @@ function StudioCommentsCard({ initialComments, navigate, auth }) {
     try {
       await api.request(`/comments/${comment.id}/mute-user`, { method: 'POST' });
       setMenuOpenId(null);
-      pushNotice(`Notifications muted for ${comment.name}.`);
+      toast.success(`Notifications muted for ${comment.name}.`);
     } catch (err) {
       setMenuOpenId(null);
-      pushNotice(err.message || 'Unable to mute user.');
+      toast.error(err.message || 'Unable to mute user.');
     }
   };
 
@@ -4946,10 +4932,10 @@ function StudioCommentsCard({ initialComments, navigate, auth }) {
       }
       setMenuOpenId(null);
       setDeleteConfirm(null);
-      pushNotice('Comment deleted.');
+      toast.success('Comment deleted.');
     } catch (err) {
       setMenuOpenId(null);
-      pushNotice(err.message || 'Unable to delete comment.');
+      toast.error(err.message || 'Unable to delete comment.');
     } finally {
       setDeletingCommentId(null);
     }
@@ -4960,7 +4946,6 @@ function StudioCommentsCard({ initialComments, navigate, auth }) {
       <h2>Recent Comments</h2>
       <button className="text-button" onClick={() => navigate('/studio/content')}>View all</button>
     </div>
-    {notice && <div className="studio-comment-notice" aria-live="polite">{notice}</div>}
     {orderedComments.length ? orderedComments.map((comment) => <div className={`studio-comment-row ${comment.pinned ? 'is-pinned' : ''}`} key={comment.id} id={`comment-${comment.id}`}>
       <button type="button" className="studio-comment-avatar profile-avatar-button" onClick={(event) => openProfile(event, navigate, comment.channel)} disabled={!profilePathFor(comment.channel)} aria-label={`Open ${comment.name} profile`}><Avatar label={comment.name} image={assetUrl(comment.channel?.avatar_url || comment.channel?.avatar_path)}/></button>
       <div className="studio-comment-copy">
@@ -6909,12 +6894,11 @@ function SearchVideoRow({ video, navigate, onNotInterested = null }) {
 function SearchVideoActions({ video, navigate, onNotInterested = null }) {
   const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState(false);
-  const [copyToast, setCopyToast] = useState('');
+  const toast = useToast();
   const [menuStyle, setMenuStyle] = useState(null);
   const [menuPlacement, setMenuPlacement] = useState('down');
   const menuRef = useRef(null);
   const triggerRef = useRef(null);
-  const toastTimerRef = useRef(null);
   const videoPath = videoPlaybackPath(video);
   useEffect(() => {
     if (!open) return undefined;
@@ -6924,21 +6908,14 @@ function SearchVideoActions({ video, navigate, onNotInterested = null }) {
     document.addEventListener('mousedown', closeOnOutside);
     return () => document.removeEventListener('mousedown', closeOnOutside);
   }, [open]);
-  useEffect(() => () => window.clearTimeout(toastTimerRef.current), []);
-  const showCopyToast = (message) => {
-    window.clearTimeout(toastTimerRef.current);
-    setCopyToast('');
-    window.setTimeout(() => setCopyToast(message), 20);
-    toastTimerRef.current = window.setTimeout(() => setCopyToast(''), 4600);
-  };
   const copyLink = async () => {
     try {
-      await navigator.clipboard?.writeText(`${window.location.origin}${videoPath}`);
+      await copyTextToClipboard(`${window.location.origin}${videoPath}`);
       setCopied(true);
-      showCopyToast('Link copied to clipboard');
+      toast.success('Link copied.');
       window.setTimeout(() => setCopied(false), 1600);
     } catch (_) {
-      showCopyToast('Unable to copy link');
+      toast.error('Copy failed.');
     }
     setOpen(false);
   };
@@ -6991,7 +6968,6 @@ function SearchVideoActions({ video, navigate, onNotInterested = null }) {
       <button type="button" role="menuitem" onClick={viewCreator} disabled={!profilePathFor(video.channel)}><Icon name="users" size={16}/> View creator</button>
       {onNotInterested && <button type="button" role="menuitem" className="danger" onClick={markNotInterested}><Icon name="block" size={16}/> Not interested</button>}
     </div>}
-    {copyToast && <div className="copy-toast-notice" role="status" aria-live="polite"><span><Icon name="checkCircle" size={18}/></span><strong>{copyToast}</strong></div>}
   </div>;
 }
 
@@ -7248,6 +7224,7 @@ function PlaylistsPage({ navigate, auth, routeSearch = '' }) {
   const [activeSeason, setActiveSeason] = useState('all');
   const [resumeProgress, setResumeProgress] = useState({});
   const [notice, setNotice] = useState('');
+  const toast = useToast();
   const [modalOpen, setModalOpen] = useState(false);
   const [openMenuId, setOpenMenuId] = useState(null);
   const [searchLoading, setSearchLoading] = useState(false);
@@ -7416,10 +7393,10 @@ function PlaylistsPage({ navigate, auth, routeSearch = '' }) {
   const copyPlaylistVideoLink = async (video) => {
     if (!video?.slug) return;
     try {
-      await navigator.clipboard?.writeText(`${window.location.origin}${videoPlaybackPath(video)}`);
-      setNotice('Video link copied.');
+      await copyTextToClipboard(`${window.location.origin}${videoPlaybackPath(video)}`);
+      toast.success('Link copied.');
     } catch (_) {
-      setNotice('Unable to copy video link.');
+      toast.error('Copy failed.');
     }
     setOpenMenuId(null);
   };
@@ -7521,11 +7498,11 @@ function PlaylistsPage({ navigate, auth, routeSearch = '' }) {
       setNotice('');
       if (navigator.share) await navigator.share({ title: selected?.title || 'Playlist', url });
       else {
-        await navigator.clipboard?.writeText(url);
-        setNotice('Playlist link copied.');
+        await copyTextToClipboard(url);
+        toast.success('Link copied.');
       }
     } catch (err) {
-      if (err?.name !== 'AbortError') setNotice('Unable to share playlist.');
+      if (err?.name !== 'AbortError') toast.error(typeof navigator.share === 'function' ? 'Sharing failed.' : 'Copy failed.');
     }
   };
   const createPlaylist = async (playlist) => {
@@ -9130,7 +9107,7 @@ function GoLivePage({ initialStream = null }) {
   const [previewError, setPreviewError] = useState('');
   const [rtmpPreviewPlaying, setRtmpPreviewPlaying] = useState(false);
   const [rtmpPreparing, setRtmpPreparing] = useState(false);
-  const [copyToast, setCopyToast] = useState('');
+  const toast = useToast();
   const [devices, setDevices] = useState({ cameras: [], microphones: [] });
   const [selectedCamera, setSelectedCamera] = useState('');
   const [selectedMicrophone, setSelectedMicrophone] = useState('');
@@ -9167,7 +9144,6 @@ function GoLivePage({ initialStream = null }) {
   const webcamPreviewVideoRef = useRef(null);
   const rtmpPreviewVideoRef = useRef(null);
   const rtmpPreviewRoomRef = useRef(null);
-  const copyToastTimerRef = useRef(null);
   const scheduleRef = useRef(null);
   const titleInputRef = useRef(null);
   const descriptionInputRef = useRef(null);
@@ -9481,7 +9457,6 @@ function GoLivePage({ initialStream = null }) {
     liveKitRoomRef.current = null;
     rtmpPreviewRoomRef.current?.disconnect?.();
     rtmpPreviewRoomRef.current = null;
-    if (copyToastTimerRef.current) window.clearTimeout(copyToastTimerRef.current);
   }, []);
 
   useEffect(() => {
@@ -10096,20 +10071,14 @@ function GoLivePage({ initialStream = null }) {
     }
   };
 
-  const showGoLiveToast = (message) => {
-    if (!message) return;
-    if (copyToastTimerRef.current) window.clearTimeout(copyToastTimerRef.current);
-    setCopyToast(message);
-    copyToastTimerRef.current = window.setTimeout(() => setCopyToast(''), 4200);
-  };
 
-  const copyRtmpCredential = async (value, label) => {
+  const copyRtmpCredential = async (value) => {
     if (!value) return;
     try {
       await copyTextToClipboard(value);
-      showGoLiveToast(`${label} copied to clipboard.`);
+      toast.success('Copied to clipboard.');
     } catch (_) {
-      showGoLiveToast(`Unable to copy ${label.toLowerCase()}.`);
+      toast.error('Copy failed.');
     }
   };
 
@@ -10382,7 +10351,7 @@ function GoLivePage({ initialStream = null }) {
         const nextStream = { ...saved, polls: [...(saved.polls || []).filter((item) => Number(item.id) !== Number(response.poll.id)), response.poll] };
         setStream(nextStream); streamRef.current = nextStream;
       }
-      showGoLiveToast(response.message || 'Poll created.'); setToolOpen('');
+      toast.success(response.message || 'Poll created.'); setToolOpen('');
       return true;
     } catch (requestError) { setError(requestError.message); return false; } finally { setBusy(''); }
   };
@@ -10397,7 +10366,7 @@ function GoLivePage({ initialStream = null }) {
         const nextStream = { ...streamRef.current, polls: (streamRef.current.polls || []).map((item) => Number(item.id) === Number(response.poll.id) ? response.poll : item) };
         setStream(nextStream); streamRef.current = nextStream;
       }
-      showGoLiveToast(response.message || 'Poll updated.'); setToolOpen('');
+      toast.success(response.message || 'Poll updated.'); setToolOpen('');
       return true;
     } catch (requestError) { setError(requestError.message); return false; } finally { setBusy(''); }
   };
@@ -10409,7 +10378,7 @@ function GoLivePage({ initialStream = null }) {
       setBusy('poll'); setError('');
       const response = await api.request(`/live-streams/${saved.id}/polls/${poll.id}`, { method: 'DELETE' });
       const nextStream = { ...streamRef.current, polls: (streamRef.current.polls || []).filter((item) => Number(item.id) !== Number(poll.id)) };
-      setStream(nextStream); streamRef.current = nextStream; showGoLiveToast(response.message || 'Poll deleted.');
+      setStream(nextStream); streamRef.current = nextStream; toast.success(response.message || 'Poll deleted.');
     } catch (requestError) { setError(requestError.message); } finally { setBusy(''); }
   };
 
@@ -10426,7 +10395,7 @@ function GoLivePage({ initialStream = null }) {
       setBusy('moderator'); setError('');
       const response = await api.request(`/live-streams/${saved.id}/moderators`, { method: 'POST', body: JSON.stringify({ username }) });
       setControlData((current) => ({ ...current, moderators: [...current.moderators.filter((item) => Number(item.user_id) !== Number(response.moderator.user_id)), response.moderator] }));
-      showGoLiveToast(response.message || 'Moderator added.');
+      toast.success(response.message || 'Moderator added.');
       return true;
     } catch (requestError) {
       setError(requestError.message || 'Unable to add this moderator.');
@@ -10455,7 +10424,7 @@ function GoLivePage({ initialStream = null }) {
       setBusy('moderator'); setError('');
       const response = await api.request(`/live-streams/${streamRef.current.id}/moderators/${moderator.user_id}`, { method: 'DELETE' });
       setControlData((current) => ({ ...current, moderators: current.moderators.filter((item) => Number(item.user_id) !== Number(moderator.user_id)) }));
-      showGoLiveToast(response.message || 'Moderator removed.');
+      toast.success(response.message || 'Moderator removed.');
       setModeratorRemoveConfirm(null);
       return true;
     } catch (requestError) {
@@ -10705,7 +10674,7 @@ function GoLivePage({ initialStream = null }) {
       <AppConfirmDialog dialog={participantRemoveConfirm} busy={busy === 'remove-participant'} onCancel={() => setParticipantRemoveConfirm(null)} onConfirm={confirmRemoveControlParticipant}/>
       <AppConfirmDialog dialog={moderatorAddConfirm} busy={busy === 'moderator'} onCancel={() => setModeratorAddConfirm(null)} onConfirm={confirmAddModerator}/>
       <AppConfirmDialog dialog={moderatorRemoveConfirm} busy={busy === 'moderator'} onCancel={() => setModeratorRemoveConfirm(null)} onConfirm={removeModerator}/>
-      {copyToast && <button type="button" className="copy-toast-notice" role="status" aria-live="polite" onClick={() => setCopyToast('')}><span><Icon name="checkCircle" size={18}/></span><strong>{copyToast}</strong></button>}
+
       <GoLiveToolDialog tool={toolOpen} form={form} stream={stream} limits={studio.settings?.limits} busy={Boolean(busy)} moderators={controlData.moderators} moderatorCandidates={moderatorCandidates} onClose={() => setToolOpen('')} onSaveEngagement={saveEngagement} onCreatePoll={createPoll} onUpdatePoll={updatePoll} onDeletePoll={deletePoll} onLoadPollVoters={loadPollVoters} onRequestModerator={requestModeratorAssignment} onRemoveModerator={(moderator) => setModeratorRemoveConfirm({ moderator, title: 'Remove moderator?', message: `${moderator.name} will lose moderation access to this live stream.`, confirmLabel: 'Remove moderator', busyLabel: 'Removing...', icon: 'users' })}/>
     </main>;
   }
@@ -10752,8 +10721,8 @@ function GoLivePage({ initialStream = null }) {
           <article className="go-live-one-card go-live-one-stream-settings">
             <div className="go-live-one-card-title"><h2>Stream Settings</h2><span>{form.source_type === 'rtmp' ? 'RTMP' : 'Browser WebRTC'}</span></div>
             {form.source_type === 'rtmp' && <div className="go-live-rtmp-credentials">
-              <label><strong>RTMP URL</strong><span><input readOnly value={rtmpIngress?.url || ''} placeholder="Preparing RTMP URL"/><button type="button" disabled={!rtmpIngress?.url} onClick={() => copyRtmpCredential(rtmpIngress.url, 'RTMP URL')}><Icon name="link" size={14}/><em>Copy</em></button></span></label>
-              <label><strong>Stream Key</strong><span><input readOnly value={rtmpIngress?.stream_key || ''} placeholder="Preparing stream key"/><button type="button" disabled={!rtmpIngress?.stream_key} onClick={() => copyRtmpCredential(rtmpIngress.stream_key, 'Stream key')}><Icon name="link" size={14}/><em>Copy</em></button></span></label>
+              <label><strong>RTMP URL</strong><span><input readOnly value={rtmpIngress?.url || ''} placeholder="Preparing RTMP URL"/><button type="button" disabled={!rtmpIngress?.url} onClick={() => copyRtmpCredential(rtmpIngress.url)}><Icon name="link" size={14}/><em>Copy</em></button></span></label>
+              <label><strong>Stream Key</strong><span><input readOnly value={rtmpIngress?.stream_key || ''} placeholder="Preparing stream key"/><button type="button" disabled={!rtmpIngress?.stream_key} onClick={() => copyRtmpCredential(rtmpIngress.stream_key)}><Icon name="link" size={14}/><em>Copy</em></button></span></label>
             </div>}
             <div className="go-live-one-select-grid"><label><span>Source</span><GoLiveSelect value={form.source_type} options={[["webcam","Webcam"],["rtmp","RTMP",!studio.settings?.rtmp?.enabled]]} disabled={streamingActive || rtmpPreparing} ariaLabel="Source" onChange={changeSourceType}/></label><label><span>Quality / Resolution</span><GoLiveSelect value={form.stream_settings.quality} options={goLiveOptions(options.resolutions)} disabled={form.source_type === 'rtmp' && rtmpPreviewPlaying} ariaLabel="Quality and resolution" onChange={changeStreamQuality}/></label><label><span>Latency Mode</span><GoLiveSelect value={form.stream_settings.latency_mode} options={goLiveOptions(options.latency_modes)} disabled={form.source_type === 'rtmp' && rtmpPreviewPlaying} ariaLabel="Latency mode" onChange={(value) => setNested('stream_settings','latency_mode',value)}/></label></div>
             <div className="go-live-one-setting-grid">
@@ -10785,7 +10754,7 @@ function GoLivePage({ initialStream = null }) {
         <article className="go-live-one-ready"><div><span><Icon name="live" size={20}/></span><p><strong>{streamingActive ? 'You are live' : 'Ready to go live?'}</strong><small>{streamingActive ? 'Your stream is publishing.' : (canStart ? 'All required checks are complete.' : startReadinessMessage)}</small></p></div><div className="go-live-one-start"><button type="button" className="btn primary" onClick={streamingActive ? endLiveStream : startLiveStream} disabled={Boolean(busy) || (!streamingActive && !canStart)}><Icon name="live" size={16}/> {busy === 'start' ? 'Starting...' : busy === 'end' ? 'Ending...' : streamingActive ? 'End live stream' : 'Start live stream'}</button></div></article>
       </aside>
     </section>
-    {copyToast && <button type="button" className="copy-toast-notice" role="status" aria-live="polite" onClick={() => setCopyToast('')}><span><Icon name="checkCircle" size={18}/></span><strong>{copyToast}</strong></button>}
+
     <AppConfirmDialog dialog={moderatorAddConfirm} busy={busy === 'moderator'} onCancel={() => setModeratorAddConfirm(null)} onConfirm={confirmAddModerator}/>
     <AppConfirmDialog dialog={moderatorRemoveConfirm} busy={busy === 'moderator'} onCancel={() => setModeratorRemoveConfirm(null)} onConfirm={removeModerator}/>
     <GoLiveToolDialog tool={toolOpen} form={form} stream={stream} limits={studio.settings?.limits} busy={Boolean(busy)} moderators={controlData.moderators} moderatorCandidates={[]} onClose={() => setToolOpen('')} onSaveEngagement={saveEngagement} onCreatePoll={createPoll} onUpdatePoll={updatePoll} onDeletePoll={deletePoll} onLoadPollVoters={loadPollVoters} onRequestModerator={requestModeratorAssignment} onRemoveModerator={(moderator) => setModeratorRemoveConfirm({ moderator, title: 'Remove moderator?', message: `${moderator.name} will lose moderation access to this live stream.`, confirmLabel: 'Remove moderator', busyLabel: 'Removing...', icon: 'users' })}/>
@@ -10885,7 +10854,8 @@ function LiveDetailPage({ slug, navigate, auth, initialRoomData = null, defaultV
   const [roomBootstrap, setRoomBootstrap] = useState(initialRoomData);
   const [liveLoading, setLiveLoading] = useState(true);
   const [liveError, setLiveError] = useState('');
-  const [shareNotice, setShareNotice] = useState('');
+  const toast = useToast();
+  const setShareNotice = toast.info;
   const [replayReportOpen, setReplayReportOpen] = useState(false);
   const [viewerCount, setViewerCount] = useState(0);
   const [viewerMediaTracks, setViewerMediaTracks] = useState([]);
@@ -10926,7 +10896,6 @@ function LiveDetailPage({ slug, navigate, auth, initialRoomData = null, defaultV
   const [selectedSuperStickerId, setSelectedSuperStickerId] = useState(initialRoomData?.super_stickers?.[0]?.id || '');
   const [contributionBusy, setContributionBusy] = useState(false);
   const [contributionError, setContributionError] = useState('');
-  const [contributionNotice, setContributionNotice] = useState('');
   const [replayCommentBody, setReplayCommentBody] = useState('');
   const [replayComments, setReplayComments] = useState([]);
   const [replayRelated, setReplayRelated] = useState([]);
@@ -11593,11 +11562,6 @@ function LiveDetailPage({ slug, navigate, auth, initialRoomData = null, defaultV
     return () => window.clearTimeout(timer);
   }, [chatNotice]);
 
-  useEffect(() => {
-    if (!shareNotice) return undefined;
-    const timer = window.setTimeout(() => setShareNotice(''), 2600);
-    return () => window.clearTimeout(timer);
-  }, [shareNotice]);
 
   useEffect(() => {
     if (!replayMenuOpen) return undefined;
@@ -11613,11 +11577,6 @@ function LiveDetailPage({ slug, navigate, auth, initialRoomData = null, defaultV
     };
   }, [replayMenuOpen]);
 
-  useEffect(() => {
-    if (!contributionNotice) return undefined;
-    const timer = window.setTimeout(() => setContributionNotice(''), 4200);
-    return () => window.clearTimeout(timer);
-  }, [contributionNotice]);
 
   useEffect(() => {
     if (!giftMoreOpen) return undefined;
@@ -11679,12 +11638,16 @@ function LiveDetailPage({ slug, navigate, auth, initialRoomData = null, defaultV
     if (typeof window === 'undefined') return;
     const url = window.location.href;
     try {
-      if (navigator.share) await navigator.share({ title: stream.title, url });
-      else {
+      if (typeof navigator.share === 'function') {
+        await navigator.share({ title: stream.title, url });
+        toast.success('Video shared.');
+      } else {
         await copyTextToClipboard(url);
-      setShareNotice('Live stream link copied.');
+        toast.success('Link copied.');
       }
-    } catch (_) {}
+    } catch (error) {
+      if (error?.name !== 'AbortError') toast.error(typeof navigator.share === 'function' ? 'Sharing failed.' : 'Copy failed.');
+    }
   };
   const updateReplayVideo = (patch) => {
     setLiveStream((current) => current?.replay ? { ...current, replay: { ...current.replay, ...patch } } : current);
@@ -11699,9 +11662,9 @@ function LiveDetailPage({ slug, navigate, auth, initialRoomData = null, defaultV
   const copyReplayLink = async () => {
     try {
       await copyTextToClipboard(window.location.href);
-      setShareNotice('Replay link copied.');
+      toast.success('Link copied.');
     } catch (_) {
-      setShareNotice('Unable to copy replay link.');
+      toast.error('Copy failed.');
     }
   };
   const likeReplay = async () => {
@@ -11710,9 +11673,9 @@ function LiveDetailPage({ slug, navigate, auth, initialRoomData = null, defaultV
     try {
       const data = await api.request(`/videos/${encodeURIComponent(replayVideo.slug)}/like`, { method: 'POST' });
       updateReplayVideo({ is_liked: data.liked, likes_count: data.likes_count });
-      setShareNotice(data.liked ? 'Replay liked.' : 'Replay like removed.');
+      toast.success(data.liked ? 'Replay liked.' : 'Replay like removed.');
     } catch (requestError) {
-      setShareNotice(requestError.message || 'Unable to update replay like.');
+      toast.error(requestError.message || 'Unable to update replay like.');
     }
   };
   const toggleReplayWatchLater = async () => {
@@ -11721,9 +11684,9 @@ function LiveDetailPage({ slug, navigate, auth, initialRoomData = null, defaultV
     try {
       const data = await api.request(`/videos/${encodeURIComponent(replayVideo.slug)}/watch-later`, { method: 'POST' });
       updateReplayVideo({ is_watch_later: data.watch_later });
-      setShareNotice(data.watch_later ? 'Replay saved to Watch Later.' : 'Replay removed from Watch Later.');
+      toast.success(data.watch_later ? 'Replay saved to Watch Later.' : 'Replay removed from Watch Later.');
     } catch (requestError) {
-      setShareNotice(requestError.message || 'Unable to update Watch Later.');
+      toast.error(requestError.message || 'Unable to update Watch Later.');
     }
   };
   const reportReplay = () => {
@@ -11816,7 +11779,7 @@ function LiveDetailPage({ slug, navigate, auth, initialRoomData = null, defaultV
     if (!auth?.user) { navigate('/login'); return false; }
     if (contributionBusyRef.current) return false;
     contributionBusyRef.current = true;
-    setContributionBusy(true); setContributionError(''); setContributionNotice('');
+    setContributionBusy(true); setContributionError('');
     try {
       const idempotencyKey = fromDialog && contributionIdempotencyRef.current
         ? contributionIdempotencyRef.current
@@ -11834,7 +11797,7 @@ function LiveDetailPage({ slug, navigate, auth, initialRoomData = null, defaultV
       setContributionType('');
       setGiftMoreOpen(false);
       setSuperStickerTrayOpen(false);
-      setContributionNotice(response.message || 'Contribution sent.');
+      toast.success(response.message || 'Contribution sent.');
       const [messages, room] = await Promise.allSettled([api.request(`/live-room/${encodeURIComponent(slug)}/messages`), api.request(`/live-room/${encodeURIComponent(slug)}?catalog=0`)]);
       if (messages.status === 'fulfilled') setChatItems(liveChatTimeline(messages.value));
       if (room.status === 'fulfilled' && room.value?.stream) setLiveStream((current) => current ? { ...current, ...room.value.stream } : room.value.stream);
@@ -11847,7 +11810,7 @@ function LiveDetailPage({ slug, navigate, auth, initialRoomData = null, defaultV
       } else if (fromDialog) {
         setContributionError(message);
       } else {
-        setContributionNotice(message);
+        toast.error(message);
       }
       return false;
     } finally {
@@ -12019,7 +11982,7 @@ function LiveDetailPage({ slug, navigate, auth, initialRoomData = null, defaultV
 
     return <main className="content-area live-detail-page live-viewer-page live-replay-page" style={{ '--viewer-accent': viewerAccent }}>
       {liveError && <div className="go-live-notice error" role="alert">{liveError}</div>}
-      {shareNotice && <button type="button" className="copy-toast-notice" role="status" aria-live="polite" onClick={() => setShareNotice('')}><span><Icon name="checkCircle" size={18}/></span><strong>{shareNotice}</strong></button>}
+
 
       <section className="live-replay-shell">
         <div className="live-replay-main">
@@ -12153,8 +12116,8 @@ function LiveDetailPage({ slug, navigate, auth, initialRoomData = null, defaultV
 
   return <main className="content-area live-detail-page live-viewer-page" style={{ '--viewer-accent': viewerAccent }}>
     {liveError && <div className="go-live-notice error" role="alert">{liveError}</div>}
-    {shareNotice && <button type="button" className="copy-toast-notice" role="status" aria-live="polite" onClick={() => setShareNotice('')}><span><Icon name="checkCircle" size={18}/></span><strong>{shareNotice}</strong></button>}
-    {contributionNotice && <button type="button" className="copy-toast-notice" role="status" aria-live="polite" onClick={() => setContributionNotice('')}><span><Icon name="checkCircle" size={18}/></span><strong>{contributionNotice}</strong></button>}
+
+
 
     <section className="live-viewer-workspace">
       <div className="live-viewer-main-column">
@@ -12174,7 +12137,7 @@ function LiveDetailPage({ slug, navigate, auth, initialRoomData = null, defaultV
           <LiveTipCelebration tip={viewerTipCelebration}/>
           <LiveStreamPollCard poll={activePoll} busy={Boolean(pollBusy)} onVote={voteLivePoll}/>
           {liveAd?.ad?.media_url && <div className="live-viewer-ad-overlay">
-            <MediaPlayer data-i18n-skip-attributes ref={liveAdPlayerRef} className="live-viewer-ad-player" src={[{ src: liveAd.ad.media_url, type: liveAd.ad.mime_type || inferVideoType({ src: liveAd.ad.media_url }) }]} title={liveAd.ad.title || liveAd.ad.name || 'Advertisement'} load="eager" autoPlay muted playsInline streamType="on-demand" viewType="video" onCanPlay={() => liveAdPlayerRef.current?.play?.().catch?.(() => {})} onPlaying={handleLiveAdPlaying} onTimeUpdate={handleLiveAdTimeUpdate} onEnded={completeLiveAd} onError={() => { pingLiveAdTracking(liveAd.ad, 'error'); setLiveAd(null); setContributionNotice('The live advertisement could not be played.'); }}><MediaProvider/><DefaultVideoLayout data-i18n-skip icons={defaultLayoutIcons} translations={mediaTranslations}/></MediaPlayer>
+            <MediaPlayer data-i18n-skip-attributes ref={liveAdPlayerRef} className="live-viewer-ad-player" src={[{ src: liveAd.ad.media_url, type: liveAd.ad.mime_type || inferVideoType({ src: liveAd.ad.media_url }) }]} title={liveAd.ad.title || liveAd.ad.name || 'Advertisement'} load="eager" autoPlay muted playsInline streamType="on-demand" viewType="video" onCanPlay={() => liveAdPlayerRef.current?.play?.().catch?.(() => {})} onPlaying={handleLiveAdPlaying} onTimeUpdate={handleLiveAdTimeUpdate} onEnded={completeLiveAd} onError={() => { pingLiveAdTracking(liveAd.ad, 'error'); setLiveAd(null); toast.error('The live advertisement could not be played.'); }}><MediaProvider/><DefaultVideoLayout data-i18n-skip icons={defaultLayoutIcons} translations={mediaTranslations}/></MediaPlayer>
             <div className="live-viewer-ad-label"><span>Advertisement</span><strong data-i18n-skip>{liveAd.ad.title || liveAd.ad.name || 'Sponsored message'}</strong>{liveAd.ad.click_url && <button type="button" onClick={() => { pingLiveAdTracking(liveAd.ad, 'click'); window.open(liveAd.ad.click_url, '_blank', 'noopener,noreferrer'); }}>Visit sponsor</button>}</div>
           </div>}
         </div>
@@ -13093,7 +13056,7 @@ function ShortsDetailPage({ slug, navigate, auth }) {
   const [shortFeed, setShortFeed] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [notice, setNotice] = useState('');
+  const toast = useToast();
   const [commentBody, setCommentBody] = useState('');
   const [descriptionOpen, setDescriptionOpen] = useState(false);
   const [commentsPage, setCommentsPage] = useState(1);
@@ -13193,7 +13156,7 @@ function ShortsDetailPage({ slug, navigate, auth }) {
     let cancelled = false;
     setLoading(true);
     setError('');
-    setNotice('');
+
     setDescriptionOpen(false);
     setMoreMenuOpen(false);
     setSlideDirection('');
@@ -13268,11 +13231,6 @@ function ShortsDetailPage({ slug, navigate, auth }) {
     return () => { cancelled = true; window.clearTimeout(timer); };
   }, [video?.slug, video?.playback_pending]);
 
-  useEffect(() => {
-    if (!notice) return undefined;
-    const timer = window.setTimeout(() => setNotice(''), 2800);
-    return () => window.clearTimeout(timer);
-  }, [notice]);
 
   const videoSources = video?.video_sources?.length ? video.video_sources : (video?.video_url ? [{ src: video.video_url, type: video.video_mime_type || 'video/mp4' }] : []);
   const providerPlayerSource = videoSources.some((source) => ['video/youtube', 'video/vimeo'].includes(source.type) || /mpegurl|dash\+xml/i.test(inferVideoType(source)));
@@ -13554,7 +13512,7 @@ function ShortsDetailPage({ slug, navigate, auth }) {
     setDescriptionOpen(false);
     setCommentBody('');
     setLoadingMoreComments(false);
-    setNotice('');
+
     setVideo(nextVideo);
     replaceShortUrl(nextVideo);
     setRelated(shortQueue.filter((item) => item.slug !== nextVideo.slug).slice(0, 12));
@@ -13870,7 +13828,7 @@ function ShortsDetailPage({ slug, navigate, auth }) {
     setAutoplayEnabled(next);
     if (!auth?.user) {
       writeGuestAutoplayPreference(next);
-      setNotice(next ? 'Autoplay next short enabled.' : 'Shorts will loop.');
+      toast.info(next ? 'Autoplay next short enabled.' : 'Shorts will loop.');
       return;
     }
     setAutoplaySaving(true);
@@ -13878,11 +13836,11 @@ function ShortsDetailPage({ slug, navigate, auth }) {
       const data = await api.request('/auth/preferences/autoplay', { method: 'PUT', body: JSON.stringify({ autoplay: next }) });
       const savedAutoplay = Boolean(data.autoplay);
       setAutoplayEnabled(savedAutoplay);
-      setNotice(savedAutoplay ? 'Autoplay next short enabled.' : 'Shorts will loop.');
+      toast.info(savedAutoplay ? 'Autoplay next short enabled.' : 'Shorts will loop.');
       if (data.user) auth.setUser?.(data.user);
     } catch (err) {
       setAutoplayEnabled(!next);
-      setNotice(err.message || 'Unable to save autoplay preference.');
+      toast.error(err.message || 'Unable to save autoplay preference.');
     } finally {
       setAutoplaySaving(false);
     }
@@ -13893,23 +13851,23 @@ function ShortsDetailPage({ slug, navigate, auth }) {
     try {
       if (navigator.share) {
         await navigator.share({ title: video?.title || `${websiteName()} Short`, url: link });
-        setNotice('Short shared');
+        toast.success('Video shared.');
         return;
       }
-      await navigator.clipboard?.writeText(link);
-      setNotice('Short link copied');
-    } catch (_) {
-      setNotice(link);
+      await copyTextToClipboard(link);
+      toast.success('Link copied.');
+    } catch (error) {
+      if (error?.name !== 'AbortError') toast.error(typeof navigator.share === 'function' ? 'Sharing failed.' : 'Copy failed.');
     }
   };
 
   const copyShortLink = async () => {
     const link = `${window.location.origin}${shortsDetailPath(video)}`;
     try {
-      await navigator.clipboard?.writeText(link);
-      setNotice('Short link copied');
+      await copyTextToClipboard(link);
+      toast.success('Link copied.');
     } catch (_) {
-      setNotice(link);
+      toast.error('Copy failed.');
     }
     setMoreMenuOpen(false);
   };
@@ -13925,7 +13883,7 @@ function ShortsDetailPage({ slug, navigate, auth }) {
         if (!mountedRef.current || videoRef.current !== player || document.hidden || !playbackIntentRef.current || shortHoldRef.current?.longPressed) { pauseShortPlayer(player); return; }
         setIsPlaying(true);
       } catch (_) {
-        if (mountedRef.current && videoRef.current === player) setNotice('Unable to start playback');
+        if (mountedRef.current && videoRef.current === player) toast.error('Unable to start playback');
       }
     } else {
       playbackIntentRef.current = false;
@@ -13968,9 +13926,9 @@ function ShortsDetailPage({ slug, navigate, auth }) {
       if (document.fullscreenElement === card) await document.exitFullscreen();
       else if (card?.requestFullscreen) await card.requestFullscreen();
       else if (videoRef.current?.webkitEnterFullscreen) videoRef.current.webkitEnterFullscreen();
-      else setNotice('Fullscreen is unavailable in this browser.');
+      else toast.info('Fullscreen is unavailable in this browser.');
     } catch (_) {
-      setNotice('Unable to enter fullscreen.');
+      toast.error('Unable to enter fullscreen.');
     }
   };
 
@@ -13989,7 +13947,7 @@ function ShortsDetailPage({ slug, navigate, auth }) {
       updateShort(targetSlug, (current) => ({ ...current, is_liked: data.liked ?? data.is_liked ?? !wasLiked, likes_count: data.likes_count ?? nextCount }));
     } catch (err) {
       updateShort(targetSlug, (current) => ({ ...current, is_liked: wasLiked, likes_count: previousCount }));
-      if (mountedRef.current && localDataRequestRef.current === targetSlug) setNotice(err.message || 'Unable to update like');
+      if (mountedRef.current && localDataRequestRef.current === targetSlug) toast.error(err.message || 'Unable to update like');
     } finally {
       finishShortAction(action);
     }
@@ -14004,9 +13962,9 @@ function ShortsDetailPage({ slug, navigate, auth }) {
     try {
       const data = await api.request(`/videos/${encodeURIComponent(targetSlug)}/watch-later`, { method: 'POST' });
       updateShort(targetSlug, (current) => ({ ...current, is_watch_later: Boolean(data.watch_later) }));
-      if (mountedRef.current && localDataRequestRef.current === targetSlug) setNotice(data.watch_later ? 'Saved to Watch Later' : 'Removed from Watch Later');
+      if (mountedRef.current && localDataRequestRef.current === targetSlug) toast.success(data.watch_later ? 'Saved to Watch Later' : 'Removed from Watch Later');
     } catch (err) {
-      if (mountedRef.current && localDataRequestRef.current === targetSlug) setNotice(err.message || 'Unable to save short.');
+      if (mountedRef.current && localDataRequestRef.current === targetSlug) toast.error(err.message || 'Unable to save short.');
     } finally {
       finishShortAction(action);
     }
@@ -14015,7 +13973,7 @@ function ShortsDetailPage({ slug, navigate, auth }) {
   const toggleFollow = async () => {
     if (!video?.channel?.slug) return;
     if (!auth?.user) { navigate('/login'); return; }
-    if (isOwnChannel) { setNotice('You cannot subscribe to your own channel.'); return; }
+    if (isOwnChannel) { toast.info('You cannot subscribe to your own channel.'); return; }
 
     const targetChannel = video.channel.slug;
     const action = `follow:${targetChannel}`;
@@ -14040,10 +13998,10 @@ function ShortsDetailPage({ slug, navigate, auth }) {
     try {
       const data = await api.request(`/channels/${encodeURIComponent(targetChannel)}/subscribe`, { method: 'POST' });
       updateChannel(Boolean(data.subscribed), data.subscribers_count ?? nextCount);
-      if (mountedRef.current && shortDetailsCacheRef.current[localDataRequestRef.current]?.channel?.slug === targetChannel) setNotice(data.subscribed ? 'Subscribed to channel' : 'Unsubscribed from channel');
+      if (mountedRef.current && shortDetailsCacheRef.current[localDataRequestRef.current]?.channel?.slug === targetChannel) toast.success(data.subscribed ? 'Subscribed to channel' : 'Unsubscribed from channel');
     } catch (err) {
       updateChannel(wasSubscribed, previousCount);
-      if (mountedRef.current && shortDetailsCacheRef.current[localDataRequestRef.current]?.channel?.slug === targetChannel) setNotice(err.message || 'Unable to update subscription.');
+      if (mountedRef.current && shortDetailsCacheRef.current[localDataRequestRef.current]?.channel?.slug === targetChannel) toast.error(err.message || 'Unable to update subscription.');
     } finally {
       finishShortAction(action);
     }
@@ -14053,8 +14011,8 @@ function ShortsDetailPage({ slug, navigate, auth }) {
     setMoreMenuOpen(false);
     if (!video?.slug) return;
     if (!auth?.user) { navigate('/login'); return; }
-    if (video?.reported) { setNotice('Short already reported.'); return; }
-    if (video?.can_report === false) { setNotice('You cannot report your own video.'); return; }
+    if (video?.reported) { toast.info('Short already reported.'); return; }
+    if (video?.can_report === false) { toast.info('You cannot report your own video.'); return; }
     setShortReportOpen(true);
   };
 
@@ -14079,11 +14037,11 @@ function ShortsDetailPage({ slug, navigate, auth }) {
       if (mountedRef.current && localDataRequestRef.current === targetSlug && localDataGenerationRef.current === generation) {
         setComments((items) => created?.id && !items.some((item) => String(item.id) === String(created.id)) ? [created, ...items] : items);
         setCommentBody('');
-        setNotice('Comment posted');
+        toast.success('Comment posted');
       }
       return true;
     } catch (err) {
-      if (mountedRef.current && localDataRequestRef.current === targetSlug && localDataGenerationRef.current === generation) setNotice(err.message || 'Unable to post comment');
+      if (mountedRef.current && localDataRequestRef.current === targetSlug && localDataGenerationRef.current === generation) toast.error(err.message || 'Unable to post comment');
       return false;
     } finally {
       finishShortAction(action);
@@ -14104,7 +14062,7 @@ function ShortsDetailPage({ slug, navigate, auth }) {
       delete shortCommentsCacheRef.current[targetSlug];
       applyCommentsPage(data, true);
     } catch (err) {
-      if (mountedRef.current && localDataRequestRef.current === targetSlug && localDataGenerationRef.current === generation) setNotice(err.message || 'Unable to load comments.');
+      if (mountedRef.current && localDataRequestRef.current === targetSlug && localDataGenerationRef.current === generation) toast.error(err.message || 'Unable to load comments.');
     } finally {
       if (mountedRef.current && localDataRequestRef.current === targetSlug && localDataGenerationRef.current === generation) setLoadingMoreComments(false);
       finishShortAction(action);
@@ -14132,7 +14090,7 @@ function ShortsDetailPage({ slug, navigate, auth }) {
   const panelTitle = activePanel === 'comments' ? 'Discussion' : activePanel === 'details' ? 'Description' : 'More Shorts';
 
   return <main ref={viewerRef} className="content-area shorts-detail-page shorts-viewer" aria-label="Shorts">
-    {notice && <button type="button" className="shorts-detail-toast" role="status" onClick={() => setNotice('')}>{notice}</button>}
+
     <div className={`shorts-detail-shell ${activePanel ? 'is-panel-open' : ''}`}>
       <section className="shorts-detail-main" aria-label="Short video">
         <div className="shorts-detail-stage">
@@ -14167,14 +14125,14 @@ function ShortsDetailPage({ slug, navigate, auth }) {
       {activePanel && <aside id="shorts-viewer-panel" className="shorts-detail-panel" ref={commentsCardRef} tabIndex={-1} role={panelIsSheet ? 'dialog' : 'complementary'} aria-modal={panelIsSheet ? true : undefined} aria-labelledby="shorts-panel-title">
         <div className="shorts-detail-panel-head"><h2 id="shorts-panel-title">{panelTitle}</h2><button type="button" className="shorts-detail-panel-close" aria-label="Close panel" onClick={closePanel}><Icon name="close" size={24}/></button></div>
         <div className="shorts-detail-panel-body">
-          {activePanel === 'comments' && <article className="shorts-detail-comments-card"><WatchCommentsPanel key={video.slug} video={video} comments={comments} setComments={updateVisibleComments} body={commentBody} setBody={(value) => ownsCommentState() && setCommentBody(String(value).slice(0, 500))} onSubmitComment={submitComment} auth={auth} navigate={navigate} slug={video.slug} setVideo={updateVisibleVideo} notify={(message) => ownsCommentState() && setNotice(message)} commentEndpoint={`/videos/${encodeURIComponent(video.slug)}/comments`} commentLinkBase={`${window.location.origin}${shortsDetailPath(video)}`} commentHashPrefix={`short-${video.slug}-comment-`} commentsLimit={5} commentsLoadStep={5} commentsHasMore={commentsHasMore} loadingMoreComments={loadingMoreComments} onLoadMoreComments={loadMoreComments} replyPageSize={5} compact /></article>}
+          {activePanel === 'comments' && <article className="shorts-detail-comments-card"><WatchCommentsPanel key={video.slug} video={video} comments={comments} setComments={updateVisibleComments} body={commentBody} setBody={(value) => ownsCommentState() && setCommentBody(String(value).slice(0, 500))} onSubmitComment={submitComment} auth={auth} navigate={navigate} slug={video.slug} setVideo={updateVisibleVideo} notify={(message) => ownsCommentState() && toast.info(message)} commentEndpoint={`/videos/${encodeURIComponent(video.slug)}/comments`} commentLinkBase={`${window.location.origin}${shortsDetailPath(video)}`} commentHashPrefix={`short-${video.slug}-comment-`} commentsLimit={5} commentsLoadStep={5} commentsHasMore={commentsHasMore} loadingMoreComments={loadingMoreComments} onLoadMoreComments={loadMoreComments} replyPageSize={5} compact /></article>}
           {activePanel === 'details' && <article className="shorts-detail-info-card"><h2 data-i18n-skip>{video.title}</h2><p className="shorts-detail-meta"><LocalizedCount value={formatNumber(video.views_count || 0)} unit="view" /> <span>·</span> {formatShortsTimeAgo(video.published_at || video.created_at)}</p><div className="shorts-detail-author"><ShortsUploaderLink channel={video.channel} navigate={navigate} showSubscribers /><button type="button" className={`btn primary compact ${isSubscribed ? 'active' : ''}`} onClick={toggleFollow} disabled={subscribeDisabled}>{subscribeLabel}</button></div><div className={`shorts-detail-description ${canExpandShortDescription ? 'can-expand' : ''} ${descriptionOpen ? 'open' : ''}`}><p>{displayedShortDescription}</p>{canExpandShortDescription && <button type="button" className="text-button" onClick={() => setDescriptionOpen((open) => !open)}>{descriptionOpen ? 'Show less' : 'Show more'}</button>}</div>{shortTags.length > 0 && <TagCloud tags={shortTags} onTagClick={(tag) => navigate(`/search?q=${encodeURIComponent(String(tag).replace(/^#/, ''))}`)} />}</article>}
           {activePanel === 'related' && <div className="shorts-detail-related-grid">{related.length ? related.map((item) => <ShortsMiniCard key={item.id || item.slug} video={item} navigate={navigate} onSelect={(selected) => activateLocalShort(selected, 1)} />) : <p className="rail-note">You’re all caught up. More Shorts will appear here as creators publish them.</p>}<WebsiteAdSlot placement="shorts_feed" /></div>}
         </div>
       </aside>}
     </div>
     {activePanel && <button type="button" className="shorts-panel-backdrop" aria-label="Close panel backdrop" tabIndex={-1} onClick={closePanel} />}
-    <ReportDialog open={shortReportOpen} type="video" path={video?.slug ? `/videos/${encodeURIComponent(video.slug)}/report` : ''} label={video?.title || ''} api={api} Icon={Icon} notify={(message) => { if (mountedRef.current) setNotice(message); }} onClose={() => setShortReportOpen(false)} onReported={() => { if (!video?.slug) return; updateShort(video.slug, (current) => ({ ...current, reported: true, can_report: false })); }} />
+    <ReportDialog open={shortReportOpen} type="video" path={video?.slug ? `/videos/${encodeURIComponent(video.slug)}/report` : ''} label={video?.title || ''} api={api} Icon={Icon} notify={(message) => { if (mountedRef.current) toast.info(message); }} onClose={() => setShortReportOpen(false)} onReported={() => { if (!video?.slug) return; updateShort(video.slug, (current) => ({ ...current, reported: true, can_report: false })); }} />
   </main>;
 }
 
@@ -15469,13 +15427,14 @@ function WatchTimeMarks({ slug, auth, navigate, currentSeconds, onSeek, notify, 
     ? rankedRows.map((row) => ({ ...(marks.find((mark) => mark.id === row.id) || {}), ...row, visibility: 'public' }))
     : rankWindow === 'position' ? marks : [...marks].sort((a, b) => (b.score || 0) - (a.score || 0) || (b.likes_count || 0) - (a.likes_count || 0) || b.id - a.id);
 
+  const toast = useToast();
   const copyTimeLink = async (mark) => {
     const url = watchUrlAtTime(`${window.location.origin}/watch/${slug}`, mark.start_seconds);
     try {
-      await navigator.clipboard.writeText(url);
-      notify(t('Time link copied. Private notes stay hidden.'));
+      await copyTextToClipboard(url);
+      toast.success('Time link copied.');
     } catch {
-      notify(url);
+      toast.error('Copy failed.');
     }
   };
 
@@ -15567,7 +15526,7 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
   const discardPersistentPlaybackRef = useRef(false);
   const clipCaptureActiveRef = useRef(false);
   const clipCaptureStartedRef = useRef(false);
-  const watchToastTimerRef = useRef(null);
+  const toast = useToast();
   const clipAutoOpenRef = useRef('');
   const watchSidebarRef = useRef(null);
   const upNextRequestRef = useRef('');
@@ -15597,7 +15556,6 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
   const [dropdownLayout, setDropdownLayout] = useState(null);
   const [descriptionExpanded, setDescriptionExpanded] = useState(false);
   const [timeMarkOverlay, setTimeMarkOverlay] = useState([]);
-  const [watchToast, setWatchToast] = useState('');
   const [upNext, setUpNext] = useState([]);
   const [upNextVisibleLimit, setUpNextVisibleLimit] = useState(6);
   const [playbackQueue, setPlaybackQueue] = useState(readPlaybackQueue);
@@ -15773,7 +15731,6 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
     googleImaClientRef.current?.destroy();
     googleImaClientRef.current = null;
     setDropdownOpen(false);
-    setWatchToast('');
     setReportDialog(null);
     setPlayerReady(false);
     setPlayerStarted(false);
@@ -16136,7 +16093,6 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
     }
   };
 
-  useEffect(() => () => window.clearTimeout(watchToastTimerRef.current), []);
 
   useEffect(() => {
     if (!playerAdStarted || !activePlayerAd) return undefined;
@@ -16195,13 +16151,8 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
   }, [playlistContextId, video?.slug, auth.user]);
 
   const currentUrl = () => `${window.location.origin}/watch/${slug}`;
-  const showWatchToast = (message) => {
-    window.clearTimeout(watchToastTimerRef.current);
-    setWatchToast('');
-    window.setTimeout(() => setWatchToast(message), 20);
-    watchToastTimerRef.current = window.setTimeout(() => setWatchToast(''), 4600);
-  };
-  const notify = (message) => showWatchToast(message);
+  const showWatchToast = toast.info;
+  const notify = toast.info;
 
   const loadMoreUpNext = async () => {
     if (playlistContextId || upNextLoading || !hasMoreUpNext || upNextRequestRef.current === slug) return;
@@ -16256,12 +16207,12 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
   };
 
   const canShareVideo = typeof navigator.share === 'function';
-  const copyVideoLink = async (successMessage = 'Video link copied.') => {
+  const copyVideoLink = async (successMessage = 'Link copied.') => {
     try {
       await copyTextToClipboard(currentUrl());
-      notify(successMessage);
+      toast.success(successMessage);
     } catch (_) {
-      notify('Unable to copy video link.');
+      toast.error('Copy failed.');
     }
   };
 
@@ -16269,7 +16220,7 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
     const title = video?.title || `${websiteName()} video`;
     try {
       await navigator.share({ title, url: currentUrl() });
-      notify('Video shared.');
+      toast.success('Video shared.');
     } catch (err) {
       if (err?.name === 'AbortError') return;
       await copyVideoLink('Sharing is not available, link copied instead.');
@@ -16693,10 +16644,10 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
   const copyPlayerText = async (value, successMessage, failureMessage = 'Unable to copy video link.') => {
     try {
       await copyTextToClipboard(value);
-      notify(successMessage);
+      toast.success(successMessage);
       return true;
     } catch (_) {
-      notify(failureMessage);
+      toast.error(failureMessage);
       return false;
     } finally {
       setPlayerContextMenu(null);
@@ -16736,10 +16687,10 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
   const copyDebugInfo = async (showNotice = true) => {
     try {
       await copyTextToClipboard(JSON.stringify(playerDebugInfo(), null, 2));
-      if (showNotice) notify('Debug info copied.');
+      if (showNotice) toast.success('Copied to clipboard.');
       return true;
     } catch (_) {
-      if (showNotice) notify('Unable to copy player information.');
+      if (showNotice) toast.error('Copy failed.');
       return false;
     } finally {
       setPlayerContextMenu(null);
@@ -16747,7 +16698,7 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
   };
   const openPlaybackTroubleshooting = async () => {
     const copied = await copyDebugInfo(false);
-    if (copied) notify('Playback debug info copied. Paste it into your support request.');
+    if (copied) toast.success('Playback debug info copied. Paste it into your support request.');
     navigate(`/support?topic=playback&video=${encodeURIComponent(video?.slug || slug)}`);
   };
   const togglePlayerStats = () => {
@@ -17316,7 +17267,6 @@ function Watch({ slug, auth, navigate, defaultVideoQuality = 'auto', chaptersEna
     <CreatorTipDialog open={creatorTipOpen} creator={video.channel} video={video} settings={creatorTips || {}} navigate={navigate} onClose={() => setCreatorTipOpen(false)} onSent={notify} />
     <AppConfirmDialog dialog={deleteConfirm} busy={videoDeleting} onCancel={() => setDeleteConfirm(null)} onConfirm={confirmDeleteVideo} />
     <ReportDialog open={Boolean(reportDialog)} type={reportDialog?.type} path={reportDialog?.path} label={reportDialog?.label} api={api} Icon={Icon} notify={notify} onClose={() => setReportDialog(null)} onReported={() => { setVideoMenuState((current) => ({ ...current, reported: true })); setVideo((current) => current ? { ...current, reported: true, can_report: false } : current); }} />
-    {watchToast && <button type="button" className="copy-toast-notice watch-player-toast" role="status" aria-live="polite" onClick={() => setWatchToast('')}><span><Icon name="info" size={18}/></span><strong>{watchToast}</strong></button>}
   </main></div>;
 }
 
@@ -19722,7 +19672,7 @@ function SettingsPage({ navigate, auth, theme, website = {}, routeSearch = '' })
   const [summary, setSummary] = useState(null);
   const [saving, setSaving] = useState(false);
   const [notice, setNotice] = useState('');
-  const [settingsToasts, setSettingsToasts] = useState([]);
+  const toast = useToast();
   const [error, setError] = useState('');
   const [avatarFile, setAvatarFile] = useState(null);
   const [avatarPreview, setAvatarPreview] = useState('');
@@ -19775,7 +19725,6 @@ function SettingsPage({ navigate, auth, theme, website = {}, routeSearch = '' })
   const themeRef = useRef(theme);
   const settingsAutoSaveTimerRef = useRef(null);
   const settingsAutoSaveSeqRef = useRef(0);
-  const settingsToastTimersRef = useRef([]);
   const settingsSectionHighlightTimerRef = useRef(null);
   const canUsePhoneDelivery = isValidPhoneInput(twoFactorContact);
   const billingCountries = useMemo(() => [...registrationPhoneCountries].sort((left, right) => left.name.localeCompare(right.name)), []);
@@ -19797,8 +19746,6 @@ function SettingsPage({ navigate, auth, theme, website = {}, routeSearch = '' })
   useEffect(() => () => {
     if (settingsAutoSaveTimerRef.current) window.clearTimeout(settingsAutoSaveTimerRef.current);
     if (settingsSectionHighlightTimerRef.current) window.clearTimeout(settingsSectionHighlightTimerRef.current);
-    settingsToastTimersRef.current.forEach((timer) => window.clearTimeout(timer));
-    settingsToastTimersRef.current = [];
   }, []);
 
   useEffect(() => {
@@ -19995,18 +19942,7 @@ function SettingsPage({ navigate, auth, theme, website = {}, routeSearch = '' })
     clearSecurityFlow();
     setSecurityPopupOpen(false);
   };
-  const showSettingsToast = (message, type = 'success') => {
-    const toastId = `${Date.now()}-${Math.random()}`;
-    setSettingsToasts((current) => [...current, { id: toastId, message, type }].slice(-5));
-    const timer = window.setTimeout(() => {
-      setSettingsToasts((current) => current.filter((toast) => toast.id !== toastId));
-      settingsToastTimersRef.current = settingsToastTimersRef.current.filter((toastTimer) => toastTimer !== timer);
-    }, 4600);
-    settingsToastTimersRef.current = [...settingsToastTimersRef.current, timer];
-  };
-  const dismissSettingsToast = (toastId) => {
-    setSettingsToasts((current) => current.filter((toast) => toast.id !== toastId));
-  };
+  const showSettingsToast = (message, type = 'success') => toast[type](message);
   const refreshPaymentHistory = async () => {
     setPaymentHistoryLoading(true);
     setPaymentHistoryError('');
@@ -20612,7 +20548,7 @@ function SettingsPage({ navigate, auth, theme, website = {}, routeSearch = '' })
     </div>
 
     {(notice || error) && <div className={`settings-alert ${error ? 'error' : 'success'}`} role="status">{error || notice}</div>}
-    {settingsToasts.length > 0 && <div className="settings-toast-stack" aria-live="polite">{settingsToasts.map((toast) => <div className={`copy-toast-notice ${toast.type === 'error' ? 'error' : ''}`} role="status" key={toast.id} onClick={() => dismissSettingsToast(toast.id)} onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') dismissSettingsToast(toast.id); }} tabIndex={0}><span><Icon name="checkCircle" size={18}/></span><strong>{toast.message}</strong></div>)}</div>}
+
 
     <section className="settings-body-grid">
       <div className="settings-workspace">
@@ -22387,35 +22323,24 @@ function ProfileActionDropdown({ profile, navigate, auth, onChannelChange = null
 
   const pushNotice = (message) => setNotice(message);
 
+  const toast = useToast();
   const copyProfileLink = async () => {
     try {
-      if (navigator.clipboard?.writeText) await navigator.clipboard.writeText(profileUrl);
-      else {
-        const input = document.createElement('input');
-        input.value = profileUrl;
-        document.body.appendChild(input);
-        input.select();
-        document.execCommand('copy');
-        input.remove();
-      }
-      pushNotice('Profile link copied.');
-    } catch (_) {
-      pushNotice('Unable to copy profile link.');
+      await copyTextToClipboard(profileUrl);
+      toast.success('Link copied.');
+    } catch {
+      toast.error('Copy failed.');
     }
     setOpen(false);
   };
 
   const shareProfile = async () => {
+    if (typeof navigator.share !== 'function') return copyProfileLink();
     try {
-      if (navigator.share) {
-        await navigator.share({ title: profile.name, text: profile.bio, url: profileUrl });
-        pushNotice('Profile shared.');
-      } else {
-        await copyProfileLink();
-        return;
-      }
-    } catch (_) {
-      pushNotice('Share cancelled.');
+      await navigator.share({ title: profile.name, text: profile.bio, url: profileUrl });
+      toast.success('Profile shared.');
+    } catch (error) {
+      if (error?.name !== 'AbortError') toast.error('Sharing failed.');
     }
     setOpen(false);
   };
@@ -25231,5 +25156,5 @@ function StatCard({ label, value, change, icon }) {
 }
 
 const playHubRoot = document.getElementById('root');
-createRoot(playHubRoot).render(<I18nProvider><GlobalGalleryProvider><App /></GlobalGalleryProvider></I18nProvider>);
+createRoot(playHubRoot).render(<I18nProvider><ToastProvider Icon={Icon}><GlobalGalleryProvider><App /></GlobalGalleryProvider></ToastProvider></I18nProvider>);
 window.requestAnimationFrame(() => markPlayHubReady({ root: playHubRoot, version: window.__PLAYHUB_VERSION__ || '' }));

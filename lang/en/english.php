@@ -5015,4 +5015,10 @@ The processing job encodes renditions, creates thumbnails when needed, stores ca
   'Episodes stay in one playlist. Season and episode numbers define the order your viewers see, and the next episode keeps playing automatically.' => 'Episodes stay in one playlist. Season and episode numbers define the order your viewers see, and the next episode keeps playing automatically.',
   'About this series' => 'About this series',
   'Episode numbers must be unique within a season.' => 'Episode numbers must be unique within a season.',
+  'Link copied.' => 'Link copied.',
+  'Copy failed.' => 'Copy failed.',
+  'Time link copied.' => 'Time link copied.',
+  'Sharing failed.' => 'Sharing failed.',
+  'Dismiss notification' => 'Dismiss notification',
+  'Copied to clipboard.' => 'Copied to clipboard.',
 );

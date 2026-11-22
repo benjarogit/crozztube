@@ -4053,39 +4053,6 @@
   cursor:pointer;
   text-align:left
 }
-.admin-settings-toast {
-  position:fixed;
-  left:28px;
-  bottom:28px;
-  z-index:220;
-  min-height:46px;
-  display:inline-flex;
-  align-items:center;
-  gap:10px;
-  border:1px solid color-mix(in srgb,var(--ad-primary) 22%,var(--ad-border));
-  border-radius:999px;
-  background:color-mix(in srgb,var(--ad-panel) 96%,transparent);
-  color:var(--ad-heading);
-  padding:0 18px;
-  box-shadow:0 18px 45px rgba(15,23,42,.16);
-  font-size:13px;
-  cursor:pointer;
-  animation:adminSettingsToastIn .22s ease both
-}
-.admin-settings-toast svg {
-  color:var(--website-admin-link,var(--link))
-}
-.admin-settings-toast strong {
-  font-weight:800
-}
-.admin-settings-toast.error {
-  border-color:rgba(239,68,68,.28);
-  background:color-mix(in srgb,#fee2e2 82%,var(--ad-panel));
-  color:#dc2626
-}
-.admin-settings-toast.error svg {
-  color:#dc2626
-}
 @keyframes adminSettingsToastIn {
   from { opacity:0; transform:translateY(14px) }
   to { opacity:1; transform:translateY(0) }
@@ -4661,7 +4628,6 @@
 .admin-dashboard-shell[data-admin-theme="dark"] select{color-scheme:dark}
 .admin-dashboard-shell[data-admin-theme="dark"] select option,.admin-dashboard-shell[data-admin-theme="dark"] select optgroup{background:var(--ad-panel);color:#f7f7f8}
 .admin-filter-select .adaptive-select-root{width:auto;min-width:64px;flex:1}.admin-filter-select .adaptive-select__control{min-height:34px;border:0;background:transparent;box-shadow:none}.admin-filter-select .adaptive-select__value-container{padding:0 18px 0 2px}.admin-filter-select .adaptive-select__indicators{display:none}.admin-field>div>.adaptive-select-root{min-width:0;flex:1}.admin-field>div>.adaptive-select-root .adaptive-select__control{min-height:34px;border:0;background:transparent;box-shadow:none}.admin-field>div>.adaptive-select-root .adaptive-select__value-container{padding:0}.admin-edit-field>.adaptive-select-root .adaptive-select__control{min-height:42px;border-radius:var(--radius)}.admin-dashboard-shell[data-admin-theme="dark"] .adaptive-select__control,.admin-dashboard-shell[data-admin-theme="dark"] .adaptive-select__menu{background:var(--ad-panel);border-color:var(--ad-border)}.admin-dashboard-shell[data-admin-theme="dark"] .adaptive-select__menu{box-shadow:0 20px 54px rgba(0,0,0,.72)}
-.admin-settings-toast,.admin-settings-toast *{font-weight:500!important}
 
 .admin-logo-image{width:100%;height:100%;border-radius:inherit;object-fit:contain}.admin-logo-mark.has-svg-logo{background:transparent;color:var(--website-admin-primary,var(--ad-primary,var(--primary)))}.admin-logo-svg-mask{width:100%;height:100%;display:block;background:currentColor;-webkit-mask:var(--logo-url) center/contain no-repeat;mask:var(--logo-url) center/contain no-repeat}
 .website-configuration-page{grid-template-columns:1fr}
@@ -4698,7 +4664,6 @@
   .admin-ad-field-grid.two,.admin-ad-field-grid.three,.admin-ad-switches{grid-template-columns:1fr}
 }
 @media(max-width:860px){
-  .admin-settings-toast{top:max(8px,env(safe-area-inset-top));right:8px;bottom:auto;left:8px;width:auto;min-height:48px;border-radius:var(--radius);padding:10px 16px}
 }
 
 /* SEO and sitemap operations */

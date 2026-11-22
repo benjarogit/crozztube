@@ -105,3 +105,7 @@ Impeccable skill 4.8.1, engine 0.1.19 is vendored under `.agents/skills/impeccab
 
 - The watch toolbar offers direct link copying when native sharing is unavailable. Otherwise Share opens the existing menu with system sharing and link copying. A cancelled system share stays silent. A fallback message confirms copying only after the clipboard accepts the link.
 - Catalog, home resume, Watch Later and live video grids share the same 240px minimum track and 24px by 16px row and column gaps. Cards share title typography. Compact lists, horizontal shelves and portrait Shorts keep their own layout.
+
+## Shared snackbar
+
+Transient notifications use one application snackbar with four tones, at most three items, a close button and hover or focus pause. Errors last longer and use alert semantics. The stack is centered and clears the mobile navigation. Form validation and actionable recovery messages remain next to the affected fields or controls.

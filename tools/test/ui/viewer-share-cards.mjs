@@ -1,3 +1,4 @@
+import { execFileSync } from 'node:child_process';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { chromium, expect } from '@playwright/test';
@@ -16,10 +17,16 @@ try {
     ...video, id: 990001 + index, slug: 'layout-example-' + index,
     title: 'A longer video title for checking card spacing and wrapping ' + (index + 1),
   }));
+  const german = JSON.parse(execFileSync('php', ['-r', "echo json_encode(require 'lang/de_de/de_de.php');"], { encoding: 'utf8' }));
   for (const width of [390, 1440]) for (const dark of [false, true]) {
+    const language = dark ? 'de_de' : 'en';
+    const label = key => dark ? german[key] || key : key;
     const session = await layoutSession(browser, {
-      authenticated: true, width, dark, touch: width === 390, language: 'en', strictHttps: true,
+      authenticated: true, width, dark, touch: width === 390, language, strictHttps: true,
       respond: url => {
+        if (url === '/api/source-resolver/status/slug/' + video.slug) {
+          return { status: 404, body: JSON.stringify({ message: 'Video is not an imported video.' }) };
+        }
         if (url.startsWith('/api/live-streams?')) {
           const streams = catalogFixture.map((item, index) => ({
             ...item, status: index === 0 ? 'live' : 'replay', creator: item.channel,
@@ -31,7 +38,9 @@ try {
           return { status: 200, body: JSON.stringify({ data: catalogFixture }) };
         }
       },
-      transform: (url, data) => url.startsWith('/api/continue-watching')
+      transform: (url, data) => url === '/api/i18n/de_de'
+        ? { ...data, translations: { ...data.translations, ...german } }
+        : url.startsWith('/api/continue-watching')
         ? { ...data, data: [{ ...video, progress: 40, duration_seconds: 600, progress_seconds: 240 }] }
         : url === '/api/integrations/public'
         ? { ...data, features: { ...data.features, live_streaming: { enabled: true } } }
@@ -72,19 +81,20 @@ try {
       const watch = '/watch/' + video.slug;
       await goto(watch);
       const toolbar = page.locator('.watch-toolbar');
-      const toast = page.locator('.watch-player-toast');
-      const copy = toolbar.getByRole('button', { name: 'Copy Link', exact: true });
+      const toasts = page.locator('.app-toast');
+      const toast = toasts.last();
+      const copy = toolbar.getByRole('button', { name: label('Copy Link'), exact: true });
       const menu = page.locator('.watch-detail-menu');
       await expect(page.locator('html')).toHaveAttribute('data-theme', dark ? 'dark' : 'light');
       await expect(copy).toBeVisible();
-      await expect(toolbar.getByRole('button', { name: /^Share video$/i })).toHaveCount(0);
+      await expect(toolbar.getByRole('button', { name: dark ? 'Video teilen' : /^Share video$/i })).toHaveCount(0);
       await copy.click();
       await expect(menu).toHaveCount(0);
-      await expect(toast).toContainText('Video link copied.');
+      await expect(toast.getByRole('status')).toContainText(label('Link copied.'));
       expect(await page.evaluate(() => shareFixture.copies)).toEqual([new URL(watch, page.url()).href]);
       await page.evaluate(() => { shareFixture.clipboardFails = true; });
       await copy.click();
-      await expect(toast).toContainText('Unable to copy video link.');
+      await expect(toast.getByRole('alert')).toContainText(label('Copy failed.'));
 
       await context.addInitScript(() => {
         const nativeShare = async data => {
@@ -96,33 +106,51 @@ try {
         Object.defineProperty(navigator, 'share', { configurable: true, value: nativeShare });
       });
       await goto(watch);
-      const share = toolbar.getByRole('button', { name: /^Share video$/i });
+      const share = toolbar.getByRole('button', { name: dark ? 'Video teilen' : /^Share video$/i });
       const openNative = async () => {
         await share.click();
         await expect(menu.getByRole('menuitem')).toHaveCount(2);
-        await menu.getByRole('menuitem', { name: /^Share video$/i }).click();
+        await menu.getByRole('menuitem', { name: dark ? 'Video teilen' : /^Share video$/i }).click();
         await expect(share).toBeFocused();
       };
       await page.evaluate(() => { shareFixture.mode = 'abort'; });
       await openNative();
-      await expect(toast).toHaveCount(0);
+      await expect(toasts).toHaveCount(0);
       expect(await page.evaluate(() => shareFixture.copies)).toEqual([]);
       await page.evaluate(() => { shareFixture.mode = 'success'; });
       await openNative();
-      await expect(toast).toContainText('Video shared.');
+      await expect(toast).toContainText(label('Video shared.'));
       expect(await page.evaluate(() => shareFixture.shares.length)).toBe(2);
       await page.evaluate(() => { shareFixture.mode = 'failure'; });
       await openNative();
-      await expect(toast).toContainText('Sharing is not available, link copied instead.');
+      await expect(toast).toContainText(label('Sharing is not available, link copied instead.'));
       await page.evaluate(() => { shareFixture.clipboardFails = true; });
       await openNative();
-      await expect(toast).toContainText('Unable to copy video link.');
+      await expect(toast.getByRole('alert')).toContainText(label('Copy failed.'));
       await page.evaluate(() => {
         Object.defineProperty(navigator, 'clipboard', { configurable: true, value: undefined });
         document.execCommand = () => false;
       });
       await openNative();
-      await expect(toast).toContainText('Unable to copy video link.');
+      await expect(toast.getByRole('alert')).toContainText(label('Copy failed.'));
+      await expect(toasts).toHaveCount(3);
+      const stack = page.locator('.app-toast-stack');
+      const box = await stack.boundingBox();
+      expect(Math.abs(box.x + box.width / 2 - width / 2)).toBeLessThan(2);
+      if (width === 390) expect(box.y + box.height).toBeLessThan((await page.locator('.mobile-nav').boundingBox()).y);
+      if (process.env.VIEWER_TEST_SHOTS) {
+        await page.screenshot({ path: path.join(process.env.VIEWER_TEST_SHOTS, `toast-${width}-${dark ? 'dark' : 'light'}.png`) });
+      }
+      await toast.getByRole('button', { name: label('Dismiss notification') }).click();
+      await expect(toasts).toHaveCount(2);
+      await toolbar.getByRole('button', { name: label('Create a clip'), exact: true }).click();
+      const dialog = page.getByRole('dialog');
+      await expect(dialog.locator('.app-toast-stack')).toHaveCount(1);
+      await expect(dialog.locator('.app-toast')).not.toHaveCount(0);
+      await expect(dialog.locator('.app-toast-stack')).not.toHaveAttribute('inert', '');
+      await page.keyboard.press('Escape');
+      await expect(dialog).toHaveCount(0);
+      await expect(page.locator('body > .app-toast-stack')).toHaveCount(1);
       await expectContained(page, 'watch toolbar');
       await goto('/');
       const grid = page.locator('.home-page .video-grid').filter({ has: page.locator('.video-card') }).first();

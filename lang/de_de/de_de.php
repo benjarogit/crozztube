@@ -4997,4 +4997,10 @@ Anschließend erstellt die Verarbeitung die Videoauflösungen und bei Bedarf Vor
   'Episodes stay in one playlist. Season and episode numbers define the order your viewers see, and the next episode keeps playing automatically.' => 'Folgen bleiben in einer Playlist. Staffel- und Folgennummern legen die Reihenfolge für deine Zuschauer fest, und die nächste Folge läuft automatisch weiter.',
   'About this series' => 'Über diese Serie',
   'Episode numbers must be unique within a season.' => 'Folgennummern müssen innerhalb einer Staffel eindeutig sein.',
+  'Link copied.' => 'Link kopiert.',
+  'Copy failed.' => 'Kopieren fehlgeschlagen.',
+  'Time link copied.' => 'Zeitlink kopiert.',
+  'Sharing failed.' => 'Teilen fehlgeschlagen.',
+  'Dismiss notification' => 'Meldung schließen',
+  'Copied to clipboard.' => 'In die Zwischenablage kopiert.',
 );

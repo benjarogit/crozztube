@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { LanguageDialog, LanguageSwitcher, useI18n } from '../i18n.jsx';
+import { useToast } from '../components/ToastProvider.jsx';
 import AdaptiveSelect from '../components/AdaptiveSelect.jsx';
 import { OverlayPortal } from '../components/ResponsiveOverlays.jsx';
 import { useResponsiveLayout } from '../responsiveLayout.js';
@@ -3028,12 +3029,11 @@ function SettingsPage({ navigate, data = {}, api = null, onRefresh = null, alert
   const [sendGridTesting, setSendGridTesting] = useState(false);
   const [backupDialogOpen, setBackupDialogOpen] = useState(false);
   const [savedSettingField, setSavedSettingField] = useState('');
-  const [settingsToast, setSettingsToast] = useState(null);
+  const toast = useToast();
   const [publishingRestrictions, setPublishingRestrictions] = useState([]);
   const [publishingRestrictionsLoading, setPublishingRestrictionsLoading] = useState(false);
   const [publishingRestrictionBusy, setPublishingRestrictionBusy] = useState(false);
   const [publishingRestrictionForm, setPublishingRestrictionForm] = useState({ username: '', duration: '1_day', scopes: ['uploads'] });
-  const settingsToastTimerRef = useRef(null);
   const settingsHighlightTimerRef = useRef(null);
   const email = data.email || {};
   useEffect(() => {
@@ -3170,11 +3170,7 @@ function SettingsPage({ navigate, data = {}, api = null, onRefresh = null, alert
   const maintenanceSettings = featureForm.maintenance || maintenance || {};
   const uploadSettings = featureForm.uploads || {};
   const publishingSettings = featureForm.publishing || {};
-  const showSettingsToast = (message = 'Settings saved successfully.', tone = 'success') => {
-    window.clearTimeout(settingsToastTimerRef.current);
-    setSettingsToast({ message, tone });
-    settingsToastTimerRef.current = window.setTimeout(() => setSettingsToast(null), 3400);
-  };
+  const showSettingsToast = (message = 'Settings saved successfully.', tone = 'success') => toast[tone](message);
   useEffect(() => {
     if (selectedSettingsBlock.id !== 'setting-publishing-access' || !api?.request) return undefined;
     let cancelled = false;
@@ -3341,7 +3337,6 @@ function SettingsPage({ navigate, data = {}, api = null, onRefresh = null, alert
     return { ...current, ads: ads.filter((_, adIndex) => adIndex !== index) };
   });
   useEffect(() => () => {
-    window.clearTimeout(settingsToastTimerRef.current);
     window.clearTimeout(settingsHighlightTimerRef.current);
   }, []);
   const saveGeneralSettings = async () => {
@@ -3989,7 +3984,7 @@ function SettingsPage({ navigate, data = {}, api = null, onRefresh = null, alert
         </aside>
       </div>
       {backupDialogOpen && <AdminBackupDialog api={api} alertAction={alertAction} onRefresh={onRefresh} onClose={() => setBackupDialogOpen(false)} />}
-      {settingsToast && <button type="button" className={`admin-settings-toast ${settingsToast.tone === 'error' ? 'error' : ''}`} onClick={() => setSettingsToast(null)}><AdminIcon name={settingsToast.tone === 'error' ? 'warning' : 'verified'} size={18} /><strong>{settingsToast.message}</strong></button>}
+
     </>
   );
 }

@@ -1,6 +1,21 @@
 import React, { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
+let activeOverlay = null;
+const overlayListeners = new Set();
+
+export const getActiveOverlay = () => activeOverlay;
+export function subscribeActiveOverlay(listener) {
+  overlayListeners.add(listener);
+  return () => overlayListeners.delete(listener);
+}
+
+function publishActiveOverlay(overlay) {
+  if (activeOverlay === overlay) return;
+  activeOverlay = overlay;
+  for (const listener of overlayListeners) listener();
+}
+
 const overlaySelector = '[data-responsive-overlay], [role="dialog"][aria-modal="true"], [role="alertdialog"][aria-modal="true"]';
 const focusableSelector = 'button:not([disabled]), a[href], input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
 const isVisible = (element) => element.isConnected && !element.closest('[hidden]')
@@ -98,6 +113,7 @@ export default function ResponsiveOverlays() {
         }
       }
       if (active !== previous || next.length !== previousCount) isolate(active);
+      publishActiveOverlay(active || null);
       if (active !== previous) {
         const closing = previous && records.get(previous);
         const preferred = closing?.trigger;
@@ -164,6 +180,7 @@ export default function ResponsiveOverlays() {
     return () => {
       cancelled = true;
       observer.disconnect(); restoreInert();
+      publishActiveOverlay(null);
       document.removeEventListener('keydown', handleKey, true);
       document.removeEventListener('focusin', handleFocus, true);
       document.removeEventListener('pointerdown', rememberTrigger, true);
