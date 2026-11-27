@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@mediabunny/aac-encoder": "^1.65.2",
-    "@vidstack/react": "^1.15.6",
+    "@vidstack/react": "^1.15.7",
     "@vitejs/plugin-react": "^5.0.0",
     "countries-list": "^3.3.0",
     "emoji-picker-react": "^4.19.1",
